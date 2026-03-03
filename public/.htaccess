@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  # Kök path (/) mutlaka index.html dönsün
+  RewriteRule ^$ index.html [L]
+  # /assets/ istekleri asla index.html'e yönlendirme - eksik JS 404 dönsün (MIME type hatası olmasın)
+  RewriteRule ^/?assets/ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Powered-By "Hostinger Horizons"
+  SetEnvIf Request_URI "^/assets/" is_asset
+
+  # SPA dokümanı (/, /de, vb.): eski içerik kalmasın; sadece assets uzun önbellek
+  Header set Cache-Control "no-cache, no-store, must-revalidate" env=!is_asset
+  Header set Cache-Control "public, max-age=604800" env=is_asset
+</IfModule>

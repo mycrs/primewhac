@@ -1,0 +1,178 @@
+
+import React, { useEffect, useState } from 'react';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import { Star, Calendar, Film, ArrowLeft, Play, Users, Loader2, Share2, AlertCircle, Globe } from 'lucide-react';
+import HeaderDE from '@/components/HeaderDE';
+import FooterDE from '@/components/FooterDE';
+import useMovieDatabase from '@/hooks/useMovieDatabase';
+import SEOHead from '@/components/SEOHead';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/components/ui/use-toast';
+import SimilarContentSliderDE from '@/components/what-to-watch-de/SimilarContentSliderDE';
+import { buildImageUrl, formatRating, formatDate, handleTMDBError } from '@/utils/tmdbApiDE';
+import { motion } from 'framer-motion';
+
+const WhatToWatchDetailPageDE = ({ siteData }) => {
+  const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const type = searchParams.get('type') || 'movie';
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const { fetchMovieDetails, fetchTVDetails, fetchSimilarMovies, fetchSimilarTV, loading } = useMovieDatabase();
+  const [content, setContent] = useState(null);
+  const [similar, setSimilar] = useState([]);
+  const [error, setError] = useState(null);
+
+  const loadData = async () => {
+    if (!id) return;
+    setError(null);
+    try {
+      let data, similarData;
+      if (type === 'movie') {
+        data = await fetchMovieDetails(id, 'de-DE');
+        similarData = await fetchSimilarMovies(id, 'de-DE');
+      } else {
+        data = await fetchTVDetails(id, 'de-DE');
+        similarData = await fetchSimilarTV(id, 'de-DE');
+      }
+      setContent(data);
+      if (similarData?.results) {
+        setSimilar(similarData.results);
+      }
+      window.scrollTo(0, 0);
+    } catch (err) {
+      setError(handleTMDBError(err));
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, [id, type]);
+
+  if (loading && !content) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center">
+        <Loader2 className="w-12 h-12 text-pink-500 animate-spin mb-4" />
+        <p className="text-slate-400 font-medium">Lade Inhalte...</p>
+      </div>
+    );
+  }
+
+  if (error || (!content && !loading)) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4">
+        <div className="bg-red-500/10 p-8 rounded-2xl border border-red-500/20 text-center max-w-md">
+          <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-xl font-bold text-white mb-2">Fehler beim Laden</h2>
+          <p className="text-red-400 mb-6">{error || 'Inhalt konnte nicht gefunden werden.'}</p>
+          <div className="flex gap-4 justify-center">
+            <Button onClick={() => navigate('/de/was-soll-ich-schauen')} variant="outline" className="border-slate-700 text-white">
+              Zurück
+            </Button>
+            <Button onClick={loadData} className="bg-pink-600 hover:bg-pink-700 text-white">
+              Erneut versuchen
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const { title, name, overview, poster_path, backdrop_path, vote_average, release_date, first_air_date, genres, credits, production_countries } = content;
+  const displayTitle = title || name;
+  const cast = credits?.cast?.slice(0, 5) || [];
+  const country = production_countries?.[0]?.name || 'Unbekannt';
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-white font-sans">
+      <SEOHead title={`${displayTitle} | Ne İzlesem`} description={overview || 'Inhaltsdetails'} />
+      <HeaderDE contactData={siteData?.contactData} siteTexts={siteData?.siteTexts} />
+
+      {/* Hero Backdrop */}
+      <div className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center opacity-40" style={{ backgroundImage: `url(${buildImageUrl(backdrop_path, 'original')})` }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/50 to-transparent" />
+      </div>
+
+      <main className="container mx-auto px-4 -mt-32 md:-mt-48 relative z-10 pb-20">
+        <Button onClick={() => navigate('/de/was-soll-ich-schauen')} variant="ghost" className="text-slate-300 hover:text-white mb-6 hover:bg-slate-800">
+          <ArrowLeft className="w-4 h-4 mr-2" /> Zurück
+        </Button>
+
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+          {/* Poster & Actions */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-64 md:w-80 shrink-0 mx-auto lg:mx-0">
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900">
+              <img src={buildImageUrl(poster_path, 'w500')} alt={displayTitle} className="w-full" />
+            </div>
+            <div className="mt-6 space-y-3">
+              <Button onClick={() => navigate('/de/packages')} className="w-full bg-pink-600 hover:bg-pink-700 h-12 rounded-xl text-lg font-bold shadow-lg shadow-pink-600/20">
+                <Play className="w-5 h-5 mr-2 fill-current" /> Jetzt ansehen
+              </Button>
+              <Button variant="outline" onClick={() => toast({ title: "Geteilt", description: "Link wurde in die Zwischenablage kopiert." })} className="w-full border-slate-700 hover:bg-slate-800 text-white h-12 rounded-xl">
+                <Share2 className="w-4 h-4 mr-2" /> Teilen
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* Details */}
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="flex-1 pt-4 lg:pt-10">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">{displayTitle}</h1>
+            
+            <div className="flex flex-wrap items-center gap-4 mb-6 text-slate-300 font-medium">
+              <div className="flex items-center gap-1 text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-md border border-yellow-400/20">
+                <Star className="w-4 h-4 fill-current" /> <span>{formatRating(vote_average)}</span>
+              </div>
+              <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4 text-slate-500" /> {formatDate(release_date || first_air_date)}</span>
+              <span className="flex items-center gap-1.5"><Globe className="w-4 h-4 text-slate-500" /> {country}</span>
+            </div>
+
+            <div className="flex gap-2 mb-10 flex-wrap">
+              {genres?.map(g => (
+                <Badge key={g.id} className="bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 px-3 py-1">
+                  {g.name}
+                </Badge>
+              ))}
+            </div>
+
+            <div className="space-y-10 max-w-4xl">
+              <div>
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><Film className="w-5 h-5 text-pink-500" /> Beschreibung</h3>
+                <p className="text-slate-300 leading-relaxed text-lg">{overview || 'Keine Beschreibung für diesen Inhalt verfügbar.'}</p>
+              </div>
+
+              {cast.length > 0 && (
+                <div>
+                  <h3 className="text-2xl font-bold mb-6 flex items-center gap-2"><Users className="w-5 h-5 text-pink-500" /> Besetzung</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                    {cast.map(actor => (
+                      <div key={actor.id} className="text-center group">
+                        <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-3 border-2 border-slate-800 bg-slate-800">
+                          <img src={buildImageUrl(actor.profile_path, 'w185')} alt={actor.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                        </div>
+                        <p className="text-sm font-bold text-white truncate px-1">{actor.name}</p>
+                        <p className="text-xs text-slate-500 truncate px-1">{actor.character}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </div>
+
+        {similar.length > 0 && (
+          <div className="mt-24 pt-12 border-t border-slate-800/50">
+            <SimilarContentSliderDE items={similar} type={type} />
+          </div>
+        )}
+      </main>
+
+      <FooterDE contactData={siteData?.contactData} siteData={siteData} />
+    </div>
+  );
+};
+
+export default WhatToWatchDetailPageDE;

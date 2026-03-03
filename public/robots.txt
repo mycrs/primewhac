@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://primewatch.tv/sitemap.xml

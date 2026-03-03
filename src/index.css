@@ -1,0 +1,127 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 33% 9%; /* #0F0F1E */
+    --foreground: 0 0% 98%;   /* White */
+ 
+    --card: 240 33% 9%;
+    --card-foreground: 0 0% 98%;
+ 
+    --popover: 240 33% 9%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --primary: 271 91% 65%;   /* #A855F7 Purple */
+    --primary-foreground: 0 0% 98%;
+ 
+    --secondary: 240 15% 15%; /* #212130 */
+    --secondary-foreground: 0 0% 98%;
+ 
+    --muted: 240 15% 15%;
+    --muted-foreground: 240 5% 65%; /* slate-400 */
+ 
+    --accent: 240 15% 15%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --border: 240 15% 15%;
+    --input: 240 15% 15%;
+    --ring: 271 91% 65%;
+ 
+    --radius: 0.5rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    @apply bg-[#0F0F1E] text-white antialiased;
+    font-display: swap; 
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    touch-action: manipulation;
+  }
+
+  /* Mobil: iOS zoom önleme ve dokunma uyumu */
+  @media (max-width: 768px) {
+    input, select, textarea, button {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Optimize font loading */
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Inter Regular'), local('Inter-Regular'), url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+}
+
+/* Custom Animations - Optimized for GPU */
+@layer utilities {
+  .gpu-accelerated {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+
+  .content-visibility-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 500px;
+  }
+
+  .animate-pulse-slow {
+    animation: pulseSlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: opacity;
+  }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes progress-fill {
+  from { width: 0%; }
+  to { width: 52%; }
+}
+
+@layer components {
+  .admin-card {
+    @apply bg-[#1a1a2e] rounded-lg border border-[#2a2a40] p-6 text-white;
+  }
+
+  /* Mobil dokunma hedefleri min 44x44px (WCAG) */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
