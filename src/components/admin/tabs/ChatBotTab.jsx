@@ -116,7 +116,7 @@ export const ChatBotTab = ({ siteData, setSiteData }) => {
                     rows={3} 
                     placeholder="Tüm paketlerimizi paketler sayfasından görebilirsiniz."
                 />
-                <Button onClick={() => handleSaveQna({ ...newQna, isNew: true })} className="bg-blue-600 hover:bg-blue-700">
+                <Button onClick={() => handleSaveQna({ ...newQna, isNew: true })} className="bg-[#141414] hover:bg-[#0a0a0a]">
                     <Plus className="w-4 h-4 mr-2" /> Listeye Ekle
                 </Button>
             </div>

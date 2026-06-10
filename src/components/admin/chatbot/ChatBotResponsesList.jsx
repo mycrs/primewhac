@@ -79,17 +79,17 @@ const ChatBotResponsesList = ({ refreshTrigger, onEdit }) => {
             placeholder="Cevaplarda ara..." 
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="pl-9 bg-slate-950/50 border-slate-700 text-white"
+            className="pl-9 bg-[#0a0a0a]/50 border-slate-700 text-white"
           />
         </div>
       </div>
 
       {loading ? (
         <div className="flex justify-center items-center py-12">
-          <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />
+          <Loader2 className="w-8 h-8 text-primary animate-spin" />
         </div>
       ) : filteredResponses.length === 0 ? (
-        <div className="text-center py-12 bg-slate-950/30 rounded-lg border border-slate-800">
+        <div className="text-center py-12 bg-[#0a0a0a]/30 rounded-lg border border-slate-800">
           <p className="text-slate-400">Kayıtlı cevap bulunamadı.</p>
         </div>
       ) : (
@@ -121,7 +121,7 @@ const ChatBotResponsesList = ({ refreshTrigger, onEdit }) => {
                   onClick={() => onEdit(r)} 
                   variant="outline" 
                   size="sm"
-                  className="bg-slate-800 border-slate-700 hover:bg-slate-700 hover:text-white"
+                  className="bg-[#0a0a0a] border-slate-700 hover:bg-[#0a0a0a] hover:text-white"
                 >
                   <Edit className="w-4 h-4 mr-2" /> Düzenle
                 </Button>

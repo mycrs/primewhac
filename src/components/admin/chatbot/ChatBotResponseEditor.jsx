@@ -86,7 +86,7 @@ const ChatBotResponseEditor = ({ responseData, onSuccess, onCancel }) => {
           <Input 
             value={formData.keyword}
             onChange={e => setFormData(prev => ({...prev, keyword: e.target.value}))}
-            className="bg-slate-950/50 text-white border-slate-700"
+            className="bg-[#0a0a0a]/50 text-white border-slate-700"
           />
         </div>
         
@@ -96,7 +96,7 @@ const ChatBotResponseEditor = ({ responseData, onSuccess, onCancel }) => {
             value={formData.response}
             onChange={e => setFormData(prev => ({...prev, response: e.target.value}))}
             rows={3}
-            className="bg-slate-950/50 text-white border-slate-700"
+            className="bg-[#0a0a0a]/50 text-white border-slate-700"
           />
         </div>
 

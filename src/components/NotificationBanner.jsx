@@ -57,9 +57,9 @@ const NotificationBanner = () => {
       case 'kırmızı': return { bg: 'bg-red-500', text: 'text-white', border: 'border-red-600', icon: AlertTriangle };
       case 'sarı': return { bg: 'bg-yellow-500', text: 'text-black', border: 'border-yellow-600', icon: AlertTriangle };
       case 'yeşil': return { bg: 'bg-green-500', text: 'text-white', border: 'border-green-600', icon: CheckCircle2 };
-      case 'mavi': return { bg: 'bg-blue-500', text: 'text-white', border: 'border-blue-600', icon: Info };
-      case 'mor': return { bg: 'bg-purple-600', text: 'text-white', border: 'border-purple-700', icon: Megaphone };
-      default: return { bg: 'bg-slate-800', text: 'text-white', border: 'border-slate-700', icon: Info };
+      case 'mavi': return { bg: 'bg-[#141414]', text: 'text-white', border: 'border-blue-600', icon: Info };
+      case 'mor': return { bg: 'bg-primary', text: 'text-white', border: 'border-primary', icon: Megaphone };
+      default: return { bg: 'bg-[#0a0a0a]', text: 'text-white', border: 'border-slate-700', icon: Info };
     }
   };
 

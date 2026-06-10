@@ -9,6 +9,7 @@ import { useSiteData } from '@/hooks/useSiteData';
 import { defaultData } from '@/data/defaultSiteData';
 import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
 import { isSupabaseConfigured } from '@/utils/envValidator';
+import { showPublicMaintenanceToastOnce } from '@/utils/supabaseMaintenanceToast';
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const Contact = () => {
   const { siteData } = useSiteData();
 
   const contactInfo = siteData?.contact_info || siteData?.contactData || defaultData.contactData || {};
-  const whatsappNumber = contactInfo?.whatsapp || "905551234567";
+  const whatsappNumber = contactInfo?.whatsapp || "4916345869030";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,8 +29,8 @@ const Contact = () => {
     if (!isSupabaseConfigured()) {
       setTimeout(() => {
         toast({
-          title: "Demo Modu",
-          description: "Mesaj gönderimi simüle edildi (Supabase yapılandırılmamış).",
+          title: "Önizleme",
+          description: "Mesaj gönderimi şu an örnek modda simüle edildi.",
           className: "bg-orange-700 border-none text-white"
         });
         setFormData({ name: '', email: '', message: '' });
@@ -60,18 +61,14 @@ const Contact = () => {
     } catch (error) {
         console.error('Contact error:', error);
         setRetryMode(true);
-        toast({
-            variant: "destructive",
-            title: "Hata",
-            description: "Mesaj gönderilemedi. Lütfen bağlantınızı kontrol edip tekrar deneyin."
-        });
+        showPublicMaintenanceToastOnce(toast);
     } finally {
         setLoading(false);
     }
   };
 
   return (
-    <section id="contact" className="py-24 bg-slate-950 border-t border-slate-800">
+    <section id="contact" className="py-24 bg-[#0a0a0a] border-t border-slate-800">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -83,8 +80,8 @@ const Contact = () => {
             
             <div className="space-y-6">
                 <div className="flex items-center gap-4 text-slate-300">
-                    <div className="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center border border-slate-800">
-                        <CheckCircle2 className="w-6 h-6 text-purple-500" />
+                    <div className="w-12 h-12 rounded-full bg-[#0a0a0a] flex items-center justify-center border border-slate-800">
+                        <CheckCircle2 className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                         <h4 className="font-bold text-white">Anında Yanıt</h4>
@@ -92,7 +89,7 @@ const Contact = () => {
                     </div>
                 </div>
                  <div className="flex items-center gap-4 text-slate-300">
-                    <div className="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center border border-slate-800">
+                    <div className="w-12 h-12 rounded-full bg-[#0a0a0a] flex items-center justify-center border border-slate-800">
                         <CheckCircle2 className="w-6 h-6 text-blue-500" />
                     </div>
                     <div>
@@ -114,7 +111,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
+          <div className="bg-[#0a0a0a] p-8 rounded-xl border border-slate-800">
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                     <Input 
@@ -122,7 +119,7 @@ const Contact = () => {
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                         required
-                        className="bg-slate-950 border-slate-800 h-12 text-white focus:border-purple-500"
+                        className="bg-[#0a0a0a] border-slate-800 h-12 text-white focus:border-primary"
                     />
                     <Input 
                         placeholder="E-posta" 
@@ -130,7 +127,7 @@ const Contact = () => {
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
                         required
-                        className="bg-slate-950 border-slate-800 h-12 text-white focus:border-purple-500"
+                        className="bg-[#0a0a0a] border-slate-800 h-12 text-white focus:border-primary"
                     />
                 </div>
                 <Textarea 
@@ -138,12 +135,12 @@ const Contact = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     required
-                    className="bg-slate-950 border-slate-800 min-h-[120px] text-white focus:border-purple-500"
+                    className="bg-[#0a0a0a] border-slate-800 min-h-[120px] text-white focus:border-primary"
                 />
                 <Button 
                     type="submit" 
                     disabled={loading}
-                    className={`w-full h-12 text-white font-bold rounded-lg ${retryMode ? 'bg-orange-600 hover:bg-orange-700' : 'bg-purple-600 hover:bg-purple-700'}`}
+                    className={`w-full h-12 text-white font-bold rounded-lg ${retryMode ? 'bg-orange-600 hover:bg-orange-700' : 'bg-primary hover:bg-primary'}`}
                 >
                     {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : (
                       <>

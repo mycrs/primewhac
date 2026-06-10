@@ -1,11 +1,14 @@
 /**
- * Maç içeriği cache - Supabase (match_contents) + dosya yedek.
- * Öncelik Supabase, yoksa dosya. Kayıt her ikisine de yapılır.
+ * Maç içeriği: kaynak public/data/match-contents(.json) dosyaları (statik, kota dostu).
+ * İsteğe bağlı: SUPABASE_SYNC_MATCH_CONTENT=1 ile kayıt Supabase match_contents'e de yazılır (varsayılan kapalı).
  */
 import fs from 'fs';
 import path from 'path';
-import { makeMatchSlug } from './generateMatchContent.js';
-import { getCachedContentFromSupabase, saveContentToSupabase } from './matchContentSupabase.js';
+import { makeMatchSlug } from './makeMatchSlug.js';
+
+const SYNC_MATCH_CONTENT_TO_SUPABASE = ['1', 'true', 'yes'].includes(
+  String(process.env.SUPABASE_SYNC_MATCH_CONTENT || '').toLowerCase()
+);
 
 const CACHE_HOURS = 24;
 
@@ -26,8 +29,6 @@ function ensureDir(dir) {
 
 export async function getCachedContent(match, locale = 'tr') {
   const slug = makeMatchSlug(match.home, match.away, match.date);
-  const fromSupabase = await getCachedContentFromSupabase(slug, locale);
-  if (fromSupabase) return fromSupabase;
   try {
     const raw = fs.readFileSync(getFilePath(slug, locale), 'utf8');
     const data = JSON.parse(raw);
@@ -38,17 +39,21 @@ export async function getCachedContent(match, locale = 'tr') {
       isDerbi: data.is_derbi ?? false,
       wordCount: data.word_count,
     };
-  } catch {
+  } catch (readErr) {
+    console.error('[matchContentCache] dosya okuma hatası:', readErr?.message || readErr, readErr);
     return null;
   }
 }
 
 export async function saveContentToCache(match, result, locale = 'tr') {
   const slug = makeMatchSlug(match.home, match.away, match.date);
-  try {
-    await saveContentToSupabase(slug, result, locale);
-  } catch (e) {
-    console.warn('[cache] Supabase yazma hatası:', e?.message);
+  if (SYNC_MATCH_CONTENT_TO_SUPABASE) {
+    try {
+      const { saveContentToSupabase } = await import('./matchContentSupabase.js');
+      await saveContentToSupabase(slug, result, locale);
+    } catch (e) {
+      console.error('[matchContentCache] Supabase yazma (opsiyonel):', e?.message || e, e);
+    }
   }
   try {
     const cacheDir = getCacheDir(locale);
@@ -64,5 +69,7 @@ export async function saveContentToCache(match, result, locale = 'tr') {
       }, null, 2),
       'utf8'
     );
-  } catch (_) {}
+  } catch (writeErr) {
+    console.error('[matchContentCache] dosya yazma hatası:', writeErr?.message || writeErr, writeErr);
+  }
 }

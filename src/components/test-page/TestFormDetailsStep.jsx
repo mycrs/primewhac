@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { User, MessageSquare, AlertCircle } from 'lucide-react';
+import { User, MessageSquare, AlertCircle, Tv } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useLocation } from 'react-router-dom';
 
-const TestFormDetailsStep = ({ formData, onChange, setIsValid }) => {
+const TestFormDetailsStep = ({ formData, onChange, setIsValid, selectedDevice }) => {
   const [errors, setErrors] = useState({});
   const location = useLocation();
   const isDe = location.pathname.includes('/de');
 
+  const needsTvBrand = Boolean(selectedDevice?.needsTvBrand);
+
   useEffect(() => {
     const isNameValid = formData.username?.trim().length >= 3;
-    setIsValid(isNameValid);
-  }, [formData, setIsValid]);
+    const isTvBrandValid = !needsTvBrand || (formData.tv_brand?.trim().length >= 2);
+    setIsValid(isNameValid && isTvBrandValid);
+  }, [formData, setIsValid, needsTvBrand]);
 
   const titles = isDe
     ? { heading: 'Benutzerdetails', sub: 'Geben Sie Ihre Informationen ein, um Ihren Test-Account zu personalisieren.', username: 'Benutzername', usernamePlaceholder: 'Ihr Name oder Pseudonym', minChars: 'Mindestens 3 Zeichen erforderlich', note: 'Beschreibung (Optional)', notePlaceholder: 'Besondere Wünsche oder Fragen...', hint: 'Bitte füllen Sie alle Felder aus, um fortzufahren.' }
@@ -26,7 +29,7 @@ const TestFormDetailsStep = ({ formData, onChange, setIsValid }) => {
         <p className="text-slate-400">{titles.sub}</p>
       </div>
 
-      <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl space-y-6 backdrop-blur-sm">
+      <div className="bg-[#0a0a0a]/40 border border-slate-800 p-8 rounded-3xl space-y-6 backdrop-blur-sm">
         <div className="space-y-2">
           <Label htmlFor="username" className="text-slate-300 font-bold flex items-center gap-2">
             <User className="w-4 h-4 text-green-500" />
@@ -37,7 +40,7 @@ const TestFormDetailsStep = ({ formData, onChange, setIsValid }) => {
             placeholder={titles.usernamePlaceholder}
             value={formData.username}
             onChange={(e) => onChange('username', e.target.value)}
-            className="bg-slate-950 border-slate-800 text-white h-12 focus:ring-green-500/20 focus:border-green-500"
+            className="bg-[#0a0a0a] border-slate-800 text-white h-12 focus:ring-green-500/20 focus:border-green-500"
           />
           {formData.username && formData.username.trim().length < 3 && (
             <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
@@ -45,6 +48,27 @@ const TestFormDetailsStep = ({ formData, onChange, setIsValid }) => {
             </p>
           )}
         </div>
+
+        {needsTvBrand && (
+          <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
+            <Label htmlFor="tv_brand" className="text-slate-300 font-bold flex items-center gap-2">
+              <Tv className="w-4 h-4 text-green-500" />
+              {isDe ? 'TV Marke / Modell' : 'TV Marka / Model'} <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="tv_brand"
+              placeholder={isDe ? 'z.B. Samsung, LG, Arçelik, TCL, Vestel' : 'Örn: Samsung, LG, Arçelik, TCL, Vestel'}
+              value={formData.tv_brand || ''}
+              onChange={(e) => onChange('tv_brand', e.target.value)}
+              className="bg-[#0a0a0a] border-slate-800 text-white h-12 focus:ring-green-500/20 focus:border-green-500"
+            />
+            {formData.tv_brand !== undefined && formData.tv_brand.trim().length < 2 && (
+              <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
+                <AlertCircle className="w-3 h-3" /> {isDe ? 'Mindestens 2 Zeichen erforderlich' : 'En az 2 karakter gerekli'}
+              </p>
+            )}
+          </div>
+        )}
 
         <div className="space-y-2">
           <Label htmlFor="special_note" className="text-slate-300 font-bold flex items-center gap-2">
@@ -56,7 +80,7 @@ const TestFormDetailsStep = ({ formData, onChange, setIsValid }) => {
             placeholder={titles.notePlaceholder}
             value={formData.special_note}
             onChange={(e) => onChange('special_note', e.target.value)}
-            className="bg-slate-950 border-slate-800 text-white min-h-[120px] focus:ring-green-500/20 focus:border-green-500 resize-none"
+            className="bg-[#0a0a0a] border-slate-800 text-white min-h-[120px] focus:ring-green-500/20 focus:border-green-500 resize-none"
           />
         </div>
 

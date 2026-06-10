@@ -118,8 +118,8 @@ const AddBlogBlockModal = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-4xl my-auto shadow-2xl animate-in fade-in zoom-in duration-200">
-        <div className="flex justify-between items-center p-6 border-b border-slate-800 sticky top-0 bg-slate-900 z-10 rounded-t-xl">
+      <div className="bg-[#0a0a0a] border border-slate-800 rounded-xl w-full max-w-4xl my-auto shadow-2xl animate-in fade-in zoom-in duration-200">
+        <div className="flex justify-between items-center p-6 border-b border-slate-800 sticky top-0 bg-[#0a0a0a] z-10 rounded-t-xl">
           <h2 className="text-xl font-bold text-white">
             {initialData ? 'Blog Yazısını Düzenle' : 'Yeni Blog Yazısı Ekle'}
           </h2>
@@ -144,7 +144,7 @@ const AddBlogBlockModal = ({
                 onChange={handleInputChange} 
                 required 
                 disabled={isSaving} 
-                className="bg-slate-950 border-slate-700 text-white"
+                className="bg-[#0a0a0a] border-slate-700 text-white"
                 placeholder="Blog yazısı başlığı..."
               />
             </div>
@@ -156,17 +156,17 @@ const AddBlogBlockModal = ({
                 onChange={handleInputChange} 
                 required 
                 disabled={isSaving} 
-                className="bg-slate-950 border-slate-700 text-white font-mono text-sm"
+                className="bg-[#0a0a0a] border-slate-700 text-white font-mono text-sm"
               />
             </div>
           </div>
 
           <div className="space-y-2">
             <Label className="text-slate-300">Kapak Görseli (Maks 5MB)</Label>
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-4 border border-dashed border-slate-700 rounded-lg bg-slate-950/50">
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-4 border border-dashed border-slate-700 rounded-lg bg-[#0a0a0a]/50">
               {imagePreview ? (
                 <div className="relative group">
-                  <img src={imagePreview} alt="Preview" className="h-32 w-auto max-w-[200px] object-cover rounded-md border border-slate-700" />
+                  <img src={imagePreview} alt="Görsel önizlemesi" className="h-32 w-auto max-w-[200px] object-cover rounded-md border border-slate-700" />
                   <button 
                     type="button"
                     onClick={() => { 
@@ -181,7 +181,7 @@ const AddBlogBlockModal = ({
                   </button>
                 </div>
               ) : (
-                <div className="h-32 w-48 bg-slate-900 border border-slate-800 rounded-md flex flex-col items-center justify-center text-slate-500 gap-2">
+                <div className="h-32 w-48 bg-[#0a0a0a] border border-slate-800 rounded-md flex flex-col items-center justify-center text-slate-500 gap-2">
                   <ImageIcon className="w-8 h-8 opacity-50" />
                   <span className="text-xs">Görsel Yok</span>
                 </div>
@@ -189,7 +189,7 @@ const AddBlogBlockModal = ({
               
               <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor="image-upload" className="cursor-pointer">
-                  <div className="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white rounded-md h-11 px-4 transition-colors">
+                  <div className="flex items-center justify-center gap-2 bg-[#0a0a0a] hover:bg-[#0a0a0a] text-white rounded-md h-11 px-4 transition-colors">
                     <UploadCloud className="w-4 h-4" />
                     {imageFile ? 'Görseli Değiştir' : 'Bilgisayardan Seç'}
                   </div>
@@ -203,9 +203,9 @@ const AddBlogBlockModal = ({
                   />
                 </Label>
                 <div className="flex items-center gap-2">
-                  <div className="h-px bg-slate-800 flex-1"></div>
+                  <div className="h-px bg-[#0a0a0a] flex-1"></div>
                   <span className="text-xs text-slate-500">VEYA</span>
-                  <div className="h-px bg-slate-800 flex-1"></div>
+                  <div className="h-px bg-[#0a0a0a] flex-1"></div>
                 </div>
                 <Input 
                   name="cover_image_url" 
@@ -216,35 +216,35 @@ const AddBlogBlockModal = ({
                   }} 
                   placeholder="Görsel URL'si yapıştırın" 
                   disabled={isSaving || isUploading || imageFile} 
-                  className="bg-slate-950 border-slate-700 text-white"
+                  className="bg-[#0a0a0a] border-slate-700 text-white"
                 />
               </div>
             </div>
-            {isUploading && <div className="text-sm text-purple-400 flex items-center mt-2"><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Görsel yükleniyor, lütfen bekleyin...</div>}
+            {isUploading && <div className="text-sm text-primary flex items-center mt-2"><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Görsel yükleniyor, lütfen bekleyin...</div>}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
             <div className="space-y-2">
               <Label className="text-slate-300">Kategori</Label>
-              <Input name="category" value={formData.category} onChange={handleInputChange} disabled={isSaving} className="bg-slate-950 border-slate-700 text-white"/>
+              <Input name="category" value={formData.category} onChange={handleInputChange} disabled={isSaving} className="bg-[#0a0a0a] border-slate-700 text-white"/>
             </div>
             <div className="space-y-2">
               <Label className="text-slate-300">Etiketler</Label>
-              <Input name="tags" value={formData.tags} onChange={handleInputChange} placeholder="virgülle ayırın" disabled={isSaving} className="bg-slate-950 border-slate-700 text-white"/>
+              <Input name="tags" value={formData.tags} onChange={handleInputChange} placeholder="virgülle ayırın" disabled={isSaving} className="bg-[#0a0a0a] border-slate-700 text-white"/>
             </div>
             <div className="space-y-2">
               <Label className="text-slate-300">Yazar</Label>
-              <Input name="author" value={formData.author} onChange={handleInputChange} disabled={isSaving} className="bg-slate-950 border-slate-700 text-white"/>
+              <Input name="author" value={formData.author} onChange={handleInputChange} disabled={isSaving} className="bg-[#0a0a0a] border-slate-700 text-white"/>
             </div>
             <div className="space-y-2">
               <Label className="text-slate-300">Yayın Tarihi</Label>
-              <Input type="date" name="published_at" value={formData.published_at} onChange={handleInputChange} disabled={isSaving} className="bg-slate-950 border-slate-700 text-white"/>
+              <Input type="date" name="published_at" value={formData.published_at} onChange={handleInputChange} disabled={isSaving} className="bg-[#0a0a0a] border-slate-700 text-white"/>
             </div>
           </div>
           
           <div className="space-y-2">
               <Label className="text-slate-300">Özet (Excerpt) <span className="text-slate-500 text-xs font-normal ml-2">(Boş bırakılırsa içerikten otomatik oluşturulur)</span></Label>
-              <Input name="excerpt" value={formData.excerpt} onChange={handleInputChange} disabled={isSaving} className="bg-slate-950 border-slate-700 text-white" placeholder="Kısa bir özet yazın..."/>
+              <Input name="excerpt" value={formData.excerpt} onChange={handleInputChange} disabled={isSaving} className="bg-[#0a0a0a] border-slate-700 text-white" placeholder="Kısa bir özet yazın..."/>
           </div>
 
           <div className="space-y-2">
@@ -253,18 +253,18 @@ const AddBlogBlockModal = ({
               name="content" 
               value={formData.content} 
               onChange={handleInputChange} 
-              className="h-64 font-mono text-sm bg-slate-950 border-slate-700 text-white p-4" 
+              className="h-64 font-mono text-sm bg-[#0a0a0a] border-slate-700 text-white p-4" 
               required 
               disabled={isSaving}
               placeholder="Blog yazınızın içeriğini buraya girin (HTML formatı desteklenir)..."
             />
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-slate-800 sticky bottom-0 bg-slate-900 p-4 -mx-6 -mb-6 rounded-b-xl">
-            <Button type="button" variant="ghost" onClick={onClose} disabled={isSaving || isUploading} className="text-slate-300 hover:text-white hover:bg-slate-800">
+          <div className="flex justify-end gap-3 pt-4 border-t border-slate-800 sticky bottom-0 bg-[#0a0a0a] p-4 -mx-6 -mb-6 rounded-b-xl">
+            <Button type="button" variant="ghost" onClick={onClose} disabled={isSaving || isUploading} className="text-slate-300 hover:text-white hover:bg-[#0a0a0a]">
               İptal
             </Button>
-            <Button type="submit" className="bg-purple-600 hover:bg-purple-500 text-white min-w-[140px]" disabled={isSaving || isUploading}>
+            <Button type="submit" className="bg-primary hover:bg-primary text-white min-w-[140px]" disabled={isSaving || isUploading}>
               {(isSaving || isUploading) ? <Loader2 className="w-5 h-5 mr-2 animate-spin"/> : <Save className="w-5 h-5 mr-2" />} 
               {isUploading ? 'Yükleniyor...' : isSaving ? 'Kaydediliyor...' : (initialData ? 'Güncelle' : 'Kaydet')}
             </Button>

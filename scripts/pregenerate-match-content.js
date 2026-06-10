@@ -1,28 +1,22 @@
 #!/usr/bin/env node
 /**
- * Maç içeriklerini önceden üretir (TR + DE).
- * Günlük 1 kez çalıştırılır – yeni takvim için tüm maçları günceller.
+ * Maç içeriklerini şablonla üretir (TR + DE). Gemini kullanmaz.
  *
  * Kullanım: node scripts/pregenerate-match-content.js
- * Cron (her gün 00:01 – yeni gün başlayınca): 1 0 * * * cd /proje && npm run pregenerate:content
+ * npm run pregenerate:content
  *
- * --force: Cache'i yoksay, hepsini yeniden üret
+ * --force: Önbelleği yoksay, yeniden yaz
  */
 import 'dotenv/config';
-import { generateMatchContentWithAI, generateMatchContentWithAI_DE } from '../server/api/generateMatchContent.js';
 import { getCachedContent, saveContentToCache } from '../server/api/matchContentCache.js';
+import { generateMatchContent } from '../src/utils/matchContentGenerator.js';
+import { generateMatchContentDE } from '../src/utils/matchContentGeneratorDE.js';
 
-const DELAY_MS = 8000; // İstekler arası bekleme (rate limit için)
 const forceRefresh = process.argv.includes('--force');
-
-function sleep(ms) {
-  return new Promise((r) => setTimeout(r, ms));
-}
-
 const FIXTURE_BASE = 'https://fixturedownload.com/feed/json';
 const LEAGUES = [
   { slug: 'super-lig-2025', name: 'Süper Lig', country: 'Türkiye', flag: '🇹🇷' },
-  { slug: 'epl-2024', name: 'Premier Lig', country: 'İngiltere', flag: '🏴' },
+  { slug: 'epl-2025', name: 'Premier Lig', country: 'İngiltere', flag: '🏴' },
   { slug: 'la-liga-2025', name: 'La Liga', country: 'İspanya', flag: '🇪🇸' },
   { slug: 'champions-league-2025', name: 'Şampiyonlar Ligi', country: 'Avrupa', flag: '🇪🇺' },
   { slug: 'bundesliga-2025', name: 'Bundesliga', country: 'Almanya', flag: '🇩🇪' },
@@ -31,12 +25,12 @@ const LEAGUES = [
 
 function formatTime(dateUtc) {
   if (!dateUtc) return '20:00';
-  const date = new Date(dateUtc.replace(' ', 'T'));
+  const date = new Date(String(dateUtc).replace(' ', 'T'));
   return date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Istanbul' });
 }
 
 function formatDate(d) {
-  return d.toISOString().split('T')[0];
+  return d.toLocaleDateString('sv-SE', { timeZone: 'Europe/Istanbul' });
 }
 
 async function fetchMatchesForDate(dateStr) {
@@ -48,7 +42,9 @@ async function fetchMatchesForDate(dateStr) {
       const data = await res.json();
       const list = Array.isArray(data) ? data : (data.matches || []);
       const forDate = list.filter((m) => {
-        const matchDate = (m.DateUtc || m.date || '').toString().split(' ')[0].split('T')[0];
+        const raw = (m.DateUtc || m.date || '').toString().replace(' ', 'T');
+        if (!raw) return false;
+        const matchDate = new Date(raw).toLocaleDateString('sv-SE', { timeZone: 'Europe/Istanbul' });
         return matchDate === dateStr;
       });
       for (const m of forDate) {
@@ -70,45 +66,10 @@ async function fetchMatchesForDate(dateStr) {
   return matches;
 }
 
-async function generateForLocale(matches, locale) {
-  const label = locale === 'de' ? 'DE' : 'TR';
-  const generator = locale === 'de' ? generateMatchContentWithAI_DE : generateMatchContentWithAI;
-  let generated = 0;
-  let skipped = 0;
-  let lastApiCall = 0;
-  for (let i = 0; i < matches.length; i++) {
-    const match = matches[i];
-    if (!forceRefresh) {
-      const cached = await getCachedContent(match, locale);
-      if (cached) {
-        skipped++;
-        continue;
-      }
-    }
-    try {
-      if (lastApiCall > 0) await sleep(DELAY_MS);
-      lastApiCall++;
-      const result = await generator(match);
-      await saveContentToCache(match, result, locale);
-      generated++;
-      console.log(`  [${label}] ✓ ${match.home} - ${match.away} (${match.date})`);
-    } catch (err) {
-      const msg = err?.message || String(err);
-      if (msg.includes('429') || msg.includes('RESOURCE_EXHAUSTED')) {
-        console.warn(`  [${label}] ⏳ Kota aşıldı, 60 sn bekleniyor...`);
-        await sleep(60000);
-        i--;
-        continue;
-      }
-      console.warn(`  [${label}] ✗ ${match.home} - ${match.away}:`, msg.slice(0, 80));
-    }
-  }
-  return { generated, skipped };
-}
-
 async function main() {
-  console.log('[pregenerate] Başlatılıyor (TR + DE) – günde 1 kez yeterli');
-  if (forceRefresh) console.log('[pregenerate] --force: Tüm içerik yeniden üretilecek');
+  console.log('[pregenerate:content] Şablon ile TR+DE üretimi (Gemini yok)');
+  if (forceRefresh) console.log('[pregenerate:content] --force: tümü yeniden yazılacak');
+
   const dates = [];
   for (let i = 0; i <= 7; i++) {
     const d = new Date();
@@ -122,11 +83,33 @@ async function main() {
     allMatches = allMatches.concat(matches);
   }
 
-  const trStats = await generateForLocale(allMatches, 'tr');
-  const deStats = await generateForLocale(allMatches, 'de');
+  let generated = 0;
+  let skipped = 0;
+  for (const match of allMatches) {
+    if (!forceRefresh) {
+      const hasTR = await getCachedContent(match, 'tr');
+      const hasDE = await getCachedContent(match, 'de');
+      if (hasTR && hasDE) {
+        skipped++;
+        continue;
+      }
+    }
+    try {
+      const tr = generateMatchContent(match);
+      const de = generateMatchContentDE(match);
+      await saveContentToCache(match, tr, 'tr');
+      await saveContentToCache(match, de, 'de');
+      generated++;
+      console.log(`  ✓ ${match.home} - ${match.away} (${match.date})`);
+    } catch (e) {
+      console.warn(`  ✗ ${match.home} - ${match.away}:`, e?.message?.slice(0, 80));
+    }
+  }
 
-  console.log(`[pregenerate] Bitti. TR: Yeni ${trStats.generated}, Önbellekte ${trStats.skipped}`);
-  console.log(`[pregenerate] Bitti. DE: Yeni ${deStats.generated}, Önbellekte ${deStats.skipped}`);
+  console.log(`[pregenerate:content] Bitti. Üretilen: ${generated}, atlanan (önbellek): ${skipped}, toplam maç: ${allMatches.length}`);
 }
 
-main().catch(console.error);
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

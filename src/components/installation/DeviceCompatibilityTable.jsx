@@ -63,7 +63,7 @@ const DeviceCompatibilityTable = ({ lang = 'tr' }) => {
   ];
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40">
+    <div className="overflow-hidden rounded-2xl border border-slate-800 bg-[#0a0a0a]/40">
       <div className="p-6 border-b border-slate-800">
         <h3 className="text-xl font-bold text-white flex items-center gap-2">
           <Monitor className="w-5 h-5 text-blue-500" />
@@ -76,7 +76,7 @@ const DeviceCompatibilityTable = ({ lang = 'tr' }) => {
       
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-950/50 text-slate-400 font-medium">
+          <thead className="bg-[#0a0a0a]/50 text-slate-400 font-medium">
             <tr>
               <th className="px-6 py-4">{isDe ? "Gerätetyp" : "Cihaz Türü"}</th>
               <th className="px-6 py-4">{isDe ? "Empfohlenes OS" : "Önerilen OS"}</th>
@@ -87,13 +87,13 @@ const DeviceCompatibilityTable = ({ lang = 'tr' }) => {
           </thead>
           <tbody className="divide-y divide-slate-800">
             {devices.map((device, idx) => (
-              <tr key={idx} className="hover:bg-slate-800/30 transition-colors">
+              <tr key={idx} className="hover:bg-[#0a0a0a]/30 transition-colors">
                 <td className="px-6 py-4 font-medium text-white flex items-center gap-2">
-                  <span className="p-1.5 bg-slate-800 rounded text-slate-400">{device.icon}</span>
+                  <span className="p-1.5 bg-[#0a0a0a] rounded text-slate-400">{device.icon}</span>
                   {device.type}
                 </td>
                 <td className="px-6 py-4 text-slate-400">{device.os}</td>
-                <td className="px-6 py-4 text-purple-400">{device.app}</td>
+                <td className="px-6 py-4 text-primary">{device.app}</td>
                 <td className="px-6 py-4 text-slate-500 font-mono">{device.ram}</td>
                 <td className="px-6 py-4">
                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${device.statusColor}`}>

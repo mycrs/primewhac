@@ -1,0 +1,43 @@
+-- =============================================================================
+-- QruzeTV — PRODUCTION SQL ÇALIŞTIRMA SIRASI (yorum rehberi)
+-- Supabase Dashboard → SQL Editor → Her dosyayı AYRI AYRI Run
+-- Bu dosyayı çalıştırmanız gerekmez; sıra listesidir.
+-- =============================================================================
+--
+-- ÖNCE: admin_users tablosunda e-postanız (örn. mensisiptv@gmail.com) is_admin=true
+--
+-- ZORUNLU (sırayla):
+--   1) docs/supabase-customers-rls.sql
+--        → is_customers_admin(), müşteri admin RLS temeli
+--   2) docs/supabase-package-types-migration.sql
+--        → package_types, server_url, customer_panel_url (M3U portal)
+--   3) docs/supabase-package-types-rls-admin.sql
+--        → /yonetim/customers/packages paket grubu kaydı
+--   4) docs/supabase-packages-tier-migration.sql
+--        → packages.tier, sort_order, rozet alanları
+--   5) docs/supabase-notifications-rls.sql
+--        → theme sütunu + RLS + tarih aralığı; /yonetim/notifications duyuru CRUD (1. adım şart)
+--   6) docs/supabase-customer-portal.sql
+--        → portal_code, lookup_customer_portal, şifre RPC
+--
+-- İSTEĞE BAĞLI:
+--   • docs/supabase-customers-groups-softdelete.sql — gruplar / soft delete
+--   • docs/supabase-save-portal-password.sql — yalnızca şifre RPC güncellemesi (6 yeterliyse atla)
+--   • docs/package-types-server-columns.sql — sadece server_url patch (2 atlandıysa)
+--   • docs/supabase-portal-attempts.sql — eski deneme logu (güncel site kullanmaz)
+--
+-- DEPLOY SONRASI DOĞRULA:
+--   /yonetim/giris
+--   /yonetim/notifications
+--   /yonetim/customers/packages  → paket grubuna server_url gir
+--   /yonetim/packages            → tier + sayfa içeriği
+--   /musteri-kayit               → kayıt + kod sorgusu + M3U
+--   /paketler                    → tier filtresi
+--   Duyuru bandı ~3sn, ExitIntent ~35sn — değişmemeli
+--
+-- YEREL GELİŞTİRME (SQL yokken):
+--   npm run check:env
+--   npm run dev:all
+--   npm run smoke:api
+--
+-- Detay: DEPLOY.md

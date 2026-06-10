@@ -1,76 +1,97 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Edit2, CheckCircle2, AlertCircle, Smartphone, Monitor, Tv, Tablet, Watch, Download, User, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Edit2, AlertCircle, Tv, Download, User, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLocation } from 'react-router-dom';
 import { useTestFormSubmit } from '@/hooks/useTestFormSubmit';
 import { useWhatsAppIntegration } from '@/hooks/useWhatsAppIntegration';
 import { toast } from '@/components/ui/use-toast';
+import TurkeyPackageWhatsAppWarningDialog from '@/components/packages/TurkeyPackageWhatsAppWarningDialog';
+import { isAbroadLivingRegion } from '@/utils/turkeyPackageWhatsAppGate';
+import { useSiteData } from '@/hooks/useSiteData';
+import { getIptvDeviceIcon } from '@/constants/iptvFlowDevices';
 
-const DEVICE_ICONS = {
-  tv: Tv,
-  android: Smartphone,
-  ios: Smartphone,
-  pc: Monitor,
-  tablet: Tablet,
-  other: Watch
-};
-
-const TestFormSummary = ({ formData, selectedDevice, selectedApp, onBack, onEditStep, onSuccess }) => {
+const TestFormSummary = ({
+  formData,
+  selectedDevice,
+  selectedApp,
+  onBack,
+  onEditStep,
+  onSuccess,
+  livingRegion = '',
+}) => {
+  const location = useLocation();
+  const isDeSite = location.pathname.startsWith('/de');
+  const [trWarningOpen, setTrWarningOpen] = useState(false);
+  const { siteData } = useSiteData(false, false);
   const { submitTestRequest, loading, error } = useTestFormSubmit();
-  const { generateWhatsAppLink, redirectToWhatsApp } = useWhatsAppIntegration();
+  const { redirectToWhatsApp } = useWhatsAppIntegration();
 
-  const handleInstantSubmit = () => {
-    // 1. Prepare Data
-    const requestData = {
+  const runWhatsAppRedirect = () => {
+    const whatsAppData = {
+      device: selectedDevice?.name,
+      app: selectedApp?.name,
       username: formData.username,
-      special_note: formData.special_note,
-      device_type: selectedDevice?.name,
-      app_name: selectedApp?.name
+      note: formData.special_note
     };
-
-    // 2. Submit (Fire-and-forget validation & DB save)
-    const isValid = submitTestRequest(requestData);
-
-    if (isValid) {
-      // 3. Instant Redirect
-      // Generate WhatsApp Data
-      const whatsAppData = {
-        device: selectedDevice?.name,
-        app: selectedApp?.name,
-        username: formData.username,
-        note: formData.special_note
-      };
-
-      // Show brief toast
+    const redirected = redirectToWhatsApp(whatsAppData);
+    if (redirected) {
       toast({
         title: "Yönlendiriliyorsunuz...",
         description: "WhatsApp açılıyor.",
         duration: 1000,
         className: "bg-green-600 border-none text-white"
       });
-
-      // Redirect immediately
-      redirectToWhatsApp(whatsAppData);
-
-      // 4. Close Modal
-      if (onSuccess) {
-         onSuccess();
-      }
+    } else {
+      toast({
+        variant: "destructive",
+        title: "WhatsApp Numarası Eksik",
+        description: "Lütfen admin panelinden İletişim Bilgileri veya Sistem Ayarları bölümüne WhatsApp numarası ekleyin."
+      });
     }
+    if (onSuccess) onSuccess();
+  };
+
+  const handleInstantSubmit = () => {
+    const requestData = {
+      username: formData.username,
+      special_note: formData.special_note,
+      device_type: selectedDevice?.name,
+      app_name: selectedApp?.name
+    };
+    const isValid = submitTestRequest(requestData);
+    if (!isValid) return;
+    if (isDeSite) {
+      runWhatsAppRedirect();
+      return;
+    }
+    if (isAbroadLivingRegion(livingRegion)) {
+      setTrWarningOpen(true);
+      return;
+    }
+    runWhatsAppRedirect();
+  };
+
+  const handleWarningContinue = () => {
+    setTrWarningOpen(false);
+    runWhatsAppRedirect();
   };
 
   return (
     <div className="flex flex-col h-full w-full max-w-2xl mx-auto">
+      <TurkeyPackageWhatsAppWarningDialog
+        open={trWarningOpen}
+        variant="test"
+        onContinue={handleWarningContinue}
+      />
       <div className="flex-1 space-y-4 overflow-y-auto custom-scrollbar p-1">
         
         {/* Device Summary */}
-        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-4 flex items-center justify-between group hover:border-slate-700 transition-colors">
+        <div className="bg-[#0a0a0a]/40 border border-slate-800 rounded-xl p-4 flex items-center justify-between group hover:border-slate-700 transition-colors">
            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 flex items-center justify-center bg-slate-800 rounded-xl text-purple-400 shrink-0">
-                 {selectedDevice && DEVICE_ICONS[selectedDevice.id] 
-                    ? React.createElement(DEVICE_ICONS[selectedDevice.id], { size: 24 }) 
-                    : <Tv size={24} />
-                 }
+              <div className="w-12 h-12 flex items-center justify-center bg-[#0a0a0a] rounded-xl text-primary shrink-0">
+                 {selectedDevice?.id
+                    ? React.createElement(getIptvDeviceIcon(selectedDevice.id, siteData?.iptvFlowDevicesData), { size: 24 })
+                    : <Tv size={24} />}
               </div>
               <div className="min-w-0">
                  <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Seçilen Cihaz</p>
@@ -83,9 +104,9 @@ const TestFormSummary = ({ formData, selectedDevice, selectedApp, onBack, onEdit
         </div>
 
         {/* App Summary */}
-        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-4 flex items-center justify-between group hover:border-slate-700 transition-colors">
+        <div className="bg-[#0a0a0a]/40 border border-slate-800 rounded-xl p-4 flex items-center justify-between group hover:border-slate-700 transition-colors">
            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 flex items-center justify-center bg-slate-800 rounded-xl text-blue-400 shrink-0">
+              <div className="w-12 h-12 flex items-center justify-center bg-[#0a0a0a] rounded-xl text-blue-400 shrink-0">
                  <Download size={24} />
               </div>
               <div className="min-w-0">
@@ -99,10 +120,10 @@ const TestFormSummary = ({ formData, selectedDevice, selectedApp, onBack, onEdit
         </div>
 
         {/* User Summary */}
-        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-4 flex flex-col gap-4 group hover:border-slate-700 transition-colors">
+        <div className="bg-[#0a0a0a]/40 border border-slate-800 rounded-xl p-4 flex flex-col gap-4 group hover:border-slate-700 transition-colors">
            <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 flex items-center justify-center bg-slate-800 rounded-xl text-green-400 shrink-0">
+                <div className="w-12 h-12 flex items-center justify-center bg-[#0a0a0a] rounded-xl text-green-400 shrink-0">
                     <User size={24} />
                 </div>
                 <div className="min-w-0">
@@ -135,11 +156,11 @@ const TestFormSummary = ({ formData, selectedDevice, selectedApp, onBack, onEdit
           variant="outline" 
           onClick={onBack} 
           disabled={loading} 
-          className="w-1/3 h-12 border-slate-700 bg-transparent hover:bg-slate-800 text-slate-300 rounded-xl"
+          className="w-1/3 h-12 border-slate-700 bg-transparent hover:bg-[#0a0a0a] text-slate-300 rounded-xl"
         >
           Geri
         </Button>
-        <Button 
+        <Button
           onClick={handleInstantSubmit}
           disabled={loading}
           className="flex-1 h-12 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-lg rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:shadow-[0_0_30px_rgba(37,211,102,0.5)] transition-all hover:scale-[1.02]"

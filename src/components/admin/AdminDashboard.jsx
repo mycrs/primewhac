@@ -4,13 +4,14 @@ import SupabaseConnectionStatus from './SupabaseConnectionStatus';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tv, Package, FileText, Wrench, Settings } from 'lucide-react';
+import { adminPath } from '@/constants/adminRoutes';
 
 const AdminDashboard = () => {
   const links = [
-    { label: 'Kanal Yönetimi', path: '/admin/channels', icon: Tv },
-    { label: 'Paket Yönetimi', path: '/admin/packages', icon: Package },
-    { label: 'Kurulum Yönetimi', path: '/admin/setup', icon: Wrench },
-    { label: 'Blog Yönetimi', path: '/admin/blog', icon: FileText }
+    { label: 'Kanal Yönetimi', path: adminPath('channels'), icon: Tv },
+    { label: 'Paket Yönetimi', path: adminPath('packages'), icon: Package },
+    { label: 'Kurulum Yönetimi', path: adminPath('setup'), icon: Wrench },
+    { label: 'Blog Yönetimi', path: adminPath('blog'), icon: FileText },
   ];
 
   return (
@@ -27,9 +28,9 @@ const AdminDashboard = () => {
         {links.map((link, i) => {
           const Icon = link.icon;
           return (
-            <Card key={i} className="bg-[#1A1A2E] border-white/10 hover:border-purple-500/50 transition-colors">
+            <Card key={i} className="bg-[#0a0a0a] border-white/10 hover:border-primary/50 transition-colors">
               <CardHeader className="pb-2 flex flex-row items-center gap-3 space-y-0">
-                <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400">
+                <div className="p-2 bg-primary/20 rounded-lg text-primary">
                   <Icon className="w-5 h-5" />
                 </div>
                 <CardTitle className="text-lg text-white m-0">{link.label}</CardTitle>
@@ -44,7 +45,7 @@ const AdminDashboard = () => {
         })}
       </div>
       
-      <Card className="bg-[#1A1A2E] border-white/10 mt-6">
+      <Card className="bg-[#0a0a0a] border-white/10 mt-6">
         <CardHeader>
           <CardTitle className="text-white flex items-center gap-2">
             <Settings className="w-5 h-5 text-slate-400" />

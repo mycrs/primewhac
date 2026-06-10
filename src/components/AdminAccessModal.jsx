@@ -8,6 +8,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Loader2, Lock, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { errorLogger, ERROR_SEVERITY } from '@/utils/errorLogger';
+import { ADMIN_BASE_PATH } from '@/constants/adminRoutes';
 
 const AdminAccessModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
@@ -60,7 +61,7 @@ const AdminAccessModal = ({ isOpen, onClose }) => {
           className: "bg-green-600 border-none text-white"
         });
         onClose();
-        navigate('/admin'); 
+        navigate(ADMIN_BASE_PATH);
       } else {
         if (isMounted.current) setErrorMsg('Oturum açılamadı. Lütfen tekrar deneyin.');
       }
@@ -74,17 +75,17 @@ const AdminAccessModal = ({ isOpen, onClose }) => {
 
   const handleAdminRedirect = () => {
     onClose();
-    navigate('/admin');
+    navigate(ADMIN_BASE_PATH);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !loading && onClose(open)}>
-      <DialogContent className="sm:max-w-[425px] w-[95%] bg-[#0F0F1E] border-white/10 text-white p-0 overflow-hidden mx-auto rounded-xl">
+      <DialogContent className="sm:max-w-[425px] w-[95%] bg-[#0a0a0a] border-white/10 text-white p-0 overflow-hidden mx-auto rounded-xl">
         <div className="p-4 sm:p-6">
           <DialogHeader className="mb-4 sm:mb-6">
             <DialogTitle className="text-xl sm:text-2xl font-bold text-center flex flex-col items-center gap-2">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
-                <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
               </div>
               Yönetici Erişimi
             </DialogTitle>
@@ -95,7 +96,7 @@ const AdminAccessModal = ({ isOpen, onClose }) => {
               <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
                 <p className="text-green-400 font-medium text-sm sm:text-base">Zaten giriş yapmış durumdasınız.</p>
               </div>
-              <Button onClick={handleAdminRedirect} className="w-full bg-[#A855F7] hover:bg-[#9333EA] text-white h-12">
+              <Button onClick={handleAdminRedirect} className="w-full bg-[#e50914] hover:bg-[#b20710] text-white h-12">
                 Panele Git
               </Button>
             </div>
@@ -115,7 +116,7 @@ const AdminAccessModal = ({ isOpen, onClose }) => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 bg-[#1A1A2E] border-white/10 text-white focus:border-purple-500 placeholder:text-gray-500 h-12"
+                    className="pl-10 bg-[#0a0a0a] border-white/10 text-white focus:border-primary placeholder:text-gray-500 h-12"
                     placeholder="admin@example.com"
                     required
                     disabled={loading}
@@ -132,7 +133,7 @@ const AdminAccessModal = ({ isOpen, onClose }) => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 bg-[#1A1A2E] border-white/10 text-white focus:border-purple-500 placeholder:text-gray-500 h-12"
+                    className="pl-10 bg-[#0a0a0a] border-white/10 text-white focus:border-primary placeholder:text-gray-500 h-12"
                     placeholder="••••••••"
                     required
                     disabled={loading}
@@ -143,7 +144,7 @@ const AdminAccessModal = ({ isOpen, onClose }) => {
 
               <Button 
                 type="submit" 
-                className="w-full bg-[#A855F7] hover:bg-[#9333EA] text-white mt-4 h-12 sm:h-14 font-bold" 
+                className="w-full bg-[#e50914] hover:bg-[#b20710] text-white mt-4 h-12 sm:h-14 font-bold" 
                 disabled={loading}
               >
                 {loading ? (

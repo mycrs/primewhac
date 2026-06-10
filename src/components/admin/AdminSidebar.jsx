@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { adminPath } from '@/constants/adminRoutes';
 
 const SidebarItem = ({ icon: Icon, label, isActive, onClick, className }) => (
   <button
@@ -14,12 +15,12 @@ const SidebarItem = ({ icon: Icon, label, isActive, onClick, className }) => (
     className={cn(
       "w-full flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl text-sm font-medium transition-colors",
       isActive 
-        ? "bg-purple-600/20 text-purple-400" 
+        ? "bg-primary/20 text-primary" 
         : "text-gray-400 hover:bg-white/5 hover:text-white",
       className
     )}
   >
-    <Icon className={cn("w-5 h-5 shrink-0", isActive ? "text-purple-400" : "text-gray-500")} />
+    <Icon className={cn("w-5 h-5 shrink-0", isActive ? "text-primary" : "text-gray-500")} />
     <span className="truncate text-left">{label}</span>
   </button>
 );
@@ -48,7 +49,7 @@ const SidebarSection = ({ title, items, activeTab, onTabClick, isOpen, onToggle 
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-xl transition-colors",
                     location.pathname === item.href
-                      ? 'bg-purple-600/20 text-purple-400'
+                      ? 'bg-primary/20 text-primary'
                       : 'text-gray-400 hover:bg-white/5 hover:text-white'
                   )}
                 >
@@ -78,7 +79,7 @@ const AdminSidebar = ({ activeTab, setActiveTab, isOpen, onClose, onLogout }) =>
   const location = useLocation();
   const [sectionsOpen, setSectionsOpen] = useState({
     content: true,
-    settings: false,
+    settings: true,
     features: true
   });
   
@@ -112,7 +113,7 @@ const AdminSidebar = ({ activeTab, setActiveTab, isOpen, onClose, onLogout }) =>
     ],
     features: [
       { id: 'notification', label: 'Bildirimler', icon: BellRing },
-      { id: 'chatbot', label: 'ChatBot Yönetimi', icon: MessageCircle, href: '/admin/chatbot' },
+      { id: 'chatbot', label: 'ChatBot Yönetimi', icon: MessageCircle, href: adminPath('chatbot') },
       { id: 'installation', label: 'Kurulum', icon: Settings },
       { id: 'faq', label: 'S.S.S', icon: HelpCircle },
       { id: 'apps', label: 'Uygulamalar', icon: Smartphone },
@@ -121,7 +122,7 @@ const AdminSidebar = ({ activeTab, setActiveTab, isOpen, onClose, onLogout }) =>
   };
 
   // Allow determining active state via location path for deep links, falling back to activeTab prop
-  const currentActiveTab = location.pathname.includes('/admin/chatbot') ? 'chatbot' : activeTab;
+  const currentActiveTab = location.pathname.includes(adminPath('chatbot')) ? 'chatbot' : activeTab;
 
   return (
     <>
@@ -138,7 +139,7 @@ const AdminSidebar = ({ activeTab, setActiveTab, isOpen, onClose, onLogout }) =>
       )}>
         <div className="h-16 flex items-center px-4 md:px-6 border-b border-white/5 shrink-0">
           <div className="flex items-center gap-3 text-white font-bold text-lg">
-             <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center text-sm">
+             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-sm">
                TR
              </div>
              <span>Admin Panel</span>

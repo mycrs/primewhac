@@ -7,7 +7,7 @@ const GenericGuide = ({ steps }) => {
   // Guard clause for missing or empty steps
   if (!steps || !Array.isArray(steps) || steps.length === 0) {
     return (
-      <div className="py-12 text-center bg-slate-900/30 rounded-xl border border-slate-800">
+      <div className="py-12 text-center bg-[#0a0a0a]/30 rounded-xl border border-slate-800">
         <p className="text-slate-400">Keine Installationsschritte zur Anzeige gefunden.</p>
       </div>
     );

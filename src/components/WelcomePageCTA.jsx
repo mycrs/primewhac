@@ -10,11 +10,11 @@ const WelcomePageCTA = () => {
   return (
     <section className="py-24 relative overflow-hidden flex items-center justify-center">
       {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900 to-blue-900" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#e50914] to-[#b20710]" />
       
       {/* Decorative overlay patterns */}
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F1E] to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] to-transparent" />
 
       <div className="container mx-auto px-4 relative z-10 text-center">
         <motion.div
@@ -38,7 +38,7 @@ const WelcomePageCTA = () => {
             <Button 
               onClick={openModal}
               size="lg" 
-              className="h-16 px-10 text-lg font-bold rounded-full bg-white text-purple-900 hover:bg-gray-100 hover:text-purple-700 shadow-2xl hover:shadow-white/20 transition-all"
+              className="h-16 px-10 text-lg font-bold rounded-full bg-white text-primary hover:bg-gray-100 hover:text-primary shadow-2xl hover:shadow-white/20 transition-all"
             >
               <FlaskConical className="w-6 h-6 mr-3" />
               Ücretsiz Test Et

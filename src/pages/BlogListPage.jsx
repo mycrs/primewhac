@@ -1,20 +1,28 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/customSupabaseClient';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import BlogHeroSection from '@/components/BlogHeroSection';
 import BlogCard from '@/components/blog/BlogCard';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '@/components/SEOHead';
+import { blogListPageSchemas } from '@/utils/seoSchema';
 import { Loader2, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
+import { Button } from '@/components/ui/button';
+import InternalLinkingOptimization from '@/components/InternalLinkingOptimization';
+import { loadBlogListPage } from '@/utils/blogListFetch';
+
+const BLOG_CACHE_PREFIX = 'sb_blog_tr';
 
 const BlogListPage = ({ siteData }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const totalCountRef = useRef(0);
   const { contactData, siteTexts } = siteData || {};
   
   const navigate = useNavigate();
@@ -39,69 +47,63 @@ const BlogListPage = ({ siteData }) => {
   };
 
   useEffect(() => {
-    fetchPosts();
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      const r = await loadBlogListPage({ pageIndex: 0, cachePrefix: BLOG_CACHE_PREFIX });
+      if (cancelled) return;
+      if (r.error) {
+        console.error('Error fetching posts:', r.error);
+        setPosts([]);
+        totalCountRef.current = 0;
+        setHasMore(false);
+      } else {
+        setPosts(r.rows);
+        totalCountRef.current = r.totalCount;
+        setHasMore(r.rows.length < r.totalCount);
+        setPage(0);
+      }
+      setLoading(false);
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const fetchPosts = async () => {
-    setLoading(true);
+  const loadMore = async () => {
+    if (loadingMore || !hasMore) return;
+    setLoadingMore(true);
+    const next = page + 1;
     try {
-      const { data, error } = await executeSupabaseQuery(
-        () => supabase
-          .from('blog_posts')
-          .select('*')
-          .not('published_at', 'is', null)
-          .order('featured', { ascending: false, nullsFirst: false })
-          .order('published_at', { ascending: false })
-      );
-        
-      if (error) throw error;
-      setPosts(data || []);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
+      const r = await loadBlogListPage({ pageIndex: next, cachePrefix: BLOG_CACHE_PREFIX });
+      if (r.error) {
+        console.error('Blog load more:', r.error);
+        return;
+      }
+      setPosts((prev) => {
+        const merged = [...prev, ...r.rows];
+        setHasMore(merged.length < totalCountRef.current);
+        return merged;
+      });
+      setPage(next);
     } finally {
-      setLoading(false);
+      setLoadingMore(false);
     }
   };
 
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "Blog & Rehberler",
-    "description": "En son yazılarımız, ipuçları ve rehberler.",
-    "url": window.location.href,
-    "blogPost": posts.slice(0, 10).map(post => ({
-      "@type": "BlogPosting",
-      "headline": post.title,
-      "datePublished": post.published_at,
-      "dateModified": post.updated_at || post.published_at,
-      "author": {
-        "@type": "Person",
-        "name": post.author || "Admin"
-      },
-      "url": `${window.location.origin}/blog/${post.slug || post.id}`
-    }))
+  const metadata = {
+    title: "Premium IPTV Blog - Blog & Rehberler | QruzeTV",
+    description: "IPTV dünyasından en güncel haberler, ipuçları ve teknik rehberler. Kurulum, kanal yönetimi ve sorun giderme rehberleri.",
+    keywords: ["IPTV blog", "IPTV rehberi", "IPTV haberler", "IPTV ipuçları", "Smart TV kurulum", "4K streaming"],
+    ogType: "website",
   };
+  const jsonLd = blogListPageSchemas(metadata, posts);
 
   return (
     <>
-      <Helmet>
-        <title>Premium IPTV Blog - Blog & Rehberler</title>
-        <meta name="description" content="Explore the ultimate hub for IPTV excellence. En son yazılarımız, ipuçları ve rehberler." />
-        <meta name="keywords" content="Premium IPTV, 4K Streaming, IPTV Hub, Entertainment Technology, Streaming News, Smart TV Setup" />
-        <link rel="canonical" href={`${window.location.origin}/blog`} />
-        
-        {/* Open Graph Tags */}
-        <meta property="og:title" content="Premium IPTV & Streaming Content Hub" />
-        <meta property="og:description" content="Discover unlimited entertainment with our expert streaming guides and technology insights." />
-        <meta property="og:type" content="blog" />
-        <meta property="og:url" content={`${window.location.origin}/blog`} />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(schemaData)}
-        </script>
-      </Helmet>
+      <SEOHead {...metadata} jsonLd={jsonLd} />
 
-      <div className="min-h-screen bg-slate-950 flex flex-col text-white selection:bg-purple-500/30">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col text-white selection:bg-white/20">
         <Header contactData={contactData} siteTexts={siteTexts} />
         
         <main className="flex-grow pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
@@ -115,30 +117,51 @@ const BlogListPage = ({ siteData }) => {
           {/* Blog Posts Grid */}
           {loading ? (
             <div className="flex justify-center items-center py-20">
-              <Loader2 className="w-12 h-12 text-purple-500 animate-spin" />
+              <Loader2 className="w-12 h-12 text-primary animate-spin" />
             </div>
           ) : posts.length === 0 ? (
-            <div className="text-center py-20 bg-slate-900/50 rounded-2xl border border-slate-800">
+            <div className="text-center py-20 bg-[#0a0a0a]/50 rounded-2xl border border-slate-800">
               <h3 className="text-2xl font-semibold text-white mb-2">Henüz yazı bulunmuyor</h3>
               <p className="text-slate-400">Çok yakında yeni içeriklerle karşınızda olacağız.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-              {posts.map((post, idx) => (
-                <motion.article 
-                  key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                >
-                  <BlogCard post={post} />
-                </motion.article>
-              ))}
-            </div>
+            <>
+              <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${hasMore ? 'mb-10' : 'mb-20'}`}>
+                {posts.map((post, idx) => (
+                  <motion.article
+                    key={post.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                  >
+                    <BlogCard post={post} />
+                  </motion.article>
+                ))}
+              </div>
+              {hasMore && (
+                <div className="flex justify-center mb-20">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="border-primary/50 text-primary hover:bg-primary/10"
+                    disabled={loadingMore}
+                    onClick={loadMore}
+                  >
+                    {loadingMore ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Yükleniyor…
+                      </>
+                    ) : (
+                      'Daha fazla yazı'
+                    )}
+                  </Button>
+                </div>
+              )}
+            </>
           )}
 
           {/* Deep SEO Content Section */}
-          <section className="bg-slate-900/60 border border-slate-800/80 rounded-[2.5rem] p-8 md:p-16 prose prose-invert max-w-none prose-headings:text-white prose-a:text-blue-400 hover:prose-a:text-cyan-300 transition-all duration-300">
+          <section className="bg-[#0a0a0a]/60 border border-slate-800/80 rounded-[2.5rem] p-8 md:p-16 prose prose-invert max-w-none prose-headings:text-white prose-a:text-blue-400 hover:prose-a:text-[#e50914] transition-all duration-300">
             <h2 className="text-4xl font-bold mb-8 text-white border-b border-slate-800 pb-6 tracking-tight">
               IPTV ve Modern Yayıncılığın Geleceği
             </h2>
@@ -154,19 +177,19 @@ const BlogListPage = ({ siteData }) => {
                 </p>
               </div>
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-purple-400">Zengin İçerik ve Kanal Yönetimi</h3>
+                <h3 className="text-2xl font-bold text-primary">Zengin İçerik ve Kanal Yönetimi</h3>
                 <p className="text-slate-300">
-                  Binlerce kanal ve isteğe bağlı video (VOD) içeriği arasında kaybolmamak için iyi bir kanal yönetimi şarttır. M3u formatlı listelerin nasıl düzenleneceği konusunda rehberlerimizden faydalanabilirsiniz.
+                  10.000+ kanal ve isteğe bağlı video (VOD) içeriği arasında kaybolmamak için iyi bir kanal yönetimi şarttır. M3u formatlı listelerin nasıl düzenleneceği konusunda rehberlerimizden faydalanabilirsiniz.
                 </p>
               </div>
             </div>
 
             <h2 className="text-3xl font-bold mb-6 text-white tracking-tight">Tüm Cihazlar İçin Kapsamlı Kurulum Rehberleri</h2>
             <p className="text-slate-300 mb-8">
-              Platformumuzda, pazarın önde gelen cihazları için resimli ve adım adım anlatımlı rehberler sunuyoruz. Örneğin, evinizde bir akıllı televizyon varsa <Link to="/installation" className="font-semibold underline decoration-blue-500/30 underline-offset-4 hover:decoration-blue-500 transition-all">Smart TV IPTV kurulumu</Link> rehberimizi inceleyebilirsiniz.
+              Platformumuzda, pazarın önde gelen cihazları için resimli ve adım adım anlatımlı rehberler sunuyoruz. Örneğin, evinizde bir akıllı televizyon varsa <Link to="/kurulum/smart-tv" className="font-semibold underline decoration-blue-500/30 underline-offset-4 hover:decoration-blue-500 transition-all">Smart TV IPTV kurulumu</Link> rehberimizi inceleyebilirsiniz.
             </p>
 
-            <div className="mt-12 bg-gradient-to-br from-slate-800/40 to-slate-900/40 p-8 md:p-10 rounded-[2rem] border border-white/5 shadow-inner">
+            <div className="mt-12 bg-gradient-to-br from-[#0a0a0a]/40 to-[#141414]/40 p-8 md:p-10 rounded-[2rem] border border-white/5 shadow-inner">
               <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
                 <Sparkles className="w-8 h-8 text-blue-400" /> Neden Bizi Tercih Etmelisiniz?
               </h3>
@@ -176,12 +199,12 @@ const BlogListPage = ({ siteData }) => {
                   <span><strong>Güncel ve Doğru Bilgi:</strong> Teknolojik gelişmeleri yakından takip ederek içeriklerimizi sürekli güncelliyoruz.</span>
                 </li>
                 <li className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                  <span className="text-purple-400 text-xl font-bold mt-0.5">02</span>
+                  <span className="text-primary text-xl font-bold mt-0.5">02</span>
                   <span><strong>Kolay Anlaşılır Dil:</strong> Teknik terimleri boğmadan, herkesin anlayabileceği sadelikte anlatımlar sunuyoruz.</span>
                 </li>
                 <li className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                  <span className="text-cyan-400 text-xl font-bold mt-0.5">03</span>
-                  <span><strong>Çözüm Odaklı Yaklaşım:</strong> Sık karşılaşılan problemlere anında çözüm üreten <Link to="/faq" className="font-semibold">Sıkça Sorulan Sorular</Link> bölümümüzle destek sağlıyoruz.</span>
+                  <span className="text-[#e50914] text-xl font-bold mt-0.5">03</span>
+                  <span><strong>Çözüm Odaklı Yaklaşım:</strong> Sık karşılaşılan problemlere anında çözüm üreten <Link to="/sss" className="font-semibold">Sıkça Sorulan Sorular</Link> bölümümüzle destek sağlıyoruz.</span>
                 </li>
               </ul>
             </div>
@@ -190,6 +213,10 @@ const BlogListPage = ({ siteData }) => {
               Teknoloji blogumuzu düzenli takip ederek, eğlence sisteminizden her zaman en yüksek verimi alabilir, yeni çıkan uygulamalar ve donanımlar hakkında ilk siz bilgi sahibi olabilirsiniz.
             </p>
           </section>
+
+          <div className="container mx-auto px-4 max-w-6xl">
+            <InternalLinkingOptimization currentPage="blog" />
+          </div>
 
         </main>
         

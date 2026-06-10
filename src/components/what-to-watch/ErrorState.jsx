@@ -24,7 +24,7 @@ const ErrorState = ({ message, details, onRetry, retryCount, maxRetries }) => {
       </p>
 
       {details && (
-        <p className="text-sm text-slate-500 mb-8 bg-slate-900/50 p-3 rounded-lg border border-slate-800 w-full">
+        <p className="text-sm text-slate-500 mb-8 bg-[#0a0a0a]/50 p-3 rounded-lg border border-slate-800 w-full">
           {details}
         </p>
       )}

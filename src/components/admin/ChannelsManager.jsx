@@ -11,7 +11,7 @@ import { seedChannelsToSupabase } from '@/utils/seedChannels';
 import { useChannelsRealtime } from '@/hooks/useChannelsRealtime';
 
 const ChannelsManager = ({ triggerAdd, setChannelStats }) => {
-  const { channels, loading, error, refetch, deleteChannel } = useChannelsRealtime();
+  const { channels, loading, error, refetch, deleteChannel } = useChannelsRealtime({ enableRealtime: true });
   const [isSeeding, setIsSeeding] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({ category: 'all', status: 'all' });
@@ -95,11 +95,11 @@ const ChannelsManager = ({ triggerAdd, setChannelStats }) => {
 
   if (error && channels.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 bg-slate-900 border border-slate-800 rounded-xl">
+      <div className="flex flex-col items-center justify-center py-20 bg-[#0a0a0a] border border-slate-800 rounded-xl">
         <AlertCircle className="w-10 h-10 text-red-500 mb-4" />
         <p className="text-white font-medium mb-2">Kanallar yüklenirken bir hata oluştu</p>
         <p className="text-slate-400 mb-6 text-sm">{error}</p>
-        <Button onClick={refetch} className="bg-purple-600 hover:bg-purple-700 text-white">
+        <Button onClick={refetch} className="bg-primary hover:bg-primary text-white">
           <RefreshCw className="w-4 h-4 mr-2" /> Tekrar Dene
         </Button>
       </div>
@@ -114,7 +114,7 @@ const ChannelsManager = ({ triggerAdd, setChannelStats }) => {
   return (
     <div className="space-y-6">
       {channels.length < 5 && !loading && (
-        <div className="bg-blue-900/20 border border-blue-800 p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-[#0a0a0a]/20 border border-blue-800 p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <h3 className="text-blue-400 font-semibold flex items-center gap-2">
               <Database className="w-4 h-4" />
@@ -127,7 +127,7 @@ const ChannelsManager = ({ triggerAdd, setChannelStats }) => {
           <Button 
             onClick={handleSeedChannels} 
             disabled={isSeeding} 
-            className="bg-blue-600 hover:bg-blue-700 text-white whitespace-nowrap"
+            className="bg-[#141414] hover:bg-[#0a0a0a] text-white whitespace-nowrap"
           >
             {isSeeding ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Database className="w-4 h-4 mr-2" />}
             Örnek Kanalları Yükle
@@ -151,7 +151,7 @@ const ChannelsManager = ({ triggerAdd, setChannelStats }) => {
       />
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="bg-slate-900 border-slate-800 text-white sm:max-w-[500px]">
+        <DialogContent className="bg-[#0a0a0a] border-slate-800 text-white sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>{editingChannel ? 'Kanalı Düzenle' : 'Yeni Kanal Ekle'}</DialogTitle>
           </DialogHeader>

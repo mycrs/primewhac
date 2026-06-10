@@ -45,11 +45,11 @@ const BlogTab = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-md">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[#0a0a0a] p-4 rounded-xl border border-slate-800 shadow-md">
         <div>
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
             Blog Yönetimi
-            <span className="bg-purple-600/20 text-purple-400 text-xs px-2 py-1 rounded-full font-medium">
+            <span className="bg-primary/20 text-primary text-xs px-2 py-1 rounded-full font-medium">
               {posts.length} Yazı
             </span>
           </h2>
@@ -57,11 +57,11 @@ const BlogTab = () => {
         </div>
         
         <div className="flex gap-3 w-full sm:w-auto">
-          <Button onClick={handleRefresh} variant="outline" className="border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800">
+          <Button onClick={handleRefresh} variant="outline" className="border-slate-700 text-slate-400 hover:text-white hover:bg-[#0a0a0a]">
             <RefreshCw className={`w-4 h-4 sm:mr-2 ${loading ? 'animate-spin' : ''}`} />
             <span className="hidden sm:inline">Yenile</span>
           </Button>
-          <Button onClick={handleOpenNewModal} className="bg-purple-600 hover:bg-purple-500 text-white w-full sm:w-auto">
+          <Button onClick={handleOpenNewModal} className="bg-primary hover:bg-primary text-white w-full sm:w-auto">
             <Plus className="w-4 h-4 mr-2" /> Yeni Blog Yazısı Ekle
           </Button>
         </div>
@@ -70,37 +70,37 @@ const BlogTab = () => {
       {loading && posts.length === 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1,2,3,4,5,6].map(i => (
-            <div key={i} className="bg-slate-900 border border-slate-800 rounded-xl p-4 h-40 animate-pulse flex items-center gap-4">
-              <div className="w-24 h-24 bg-slate-800 rounded-lg shrink-0"></div>
+            <div key={i} className="bg-[#0a0a0a] border border-slate-800 rounded-xl p-4 h-40 animate-pulse flex items-center gap-4">
+              <div className="w-24 h-24 bg-[#0a0a0a] rounded-lg shrink-0"></div>
               <div className="flex-1 space-y-3">
-                <div className="h-4 bg-slate-800 rounded w-3/4"></div>
-                <div className="h-3 bg-slate-800 rounded w-1/2"></div>
+                <div className="h-4 bg-[#0a0a0a] rounded w-3/4"></div>
+                <div className="h-3 bg-[#0a0a0a] rounded w-1/2"></div>
               </div>
             </div>
           ))}
         </div>
       ) : posts.length === 0 ? (
-        <div className="text-center py-16 bg-slate-900 border border-dashed border-slate-700 rounded-xl">
+        <div className="text-center py-16 bg-[#0a0a0a] border border-dashed border-slate-700 rounded-xl">
           <h3 className="text-lg font-medium text-white mb-2">Henüz Blog Yazısı Yok</h3>
           <p className="text-slate-400 mb-6">Sitenizde gösterecek herhangi bir blog yazısı bulunmuyor.</p>
-          <Button onClick={handleOpenNewModal} className="bg-purple-600 hover:bg-purple-500 text-white">
+          <Button onClick={handleOpenNewModal} className="bg-primary hover:bg-primary text-white">
             <Plus className="w-4 h-4 mr-2" /> İlk Yazıyı Oluştur
           </Button>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {posts.map(post => (
-            <div key={post.id} className="group bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-900/10 flex flex-col">
-              <div className="relative h-40 bg-slate-800 overflow-hidden">
+            <div key={post.id} className="group bg-[#0a0a0a] border border-slate-800 rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 flex flex-col">
+              <div className="relative h-40 bg-[#0a0a0a] overflow-hidden">
                 {post.cover_image_url ? (
                   <img 
                     src={post.cover_image_url} 
-                    alt={post.title} 
+                    alt={`${post.title} kapak görseli`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy" 
                   />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center text-slate-600 gap-2 bg-slate-800/50">
+                  <div className="w-full h-full flex flex-col items-center justify-center text-slate-600 gap-2 bg-[#0a0a0a]/50">
                     <ImageIcon className="w-8 h-8 opacity-50" />
                   </div>
                 )}
@@ -115,12 +115,12 @@ const BlogTab = () => {
               </div>
               
               <div className="p-4 flex-1 flex flex-col">
-                <div className="flex items-center gap-2 text-xs text-purple-400 mb-2 font-medium">
-                  <span className="bg-purple-500/10 px-2 py-0.5 rounded">{post.category || 'Genel'}</span>
+                <div className="flex items-center gap-2 text-xs text-primary mb-2 font-medium">
+                  <span className="bg-primary/10 px-2 py-0.5 rounded">{post.category || 'Genel'}</span>
                   <span className="text-slate-500">•</span>
                   <span className="text-slate-400">{new Date(post.created_at).toLocaleDateString('tr-TR')}</span>
                 </div>
-                <h3 className="font-bold text-white text-base line-clamp-2 mb-1 group-hover:text-purple-300 transition-colors" title={post.title}>
+                <h3 className="font-bold text-white text-base line-clamp-2 mb-1 group-hover:text-primary transition-colors" title={post.title}>
                   {post.title}
                 </h3>
                 <p className="text-xs text-slate-400 line-clamp-2 mt-1">

@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
 import { motion } from 'framer-motion';
 import {
   Home,
@@ -19,6 +19,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useSiteData } from '@/hooks/useSiteData';
 import { defaultData } from '@/data/defaultSiteData';
+import { SITE_URL } from '@/constants/siteUrl';
 
 const quickLinksTR = [
   { label: 'Ana Sayfa', path: '/', icon: Home },
@@ -62,25 +63,28 @@ const NotFoundPage = () => {
   const testLabel = isDe ? 'Kostenlos testen' : 'Ücretsiz test';
   const packagesLabel = isDe ? 'Pakete ansehen' : 'Paketlere git';
 
+  const canonicalUrl = isDe ? `${SITE_URL}/de` : `${SITE_URL}/`;
+
   return (
     <>
-      <Helmet>
-        <title>{title} | PrimeWatch TV</title>
-        <meta name="description" content={isDe ? 'Die angeforderte Seite wurde nicht gefunden.' : 'Aradığınız sayfa bulunamadı. Ana sayfa, paketler veya ücretsiz test sayfalarına gidebilirsiniz.'} />
-        <meta name="robots" content="noindex, follow" />
-      </Helmet>
+      <SEOHead
+        title={`${title} | QruzeTV`}
+        description={isDe ? 'Die angeforderte Seite wurde nicht gefunden.' : 'Aradığınız sayfa bulunamadı. Ana sayfa, paketler veya ücretsiz test sayfalarına gidebilirsiniz.'}
+        canonicalUrl={canonicalUrl}
+        robotsContent="noindex, follow"
+      />
 
-      <div className="min-h-screen bg-[#0F0F1E] flex flex-col text-white selection:bg-purple-500/30">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col text-white selection:bg-white/20">
         <Header contactData={safeContact} />
 
         <main className="flex-1 flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] pt-20 pb-16 px-4 relative overflow-hidden">
           {/* Arka plan: grid + gradient orbs */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-600/15 rounded-full blur-[140px]" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/15 rounded-full blur-[140px]" />
             <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-1/3 left-0 w-[300px] h-[300px] bg-violet-600/10 rounded-full blur-[80px]" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0F0F1E]/80" />
+            <div className="absolute bottom-1/3 left-0 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a]/80" />
           </div>
 
           <motion.section
@@ -91,7 +95,7 @@ const NotFoundPage = () => {
           >
             {/* Ana kart: cam efekti + animasyonlu kenarlık */}
             <motion.div
-              className="relative rounded-3xl p-8 sm:p-10 border border-white/10 bg-slate-900/40 backdrop-blur-xl shadow-2xl"
+              className="relative rounded-3xl p-8 sm:p-10 border border-white/10 bg-[#0a0a0a]/40 backdrop-blur-xl shadow-2xl"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.5 }}
@@ -100,7 +104,7 @@ const NotFoundPage = () => {
               }}
             >
               {/* Üst köşe vurgu */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-purple-500/60 to-transparent" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-[#e50914]/60 to-transparent" />
               <div className="absolute top-4 right-4 flex items-center gap-1.5 text-slate-500 text-xs">
                 <span className="w-2 h-2 rounded-full bg-amber-500/80 animate-pulse" />
                 {isDe ? 'Offline' : 'Yayın yok'}
@@ -116,7 +120,7 @@ const NotFoundPage = () => {
                 >
                   <span className="text-6xl sm:text-7xl md:text-8xl font-black tabular-nums tracking-tighter text-white/90 drop-shadow-lg">4</span>
                   <motion.span
-                    className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-br from-purple-600/80 to-pink-600/80 border border-white/20 shadow-lg"
+                    className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-br from-[#e50914]/80 to-[#b20710]/80 border border-white/20 shadow-lg"
                     animate={{
                       rotate: [0, -3, 3, 0],
                       scale: [1, 1.02, 1],
@@ -155,7 +159,7 @@ const NotFoundPage = () => {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold shadow-lg shadow-emerald-500/25 border-0 rounded-xl h-12 px-6"
+                  className="bg-gradient-to-r from-[#e50914] to-green-600 hover:from-[#e50914] hover:to-green-500 text-white font-bold shadow-lg shadow-emerald-500/25 border-0 rounded-xl h-12 px-6"
                 >
                   <Link to={isDe ? '/de/test' : '/test'}>
                     <FlaskConical className="mr-2 h-5 w-5" />
@@ -166,7 +170,7 @@ const NotFoundPage = () => {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="border-purple-500/50 text-purple-300 hover:bg-purple-500/20 hover:text-white font-semibold rounded-xl h-12 px-6"
+                  className="border-primary/50 text-primary hover:bg-primary/20 hover:text-white font-semibold rounded-xl h-12 px-6"
                 >
                   <Link to={isDe ? '/de/paketler' : '/paketler'}>
                     <Package className="mr-2 h-5 w-5" />
@@ -236,7 +240,7 @@ const NotFoundPage = () => {
               transition={{ delay: 1 }}
             >
               <Sparkles className="w-3.5 h-3.5" />
-              {isDe ? 'PrimeWatch TV · Premium IPTV' : 'PrimeWatch TV · Kesintisiz yayın'}
+              {isDe ? 'QruzeTV · Premium IPTV' : 'QruzeTV · Kesintisiz yayın'}
             </motion.p>
           </motion.section>
         </main>

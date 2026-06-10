@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
+import { pingIndexNowBlogSlug } from '@/utils/pingIndexNow';
 
 const AddBlogPostModal = ({ isOpen, onClose, postToEdit, onSuccess }) => {
   const [loading, setLoading] = useState(false);
@@ -89,17 +90,24 @@ const AddBlogPostModal = ({ isOpen, onClose, postToEdit, onSuccess }) => {
         author_bio: formData.author_bio,
         author_image: formData.author_image,
         seo_title: formData.seo_title,
-        seo_description: formData.seo_description
+        seo_description: formData.seo_description,
+        ...(postToEdit ? {} : { published_at: new Date().toISOString() }),
       };
 
       if (postToEdit) {
         const { error } = await supabase.from('blog_posts').update(postData).eq('id', postToEdit.id);
         if (error) throw error;
         toast({ title: "Başarılı", description: "Yazı güncellendi." });
+        if (postToEdit.published_at && formData.slug) {
+          void pingIndexNowBlogSlug(formData.slug);
+        }
       } else {
         const { error } = await supabase.from('blog_posts').insert([postData]);
         if (error) throw error;
         toast({ title: "Başarılı", description: "Yeni yazı eklendi." });
+        if (formData.slug) {
+          void pingIndexNowBlogSlug(formData.slug);
+        }
       }
       
       onSuccess();
@@ -114,7 +122,7 @@ const AddBlogPostModal = ({ isOpen, onClose, postToEdit, onSuccess }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-slate-950 border-slate-800 text-white">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0a0a0a] border-slate-800 text-white">
         <DialogHeader>
           <DialogTitle>{postToEdit ? 'Yazıyı Düzenle' : 'Yeni Yazı Ekle'}</DialogTitle>
         </DialogHeader>
@@ -122,58 +130,58 @@ const AddBlogPostModal = ({ isOpen, onClose, postToEdit, onSuccess }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="title">Başlık *</Label>
-              <Input id="title" name="title" value={formData.title} onChange={handleChange} required className="bg-slate-900 border-slate-700 text-white" />
+              <Input id="title" name="title" value={formData.title} onChange={handleChange} required className="bg-[#0a0a0a] border-slate-700 text-white" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="slug">URL (Slug) *</Label>
-              <Input id="slug" name="slug" value={formData.slug} onChange={handleChange} required className="bg-slate-900 border-slate-700 text-white" />
+              <Input id="slug" name="slug" value={formData.slug} onChange={handleChange} required className="bg-[#0a0a0a] border-slate-700 text-white" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="category">Kategori</Label>
-              <Input id="category" name="category" value={formData.category} onChange={handleChange} className="bg-slate-900 border-slate-700 text-white" />
+              <Input id="category" name="category" value={formData.category} onChange={handleChange} className="bg-[#0a0a0a] border-slate-700 text-white" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="tags">Etiketler (Virgülle ayırın)</Label>
-              <Input id="tags" name="tags" value={formData.tags} onChange={handleChange} className="bg-slate-900 border-slate-700 text-white" />
+              <Input id="tags" name="tags" value={formData.tags} onChange={handleChange} className="bg-[#0a0a0a] border-slate-700 text-white" />
             </div>
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="excerpt">Özet (Excerpt)</Label>
-              <Textarea id="excerpt" name="excerpt" value={formData.excerpt} onChange={handleChange} className="bg-slate-900 border-slate-700 text-white" rows={2} />
+              <Textarea id="excerpt" name="excerpt" value={formData.excerpt} onChange={handleChange} className="bg-[#0a0a0a] border-slate-700 text-white" rows={2} />
             </div>
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="content">İçerik *</Label>
-              <Textarea id="content" name="content" value={formData.content} onChange={handleChange} required className="bg-slate-900 border-slate-700 text-white min-h-[200px]" />
+              <Textarea id="content" name="content" value={formData.content} onChange={handleChange} required className="bg-[#0a0a0a] border-slate-700 text-white min-h-[200px]" />
             </div>
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="cover_image_url">Kapak Görseli URL</Label>
-              <Input id="cover_image_url" name="cover_image_url" value={formData.cover_image_url} onChange={handleChange} className="bg-slate-900 border-slate-700 text-white" />
+              <Input id="cover_image_url" name="cover_image_url" value={formData.cover_image_url} onChange={handleChange} className="bg-[#0a0a0a] border-slate-700 text-white" />
             </div>
             
             {/* SEO & Author Section */}
             <div className="space-y-2">
               <Label htmlFor="author">Yazar</Label>
-              <Input id="author" name="author" value={formData.author} onChange={handleChange} className="bg-slate-900 border-slate-700 text-white" />
+              <Input id="author" name="author" value={formData.author} onChange={handleChange} className="bg-[#0a0a0a] border-slate-700 text-white" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="author_image">Yazar Görsel URL</Label>
-              <Input id="author_image" name="author_image" value={formData.author_image} onChange={handleChange} className="bg-slate-900 border-slate-700 text-white" />
+              <Input id="author_image" name="author_image" value={formData.author_image} onChange={handleChange} className="bg-[#0a0a0a] border-slate-700 text-white" />
             </div>
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="author_bio">Yazar Biyografisi</Label>
-              <Textarea id="author_bio" name="author_bio" value={formData.author_bio} onChange={handleChange} className="bg-slate-900 border-slate-700 text-white" rows={2} />
+              <Textarea id="author_bio" name="author_bio" value={formData.author_bio} onChange={handleChange} className="bg-[#0a0a0a] border-slate-700 text-white" rows={2} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="seo_title">SEO Başlık</Label>
-              <Input id="seo_title" name="seo_title" value={formData.seo_title} onChange={handleChange} className="bg-slate-900 border-slate-700 text-white" />
+              <Input id="seo_title" name="seo_title" value={formData.seo_title} onChange={handleChange} className="bg-[#0a0a0a] border-slate-700 text-white" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="seo_description">SEO Açıklama</Label>
-              <Textarea id="seo_description" name="seo_description" value={formData.seo_description} onChange={handleChange} className="bg-slate-900 border-slate-700 text-white" rows={2} />
+              <Textarea id="seo_description" name="seo_description" value={formData.seo_description} onChange={handleChange} className="bg-[#0a0a0a] border-slate-700 text-white" rows={2} />
             </div>
           </div>
           <DialogFooter className="mt-6">
-            <Button type="button" variant="outline" onClick={onClose} className="border-slate-700 text-white hover:bg-slate-800">İptal</Button>
-            <Button type="submit" disabled={loading} className="bg-purple-600 hover:bg-purple-700 text-white">
+            <Button type="button" variant="outline" onClick={onClose} className="border-slate-700 text-white hover:bg-[#0a0a0a]">İptal</Button>
+            <Button type="submit" disabled={loading} className="bg-primary hover:bg-primary text-white">
               {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
               {postToEdit ? 'Güncelle' : 'Kaydet'}
             </Button>

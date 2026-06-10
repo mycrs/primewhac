@@ -64,21 +64,21 @@ const SearchBar = ({ onSearch }) => {
       <div className="flex justify-center mb-4 gap-2">
         <button 
           onClick={() => setSearchType('movie')}
-          className={`px-4 py-2 rounded-full flex items-center gap-2 text-sm font-bold transition-all ${searchType === 'movie' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}
+          className={`px-4 py-2 rounded-full flex items-center gap-2 text-sm font-bold transition-all ${searchType === 'movie' ? 'bg-primary text-white' : 'bg-[#0a0a0a] text-slate-400 hover:text-white'}`}
         >
           <Film className="w-4 h-4" /> Filmler
         </button>
         <button 
           onClick={() => setSearchType('tv')}
-          className={`px-4 py-2 rounded-full flex items-center gap-2 text-sm font-bold transition-all ${searchType === 'tv' ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'}`}
+          className={`px-4 py-2 rounded-full flex items-center gap-2 text-sm font-bold transition-all ${searchType === 'tv' ? 'bg-primary text-white' : 'bg-[#0a0a0a] text-slate-400 hover:text-white'}`}
         >
           <Tv className="w-4 h-4" /> Diziler
         </button>
       </div>
 
-      <div className="relative flex items-center bg-slate-900 border border-slate-700 rounded-full shadow-lg">
+      <div className="relative flex items-center bg-[#0a0a0a] border border-slate-700 rounded-full shadow-lg">
         <div className="pl-4 text-slate-400">
-          {loading ? <Loader2 className="w-5 h-5 animate-spin text-purple-400" /> : <Search className="w-5 h-5" />}
+          {loading ? <Loader2 className="w-5 h-5 animate-spin text-primary" /> : <Search className="w-5 h-5" />}
         </div>
         <input
           type="text"
@@ -97,19 +97,20 @@ const SearchBar = ({ onSearch }) => {
       </div>
 
       {showDropdown && suggestions.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl overflow-hidden">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-[#0a0a0a] border border-slate-800 rounded-xl shadow-2xl overflow-hidden">
           {suggestions.map((item) => (
             <div 
               key={item.id}
-              onClick={() => { navigate(`/what-to-watch/${item.id}?type=${item.media_type}`); setShowDropdown(false); }}
-              className="flex items-center gap-4 p-3 hover:bg-slate-800 cursor-pointer transition-colors"
+              onClick={() => { navigate(`/ne-izlesem/${item.id}?type=${item.media_type}`); setShowDropdown(false); }}
+              className="flex items-center gap-4 p-3 hover:bg-[#0a0a0a] cursor-pointer transition-colors"
             >
               <img 
                 src={item.poster_path ? `https://image.tmdb.org/t/p/w92${item.poster_path}` : 'https://via.placeholder.com/92x138'} 
-                alt="" className="w-10 h-14 object-cover rounded bg-slate-800" 
+                alt={`${item.title || item.name} posteri`}
+                className="w-10 h-14 object-cover rounded bg-[#0a0a0a]" 
               />
               <div>
-                <h4 className="text-white font-medium text-sm">{item.title || item.name}</h4>
+                <p className="text-white font-medium text-sm">{item.title || item.name}</p>
                 <p className="text-xs text-slate-400">{(item.release_date || item.first_air_date)?.substring(0, 4) || 'N/A'}</p>
               </div>
             </div>

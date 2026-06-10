@@ -129,7 +129,7 @@ const WelcomeImageTab = ({ siteData, setSiteData }) => {
     >
       <div className="space-y-6">
         {images.length === 0 && (
-            <div className="text-center py-10 bg-slate-800/50 rounded-xl border border-dashed border-slate-600">
+            <div className="text-center py-10 bg-[#0a0a0a]/50 rounded-xl border border-dashed border-slate-600">
                 <ImageIcon className="w-12 h-12 text-slate-500 mx-auto mb-3" />
                 <h3 className="text-lg font-medium text-white">Henüz Görsel Yok</h3>
                 <p className="text-slate-400 mb-4">Ana sayfada gösterilecek bir görsel ekleyerek başlayın.</p>
@@ -140,13 +140,13 @@ const WelcomeImageTab = ({ siteData, setSiteData }) => {
         )}
 
         {images.sort((a, b) => (parseInt(a.order) || 0) - (parseInt(b.order) || 0)).map((image, index) => (
-          <Card key={image.id} className="bg-slate-800 border-slate-700 overflow-hidden">
-            <CardHeader className="flex flex-row items-center justify-between py-3 px-6 bg-slate-900/50 border-b border-slate-700">
+          <Card key={image.id} className="bg-[#0a0a0a] border-slate-700 overflow-hidden">
+            <CardHeader className="flex flex-row items-center justify-between py-3 px-6 bg-[#0a0a0a]/50 border-b border-slate-700">
               <div className="flex items-center gap-3">
-                 <div className="p-1.5 bg-slate-700 rounded cursor-grab active:cursor-grabbing text-slate-400 hover:text-white transition-colors">
+                 <div className="p-1.5 bg-[#0a0a0a] rounded cursor-grab active:cursor-grabbing text-slate-400 hover:text-white transition-colors">
                     <GripVertical className="w-4 h-4" />
                  </div>
-                 <span className="font-bold text-white bg-slate-700 w-6 h-6 rounded-full flex items-center justify-center text-xs">
+                 <span className="font-bold text-white bg-[#0a0a0a] w-6 h-6 rounded-full flex items-center justify-center text-xs">
                     {index + 1}
                  </span>
                  <span className="text-sm font-medium text-slate-300">Slayt</span>
@@ -170,7 +170,7 @@ const WelcomeImageTab = ({ siteData, setSiteData }) => {
                       value={image.url}
                       onChange={(e) => handleChange(image.id, 'url', e.target.value)}
                       placeholder="https://..."
-                      className="bg-slate-900 border-slate-700 text-white flex-1 font-mono text-sm"
+                      className="bg-[#0a0a0a] border-slate-700 text-white flex-1 font-mono text-sm"
                     />
                     <div className="relative">
                        <input
@@ -198,7 +198,7 @@ const WelcomeImageTab = ({ siteData, setSiteData }) => {
                             type="number"
                             value={image.order}
                             onChange={(e) => handleChange(image.id, 'order', parseInt(e.target.value) || 0)}
-                            className="bg-slate-900 border-slate-700 text-white"
+                            className="bg-[#0a0a0a] border-slate-700 text-white"
                         />
                     </div>
                 </div>
@@ -209,7 +209,7 @@ const WelcomeImageTab = ({ siteData, setSiteData }) => {
                     value={image.title}
                     onChange={(e) => handleChange(image.id, 'title', e.target.value)}
                     placeholder="Varsayılan metin kullanılır"
-                    className="bg-slate-900 border-slate-700 text-white font-medium"
+                    className="bg-[#0a0a0a] border-slate-700 text-white font-medium"
                   />
                 </div>
 
@@ -219,7 +219,7 @@ const WelcomeImageTab = ({ siteData, setSiteData }) => {
                     value={image.description}
                     onChange={(e) => handleChange(image.id, 'description', e.target.value)}
                     placeholder="Varsayılan açıklama kullanılır"
-                    className="bg-slate-900 border-slate-700 text-white min-h-[80px]"
+                    className="bg-[#0a0a0a] border-slate-700 text-white min-h-[80px]"
                   />
                 </div>
               </div>
@@ -227,12 +227,12 @@ const WelcomeImageTab = ({ siteData, setSiteData }) => {
               {/* Right Column: Preview */}
               <div className="space-y-2">
                 <Label className="text-gray-300">Önizleme</Label>
-                <div className="relative aspect-video w-full rounded-lg border-2 border-slate-700 border-dashed bg-slate-900/50 overflow-hidden flex items-center justify-center group shadow-inner">
+                <div className="relative aspect-video w-full rounded-lg border-2 border-slate-700 border-dashed bg-[#0a0a0a]/50 overflow-hidden flex items-center justify-center group shadow-inner">
                   {image.url ? (
                     <>
                         <img 
                         src={image.url} 
-                        alt="Preview" 
+                        alt="Karşılama görseli önizlemesi" 
                         className="w-full h-full object-cover"
                         onError={(e) => {
                             e.target.style.display = 'none';
@@ -240,7 +240,7 @@ const WelcomeImageTab = ({ siteData, setSiteData }) => {
                         }}
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                            <a href={image.url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-300 flex items-center gap-2 font-medium">
+                            <a href={image.url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary flex items-center gap-2 font-medium">
                                 <ExternalLink className="w-5 h-5" /> Tam Boyut Gör
                             </a>
                         </div>
@@ -261,7 +261,7 @@ const WelcomeImageTab = ({ siteData, setSiteData }) => {
             <Button 
                 variant="outline" 
                 onClick={handleAddImage}
-                className="w-full border-dashed border-2 border-slate-700 bg-slate-900/50 hover:bg-slate-800 text-slate-400 hover:text-white py-8 transition-all"
+                className="w-full border-dashed border-2 border-slate-700 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] text-slate-400 hover:text-white py-8 transition-all"
             >
                 <div className="flex items-center gap-2">
                     <Plus className="w-5 h-5" />

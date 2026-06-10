@@ -9,7 +9,7 @@ import { Loader2, Image as ImageIcon } from 'lucide-react';
 import { useChannelsRealtime } from '@/hooks/useChannelsRealtime';
 
 const ChannelForm = ({ channel, onSuccess, onCancel }) => {
-  const { addChannel, updateChannel } = useChannelsRealtime();
+  const { addChannel, updateChannel } = useChannelsRealtime({ skipInitialFetch: true });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -68,14 +68,14 @@ const ChannelForm = ({ channel, onSuccess, onCancel }) => {
 
   const renderImagePreview = (url, alt) => {
     if (!url) return (
-      <div className="w-full h-24 bg-slate-800 rounded flex items-center justify-center border border-slate-700">
+      <div className="w-full h-24 bg-[#0a0a0a] rounded flex items-center justify-center border border-slate-700">
         <ImageIcon className="w-8 h-8 text-slate-500" />
       </div>
     );
     return (
-      <div className="w-full h-24 bg-slate-800 rounded overflow-hidden border border-slate-700 relative">
-        <img src={url} alt={alt} className="w-full h-full object-contain bg-slate-900/50" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
-        <div className="absolute inset-0 items-center justify-center hidden bg-slate-800 text-xs text-red-400">
+      <div className="w-full h-24 bg-[#0a0a0a] rounded overflow-hidden border border-slate-700 relative">
+        <img src={url} alt={alt} className="w-full h-full object-contain bg-[#0a0a0a]/50" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} />
+        <div className="absolute inset-0 items-center justify-center hidden bg-[#0a0a0a] text-xs text-red-400">
           Geçersiz URL
         </div>
       </div>
@@ -92,7 +92,7 @@ const ChannelForm = ({ channel, onSuccess, onCancel }) => {
           value={formData.name} 
           onChange={handleChange} 
           required 
-          className="bg-slate-950 border-slate-800 text-white"
+          className="bg-[#0a0a0a] border-slate-800 text-white"
           placeholder="Örn: TRT 1"
         />
       </div>
@@ -104,7 +104,7 @@ const ChannelForm = ({ channel, onSuccess, onCancel }) => {
           name="category" 
           value={formData.category} 
           onChange={handleChange} 
-          className="bg-slate-950 border-slate-800 text-white"
+          className="bg-[#0a0a0a] border-slate-800 text-white"
           placeholder="Örn: Ulusal, Spor, Belgesel"
         />
       </div>
@@ -117,7 +117,7 @@ const ChannelForm = ({ channel, onSuccess, onCancel }) => {
             name="logo_url" 
             value={formData.logo_url} 
             onChange={handleChange} 
-            className="bg-slate-950 border-slate-800 text-white"
+            className="bg-[#0a0a0a] border-slate-800 text-white"
             placeholder="https://example.com/logo.png"
           />
           <p className="text-xs text-slate-500 mt-1">Öne çıkan kanallarda net görünmesi için 256×256 veya 512×512 PNG/SVG kullanın.</p>
@@ -134,7 +134,7 @@ const ChannelForm = ({ channel, onSuccess, onCancel }) => {
             name="background_image_url" 
             value={formData.background_image_url} 
             onChange={handleChange} 
-            className="bg-slate-950 border-slate-800 text-white"
+            className="bg-[#0a0a0a] border-slate-800 text-white"
             placeholder="https://example.com/bg.jpg"
           />
           <p className="text-xs text-slate-500 mt-1">Kartta net görünmesi için yüksek çözünürlük kullanın (örn. 600×400 veya 1200×800).</p>
@@ -152,12 +152,12 @@ const ChannelForm = ({ channel, onSuccess, onCancel }) => {
           name="description" 
           value={formData.description} 
           onChange={handleChange} 
-          className="bg-slate-950 border-slate-800 text-white min-h-[80px]"
+          className="bg-[#0a0a0a] border-slate-800 text-white min-h-[80px]"
           placeholder="Kanal hakkında kısa bilgi..."
         />
       </div>
 
-      <div className="flex items-center justify-between p-3 border border-slate-800 rounded-lg bg-slate-950">
+      <div className="flex items-center justify-between p-3 border border-slate-800 rounded-lg bg-[#0a0a0a]">
         <div className="space-y-0.5">
           <Label htmlFor="is_active" className="text-slate-200">Durum</Label>
           <p className="text-sm text-slate-500">Kanal aktif olarak listelenecek mi?</p>
@@ -169,11 +169,11 @@ const ChannelForm = ({ channel, onSuccess, onCancel }) => {
         />
       </div>
 
-      <div className="flex justify-end space-x-2 pt-4 border-t border-slate-800 sticky bottom-0 bg-slate-900 pb-2">
-        <Button type="button" variant="outline" onClick={onCancel} className="bg-transparent border-slate-700 text-white hover:bg-slate-800">
+      <div className="flex justify-end space-x-2 pt-4 border-t border-slate-800 sticky bottom-0 bg-[#0a0a0a] pb-2">
+        <Button type="button" variant="outline" onClick={onCancel} className="bg-transparent border-slate-700 text-white hover:bg-[#0a0a0a]">
           İptal
         </Button>
-        <Button type="submit" disabled={isSubmitting} className="bg-purple-600 hover:bg-purple-700 text-white">
+        <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary text-white">
           {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
           {channel ? 'Güncelle' : 'Ekle'}
         </Button>

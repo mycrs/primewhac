@@ -8,9 +8,12 @@ import SearchBarDE from '@/components/what-to-watch-de/SearchBarDE';
 import FilterAndSortDE from '@/components/what-to-watch-de/FilterAndSortDE';
 import TVShowsGridDE from '@/components/what-to-watch-de/TVShowsGridDE';
 import MoviesGridDE from '@/components/what-to-watch-de/MoviesGridDE';
+import CategoryLinksBar from '@/components/what-to-watch-category/CategoryLinksBar';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Film, Tv, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { whatToWatchPageSchemasDE } from '@/utils/seoSchema';
+import { SITE_URL } from '@/constants/siteUrl';
 
 const WhatToWatchPageDE = ({ siteData }) => {
   const [activeTab, setActiveTab] = useState('tv');
@@ -23,21 +26,45 @@ const WhatToWatchPageDE = ({ siteData }) => {
   };
 
   const metadata = {
-    title: "Was soll ich schauen? - Serien und Filme entdecken",
-    description: "Entdecke die besten Serien und Filme. Finde neue Inhalte basierend auf Genre, Jahr und Bewertung.",
-    keywords: ["Was soll ich schauen", "Filme", "Serien", "Streaming", "Empfehlungen"],
+    title: "Was soll ich schauen? Serien und Filme entdecken | QruzeTV",
+    description: "Türkische Serien, Blockbuster-Filme und Live-TV entdecken. Kuruluş Osman, Netflix-Hits und mehr — alle Inhalte in 4K mit QruzeTV IPTV streamen.",
+    keywords: ["Was soll ich schauen", "Filme", "Serien", "Streaming", "Empfehlungen", "IPTV"],
     ogType: "website"
   };
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Wie finde ich hier passende Filme und Serien?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Sie können nach Typ, Bewertung und Beliebtheit filtern und so schnell passende Inhalte für Ihr IPTV-Erlebnis finden.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Gibt es zu jedem Inhalt eine eigene Detailseite?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Ja. Jede Detailseite zeigt Beschreibung, Bewertung, Besetzung und ähnliche Inhalte.',
+        },
+      },
+    ],
+  };
+  const jsonLd = [...whatToWatchPageSchemasDE(metadata), faqSchema];
 
   return (
-    <div className="min-h-screen bg-slate-950 font-sans text-white selection:bg-pink-500/30 selection:text-pink-200">
-      <SEOHead {...metadata} />
+    <div className="min-h-screen bg-[#0a0a0a] font-sans text-white selection:bg-pink-500/30 selection:text-pink-200">
+      {/* Hub indexlenir; TMDB detayları WhatToWatchDetailPageDE’de noindex */}
+      <SEOHead {...metadata} canonicalUrl={`${SITE_URL}/de/was-soll-ich-schauen`} jsonLd={jsonLd} />
       <HeaderDE contactData={siteData?.contactData} siteTexts={siteData?.siteTexts} />
 
       <style>
         {`
           .premium-seo-container-de {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
             opacity: 0.95;
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.2);
@@ -140,22 +167,29 @@ const WhatToWatchPageDE = ({ siteData }) => {
       </style>
 
       <main className="pt-32 pb-20">
-        <section className="container mx-auto px-4 mb-12 text-center">
+        <section className="container mx-auto mb-12 bg-[#0a0a0a] px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-500">
-              Was soll ich schauen?
+            <h1 className="mb-4 text-4xl font-extrabold text-white md:text-5xl lg:text-6xl">
+              Was soll ich <span className="text-[#e50914]">schauen?</span>
             </h1>
             <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
               Entdecke die besten Serien und Filme. Finde deinen nächsten Lieblingsinhalt ganz einfach.
             </p>
+            <div className="mb-6 flex flex-wrap items-center justify-center gap-3 text-sm">
+              <Link to="/de" className="text-slate-300 underline-offset-4 hover:text-white hover:underline">Startseite</Link>
+              <Link to="/de/pakete" className="text-slate-300 underline-offset-4 hover:text-white hover:underline">IPTV Pakete</Link>
+              <button type="button" onClick={() => setActiveTab('movie')} className="text-slate-300 underline-offset-4 hover:text-white hover:underline">Beliebte Filme</button>
+              <button type="button" onClick={() => setActiveTab('tv')} className="text-slate-300 underline-offset-4 hover:text-white hover:underline">Beliebte Serien</button>
+            </div>
             <SearchBarDE onSearch={handleSearch} />
           </motion.div>
         </section>
 
         <section className="container mx-auto px-4 relative z-10">
+          <CategoryLinksBar lang="de" />
           <Tabs defaultValue="tv" value={activeTab} onValueChange={(v) => { setActiveTab(v); setSearchQuery(''); }} className="w-full">
             <div className="flex justify-center mb-10">
-              <TabsList className="bg-slate-900 border border-slate-800 rounded-full p-1.5 h-auto shadow-xl">
+              <TabsList className="bg-[#0a0a0a] border border-slate-800 rounded-full p-1.5 h-auto shadow-xl">
                 <TabsTrigger value="tv" className="data-[state=active]:bg-pink-600 px-8 py-3 rounded-full text-base font-bold data-[state=active]:text-white text-slate-400 transition-all data-[state=active]:shadow-lg data-[state=active]:shadow-pink-600/30">
                   <Tv className="w-5 h-5 mr-2" /> Beliebte Serien
                 </TabsTrigger>
@@ -254,12 +288,12 @@ const WhatToWatchPageDE = ({ siteData }) => {
               Machen Sie Schluss mit der endlosen Suche und der Frage "Was soll ich schauen?". Mit unserer fortschrittlichen Server-Technologie, Anti-Freeze-Funktion und einem gigantischen VOD- und Live-TV-Archiv bieten wir Ihnen unvergleichliches digitales Entertainment. Sport, Dokus, Kino, Kinderkanäle und vieles mehr – alles vereint in einem einzigen Abonnement.
             </p>
             <p className="premium-p-de mb-8">
-              Finden Sie jetzt die passende Lösung für Ihr Budget und Ihre Bedürfnisse. Besuchen Sie unsere <Link to="/packages" className="premium-link-de">IPTV Pakete</Link>-Seite und verwandeln Sie Ihren Fernseher, Ihr Tablet oder Ihr Smartphone in das ultimative Entertainment-Center.
+              Finden Sie jetzt die passende Lösung für Ihr Budget und Ihre Bedürfnisse. Besuchen Sie unsere <Link to="/de/paketler" className="premium-link-de">IPTV Pakete</Link>-Seite und verwandeln Sie Ihren Fernseher, Ihr Tablet oder Ihr Smartphone in das ultimative Entertainment-Center.
             </p>
 
             <div className="text-center mt-10">
               <Link 
-                to="/packages" 
+                to="/de/paketler" 
                 className="premium-btn-de"
               >
                 <Play className="w-5 h-5 fill-current" /> Pakete ansehen

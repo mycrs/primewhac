@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import React, { useState, useEffect, useRef } from 'react';
+import SEOHead from '@/components/SEOHead';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, FlaskConical, ChevronRight, CheckCircle, PlayCircle, Tv, Smartphone, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -10,15 +10,21 @@ import { cn } from '@/lib/utils';
 import { useTestFormSubmit } from '@/hooks/useTestFormSubmit';
 import { useWhatsAppIntegration } from '@/hooks/useWhatsAppIntegration';
 import { toast } from '@/components/ui/use-toast';
+import { SITE_URL } from '@/constants/siteUrl';
 
 // Import Steps
 import DeviceSelectionStep from '@/components/test-page/DeviceSelectionStep';
 import AppSelectionStep from '@/components/test-page/AppSelectionStep';
 import TestFormDetailsStep from '@/components/test-page/TestFormDetailsStep';
 import TestFormSummary from '@/components/test-page/TestFormSummary';
+import TurkeyPackageWhatsAppWarningDialog from '@/components/packages/TurkeyPackageWhatsAppWarningDialog';
+import LivingRegionSelect, { getLivingRegionWhatsAppLine } from '@/components/LivingRegionSelect';
 
 const TestFormPage = ({ siteData }) => {
   const navigate = useNavigate();
+  const pendingWhatsAppRef = useRef(null);
+  const [trWarningOpen, setTrWarningOpen] = useState(false);
+  const [livingRegion, setLivingRegion] = useState('');
   const [step, setStep] = useState(0);
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [selectedApp, setSelectedApp] = useState(null);
@@ -33,6 +39,10 @@ const TestFormPage = ({ siteData }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
 
+  useEffect(() => {
+    if (livingRegion !== 'not_in_turkey') setTrWarningOpen(false);
+  }, [livingRegion]);
+
   const handleDeviceSelect = (device) => {
     setSelectedDevice(device);
     if (selectedDevice?.id !== device.id) {
@@ -46,49 +56,86 @@ const TestFormPage = ({ siteData }) => {
     setTimeout(() => setStep(2), 300);
   };
 
-  const handleSubmit = async () => {
-    // 1. Prepare data
+  const flushPendingWhatsApp = () => {
+    setTrWarningOpen(false);
+    const pending = pendingWhatsAppRef.current;
+    pendingWhatsAppRef.current = null;
+    if (!pending) return;
+    const { requestData, dbData } = pending;
+    submitTestRequest(dbData).catch((err) => console.error('Background save failed', err));
+    setTimeout(() => {
+      const redirected = redirectToWhatsApp(requestData);
+      if (redirected) {
+        toast({
+          title: 'Harika! 🎉',
+          description: "WhatsApp'a yönlendiriliyorsunuz...",
+          className: 'bg-green-600 border-none text-white shadow-xl'
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'WhatsApp Numarası Eksik',
+          description: 'Lütfen admin panelinden İletişim Bilgileri veya Sistem Ayarları bölümüne WhatsApp numarası ekleyin.'
+        });
+      }
+    }, 1000);
+  };
+
+  const handleSubmit = () => {
+    if (!livingRegion) {
+      toast({
+        variant: 'destructive',
+        title: 'Eksik bilgi',
+        description: 'Lütfen yaşadığınız bölgeyi seçin.',
+      });
+      return;
+    }
+    const tvBrandInfo = formData.tv_brand ? ` (${formData.tv_brand})` : '';
+    const livingRegionMessage = getLivingRegionWhatsAppLine(livingRegion, 'tr');
     const requestData = {
       username: formData.username,
       special_note: formData.special_note,
-      device: selectedDevice?.name,
-      app: selectedApp?.name
+      device: selectedDevice?.name + tvBrandInfo,
+      app: selectedApp?.name,
+      livingRegionMessage,
     };
-
     const dbData = {
       username: formData.username,
       special_note: formData.special_note,
-      device_type: selectedDevice?.name,
+      device_type: selectedDevice?.name + tvBrandInfo,
       app_name: selectedApp?.name,
       status: 'pending'
     };
+    pendingWhatsAppRef.current = { requestData, dbData };
+    if (livingRegion === 'not_in_turkey') {
+      setTrWarningOpen(true);
+      return;
+    }
+    flushPendingWhatsApp();
+  };
 
-    // 2. Optimistic submission (Fire and forget DB, redirect user immediately)
-    submitTestRequest(dbData).catch(err => console.error("Background save failed", err));
-
-    // 3. Show success message
-    toast({
-        title: "Harika! 🎉",
-        description: "WhatsApp'a yönlendiriliyorsunuz...",
-        className: "bg-green-600 border-none text-white shadow-xl"
-    });
-
-    // 4. Redirect
-    setTimeout(() => {
-        redirectToWhatsApp(requestData);
-    }, 1000);
+  const handleTurkeyWarningContinue = () => {
+    flushPendingWhatsApp();
   };
 
   const nextStep = () => setStep(prev => Math.min(prev + 1, 3));
   const prevStep = () => setStep(prev => Math.max(prev - 1, 0));
 
+  const seo = {
+    title: 'Ücretsiz Test Yayını Al | QruzeTV',
+    description: 'Ücretsiz IPTV test yayını talep edin. Cihazınızı seçin, uygulamanızı belirleyin ve hemen izlemeye başlayın. Kaliteli IPTV test deneyimi için iptv deneme hesabı oluşturun.',
+    keywords: ['ücretsiz iptv test', 'iptv deneme hesabı', 'kaliteli iptv test', 'donmayan iptv deneme', 'iptv satın al'],
+    canonicalUrl: `${SITE_URL}/test`,
+  };
+
   return (
     <>
-      <Helmet>
-        <title>{`Ücretsiz Test Yayını Al - Adım ${step + 1}/4 | QruzeHD`}</title>
-        <meta name="description" content="Ücretsiz IPTV test yayını talep edin. Cihazınızı seçin, uygulamanızı belirleyin ve hemen izlemeye başlayın. Kaliteli IPTV test deneyimi için iptv deneme hesabı oluşturun." />
-        <meta name="keywords" content="ücretsiz iptv test, iptv deneme hesabı, kaliteli iptv test, donmayan iptv deneme, iptv satın al" />
-      </Helmet>
+      <TurkeyPackageWhatsAppWarningDialog
+        open={trWarningOpen}
+        variant="test"
+        onContinue={handleTurkeyWarningContinue}
+      />
+      <SEOHead {...seo} />
 
       <div className="min-h-screen bg-[#0B0F19] flex flex-col font-sans selection:bg-green-500/30 selection:text-green-200">
         <Header contactData={siteData?.contactData} siteTexts={siteData?.siteTexts} />
@@ -96,7 +143,7 @@ const TestFormPage = ({ siteData }) => {
         <main className="flex-grow pt-24 pb-20 px-4 relative overflow-hidden">
             {/* Background Gradients */}
             <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
-                <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-purple-600/5 blur-[120px] rounded-full"></div>
+                <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-primary/5 blur-[120px] rounded-full"></div>
                 <div className="absolute bottom-[-20%] left-[-10%] w-[800px] h-[800px] bg-green-600/5 blur-[120px] rounded-full"></div>
             </div>
 
@@ -106,7 +153,7 @@ const TestFormPage = ({ siteData }) => {
                     <Button 
                         variant="ghost" 
                         onClick={() => step === 0 ? navigate('/') : prevStep()}
-                        className="text-slate-400 hover:text-white hover:bg-slate-800/50 pl-2 pr-4 rounded-full"
+                        className="text-slate-400 hover:text-white hover:bg-[#0a0a0a]/50 pl-2 pr-4 rounded-full"
                     >
                         <ChevronLeft className="w-5 h-5 mr-1" />
                         {step === 0 ? "Anasayfaya Dön" : "Geri Dön"}
@@ -122,6 +169,15 @@ const TestFormPage = ({ siteData }) => {
                     </p>
                 </div>
 
+                <div className="mb-8 max-w-xl mx-auto rounded-2xl border border-slate-800/80 bg-[#0a0a0a]/30 p-4 sm:p-5">
+                  <LivingRegionSelect
+                    value={livingRegion}
+                    onChange={setLivingRegion}
+                    lang="tr"
+                    isTest
+                  />
+                </div>
+
                 {/* Progress Bar */}
                 <div className="mb-12 max-w-xl mx-auto">
                     <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">
@@ -130,9 +186,9 @@ const TestFormPage = ({ siteData }) => {
                         <span className={cn(step >= 2 && "text-green-500")}>Bilgiler</span>
                         <span className={cn(step >= 3 && "text-green-500")}>Onay</span>
                     </div>
-                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-2 bg-[#0a0a0a] rounded-full overflow-hidden">
                         <motion.div 
-                            className="h-full bg-gradient-to-r from-green-600 to-emerald-400"
+                            className="h-full bg-gradient-to-r from-green-600 to-[#b20710]"
                             initial={{ width: "0%" }}
                             animate={{ width: `${((step + 1) / 4) * 100}%` }}
                             transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -160,10 +216,11 @@ const TestFormPage = ({ siteData }) => {
                                 />
                             )}
                             {step === 1 && (
-                                <AppSelectionStep 
-                                    selectedDevice={selectedDevice} 
-                                    selectedApp={selectedApp} 
-                                    onSelect={handleAppSelect} 
+                                <AppSelectionStep
+                                    appsData={siteData?.appsData}
+                                    selectedDevice={selectedDevice}
+                                    selectedApp={selectedApp}
+                                    onSelect={handleAppSelect}
                                 />
                             )}
                             {step === 2 && (
@@ -171,6 +228,7 @@ const TestFormPage = ({ siteData }) => {
                                     formData={formData} 
                                     onChange={(key, val) => setFormData(prev => ({...prev, [key]: val}))} 
                                     setIsValid={setIsFormValid}
+                                    selectedDevice={selectedDevice}
                                 />
                             )}
                             {step === 3 && (
@@ -181,6 +239,8 @@ const TestFormPage = ({ siteData }) => {
                                     onEditStep={(s) => setStep(s)}
                                     onSubmit={handleSubmit}
                                     loading={loading}
+                                    livingRegionRequired
+                                    livingRegion={livingRegion}
                                 />
                             )}
                         </motion.div>
@@ -196,8 +256,8 @@ const TestFormPage = ({ siteData }) => {
                             className={cn(
                                 "h-14 px-8 text-lg font-bold rounded-xl transition-all duration-300",
                                 isFormValid 
-                                    ? "bg-white text-black hover:bg-slate-200 shadow-lg hover:shadow-xl hover:scale-105" 
-                                    : "bg-slate-800 text-slate-500 cursor-not-allowed"
+                                    ? "bg-white text-black hover:bg-[#141414] shadow-lg hover:shadow-xl hover:scale-105" 
+                                    : "bg-[#0a0a0a] text-slate-500 cursor-not-allowed"
                             )}
                         >
                             İlerleyen Adım <ChevronRight className="w-5 h-5 ml-2" />

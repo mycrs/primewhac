@@ -27,7 +27,7 @@ const ChannelsSearch = ({ onSearch, onFilterChange, filters, categories, resultC
   const hasActiveFilters = filters.category !== 'all' || filters.status !== 'all';
 
   return (
-    <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800 space-y-4">
+    <div className="bg-[#0a0a0a]/50 p-4 rounded-xl border border-slate-800 space-y-4">
       <div className="flex flex-col md:flex-row gap-4">
         {/* Search Input */}
         <div className="relative flex-1">
@@ -36,7 +36,7 @@ const ChannelsSearch = ({ onSearch, onFilterChange, filters, categories, resultC
             placeholder="Kanal adı veya açıklama ile ara..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 pr-10 bg-slate-950 border-slate-800 text-white w-full h-11"
+            className="pl-10 pr-10 bg-[#0a0a0a] border-slate-800 text-white w-full h-11"
           />
           {searchTerm && (
             <button
@@ -51,10 +51,10 @@ const ChannelsSearch = ({ onSearch, onFilterChange, filters, categories, resultC
         {/* Category Filter */}
         <div className="w-full md:w-48">
           <Select value={filters.category} onValueChange={(val) => onFilterChange({ ...filters, category: val })}>
-            <SelectTrigger className="w-full bg-slate-950 border-slate-800 text-white h-11">
+            <SelectTrigger className="w-full bg-[#0a0a0a] border-slate-800 text-white h-11">
               <SelectValue placeholder="Tüm Kategoriler" />
             </SelectTrigger>
-            <SelectContent className="bg-slate-900 border-slate-800 text-white">
+            <SelectContent className="bg-[#0a0a0a] border-slate-800 text-white">
               <SelectItem value="all">Tüm Kategoriler</SelectItem>
               {categories.map((cat) => (
                 <SelectItem key={cat} value={cat}>{cat}</SelectItem>
@@ -66,10 +66,10 @@ const ChannelsSearch = ({ onSearch, onFilterChange, filters, categories, resultC
         {/* Status Filter */}
         <div className="w-full md:w-48">
           <Select value={filters.status} onValueChange={(val) => onFilterChange({ ...filters, status: val })}>
-            <SelectTrigger className="w-full bg-slate-950 border-slate-800 text-white h-11">
+            <SelectTrigger className="w-full bg-[#0a0a0a] border-slate-800 text-white h-11">
               <SelectValue placeholder="Tüm Durumlar" />
             </SelectTrigger>
-            <SelectContent className="bg-slate-900 border-slate-800 text-white">
+            <SelectContent className="bg-[#0a0a0a] border-slate-800 text-white">
               <SelectItem value="all">Tüm Durumlar</SelectItem>
               <SelectItem value="active">Sadece Aktif</SelectItem>
               <SelectItem value="inactive">Sadece Pasif</SelectItem>
@@ -82,7 +82,7 @@ const ChannelsSearch = ({ onSearch, onFilterChange, filters, categories, resultC
           <Button 
             variant="outline" 
             onClick={handleClearFilters}
-            className="h-11 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white shrink-0"
+            className="h-11 border-slate-700 text-slate-300 hover:bg-[#0a0a0a] hover:text-white shrink-0"
           >
             <FilterX className="w-4 h-4 mr-2" />
             Temizle

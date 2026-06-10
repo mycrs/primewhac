@@ -16,7 +16,8 @@ export const useTrendingContent = () => {
   const fetchData = useCallback(async (forceRefresh = false) => {
     if (!forceRefresh) {
       const cachedData = CacheManager.get(CACHE_KEY);
-      if (cachedData) {
+      // Boş dizi [] truthy olduğu için eskiden önbellek boş kalınca API hiç çağrılmıyordu
+      if (Array.isArray(cachedData) && cachedData.length > 0) {
         setData(cachedData);
         setLoading(false);
         return;

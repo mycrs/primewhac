@@ -63,7 +63,7 @@ export const GenericListEditor = ({ title, singularName, data, setData, fields }
     };
 
     const EditorForm = ({ defaultValues = {}, onCancel }) => (
-        <form onSubmit={handleSave} className="bg-slate-900 border border-slate-700 p-6 rounded-xl space-y-4 mb-6">
+        <form onSubmit={handleSave} className="bg-[#0a0a0a] border border-slate-700 p-6 rounded-xl space-y-4 mb-6">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-bold text-white">
                     {defaultValues.id ? `${singularName} Düzenle` : `Yeni ${singularName}`}
@@ -109,7 +109,7 @@ export const GenericListEditor = ({ title, singularName, data, setData, fields }
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                             <Input 
                                 placeholder={`${singularName} ara...`} 
-                                className="pl-9 bg-slate-900/50 border-slate-700"
+                                className="pl-9 bg-[#0a0a0a]/50 border-slate-700"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -119,10 +119,10 @@ export const GenericListEditor = ({ title, singularName, data, setData, fields }
                         </Button>
                     </div>
 
-                    <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <div className="bg-[#0a0a0a] border border-slate-800 rounded-xl overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-sm text-slate-400">
-                                <thead className="bg-slate-950 text-slate-200 uppercase font-bold text-xs">
+                                <thead className="bg-[#0a0a0a] text-slate-200 uppercase font-bold text-xs">
                                     <tr>
                                         {fields.slice(0, 3).map(f => (
                                             <th key={f.name} className="px-6 py-4">{f.label}</th>
@@ -132,11 +132,11 @@ export const GenericListEditor = ({ title, singularName, data, setData, fields }
                                 </thead>
                                 <tbody className="divide-y divide-slate-800">
                                     {paginatedData.map(item => (
-                                        <tr key={item.id} className="hover:bg-slate-800/50 transition-colors">
+                                        <tr key={item.id} className="hover:bg-[#0a0a0a]/50 transition-colors">
                                             {fields.slice(0, 3).map(f => (
                                                 <td key={f.name} className="px-6 py-4 truncate max-w-[200px]">
                                                     {f.name === 'image' || f.name === 'logoUrl' ? (
-                                                        <img src={item[f.name]} alt="img" className="h-8 w-8 object-contain rounded bg-white/5" />
+                                                        <img src={item[f.name]} alt="IPTV kanal logosu" className="h-8 w-8 object-contain rounded bg-white/5" />
                                                     ) : (
                                                         item[f.name]
                                                     )}
@@ -162,7 +162,7 @@ export const GenericListEditor = ({ title, singularName, data, setData, fields }
                         </div>
                         
                         {totalPages > 1 && (
-                            <div className="flex items-center justify-between px-6 py-4 bg-slate-950 border-t border-slate-800">
+                            <div className="flex items-center justify-between px-6 py-4 bg-[#0a0a0a] border-t border-slate-800">
                                 <span className="text-xs text-slate-500">
                                     Toplam {filteredData.length} kayıt, sayfa {currentPage} / {totalPages}
                                 </span>

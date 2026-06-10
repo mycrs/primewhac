@@ -18,9 +18,9 @@ export const defaultGlobal = {
     contactData: {
         whatsapp: '4917642963957',
         phone: '4917642963957',
-        email: 'info@qruzehd.com',
+        email: 'info@qruzetv.com',
         supportHours: 'Hafta içi: 09:00 - 23:00, Hafta sonu: 10:00 - 02:00',
-        logoUrl: 'https://storage.googleapis.com/hostinger-horizons-assets-prod/6f4a665f-b1cc-4753-8f96-f98db31dd5f3/d3e4fa83693ddab214459b23c7dade5.png',
+        logoUrl: '/logo.png',
         whatsappMessage: 'Merhaba, kaliteli ve donmayan IPTV paketleriniz hakkında bilgi almak istiyorum.',
         testMessage: 'Merhaba, ücretsiz kaliteli IPTV testi için yazıyorum.'
     },
@@ -28,11 +28,11 @@ export const defaultGlobal = {
         header: {
             menuItems: [
                 { label: 'ANA SAYFA', path: '/' },
-                { label: 'PAKETLER', path: '/packages' },
+                { label: 'PAKETLER', path: '/paketler' },
                 { label: 'KANAL LİSTESİ', path: '/channels' },
-                { label: 'KURULUM', path: '/instructions' },
-                { label: 'S.S.S.', path: '/faq' },
-                { label: 'BAYİLİK', path: '/bayilik' },
+                { label: 'KURULUM', path: '/kurulum' },
+                { label: 'S.S.S.', path: '/sss' },
+                { label: 'BAYİLİK', path: '/reseller' },
             ],
             testButton: 'Ücretsiz Test Al'
         },
@@ -96,19 +96,19 @@ export const defaultGlobal = {
         },
         channelsPage: {
             title: "Kanal Listemiz",
-            subtitle: "Sunduğumuz binlerce kanalı filtreleyerek keşfedin.",
+            subtitle: "Sunduğumuz 10.000+ kanalı filtreleyerek keşfedin.",
             searchPlaceholder: "Kanal adıyla ara...",
             countryFilterLabel: "Ülkeye Göre Filtrele",
             categoryFilterLabel: "Kategoriye Göre Filtrele",
             allCountriesText: "Tüm Ülkeler",
             allCategoriesText: "Tüm Kategoriler"
         },
-        footerDescription: "QRUZEHD, Avrupa ve Türkiye'deki kullanıcılar için en kaliteli, donmayan IPTV server hizmetini sunar. Binlerce canlı kanal, film ve dizi arşiviyle kesintisiz TV keyfini yaşayın. Güvenilir ve kaliteli IPTV satın almak için en doğru adres.",
+        footerDescription: "QruzeTV, Avrupa ve Türkiye'deki kullanıcılar için en kaliteli, donmayan IPTV server hizmetini sunar. 10.000+ canlı kanal, film ve dizi arşiviyle kesintisiz TV keyfini yaşayın. Güvenilir ve kaliteli IPTV satın almak için en doğru adres.",
         whatsappButton: {
             tooltip: "Kaliteli IPTV Siparişi Ver"
         },
         chatBot: {
-            title: "Qruze Bot 7/24",
+            title: "QruzeTV Bot 7/24",
             tooltip: "Yardım Lazım Mı?"
         }
     }

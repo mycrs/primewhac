@@ -1,12 +1,16 @@
 /**
- * Maç içeriği: önce Supabase, yoksa statik JSON, yoksa şablon.
- * Ne izlesem gibi runtime'da güncel içerik çeker.
+ * Maç içeriği: session önbelleği → public/data/match-contents*.json → şablon (Supabase yok, kota dostu).
  * locale: 'tr' | 'de'
  */
 import { useState, useEffect, useMemo } from 'react';
-import { supabase } from '@/lib/customSupabaseClient';
 import { generateMatchContent } from '@/utils/matchContentGenerator';
 import { generateMatchContentDE } from '@/utils/matchContentGeneratorDE';
+import { readSessionCache, writeSessionCache } from '@/utils/supabaseSessionCache';
+import { isAdminAppPath } from '@/constants/adminRoutes';
+
+function matchContentSessionKey(slug, locale) {
+  return `sb_mc_${locale}_${slug}`;
+}
 
 const CACHE_HOURS = 24;
 
@@ -17,7 +21,11 @@ function isCacheValid(generatedAt) {
 }
 
 export function useMatchContent(slug, match, options = {}) {
-  const { locale = 'tr' } = options;
+  const { locale = 'tr', isAdmin: isAdminOption } = options;
+  const isAdmin =
+    typeof isAdminOption === 'boolean'
+      ? isAdminOption
+      : (typeof window !== 'undefined' && isAdminAppPath(window.location.pathname));
   const isDe = locale === 'de';
   const generator = isDe ? generateMatchContentDE : generateMatchContent;
   const cachePath = isDe ? '/data/match-contents-de/' : '/data/match-contents/';
@@ -28,6 +36,7 @@ export function useMatchContent(slug, match, options = {}) {
   );
   const [cached, setCached] = useState(null);
   const [loading, setLoading] = useState(!!slug);
+  const [contentLoadMessage, setContentLoadMessage] = useState(null);
 
   useEffect(() => {
     if (!slug) {
@@ -35,35 +44,47 @@ export function useMatchContent(slug, match, options = {}) {
       return;
     }
     let cancelled = false;
+    setCached(null);
+    setContentLoadMessage(null);
 
     async function fetchContent() {
       try {
-        const { data, error } = await supabase
-          .from('match_contents')
-          .select('paragraphs, is_derbi, word_count, generated_at')
-          .eq('slug', slug)
-          .eq('locale', locale)
-          .maybeSingle();
-
-        if (!cancelled && !error && data && isCacheValid(data.generated_at) && data.paragraphs?.length) {
+        const mcKey = matchContentSessionKey(slug, locale);
+        const sessionHit = readSessionCache(mcKey);
+        if (
+          sessionHit?.generated_at &&
+          isCacheValid(sessionHit.generated_at) &&
+          sessionHit.paragraphs?.length &&
+          !cancelled
+        ) {
+          setContentLoadMessage(null);
           setCached({
-            paragraphs: data.paragraphs,
-            isDerbi: data.is_derbi ?? template?.isDerbi,
-            wordCount: data.word_count,
+            paragraphs: sessionHit.paragraphs,
+            isDerbi: sessionHit.isDerbi ?? template?.isDerbi,
+            wordCount: sessionHit.wordCount,
           });
           return;
         }
-      } catch (_) {}
 
-      if (!cancelled) {
         const r = await fetch(`${cachePath}${slug}.json`);
         const data = r.ok ? await r.json() : null;
-        if (data && isCacheValid(data.generated_at) && data.paragraphs?.length) {
-          setCached({
+        if (!cancelled && data && isCacheValid(data.generated_at) && data.paragraphs?.length) {
+          setContentLoadMessage(null);
+          const block = {
             paragraphs: data.paragraphs,
             isDerbi: data.is_derbi ?? template?.isDerbi,
             wordCount: data.word_count,
+          };
+          setCached(block);
+          writeSessionCache(mcKey, {
+            ...block,
+            generated_at: data.generated_at,
           });
+        }
+      } catch (e) {
+        console.error('[useMatchContent] statik JSON:', e?.message || e, e);
+        if (!cancelled && isAdmin) {
+          setContentLoadMessage(e?.message || String(e));
         }
       }
     }
@@ -72,8 +93,8 @@ export function useMatchContent(slug, match, options = {}) {
       if (!cancelled) setLoading(false);
     });
     return () => { cancelled = true; };
-  }, [slug, locale, template?.isDerbi, cachePath]);
+  }, [slug, locale, isDe, template?.isDerbi, cachePath, isAdmin]);
 
   const content = cached || template;
-  return { content, loading };
+  return { content, loading, contentLoadMessage };
 }

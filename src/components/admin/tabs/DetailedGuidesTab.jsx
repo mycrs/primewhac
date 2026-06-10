@@ -123,7 +123,7 @@ export const DetailedGuidesTab = ({ siteData, setSiteData }) => {
 
             <div className="flex justify-between items-center">
                 <h4 className="text-xl font-bold text-white">Kurulum Rehberleri</h4>
-                <Button onClick={handleAddNew} className="bg-blue-600 hover:bg-blue-700">
+                <Button onClick={handleAddNew} className="bg-[#141414] hover:bg-[#0a0a0a]">
                     <Plus className="w-4 h-4 mr-2" /> Yeni Rehber Ekle
                 </Button>
             </div>
@@ -132,7 +132,7 @@ export const DetailedGuidesTab = ({ siteData, setSiteData }) => {
                 {(formData.guides || []).map(guide => (
                     <div key={guide.id} className="glass-effect rounded-lg p-4 flex justify-between items-center">
                         <div className="flex items-center space-x-4 overflow-hidden">
-                            {guide.iconUrl && <img src={guide.iconUrl} alt="" className="w-10 h-10 object-contain flex-shrink-0" onError={(e) => { e.target.onerror = null; e.target.style.display='none'; }} />}
+                            {guide.iconUrl && <img src={guide.iconUrl} alt={`${guide.title} rehber ikonu`} className="w-10 h-10 object-contain flex-shrink-0" onError={(e) => { e.target.onerror = null; e.target.style.display='none'; }} />}
                             <div className="flex-grow overflow-hidden">
                                 <p className="text-white font-bold truncate">{guide.title}</p>
                                 <p className="text-sm text-gray-400 truncate">{guide.description}</p>

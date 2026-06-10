@@ -1,20 +1,135 @@
+# APACHE - Production Final Config
+
+AddType image/svg+xml .svg
+AddType application/xml .xml
+AddType text/plain .txt
+
+# HTTP Content-Type header'ına charset=UTF-8 ekle (SEO: "Missing charset" uyarısı)
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .html .htm .css .js .json .xml .svg .txt
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  # Kök path (/) mutlaka index.html dönsün
+
+  # HTTP -> HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # WWW -> NON-WWW (duplicate content onleme)
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # 301 REDIRECTS (alias -> canonical)
+  RewriteRule ^packages/?$                /paketler       [R=301,L]
+  RewriteRule ^about/?$                   /hakkimizda     [R=301,L]
+  RewriteRule ^installation/?$            /kurulum        [R=301,L]
+  RewriteRule ^installation/(.+)$         /kurulum/$1     [R=301,L,QSA]
+  RewriteRule ^instructions/?$            /kurulum        [R=301,L]
+  RewriteRule ^instructions/(.+)$         /kurulum/$1     [R=301,L,QSA]
+  RewriteRule ^faq/?$                     /sss            [R=301,L]
+  RewriteRule ^bayilik/?$                 /reseller       [R=301,L]
+  RewriteRule ^privacy/?$                 /gizlilik       [R=301,L]
+  RewriteRule ^terms/?$                   /sartlar        [R=301,L]
+  RewriteRule ^what-to-watch/?$           /ne-izlesem     [R=301,L]
+  RewriteRule ^what-to-watch/(.+)$        /ne-izlesem/$1  [R=301,L,QSA]
+  RewriteRule ^ne-izlesem/netflix-dizileri/?$                    /ne-izlesem/populer-yabanci-diziler                    [R=301,L]
+  RewriteRule ^de/was-soll-ich-schauen/netflix-serien/?$         /de/was-soll-ich-schauen/beliebte-auslaendische-serien [R=301,L]
+  RewriteRule ^kanallar/?$                /channels       [R=301,L]
+  RewriteRule ^de/packages/?$             /de/pakete      [R=301,L]
+  RewriteRule ^de/paketler/?$             /de/pakete      [R=301,L]
+  RewriteRule ^de/kurulum/?$              /de/einrichtung [R=301,L]
+  RewriteRule ^de/kurulum/(.+)$           /de/einrichtung/$1 [R=301,L,QSA]
+  RewriteRule ^mac-programi/[a-z0-9-]+$   /mac-programi   [R=301,L]
+  RewriteRule ^de/spielplan/[a-z0-9-]+$   /de/spielplan   [R=301,L]
+  RewriteRule ^spor-gundemi(/.*)?$        /mac-programi   [R=301,L]
+
+  # STATIC FILES - index.html'e ASLA dusmez
+  RewriteRule \.(svg|xml|txt|ico|png|jpg|jpeg|gif|webp|json|css|js|woff2?|ttf|eot|mp4|webm)$ - [L]
+
+  # Prerender / SPA: önce mevcut dizin/index.html, yoksa kök fallback
+  RewriteRule ^de/?$ /de/index.html [L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}/index.html -f
+  RewriteRule ^(.+?)/?$ /$1/index.html [L]
+
   RewriteRule ^$ index.html [L]
-  # /assets/ istekleri asla index.html'e yönlendirme - eksik JS 404 dönsün (MIME type hatası olmasın)
-  RewriteRule ^/?assets/ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . index.html [L]
 </IfModule>
 
 <IfModule mod_headers.c>
-  Header set X-Powered-By "Hostinger Horizons"
-  SetEnvIf Request_URI "^/assets/" is_asset
+  <FilesMatch "\.(js|css|svg|png|jpg|jpeg|gif|webp|ico|woff2?|ttf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+  # sw.js yukarıdaki .js kuralına girer; uzun cache yeni sürümün yansımamasına yol açar
+  <Files "sw.js">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header unset ETag
+  </Files>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(xml|txt)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+  <FilesMatch "fixtures.*\.json$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
 
-  # SPA dokümanı (/, /de, vb.): eski içerik kalmasın; sadece assets uzun önbellek
-  Header set Cache-Control "no-cache, no-store, must-revalidate" env=!is_asset
-  Header set Cache-Control "public, max-age=604800" env=is_asset
+  # Security headers
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://static.cloudflareinsights.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api.themoviedb.org https://*.supabase.co wss://*.supabase.co https://qruzetv.com https://streamtr.eu https://www.streamtr.eu https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com https://www.youtube.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Serve pre-compressed Brotli/Gzip assets if available
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTP:Accept-Encoding} br
+  RewriteCond %{REQUEST_FILENAME}.br -f
+  RewriteRule ^(.+)\.(js|css|html|svg|json)$ $1.$2.br [L]
+
+  RewriteCond %{HTTP:Accept-Encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}.gz -f
+  RewriteRule ^(.+)\.(js|css|html|svg|json)$ $1.$2.gz [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.js\.br$">
+    ForceType application/javascript
+    Header set Content-Encoding br
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+  <FilesMatch "\.css\.br$">
+    ForceType text/css
+    Header set Content-Encoding br
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+  <FilesMatch "\.json\.br$">
+    ForceType application/json
+    Header set Content-Encoding br
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+  <FilesMatch "\.js\.gz$">
+    ForceType application/javascript
+    Header set Content-Encoding gzip
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+  <FilesMatch "\.css\.gz$">
+    ForceType text/css
+    Header set Content-Encoding gzip
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+  <FilesMatch "\.json\.gz$">
+    ForceType application/json
+    Header set Content-Encoding gzip
+    Header append Vary Accept-Encoding
+  </FilesMatch>
 </IfModule>

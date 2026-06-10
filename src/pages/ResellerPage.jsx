@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ChatBot from '@/components/ChatBot';
 import SEOHead from '@/components/SEOHead';
+import { resellerPageSchemas } from '@/utils/seoSchema';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { 
@@ -27,11 +28,12 @@ const ResellerPage = ({ siteData }) => {
   const whatsappLink = `https://wa.me/${contactData?.whatsapp}?text=${encodeURIComponent("IPTV Bayilik programı hakkında bilgi almak istiyorum.")}`;
   
   const metadata = {
-    title: "IPTV Bayilik Paneli - Kendi İşinizi Kurun | QruzeHD",
+    title: "IPTV Bayilik (Reseller) Programı | Kendi İşinizi Kurun",
     description: "IPTV bayilik (reseller) programımızla kendi işinizi kurun. En gelişmiş kontrol paneli ve yüksek kazanç oranları ile hemen başlayın.",
     keywords: ["iptv bayilik", "iptv reseller", "iptv panel satışı", "iptv bayilik fiyatları", "iptv iş ortaklığı"],
-    ogType: "website"
+    ogType: "website",
   };
+  const jsonLd = resellerPageSchemas(metadata);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -86,7 +88,7 @@ const ResellerPage = ({ siteData }) => {
     { 
       id: 6, 
       title: "Sürekli Güncel İçerik", 
-      description: "Binlerce kanal, güncel film ve dizi arşivi ile müşterilerinizi her zaman memnun edin.", 
+      description: "10.000+ kanal, güncel film ve dizi arşivi ile müşterilerinizi her zaman memnun edin.", 
       icon: "Clapperboard" 
     }
   ];
@@ -97,11 +99,11 @@ const ResellerPage = ({ siteData }) => {
     {
       title: "Neden IPTV Bayilik?",
       icon: Rocket,
-      bgClass: "from-purple-500/10 to-pink-500/10",
-      borderClass: "border-purple-500/30 hover:border-purple-400",
-      shadowClass: "hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]",
-      iconBgClass: "bg-purple-500/20 text-purple-400 group-hover:bg-purple-500 group-hover:text-white",
-      textGradient: "from-purple-400 to-pink-400",
+      bgClass: "from-[#e50914]/10 to-[#b20710]/10",
+      borderClass: "border-primary/30 hover:border-primary",
+      shadowClass: "hover:shadow-[0_0_30px_rgba(229,9,20,0.3)]",
+      iconBgClass: "bg-primary/20 text-primary group-hover:bg-primary group-hover:text-white",
+      textGradient: "from-[#e50914] to-[#b20710]",
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Girişimcilerin <strong>IPTV bayilik</strong> sistemine yönelmesinin en temel nedeni, dijital içerik tüketimindeki muazzam artıştır. İnsanlar artık istedikleri içeriğe, istedikleri cihazdan ve istedikleri zaman ulaşmak istiyor. İyi bir <strong>IPTV hizmet sağlayıcı</strong> olmak, bu büyük talebe doğrudan ve kârlı bir şekilde yanıt vermek anlamına gelir. Müşterilerinize sunacağınız <strong>kesintisiz IPTV</strong> deneyimi, işletmenizin hızla büyümesini ve kulaktan kulağa yayılmasını sağlar.</p>
@@ -112,11 +114,11 @@ const ResellerPage = ({ siteData }) => {
     {
       title: "IPTV Bayilik Avantajları",
       icon: Star,
-      bgClass: "from-blue-500/10 to-cyan-500/10",
+      bgClass: "from-[#e50914]/10 to-[#b20710]/10",
       borderClass: "border-blue-500/30 hover:border-blue-400",
       shadowClass: "hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]",
-      iconBgClass: "bg-blue-500/20 text-blue-400 group-hover:bg-blue-500 group-hover:text-white",
-      textGradient: "from-blue-400 to-cyan-400",
+      iconBgClass: "bg-[#141414]/20 text-blue-400 group-hover:bg-[#141414] group-hover:text-white",
+      textGradient: "from-[#e50914] to-[#b20710]",
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Bir <strong>IPTV bayisi</strong> olmanın avantajları saymakla bitmez. En büyük ayrıcalık, kendi belirlediğiniz fiyat politikasıyla özgürce çalışabilmenizdir. Size sunulan esnek kredi sistemi sayesinde, dilediğiniz gibi paketler oluşturabilir ve kampanyalar düzenleyebilirsiniz. Gelişmiş <strong>IPTV müşteri yönetimi</strong> sistemimiz, abonelik sürelerinin takibini, otomatik hatırlatmaları ve yenileme süreçlerini sizin için son derece kolay bir hale getirir.</p>
@@ -142,11 +144,11 @@ const ResellerPage = ({ siteData }) => {
     {
       title: "Gelir Potansiyeli",
       icon: TrendingUp,
-      bgClass: "from-green-500/10 to-emerald-500/10",
+      bgClass: "from-green-500/10 to-[#b20710]/10",
       borderClass: "border-green-500/30 hover:border-green-400",
       shadowClass: "hover:shadow-[0_0_30px_rgba(34,197,94,0.3)]",
       iconBgClass: "bg-green-500/20 text-green-400 group-hover:bg-green-500 group-hover:text-white",
-      textGradient: "from-green-400 to-emerald-400",
+      textGradient: "from-green-400 to-[#b20710]",
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium"><strong>IPTV gelir</strong> potansiyeli tamamen sizin vizyonunuza ve çabanıza bağlıdır. Esnek kâr marjları sayesinde, satılan her paketten %100'den %300'e kadar <strong>IPTV kâr</strong> elde etmeniz mümkündür. Müşteri sayınız arttıkça ve yenileme oranlarınız yükseldikçe, aydan aya katlanan pasif bir gelir modeline kavuşursunuz. Başarılı bir <strong>IPTV satış</strong> stratejisiyle, sadece birkaç ay içinde tam zamanlı işinizin gelirini geride bırakabilirsiniz.</p>
@@ -157,11 +159,11 @@ const ResellerPage = ({ siteData }) => {
     {
       title: "Teknik Destek",
       icon: Wrench,
-      bgClass: "from-indigo-500/10 to-violet-500/10",
-      borderClass: "border-indigo-500/30 hover:border-indigo-400",
-      shadowClass: "hover:shadow-[0_0_30px_rgba(99,102,241,0.3)]",
-      iconBgClass: "bg-indigo-500/20 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white",
-      textGradient: "from-indigo-400 to-violet-400",
+      bgClass: "from-[#e50914]/10 to-[#b20710]/10",
+      borderClass: "border-[#e50914]/30 hover:border-[#e50914]/60",
+      shadowClass: "hover:shadow-[0_0_30px_rgba(229,9,20,0.3)]",
+      iconBgClass: "bg-[#141414]/20 text-[#e50914] group-hover:bg-[#141414] group-hover:text-white",
+      textGradient: "from-[#e50914] to-[#b20710]",
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Başarılı bir bayilik ağının arkasında her zaman güçlü ve erişilebilir bir teknik destek ekibi bulunur. Olası tüm altyapı sorunları, yayın kesintileri veya sunucu güncellemeleri uzman mühendislerimiz tarafından 7/24 proaktif olarak takip edilir. Böylece sizin teknik detaylarla boğuşmanıza gerek kalmaz. <strong>Kesintisiz IPTV</strong> deneyimini garanti altına almak için en son teknolojiyi kullanan yedekli sunucularla çalışıyoruz.</p>
@@ -172,11 +174,11 @@ const ResellerPage = ({ siteData }) => {
     {
       title: "Pazarlama Desteği",
       icon: Megaphone,
-      bgClass: "from-pink-500/10 to-rose-500/10",
+      bgClass: "from-[#e50914]/10 to-rose-500/10",
       borderClass: "border-pink-500/30 hover:border-pink-400",
       shadowClass: "hover:shadow-[0_0_30px_rgba(236,72,153,0.3)]",
       iconBgClass: "bg-pink-500/20 text-pink-400 group-hover:bg-pink-500 group-hover:text-white",
-      textGradient: "from-pink-400 to-rose-400",
+      textGradient: "from-[#e50914] to-rose-400",
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Üstün bir ürüne sahip olmak yeterli değildir; onu doğru şekilde pazarlamak gerekir. <strong>IPTV pazarlama</strong> konusunda iş ortaklarımıza sunduğumuz rehberlik, onların sektörde öne çıkmasını sağlar. Doğru sosyal medya stratejileri, SEO taktikleri ve hedeflenmiş reklam kampanyaları ile nasıl daha fazla müşteriye ulaşabileceğinizi sizlerle paylaşıyoruz. Markanızı bir <strong>IPTV franchise</strong> kalitesinde konumlandırmanız için gerekli tüm görsel materyalleri sağlıyoruz.</p>
@@ -187,11 +189,11 @@ const ResellerPage = ({ siteData }) => {
     {
       title: "Müşteri Hizmetleri",
       icon: Headphones,
-      bgClass: "from-cyan-500/10 to-sky-500/10",
-      borderClass: "border-cyan-500/30 hover:border-cyan-400",
-      shadowClass: "hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]",
-      iconBgClass: "bg-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white",
-      textGradient: "from-cyan-400 to-sky-400",
+      bgClass: "from-[#e50914]/10 to-[#b20710]/10",
+      borderClass: "border-[#e50914]/30 hover:border-[#e50914]",
+      shadowClass: "hover:shadow-[0_0_30px_rgba(229,9,20,0.3)]",
+      iconBgClass: "bg-[#e50914]/20 text-[#e50914] group-hover:bg-[#e50914] group-hover:text-white",
+      textGradient: "from-[#e50914] to-[#b20710]",
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Müşteri elde tutma oranı (retention rate), <strong>IPTV işletme</strong> kârlılığını belirleyen en önemli faktördür. İyi yapılandırılmış bir <strong>IPTV müşteri yönetimi</strong>, yenileme dönemlerini kaçırmamanızı ve müşterilerinizle sürekli iletişim halinde kalmanızı sağlar. Panelin sunduğu otomasyon özellikleri sayesinde, abonelik bitimine yaklaşan kullanıcılara otomatik hatırlatmalar gönderebilirsiniz. Müşterilerinizle WhatsApp veya Telegram üzerinden hızlı ve etkili bir iletişim kurmak satışlarınızı doğrudan artırır.</p>
@@ -217,11 +219,11 @@ const ResellerPage = ({ siteData }) => {
     {
       title: "Sıkça Sorulan Sorular",
       icon: HelpCircle,
-      bgClass: "from-teal-500/10 to-emerald-500/10",
-      borderClass: "border-teal-500/30 hover:border-teal-400",
+      bgClass: "from-[#e50914]/10 to-[#b20710]/10",
+      borderClass: "border-[#e50914]/30 hover:border-[#e50914]",
       shadowClass: "hover:shadow-[0_0_30px_rgba(20,184,166,0.3)]",
-      iconBgClass: "bg-teal-500/20 text-teal-400 group-hover:bg-teal-500 group-hover:text-white",
-      textGradient: "from-teal-400 to-emerald-400",
+      iconBgClass: "bg-[#e50914]/20 text-white group-hover:bg-[#e50914] group-hover:text-white",
+      textGradient: "from-[#e50914] to-[#b20710]",
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Yeni bir işe başlarken akılda soru işaretleri olması son derece doğaldır. "Teknik bilgiye ihtiyacım var mı?" Hayır, size sunduğumuz <strong>IPTV paneli</strong> son derece kullanıcı dostudur ve eğitim gerektirmez. "Ne kadar kazanabilirim?" <strong>IPTV kâr</strong> oranları tamamen sizin satış fiyatlarınıza bağlıdır, ancak sektör ortalaması %200 civarındadır. "Fiyatlarımı kendim belirleyebilir miyim?" Evet, kendi satış fiyatlarınızı tamamen özgürce belirleyebilirsiniz.</p>
@@ -232,11 +234,11 @@ const ResellerPage = ({ siteData }) => {
     {
       title: "Sonuç",
       icon: CheckCircle,
-      bgClass: "from-violet-500/10 to-purple-500/10",
-      borderClass: "border-violet-500/30 hover:border-violet-400",
-      shadowClass: "hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]",
-      iconBgClass: "bg-violet-500/20 text-violet-400 group-hover:bg-violet-500 group-hover:text-white",
-      textGradient: "from-violet-400 to-purple-400",
+      bgClass: "from-[#e50914]/10 to-[#b20710]/10",
+      borderClass: "border-primary/30 hover:border-primary",
+      shadowClass: "hover:shadow-[0_0_30px_rgba(229, 9, 20,0.3)]",
+      iconBgClass: "bg-primary/20 text-primary group-hover:bg-primary group-hover:text-white",
+      textGradient: "from-[#e50914] to-[#b20710]",
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Özetlemek gerekirse, doğru adımlar atıldığında <strong>IPTV bayilik</strong>, günümüzün en kârlı, en düşük riskli ve en hızlı büyüyen dijital iş modellerinden biridir. Yüksek kaliteli <strong>Kesintisiz IPTV</strong> hizmetini arkasına alan bir <strong>IPTV bayisi</strong>, sınırların olmadığı küresel bir pazarda ticaret yapma özgürlüğüne kavuşur. Sağladığımız güçlü <strong>IPTV altyapısı</strong>, esnek bayi paneli ve profesyonel teknik destek ile kendi başarı hikayenizi yazmanız için ihtiyacınız olan her şeye sahibiz.</p>
@@ -248,27 +250,22 @@ const ResellerPage = ({ siteData }) => {
 
   return (
     <>
-      <SEOHead 
-        title={metadata.title}
-        description={metadata.description}
-        keywords={metadata.keywords}
-        ogType={metadata.ogType}
-      />
-      <div className="min-h-screen bg-slate-950 flex flex-col font-sans">
+      <SEOHead {...metadata} jsonLd={jsonLd} />
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans">
         <Header contactData={contactData} />
         
         <main className="flex-grow pt-24 pb-0 text-white">
           <section className="container mx-auto px-4 py-20 text-center relative overflow-hidden">
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
             <motion.div 
               initial={{ opacity: 0, y: 50 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ duration: 0.8 }}
               className="relative z-10"
             >
-              <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 backdrop-blur-sm">
-                 <span className="text-purple-300 font-bold text-sm tracking-widest uppercase flex items-center gap-2">
-                    <Rocket className="w-4 h-4 text-purple-400" /> Bayilik Programı
+              <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-primary/20 border border-primary/30 backdrop-blur-sm">
+                 <span className="text-primary font-bold text-sm tracking-widest uppercase flex items-center gap-2">
+                    <Rocket className="w-4 h-4 text-primary" /> Bayilik Programı
                  </span>
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight tracking-tight">
@@ -280,7 +277,7 @@ const ResellerPage = ({ siteData }) => {
               
               <Button 
                 size="lg" 
-                className="bg-purple-600 hover:bg-purple-700 text-white font-bold h-14 px-10 rounded-xl text-lg shadow-lg shadow-purple-600/40 hover:scale-105 transition-all duration-300"
+                className="bg-primary hover:bg-primary text-white font-bold h-14 px-10 rounded-xl text-lg shadow-lg shadow-primary/40 hover:scale-105 transition-all duration-300"
                 onClick={() => window.open(whatsappLink, '_blank')}
               >
                 <MessageCircle className="mr-2 h-5 w-5" />
@@ -331,7 +328,7 @@ const ResellerPage = ({ siteData }) => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="max-w-4xl mx-auto prose prose-invert prose-purple prose-lg prose-headings:text-white prose-a:text-purple-400 hover:prose-a:text-purple-300"
+                className="max-w-4xl mx-auto prose prose-invert prose prose-lg prose-headings:text-white prose-a:text-primary hover:prose-a:text-primary"
               >
                 <div className="text-gray-300 space-y-6 leading-relaxed">
                   <h3 className="text-3xl font-bold mt-12 mb-6 border-b border-white/10 pb-4">IPTV Reseller İşleyişi</h3>
@@ -345,15 +342,15 @@ const ResellerPage = ({ siteData }) => {
                   </p>
 
                   <div className="mt-8">
-                     <button onClick={() => window.open(whatsappLink, '_blank')} className="font-bold underline text-purple-400 hover:text-purple-300">Daha fazla bilgi için hemen bizimle iletişime geçin</button>
+                     <button onClick={() => window.open(whatsappLink, '_blank')} className="font-bold underline text-primary hover:text-primary">Daha fazla bilgi için hemen bizimle iletişime geçin</button>
                   </div>
                 </div>
               </motion.div>
             </div>
           </section>
 
-          <section className="relative py-24 bg-slate-900/30">
-             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent pointer-events-none"></div>
+          <section className="relative py-24 bg-[#0a0a0a]/30">
+             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#e50914]/5 to-transparent pointer-events-none"></div>
 
             <div className="container mx-auto px-4 relative z-10">
                 <motion.div
@@ -369,12 +366,12 @@ const ResellerPage = ({ siteData }) => {
                     <motion.div
                         key={feature.id || index}
                         variants={itemVariants}
-                        className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl hover:bg-white/10 hover:border-purple-500/40 transition-all duration-300 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-900/20"
+                        className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl hover:bg-white/10 hover:border-primary/40 transition-all duration-300 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20"
                     >
-                        <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-purple-600/20 border border-purple-500/30 mb-6 group-hover:bg-purple-600 group-hover:border-purple-500 transition-all duration-300 shadow-inner">
-                        <Icon className="w-8 h-8 text-purple-400 group-hover:text-white transition-colors" />
+                        <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/20 border border-primary/30 mb-6 group-hover:bg-primary group-hover:border-primary transition-all duration-300 shadow-inner">
+                        <Icon className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">{feature.title}</h3>
+                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{feature.title}</h3>
                         <p className="text-gray-400 leading-relaxed group-hover:text-gray-200 transition-colors font-light">{feature.description}</p>
                     </motion.div>
                     );
@@ -390,7 +387,7 @@ const ResellerPage = ({ siteData }) => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="max-w-5xl mx-auto prose prose-invert prose-purple prose-lg prose-headings:text-white prose-a:text-purple-400"
+                className="max-w-5xl mx-auto prose prose-invert prose prose-lg prose-headings:text-white prose-a:text-primary"
               >
                 <h3 className="text-3xl font-bold mt-12 mb-6 border-b border-white/10 pb-4">IPTV Bayilik Nedir?</h3>
                 <p>
@@ -409,11 +406,11 @@ const ResellerPage = ({ siteData }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="relative rounded-3xl overflow-hidden p-[2px] bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 shadow-2xl shadow-purple-900/50"
+                className="relative rounded-3xl overflow-hidden p-[2px] bg-gradient-to-r from-[#e50914] via-pink-600 to-[#b20710] shadow-2xl shadow-primary/50"
              >
-                <div className="bg-slate-950/90 backdrop-blur-xl rounded-[22px] p-12 text-center relative overflow-hidden">
+                <div className="bg-[#0a0a0a]/90 backdrop-blur-xl rounded-[22px] p-12 text-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 pointer-events-none"></div>
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"></div>
                     
                     <div className="relative z-10">
@@ -421,7 +418,7 @@ const ResellerPage = ({ siteData }) => {
                         <p className="text-gray-300 max-w-2xl mx-auto mb-10 text-lg leading-relaxed">Hemen bizimle iletişime geçin ve bugün kendi IPTV işinizi kurmaya başlayın.</p>
                         <Button 
                             size="lg" 
-                            className="bg-white text-purple-900 font-bold hover:bg-purple-50 h-16 px-12 rounded-full text-lg shadow-xl hover:scale-105 transition-all duration-300 border-4 border-purple-500/20"
+                            className="bg-white text-primary font-bold hover:bg-primary h-16 px-12 rounded-full text-lg shadow-xl hover:scale-105 transition-all duration-300 border-4 border-primary/20"
                             onClick={() => window.open(whatsappLink, '_blank')}
                         >
                             <MessageCircle className="mr-2 h-6 w-6" />

@@ -20,25 +20,25 @@ const AdminChannelsTab = () => {
   return (
     <div className="max-w-7xl mx-auto space-y-6 animate-in fade-in duration-300">
       
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#0a0a0a] p-6 rounded-xl border border-slate-800 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-purple-500/10 rounded-lg">
-            <Tv className="w-6 h-6 text-purple-400" />
+          <div className="p-3 bg-primary/10 rounded-lg">
+            <Tv className="w-6 h-6 text-primary" />
           </div>
           <div>
             <h1 className="text-2xl font-bold text-white tracking-tight">Kanal Yönetimi</h1>
             <p className="text-sm text-slate-400 mt-1">IPTV kanal listesini, kategorileri ve logoları gerçek zamanlı yönetin.</p>
           </div>
         </div>
-        <Button onClick={handleAddNew} className="bg-purple-600 hover:bg-purple-700 text-white shadow-md">
+        <Button onClick={handleAddNew} className="bg-primary hover:bg-primary text-white shadow-md">
           <Plus className="w-4 h-4 mr-2" /> Yeni Kanal Ekle
         </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="bg-slate-900 border-slate-800">
+        <Card className="bg-[#0a0a0a] border-slate-800">
           <CardContent className="p-6 flex items-center gap-4">
-            <div className="p-4 bg-blue-500/10 rounded-full">
+            <div className="p-4 bg-[#141414]/10 rounded-full">
               <Radio className="w-6 h-6 text-blue-400" />
             </div>
             <div>
@@ -48,7 +48,7 @@ const AdminChannelsTab = () => {
           </CardContent>
         </Card>
         
-        <Card className="bg-slate-900 border-slate-800">
+        <Card className="bg-[#0a0a0a] border-slate-800">
           <CardContent className="p-6 flex items-center gap-4">
             <div className="p-4 bg-green-500/10 rounded-full">
               <Signal className="w-6 h-6 text-green-400" />
@@ -60,7 +60,7 @@ const AdminChannelsTab = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900 border-slate-800">
+        <Card className="bg-[#0a0a0a] border-slate-800">
           <CardContent className="p-6 flex items-start gap-4">
             <div className="p-4 bg-orange-500/10 rounded-full shrink-0">
               <Filter className="w-6 h-6 text-orange-400" />

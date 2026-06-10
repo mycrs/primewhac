@@ -1,89 +1,215 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Download } from 'lucide-react';
+import { CheckCircle2, AppWindow, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLocation } from 'react-router-dom';
+import { useSiteData } from '@/hooks/useSiteData';
+import { getIptvDevicePlatformsMap } from '@/constants/iptvFlowDevices';
 
-const appsBase = [
-  { id: 'iptv-smarters', name: 'IPTV Smarters Pro', providerKey: 'recommended' },
-  { id: 'tivimate', name: 'TiviMate', providerKey: 'premium' },
-  { id: 'ibo-player', name: 'IBO Player', providerKey: 'popular' },
-  { id: 'set-iptv', name: 'SET IPTV', providerKey: 'stable' },
-  { id: 'net-iptv', name: 'Net IPTV', providerKey: 'alternative' },
-  { id: 'ss-iptv', name: 'SS IPTV', providerKey: 'free' },
-  { id: 'ott-navigator', name: 'OTT Navigator', providerKey: 'advanced' },
-  { id: 'gse-smart', name: 'GSE Smart IPTV', providerKey: 'multi' },
-  { id: 'other', nameKey: 'other_app', providerKey: 'custom' },
-];
+const PLATFORM_LABELS_TR = {
+  smarttv: 'Smart TV',
+  android: 'Android',
+  ios: 'iOS',
+  pc: 'PC / Mac',
+  tablet: 'Tablet',
+};
 
-const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect }) => {
+const PLATFORM_LABELS_DE = {
+  smarttv: 'Smart TV',
+  android: 'Android',
+  ios: 'iOS',
+  pc: 'PC / Mac',
+  tablet: 'Tablet',
+};
+
+function normalizeAppsData(appsData) {
+  if (!appsData) return [];
+  if (Array.isArray(appsData)) return appsData;
+  if (Array.isArray(appsData?.apps)) return appsData.apps;
+  return [];
+}
+
+const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect, appsData }) => {
   const location = useLocation();
+  const { siteData } = useSiteData();
   const isDe = location.pathname.includes('/de');
 
-  const providerLabels = isDe
-    ? { recommended: 'Recommended', premium: 'Premium Experience', popular: 'Popular', stable: 'Stable', alternative: 'Alternative', free: 'Free', advanced: 'Advanced', multi: 'Multi-platform', custom: 'Custom' }
-    : { recommended: 'Önerilen', premium: 'Premium', popular: 'Popüler', stable: 'Stabil', alternative: 'Alternatif', free: 'Ücretsiz', advanced: 'Gelişmiş', multi: 'Çoklu platform', custom: 'Özel' };
+  const platformLabels = isDe ? PLATFORM_LABELS_DE : PLATFORM_LABELS_TR;
 
-  const apps = appsBase.map((a) => ({
-    ...a,
-    name: a.nameKey ? (isDe ? 'Ich werde eine andere App verwenden' : 'Başka bir uygulama kullanacağım') : a.name,
-    provider: providerLabels[a.providerKey],
-  }));
+  const allApps = useMemo(() => normalizeAppsData(appsData), [appsData]);
+
+  const platformsMap = useMemo(
+    () => getIptvDevicePlatformsMap(siteData?.iptvFlowDevicesData),
+    [siteData?.iptvFlowDevicesData]
+  );
+
+  const filteredApps = useMemo(() => {
+    if (!selectedDevice?.id) return [];
+    const allowed = platformsMap[selectedDevice.id];
+    if (!allowed?.length) return [];
+    return allApps
+      .filter((app) => Array.isArray(app.platforms) && app.platforms.some((p) => allowed.includes(p)))
+      .sort((a, b) => (b.recommended === true) - (a.recommended === true));
+  }, [selectedDevice, allApps, platformsMap]);
+
+  const formatPlatforms = (platforms) => {
+    if (!Array.isArray(platforms) || !platforms.length) return null;
+    return platforms
+      .map((p) => platformLabels[p] || p)
+      .filter(Boolean)
+      .join(' · ');
+  };
+
+  const copy = isDe
+    ? {
+        title: 'Welche Anwendung möchten Sie verwenden?',
+        sub: 'Wählen Sie die App aus, mit der Sie den Test einrichten möchten. Die Liste entspricht Ihrer Gerätewahl.',
+        deviceLabel: 'Ausgewähltes Gerät:',
+        emptyNoData:
+          'Im Admin-Bereich sind noch keine Player-Apps hinterlegt. Sie können „Andere“ wählen oder den Support kontaktieren.',
+        emptyFiltered:
+          'Für dieses Gerät sind in der Liste keine passenden Apps markiert. Wählen Sie „Andere“ oder eine App mit passender Plattform im Admin-Bereich.',
+        other: 'Andere / Weiß ich nicht',
+        rec: 'Empfohlen',
+      }
+    : {
+        title: 'Hangi uygulamayı kullanmak istiyorsunuz?',
+        sub: 'Test yayınını kuracağınız uygulamayı seçin. Liste, seçtiğiniz cihaza uygun uygulamaları gösterir.',
+        deviceLabel: 'Seçilen cihaz:',
+        emptyNoData:
+          'Yönetim panelinde henüz oynatıcı uygulaması tanımlı değil. “Diğer” seçebilir veya destek ile iletişime geçebilirsiniz.',
+        emptyFiltered:
+          'Bu cihaz için listede uygun uygulama bulunamadı. “Diğer” seçin veya panelde uygulama platform etiketlerini kontrol edin.',
+        other: 'Diğer / Bilmiyorum',
+        rec: 'Önerilen',
+      };
+
+  const genericApp = { id: 'generic', name: copy.other };
 
   return (
     <div className="space-y-8">
-      <div className="text-center max-w-2xl mx-auto mb-10">
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-          {isDe ? 'Welche Anwendung möchten Sie verwenden?' : 'Hangi uygulamayı kullanmak istiyorsunuz?'}
-        </h2>
-        <p className="text-slate-400">
-          {isDe ? 'Wählen Sie die Anwendung aus, auf der Sie den Test-Stream einrichten möchten.' : 'Test yayınını kuracağınız uygulamayı seçin.'}
-        </p>
+      <div className="mx-auto mb-10 max-w-2xl text-center">
+        <h2 className="mb-3 text-2xl font-bold text-white md:text-3xl">{copy.title}</h2>
+        <p className="text-slate-400">{copy.sub}</p>
         {selectedDevice && (
-          <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 bg-slate-800 rounded-full border border-slate-700">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">
-              {isDe ? 'Ausgewähltes Gerät:' : 'Seçilen cihaz:'}
-            </span>
-            <span className="text-xs font-bold text-green-400 uppercase tracking-widest">{selectedDevice.name}</span>
+          <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-slate-700 bg-[#0a0a0a] px-3 py-1">
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-500">{copy.deviceLabel}</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-green-400">{selectedDevice.name}</span>
           </div>
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {apps.map((app) => {
+      {allApps.length === 0 && (
+        <p className="mx-auto max-w-2xl rounded-xl border border-dashed border-amber-500/40 bg-amber-500/10 px-4 py-3 text-center text-sm text-amber-100/90">
+          {copy.emptyNoData}
+        </p>
+      )}
+
+      {allApps.length > 0 && filteredApps.length === 0 && selectedDevice && (
+        <p className="mx-auto max-w-2xl rounded-xl border border-dashed border-slate-600 bg-[#0a0a0a]/40 px-4 py-3 text-center text-sm text-slate-400">
+          {copy.emptyFiltered}
+        </p>
+      )}
+
+      <div className="grid max-h-[min(420px,55vh)] grid-cols-1 gap-4 overflow-y-auto pr-1 sm:grid-cols-2 lg:grid-cols-3 custom-scrollbar">
+        {filteredApps.map((app, idx) => {
           const isSelected = selectedApp?.id === app.id;
+          const platformLine = formatPlatforms(app.platforms);
 
           return (
             <motion.button
               key={app.id}
+              type="button"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.04 }}
               whileHover={{ y: -3 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onSelect(app)}
               className={cn(
-                "relative group flex items-center gap-4 p-5 rounded-xl border transition-all duration-300 text-left",
-                isSelected 
-                  ? "bg-green-600/10 border-green-500/50 ring-1 ring-green-500/20" 
-                  : "bg-slate-900/40 border-slate-800 hover:border-slate-700"
+                'group relative flex items-start gap-4 rounded-xl border p-5 text-left transition-all duration-300',
+                isSelected
+                  ? 'border-green-500/50 bg-green-600/10 ring-1 ring-green-500/20'
+                  : 'border-slate-800 bg-[#0a0a0a]/40 hover:border-slate-700'
               )}
             >
-              <div className={cn(
-                "w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300",
-                isSelected ? "bg-green-500 text-white" : "bg-slate-800 text-slate-500 group-hover:bg-slate-700"
-              )}>
-                {isSelected ? <CheckCircle2 className="w-5 h-5" /> : <Download className="w-5 h-5" />}
+              <div
+                className={cn(
+                  'flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border shadow-inner transition-colors duration-300',
+                  isSelected ? 'border-green-500/40 bg-[#0a0a0a]' : 'border-slate-700 bg-[#0a0a0a]'
+                )}
+              >
+                {app.logo ? (
+                  <img
+                    src={app.logo}
+                    alt={`${app.name} uygulama logosu`}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <AppWindow className="h-7 w-7 text-slate-500" aria-hidden />
+                )}
               </div>
 
-              <div>
-                <h3 className="font-bold text-white">{app.name}</h3>
-                <p className="text-xs text-slate-500 font-medium uppercase tracking-tighter">{app.provider}</p>
+              <div className="min-w-0 flex-1">
+                <p className="font-bold text-white">{app.name}</p>
+                {app.description ? (
+                  <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-400">{app.description}</p>
+                ) : null}
+                {platformLine ? (
+                  <p className="mt-2 text-[10px] font-medium uppercase tracking-wide text-slate-500">{platformLine}</p>
+                ) : null}
+                {app.recommended ? (
+                  <p className="mt-1.5 text-[11px] font-semibold text-amber-400">⭐ {copy.rec}</p>
+                ) : null}
               </div>
 
-              {isSelected && (
-                <div className="absolute top-0 right-0 w-2 h-full bg-green-500 rounded-r-xl"></div>
-              )}
+              <div className="absolute right-3 top-3 shrink-0">
+                {isSelected ? (
+                  <CheckCircle2 className="h-6 w-6 text-green-500" aria-hidden />
+                ) : null}
+              </div>
+
+              {isSelected ? <div className="absolute bottom-0 left-0 h-1 w-full rounded-b-xl bg-green-500" aria-hidden /> : null}
             </motion.button>
           );
         })}
+
+        <motion.button
+          type="button"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: filteredApps.length * 0.04 }}
+          whileHover={{ y: -3 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => onSelect(genericApp)}
+          className={cn(
+            'group relative flex items-center gap-4 rounded-xl border p-5 text-left transition-all duration-300',
+            selectedApp?.id === 'generic'
+              ? 'border-green-500/50 bg-green-600/10 ring-1 ring-green-500/20'
+              : 'border-slate-700 border-dashed bg-[#0a0a0a]/30 hover:border-slate-600 hover:bg-[#0a0a0a]/40'
+          )}
+        >
+          <div
+            className={cn(
+              'flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border transition-colors',
+              selectedApp?.id === 'generic' ? 'border-green-500/40 bg-green-500/15 text-green-400' : 'border-slate-700 bg-[#0a0a0a] text-slate-500'
+            )}
+          >
+            <HelpCircle className="h-7 w-7" aria-hidden />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className={cn('font-bold', selectedApp?.id === 'generic' ? 'text-white' : 'text-slate-300')}>{copy.other}</p>
+            <p className="mt-1 text-xs text-slate-500">
+              {isDe ? 'Wir helfen Ihnen bei der App-Auswahl.' : 'Destek ekibi size uygun uygulamayı önerebilir.'}
+            </p>
+          </div>
+          {selectedApp?.id === 'generic' ? (
+            <CheckCircle2 className="absolute right-3 top-3 h-6 w-6 shrink-0 text-green-500" aria-hidden />
+          ) : null}
+        </motion.button>
       </div>
     </div>
   );

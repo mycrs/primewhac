@@ -257,12 +257,12 @@ const CommentsManagementTab = () => {
         return (
             <div className="space-y-6">
                  <div className="flex justify-between items-center">
-                    <div className="h-8 w-48 bg-slate-800 rounded animate-pulse"></div>
-                    <div className="h-8 w-64 bg-slate-800 rounded animate-pulse"></div>
+                    <div className="h-8 w-48 bg-[#0a0a0a] rounded animate-pulse"></div>
+                    <div className="h-8 w-64 bg-[#0a0a0a] rounded animate-pulse"></div>
                  </div>
-                 <div className="h-10 w-full bg-slate-800 rounded animate-pulse"></div>
+                 <div className="h-10 w-full bg-[#0a0a0a] rounded animate-pulse"></div>
                  {[1, 2, 3].map(i => (
-                    <div key={i} className="h-40 w-full bg-slate-900 border border-slate-800 rounded-xl animate-pulse"></div>
+                    <div key={i} className="h-40 w-full bg-[#0a0a0a] border border-slate-800 rounded-xl animate-pulse"></div>
                  ))}
             </div>
         );
@@ -273,7 +273,7 @@ const CommentsManagementTab = () => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                        <MessageSquare className="w-6 h-6 text-purple-500" />
+                        <MessageSquare className="w-6 h-6 text-primary" />
                         Yorum Yönetimi
                     </h2>
                     <div className="flex gap-4 mt-2 text-sm text-slate-400">
@@ -282,12 +282,12 @@ const CommentsManagementTab = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2 bg-slate-900 p-1 rounded-lg border border-slate-800 overflow-x-auto">
+                <div className="flex items-center gap-2 bg-[#0a0a0a] p-1 rounded-lg border border-slate-800 overflow-x-auto">
                     <Button 
                         variant="ghost" 
                         size="sm"
                         onClick={() => setFilterStatus('all')}
-                        className={`text-xs ${filterStatus === 'all' ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white'}`}
+                        className={`text-xs ${filterStatus === 'all' ? 'bg-[#0a0a0a] text-white' : 'text-slate-400 hover:text-white'}`}
                     >
                         Tümü
                     </Button>
@@ -313,7 +313,7 @@ const CommentsManagementTab = () => {
                         onClick={fetchComments}
                         title="Yenile"
                         disabled={loading}
-                        className={`ml-2 text-slate-400 hover:text-white hover:bg-slate-800 ${loading ? 'animate-spin' : ''}`}
+                        className={`ml-2 text-slate-400 hover:text-white hover:bg-[#0a0a0a] ${loading ? 'animate-spin' : ''}`}
                     >
                         <RefreshCw className="w-4 h-4" />
                     </Button>
@@ -326,7 +326,7 @@ const CommentsManagementTab = () => {
                     placeholder="Yazar, e-posta, içerik veya yazı başlığı ara..." 
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 bg-slate-900 border-slate-800 text-white placeholder:text-slate-500 focus:border-purple-500"
+                    className="pl-10 bg-[#0a0a0a] border-slate-800 text-white placeholder:text-slate-500 focus:border-primary"
                 />
             </div>
 
@@ -347,8 +347,8 @@ const CommentsManagementTab = () => {
                     </Button>
                 </div>
             ) : filteredComments.length === 0 ? (
-                <div className="text-center py-20 border border-dashed border-slate-800 rounded-xl bg-slate-900/50">
-                    <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="text-center py-20 border border-dashed border-slate-800 rounded-xl bg-[#0a0a0a]/50">
+                    <div className="w-16 h-16 bg-[#0a0a0a] rounded-full flex items-center justify-center mx-auto mb-4">
                         <MessageSquare className="w-8 h-8 text-slate-600" />
                     </div>
                     <h3 className="text-lg font-medium text-white">Sonuç Bulunamadı</h3>
@@ -368,8 +368,8 @@ const CommentsManagementTab = () => {
                                 className={`
                                     relative p-4 rounded-xl border transition-all duration-200
                                     ${comment.is_approved 
-                                        ? 'bg-slate-900/50 border-slate-800 hover:border-slate-700' 
-                                        : 'bg-slate-900 border-yellow-900/30 shadow-[0_0_15px_-3px_rgba(234,179,8,0.1)]'
+                                        ? 'bg-[#0a0a0a]/50 border-slate-800 hover:border-slate-700' 
+                                        : 'bg-[#0a0a0a] border-yellow-900/30 shadow-[0_0_15px_-3px_rgba(234,179,8,0.1)]'
                                     }
                                     ${isProcessing ? 'opacity-70 pointer-events-none' : 'opacity-100'}
                                 `}
@@ -391,7 +391,7 @@ const CommentsManagementTab = () => {
                                                 {formatDate(comment.created_at)}
                                             </span>
                                             {comment.parent_comment_id && (
-                                                <span className="flex items-center gap-1 text-purple-400 bg-purple-950/30 px-2 py-0.5 rounded text-xs border border-purple-900/50">
+                                                <span className="flex items-center gap-1 text-primary bg-primary/30 px-2 py-0.5 rounded text-xs border border-primary/50">
                                                     <CornerDownRight className="w-3 h-3" />
                                                     Cevap: {getParentAuthor(comment.parent_comment_id)}
                                                 </span>
@@ -405,7 +405,7 @@ const CommentsManagementTab = () => {
                                         </div>
 
                                         <div className="flex items-center gap-3">
-                                            <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-purple-400 font-bold text-sm shrink-0 border border-slate-700">
+                                            <div className="w-9 h-9 rounded-full bg-[#0a0a0a] flex items-center justify-center text-primary font-bold text-sm shrink-0 border border-slate-700">
                                                 {comment.author_name ? comment.author_name.charAt(0).toUpperCase() : '?'}
                                             </div>
                                             <div>
@@ -418,7 +418,7 @@ const CommentsManagementTab = () => {
                                             </div>
                                         </div>
 
-                                        <div className="bg-slate-950/50 p-3 rounded-lg border border-slate-800/50 text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">
+                                        <div className="bg-[#0a0a0a]/50 p-3 rounded-lg border border-slate-800/50 text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">
                                             {comment.content}
                                         </div>
                                     </div>
@@ -485,7 +485,7 @@ const CommentsManagementTab = () => {
                                                     )}
                                                 </Button>
                                             </AlertDialogTrigger>
-                                            <AlertDialogContent className="bg-slate-900 border-slate-800 text-white">
+                                            <AlertDialogContent className="bg-[#0a0a0a] border-slate-800 text-white">
                                                 <AlertDialogHeader>
                                                     <AlertDialogTitle className="flex items-center gap-2">
                                                         <AlertTriangle className="w-5 h-5 text-red-500" />
@@ -496,12 +496,12 @@ const CommentsManagementTab = () => {
                                                     </AlertDialogDescription>
                                                 </AlertDialogHeader>
                                                 
-                                                <div className="bg-slate-950 p-3 rounded-md border border-slate-800 text-sm text-slate-300 my-2 max-h-[100px] overflow-y-auto italic">
+                                                <div className="bg-[#0a0a0a] p-3 rounded-md border border-slate-800 text-sm text-slate-300 my-2 max-h-[100px] overflow-y-auto italic">
                                                     "{comment.content}"
                                                 </div>
 
                                                 <AlertDialogFooter>
-                                                    <AlertDialogCancel className="bg-transparent border-slate-700 text-white hover:bg-slate-800 hover:text-white">İptal</AlertDialogCancel>
+                                                    <AlertDialogCancel className="bg-transparent border-slate-700 text-white hover:bg-[#0a0a0a] hover:text-white">İptal</AlertDialogCancel>
                                                     <AlertDialogAction 
                                                         onClick={() => handleDelete(comment.id)}
                                                         className="bg-red-600 hover:bg-red-700 border-none text-white"

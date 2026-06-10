@@ -15,9 +15,9 @@ export const botProtectionConfig = {
     collectAudio: true
   },
   captcha: {
-    mode: 'invisible', // Only show for suspicious traffic
-    provider: 'recaptcha-v3'
-  }
+    mode: 'invisible',
+    provider: 'cloudflare-turnstile',
+  },
 };
 
 /**

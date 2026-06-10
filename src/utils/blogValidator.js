@@ -2,6 +2,7 @@
 export const validateSlugFormat = (slug) => {
   if (!slug || slug.trim() === '') return "Slug boş olamaz.";
   if (slug.length < 3) return "Slug en az 3 karakter olmalıdır.";
+  if (slug.length > 100) return "Slug en fazla 100 karakter olmalıdır.";
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
     return "Slug sadece küçük harf, rakam ve tire içerebilir. Başında veya sonunda tire olamaz.";
   }
@@ -34,6 +35,18 @@ export const validateBlogPostData = (data) => {
 
   if (data.focus_keyword && data.focus_keyword.trim().length > 100) {
     errors.focus_keyword = "Odak anahtar kelime en fazla 100 karakter olabilir.";
+  }
+
+  if (data.seo_title && data.seo_title.trim().length > 60) {
+    errors.seo_title = "SEO başlığı en fazla 60 karakter olabilir.";
+  }
+
+  if (data.seo_description && data.seo_description.trim().length > 160) {
+    errors.seo_description = "Meta açıklama en fazla 160 karakter olabilir.";
+  }
+
+  if (data.tags && Array.isArray(data.tags) && data.tags.length > 60) {
+    errors.tags = "En fazla 60 etiket ekleyebilirsiniz.";
   }
   
   return {

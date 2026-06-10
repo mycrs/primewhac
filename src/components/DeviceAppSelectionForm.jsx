@@ -13,14 +13,17 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { submitToWordpress } from '@/utils/wpApi';
+import { defaultData } from '@/data/defaultSiteData';
+import { showPublicMaintenanceToastOnce } from '@/utils/supabaseMaintenanceToast';
 
 // --- Static Data Configuration ---
 const devices = [
-  { id: 'ios', name: 'iOS', category: 'iOS', icon: Smartphone, color: 'from-gray-700 to-gray-900' },
+  { id: 'ios', name: 'iOS', category: 'iOS', icon: Smartphone, color: 'from-gray-700 to-[#141414]' },
   { id: 'android', name: 'Android', category: 'Android', icon: Smartphone, color: 'from-green-600 to-green-800' },
-  { id: 'tv', name: 'Smart TV', category: 'TV', icon: Tv, color: 'from-blue-600 to-blue-800' },
-  { id: 'pc', name: 'PC / Laptop', category: 'PC', icon: Monitor, color: 'from-indigo-600 to-indigo-800' },
-  { id: 'tablet', name: 'Tablet', category: 'Tablet', icon: Tablet, color: 'from-purple-600 to-purple-800' },
+  { id: 'tv', name: 'Smart TV', category: 'TV', icon: Tv, color: 'from-[#e50914] to-[#b20710]' },
+  { id: 'android-tv', name: 'Android TV', category: 'Android TV', icon: Tv, color: 'from-[#e50914] to-[#b20710]' },
+  { id: 'pc', name: 'PC / Laptop', category: 'PC', icon: Monitor, color: 'from-[#e50914] to-[#b20710]' },
+  { id: 'tablet', name: 'Tablet', category: 'Tablet', icon: Tablet, color: 'from-[#e50914] to-[#b20710]' },
   { id: 'watch', name: 'Watch', category: 'Smart Watch', icon: Watch, color: 'from-orange-600 to-orange-800' },
 ];
 
@@ -40,6 +43,12 @@ const appsConfig = {
     { id: 'spotify', name: 'Spotify', icon: Music },
   ],
   tv: [
+    { id: 'netflix', name: 'Netflix', icon: Clapperboard },
+    { id: 'youtube', name: 'YouTube', icon: Youtube },
+    { id: 'prime', name: 'Prime Video', icon: Film },
+    { id: 'disney', name: 'Disney+', icon: Sparkles },
+  ],
+  'android-tv': [
     { id: 'netflix', name: 'Netflix', icon: Clapperboard },
     { id: 'youtube', name: 'YouTube', icon: Youtube },
     { id: 'prime', name: 'Prime Video', icon: Film },
@@ -119,12 +128,15 @@ const DeviceAppSelectionForm = ({ siteData }) => {
     setStatus('loading');
 
     try {
+      const contactInfo = siteData?.contact_info || siteData?.contactData || defaultData?.contactData || {};
+      const whatsappNumber = (contactInfo?.whatsapp || contactInfo?.phone || '').replace(/\D/g, '') || (import.meta.env.VITE_WHATSAPP_PHONE || '').replace(/\D/g, '') || '4916345869030';
       const result = await submitToWordpress({
         deviceType: selectedDevice?.name,
         category: category,
         appName: selectedApp?.name,
         username,
-        specialNote: note
+        specialNote: note,
+        whatsappNumber
       });
 
       if (result.success) {
@@ -148,12 +160,7 @@ const DeviceAppSelectionForm = ({ siteData }) => {
     } catch (err) {
       console.error(err);
       setStatus('error');
-      
-      toast({
-        variant: "destructive",
-        title: "Hata",
-        description: "İşlem başlatılamadı."
-      });
+      showPublicMaintenanceToastOnce(toast);
     }
   };
 
@@ -167,12 +174,12 @@ const DeviceAppSelectionForm = ({ siteData }) => {
   const currentApps = selectedDevice ? (appsConfig[selectedDevice.id] || []) : [];
 
   return (
-    <div ref={topRef} className="w-full max-w-5xl mx-auto min-h-[600px] flex flex-col bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl relative backdrop-blur-sm">
+    <div ref={topRef} className="w-full max-w-5xl mx-auto min-h-[600px] flex flex-col bg-[#0a0a0a]/50 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl relative backdrop-blur-sm">
       
       {/* Progress / Step Indicators */}
-      <div className="bg-slate-950/80 p-6 border-b border-slate-800">
+      <div className="bg-[#0a0a0a]/80 p-6 border-b border-slate-800">
          <div className="flex items-center justify-between max-w-md mx-auto relative">
-            <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-800 -z-0 rounded-full" />
+            <div className="absolute top-1/2 left-0 w-full h-1 bg-[#0a0a0a] -z-0 rounded-full" />
             <div 
                 className="absolute top-1/2 left-0 h-1 bg-green-600 -z-0 rounded-full transition-all duration-500 ease-in-out"
                 style={{ width: step === 1 ? '0%' : step === 2 ? '50%' : '100%' }}
@@ -185,7 +192,7 @@ const DeviceAppSelectionForm = ({ siteData }) => {
                            w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 border-4
                            ${step >= s 
                              ? "bg-green-600 border-slate-950 text-white shadow-[0_0_15px_rgba(34,197,94,0.5)] scale-110" 
-                             : "bg-slate-800 border-slate-950 text-slate-500"
+                             : "bg-[#0a0a0a] border-slate-950 text-slate-500"
                            }
                         `}
                     >
@@ -274,11 +281,11 @@ const DeviceAppSelectionForm = ({ siteData }) => {
                         whileTap={{ scale: 0.95 }}
                         className="
                            group flex flex-col items-center justify-center p-6 rounded-xl 
-                           bg-slate-800 border border-slate-700 hover:border-green-500 hover:bg-slate-750 
+                           bg-[#0a0a0a] border border-slate-700 hover:border-green-500 hover:bg-[#0a0a0a] 
                            shadow-lg hover:shadow-green-500/20 transition-all h-[150px] relative overflow-hidden
                         "
                       >
-                         <div className="p-3 rounded-xl bg-slate-900 text-slate-300 group-hover:bg-green-500 group-hover:text-white transition-colors mb-4 duration-300">
+                         <div className="p-3 rounded-xl bg-[#0a0a0a] text-slate-300 group-hover:bg-green-500 group-hover:text-white transition-colors mb-4 duration-300">
                             <app.icon size={32} />
                          </div>
                          <span className="font-bold text-slate-200 group-hover:text-white transition-colors">
@@ -306,8 +313,8 @@ const DeviceAppSelectionForm = ({ siteData }) => {
                         <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" /> Uygulamalara Dön
                    </Button>
                    
-                   <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-6 rounded-2xl border border-slate-700 flex items-center gap-6 shadow-inner">
-                        <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-slate-950 border border-slate-800 text-green-400 shadow-lg shrink-0">
+                   <div className="bg-gradient-to-r from-[#0a0a0a] to-[#141414] p-6 rounded-2xl border border-slate-700 flex items-center gap-6 shadow-inner">
+                        <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-[#0a0a0a] border border-slate-800 text-green-400 shadow-lg shrink-0">
                              {selectedApp && <selectedApp.icon size={32} />}
                         </div>
                         <div>
@@ -323,7 +330,7 @@ const DeviceAppSelectionForm = ({ siteData }) => {
                    </div>
                 </div>
 
-                <div className="space-y-6 bg-slate-950/50 p-6 rounded-2xl border border-slate-800">
+                <div className="space-y-6 bg-[#0a0a0a]/50 p-6 rounded-2xl border border-slate-800">
                     
                     <div className="space-y-2">
                         <Label htmlFor="username" className="text-slate-300 font-bold">Adınız Soyadınız</Label>
@@ -333,7 +340,7 @@ const DeviceAppSelectionForm = ({ siteData }) => {
                             onChange={(e) => setUsername(e.target.value)}
                             disabled={status === 'loading'}
                             placeholder="Örn: Mehmet Demir"
-                            className="bg-slate-900 border-slate-700 h-12 text-white placeholder:text-slate-600 focus:ring-green-500/50 focus:border-green-500"
+                            className="bg-[#0a0a0a] border-slate-700 h-12 text-white placeholder:text-slate-600 focus:ring-green-500/50 focus:border-green-500"
                         />
                     </div>
                     
@@ -345,7 +352,7 @@ const DeviceAppSelectionForm = ({ siteData }) => {
                             onChange={(e) => setNote(e.target.value)}
                             disabled={status === 'loading'}
                             placeholder="Eklemek istedikleriniz..."
-                            className="bg-slate-900 border-slate-700 min-h-[120px] text-white placeholder:text-slate-600 focus:ring-green-500/50 focus:border-green-500 resize-none p-4"
+                            className="bg-[#0a0a0a] border-slate-700 min-h-[120px] text-white placeholder:text-slate-600 focus:ring-green-500/50 focus:border-green-500 resize-none p-4"
                         />
                     </div>
 
@@ -357,7 +364,7 @@ const DeviceAppSelectionForm = ({ siteData }) => {
                                 w-full h-12 font-bold text-lg shadow-lg transition-all rounded-xl
                                 ${username && status !== 'loading'
                                     ? "bg-green-600 hover:bg-green-700 text-white hover:shadow-green-500/25 hover:scale-[1.01]" 
-                                    : "bg-slate-800 text-slate-500 cursor-not-allowed"
+                                    : "bg-[#0a0a0a] text-slate-500 cursor-not-allowed"
                                 }
                             `}
                         >

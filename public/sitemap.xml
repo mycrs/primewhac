@@ -1,261 +1,900 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://primewatch.tv/</loc>
-    <lastmod>2026-02-28</lastmod>
+    <loc>https://streamtr.eu/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/"/>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/packages</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/paketler</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/paketler"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/pakete"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/paketler"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/paketler</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/channels</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/channels"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/kanale"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/channels"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/about</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/m3u-converter</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/m3u-converter"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/m3u-olustur"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/m3u-converter"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/hakkimizda</loc>
-    <lastmod>2026-02-28</lastmod>
+    <loc>https://streamtr.eu/ne-izlesem</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/ne-izlesem"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/was-soll-ich-schauen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/ne-izlesem"/>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/installation</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/ne-izlesem/aksiyon-filmleri</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/ne-izlesem/aksiyon-filmleri"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/was-soll-ich-schauen/beste-action-filme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/ne-izlesem/aksiyon-filmleri"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/kurulum</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/ne-izlesem/populer-yabanci-diziler</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/ne-izlesem/populer-yabanci-diziler"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/was-soll-ich-schauen/beliebte-auslaendische-serien"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/ne-izlesem/populer-yabanci-diziler"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/instructions</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/ne-izlesem/korku-filmleri</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/ne-izlesem/korku-filmleri"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/was-soll-ich-schauen/horrorfilme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/ne-izlesem/korku-filmleri"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/detailed-guides</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/ne-izlesem/romantik-filmler</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/ne-izlesem/romantik-filmler"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/was-soll-ich-schauen/romantische-filme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/ne-izlesem/romantik-filmler"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/faq</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/ne-izlesem/turk-dizileri</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/sss</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/ne-izlesem/imdb-yuksek-filmler</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/reseller</loc>
-    <lastmod>2026-02-28</lastmod>
+    <loc>https://streamtr.eu/mac-programi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/mac-programi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/spielplan"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/mac-programi"/>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/bayilik</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/kurulum</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/channels</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/kurulum/android-tv</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/android-tv"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/android-tv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/android-tv"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/blog</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/kurulum/ios</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/ios"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/ios"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/ios"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/m3u-converter</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/kurulum/android-phone</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/android-phone"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/android-phone"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/android-phone"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/privacy</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/kurulum/windows</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/windows"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/windows"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/windows"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/gizlilik</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/kurulum/mac</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/mac"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/mac"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/mac"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/terms</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/kurulum/smart-tv</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/smart-tv"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/smart-tv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/smart-tv"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/sartlar</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/kurulum/samsung-tv</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/samsung-tv"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/samsung-tv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/samsung-tv"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/karsilastirma</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/kurulum/lg-tv</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/lg-tv"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/lg-tv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/lg-tv"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/what-to-watch</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/kurulum/tablet</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/tablet"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/tablet"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/tablet"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/ne-izlesem</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/karsilastirma</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/karsilastirma"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/vergleich"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/karsilastirma"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/sitemap</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/detailed-guides</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/test</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/yorumlar</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/yorumlar"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/bewertungen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/yorumlar"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/bing-verification</loc>
-    <lastmod>2026-02-28</lastmod>
+    <loc>https://streamtr.eu/blog</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog"/>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/guide/iptv-kurulum-rehberi</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/reseller</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/reseller"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/reseller"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/reseller"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/sss</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/sss"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/sss"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/sss"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/packages</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/hakkimizda</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/hakkimizda"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/uber-uns"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/hakkimizda"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/pakete</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/sartlar</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/sartlar"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/sartlar"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/paketler</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/gizlilik</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/gizlilik"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/gizlilik"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/kanale</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/guide/iptv-kurulum-rehberi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/guide/iptv-kurulum-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/guide/iptv-kurulum-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/guide/iptv-kurulum-rehberi"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/sss</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/test</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/test"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/test"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/test"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/m3u-olustur</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/musteri-kayit</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/uber-uns</loc>
-    <lastmod>2026-02-28</lastmod>
+    <loc>https://streamtr.eu/de</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/"/>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/kurulum</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/de/pakete</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/paketler"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/pakete"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/paketler"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/blog</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/de/einrichtung</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/reseller</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/de/einrichtung/android-tv</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/android-tv"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/android-tv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/android-tv"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/test</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/de/einrichtung/ios</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/ios"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/ios"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/ios"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/guide/iptv-kurulum-rehberi</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/de/einrichtung/android-phone</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/android-phone"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/android-phone"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/android-phone"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/privacy</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/de/einrichtung/windows</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/windows"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/windows"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/windows"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/terms</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <loc>https://streamtr.eu/de/einrichtung/mac</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/mac"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/mac"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/mac"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://primewatch.tv/de/was-soll-ich-schauen</loc>
-    <lastmod>2026-02-28</lastmod>
+    <loc>https://streamtr.eu/de/einrichtung/smart-tv</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/smart-tv"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/smart-tv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/smart-tv"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/einrichtung/samsung-tv</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/samsung-tv"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/samsung-tv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/samsung-tv"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/einrichtung/lg-tv</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/lg-tv"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/lg-tv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/lg-tv"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/einrichtung/tablet</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/kurulum/tablet"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/einrichtung/tablet"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/kurulum/tablet"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/bewertungen</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/yorumlar"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/bewertungen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/yorumlar"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog"/>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1</priority>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/reseller</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/reseller"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/reseller"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/reseller"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/uber-uns</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/hakkimizda"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/uber-uns"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/hakkimizda"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/terms</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/sartlar"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/sartlar"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/gizlilik"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/gizlilik"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/was-soll-ich-schauen</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/ne-izlesem"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/was-soll-ich-schauen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/ne-izlesem"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/was-soll-ich-schauen/beste-action-filme</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/ne-izlesem/aksiyon-filmleri"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/was-soll-ich-schauen/beste-action-filme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/ne-izlesem/aksiyon-filmleri"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/was-soll-ich-schauen/beliebte-auslaendische-serien</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/ne-izlesem/populer-yabanci-diziler"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/was-soll-ich-schauen/beliebte-auslaendische-serien"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/ne-izlesem/populer-yabanci-diziler"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/was-soll-ich-schauen/horrorfilme</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/ne-izlesem/korku-filmleri"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/was-soll-ich-schauen/horrorfilme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/ne-izlesem/korku-filmleri"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/was-soll-ich-schauen/romantische-filme</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/ne-izlesem/romantik-filmler"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/was-soll-ich-schauen/romantische-filme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/ne-izlesem/romantik-filmler"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/spielplan</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/mac-programi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/spielplan"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/mac-programi"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/kanale</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/channels"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/kanale"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/channels"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/sss</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/sss"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/sss"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/sss"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/m3u-olustur</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/m3u-converter"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/m3u-olustur"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/m3u-converter"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/guide/iptv-kurulum-rehberi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/guide/iptv-kurulum-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/guide/iptv-kurulum-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/guide/iptv-kurulum-rehberi"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/test</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/test"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/test"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/test"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/vergleich</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/karsilastirma"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/vergleich"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/karsilastirma"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/detaillierte-anleitungen</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/detailed-guides"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/detaillierte-anleitungen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/detailed-guides"/>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/-derbi-gn-iptv-donmamas-iin-bilmeniz-gereken-her-ey</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/-derbi-gn-iptv-donmamas-iin-bilmeniz-gereken-her-ey"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/-derbi-gn-iptv-donmamas-iin-bilmeniz-gereken-her-ey"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/-derbi-gn-iptv-donmamas-iin-bilmeniz-gereken-her-ey"/>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/-derbi-gn-iptv-donmamas-iin-bilmeniz-gereken-her-ey</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/-derbi-gn-iptv-donmamas-iin-bilmeniz-gereken-her-ey"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/-derbi-gn-iptv-donmamas-iin-bilmeniz-gereken-her-ey"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/-derbi-gn-iptv-donmamas-iin-bilmeniz-gereken-her-ey"/>
+    <lastmod>2026-02-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/galatasaray-liverpool-maci</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/galatasaray-liverpool-maci"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/galatasaray-liverpool-maci"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/galatasaray-liverpool-maci"/>
+    <lastmod>2026-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/galatasaray-liverpool-maci</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/galatasaray-liverpool-maci"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/galatasaray-liverpool-maci"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/galatasaray-liverpool-maci"/>
+    <lastmod>2026-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/2026-vizyon-filmleri-diziler</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/2026-vizyon-filmleri-diziler"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/2026-vizyon-filmleri-diziler"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/2026-vizyon-filmleri-diziler"/>
+    <lastmod>2026-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/2026-vizyon-filmleri-diziler</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/2026-vizyon-filmleri-diziler"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/2026-vizyon-filmleri-diziler"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/2026-vizyon-filmleri-diziler"/>
+    <lastmod>2026-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/juventus-galatasaray-mac-ozeti-goller-ve-onemli-anlar</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/juventus-galatasaray-mac-ozeti-goller-ve-onemli-anlar"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/juventus-galatasaray-mac-ozeti-goller-ve-onemli-anlar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/juventus-galatasaray-mac-ozeti-goller-ve-onemli-anlar"/>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/juventus-galatasaray-mac-ozeti-goller-ve-onemli-anlar</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/juventus-galatasaray-mac-ozeti-goller-ve-onemli-anlar"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/juventus-galatasaray-mac-ozeti-goller-ve-onemli-anlar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/juventus-galatasaray-mac-ozeti-goller-ve-onemli-anlar"/>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi"/>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi"/>
+    <lastmod>2026-03-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/galatasaray-liverpool-maci-nereden-izlenir-sampiyonlar-ligi-son-16-eslesmeleri-ve-yayin-rehberi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/galatasaray-liverpool-maci-nereden-izlenir-sampiyonlar-ligi-son-16-eslesmeleri-ve-yayin-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/galatasaray-liverpool-maci-nereden-izlenir-sampiyonlar-ligi-son-16-eslesmeleri-ve-yayin-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/galatasaray-liverpool-maci-nereden-izlenir-sampiyonlar-ligi-son-16-eslesmeleri-ve-yayin-rehberi"/>
+    <lastmod>2026-02-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/galatasaray-liverpool-maci-nereden-izlenir-sampiyonlar-ligi-son-16-eslesmeleri-ve-yayin-rehberi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/galatasaray-liverpool-maci-nereden-izlenir-sampiyonlar-ligi-son-16-eslesmeleri-ve-yayin-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/galatasaray-liverpool-maci-nereden-izlenir-sampiyonlar-ligi-son-16-eslesmeleri-ve-yayin-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/galatasaray-liverpool-maci-nereden-izlenir-sampiyonlar-ligi-son-16-eslesmeleri-ve-yayin-rehberi"/>
+    <lastmod>2026-02-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/besiktas-galatasaray-derbisi-nereden-izlenir-7-mart-2026-canli-izle</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/besiktas-galatasaray-derbisi-nereden-izlenir-7-mart-2026-canli-izle"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/besiktas-galatasaray-derbisi-nereden-izlenir-7-mart-2026-canli-izle"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/besiktas-galatasaray-derbisi-nereden-izlenir-7-mart-2026-canli-izle"/>
+    <lastmod>2026-03-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/besiktas-galatasaray-derbisi-nereden-izlenir-7-mart-2026-canli-izle</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/besiktas-galatasaray-derbisi-nereden-izlenir-7-mart-2026-canli-izle"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/besiktas-galatasaray-derbisi-nereden-izlenir-7-mart-2026-canli-izle"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/besiktas-galatasaray-derbisi-nereden-izlenir-7-mart-2026-canli-izle"/>
+    <lastmod>2026-03-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/sampiyonlar-ligi-son-16</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/sampiyonlar-ligi-son-16"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/sampiyonlar-ligi-son-16"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/sampiyonlar-ligi-son-16"/>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/sampiyonlar-ligi-son-16</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/sampiyonlar-ligi-son-16"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/sampiyonlar-ligi-son-16"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/sampiyonlar-ligi-son-16"/>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/smart-tvde-iptv-neden-calismaz</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/smart-tvde-iptv-neden-calismaz"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/smart-tvde-iptv-neden-calismaz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/smart-tvde-iptv-neden-calismaz"/>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/smart-tvde-iptv-neden-calismaz</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/smart-tvde-iptv-neden-calismaz"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/smart-tvde-iptv-neden-calismaz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/smart-tvde-iptv-neden-calismaz"/>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/smart-tvde-iptv-izlemek-mantikli-mi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/smart-tvde-iptv-izlemek-mantikli-mi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/smart-tvde-iptv-izlemek-mantikli-mi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/smart-tvde-iptv-izlemek-mantikli-mi"/>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/smart-tvde-iptv-izlemek-mantikli-mi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/smart-tvde-iptv-izlemek-mantikli-mi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/smart-tvde-iptv-izlemek-mantikli-mi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/smart-tvde-iptv-izlemek-mantikli-mi"/>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/derbiyi-donmadan-izle</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/derbiyi-donmadan-izle"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/derbiyi-donmadan-izle"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/derbiyi-donmadan-izle"/>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/derbiyi-donmadan-izle</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/derbiyi-donmadan-izle"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/derbiyi-donmadan-izle"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/derbiyi-donmadan-izle"/>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/avrupadan-turk-kanallari-nasil-izlenir</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/avrupadan-turk-kanallari-nasil-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/avrupadan-turk-kanallari-nasil-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/avrupadan-turk-kanallari-nasil-izlenir"/>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/avrupadan-turk-kanallari-nasil-izlenir</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/avrupadan-turk-kanallari-nasil-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/avrupadan-turk-kanallari-nasil-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/avrupadan-turk-kanallari-nasil-izlenir"/>
+    <lastmod>2026-03-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/galatasaray-tarihe-kosuyor</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/galatasaray-tarihe-kosuyor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/galatasaray-tarihe-kosuyor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/galatasaray-tarihe-kosuyor"/>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/galatasaray-tarihe-kosuyor</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/galatasaray-tarihe-kosuyor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/galatasaray-tarihe-kosuyor"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/galatasaray-tarihe-kosuyor"/>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/iptv-satin-ai</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/iptv-satin-ai"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/iptv-satin-ai"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/iptv-satin-ai"/>
+    <lastmod>2026-03-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/iptv-satin-ai</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/iptv-satin-ai"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/iptv-satin-ai"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/iptv-satin-ai"/>
+    <lastmod>2026-03-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/sampiyonlar-ligi-ceyrek-final-2026-maclari-nereden-izlenir</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/sampiyonlar-ligi-ceyrek-final-2026-maclari-nereden-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/sampiyonlar-ligi-ceyrek-final-2026-maclari-nereden-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/sampiyonlar-ligi-ceyrek-final-2026-maclari-nereden-izlenir"/>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/sampiyonlar-ligi-ceyrek-final-2026-maclari-nereden-izlenir</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/sampiyonlar-ligi-ceyrek-final-2026-maclari-nereden-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/sampiyonlar-ligi-ceyrek-final-2026-maclari-nereden-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/sampiyonlar-ligi-ceyrek-final-2026-maclari-nereden-izlenir"/>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/galatasaray-trabzonspor-galatasaray-maci-4-nisan-2026-canli-izle</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/galatasaray-trabzonspor-galatasaray-maci-4-nisan-2026-canli-izle"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/galatasaray-trabzonspor-galatasaray-maci-4-nisan-2026-canli-izle"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/galatasaray-trabzonspor-galatasaray-maci-4-nisan-2026-canli-izle"/>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/galatasaray-trabzonspor-galatasaray-maci-4-nisan-2026-canli-izle</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/galatasaray-trabzonspor-galatasaray-maci-4-nisan-2026-canli-izle"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/galatasaray-trabzonspor-galatasaray-maci-4-nisan-2026-canli-izle"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/galatasaray-trabzonspor-galatasaray-maci-4-nisan-2026-canli-izle"/>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/galatasaray-fenerbahce-derbisi-ne-zaman-saat-kacta-kapsamli-analiz-ve-donmadan-izleme-rehberi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/galatasaray-fenerbahce-derbisi-ne-zaman-saat-kacta-kapsamli-analiz-ve-donmadan-izleme-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/galatasaray-fenerbahce-derbisi-ne-zaman-saat-kacta-kapsamli-analiz-ve-donmadan-izleme-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/galatasaray-fenerbahce-derbisi-ne-zaman-saat-kacta-kapsamli-analiz-ve-donmadan-izleme-rehberi"/>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/galatasaray-fenerbahce-derbisi-ne-zaman-saat-kacta-kapsamli-analiz-ve-donmadan-izleme-rehberi</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/galatasaray-fenerbahce-derbisi-ne-zaman-saat-kacta-kapsamli-analiz-ve-donmadan-izleme-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/galatasaray-fenerbahce-derbisi-ne-zaman-saat-kacta-kapsamli-analiz-ve-donmadan-izleme-rehberi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/galatasaray-fenerbahce-derbisi-ne-zaman-saat-kacta-kapsamli-analiz-ve-donmadan-izleme-rehberi"/>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/blog/2026-dunya-kupasi-maclari-nereden-izlenir</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/2026-dunya-kupasi-maclari-nereden-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/2026-dunya-kupasi-maclari-nereden-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/2026-dunya-kupasi-maclari-nereden-izlenir"/>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://streamtr.eu/de/blog/2026-dunya-kupasi-maclari-nereden-izlenir</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://streamtr.eu/blog/2026-dunya-kupasi-maclari-nereden-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://streamtr.eu/de/blog/2026-dunya-kupasi-maclari-nereden-izlenir"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://streamtr.eu/blog/2026-dunya-kupasi-maclari-nereden-izlenir"/>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

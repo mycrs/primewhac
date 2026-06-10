@@ -39,7 +39,7 @@ const PackageRegionSelector = ({ selectedRegion, onRegionChange }) => {
           className={cn(
             "flex-1 flex flex-col items-center justify-center py-2 px-1 rounded-md transition-all duration-300 relative z-10",
             selectedRegion === region.id 
-              ? "bg-[#A855F7] text-white shadow-lg shadow-purple-900/20" 
+              ? "bg-[#e50914] text-white shadow-lg shadow-primary/20" 
               : "text-gray-400 hover:text-white hover:bg-white/5"
           )}
           title={region.desc}

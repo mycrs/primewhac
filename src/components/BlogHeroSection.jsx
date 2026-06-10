@@ -15,15 +15,15 @@ const BlogHeroSection = ({ lang, setLang }) => {
   };
 
   return (
-    <section className="relative min-h-[40vh] flex flex-col items-center justify-center overflow-hidden rounded-[2rem] bg-[#1a1a2e] border border-[#2a2a40] shadow-xl shadow-[#A855F7]/5 mb-10 px-4 py-16">
+    <section className="relative min-h-[40vh] flex flex-col items-center justify-center overflow-hidden rounded-[2rem] bg-[#0a0a0a] border border-[#2a2a40] shadow-xl shadow-[#e50914]/5 mb-10 px-4 py-16">
       
       {/* Subtle Background Glow Effects */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#A855F7]/10 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/5 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#e50914]/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#141414]/5 blur-[100px] rounded-full pointer-events-none" />
 
       {/* Language Toggle */}
       <div className="absolute top-6 right-6 sm:top-8 sm:right-8 z-30">
-        <div className="flex bg-[#0F0F1E] p-1 rounded-full border border-[#2a2a40] shadow-inner">
+        <div className="flex bg-[#0a0a0a] p-1 rounded-full border border-[#2a2a40] shadow-inner">
           <button
             onClick={() => setLang('tr')}
             className={`relative px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide transition-colors duration-300 ${
@@ -33,7 +33,7 @@ const BlogHeroSection = ({ lang, setLang }) => {
             {lang === 'tr' && (
               <motion.div
                 layoutId="active-blog-lang"
-                className="absolute inset-0 bg-[#A855F7] rounded-full shadow-md"
+                className="absolute inset-0 bg-[#e50914] rounded-full shadow-md"
                 initial={false}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
@@ -57,7 +57,7 @@ const BlogHeroSection = ({ lang, setLang }) => {
             {lang === 'de' && (
               <motion.div
                 layoutId="active-blog-lang"
-                className="absolute inset-0 bg-[#A855F7] rounded-full shadow-md"
+                className="absolute inset-0 bg-[#e50914] rounded-full shadow-md"
                 initial={false}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
@@ -85,10 +85,10 @@ const BlogHeroSection = ({ lang, setLang }) => {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="flex flex-col items-center"
           >
-            <div className="inline-flex items-center justify-center px-3 py-1 mb-6 text-xs font-medium rounded-full bg-[#A855F7]/10 text-[#A855F7] border border-[#A855F7]/20">
+            <div className="inline-flex items-center justify-center px-3 py-1 mb-6 text-xs font-medium rounded-full bg-[#e50914]/10 text-[#e50914] border border-[#e50914]/20">
               <span className="relative flex h-2 w-2 mr-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A855F7] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#A855F7]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e50914] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e50914]"></span>
               </span>
               {lang === 'tr' ? 'Güncel İçerikler' : 'Aktuelle Inhalte'}
             </div>

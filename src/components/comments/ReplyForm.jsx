@@ -71,10 +71,10 @@ const ReplyForm = ({ postId, parentCommentId, onReplyAdded, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200 shadow-inner animate-in fade-in slide-in-from-top-2">
+    <form onSubmit={handleSubmit} className="mt-4 p-4 bg-[#141414] rounded-lg border border-slate-200 shadow-inner animate-in fade-in slide-in-from-top-2">
       <div className="flex justify-between items-center mb-3">
         <h5 className="text-sm font-semibold text-slate-700">Cevap Yaz</h5>
-        <Button variant="ghost" size="sm" onClick={onCancel} className="h-6 w-6 p-0 hover:bg-slate-200 rounded-full">
+        <Button variant="ghost" size="sm" onClick={onCancel} className="h-6 w-6 p-0 hover:bg-[#141414] rounded-full">
           <X className="w-4 h-4 text-slate-500" />
         </Button>
       </div>
@@ -102,14 +102,14 @@ const ReplyForm = ({ postId, parentCommentId, onReplyAdded, onCancel }) => {
             variant="ghost" 
             onClick={onCancel}
             disabled={submitting}
-            className="text-slate-600 hover:text-slate-900 hover:bg-slate-200"
+            className="text-slate-600 hover:text-slate-900 hover:bg-[#141414]"
           >
             İptal
           </Button>
           <Button 
             type="submit" 
             disabled={submitting} 
-            className="bg-purple-600 hover:bg-purple-700 text-white"
+            className="bg-primary hover:bg-primary text-white"
           >
             {submitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Send className="w-4 h-4 mr-2" />}
             Gönder

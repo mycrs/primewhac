@@ -2,6 +2,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { errorLogger, ERROR_SEVERITY } from '@/utils/errorLogger';
+import { adminLastActivityStorageKey } from '@/constants/adminRoutes';
+import { resolveAdminAccess } from '@/utils/resolveAdminUser';
 
 const AuthContext = createContext(undefined);
 
@@ -15,16 +17,7 @@ export const AuthProvider = ({ children }) => {
   const verifyAdminStatus = async (currentUser) => {
     if (!currentUser?.email) return false;
     try {
-      const { data, error } = await supabase
-        .from('admin_users')
-        .select('is_admin')
-        .eq('email', currentUser.email)
-        .single();
-        
-      if (error && error.code !== 'PGRST116') {
-        errorLogger.log(error, ERROR_SEVERITY.WARNING, { context: 'verifyAdminStatus' });
-      }
-      return !!data?.is_admin;
+      return await resolveAdminAccess(supabase, currentUser);
     } catch (err) {
       errorLogger.log(err, ERROR_SEVERITY.ERROR, { context: 'verifyAdminStatus_exception' });
       return false;
@@ -96,20 +89,32 @@ export const AuthProvider = ({ children }) => {
   const signInWithEmail = async (email, password) => {
     try {
       const result = await supabase.auth.signInWithPassword({ email, password });
-      if (result.error) throw result.error;
+      if (result.error) {
+        errorLogger.log(result.error, ERROR_SEVERITY.WARNING, { context: 'signInWithEmail_failed' });
+      }
       return result;
     } catch (err) {
-      errorLogger.log(err, ERROR_SEVERITY.ERROR, { context: 'signInWithEmail' });
-      throw err;
+      errorLogger.log(err, ERROR_SEVERITY.ERROR, { context: 'signInWithEmail_exception' });
+      return { data: { user: null, session: null }, error: err };
     }
   };
 
   const signOut = async () => {
+    let userId;
     try {
+      const { data: { session: s } } = await supabase.auth.getSession();
+      userId = s?.user?.id;
       await supabase.auth.signOut();
     } catch (err) {
       errorLogger.log(err, ERROR_SEVERITY.WARNING, { context: 'signOut' });
     } finally {
+      if (userId && typeof window !== 'undefined') {
+        try {
+          localStorage.removeItem(adminLastActivityStorageKey(userId));
+        } catch {
+          /* ignore */
+        }
+      }
       setUser(null);
       setSession(null);
       setIsAdmin(false);

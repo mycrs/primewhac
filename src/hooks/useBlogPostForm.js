@@ -5,6 +5,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { validateBlogPostData } from '@/utils/blogValidator';
 import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
+import { pingIndexNowBlogSlug } from '@/utils/pingIndexNow';
 
 const initialFormState = {
   title: '',
@@ -211,6 +212,10 @@ export const useBlogPostForm = () => {
         description: `Blog yazısı başarıyla ${postId ? 'güncellendi' : 'oluşturuldu'}.`,
         className: "bg-green-600 text-white border-none"
       });
+
+      if (!formData.isDraft && uniqueSlug) {
+        void pingIndexNowBlogSlug(uniqueSlug);
+      }
       
       if (!postId) {
         resetForm();

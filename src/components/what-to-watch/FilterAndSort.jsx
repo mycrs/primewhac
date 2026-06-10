@@ -39,16 +39,16 @@ const FilterAndSort = ({ type = 'movie', onFilterChange }) => {
   const years = Array.from({ length: 30 }, (_, i) => new Date().getFullYear() - i);
 
   return (
-    <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800 mb-8">
+    <div className="bg-[#0a0a0a]/50 p-4 rounded-xl border border-slate-800 mb-8">
       <div className="flex items-center gap-2 mb-4 text-white font-semibold">
-        <Filter className="w-4 h-4 text-purple-400" /> Filtrele ve Sırala
+        <Filter className="w-4 h-4 text-primary" /> Filtrele ve Sırala
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
           <label className="text-xs text-slate-400 mb-1 block">Tür</label>
           <Select value={selectedGenre} onValueChange={setSelectedGenre}>
-            <SelectTrigger className="bg-slate-800 border-slate-700 text-white"><SelectValue placeholder="Tüm Türler" /></SelectTrigger>
-            <SelectContent className="bg-slate-800 text-white border-slate-700 max-h-60">
+            <SelectTrigger className="bg-[#0a0a0a] border-slate-700 text-white"><SelectValue placeholder="Tüm Türler" /></SelectTrigger>
+            <SelectContent className="bg-[#0a0a0a] text-white border-slate-700 max-h-60">
               <SelectItem value="all">Tüm Türler</SelectItem>
               {genres.map(g => <SelectItem key={g.id} value={g.id.toString()}>{g.name}</SelectItem>)}
             </SelectContent>
@@ -57,8 +57,8 @@ const FilterAndSort = ({ type = 'movie', onFilterChange }) => {
         <div>
           <label className="text-xs text-slate-400 mb-1 block">Yıl</label>
           <Select value={selectedYear} onValueChange={setSelectedYear}>
-            <SelectTrigger className="bg-slate-800 border-slate-700 text-white"><SelectValue placeholder="Tüm Yıllar" /></SelectTrigger>
-            <SelectContent className="bg-slate-800 text-white border-slate-700 max-h-60">
+            <SelectTrigger className="bg-[#0a0a0a] border-slate-700 text-white"><SelectValue placeholder="Tüm Yıllar" /></SelectTrigger>
+            <SelectContent className="bg-[#0a0a0a] text-white border-slate-700 max-h-60">
               <SelectItem value="all">Tüm Yıllar</SelectItem>
               {years.map(y => <SelectItem key={y} value={y.toString()}>{y}</SelectItem>)}
             </SelectContent>
@@ -67,8 +67,8 @@ const FilterAndSort = ({ type = 'movie', onFilterChange }) => {
         <div>
           <label className="text-xs text-slate-400 mb-1 block">Sıralama</label>
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="bg-slate-800 border-slate-700 text-white"><SelectValue placeholder="Sıralama Seç" /></SelectTrigger>
-            <SelectContent className="bg-slate-800 text-white border-slate-700">
+            <SelectTrigger className="bg-[#0a0a0a] border-slate-700 text-white"><SelectValue placeholder="Sıralama Seç" /></SelectTrigger>
+            <SelectContent className="bg-[#0a0a0a] text-white border-slate-700">
               <SelectItem value="popularity.desc">En Popüler</SelectItem>
               <SelectItem value="vote_average.desc">En Yüksek Puan</SelectItem>
               <SelectItem value="primary_release_date.desc">En Yeni</SelectItem>
@@ -77,7 +77,7 @@ const FilterAndSort = ({ type = 'movie', onFilterChange }) => {
         </div>
         <div>
           <label className="text-xs text-slate-400 mb-2 block flex justify-between">
-            <span>Min Puan</span> <span className="text-purple-400 font-bold">{rating[0]}</span>
+            <span>Min Puan</span> <span className="text-primary font-bold">{rating[0]}</span>
           </label>
           <Slider min={0} max={10} step={0.5} value={rating} onValueChange={setRating} className="w-full" />
         </div>

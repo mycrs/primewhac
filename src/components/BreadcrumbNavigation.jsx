@@ -1,10 +1,17 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
+import { cn } from '@/lib/utils';
+import { sanitizeJsonLdSchema } from '@/utils/jsonLdSanitize';
+import { SITE_URL } from '@/constants/siteUrl';
 
-const BreadcrumbNavigation = ({ customCrumbs }) => {
+const BreadcrumbNavigation = ({ customCrumbs, className, listClassName, tone = 'default' }) => {
+  const isCinema = tone === 'cinema';
+  const isCinemaBlue = tone === 'cinemaBlue';
+  const cinemaTone = isCinema || isCinemaBlue;
   const location = useLocation();
+  const siteUrl = SITE_URL;
   
   // Generate crumbs from path if no custom crumbs provided
   const pathnames = location.pathname.split('/').filter(x => x);
@@ -40,17 +47,17 @@ const BreadcrumbNavigation = ({ customCrumbs }) => {
     });
   }
 
-  // Schema.org BreadcrumbList
-  const schema = {
+  // Schema.org BreadcrumbList (item: son öğede verilmez; boş alan sanitize ile elenir)
+  const schema = sanitizeJsonLdSchema({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": crumbs.map((crumb, index) => ({
       "@type": "ListItem",
       "position": index + 1,
       "name": crumb.name,
-      "item": crumb.path ? `${window.location.origin}${crumb.path}` : undefined
+      "item": crumb.path ? `${siteUrl}${crumb.path}` : undefined
     }))
-  };
+  });
 
   if (location.pathname === '/') return null;
 
@@ -58,35 +65,49 @@ const BreadcrumbNavigation = ({ customCrumbs }) => {
     <>
       <Helmet>
         <script type="application/ld+json">
-          {JSON.stringify(schema)}
+          {JSON.stringify(schema || {})}
         </script>
       </Helmet>
       
-      <nav aria-label="Breadcrumb" className="py-4">
-        <ol className="flex flex-wrap items-center gap-2 text-sm text-slate-400">
+      <nav aria-label="Breadcrumb" className={cn('py-4', className)}>
+        <ol className={cn('flex flex-wrap items-center gap-2 text-sm text-slate-400', listClassName)}>
           {crumbs.map((crumb, index) => {
             const isLast = index === crumbs.length - 1;
             
             return (
               <li key={index} className="flex items-center">
-                {index > 0 && <ChevronRight className="w-4 h-4 mx-1 text-slate-600" />}
+                {index > 0 && (
+                  <ChevronRight className={cn('w-3.5 h-3.5 mx-1 shrink-0', cinemaTone ? 'text-white/25' : 'text-slate-600')} />
+                )}
                 
                 {index === 0 ? (
-                  <Link 
-                    to={crumb.path} 
-                    className="flex items-center hover:text-purple-400 transition-colors"
+                  <Link
+                    to={crumb.path}
+                    className={cn(
+                      'flex items-center transition-colors',
+                      isCinemaBlue ? 'text-white/60 hover:text-white' : isCinema ? 'text-white/60 hover:text-[#e50914]/90' : 'hover:text-primary'
+                    )}
                   >
                     <Home className="w-4 h-4" />
                     <span className="sr-only">{crumb.name}</span>
                   </Link>
                 ) : isLast ? (
-                  <span className="text-purple-400 font-medium truncate max-w-[200px]" aria-current="page">
+                  <span
+                    className={cn(
+                      'font-medium truncate max-w-[200px]',
+                      isCinemaBlue ? 'text-white' : isCinema ? 'text-white/75' : 'text-primary'
+                    )}
+                    aria-current="page"
+                  >
                     {crumb.name}
                   </span>
                 ) : (
-                  <Link 
-                    to={crumb.path} 
-                    className="hover:text-purple-400 transition-colors"
+                  <Link
+                    to={crumb.path}
+                    className={cn(
+                      isCinemaBlue ? 'text-white/60 hover:text-white' : isCinema ? 'text-white/60 hover:text-[#e50914]/90' : 'hover:text-primary',
+                      'transition-colors'
+                    )}
                   >
                     {crumb.name}
                   </Link>

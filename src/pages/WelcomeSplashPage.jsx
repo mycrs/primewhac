@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WelcomePageHero from '@/components/WelcomePageHero';
@@ -16,7 +16,7 @@ const WelcomeSplashPage = ({ siteData }) => {
   const pageDescription = siteData?.seoData?.home?.description || "En iyi IPTV deneyimi için hoşgeldiniz.";
 
   return (
-    <div className="min-h-screen bg-[#0F0F1E] flex flex-col">
+    <div className="min-h-screen bg-[#0a0a0a] flex flex-col">
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />

@@ -40,7 +40,7 @@ export const ChannelsTab = ({ siteData, setSiteData }) => {
                 
                 <div className="space-y-4">
                     <Input label="Ana Başlık" name="title" value={texts?.title || ''} onChange={handleChange} />
-                    <div className="bg-slate-900/50 p-3 rounded text-xs text-slate-400 -mt-2 mb-2 border border-slate-800">
+                    <div className="bg-[#0a0a0a]/50 p-3 rounded text-xs text-slate-400 -mt-2 mb-2 border border-slate-800">
                         İpucu: Renkli metin için {`{gradient}`}Metin{`{gradient}`} formatını kullanın.
                     </div>
                     <Textarea label="Açıklama" name="subtitle" value={texts?.subtitle || ''} onChange={handleChange} rows={2} />

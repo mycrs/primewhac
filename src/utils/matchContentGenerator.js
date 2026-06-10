@@ -1,4 +1,4 @@
-import { slugify } from './matchSlug';
+import { slugify } from './matchSlug.js';
 
 const GUNLER = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
 const LIG_BAĞLAMI = {
@@ -68,12 +68,12 @@ const BLOKLAR = {
     (lig) => `Spor kanalları maç günü yoğun bir yayın temposuna girer. Özellikle aynı saatte birden fazla maç oynandığında, farklı kanallarda farklı karşılaşmalar yayınlanır. İzleyiciler, program akışını takip ederek istedikleri maçı seçer. Spor kanalları, ulusal kanallar ve uluslararası yayıncılar aynı anda farklı maçlara yer verebilir. Kanal değiştirmek anlık olduğu için önemli anları kaçırmamak izleyicinin elindedir.`,
   ],
   iptv: [
-    () => `IPTV, geleneksel uydu ve kablolu yayına alternatif olarak internet üzerinden televizyon izleme imkânı sunar. Tek bir abonelik ile binlerce kanala, film ve dizi arşivine erişmek mümkündür. Spor kanalları özellikle yoğun talep görür; maç günü kesintisiz yayın için altyapı kalitesi büyük önem taşır. Farklı cihazlarda kullanılabilen uygulamalar sayesinde izleme deneyimi oldukça esnektir.`,
+    () => `IPTV, geleneksel uydu ve kablolu yayına alternatif olarak internet üzerinden televizyon izleme imkânı sunar. Tek bir abonelik ile 10.000+ kanala, film ve dizi arşivine erişmek mümkündür. Spor kanalları özellikle yoğun talep görür; maç günü kesintisiz yayın için altyapı kalitesi büyük önem taşır. Farklı cihazlarda kullanılabilen uygulamalar sayesinde izleme deneyimi oldukça esnektir.`,
     () => `IPTV hizmetlerinin avantajları arasında geniş kanal yelpazesi, yüksek görüntü kalitesi ve 7/24 erişim imkânı yer alır. Maç izlerken donma yaşamak istemeyen kullanıcılar, sunucu altyapısı güçlü sağlayıcıları tercih eder. Smart TV, Android, iOS veya bilgisayar üzerinden erişim sağlanabildiği için tek bir abonelikle farklı cihazlardan maç izlemek mümkündür.`,
   ],
-  primewatch: [
-    () => `PrimeWatch TV, Türkiye ve Avrupa'dan çok sayıda kullanıcıya IPTV hizmeti sunan bir sağlayıcıdır. Spor kanalları, film ve dizi içerikleri, canlı TV ve isteğe bağlı yayın seçenekleri tek abonelikle kullanılabilir. Amaç, özellikle maç günlerinde izleyicilere kesintisiz ve stabil bir deneyim sunmaktır. Farklı ihtiyaçlara yönelik paketler üzerinden seçim yapılabilir.`,
-    () => `Maç izleme keyfini ev ortamına taşıyan PrimeWatch TV, geniş kanal listesi ve teknik destek imkânlarıyla öne çıkmayı hedefler. Futbol karşılaşmalarına ilgi duyan kullanıcılar için spor kanallarının stabil çalışması ön plandadır. Altyapı yatırımları ve sunucu optimizasyonları, donma ve gecikme şikâyetlerini en aza indirmeyi amaçlar.`,
+  qruzetv: [
+    () => `QruzeTV, Türkiye ve Avrupa'dan çok sayıda kullanıcıya IPTV hizmeti sunan bir sağlayıcıdır. Spor kanalları, film ve dizi içerikleri, canlı TV ve isteğe bağlı yayın seçenekleri tek abonelikle kullanılabilir. Amaç, özellikle maç günlerinde izleyicilere kesintisiz ve stabil bir deneyim sunmaktır. Farklı ihtiyaçlara yönelik paketler üzerinden seçim yapılabilir.`,
+    () => `Maç izleme keyfini ev ortamına taşıyan QruzeTV, geniş kanal listesi ve teknik destek imkânlarıyla öne çıkmayı hedefler. Futbol karşılaşmalarına ilgi duyan kullanıcılar için spor kanallarının stabil çalışması ön plandadır. Altyapı yatırımları ve sunucu optimizasyonları, donma ve gecikme şikâyetlerini en aza indirmeyi amaçlar.`,
   ],
   macOncesi: [
     (h, a) => `Maç öncesi analizler, ${h} ve ${a} arasındaki bu karşılaşmanın heyecanlı geçeceğini gösteriyor. Her iki takım da üç puanı hedefleyerek sahaya çıkacak. Son haftalardaki form, sakatlık listesi ve taktiksel tercihler maçın gidişatını etkileyecek. Taraftarlar maç saatini beklerken; sosyal medyada tahminler, yorumlar ve paylaşımlar artıyor. Teknik direktörler basın toplantılarında maç stratejilerini açıklamaktan kaçınır; ancak taraftarlar her haberi dikkatle takip eder.`,
@@ -167,7 +167,7 @@ export function generateMatchContent(match) {
     paragraphs.push(pick('p', BLOKLAR.iptv)());
   }
   if (pickIndex(seed + 'q', 5) === 0) {
-    paragraphs.push(pick('q', BLOKLAR.primewatch)());
+    paragraphs.push(pick('q', BLOKLAR.qruzetv)());
   }
 
   // Kapanış bloğu her zaman olsun, ama marka vurgusu yumuşak

@@ -24,7 +24,7 @@ const CommentCounter = ({ postId, refreshTrigger }) => {
   }, [postId, refreshTrigger]);
 
   return (
-    <div className="flex items-center gap-2 text-[#A855F7] bg-purple-500/10 px-4 py-2 rounded-full border border-purple-500/20 w-fit">
+    <div className="flex items-center gap-2 text-[#e50914] bg-primary/10 px-4 py-2 rounded-full border border-primary/20 w-fit">
       <MessageSquare className="w-4 h-4" />
       <span className="font-semibold">{count} Yorum</span>
     </div>

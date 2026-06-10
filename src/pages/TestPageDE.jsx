@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import SEOHead from '@/components/SEOHead';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { useTestFormSubmit } from '@/hooks/useTestFormSubmit';
 import { useWhatsAppIntegration } from '@/hooks/useWhatsAppIntegration';
 import { toast } from '@/components/ui/use-toast';
+import { SITE_URL } from '@/constants/siteUrl';
 
 import DeviceSelectionStep from '@/components/test-page/DeviceSelectionStep';
 import AppSelectionStep from '@/components/test-page/AppSelectionStep';
@@ -45,17 +46,18 @@ const TestPageDE = ({ siteData }) => {
   };
 
   const handleSubmit = async () => {
+    const tvBrandInfo = formData.tv_brand ? ` (${formData.tv_brand})` : '';
     const requestData = {
       username: formData.username,
       special_note: formData.special_note,
-      device: selectedDevice?.name,
+      device: selectedDevice?.name + tvBrandInfo,
       app: selectedApp?.name
     };
 
     const dbData = {
       username: formData.username,
       special_note: formData.special_note,
-      device_type: selectedDevice?.name,
+      device_type: selectedDevice?.name + tvBrandInfo,
       app_name: selectedApp?.name,
       status: 'pending'
     };
@@ -63,14 +65,21 @@ const TestPageDE = ({ siteData }) => {
     try {
       await submitTestRequest(dbData);
       
-      toast({
-          title: "Erfolgreich! 🎉",
-          description: "Weiterleitung zu WhatsApp...",
-          className: "bg-green-600 border-none text-white shadow-xl"
-      });
-
       setTimeout(() => {
-          redirectToWhatsApp(requestData);
+          const redirected = redirectToWhatsApp(requestData);
+          if (redirected) {
+            toast({
+              title: "Erfolgreich! 🎉",
+              description: "Weiterleitung zu WhatsApp...",
+              className: "bg-green-600 border-none text-white shadow-xl"
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title: "WhatsApp-Nummer fehlt",
+              description: "Bitte fügen Sie die WhatsApp-Nummer in den Admin-Einstellungen hinzu."
+            });
+          }
       }, 1000);
     } catch (error) {
       toast({
@@ -84,20 +93,23 @@ const TestPageDE = ({ siteData }) => {
   const nextStep = () => setStep(prev => Math.min(prev + 1, 3));
   const prevStep = () => setStep(prev => Math.max(prev - 1, 0));
 
+  const seo = {
+    title: 'IPTV kostenlos testen | QruzeTV',
+    description: 'Testen Sie unseren Premium IPTV Service kostenlos! Mit unserem IPTV Test Deutschland können Sie eine stabile IPTV testen, ohne sich zu verpflichten. Unsere Premium IPTV Probe.',
+    keywords: ['IPTV kostenlos testen', 'Premium IPTV Probe', 'IPTV Test Deutschland', 'stabile IPTV testen', '4K IPTV Service kostenlos'],
+    canonicalUrl: `${SITE_URL}/de/test`,
+  };
+
   return (
     <>
-      <Helmet>
-        <title>IPTV kostenlos testen - Premium IPTV Probe ohne Verpflichtung</title>
-        <meta name="description" content="Testen Sie unseren Premium IPTV Service kostenlos! Mit unserem IPTV Test Deutschland können Sie eine stabile IPTV testen, ohne sich zu verpflichten. Unsere Premium IPTV Probe." />
-        <meta name="keywords" content="IPTV kostenlos testen, Premium IPTV Probe, IPTV Test Deutschland, stabile IPTV testen, 4K IPTV Service kostenlos" />
-      </Helmet>
+      <SEOHead {...seo} />
 
       <div className="min-h-screen bg-[#0B0F19] flex flex-col font-sans selection:bg-green-500/30 selection:text-green-200">
         <HeaderDE contactData={siteData?.contactData} />
 
         <main className="flex-grow pt-24 pb-20 px-4 relative overflow-hidden">
             <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
-                <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-purple-600/5 blur-[120px] rounded-full"></div>
+                <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-primary/5 blur-[120px] rounded-full"></div>
                 <div className="absolute bottom-[-20%] left-[-10%] w-[800px] h-[800px] bg-green-600/5 blur-[120px] rounded-full"></div>
             </div>
 
@@ -106,7 +118,7 @@ const TestPageDE = ({ siteData }) => {
                     <Button 
                         variant="ghost" 
                         onClick={() => step === 0 ? navigate('/de') : prevStep()}
-                        className="text-slate-400 hover:text-white hover:bg-slate-800/50 pl-2 pr-4 rounded-full"
+                        className="text-slate-400 hover:text-white hover:bg-[#0a0a0a]/50 pl-2 pr-4 rounded-full"
                     >
                         <ChevronLeft className="w-5 h-5 mr-1" />
                         {step === 0 ? "Zurück zur Startseite" : "Zurück"}
@@ -118,7 +130,7 @@ const TestPageDE = ({ siteData }) => {
                         IPTV kostenlos testen - Premium IPTV Probe ohne Verpflichtung
                     </h1>
                     <p className="text-slate-400 text-lg max-w-3xl mx-auto">
-                        Testen Sie unseren Premium IPTV Service kostenlos! Mit unserem IPTV Test Deutschland können Sie eine stabile IPTV testen, ohne sich zu verpflichten. Unsere Premium IPTV Probe bietet Ihnen vollständigen Zugriff auf alle Funktionen, 4K Streaming und tausende Kanäle - alles ohne Kreditkarte oder versteckte Gebühren.
+                        Testen Sie unseren Premium IPTV Service kostenlos! Mit unserem IPTV Test Deutschland können Sie eine stabile IPTV testen, ohne sich zu verpflichten. Unsere Premium IPTV Probe bietet Ihnen vollständigen Zugriff auf alle Funktionen, 4K Streaming und 10.000+ Kanäle - alles ohne Kreditkarte oder versteckte Gebühren.
                     </p>
                 </div>
 
@@ -134,9 +146,9 @@ const TestPageDE = ({ siteData }) => {
                         <span className={cn(step >= 2 && "text-green-500")}>Details</span>
                         <span className={cn(step >= 3 && "text-green-500")}>Fertig</span>
                     </div>
-                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-2 bg-[#0a0a0a] rounded-full overflow-hidden">
                         <motion.div 
-                            className="h-full bg-gradient-to-r from-green-600 to-emerald-400"
+                            className="h-full bg-gradient-to-r from-green-600 to-[#b20710]"
                             initial={{ width: "0%" }}
                             animate={{ width: `${((step + 1) / 4) * 100}%` }}
                             transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -163,10 +175,11 @@ const TestPageDE = ({ siteData }) => {
                                 />
                             )}
                             {step === 1 && (
-                                <AppSelectionStep 
-                                    selectedDevice={selectedDevice} 
-                                    selectedApp={selectedApp} 
-                                    onSelect={handleAppSelect} 
+                                <AppSelectionStep
+                                    appsData={siteData?.appsData}
+                                    selectedDevice={selectedDevice}
+                                    selectedApp={selectedApp}
+                                    onSelect={handleAppSelect}
                                 />
                             )}
                             {step === 2 && (
@@ -174,6 +187,7 @@ const TestPageDE = ({ siteData }) => {
                                     formData={formData} 
                                     onChange={(key, val) => setFormData(prev => ({...prev, [key]: val}))} 
                                     setIsValid={setIsFormValid}
+                                    selectedDevice={selectedDevice}
                                 />
                             )}
                             {step === 3 && (
@@ -198,8 +212,8 @@ const TestPageDE = ({ siteData }) => {
                             className={cn(
                                 "h-14 px-8 text-lg font-bold rounded-xl transition-all duration-300",
                                 isFormValid 
-                                    ? "bg-white text-black hover:bg-slate-200 shadow-lg hover:shadow-xl hover:scale-105" 
-                                    : "bg-slate-800 text-slate-500 cursor-not-allowed"
+                                    ? "bg-white text-black hover:bg-[#141414] shadow-lg hover:shadow-xl hover:scale-105" 
+                                    : "bg-[#0a0a0a] text-slate-500 cursor-not-allowed"
                             )}
                         >
                             Nächster Schritt <ChevronRight className="w-5 h-5 ml-2" />
@@ -218,7 +232,7 @@ const TestPageDE = ({ siteData }) => {
                 >
                     <div className="text-slate-300 space-y-8 leading-relaxed">
                         
-                        <h2 className="text-3xl font-bold mt-12 mb-6 border-b border-slate-800 pb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">
+                        <h2 className="text-3xl font-bold mt-12 mb-6 border-b border-slate-800 pb-4 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-[#b20710]">
                             Warum IPTV kostenlos testen? - Premium IPTV Probe
                         </h2>
                         
@@ -231,49 +245,49 @@ const TestPageDE = ({ siteData }) => {
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10 not-prose">
-                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
+                            <div className="bg-[#0a0a0a]/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
                                 <h3 className="flex items-center text-lg font-bold text-white mb-3">
                                     <CheckCircle2 className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
                                     Keine Kreditkarte erforderlich
                                 </h3>
                                 <p className="text-slate-400 text-sm">Bei unserer Premium IPTV Probe verlangen wir keinerlei sensible Zahlungsdaten im Voraus. Sie können beruhigt starten, ohne Angst vor automatischen Verlängerungen oder versteckten Kosten haben zu müssen.</p>
                             </div>
-                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
+                            <div className="bg-[#0a0a0a]/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
                                 <h3 className="flex items-center text-lg font-bold text-white mb-3">
                                     <CheckCircle2 className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
                                     Keine vertragliche Bindung
                                 </h3>
                                 <p className="text-slate-400 text-sm">Unser IPTV Test Deutschland ist zu 100% unverbindlich. Sie gehen keinen Vertrag ein und müssen nichts kündigen. Wir überzeugen durch Qualität, nicht durch kleingedruckte Klauseln.</p>
                             </div>
-                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
+                            <div className="bg-[#0a0a0a]/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
                                 <h3 className="flex items-center text-lg font-bold text-white mb-3">
                                     <CheckCircle2 className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
                                     Vollständiger Zugriff auf Premium IPTV
                                 </h3>
                                 <p className="text-slate-400 text-sm">Während der Testphase erhalten Sie keine eingeschränkte Demo-Version. Sie genießen den vollen, unzensierten Zugriff auf unser gesamtes Portfolio an Filmen, Serien und Live-TV.</p>
                             </div>
-                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
+                            <div className="bg-[#0a0a0a]/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
                                 <h3 className="flex items-center text-lg font-bold text-white mb-3">
                                     <CheckCircle2 className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
                                     Stabile IPTV Verbindung testen
                                 </h3>
                                 <p className="text-slate-400 text-sm">Erleben Sie unsere Anti-Freeze-Technologie hautnah. Unsere Hochleistungsserver garantieren ein ruckelfreies Streaming-Erlebnis, selbst zu Spitzenzeiten.</p>
                             </div>
-                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
+                            <div className="bg-[#0a0a0a]/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
                                 <h3 className="flex items-center text-lg font-bold text-white mb-3">
                                     <CheckCircle2 className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
                                     4K IPTV Service kostenlos
                                 </h3>
                                 <p className="text-slate-400 text-sm">Tauchen Sie ein in atemberaubende Bildqualität. Testen Sie unsere 4K, UHD und FHD Kanäle und erleben Sie Entertainment in noch nie dagewesener Schärfe.</p>
                             </div>
-                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
+                            <div className="bg-[#0a0a0a]/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors">
                                 <h3 className="flex items-center text-lg font-bold text-white mb-3">
                                     <CheckCircle2 className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
-                                    Tausende Kanäle verfügbar
+                                    10.000+ Kanäle verfügbar
                                 </h3>
                                 <p className="text-slate-400 text-sm">Entdecken Sie eine grenzenlose Vielfalt an nationalen und internationalen Sendern, exklusiven Sportübertragungen und einer gigantischen Video-on-Demand (VOD) Bibliothek.</p>
                             </div>
-                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors md:col-span-2">
+                            <div className="bg-[#0a0a0a]/50 p-6 rounded-2xl border border-slate-800 hover:border-green-500/30 transition-colors md:col-span-2">
                                 <h3 className="flex items-center text-lg font-bold text-white mb-3">
                                     <CheckCircle2 className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
                                     24/7 Support

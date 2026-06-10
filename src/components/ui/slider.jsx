@@ -9,11 +9,11 @@ const Slider = React.forwardRef(({ className, ...props }, ref) => (
     className={cn("relative flex w-full touch-none select-none items-center", className)}
     {...props}>
     <SliderPrimitive.Track
-      className="relative h-2 w-full grow overflow-hidden rounded-full bg-slate-800 border border-slate-700">
-      <SliderPrimitive.Range className="absolute h-full bg-gradient-to-r from-purple-500 to-pink-500" />
+      className="relative h-2 w-full grow overflow-hidden rounded-full bg-[#0a0a0a] border border-slate-700">
+      <SliderPrimitive.Range className="absolute h-full bg-gradient-to-r from-[#e50914] to-[#b20710]" />
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb
-      className="block h-5 w-5 rounded-full border-2 border-pink-500 bg-slate-950 ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:scale-110 transition-transform" />
+      className="block h-5 w-5 rounded-full border-2 border-pink-500 bg-[#0a0a0a] ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:scale-110 transition-transform" />
   </SliderPrimitive.Root>
 ))
 Slider.displayName = SliderPrimitive.Root.displayName

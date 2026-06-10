@@ -16,7 +16,7 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
 
   return (
     <div className="min-h-screen bg-[#05050A] text-slate-200 flex flex-col items-center justify-center p-6 font-sans">
-      <div className="max-w-2xl w-full bg-slate-900 border border-red-500/30 rounded-3xl shadow-2xl overflow-hidden">
+      <div className="max-w-2xl w-full bg-[#0a0a0a] border border-red-500/30 rounded-3xl shadow-2xl overflow-hidden">
         
         {/* Header */}
         <div className="bg-red-500/10 p-6 border-b border-red-500/20 flex items-start gap-4">
@@ -52,14 +52,14 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
           
           <div className="space-y-6">
             <div className="flex gap-4">
-              <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold shrink-0">1</div>
+              <div className="w-8 h-8 rounded-full bg-[#141414]/20 text-blue-400 flex items-center justify-center font-bold shrink-0">1</div>
               <div>
-                <p className="text-slate-300 mb-2">Projenizin kök dizininde <code className="text-blue-400 bg-blue-500/10 px-1.5 py-0.5 rounded">.env</code> adında bir dosya oluşturun (veya mevcut olanı düzenleyin).</p>
+                <p className="text-slate-300 mb-2">Projenizin kök dizininde <code className="text-blue-400 bg-[#141414]/10 px-1.5 py-0.5 rounded">.env</code> adında bir dosya oluşturun (veya mevcut olanı düzenleyin).</p>
               </div>
             </div>
 
             <div className="flex gap-4">
-              <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold shrink-0">2</div>
+              <div className="w-8 h-8 rounded-full bg-[#141414]/20 text-blue-400 flex items-center justify-center font-bold shrink-0">2</div>
               <div className="w-full">
                 <p className="text-slate-300 mb-2">Aşağıdaki formatta değişkenleri ekleyin:</p>
                 <div className="relative group">
@@ -68,7 +68,7 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
                   </pre>
                   <button 
                     onClick={copyToClipboard}
-                    className="absolute top-3 right-3 p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors text-slate-400 hover:text-white"
+                    className="absolute top-3 right-3 p-2 bg-[#0a0a0a] hover:bg-[#0a0a0a] rounded-lg transition-colors text-slate-400 hover:text-white"
                     title="Kopyala"
                   >
                     {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
@@ -78,12 +78,12 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
             </div>
 
             <div className="flex gap-4">
-              <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold shrink-0">3</div>
+              <div className="w-8 h-8 rounded-full bg-[#141414]/20 text-blue-400 flex items-center justify-center font-bold shrink-0">3</div>
               <div>
                 <p className="text-slate-300 mb-2">Bu değerleri Supabase panonuzdan alabilirsiniz:</p>
                 <ul className="space-y-3 mt-3">
                   <li className="flex items-center gap-3 text-sm text-slate-400">
-                    <Database className="w-4 h-4 text-purple-400" />
+                    <Database className="w-4 h-4 text-primary" />
                     <span><strong>Project URL:</strong> Project Settings &gt; API &gt; Project URL</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-slate-400">
@@ -97,7 +97,7 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
         </div>
 
         {/* Footer actions */}
-        <div className="bg-slate-800/50 p-6 flex items-center justify-between">
+        <div className="bg-[#0a0a0a]/50 p-6 flex items-center justify-between">
           <a 
             href="https://supabase.com/dashboard/projects" 
             target="_blank" 
@@ -108,7 +108,7 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
           </a>
           <button 
             onClick={() => window.location.reload()}
-            className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors"
+            className="px-6 py-2.5 bg-[#141414] hover:bg-[#0a0a0a] text-white font-medium rounded-xl transition-colors"
           >
             Sayfayı Yenile
           </button>

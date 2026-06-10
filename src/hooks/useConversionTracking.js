@@ -24,7 +24,7 @@ export const useConversionTracking = (contentDetails = null) => {
     }
 
     // Track Packages Page Arrival
-    if ((path === '/packages' || path === '/paketler') && !trackedRef.current.has('packages_view')) {
+    if ((path === '/packages' || path === '/paketler' || path === '/de/pakete') && !trackedRef.current.has('packages_view')) {
       const searchParams = new URLSearchParams(location.search);
       const source = searchParams.get('source') || document.referrer;
       

@@ -115,7 +115,7 @@ export const InstallationTab = ({ siteData, setSiteData }) => {
             </div>
             
             <div className="flex justify-end">
-                <Button onClick={addTab} className="bg-blue-600 hover:bg-blue-700">
+                <Button onClick={addTab} className="bg-[#141414] hover:bg-[#0a0a0a]">
                     <Plus className="w-4 h-4 mr-2" /> Yeni Sekme (Cihaz) Ekle
                 </Button>
             </div>
@@ -137,7 +137,7 @@ export const InstallationTab = ({ siteData, setSiteData }) => {
                         <div className="border-t border-gray-700 pt-4 mt-4">
                             <h4 className="text-lg font-bold text-yellow-400 mb-2">Kurulum Adımları</h4>
                              {(tab.steps || []).map((step, stepIndex) => (
-                                <div key={step.id || stepIndex} className="p-3 border border-gray-600 rounded-lg mb-3 space-y-3 bg-slate-900/50">
+                                <div key={step.id || stepIndex} className="p-3 border border-gray-600 rounded-lg mb-3 space-y-3 bg-[#0a0a0a]/50">
                                     <Textarea 
                                         label={`Adım ${stepIndex + 1} Açıklama`}
                                         value={step.description}
@@ -163,7 +163,7 @@ export const InstallationTab = ({ siteData, setSiteData }) => {
                         <div className="border-t border-gray-700 pt-4 mt-4">
                             <h4 className="text-lg font-bold text-yellow-400 mb-2">Uygulama Linkleri ve Detayları</h4>
                              {(tab.apps || []).map((app, appIndex) => (
-                                <div key={appIndex} className="p-3 border border-gray-600 rounded-lg mb-3 space-y-2 bg-slate-900/50">
+                                <div key={appIndex} className="p-3 border border-gray-600 rounded-lg mb-3 space-y-2 bg-[#0a0a0a]/50">
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                                         <Input label="Uygulama Adı" value={app.name || ''} onChange={e => handleAppChange(tabIndex, appIndex, 'name', e.target.value)} />
                                         <Input label="İndirme Linki (URL)" value={app.url || ''} onChange={e => handleAppChange(tabIndex, appIndex, 'url', e.target.value)} />

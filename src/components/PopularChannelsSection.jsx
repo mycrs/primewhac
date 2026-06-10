@@ -22,21 +22,21 @@ const PopularChannelsSection = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/10 pointer-events-none" />
+      <section className="py-20 bg-gradient-to-b from-[#0a0a0a] to-[#141414] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#e50914]/10 via-transparent to-[#b20710]/10 pointer-events-none" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
-              <TrendingUp className="w-4 h-4 text-purple-400" />
-              <span className="text-sm font-medium text-purple-300">Canlı Güncellemeler</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+              <TrendingUp className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium text-primary">Canlı Güncellemeler</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Popüler IPTV Kanalları</h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">Kesintisiz yayın kalitesiyle binlerce ulusal ve uluslararası kanal</p>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">Kesintisiz yayın kalitesiyle 10.000+ ulusal ve uluslararası kanal</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {[...Array(10)].map((_, i) => (
-              <div key={i} className="bg-slate-800/50 rounded-lg animate-pulse h-[280px]" />
+              <div key={i} className="bg-[#0a0a0a]/50 rounded-lg animate-pulse h-[280px]" />
             ))}
           </div>
         </div>
@@ -46,7 +46,7 @@ const PopularChannelsSection = () => {
 
   if (error) {
     return (
-      <section className="py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+      <section className="py-20 bg-gradient-to-b from-[#0a0a0a] to-[#141414]">
         <div className="container mx-auto px-4">
           <div className="max-w-md mx-auto text-center bg-red-950/20 border border-red-900/50 rounded-lg p-8 shadow-md">
             <p className="text-red-400 mb-4">Kanallar yüklenirken bir hata oluştu</p>
@@ -62,9 +62,9 @@ const PopularChannelsSection = () => {
 
   if (activeChannels.length === 0) {
     return (
-      <section className="py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+      <section className="py-20 bg-gradient-to-b from-[#0a0a0a] to-[#141414]">
         <div className="container mx-auto px-4">
-          <div className="max-w-md mx-auto text-center bg-slate-900/50 border border-slate-800 rounded-lg p-12 shadow-md">
+          <div className="max-w-md mx-auto text-center bg-[#0a0a0a]/50 border border-slate-800 rounded-lg p-12 shadow-md">
             <Tv className="w-16 h-16 text-slate-600 mx-auto mb-4" />
             <p className="text-slate-400 text-lg">Henüz aktif kanal bulunmuyor</p>
           </div>
@@ -74,16 +74,16 @@ const PopularChannelsSection = () => {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#0F0F1E] to-slate-950 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-[#0a0a0a] to-[#141414] relative overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#e50914]/10 via-transparent to-[#b20710]/10 pointer-events-none" />
       <motion.div 
         animate={{ 
           scale: [1, 1.2, 1],
           opacity: [0.1, 0.2, 0.1],
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none"
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] pointer-events-none"
       />
 
       <div className="container mx-auto px-4 relative z-10">
@@ -93,13 +93,13 @@ const PopularChannelsSection = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6 backdrop-blur-sm shadow-lg shadow-purple-500/5"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 backdrop-blur-sm shadow-lg shadow-primary/5"
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
             </span>
-            <span className="text-sm font-medium text-purple-300">Premium İçerik</span>
+            <span className="text-sm font-medium text-primary">Premium İçerik</span>
           </motion.div>
 
           <motion.h2
@@ -135,14 +135,15 @@ const PopularChannelsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: Math.min(index * 0.05, 0.5), ease: "easeOut" }}
-                className="relative h-[280px] rounded-lg cursor-pointer overflow-hidden group shadow-md transition-shadow duration-300 hover:shadow-xl bg-slate-800"
+                className="relative h-[280px] rounded-lg cursor-pointer overflow-hidden group shadow-md transition-shadow duration-300 hover:shadow-xl bg-[#0a0a0a]"
               >
                 {/* Full coverage background image */}
                 <img 
                   src={bgImageUrl}
-                  alt={channel.name}
+                  alt=""
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
+                  referrerPolicy="no-referrer"
                 />
 
                 {/* Subtle hover overlay */}
@@ -159,16 +160,16 @@ const PopularChannelsSection = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <div className="inline-flex items-center gap-8 px-8 py-4 bg-slate-900/50 backdrop-blur-lg border border-slate-800 rounded-full shadow-lg">
+          <div className="inline-flex items-center gap-8 px-8 py-4 bg-[#0a0a0a]/50 backdrop-blur-lg border border-slate-800 rounded-full shadow-lg">
             <div className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-green-400" />
               <span className="text-slate-300">
                 <span className="font-bold text-white">{activeChannels.length}</span> Aktif Kanal
               </span>
             </div>
-            <div className="h-6 w-px bg-slate-700" />
+            <div className="h-6 w-px bg-[#0a0a0a]" />
             <div className="flex items-center gap-2">
-              <Tv className="w-5 h-5 text-purple-400" />
+              <Tv className="w-5 h-5 text-primary" />
               <span className="text-slate-300">
                 <span className="font-bold text-white">{categories.length}</span> Kategori
               </span>

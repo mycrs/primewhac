@@ -18,7 +18,7 @@ const AdminTabWrapper = ({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
         <div>
           <h2 className="admin-section-header">
-            {Icon && <Icon className="w-8 h-8 text-purple-500" />}
+            {Icon && <Icon className="w-8 h-8 text-primary" />}
             {title}
           </h2>
           {description && <p className="admin-section-desc mb-0">{description}</p>}

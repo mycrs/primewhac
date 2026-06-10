@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
+import { pingIndexNowBlogSlug } from '@/utils/pingIndexNow';
 
 export const useBlogBlockManager = () => {
   const [posts, setPosts] = useState([]);
@@ -150,6 +151,13 @@ export const useBlogBlockManager = () => {
       }
 
       console.log('[useBlogBlockManager] savePost: Successfully saved data:', data);
+
+      const saved = Array.isArray(data) ? data[0] : data;
+      const slugToNotify = saved?.slug || finalSlug;
+      const publishedAt = saved?.published_at ?? payload.published_at;
+      if (publishedAt && slugToNotify) {
+        void pingIndexNowBlogSlug(slugToNotify);
+      }
 
       toast({
         title: "Başarılı",

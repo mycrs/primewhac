@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, UploadCloud, Save, Loader2, Image as ImageIcon, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -68,7 +68,7 @@ const BlogWritePage = ({ siteData }) => {
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      <div className="min-h-screen bg-slate-950 flex flex-col text-white">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col text-white">
         <Header contactData={contactData} siteTexts={siteTexts} />
         
         <main className="flex-grow pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full">
@@ -78,7 +78,7 @@ const BlogWritePage = ({ siteData }) => {
                 variant="ghost" 
                 onClick={handleBack}
                 disabled={isNavigating || isLoading}
-                className="text-slate-400 hover:text-white hover:bg-slate-800"
+                className="text-slate-400 hover:text-white hover:bg-[#0a0a0a]"
               >
                 {isNavigating ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : <ArrowLeft className="w-5 h-5 mr-2" />} 
                 Geri Dön
@@ -90,7 +90,7 @@ const BlogWritePage = ({ siteData }) => {
             <Button 
               onClick={onSubmit} 
               disabled={isLoading || isUploading}
-              className="bg-purple-600 hover:bg-purple-500 text-white min-w-[120px]"
+              className="bg-primary hover:bg-primary text-white min-w-[120px]"
             >
               {(isLoading || isUploading) ? <Loader2 className="w-5 h-5 mr-2 animate-spin"/> : <Save className="w-5 h-5 mr-2" />} 
               {id ? 'Güncelle' : 'Yayınla'}
@@ -108,7 +108,7 @@ const BlogWritePage = ({ siteData }) => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Main Content Area */}
               <div className="lg:col-span-2 space-y-6">
-                <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-lg">
+                <div className="bg-[#0a0a0a] border border-slate-800 p-6 rounded-xl shadow-lg">
                   <div className="space-y-4">
                     <div>
                       <Label htmlFor="title" className="text-slate-300 text-sm font-medium mb-1 block">
@@ -120,7 +120,7 @@ const BlogWritePage = ({ siteData }) => {
                         value={formData.title}
                         onChange={handleInputChange}
                         placeholder="Yazınızın başlığını girin..."
-                        className={`bg-slate-950 text-white text-lg h-12 ${validationErrors.title ? 'border-red-500' : 'border-slate-700'}`}
+                        className={`bg-[#0a0a0a] text-white text-lg h-12 ${validationErrors.title ? 'border-red-500' : 'border-slate-700'}`}
                         disabled={isLoading}
                       />
                       {validationErrors.title && <p className="text-red-500 text-xs mt-1">{validationErrors.title}</p>}
@@ -136,7 +136,7 @@ const BlogWritePage = ({ siteData }) => {
                         value={formData.content}
                         onChange={handleInputChange}
                         placeholder="Blog içeriğini buraya yazın (HTML desteklenir)..."
-                        className={`bg-slate-950 text-white min-h-[400px] font-mono text-sm leading-relaxed p-4 ${validationErrors.content ? 'border-red-500' : 'border-slate-700'}`}
+                        className={`bg-[#0a0a0a] text-white min-h-[400px] font-mono text-sm leading-relaxed p-4 ${validationErrors.content ? 'border-red-500' : 'border-slate-700'}`}
                         disabled={isLoading}
                       />
                       {validationErrors.content && <p className="text-red-500 text-xs mt-1">{validationErrors.content}</p>}
@@ -147,7 +147,7 @@ const BlogWritePage = ({ siteData }) => {
                   </div>
                 </div>
 
-                <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-lg space-y-4">
+                <div className="bg-[#0a0a0a] border border-slate-800 p-6 rounded-xl shadow-lg space-y-4">
                   <div>
                     <Label htmlFor="excerpt" className="text-slate-300 text-sm font-medium mb-1 block">
                       Özet (Excerpt) <span className="text-red-500">*</span>
@@ -159,7 +159,7 @@ const BlogWritePage = ({ siteData }) => {
                       value={formData.excerpt}
                       onChange={handleInputChange}
                       placeholder="Yazının kısa özeti..."
-                      className={`bg-slate-950 text-white h-24 shadow-inner ${validationErrors.excerpt ? 'border-red-500' : 'border-slate-700'}`}
+                      className={`bg-[#0a0a0a] text-white h-24 shadow-inner ${validationErrors.excerpt ? 'border-red-500' : 'border-slate-700'}`}
                       disabled={isLoading}
                     />
                     {validationErrors.excerpt && <p className="text-red-500 text-xs mt-1">{validationErrors.excerpt}</p>}
@@ -181,7 +181,7 @@ const BlogWritePage = ({ siteData }) => {
                           value={formData.seo_title || ''}
                           onChange={handleInputChange}
                           placeholder="Arama motorlarında görünecek başlık..."
-                          className="bg-slate-950 border-slate-700 text-white"
+                          className="bg-[#0a0a0a] border-slate-700 text-white"
                           disabled={isLoading}
                         />
                       </div>
@@ -195,7 +195,7 @@ const BlogWritePage = ({ siteData }) => {
                           value={formData.seo_description || ''}
                           onChange={handleInputChange}
                           placeholder="Arama motorlarında görünecek açıklama..."
-                          className="bg-slate-950 border-slate-700 text-white h-20"
+                          className="bg-[#0a0a0a] border-slate-700 text-white h-20"
                           disabled={isLoading}
                         />
                       </div>
@@ -206,7 +206,7 @@ const BlogWritePage = ({ siteData }) => {
 
               {/* Sidebar Settings */}
               <div className="space-y-6">
-                <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-lg space-y-6">
+                <div className="bg-[#0a0a0a] border border-slate-800 p-6 rounded-xl shadow-lg space-y-6">
                   <h3 className="font-semibold text-white border-b border-slate-800 pb-3">Yayın Ayarları</h3>
                   
                   <div className="flex items-center justify-between">
@@ -231,7 +231,7 @@ const BlogWritePage = ({ siteData }) => {
                       name="published_at"
                       value={formData.published_at}
                       onChange={handleInputChange}
-                      className="bg-slate-950 border-slate-700 text-white"
+                      className="bg-[#0a0a0a] border-slate-700 text-white"
                       disabled={formData.isDraft || isLoading}
                     />
                   </div>
@@ -246,14 +246,14 @@ const BlogWritePage = ({ siteData }) => {
                       value={formData.slug}
                       onChange={handleInputChange}
                       placeholder="ornek-blog-yazisi"
-                      className={`bg-slate-950 text-white font-mono text-sm ${validationErrors.slug ? 'border-red-500' : 'border-slate-700'}`}
+                      className={`bg-[#0a0a0a] text-white font-mono text-sm ${validationErrors.slug ? 'border-red-500' : 'border-slate-700'}`}
                       disabled={isLoading}
                     />
                     {validationErrors.slug && <p className="text-red-500 text-xs mt-1">{validationErrors.slug}</p>}
                   </div>
                 </div>
 
-                <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-lg space-y-6">
+                <div className="bg-[#0a0a0a] border border-slate-800 p-6 rounded-xl shadow-lg space-y-6">
                   <h3 className="font-semibold text-white border-b border-slate-800 pb-3">Kategorizasyon</h3>
                   
                   <div>
@@ -266,7 +266,7 @@ const BlogWritePage = ({ siteData }) => {
                       value={formData.category}
                       onChange={handleInputChange}
                       placeholder="Örn: Rehberler, Haberler..."
-                      className="bg-slate-950 border-slate-700 text-white"
+                      className="bg-[#0a0a0a] border-slate-700 text-white"
                       disabled={isLoading}
                     />
                   </div>
@@ -281,13 +281,13 @@ const BlogWritePage = ({ siteData }) => {
                       value={formData.tags.join(', ')}
                       onChange={handleTagsChange}
                       placeholder="iptv, kurulum, rehber..."
-                      className="bg-slate-950 border-slate-700 text-white"
+                      className="bg-[#0a0a0a] border-slate-700 text-white"
                       disabled={isLoading}
                     />
                   </div>
                 </div>
 
-                <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl shadow-lg space-y-4">
+                <div className="bg-[#0a0a0a] border border-slate-800 p-6 rounded-xl shadow-lg space-y-4">
                   <h3 className="font-semibold text-white border-b border-slate-800 pb-3">Kapak Görseli</h3>
                   
                   <div className="space-y-4">
@@ -295,7 +295,7 @@ const BlogWritePage = ({ siteData }) => {
                       <div className="relative group rounded-lg overflow-hidden border border-slate-700">
                         <img 
                           src={formData.cover_image_url} 
-                          alt="Cover Preview" 
+                          alt="Blog kapak görseli önizlemesi"
                           className="w-full h-40 object-cover" 
                         />
                         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -314,7 +314,7 @@ const BlogWritePage = ({ siteData }) => {
                         </div>
                       </div>
                     ) : (
-                      <div className="w-full h-40 bg-slate-950 border-2 border-dashed border-slate-700 rounded-lg flex flex-col items-center justify-center text-slate-500">
+                      <div className="w-full h-40 bg-[#0a0a0a] border-2 border-dashed border-slate-700 rounded-lg flex flex-col items-center justify-center text-slate-500">
                         <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
                         <span className="text-sm">Görsel Seçilmedi</span>
                       </div>
@@ -322,7 +322,7 @@ const BlogWritePage = ({ siteData }) => {
 
                     <div className="space-y-2">
                       <Label htmlFor="image-upload" className="cursor-pointer block w-full">
-                        <div className="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white rounded-md h-10 transition-colors w-full">
+                        <div className="flex items-center justify-center gap-2 bg-[#0a0a0a] hover:bg-[#0a0a0a] text-white rounded-md h-10 transition-colors w-full">
                           {isUploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <UploadCloud className="w-4 h-4" />}
                           {isUploading ? 'Yükleniyor...' : 'Bilgisayardan Yükle'}
                         </div>
@@ -345,7 +345,7 @@ const BlogWritePage = ({ siteData }) => {
                         value={formData.cover_image_url}
                         onChange={handleInputChange}
                         placeholder="https://..."
-                        className="bg-slate-950 border-slate-700 text-white text-sm"
+                        className="bg-[#0a0a0a] border-slate-700 text-white text-sm"
                         disabled={isLoading}
                       />
                     </div>

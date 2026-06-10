@@ -37,7 +37,7 @@ const FireTVDetailedGuide = ({ lang = 'tr' }) => {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-8 mb-8 relative overflow-hidden">
+    <div className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] border border-slate-800 rounded-2xl p-8 mb-8 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 blur-3xl rounded-full -mr-12 -mt-12 pointer-events-none" />
       
       <h3 className="text-xl md:text-2xl font-bold text-white mb-6 flex items-center gap-3">
@@ -52,11 +52,11 @@ const FireTVDetailedGuide = ({ lang = 'tr' }) => {
           <div key={idx} className="relative group">
             {/* Connector Line */}
             {idx !== steps.length - 1 && (
-              <div className="hidden lg:block absolute top-6 left-1/2 w-full h-0.5 bg-slate-800 -z-10" />
+              <div className="hidden lg:block absolute top-6 left-1/2 w-full h-0.5 bg-[#0a0a0a] -z-10" />
             )}
             
-            <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-xl h-full hover:border-orange-500/30 transition-colors shadow-lg hover:shadow-orange-900/10">
-              <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 mb-4 font-bold text-lg group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
+            <div className="bg-[#0a0a0a]/80 border border-slate-800 p-5 rounded-xl h-full hover:border-orange-500/30 transition-colors shadow-lg hover:shadow-orange-900/10">
+              <div className="w-12 h-12 bg-[#0a0a0a] rounded-full flex items-center justify-center text-slate-300 mb-4 font-bold text-lg group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
                 {idx + 1}
               </div>
               <h4 className="font-semibold text-white mb-2 flex items-center gap-2">

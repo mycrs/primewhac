@@ -2,9 +2,9 @@ import React from 'react';
 import { CheckCircle2, User, Mail, Phone, Smartphone, FileText, Monitor } from 'lucide-react';
 
 const InfoRow = ({ icon: Icon, label, value }) => (
-  <div className="flex items-start gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800">
-    <div className="mt-0.5 p-1.5 rounded-md bg-purple-500/10">
-      <Icon className="w-4 h-4 text-purple-400" />
+  <div className="flex items-start gap-3 p-3 rounded-lg bg-[#0a0a0a]/50 border border-slate-800">
+    <div className="mt-0.5 p-1.5 rounded-md bg-primary/10">
+      <Icon className="w-4 h-4 text-primary" />
     </div>
     <div className="flex-1 min-w-0">
       <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-0.5">{label}</p>
@@ -41,7 +41,7 @@ const UserInfoDisplay = ({ data }) => {
         )}
       </div>
 
-      <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 text-center">
+      <div className="bg-[#141414]/10 border border-blue-500/20 rounded-lg p-3 text-center">
         <p className="text-blue-200 text-xs">
           Bu pencere otomatik olarak kapanacaktır...
         </p>

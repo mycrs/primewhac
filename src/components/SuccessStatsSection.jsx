@@ -11,7 +11,7 @@ const StatCard = ({ label, value, suffix, delay }) => {
       transition={{ duration: 0.6, delay }}
       className="text-center p-6"
     >
-      <div className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400 mb-2 font-mono">
+      <div className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#e50914] to-[#b20710] mb-2 font-mono">
         {value}{suffix}
       </div>
       <div className="text-slate-400 font-medium tracking-wide uppercase text-sm">
@@ -23,7 +23,7 @@ const StatCard = ({ label, value, suffix, delay }) => {
 
 const SuccessStatsSection = () => {
   return (
-    <section className="py-20 bg-slate-900 border-y border-slate-800">
+    <section className="py-20 bg-[#0a0a0a] border-y border-slate-800">
       <h2 className="sr-only">Başarı İstatistiklerimiz</h2>
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-slate-800/50">

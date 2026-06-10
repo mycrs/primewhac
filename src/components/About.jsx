@@ -24,7 +24,7 @@ const About = ({ data }) => {
   };
 
   return (
-    <section id="about" className="py-24 bg-slate-900/50">
+    <section id="about" className="py-24 bg-[#0a0a0a]/50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -35,7 +35,7 @@ const About = ({ data }) => {
         >
           {/* Changed from H1 to H2 to prevent multiple H1s per page when component is reused */}
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-            <span className="border-b-4 border-purple-500 pb-2">{data.title || 'QRUZEHD Farkı'}</span>
+            <span className="border-b-4 border-primary pb-2">{data.title || 'QruzeTV Farkı'}</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
             {data.subtitle || 'Güvenilir, kesintisiz ve yüksek çözünürlüklü yayıncılığın arkasındaki ekibi ve teknolojiyi tanıyın.'}
@@ -50,10 +50,10 @@ const About = ({ data }) => {
              viewport={{ once: true }}
              className="relative"
           >
-            <div className="absolute -inset-4 bg-purple-600/20 rounded-3xl blur-xl opacity-50"></div>
+            <div className="absolute -inset-4 bg-primary/20 rounded-3xl blur-xl opacity-50"></div>
             <img  
               className="relative rounded-2xl shadow-2xl w-full h-auto object-cover border border-slate-700"
-              alt="QRUZEHD ekibi modern bir ofiste IPTV teknolojileri üzerine çalışıyor"
+              alt="QruzeTV ekibi modern bir ofiste IPTV teknolojileri üzerine çalışıyor"
               src={imageUrl} />
           </motion.div>
           <motion.div
@@ -64,19 +64,19 @@ const About = ({ data }) => {
              className="space-y-8"
           >
             <h3 className="text-3xl font-bold text-white flex items-center gap-3">
-                <span className="w-2 h-8 bg-purple-500 rounded-full"></span>
+                <span className="w-2 h-8 bg-primary rounded-full"></span>
                 {data.section1Title || "Misyonumuz"}
             </h3>
             <p className="text-gray-300 text-lg leading-relaxed">
-              {data.mainText || 'QRUZEHD olarak misyonumuz, Avrupa ve Türkiye\'deki tüm kullanıcılara en üst düzeyde, kesintisiz ve donmayan bir IPTV deneyimi sunmaktır. En iyi IPTV server altyapısını kullanarak, müşteri memnuniyetini her zaman ilk sırada tutuyoruz. Vizyonumuz, yenilikçi teknolojilerle IPTV sektöründe standartları belirleyen, en güvenilir ve en çok tercih edilen marka olmaktır.'}
+              {data.mainText || 'QruzeTV olarak misyonumuz, Avrupa ve Türkiye\'deki tüm kullanıcılara en üst düzeyde, kesintisiz ve donmayan bir IPTV deneyimi sunmaktır. En iyi IPTV server altyapısını kullanarak, müşteri memnuniyetini her zaman ilk sırada tutuyoruz. Vizyonumuz, yenilikçi teknolojilerle IPTV sektöründe standartları belirleyen, en güvenilir ve en çok tercih edilen marka olmaktır.'}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
                 {(features || []).map((feature, index) => {
                     const IconComponent = getIcon(feature.icon);
                     return (
-                        <div key={index} className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800 transition-colors">
-                            <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex-shrink-0 flex items-center justify-center border border-purple-500/20">
-                                <IconComponent className="w-6 h-6 text-purple-400" />
+                        <div key={index} className="flex items-start gap-4 p-4 rounded-xl hover:bg-[#0a0a0a] transition-colors">
+                            <div className="w-12 h-12 bg-primary/10 rounded-xl flex-shrink-0 flex items-center justify-center border border-primary/20">
+                                <IconComponent className="w-6 h-6 text-primary" />
                             </div>
                             <div>
                                 <h4 className="font-bold text-white text-lg mb-1">{feature.title}</h4>
@@ -98,7 +98,7 @@ const About = ({ data }) => {
              className="space-y-6 lg:order-last"
           >
             <h3 className="text-3xl font-bold text-white flex items-center gap-3">
-                <span className="w-2 h-8 bg-purple-500 rounded-full"></span>
+                <span className="w-2 h-8 bg-primary rounded-full"></span>
                 {data.section2Title || "Teknolojimiz & Destek"}
             </h3>
             <p className="text-gray-300 text-lg leading-relaxed">
@@ -112,10 +112,10 @@ const About = ({ data }) => {
              viewport={{ once: true }}
              className="lg:order-first relative"
           >
-            <div className="absolute -inset-4 bg-purple-600/20 rounded-3xl blur-xl opacity-50"></div>
+            <div className="absolute -inset-4 bg-primary/20 rounded-3xl blur-xl opacity-50"></div>
             <img  
               className="relative rounded-2xl shadow-2xl w-full h-auto object-cover border border-slate-700"
-              alt="Memnun müşteriler QRUZEHD IPTV hizmetini kullanıyor"
+              alt="Memnun müşteriler QruzeTV IPTV hizmetini kullanıyor"
               src={secondaryImageUrl} />
           </motion.div>
         </div>

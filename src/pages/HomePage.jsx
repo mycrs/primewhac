@@ -15,10 +15,15 @@ import InternalLinkingOptimization from '@/components/InternalLinkingOptimizatio
 import ErrorBoundary from '@/components/ErrorBoundary';
 import WhyChooseUsSection from '@/components/WhyChooseUsSection';
 import HomePageSeoContent from '@/components/HomePageSeoContent';
+import HomeGeoSection from '@/components/home/HomeGeoSection';
+import HomePageVideoSection from '@/components/HomePageVideoSection';
+import FeaturedReviewsCarousel from '@/components/FeaturedReviewsCarousel';
 import LazySection from '@/components/LazySection';
+import PremiumConversionStrip from '@/components/PremiumConversionStrip';
 import { initPerformanceMonitoring } from '@/utils/performanceMonitoring';
 import { ShieldCheck, Lock, Calendar, Film } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { homePageSchemas } from '@/utils/seoSchema';
 const HomePage = ({ siteData }) => {
   const [retryKey, setRetryKey] = useState(0);
 
@@ -30,11 +35,26 @@ const HomePage = ({ siteData }) => {
   const safeSiteData = siteData || defaultData;
   
   const metadata = {
-    title: "Premium IPTV Satın Al | Kesintisiz 4K IPTV Sağlayıcısı",
-    description: "Türkiye'nin en iyi Premium IPTV hizmeti. Kesintisiz 4K kalite, anında teslimat ve binlerce kanal. Güvenilir IPTV satın al ve hemen izlemeye başla. Ücretsiz test et!",
-    keywords: ["IPTV satın al", "IPTV server", "Premium IPTV", "4K IPTV", "Kesintisiz IPTV", "IPTV test"],
-    ogType: "website"
+    title: "IPTV Satın Al 2026 — Donmayan 4K Yayın | QruzeTV",
+    description:
+      "20.000+ kanal, canlı spor, film ve dizi tek abonelikte. 4K kalitede donmayan yayın, ücretsiz test, anında teslimat ve 7/24 destek.",
+    keywords: [
+      "IPTV satın al",
+      "IPTV server",
+      "Premium IPTV",
+      "4K IPTV",
+      "Kesintisiz IPTV",
+      "IPTV test",
+      "iptv al",
+      "ip tv satın al",
+      "ip tv al",
+      "kaliteli iptv",
+      "iptv türkiye",
+      "türkiye iptv",
+    ],
+    ogType: "website",
   };
+  const jsonLd = homePageSchemas(metadata, safeSiteData.videos);
 
   const handleRetry = () => {
     setRetryKey(prev => prev + 1);
@@ -42,9 +62,9 @@ const HomePage = ({ siteData }) => {
 
   return (
     <div key={retryKey}>
-      <SEOHead {...metadata} />
+      <SEOHead {...metadata} jsonLd={jsonLd} />
       
-      <div className="min-h-screen bg-[#0F0F1E] flex flex-col font-sans text-white selection:bg-purple-500/30">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans text-white selection:bg-white/20">
         <ErrorBoundary onRetry={handleRetry}>
           <Header contactData={safeSiteData.contactData} />
         </ErrorBoundary>
@@ -58,75 +78,110 @@ const HomePage = ({ siteData }) => {
             />
           </ErrorBoundary>
           
-          <LazySection className="py-16 bg-gradient-to-b from-[#0F0F1E] to-[#131325] relative z-10 content-visibility-auto">
+          <LazySection className="qruze-cinema-section premium-section-signature py-16 relative z-10 content-visibility-auto">
             <ErrorBoundary onRetry={handleRetry}>
                <TrendingContentSlider title="4K Kalitesinde Popüler İçerikler" />
             </ErrorBoundary>
           </LazySection>
 
-          <LazySection className="bg-gradient-to-b from-[#131325] to-[#16162a] relative border-t border-white/5 content-visibility-auto">
+          <LazySection className="qruze-cinema-section relative border-t border-white/5 content-visibility-auto">
             <ErrorBoundary onRetry={handleRetry}>
                <ChannelSlider />
             </ErrorBoundary>
           </LazySection>
           
-          <LazySection id="packages-section" className="py-20 bg-[#0F0F1E] relative border-t border-white/5 shadow-[0_-10px_40px_rgba(0,0,0,0.2)] content-visibility-auto">
+          <LazySection id="packages-section" className="qruze-cinema-section premium-section-signature py-20 relative border-t border-white/5 shadow-[0_-10px_40px_rgba(0,0,0,0.2)] content-visibility-auto">
             <ErrorBoundary onRetry={handleRetry}>
               <Packages packages={safeSiteData.packagesData} title="IPTV Paketleri ve Fiyatları" />
             </ErrorBoundary>
           </LazySection>
 
-          <LazySection className="py-16 bg-gradient-to-b from-[#0F0F1E] to-[#131325] border-t border-white/5 content-visibility-auto">
+          <LazySection className="content-visibility-auto">
+            <ErrorBoundary>
+              <PremiumConversionStrip locale="tr" contactData={safeSiteData.contactData} />
+            </ErrorBoundary>
+          </LazySection>
+
+          <LazySection className="qruze-cinema-section py-16 border-t border-white/5 content-visibility-auto">
             <ErrorBoundary>
               <div className="container mx-auto px-4">
-                <h2 className="text-xl font-bold text-white text-center mb-8">İzleme Rehberi</h2>
+                <div className="mb-8 text-center">
+                  <span className="qruze-premium-seal mb-3">Qruze Experience</span>
+                  <h2 className="text-xl font-bold text-white">İzleme Rehberi</h2>
+                </div>
                 <div className="space-y-4 max-w-2xl mx-auto">
                 <Link
                   to="/mac-programi"
-                  className="flex items-center gap-4 w-full bg-gradient-to-r from-emerald-900/30 to-slate-900/60 hover:from-emerald-800/40 hover:to-slate-800/60 p-6 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/40 transition-all group"
+                  className="qruze-cinema-link group flex w-full items-center gap-4 rounded-2xl border-2 border-[#e50914]/45 p-6 backdrop-blur-sm transition-all duration-300 hover:border-[#e50914]/65 hover:shadow-[0_0_64px_rgba(229,9,20,0.24)]"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-emerald-600/20 flex items-center justify-center gap-0.5 group-hover:bg-emerald-600/30 transition-colors">
-                    <span className="text-xl" aria-hidden>⚽</span>
-                    <Calendar className="w-5 h-5 text-emerald-400" />
+                  <span
+                    className="pointer-events-none absolute inset-0 translate-x-[-100%] bg-[linear-gradient(110deg,transparent_18%,rgba(255,255,255,0.12)_50%,transparent_82%)] transition-transform duration-700 group-hover:translate-x-[100%]"
+                    aria-hidden
+                  />
+                  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center gap-0.5 rounded-xl bg-gradient-to-br from-[#e50914]/40 to-[#b20710]/50 shadow-[0_0_24px_rgba(16,185,129,0.45)] ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105">
+                    <span className="text-xl drop-shadow-md" aria-hidden>
+                      ⚽
+                    </span>
+                    <Calendar className="h-5 w-5 text-white drop-shadow-md" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h2 className="text-xl font-bold text-white group-hover:text-emerald-200 transition-colors">Maç Takvimi & Fikstür</h2>
-                    <p className="text-slate-300 text-sm mt-1">Süper Lig, Premier Lig, La Liga. <span className="text-emerald-300/90">Hangi kanalda, saat kaçta?</span> Güncel program.</p>
+                  <div className="relative z-10 min-w-0 flex-1">
+                    <h3 className="text-xl font-bold text-white drop-shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-colors group-hover:text-[#e50914]">
+                      Maç Takvimi & Fikstür
+                    </h3>
+                    <p className="mt-1 text-sm text-slate-300">
+                      Süper Lig, Premier Lig, La Liga. <span className="font-medium text-[#e50914]/95">Hangi kanalda, saat kaçta?</span> Güncel program.
+                    </p>
                   </div>
-                  <span className="text-emerald-400 text-sm font-medium group-hover:translate-x-1 transition-transform shrink-0">Program →</span>
+                  <span className="relative z-10 shrink-0 text-sm font-semibold text-[#e50914] transition-transform duration-300 group-hover:translate-x-1">
+                    Program →
+                  </span>
                 </Link>
                 <Link
                   to="/ne-izlesem"
-                  className="flex items-center gap-4 w-full bg-gradient-to-r from-purple-900/30 to-slate-900/60 hover:from-purple-800/40 hover:to-slate-800/60 p-6 rounded-2xl border border-purple-500/20 hover:border-purple-500/40 transition-all group"
+                  className="qruze-cinema-link flex items-center gap-4 w-full p-6 rounded-2xl border-primary/20 hover:border-primary/40 transition-all group"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-purple-600/20 flex items-center justify-center group-hover:bg-purple-600/30 transition-colors">
-                    <Film className="w-7 h-7 text-purple-400" />
+                  <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+                    <Film className="w-7 h-7 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h2 className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors">Ne İzlesem?</h2>
-                    <p className="text-slate-300 text-sm mt-1">Film ve dizi önerileri. <span className="text-purple-300/90">IPTV&apos;de izleyebileceğiniz</span> popüler içerikler.</p>
+                    <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">Ne İzlesem?</h3>
+                    <p className="text-slate-300 text-sm mt-1">Film ve dizi önerileri. <span className="text-primary/90">IPTV&apos;de izleyebileceğiniz</span> popüler içerikler.</p>
                   </div>
-                  <span className="text-purple-400 text-sm font-medium group-hover:translate-x-1 transition-transform shrink-0">Öneriler →</span>
+                  <span className="text-primary text-sm font-medium group-hover:translate-x-1 transition-transform shrink-0">Öneriler →</span>
                 </Link>
                 </div>
               </div>
             </ErrorBoundary>
           </LazySection>
 
-          <LazySection className="py-16 bg-[#0F0F1E] border-y border-white/5 content-visibility-auto">
+          <LazySection className="qruze-cinema-section py-16 border-t border-white/5 content-visibility-auto">
             <ErrorBoundary>
               <div className="container mx-auto px-4">
-                <div className="max-w-4xl mx-auto bg-gradient-to-br from-slate-900/60 to-purple-900/20 p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl flex flex-col md:flex-row items-center gap-8">
-                  <div className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-purple-600/20 flex items-center justify-center border border-purple-500/30">
-                    <Lock className="w-10 h-10 md:w-12 md:h-12 text-purple-400" />
+                <HomePageVideoSection videos={safeSiteData.videos} lang="tr" />
+              </div>
+            </ErrorBoundary>
+          </LazySection>
+
+          <LazySection className="qruze-cinema-section py-0 border-t border-white/5 content-visibility-auto">
+            <ErrorBoundary>
+              <FeaturedReviewsCarousel locale="tr" showViewAllLink className="border-b border-white/5" />
+            </ErrorBoundary>
+          </LazySection>
+
+          <LazySection className="qruze-cinema-section py-16 border-y border-white/5 content-visibility-auto">
+            <ErrorBoundary>
+              <div className="container mx-auto px-4">
+                <div className="luxury-glass max-w-4xl mx-auto p-8 md:p-12 rounded-3xl flex flex-col md:flex-row items-center gap-8">
+                  <div className="flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-primary/20 flex items-center justify-center border border-primary/30">
+                    <Lock className="w-10 h-10 md:w-12 md:h-12 text-primary" />
                   </div>
                   <div className="flex-grow text-center md:text-left">
                     <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Gizlilik ve Güvenlik</h2>
                     <p className="text-slate-200 text-lg leading-relaxed">
-                      Veri gizliliğiniz ve güvenliğiniz en büyük önceliğimizdir. <span className="text-purple-200/90">Güvenli ödeme altyapısı</span> ve <span className="text-emerald-200/90">şifreli bağlantılar</span> ile IPTV keyfinizi güvenle sürdürebilirsiniz.
+                      Veri gizliliğiniz ve güvenliğiniz en büyük önceliğimizdir. <span className="text-primary/90">Güvenli ödeme altyapısı</span> ve <span className="text-[#e50914]/90">şifreli bağlantılar</span> ile IPTV keyfinizi güvenle sürdürebilirsiniz.
                     </p>
                     <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-4">
-                      <span className="flex items-center gap-2 text-sm text-purple-300 font-medium px-4 py-2 bg-purple-500/10 rounded-full border border-purple-500/20">
+                      <span className="flex items-center gap-2 text-sm text-primary font-medium px-4 py-2 bg-primary/10 rounded-full border border-primary/20">
                         <ShieldCheck className="w-4 h-4" /> %100 Güvenli Altyapı
                       </span>
                     </div>
@@ -136,25 +191,31 @@ const HomePage = ({ siteData }) => {
             </ErrorBoundary>
           </LazySection>
 
-          <LazySection className="py-20 bg-gradient-to-b from-[#0F0F1E] to-[#16162a] relative border-t border-white/5">
+          <LazySection className="qruze-cinema-section premium-section-signature py-20 relative border-t border-white/5">
             <ErrorBoundary onRetry={handleRetry}>
               <WhyChooseUsSection title="Neden Bizi Tercih Etmelisiniz?" />
             </ErrorBoundary>
           </LazySection>
 
-          <LazySection className="py-20 bg-[#16162a] relative border-t border-white/5">
+          <LazySection className="qruze-cinema-section py-20 relative border-t border-white/5">
             <ErrorBoundary onRetry={handleRetry}>
               <MassiveChannelArchiveSection title="Kesintisiz ve Dev Arşivli IPTV" />
             </ErrorBoundary>
           </LazySection>
 
-          <LazySection className="bg-[#16162a] relative border-t border-white/5 z-20">
+          <LazySection className="qruze-cinema-section relative border-t border-white/5 z-20">
             <ErrorBoundary>
-              <HomePageSeoContent title="Premium IPTV Hakkında Her Şey" />
+              <HomeGeoSection />
             </ErrorBoundary>
           </LazySection>
 
-          <LazySection className="py-16 bg-slate-950 relative border-t border-white/5">
+          <LazySection className="qruze-cinema-section relative border-t border-white/5 z-20">
+            <ErrorBoundary>
+              <HomePageSeoContent siteData={safeSiteData} />
+            </ErrorBoundary>
+          </LazySection>
+
+          <LazySection className="qruze-cinema-section py-16 relative border-t border-white/5">
             <ErrorBoundary>
               <div className="container mx-auto px-4 mt-8">
                 <InternalLinkingOptimization currentPage="home" />

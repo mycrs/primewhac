@@ -53,8 +53,8 @@ export const UsersTab = () => {
       </div>
 
       {/* Test Requests Info Alert */}
-      <div className="bg-blue-500/10 border border-blue-500/20 p-4 rounded-xl flex items-start gap-3">
-          <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400">
+      <div className="bg-[#141414]/10 border border-blue-500/20 p-4 rounded-xl flex items-start gap-3">
+          <div className="p-2 bg-[#141414]/20 rounded-lg text-blue-400">
              <Info className="w-5 h-5" />
           </div>
           <div>
@@ -66,10 +66,10 @@ export const UsersTab = () => {
           </div>
       </div>
 
-      <Card className="bg-slate-900 border-slate-800 text-slate-200">
+      <Card className="bg-[#0a0a0a] border-slate-800 text-slate-200">
         <CardHeader>
             <div className="flex items-center gap-2">
-                <User className="w-5 h-5 text-purple-500" />
+                <User className="w-5 h-5 text-primary" />
                 <CardTitle className="text-lg">Kayıtlı Kullanıcılar</CardTitle>
             </div>
             <CardDescription className="text-slate-400">
@@ -79,7 +79,7 @@ export const UsersTab = () => {
         <CardContent>
           {loading ? (
             <div className="flex justify-center py-12">
-               <Loader2 className="h-8 w-8 text-purple-500 animate-spin" />
+               <Loader2 className="h-8 w-8 text-primary animate-spin" />
             </div>
           ) : error ? (
             <div className="text-center py-12 text-red-400">
@@ -89,7 +89,7 @@ export const UsersTab = () => {
           ) : (
             <div className="rounded-md border border-slate-800 overflow-hidden">
               <Table>
-                <TableHeader className="bg-slate-950">
+                <TableHeader className="bg-[#0a0a0a]">
                   <TableRow className="border-slate-800 hover:bg-transparent">
                     <TableHead className="text-slate-400">Email</TableHead>
                     <TableHead className="text-slate-400">Rol</TableHead>
@@ -108,12 +108,12 @@ export const UsersTab = () => {
                 </TableHeader>
                 <TableBody>
                   {users.map((user) => (
-                    <TableRow key={user.id} className="border-slate-800 hover:bg-slate-800/50">
+                    <TableRow key={user.id} className="border-slate-800 hover:bg-[#0a0a0a]/50">
                       <TableCell className="font-medium text-white">
                          {user.email}
                       </TableCell>
                       <TableCell>
-                         <Badge variant="outline" className="bg-slate-800 text-slate-300 border-slate-600">
+                         <Badge variant="outline" className="bg-[#0a0a0a] text-slate-300 border-slate-600">
                              {user.role || 'user'}
                          </Badge>
                       </TableCell>

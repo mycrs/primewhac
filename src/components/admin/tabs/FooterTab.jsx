@@ -7,8 +7,8 @@ import { motion } from 'framer-motion';
 // Helper component for section headers
 const SectionHeader = ({ icon: Icon, title, description }) => (
   <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-    <div className="p-2 bg-purple-500/10 rounded-lg">
-      <Icon className="w-6 h-6 text-purple-400" />
+    <div className="p-2 bg-primary/10 rounded-lg">
+      <Icon className="w-6 h-6 text-primary" />
     </div>
     <div>
       <h3 className="text-lg font-semibold text-white">{title}</h3>
@@ -137,7 +137,7 @@ const FooterTab = () => {
   if (fetching) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
       </div>
     );
   }
@@ -152,7 +152,7 @@ const FooterTab = () => {
         <div className="flex gap-3">
           <button
             onClick={handleReset}
-            className="flex items-center px-4 py-2 text-sm font-medium text-slate-300 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors border border-slate-700"
+            className="flex items-center px-4 py-2 text-sm font-medium text-slate-300 bg-[#0a0a0a] rounded-lg hover:bg-[#0a0a0a] transition-colors border border-slate-700"
           >
             <RotateCcw className="w-4 h-4 mr-2" />
             Sıfırla
@@ -160,7 +160,7 @@ const FooterTab = () => {
           <button
             onClick={handleSave}
             disabled={loading}
-            className="flex items-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg hover:from-purple-500 hover:to-blue-500 transition-all shadow-lg shadow-purple-900/20 disabled:opacity-50"
+            className="flex items-center px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-[#e50914] to-[#b20710] rounded-lg hover:from-[#e50914] hover:to-[#b20710] transition-all shadow-lg shadow-primary/20 disabled:opacity-50"
           >
             {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
             Değişiklikleri Kaydet
@@ -174,7 +174,7 @@ const FooterTab = () => {
         className="grid gap-8"
       >
         {/* Company Info Section */}
-        <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+        <div className="bg-[#0a0a0a]/50 border border-slate-800 rounded-xl p-6">
           <SectionHeader 
             icon={Building2} 
             title="Şirket Bilgileri" 
@@ -187,8 +187,8 @@ const FooterTab = () => {
                 name="company_name"
                 value={formData.company_name}
                 onChange={handleChange}
-                placeholder="Örn: QruzeHD Technology"
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                placeholder="Örn: QruzeTV Technology"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
             <FormField label="Telefon">
@@ -197,8 +197,8 @@ const FooterTab = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="Örn: +90 (555) 123 45 67"
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                placeholder="Örn: +4916345869030"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
             <FormField label="E-posta Adresi">
@@ -207,8 +207,8 @@ const FooterTab = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Örn: info@qruzehd.com"
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                placeholder="Örn: info@qruzetv.com"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
             <FormField label="Adres">
@@ -218,14 +218,14 @@ const FooterTab = () => {
                 onChange={handleChange}
                 rows={3}
                 placeholder="Örn: Teknoloji Mah. Yazılım Sok. No:1 İstanbul"
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500 resize-none"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary resize-none"
               />
             </FormField>
           </div>
         </div>
 
         {/* Working Hours & Additional */}
-        <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+        <div className="bg-[#0a0a0a]/50 border border-slate-800 rounded-xl p-6">
           <SectionHeader 
             icon={Clock} 
             title="Çalışma Saatleri & Detaylar" 
@@ -239,7 +239,7 @@ const FooterTab = () => {
                 value={formData.working_hours}
                 onChange={handleChange}
                 placeholder="Örn: Hafta içi 09:00 - 18:00"
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
             <FormField label="Kısa Açıklama (Footer Altı)">
@@ -249,7 +249,7 @@ const FooterTab = () => {
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Örn: Türkiye'nin lider dijital yayın platformu."
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
             <FormField label="Telif Hakkı Metni">
@@ -259,7 +259,7 @@ const FooterTab = () => {
                 value={formData.copyright_text}
                 onChange={handleChange}
                 placeholder="Örn: Tüm hakları saklıdır © 2024"
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
             <FormField label="Ödeme Yöntemleri Metni">
@@ -269,14 +269,14 @@ const FooterTab = () => {
                 value={formData.payment_methods_text}
                 onChange={handleChange}
                 placeholder="Örn: Visa, Mastercard, Havale"
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
           </div>
         </div>
 
         {/* Social Media */}
-        <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+        <div className="bg-[#0a0a0a]/50 border border-slate-800 rounded-xl p-6">
           <SectionHeader 
             icon={Share2} 
             title="Sosyal Medya" 
@@ -290,7 +290,7 @@ const FooterTab = () => {
                 value={formData.social_facebook}
                 onChange={handleChange}
                 placeholder="https://facebook.com/..."
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
             <FormField label="Twitter / X URL">
@@ -300,7 +300,7 @@ const FooterTab = () => {
                 value={formData.social_twitter}
                 onChange={handleChange}
                 placeholder="https://twitter.com/..."
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
             <FormField label="Instagram URL">
@@ -310,7 +310,7 @@ const FooterTab = () => {
                 value={formData.social_instagram}
                 onChange={handleChange}
                 placeholder="https://instagram.com/..."
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
             <FormField label="LinkedIn URL">
@@ -320,7 +320,7 @@ const FooterTab = () => {
                 value={formData.social_linkedin}
                 onChange={handleChange}
                 placeholder="https://linkedin.com/in/..."
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
             <FormField label="YouTube URL">
@@ -330,7 +330,7 @@ const FooterTab = () => {
                 value={formData.social_youtube}
                 onChange={handleChange}
                 placeholder="https://youtube.com/..."
-                className="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-purple-500"
+                className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>
           </div>

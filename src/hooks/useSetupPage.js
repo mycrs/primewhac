@@ -4,7 +4,11 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 import { isSupabaseConfigured } from '@/utils/envValidator';
 
-export function useSetupPage() {
+/**
+ * @param {{ enableRealtime?: boolean }} [options] - setup_pages Realtime sadece admin kurulum sekmesinde
+ */
+export function useSetupPage(options = {}) {
+  const { enableRealtime = false } = options;
   const [loading, setLoading] = useState(false);
   const [setupData, setSetupData] = useState(null);
   const [error, setError] = useState(null);
@@ -71,9 +75,8 @@ export function useSetupPage() {
   }, [setupData, toast]);
 
   useEffect(() => {
-    if (!isSupabaseConfigured()) return;
-    
-    console.log(`[useSetupPage] Subscribing to setup_pages realtime changes`);
+    if (!enableRealtime || !isSupabaseConfigured()) return undefined;
+
     const channel = supabase
       .channel('setup_pages_changes')
       .on(
@@ -81,22 +84,20 @@ export function useSetupPage() {
         {
           event: '*',
           schema: 'public',
-          table: 'setup_pages'
+          table: 'setup_pages',
         },
         (payload) => {
-          console.log(`[useSetupPage] Realtime update received:`, payload);
           if (payload.new) {
-             setSetupData(prev => ({ ...prev, ...payload.new }));
+            setSetupData((prev) => ({ ...prev, ...payload.new }));
           }
         }
       )
       .subscribe();
 
     return () => {
-      console.log(`[useSetupPage] Unsubscribing from setup_pages realtime changes`);
       supabase.removeChannel(channel);
     };
-  }, []);
+  }, [enableRealtime]);
 
   const saveSetupPage = async (targetId, payload) => {
     if (targetId) {

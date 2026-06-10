@@ -8,7 +8,7 @@ const StatCard = ({ icon, label, value, delay }) => (
     transition={{ duration: 0.5, delay }}
     viewport={{ once: true }}
     whileHover={{ scale: 1.05, y: -5 }}
-    className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-purple-600 via-blue-500 to-blue-600 h-full"
+    className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-[#e50914] via-[#e50914] to-[#b20710] h-full"
   >
     {/* Semi-transparent white overlay */}
     <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors duration-300" />
@@ -104,9 +104,9 @@ const ContentStatsSection = ({ siteData }) => {
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-[#0F0F1E] relative z-10 overflow-hidden">
+    <section className="py-16 md:py-20 bg-[#0a0a0a] relative z-10 overflow-hidden">
       {/* Ambient background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
       
       <div className="container mx-auto px-4 relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-7xl mx-auto">

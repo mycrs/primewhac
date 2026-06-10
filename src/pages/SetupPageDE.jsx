@@ -4,46 +4,57 @@ import HeaderDE from '@/components/HeaderDE';
 import FooterDE from '@/components/FooterDE';
 import SEOHead from '@/components/SEOHead';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
-import InstallationPageLayout from '@/components/installation/InstallationPageLayout';
+import DeviceSelectionSection from '@/components/installation/DeviceSelectionSection';
 import InstallationPageSeoSection from '@/components/installation/InstallationPageSeoSection';
-import { useSetupPage } from '@/hooks/useSetupPage';
-import { Loader2, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const SetupPageDE = ({ siteData }) => {
-  const { fetchSetupPage, setupData, loading } = useSetupPage();
-
   useEffect(() => {
-    fetchSetupPage();
     window.scrollTo(0, 0);
-  }, [fetchSetupPage]);
+  }, []);
 
   const metadata = {
-    title: "IPTV Einrichtungsanleitung Deutschland - Schritt für Schritt Setup",
-    description: "Entdecken Sie unsere umfassende IPTV Einrichtungsanleitung für Deutschland. In wenigen Schritten richten Sie Ihr Smart TV IPTV ein und genießen stabile Streams.",
+    title: "IPTV einrichten in 5 Min — Samsung, LG, Fire TV | QruzeTV",
+    description: "Türkisches IPTV auf Samsung, LG, Fire TV Stick, Apple TV & Android einrichten — Schritt für Schritt auf Deutsch, in 5 Minuten live.",
     keywords: ["IPTV Einrichtungsanleitung", "IPTV Setup Deutschland", "Smart TV IPTV", "stabile IPTV Verbindung", "4K IPTV Einrichtung"],
-    ogType: "article"
+    ogType: "website"
   };
 
-  if (loading && !setupData) {
-    return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
-      </div>
-    );
-  }
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Wie richtet man IPTV ein?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Laden Sie die passende IPTV-App (Tivimate, 000 Player, IPTV Smarters, VLC) herunter. Geben Sie Ihren M3U-Link oder Xtream-Codes-Daten ein. Die Kanäle werden automatisch geladen."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Auf welchen Geräten funktioniert IPTV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "IPTV funktioniert auf Android TV, Fire TV Stick, iPhone, iPad, Android-Smartphone, Windows PC, Mac, Samsung/LG Smart TV und Tablets."
+        }
+      }
+    ]
+  };
 
   return (
     <>
-      <SEOHead {...metadata} />
-      <div className="min-h-screen bg-slate-950 flex flex-col font-sans text-slate-200">
+      <SEOHead {...metadata} jsonLd={[faqSchema]} />
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans text-slate-200">
         <HeaderDE contactData={siteData?.contactData} />
         
         <main className="flex-grow w-full">
           
           <section className="relative min-h-[50vh] lg:min-h-[70vh] flex flex-col items-center justify-center py-20 px-4 overflow-hidden pt-32">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-slate-950 to-purple-900/40 z-0"></div>
-            <div className="absolute inset-0 bg-[url('https://horizons-cdn.hostinger.com/6f4a665f-b1cc-4753-8f96-f98db31dd5f3/101cce4586536aa0617e00725d4ba2bc.png')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-[#e50914]/40 via-[#0a0a0a] to-[#b20710]/40 z-0"></div>
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-cover bg-center opacity-[0.03] mix-blend-overlay"></div>
             
             <div className="container relative z-10 mx-auto max-w-4xl text-center">
               <motion.div
@@ -52,11 +63,11 @@ const SetupPageDE = ({ siteData }) => {
                 transition={{ duration: 0.6, ease: "easeOut" }}
               >
                 <div className="mb-6 flex justify-center">
-                  <span className="px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-sm font-semibold tracking-wider uppercase shadow-[0_0_20px_rgba(168,85,247,0.15)]">
+                  <span className="px-4 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary text-sm font-semibold tracking-wider uppercase shadow-[0_0_20px_rgba(229,9,20,0.15)]">
                     Anleitungen & Richtlinien
                   </span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 tracking-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] tracking-tight">
                   IPTV Einrichtungsanleitung Deutschland - Schritt für Schritt Setup
                 </h1>
                 <p className="text-lg md:text-xl text-slate-300 font-light max-w-3xl mx-auto leading-relaxed">
@@ -69,9 +80,9 @@ const SetupPageDE = ({ siteData }) => {
           <div className="container mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24 max-w-7xl relative z-10">
             <div className="mb-8">
               <BreadcrumbNavigation 
-                customPaths={[
-                  { label: 'Startseite', path: '/de' },
-                  { label: 'Einrichtung', path: '/de/einrichtung' }
+                customCrumbs={[
+                  { name: 'Startseite', path: '/de' },
+                  { name: 'Einrichtung', path: null }
                 ]} 
               />
             </div>
@@ -87,11 +98,13 @@ const SetupPageDE = ({ siteData }) => {
                 Wählen Sie Ihr Gerät aus unserer umfassenden Liste. Jedes Gerät hat spezifische Anforderungen für die IPTV Einrichtung. Unsere IPTV Setup Deutschland Anleitung ist für alle gängigen Geräte optimiert - von Smart TVs über Android Boxen bis zu Tablets und Smartphones.
               </p>
               
-              <InstallationPageLayout siteData={siteData} pageContent={setupData} />
+              <div className="relative group rounded-3xl overflow-hidden shadow-2xl bg-[#0a0a0a]/80 backdrop-blur-xl border border-slate-800 p-2">
+                <DeviceSelectionSection selectedDevice="" onSelect={() => {}} asLinks />
+              </div>
             </motion.div>
 
             <motion.article 
-              className="mt-24 bg-slate-900/60 border border-slate-800 rounded-3xl p-8 md:p-14 shadow-2xl"
+              className="mt-24 bg-[#0a0a0a]/60 border border-slate-800 rounded-3xl p-8 md:p-14 shadow-2xl"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -118,7 +131,7 @@ const SetupPageDE = ({ siteData }) => {
                   Mit unserer IPTV Einrichtungsanleitung haben Sie alle notwendigen Informationen für eine stabile IPTV Verbindung. Bevor Sie mit der Installation beginnen, stellen Sie sicher, dass Sie Ihre Zugangsdaten (M3U-Link oder Benutzername/Passwort) griffbereit haben. Sollten Sie nach der Einrichtung Probleme wie schwarze Bildschirme oder asynchronen Ton feststellen, starten Sie zunächst Ihren Router und das Endgerät neu. Oft hilft es auch, den Cache der IPTV-App zu leeren oder eine alternative Player-App zu testen. Unser IPTV Setup Deutschland Service bietet Ihnen vollständige Unterstützung bei jedem Schritt. Bei hartnäckigen Fragen zur Installation oder Fehlerbehebung konsultieren Sie unsere FAQ oder kontaktieren Sie direkt unseren kompetenten Support.
                 </p>
 
-                <div className="mt-16 p-10 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700 shadow-xl text-center flex flex-col items-center">
+                <div className="mt-16 p-10 bg-gradient-to-br from-[#0a0a0a] to-[#141414] rounded-2xl border border-slate-700 shadow-xl text-center flex flex-col items-center">
                   <h3 className="text-2xl font-bold text-white mb-4">Bereit für erstklassiges Entertainment?</h3>
                   <p className="text-slate-300 mb-8 max-w-3xl font-light text-lg">
                     Wenn Sie alle Schritte der IPTV Einrichtungsanleitung abgeschlossen haben und Ihr System bereit ist, können Sie nun in die Welt des grenzenlosen Streamings eintauchen. Wählen Sie jetzt das für Sie passende Paket und erleben Sie Entertainment pur.
@@ -127,13 +140,13 @@ const SetupPageDE = ({ siteData }) => {
                   <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
                     <Link 
                       to="/de/pakete" 
-                      className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 flex items-center justify-center gap-2"
+                      className="px-8 py-4 bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#e50914] hover:to-[#b20710] text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 flex items-center justify-center gap-2"
                     >
                       Pakete ansehen <ArrowRight className="w-5 h-5" />
                     </Link>
                     <Link 
                       to="/de/sss" 
-                      className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 border border-slate-700 shadow-lg flex items-center justify-center"
+                      className="px-8 py-4 bg-[#0a0a0a] hover:bg-[#0a0a0a] text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 border border-slate-700 shadow-lg flex items-center justify-center"
                     >
                       Häufig gestellte Fragen
                     </Link>

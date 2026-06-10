@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { generateSitemapXml } from '@/utils/sitemapGenerator';
+import { SITE_URL } from '@/constants/siteUrl';
 
 const SitemapXmlPage = () => {
   const [xmlContent, setXmlContent] = useState('');
@@ -9,7 +10,7 @@ const SitemapXmlPage = () => {
   useEffect(() => {
     const fetchAndGenerateXML = async () => {
       try {
-        const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://primewatch.tv';
+        const baseUrl = typeof window !== 'undefined' ? window.location.origin : SITE_URL;
         const xml = await generateSitemapXml(baseUrl);
         setXmlContent(xml);
       } catch (err) {

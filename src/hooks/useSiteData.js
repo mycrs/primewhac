@@ -1,14 +1,33 @@
-import { useState, useEffect, useMemo, startTransition } from 'react';
+import { useState, useEffect, useMemo, useRef, startTransition } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 import { defaultData as staticDefaultData } from '@/data/defaultSiteData';
 import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
 import { DomainMigrationManager } from '@/utils/domainMigration';
 import { isSupabaseConfigured } from '@/utils/envValidator';
+import { normalizeIptvFlowDevicesData } from '@/constants/iptvFlowDevices';
+import { withResolvedContactLogo } from '@/constants/brandAssets';
+import { showPublicMaintenanceToastOnce } from '@/utils/supabaseMaintenanceToast';
+import { normalizeGlobalAlert } from '@/utils/normalizeGlobalAlert';
+import { mergePackageQuizContent } from '@/utils/packageRecommendationQuiz';
 
-const CACHE_KEY = 'site_data_cache_v11';
-/** TR ve DE aynı güncel veriyi görsün: önbellek 2 dakikadan eskiyse kullanma, her zaman yeniden çek */
-const CACHE_TTL_MS = 2 * 60 * 1000;
+export const SITE_DATA_CACHE_KEY = 'site_data_cache_v13';
+const CACHE_KEY = SITE_DATA_CACHE_KEY;
+/** Public site için Supabase kotasını korur; admin kaydı clearSiteDataCache ile anında tazeler. */
+const CACHE_TTL_MS = 15 * 60 * 1000;
+let siteDataFetchPromise = null;
+
+export const SITE_DATA_REFRESH_EVENT = 'site_data_cache_cleared';
+
+/** Admin panelinden iletişim kaydedilince cache temizle - site güncel veriyi çeksin */
+export const clearSiteDataCache = () => {
+  try {
+    localStorage.removeItem(CACHE_KEY);
+    window.dispatchEvent(new CustomEvent(SITE_DATA_REFRESH_EVENT));
+  } catch (e) {
+    console.error('Cache clear failed:', e);
+  }
+};
 
 const getCachedData = () => {
   try {
@@ -16,6 +35,13 @@ const getCachedData = () => {
     if (!raw) return null;
     const { data, timestamp } = JSON.parse(raw);
     if (Date.now() - timestamp > CACHE_TTL_MS) return null; // Süresi dolmuşsa güncel veri için null
+    // Eski cache'de boş packagesData olabilir - varsayılanla doldur
+    if (data?.packagesData && (!data.packagesData.turkiye?.length) && (!data.packagesData.avrupa?.length)) {
+      data.packagesData = {
+        turkiye: staticDefaultData.packagesData?.turkiye || [],
+        avrupa: staticDefaultData.packagesData?.avrupa || []
+      };
+    }
     return data;
   } catch (e) {
     console.error('Error reading cache:', e);
@@ -31,18 +57,33 @@ const setCachedData = (data) => {
   }
 };
 
-export const useSiteData = (isAdminAuthenticated) => {
+/**
+ * @param {boolean} isAdminAuthenticated - admin işlemleri için (updateSiteContent)
+ * @param {boolean} [enableSiteContentRealtime=false] - sadece /admin + oturum: site_content Realtime
+ * @param {boolean} [skipFetch=false] - true: Supabase site_content çağrısı yok (ör. /admin-login — gereksiz hata toast’u)
+ */
+export const useSiteData = (isAdminAuthenticated, enableSiteContentRealtime = false, skipFetch = false) => {
   const [siteData, setSiteData] = useState(() => {
     const cached = getCachedData();
-    return cached ? { ...staticDefaultData, ...cached } : staticDefaultData;
+    const merged = cached ? { ...staticDefaultData, ...cached } : staticDefaultData;
+    return withResolvedContactLogo(merged);
   });
   
   const [loading, setLoading] = useState(true);
   const [errorState, setErrorState] = useState(null);
   const { toast } = useToast();
 
+  const fetchDataRef = useRef(null);
+
   useEffect(() => {
     let isMounted = true;
+
+    if (skipFetch) {
+      setLoading(false);
+      return () => {
+        isMounted = false;
+      };
+    }
 
     const fetchData = async () => {
       try {
@@ -58,20 +99,32 @@ export const useSiteData = (isAdminAuthenticated) => {
           return;
         }
 
+        if (!enableSiteContentRealtime) {
+          const cached = getCachedData();
+          if (cached) {
+            if (isMounted) {
+              setSiteData(withResolvedContactLogo({ ...staticDefaultData, ...cached }));
+              setLoading(false);
+            }
+            return;
+          }
+        }
+
         console.log("Fetching site data from Supabase...");
-        const { data, error, isFallback, message } = await executeSupabaseQuery(
-          () => supabase.from('site_content').select('key, value'),
-          { retries: 3, context: 'fetch_site_data', fallback: [], timeoutMs: 30000 }
-        );
+        if (!siteDataFetchPromise) {
+          siteDataFetchPromise = executeSupabaseQuery(
+            () => supabase.from('site_content').select('key, value'),
+            { retries: 2, context: 'fetch_site_data', fallback: [], timeoutMs: 20000 }
+          ).finally(() => {
+            siteDataFetchPromise = null;
+          });
+        }
+        const { data, error, isFallback } = await siteDataFetchPromise;
         
         if (error && isFallback) {
-           setErrorState(message || error.message);
+           setErrorState(null);
            console.error("Site data fetch failed, using fallback:", error);
-           toast({
-               variant: "destructive",
-               title: "Bağlantı Hatası",
-               description: "Veri yüklenirken hata oluştu. Sayfa varsayılan ayarlarla gösteriliyor."
-           });
+           showPublicMaintenanceToastOnce(toast);
         }
 
         if (isMounted) {
@@ -92,20 +145,63 @@ export const useSiteData = (isAdminAuthenticated) => {
               }
               return acc;
             }, {});
-            
+
+            if (dataMap.team_logos && Array.isArray(dataMap.team_logos.entries)) {
+              dataMap.team_logos = {
+                ...dataMap.team_logos,
+                entries: dataMap.team_logos.entries.map((e) => ({
+                  ...e,
+                  url: e?.url ? DomainMigrationManager.updateUrl(e.url) : e.url,
+                })),
+              };
+            }
+
             mergedData = { ...mergedData, ...dataMap };
 
-            ['siteTexts', 'heroData', 'contactData', 'contact_info', 'faqData', 'blog_seo_settings', 'sitemap_settings'].forEach(key => {
+            ['siteTexts', 'heroData', 'contactData', 'contact_info', 'faqData', 'blog_seo_settings', 'sitemap_settings', 'videos'].forEach(key => {
                if (dataMap[key] && staticDefaultData[key]) {
                    mergedData[key] = { ...staticDefaultData[key], ...dataMap[key] };
                }
             });
+            if (dataMap.packagesPageContent && staticDefaultData.packagesPageContent) {
+              mergedData.packagesPageContent = {
+                ...staticDefaultData.packagesPageContent,
+                ...dataMap.packagesPageContent,
+                defaults: { ...staticDefaultData.packagesPageContent.defaults, ...dataMap.packagesPageContent.defaults },
+                page: { ...staticDefaultData.packagesPageContent.page, ...dataMap.packagesPageContent.page },
+                tiers: { ...staticDefaultData.packagesPageContent.tiers, ...dataMap.packagesPageContent.tiers },
+                regions: { ...staticDefaultData.packagesPageContent.regions, ...dataMap.packagesPageContent.regions },
+                seo: { ...staticDefaultData.packagesPageContent.seo, ...dataMap.packagesPageContent.seo },
+                packageQuiz: mergePackageQuizContent(dataMap.packagesPageContent.packageQuiz),
+              };
+            }
+            // packagesData: DB'den boş gelirse varsayılan paketleri kullan (bağlantı hatasında boş sayfa olmasın)
+            if (dataMap.packagesData) {
+              const fromDb = dataMap.packagesData;
+              mergedData.packagesData = {
+                turkiye: (fromDb.turkiye && fromDb.turkiye.length > 0) ? fromDb.turkiye : (staticDefaultData.packagesData?.turkiye || []),
+                avrupa: (fromDb.avrupa && fromDb.avrupa.length > 0) ? fromDb.avrupa : (staticDefaultData.packagesData?.avrupa || [])
+              };
+            }
+            // İletişim Bilgileri: contact_info (admin panel) her yerde contactData olarak kullanılsın
+            mergedData.contactData = { ...(mergedData.contactData || {}), ...(mergedData.contact_info || {}) };
+
+            if (dataMap.iptvFlowDevicesData !== undefined) {
+              const norm = normalizeIptvFlowDevicesData(dataMap.iptvFlowDevicesData);
+              mergedData.iptvFlowDevicesData = norm ?? staticDefaultData.iptvFlowDevicesData;
+            }
           }
-          
+
+          mergedData.globalAlert = normalizeGlobalAlert({
+            ...staticDefaultData.globalAlert,
+            ...mergedData.globalAlert,
+          });
+          mergedData = withResolvedContactLogo(mergedData);
+
           startTransition(() => {
             setSiteData(mergedData);
           });
-          
+
           setCachedData(mergedData);
         }
       } catch (e) {
@@ -116,36 +212,64 @@ export const useSiteData = (isAdminAuthenticated) => {
       }
     };
 
+    fetchDataRef.current = fetchData;
     fetchData();
 
+    // Public kullanıcıda sekmeye dönüşte tekrar Supabase çağrısı yapma; admin realtime açıkken tazele.
+    const handleVisibilityChange = () => {
+      if (enableSiteContentRealtime && document.visibilityState === 'visible' && fetchDataRef.current) {
+        fetchDataRef.current();
+      }
+    };
+    const handleCacheCleared = () => {
+      if (fetchDataRef.current) fetchDataRef.current();
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener(SITE_DATA_REFRESH_EVENT, handleCacheCleared);
+
     let channel = null;
-    if (isSupabaseConfigured()) {
+    if (enableSiteContentRealtime && isSupabaseConfigured()) {
       try {
-          channel = supabase.channel('site_content_changes')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'site_content' }, (payload) => {
-                if (!isMounted) return;
-                const { new: newData, eventType } = payload;
-                if ((eventType === 'INSERT' || eventType === 'UPDATE') && newData?.key) {
-                   let parsedValue = newData.value;
-                   try { parsedValue = typeof newData.value === 'string' ? JSON.parse(newData.value) : newData.value; } catch(e) {}
-                   setSiteData(prev => {
-                      const updated = { ...prev, [newData.key]: parsedValue };
-                      setCachedData(updated);
-                      return updated;
-                   });
+        channel = supabase
+          .channel('site_content_changes')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'site_content' }, (payload) => {
+            if (!isMounted) return;
+            const { new: newData, eventType } = payload;
+            if ((eventType === 'INSERT' || eventType === 'UPDATE') && newData?.key) {
+              let parsedValue = newData.value;
+              try {
+                parsedValue = typeof newData.value === 'string' ? JSON.parse(newData.value) : newData.value;
+              } catch (e) {
+                /* ignore */
+              }
+              setSiteData((prev) => {
+                let updated = { ...prev, [newData.key]: parsedValue };
+                if (
+                  (newData.key === 'contact_info' || newData.key === 'contactData') &&
+                  parsedValue &&
+                  typeof parsedValue === 'object'
+                ) {
+                  updated.contactData = { ...(prev.contactData || {}), ...parsedValue };
                 }
-              })
-            .subscribe();
+                updated = withResolvedContactLogo(updated);
+                setCachedData(updated);
+                return updated;
+              });
+            }
+          })
+          .subscribe();
       } catch (err) {
-          console.warn("Failed to subscribe to realtime changes:", err);
+        console.warn('Failed to subscribe to site_content realtime:', err);
       }
     }
 
     return () => {
       isMounted = false;
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener(SITE_DATA_REFRESH_EVENT, handleCacheCleared);
       if (channel) supabase.removeChannel(channel);
     };
-  }, [toast]); 
+  }, [toast, enableSiteContentRealtime, skipFetch]); 
 
   const updateSiteContent = async (key, value) => {
     if (!isAdminAuthenticated) {
@@ -154,7 +278,7 @@ export const useSiteData = (isAdminAuthenticated) => {
     }
     
     setSiteData(prev => {
-        const newData = { ...prev, [key]: value };
+        const newData = withResolvedContactLogo({ ...prev, [key]: value });
         setCachedData(newData);
         return newData;
     });
@@ -178,7 +302,8 @@ export const useSiteData = (isAdminAuthenticated) => {
       );
           
       if (error) {
-          toast({ variant: "destructive", title: "Hata", description: "Değişiklikler kaydedilemedi. Ağ bağlantınızı kontrol edin." });
+          const errMsg = error?.message || error?.error_description || error?.details || JSON.stringify(error);
+          toast({ variant: "destructive", title: "Hata", description: errMsg || "Değişiklikler kaydedilemedi." });
           return { success: false, error };
       }
     } catch (err) {

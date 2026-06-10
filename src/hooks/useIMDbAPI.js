@@ -6,7 +6,6 @@ import { queueRequest } from '@/utils/tmdbRateLimiter';
 import { blockIMDbAccess, validateDataSource } from '@/utils/imdbBlocker';
 import { validateAPIKey, getSecureAPIKey } from '@/utils/apiKeyValidator';
 import { logAPICall, logError } from '@/utils/tmdbMonitoring';
-
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 validateAPIKey();
@@ -36,6 +35,152 @@ tmdbClient.interceptors.request.use(config => {
   
   return config;
 }, error => Promise.reject(error));
+
+function normalizeHeroTmdbItem(item) {
+  if (!item || item.id == null) return null;
+  const title = (
+    item.title ||
+    item.name ||
+    item.original_title ||
+    item.original_name ||
+    ''
+  ).trim() || 'Sinema görseli';
+  const backdrop = item.backdrop_path;
+  const poster = item.poster_path;
+  const path = backdrop || poster;
+  if (!path) return null;
+  const size = backdrop ? 'w1280' : 'w780';
+  const kind = backdrop ? 'b' : 'p';
+  return {
+    key: `hero-${item.id}-${kind}`,
+    title,
+    src: `https://image.tmdb.org/t/p/${size}${path}`,
+    alt: `${title} — TMDB görseli`,
+  };
+}
+
+function extractAxiosResults(settled) {
+  if (settled.status !== 'fulfilled' || !settled.value?.data) return [];
+  const { results } = settled.value.data;
+  return Array.isArray(results) ? results : [];
+}
+
+/**
+ * Premium ana sayfa hero (TMDB). Yedek görsel listesi yok; boş veya hata → [].
+ */
+export async function fetchPremiumHeroBackdropItems(targetCount = 10) {
+  const requestFns = [
+    () => tmdbClient.get('/movie/top_rated', { params: { page: 1 } }),
+    () => tmdbClient.get('/movie/top_rated', { params: { page: 2 } }),
+    () => tmdbClient.get('/tv/top_rated', { params: { page: 1 } }),
+    () => tmdbClient.get('/tv/top_rated', { params: { page: 2 } }),
+    () => tmdbClient.get('/trending/movie/week'),
+    () => tmdbClient.get('/trending/tv/week'),
+    () =>
+      tmdbClient.get('/discover/movie', {
+        params: {
+          sort_by: 'vote_average.desc',
+          'vote_count.gte': 200,
+          'vote_average.gte': 6,
+          page: 1,
+        },
+      }),
+    () =>
+      tmdbClient.get('/discover/tv', {
+        params: {
+          sort_by: 'vote_average.desc',
+          'vote_count.gte': 100,
+          page: 1,
+        },
+      }),
+  ];
+
+  let settledList;
+  try {
+    settledList = await Promise.allSettled(requestFns.map((fn) => queueRequest(fn)));
+  } catch (e) {
+    console.warn('[PremiumHero] TMDB hero queue failed:', e);
+    return [];
+  }
+
+  const pool = [];
+  for (const s of settledList) {
+    pool.push(...extractAxiosResults(s));
+  }
+
+  const seenSrc = new Set();
+  const unique = [];
+  for (const item of pool) {
+    const row = normalizeHeroTmdbItem(item);
+    if (!row) continue;
+    if (seenSrc.has(row.src)) continue;
+    seenSrc.add(row.src);
+    unique.push(row);
+    if (unique.length >= targetCount) break;
+  }
+
+  return unique;
+}
+
+const TMDB_IMG = 'https://image.tmdb.org/t/p/w342';
+
+/** API yokken hero poster mozaiği (doğrulanmış poster_path). */
+export const HERO_POSTER_MOSAIC_FALLBACK = [
+  `${TMDB_IMG}/qJ2tW6WMUDux911r6m7haRef0WH.jpg`,
+  `${TMDB_IMG}/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg`,
+  `${TMDB_IMG}/hek3lDUyRkCOf2hs5rb1Xfgdgka.jpg`,
+  `${TMDB_IMG}/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg`,
+  `${TMDB_IMG}/f89U3ADr1oiB1s9GkdpoEpXu5Sk.jpg`,
+  `${TMDB_IMG}/8UlWHLMpg9J8wWcuNi4xqu7jrJt.jpg`,
+  `${TMDB_IMG}/vUUqzWa2LnHIVqKaKVlVGkVcZIW.jpg`,
+  `${TMDB_IMG}/6oomb5OA0JBKpqFKDNwIBPOIvdh.jpg`,
+  `${TMDB_IMG}/b6ko0IKC8Idm0cetJ6zSykFtKv3.jpg`,
+  `${TMDB_IMG}/7IiTTgI4R8iaRYH5AM4TyTX5aoc.jpg`,
+  `${TMDB_IMG}/wRnbLt44RxMnsDuhU5kJ25VVzZL.jpg`,
+  `${TMDB_IMG}/xfWac8MTYDxjax8YpG9AiNlXVzC.jpg`,
+];
+
+function posterUrlFromItem(item) {
+  if (!item?.poster_path) return null;
+  return `${TMDB_IMG}${item.poster_path}`;
+}
+
+/**
+ * Hero sağ mozaik için poster URL listesi (TMDB). Boş / hata → [].
+ */
+export async function fetchHeroPosterMosaicUrls(minCount = 24) {
+  const requestFns = [
+    () => tmdbClient.get('/trending/movie/week'),
+    () => tmdbClient.get('/trending/tv/week'),
+    () => tmdbClient.get('/movie/top_rated', { params: { page: 1 } }),
+    () => tmdbClient.get('/tv/top_rated', { params: { page: 1 } }),
+  ];
+
+  let settledList;
+  try {
+    settledList = await Promise.allSettled(requestFns.map((fn) => queueRequest(fn)));
+  } catch (e) {
+    console.warn('[HeroPosterMosaic] TMDB failed:', e);
+    return [];
+  }
+
+  const pool = [];
+  for (const s of settledList) {
+    pool.push(...extractAxiosResults(s));
+  }
+
+  const seen = new Set();
+  const urls = [];
+  for (const item of pool) {
+    const u = posterUrlFromItem(item);
+    if (!u || seen.has(u)) continue;
+    seen.add(u);
+    urls.push(u);
+    if (urls.length >= minCount) break;
+  }
+
+  return urls;
+}
 
 export const useIMDbAPI = () => {
   const [loading, setLoading] = useState(false);
@@ -138,6 +283,12 @@ export const useIMDbAPI = () => {
     return fetchFromApi(`/genre/${type}/list`, {}, `genres_${type}`);
   }, [fetchFromApi]);
 
+  /** Ne izlesem / useTrendingContent — TMDB: GET /trending/all/{day|week} */
+  const getTrending = useCallback((timeWindow = 'day') => {
+    const w = timeWindow === 'week' ? 'week' : 'day';
+    return fetchFromApi(`/trending/all/${w}`, {}, `trending_all_${w}`);
+  }, [fetchFromApi]);
+
   return {
     loading,
     error,
@@ -151,7 +302,8 @@ export const useIMDbAPI = () => {
     getTVCredits,
     getSimilarMovies,
     getSimilarTV,
-    getGenres
+    getGenres,
+    getTrending,
   };
 };
 

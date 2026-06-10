@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Maç programı ana sayfası + maç detay sayfalarını prerender eder (SSG - SEO için HTML'de içerik).
- * Build sonrası çalıştırılır: npm run build && node scripts/prerender-matches.js
+ * Maç programı ana sayfalarını prerender eder (TR + DE). Detay sayfaları kaldırıldı.
+ * Build sonrası: npm run build && node scripts/prerender-matches.js
  */
 import express from 'express';
 import fs from 'fs';
@@ -13,45 +13,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.resolve(process.cwd(), 'dist');
 const PORT = 4178;
 const BASE = `http://localhost:${PORT}`;
-
-const LEAGUES = ['super-lig-2025', 'epl-2024', 'la-liga-2025', 'champions-league-2025', 'bundesliga-2025', 'serie-a-2025'];
-const FIXTURE_BASE = 'https://fixturedownload.com/feed/json';
-
-function slugify(str) {
-  if (!str || typeof str !== 'string') return '';
-  const tr = { ç: 'c', ğ: 'g', ş: 's', ü: 'u', ö: 'o', ı: 'i', Ç: 'c', Ğ: 'g', Ş: 's', Ü: 'u', Ö: 'o', İ: 'i' };
-  return str.toLowerCase().split('').map((c) => tr[c] || c).join('').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
-
-function makeSlug(home, away, date) {
-  return `${slugify(home)}-vs-${slugify(away)}-${date}`;
-}
-
-async function getMatchSlugs() {
-  const slugs = new Set();
-  const dates = [];
-  for (let i = 0; i <= 7; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() + i);
-    dates.push(d.toISOString().split('T')[0]);
-  }
-  for (const league of LEAGUES) {
-    try {
-      const res = await fetch(`${FIXTURE_BASE}/${league}`);
-      if (!res.ok) continue;
-      const data = await res.json();
-      const list = Array.isArray(data) ? data : (data.matches || []);
-      for (const m of list) {
-        const matchDate = (m.DateUtc || m.date || '').toString().split(' ')[0].split('T')[0];
-        if (!dates.includes(matchDate)) continue;
-        const home = (m.HomeTeam || m.team1 || m.homeTeam?.name || '-').toString();
-        const away = (m.AwayTeam || m.team2 || m.awayTeam?.name || '-').toString();
-        slugs.add(makeSlug(home, away, matchDate));
-      }
-    } catch (_) {}
-  }
-  return [...slugs];
-}
 
 function startStaticServer() {
   const app = express();
@@ -69,65 +30,52 @@ async function main() {
     process.exit(1);
   }
 
-  const slugs = await getMatchSlugs();
-  console.log(`[prerender] Ana sayfa + ${slugs.length} maç sayfası prerender edilecek`);
-
-  const outDir = path.join(DIST, 'mac-programi');
-  if (fs.existsSync(outDir)) {
-    fs.rmSync(outDir, { recursive: true });
-  }
+  console.log('[prerender] Maç programı sayfaları (TR + DE) prerender edilecek');
 
   const server = await startStaticServer();
   const browser = await puppeteer.launch({ headless: true });
 
-  fs.mkdirSync(outDir, { recursive: true });
-
-  // 1. Ana maç programı sayfası (/mac-programi)
+  // 1. TR: /mac-programi
+  const outDirTr = path.join(DIST, 'mac-programi');
+  fs.mkdirSync(outDirTr, { recursive: true });
   try {
-    const mainPage = await browser.newPage();
-    await mainPage.goto(`${BASE}/mac-programi`, { waitUntil: 'networkidle2', timeout: 30000 });
-    await mainPage.waitForSelector('article', { timeout: 15000 }).catch(() => {});
-    await new Promise((r) => setTimeout(r, 4000));
-    const mainHtml = await mainPage.content();
-    const mainTitle = await mainPage.title();
-    await mainPage.close();
-    if (!mainTitle.includes('404') && !mainTitle.includes('Sayfa Bulunamadı')) {
-      fs.writeFileSync(path.join(outDir, 'index.html'), mainHtml, 'utf8');
-      console.log(`  ✓ Ana sayfa (/mac-programi) prerender edildi`);
+    const pageTr = await browser.newPage();
+    await pageTr.goto(`${BASE}/mac-programi`, { waitUntil: 'networkidle2', timeout: 30000 });
+    await pageTr.waitForSelector('article', { timeout: 15000 }).catch(() => {});
+    await new Promise((r) => setTimeout(r, 3000));
+    const htmlTr = await pageTr.content();
+    const titleTr = await pageTr.title();
+    await pageTr.close();
+    if (!titleTr.includes('404') && !titleTr.includes('Sayfa Bulunamadı')) {
+      fs.writeFileSync(path.join(outDirTr, 'index.html'), htmlTr, 'utf8');
+      console.log('  ✓ /mac-programi prerender edildi');
     }
   } catch (err) {
-    console.warn(`  ✗ Ana sayfa:`, err.message);
+    console.warn('  ✗ /mac-programi:', err.message);
   }
 
-  let done = 0;
-  for (const slug of slugs) {
-    try {
-      const page = await browser.newPage();
-      await page.goto(`${BASE}/mac-programi/${slug}`, { waitUntil: 'networkidle2', timeout: 30000 });
-      await page.waitForSelector('article p', { timeout: 20000 }).catch(() => {});
-      await new Promise((r) => setTimeout(r, 800));
-      const html = await page.content();
-      const title = await page.title();
-      await page.close();
-
-      if (title.includes('404') || title.includes('Sayfa Bulunamadı') || html.includes('Maç bulunamadı')) {
-        console.warn(`  ✗ ${slug}: maç bulunamadı veya 404, atlanıyor`);
-        continue;
-      }
-
-      const slugDir = path.join(outDir, slug);
-      if (!fs.existsSync(slugDir)) fs.mkdirSync(slugDir, { recursive: true });
-      fs.writeFileSync(path.join(slugDir, 'index.html'), html, 'utf8');
-      done++;
-      if (done % 5 === 0) console.log(`  ${done}/${slugs.length}`);
-    } catch (err) {
-      console.warn(`  ✗ ${slug}:`, err.message);
+  // 2. DE: /de/spielplan
+  const outDirDe = path.join(DIST, 'de', 'spielplan');
+  fs.mkdirSync(outDirDe, { recursive: true });
+  try {
+    const pageDe = await browser.newPage();
+    await pageDe.goto(`${BASE}/de/spielplan`, { waitUntil: 'networkidle2', timeout: 30000 });
+    await pageDe.waitForSelector('article', { timeout: 15000 }).catch(() => {});
+    await new Promise((r) => setTimeout(r, 3000));
+    const htmlDe = await pageDe.content();
+    const titleDe = await pageDe.title();
+    await pageDe.close();
+    if (!titleDe.includes('404') && !titleDe.includes('Seite')) {
+      fs.writeFileSync(path.join(outDirDe, 'index.html'), htmlDe, 'utf8');
+      console.log('  ✓ /de/spielplan prerender edildi');
     }
+  } catch (err) {
+    console.warn('  ✗ /de/spielplan:', err.message);
   }
 
   await browser.close();
   server.close();
-  console.log(`[prerender] Bitti. Ana sayfa + ${done} maç detay sayfası oluşturuldu.`);
+  console.log('[prerender] Bitti.');
 }
 
 main().catch((e) => {

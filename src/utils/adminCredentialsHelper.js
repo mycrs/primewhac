@@ -30,14 +30,6 @@ export const logCurrentAdminInfo = async () => {
 
     const isAdmin = user.user_metadata?.is_admin === true || user.app_metadata?.is_admin === true;
 
-    console.log('[Admin Credentials Helper] Current User Info:', {
-      id: user.id,
-      email: user.email,
-      is_admin: isAdmin,
-      user_metadata: user.user_metadata || {},
-      app_metadata: user.app_metadata || {}
-    });
-
     return { 
       success: true, 
       user: {

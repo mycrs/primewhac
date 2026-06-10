@@ -42,9 +42,9 @@ const AppDownloadButtons = ({ appLinks = [], className }) => {
               className={cn(
                  "w-full min-h-[44px] h-auto py-3 px-4 md:py-3.5 md:px-5 lg:py-4 lg:px-6 rounded-xl shadow-lg border relative overflow-hidden group transition-all duration-300",
                  "hover:scale-[1.02] hover:-translate-y-1 active:scale-95 touch-manipulation",
-                 index % 3 === 0 ? "bg-gradient-to-br from-purple-600 to-indigo-700 border-purple-500/30 hover:shadow-purple-900/40" :
-                 index % 3 === 1 ? "bg-gradient-to-br from-blue-600 to-sky-700 border-blue-500/30 hover:shadow-blue-900/40" :
-                 "bg-gradient-to-br from-emerald-600 to-teal-700 border-emerald-500/30 hover:shadow-emerald-900/40"
+                 index % 3 === 0 ? "bg-gradient-to-br from-[#e50914] to-[#b20710] border-primary/30 hover:shadow-primary/40" :
+                 index % 3 === 1 ? "bg-gradient-to-br from-[#e50914] to-[#b20710] border-blue-500/30 hover:shadow-blue-900/40" :
+                 "bg-gradient-to-br from-[#e50914] to-[#b20710] border-[#e50914]/30 hover:shadow-emerald-900/40"
               )}
             >
               <a 

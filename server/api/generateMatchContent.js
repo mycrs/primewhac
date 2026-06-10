@@ -13,7 +13,7 @@ KURALLAR:
 - Sadece Türkçe yaz.
 - Metni paragraflara böl (her paragraf 3-6 cümle).
 - Metnin %80-90'ı futbol içeriği olsun: form durumu, oyun tarzı, taktik, oyuncu rolleri, psikolojik faktörler, fikstür yoğunluğu vb.
-- PrimeWatch TV IPTV'den en fazla 1-2 kez, çok doğal ve kısa şekilde bahset (maçın nereden izlenebileceği bağlamında). Reklam metni gibi yazma.
+- QruzeTV IPTV'den en fazla 1-2 kez, çok doğal ve kısa şekilde bahset (maçın nereden izlenebileceği bağlamında). Reklam metni gibi yazma.
 - Takımlar, lig, tarih ve gün bilgilerini mutlaka kullan.
 - Derbi ise (Galatasaray-Fenerbahçe, Real-Barcelona vb.) rekabet tarihini ve atmosferi vurgula.
 - Güncel veriye doğrudan erişimin olmadığını unutma; "son haftalarda", "bu sezon genel olarak", "kağıt üzerinde" gibi ihtiyatlı ifadeler kullan.
@@ -39,7 +39,7 @@ REGELN:
 - Schreibe ausschließlich auf Deutsch.
 - Teile den Text in Absätze (jeweils 3-6 Sätze).
 - 80-90% des Textes sollen Fußballinhalt sein: Form, Spielweise, Taktik, Spielerrollen, psychologische Faktoren, Spielplanintensität usw.
-- Erwähne PrimeWatch TV IPTV höchstens 1-2 Mal, natürlich und kurz (im Kontext, wo das Spiel gesehen werden kann). Keine Werbetexte.
+- Erwähne QruzeTV IPTV höchstens 1-2 Mal, natürlich und kurz (im Kontext, wo das Spiel gesehen werden kann). Keine Werbetexte.
 - Nutze unbedingt Mannschaften, Liga, Datum und Tag.
 - Bei einem Derby (Galatasaray-Fenerbahçe, Real-Barcelona usw.) betone die Rivalitätsgeschichte und Atmosphäre.
 - Du hast keinen direkten Zugang zu aktuellen Daten; verwende vorsichtige Formulierungen wie "in den letzten Wochen", "in dieser Saison allgemein", "auf dem Papier".

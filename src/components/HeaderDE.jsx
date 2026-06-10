@@ -1,10 +1,11 @@
 
 import React, { useState, memo, useEffect } from 'react';
-import { FlaskConical, Menu, X } from 'lucide-react';
+import { Zap, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTestModal } from '@/contexts/TestModalContext';
 import { useLogoClickCounter } from '@/hooks/useLogoClickCounter';
+import { BRAND_LOGO_URL } from '@/constants/brandAssets';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const HeaderDE = ({ contactData }) => {
@@ -14,14 +15,11 @@ const HeaderDE = ({ contactData }) => {
   const navigate = useNavigate();
   const { openTestModal } = useTestModal();
   
-  const handleLogoClick = useLogoClickCounter('/admin', 8, 2000);
-  const NEW_LOGO_URL = "https://horizons-cdn.hostinger.com/6f4a665f-b1cc-4753-8f96-f98db31dd5f3/ee7b00c4d7684d8a8e7320e9b78634fe.png";
+  const handleLogoClick = useLogoClickCounter('/yonetim', 8, 2000);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -30,10 +28,12 @@ const HeaderDE = ({ contactData }) => {
     { label: 'Pakete', path: '/de/pakete' },
     { label: 'Kanäle', path: '/de/kanale' },
     { label: 'Einrichtung', path: '/de/einrichtung' },
+    { label: 'M3U erstellen', path: '/de/m3u-olustur' },
     { label: 'Über uns', path: '/de/uber-uns' },
     { label: 'Reseller', path: '/de/reseller' },
     { label: 'Blog', path: '/de/blog' },
-    { label: 'FAQ', path: '/de/sss' }
+    { label: 'FAQ', path: '/de/sss' },
+    { label: 'Bewertungen', path: '/de/bewertungen' }
   ];
 
   const handleNav = (path) => {
@@ -44,8 +44,10 @@ const HeaderDE = ({ contactData }) => {
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-in-out ${
-          scrolled ? 'bg-[#0a0a16]/95 backdrop-blur-md shadow-lg border-b border-[#2a2a40]' : 'bg-[#0F0F1E] border-b border-[#2a2a40]'
+        className={`fixed top-0 left-0 right-0 z-40 border-b transition-all duration-300 ease-in-out ${
+          scrolled
+            ? 'border-white/10 bg-[#050505]/90 shadow-[0_16px_60px_rgba(0,0,0,0.55),0_0_32px_rgba(229,9,20,0.12)] backdrop-blur-2xl'
+            : 'border-white/10 bg-[linear-gradient(180deg,rgba(10,10,10,0.94),rgba(10,10,10,0.78))] backdrop-blur-xl'
         }`}
       >
         <div className="container mx-auto px-4 lg:px-6">
@@ -56,10 +58,13 @@ const HeaderDE = ({ contactData }) => {
               className="flex-shrink-0 z-50 focus:outline-none select-none cursor-pointer flex items-center group py-2" 
             >
               <img 
-                src={NEW_LOGO_URL} 
-                alt="QRUZE TV Premium IPTV Logo" 
+                src={BRAND_LOGO_URL} 
+                alt="QruzeTV logo"
                 className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
                 loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                referrerPolicy="no-referrer"
               />
             </Link>
 
@@ -68,13 +73,13 @@ const HeaderDE = ({ contactData }) => {
                 <button
                   key={index}
                   onClick={() => handleNav(item.path)}
-                  className={`relative block text-[15px] font-medium py-4 px-4 transition-all duration-300 ${
-                    location.pathname === item.path ? 'text-white' : 'text-gray-300 hover:text-white'
+                  className={`relative block rounded-full px-4 py-2.5 text-[14px] font-semibold transition-all duration-300 ${
+                    location.pathname === item.path ? 'bg-white/[0.08] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_22px_rgba(229,9,20,0.14)]' : 'text-gray-300 hover:bg-white/[0.045] hover:text-white'
                   }`}
                 >
                   {item.label}
                   {location.pathname === item.path && (
-                    <motion.span layoutId="underline-de" className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-500" />
+                    <motion.span layoutId="underline-de" className="absolute inset-x-4 -bottom-1 h-0.5 rounded-full bg-gradient-to-r from-transparent via-primary to-transparent" />
                   )}
                 </button>
               ))}
@@ -84,40 +89,45 @@ const HeaderDE = ({ contactData }) => {
               {/* Language Switch - Desktop */}
               <Link 
                 to="/" 
-                className="hidden md:flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-semibold text-gray-300 hover:text-white transition-all"
+                className="hidden md:flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 text-sm font-semibold text-gray-300 hover:text-white transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                 title="Türkisch"
               >
-                <img src="https://flagcdn.com/w40/tr.png" alt="" className="w-5 h-4 object-cover rounded-sm" />
+                <img src="https://flagcdn.com/w40/tr.png" alt="Türkiye bayrağı" className="w-5 h-4 object-cover rounded-sm" referrerPolicy="no-referrer" />
                 <span>TR</span>
               </Link>
 
-              <Button 
-                onClick={openTestModal} 
-                className="hidden sm:flex font-semibold bg-purple-600 text-white hover:bg-purple-700 h-10 px-6 rounded-full transition-all"
+              <Button
+                variant="ghost"
+                onClick={openTestModal}
+                className="group relative hidden h-10 shrink-0 overflow-hidden rounded-xl border-2 border-[#e50914]/50 bg-white/[0.06] px-5 font-semibold text-white shadow-[0_0_24px_rgba(229,9,20,0.22)] backdrop-blur-md transition-all hover:border-[#e50914]/75 hover:bg-white/[0.1] hover:text-white hover:shadow-[0_0_32px_rgba(229,9,20,0.32)] sm:flex"
               >
-                <FlaskConical className="h-4 w-4 mr-2" /> 
-                Testen
+                <span
+                  className="pointer-events-none absolute inset-0 translate-x-[-100%] bg-[linear-gradient(110deg,transparent_25%,rgba(255,255,255,0.18)_50%,transparent_75%)] transition-transform duration-700 group-hover:translate-x-[100%]"
+                  aria-hidden
+                />
+                <Zap className="relative z-10 mr-2 h-4 w-4 text-[#e50914]" strokeWidth={2.5} aria-hidden />
+                <span className="relative z-10">Testen</span>
               </Button>
 
               {/* Country flags - sağda, Test butonunun sağında */}
               <div className="hidden md:flex items-center gap-1">
                 <span className="opacity-50 cursor-default" title="Frankreich (Demnächst)">
-                  <img src="https://flagcdn.com/w40/fr.png" alt="FR" className="w-5 h-4 object-cover rounded-sm" />
+                  <img src="https://flagcdn.com/w40/fr.png" alt="Fransa bayrağı" className="w-5 h-4 object-cover rounded-sm" referrerPolicy="no-referrer" />
                 </span>
                 <span className="opacity-50 cursor-default" title="Österreich (Demnächst)">
-                  <img src="https://flagcdn.com/w40/at.png" alt="AT" className="w-5 h-4 object-cover rounded-sm" />
+                  <img src="https://flagcdn.com/w40/at.png" alt="Avusturya bayrağı" className="w-5 h-4 object-cover rounded-sm" referrerPolicy="no-referrer" />
                 </span>
                 <span className="opacity-100" title="Deutschland">
-                  <img src="https://flagcdn.com/w40/de.png" alt="DE" className="w-5 h-4 object-cover rounded-sm" />
+                  <img src="https://flagcdn.com/w40/de.png" alt="Almanya bayrağı" className="w-5 h-4 object-cover rounded-sm" referrerPolicy="no-referrer" />
                 </span>
                 <span className="opacity-50 cursor-default" title="Italien (Demnächst)">
-                  <img src="https://flagcdn.com/w40/it.png" alt="IT" className="w-5 h-4 object-cover rounded-sm" />
+                  <img src="https://flagcdn.com/w40/it.png" alt="İtalya bayrağı" className="w-5 h-4 object-cover rounded-sm" referrerPolicy="no-referrer" />
                 </span>
                 <span className="opacity-50 cursor-default" title="England (Demnächst)">
-                  <img src="https://flagcdn.com/w40/gb.png" alt="GB" className="w-5 h-4 object-cover rounded-sm" />
+                  <img src="https://flagcdn.com/w40/gb.png" alt="İngiltere bayrağı" className="w-5 h-4 object-cover rounded-sm" referrerPolicy="no-referrer" />
                 </span>
                 <span className="opacity-50 cursor-default" title="Polen (Demnächst)">
-                  <img src="https://flagcdn.com/w40/pl.png" alt="PL" className="w-5 h-4 object-cover rounded-sm" />
+                  <img src="https://flagcdn.com/w40/pl.png" alt="Polonya bayrağı" className="w-5 h-4 object-cover rounded-sm" referrerPolicy="no-referrer" />
                 </span>
               </div>
 
@@ -147,7 +157,7 @@ const HeaderDE = ({ contactData }) => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              className="fixed top-0 right-0 h-full w-[80%] max-w-[300px] bg-[#0F0F1E] border-l border-[#2a2a40] z-[101] flex flex-col md:hidden"
+              className="fixed top-0 right-0 h-full w-[80%] max-w-[300px] bg-[#0a0a0a] border-l border-[#262626] z-[101] flex flex-col md:hidden"
             >
               <div className="flex items-center justify-between p-5 border-b border-[#2a2a40]">
                 <span className="text-xl font-bold text-white">Menü</span>
@@ -173,18 +183,23 @@ const HeaderDE = ({ contactData }) => {
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium transition-colors"
                 >
-                  <img src="https://flagcdn.com/w40/tr.png" alt="" className="w-6 h-4 object-cover rounded-sm" />
+                  <img src="https://flagcdn.com/w40/tr.png" alt="Türkiye bayrağı" className="w-6 h-4 object-cover rounded-sm" referrerPolicy="no-referrer" />
                   Wechseln zu Türkisch (TR)
                 </Link>
-                <Button 
+                <Button
+                  variant="ghost"
                   onClick={() => {
                     setIsMenuOpen(false);
                     openTestModal();
-                  }} 
-                  className="w-full font-bold bg-purple-600 text-white hover:bg-purple-700 h-12 rounded-xl"
+                  }}
+                  className="group relative h-14 w-full overflow-hidden rounded-2xl border-2 border-[#e50914]/50 bg-white/[0.05] font-bold text-white shadow-[0_0_36px_rgba(229,9,20,0.22)] backdrop-blur-xl transition-all hover:border-[#e50914]/80 hover:bg-white/[0.08] hover:text-white hover:shadow-[0_0_44px_rgba(229,9,20,0.3)] active:scale-[0.99]"
                 >
-                  <FlaskConical className="h-5 w-5 mr-2" /> 
-                  Kostenlos Testen
+                  <span
+                    className="pointer-events-none absolute inset-0 translate-x-[-100%] bg-[linear-gradient(110deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%)] transition-transform duration-700 group-hover:translate-x-[100%]"
+                    aria-hidden
+                  />
+                  <Zap className="relative z-10 mr-2.5 h-5 w-5 text-[#e50914]" strokeWidth={2.5} aria-hidden />
+                  <span className="relative z-10">Kostenlos Testen</span>
                 </Button>
               </div>
             </motion.div>

@@ -3,7 +3,7 @@
  * Utility to migrate old domain to new domain in content and URLs
  */
 export const OLD_DOMAIN = 'kaliteliiptv.com';
-export const NEW_DOMAIN = 'primewatch.tv';
+export const NEW_DOMAIN = 'streamtr.eu';
 
 export const migrateUrl = (url) => {
   if (!url || typeof url !== 'string') return url;

@@ -36,13 +36,13 @@ const FeaturesList = ({ features = [], onChange, error }) => {
           onChange={(e) => setNewFeature(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="Yeni özellik ekle (Örn: 4K Yayın Kalitesi)"
-          className="bg-slate-900/50 border-slate-700 text-white"
+          className="bg-[#0a0a0a]/50 border-slate-700 text-white"
           maxLength={100}
         />
         <Button 
           type="button" 
           onClick={handleAdd}
-          className="bg-purple-600 hover:bg-purple-700 text-white shrink-0"
+          className="bg-primary hover:bg-primary text-white shrink-0"
         >
           <Plus className="w-4 h-4 mr-2" /> Ekle
         </Button>
@@ -60,7 +60,7 @@ const FeaturesList = ({ features = [], onChange, error }) => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, height: 0 }}
-              className="flex items-center gap-2 bg-slate-800/50 p-2 rounded-lg border border-slate-700 group"
+              className="flex items-center gap-2 bg-[#0a0a0a]/50 p-2 rounded-lg border border-slate-700 group"
             >
               <GripVertical className="w-4 h-4 text-slate-500 cursor-grab" />
               <span className="flex-1 text-sm text-slate-200">{feature}</span>

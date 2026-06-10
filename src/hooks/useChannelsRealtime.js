@@ -1,57 +1,98 @@
-
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
+import { defaultData } from '@/data/defaultSiteData';
+import { CHANNEL_PUBLIC_COLUMNS } from '@/constants/publicSupabaseQueries';
+import { readSessionCache, writeSessionCache } from '@/utils/supabaseSessionCache';
+import { showPublicMaintenanceToastOnce } from '@/utils/supabaseMaintenanceToast';
 
-export const useChannelsRealtime = () => {
+const FALLBACK_CHANNELS = (defaultData.channelsData || []).map((c, i) => ({
+  id: c.id || `fallback-${i}`,
+  name: c.name,
+  image_url: c.image_url || c.logoUrl,
+  category: c.category,
+  is_active: true
+}));
+
+const PUBLIC_CHANNELS_CACHE_KEY = 'sb_pub_channels_v1';
+
+/**
+ * @param {{ enableRealtime?: boolean, skipInitialFetch?: boolean }} [options]
+ * - Realtime yalnızca admin; public: dar kolon + is_active + session cache
+ */
+export const useChannelsRealtime = (options = {}) => {
+  const { enableRealtime = false, skipInitialFetch = false } = options;
   const [channels, setChannels] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!skipInitialFetch);
   const [error, setError] = useState(null);
   const { toast } = useToast();
 
-  const fetchChannels = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const { data, error: fetchError } = await supabase
-        .from('channels')
-        .select('*')
-        .order('name');
-        
-      if (fetchError) throw fetchError;
-      setChannels(data || []);
-    } catch (err) {
-      console.error('Error fetching channels:', err);
-      setError(err.message || 'Kanallar yüklenirken bir hata oluştu.');
-      toast({ 
-        variant: 'destructive', 
-        title: 'Bağlantı Hatası', 
-        description: 'Kanallar yüklenemedi. ' + (err.message || '') 
-      });
-    } finally {
-      setLoading(false);
-    }
-  }, [toast]);
+  const fetchChannels = useCallback(
+    async (forceRefresh = false) => {
+      if (skipInitialFetch && !forceRefresh) {
+        setLoading(false);
+        return;
+      }
+
+      if (!enableRealtime && !forceRefresh) {
+        const cached = readSessionCache(PUBLIC_CHANNELS_CACHE_KEY);
+        if (Array.isArray(cached)) {
+          setChannels(cached);
+          setLoading(false);
+          setError(null);
+          return;
+        }
+      }
+
+      setLoading(true);
+      setError(null);
+      try {
+        const q = enableRealtime
+          ? supabase.from('channels').select('*').order('name')
+          : supabase.from('channels').select(CHANNEL_PUBLIC_COLUMNS).eq('is_active', true).order('name');
+
+        const { data, error: fetchError } = await q;
+
+        if (fetchError) throw fetchError;
+        const rows = data || [];
+        setChannels(rows);
+        if (!enableRealtime && rows.length >= 0) {
+          writeSessionCache(PUBLIC_CHANNELS_CACHE_KEY, rows);
+        }
+      } catch (err) {
+        console.error('Error fetching channels:', err);
+        setError(null);
+        setChannels(FALLBACK_CHANNELS.length > 0 ? FALLBACK_CHANNELS : []);
+        showPublicMaintenanceToastOnce(toast);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [toast, enableRealtime, skipInitialFetch]
+  );
 
   useEffect(() => {
-    fetchChannels();
+    fetchChannels(false);
+
+    if (!enableRealtime) {
+      return undefined;
+    }
 
     const channelSubscription = supabase
       .channel('public:channels')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'channels' }, (payload) => {
         if (payload.eventType === 'INSERT') {
-          setChannels(prev => {
-            const exists = prev.find(c => c.id === payload.new.id);
+          setChannels((prev) => {
+            const exists = prev.find((c) => c.id === payload.new.id);
             if (exists) return prev;
             return [...prev, payload.new].sort((a, b) => a.name.localeCompare(b.name));
           });
         } else if (payload.eventType === 'UPDATE') {
-          setChannels(prev => 
-            prev.map(c => (c.id === payload.new.id ? payload.new : c))
-                .sort((a, b) => a.name.localeCompare(b.name))
+          setChannels((prev) =>
+            prev.map((c) => (c.id === payload.new.id ? payload.new : c)).sort((a, b) => a.name.localeCompare(b.name))
           );
         } else if (payload.eventType === 'DELETE') {
-          setChannels(prev => prev.filter(c => c.id !== payload.old.id));
+          setChannels((prev) => prev.filter((c) => c.id !== payload.old.id));
         }
       })
       .subscribe();
@@ -59,7 +100,7 @@ export const useChannelsRealtime = () => {
     return () => {
       supabase.removeChannel(channelSubscription);
     };
-  }, [fetchChannels]);
+  }, [fetchChannels, enableRealtime]);
 
   const addChannel = async (channelData) => {
     try {
@@ -112,13 +153,13 @@ export const useChannelsRealtime = () => {
     }
   };
 
-  return { 
-    channels, 
-    loading, 
-    error, 
-    refetch: fetchChannels,
+  return {
+    channels,
+    loading,
+    error,
+    refetch: () => fetchChannels(true),
     addChannel,
     updateChannel,
-    deleteChannel
+    deleteChannel,
   };
 };

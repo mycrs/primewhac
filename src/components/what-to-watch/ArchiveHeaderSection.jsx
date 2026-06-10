@@ -13,9 +13,9 @@ const ArchiveHeaderSection = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="relative max-w-4xl mx-auto mb-10 group"
     >
-      <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-[2rem] blur-xl opacity-40 group-hover:opacity-60 transition duration-700"></div>
+      <div className="absolute -inset-1 bg-gradient-to-r from-[#e50914] via-pink-600 to-[#b20710] rounded-[2rem] blur-xl opacity-40 group-hover:opacity-60 transition duration-700"></div>
       
-      <div className="relative bg-slate-900/80 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[2rem] shadow-2xl text-center transform transition-transform duration-500 hover:scale-[1.02]">
+      <div className="relative bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[2rem] shadow-2xl text-center transform transition-transform duration-500 hover:scale-[1.02]">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -24,7 +24,7 @@ const ArchiveHeaderSection = () => {
         >
           🎬
         </motion.div>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-pink-300 to-blue-300 tracking-tight">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] via-pink-300 to-[#b20710] tracking-tight">
           {isDe ? "Was haben wir in unserem Archiv? Entdecken Sie es!" : "Arşivimizde Neler Var? Keşfedin!"}
         </h2>
         <p className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto font-medium">

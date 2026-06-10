@@ -4,9 +4,21 @@ import { Star, Calendar, Film, Tv, PlayCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const ContentCard = ({ item, type, isDe = false }) => {
+const ACCENT_COLORS = [
+  { border: 'group-hover:border-primary/80', shadow: 'group-hover:shadow-primary/40', glow: 'from-[#e50914]/70 via-[#b20710]/60 to-[#b20710]/70', badge: 'bg-primary/10 border-primary/50 text-primary' },
+  { border: 'group-hover:border-[#e50914]/80', shadow: 'group-hover:shadow-[#e50914]/40', glow: 'from-[#e50914]/70 via-[#b20710]/60 to-[#b20710]/70', badge: 'bg-[#e50914]/10 border-[#e50914]/50 text-white' },
+  { border: 'group-hover:border-blue-400/80', shadow: 'group-hover:shadow-blue-500/40', glow: 'from-[#e50914]/70 via-[#e50914]/60 to-[#b20710]/70', badge: 'bg-[#141414]/10 border-blue-500/50 text-blue-200' },
+  { border: 'group-hover:border-[#e50914]/80', shadow: 'group-hover:shadow-emerald-500/40', glow: 'from-[#e50914]/70 via-[#e50914]/60 to-[#b20710]/70', badge: 'bg-[#e50914]/10 border-[#e50914]/50 text-[#e50914]' },
+  { border: 'group-hover:border-amber-400/80', shadow: 'group-hover:shadow-amber-500/40', glow: 'from-amber-500/70 via-orange-500/60 to-yellow-500/70', badge: 'bg-amber-500/10 border-amber-500/50 text-amber-200' },
+  { border: 'group-hover:border-rose-400/80', shadow: 'group-hover:shadow-rose-500/40', glow: 'from-rose-500/70 via-pink-500/60 to-red-500/70', badge: 'bg-rose-500/10 border-rose-500/50 text-rose-200' },
+  { border: 'group-hover:border-[#e50914]/80', shadow: 'group-hover:shadow-[#e50914]/40', glow: 'from-[#e50914]/70 via-[#e50914]/60 to-[#b20710]/70', badge: 'bg-[#e50914]/10 border-[#e50914]/50 text-[#e50914]' },
+  { border: 'group-hover:border-primary/80', shadow: 'group-hover:shadow-primary/40', glow: 'from-[#e50914]/70 via-[#e50914]/60 to-[#b20710]/70', badge: 'bg-primary/10 border-primary/50 text-primary' },
+];
+
+const ContentCard = ({ item, type, isDe = false, accentIndex = 0 }) => {
   const { id, title, name, poster_path, vote_average, release_date, first_air_date, overview } = item;
   const [imgLoaded, setImgLoaded] = useState(false);
+  const accent = ACCENT_COLORS[accentIndex % ACCENT_COLORS.length];
   
   const displayTitle = title || name;
   const displayDate = release_date || first_air_date;
@@ -20,31 +32,31 @@ const ContentCard = ({ item, type, isDe = false }) => {
     : { type: mediaType === 'movie' ? 'Film' : 'Dizi', noOverview: 'Özet bulunmuyor.', details: 'Detaylar' };
 
   return (
-    <Link to={`/what-to-watch/${id}?type=${mediaType}`} className="block h-full outline-none">
+    <Link to={`/ne-izlesem/${id}?type=${mediaType}`} className="block h-full outline-none">
       <div className="group relative h-full">
-        <div className="pointer-events-none absolute -inset-[1.5px] rounded-3xl bg-gradient-to-br from-purple-500/70 via-fuchsia-500/60 to-indigo-500/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-[2px]" />
+        <div className={`pointer-events-none absolute -inset-[1.5px] rounded-3xl bg-gradient-to-br ${accent.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-[2px]`} />
         <motion.div 
           whileHover={{ y: -10, scale: 1.02 }}
-          className="relative bg-slate-950/90 rounded-3xl overflow-hidden shadow-xl border border-slate-800/80 group-hover:border-purple-400/80 group-hover:shadow-purple-500/40 transition-all duration-300 h-full flex flex-col group"
+          className={`relative bg-[#0a0a0a]/90 rounded-3xl overflow-hidden shadow-xl border border-slate-800/80 ${accent.border} ${accent.shadow} transition-all duration-300 h-full flex flex-col group`}
         >
-        <div className="relative aspect-[2/3] overflow-hidden bg-slate-900">
+        <div className="relative aspect-[2/3] overflow-hidden bg-[#0a0a0a]">
           {!imgLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-slate-800/80">
+            <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a]/80">
               {mediaType === 'movie' ? <Film className="w-16 h-16 text-slate-600" /> : <Tv className="w-16 h-16 text-slate-600" />}
             </div>
           )}
           <img 
             src={imageUrl}
-            alt={displayTitle}
+            alt={`${displayTitle} posteri`}
             loading="lazy"
             onLoad={() => setImgLoaded(true)}
             onError={() => setImgLoaded(true)}
             className={`w-full h-full object-cover transition-opacity duration-300 group-hover:scale-110 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
           
           <div className="absolute top-2 right-2 bg-black/70 backdrop-blur-md px-2 py-1 rounded-full text-[10px] text-white font-semibold border border-white/10 flex items-center gap-1.5">
-            {mediaType === 'movie' ? <Film className="w-3 h-3 text-purple-400" /> : <Tv className="w-3 h-3 text-blue-400" />}
+            {mediaType === 'movie' ? <Film className="w-3 h-3 text-primary" /> : <Tv className="w-3 h-3 text-blue-400" />}
             {label.type}
           </div>
 
@@ -55,18 +67,18 @@ const ContentCard = ({ item, type, isDe = false }) => {
 
           <div className="absolute inset-0 bg-black/85 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center backdrop-blur-sm">
             <p className="text-slate-200 text-sm line-clamp-4 mb-4">{overview || label.noOverview}</p>
-            <div className="bg-purple-600 text-white rounded-full px-4 py-2 flex items-center gap-2 font-bold text-sm">
+            <div className="bg-primary text-white rounded-full px-4 py-2 flex items-center gap-2 font-bold text-sm">
               <PlayCircle className="w-4 h-4" /> {label.details}
             </div>
           </div>
         </div>
 
-        <div className="p-4 flex flex-col flex-grow bg-slate-950/95">
-          <h3 className="text-white font-bold text-base mb-1.5 line-clamp-1 group-hover:text-purple-300 transition-colors">
+        <div className="p-4 flex flex-col flex-grow bg-[#0a0a0a]/95">
+          <p className="text-white font-bold text-base mb-1.5 line-clamp-1 group-hover:text-primary transition-colors">
             {displayTitle}
-          </h3>
+          </p>
           <div className="mt-auto flex items-center justify-between text-slate-400 text-[11px]">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/50 text-[10px] font-semibold text-purple-200">
+            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-[10px] font-semibold ${accent.badge}`}>
               4K / Full HD
             </span>
             <div className="flex items-center">

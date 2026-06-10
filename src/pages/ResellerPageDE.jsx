@@ -89,22 +89,22 @@ const ResellerPageDE = ({ siteData }) => {
         keywords={metadata.keywords}
         ogType={metadata.ogType}
       />
-      <div className="min-h-screen bg-slate-950 flex flex-col font-sans">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans">
         <HeaderDE contactData={contactData} />
         
         <main className="flex-grow pt-24 pb-0 text-white">
           {/* 1. Hero Section */}
           <section className="container mx-auto px-4 py-20 text-center relative overflow-hidden">
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
             <motion.div 
               initial={{ opacity: 0, y: 50 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ duration: 0.8 }}
               className="relative z-10 max-w-5xl mx-auto"
             >
-              <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 backdrop-blur-sm">
-                 <span className="text-purple-300 font-bold text-sm tracking-widest uppercase flex items-center gap-2">
-                    <Rocket className="w-4 h-4 text-purple-400" /> Erstklassige Geschäftsmöglichkeit
+              <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-primary/20 border border-primary/30 backdrop-blur-sm">
+                 <span className="text-primary font-bold text-sm tracking-widest uppercase flex items-center gap-2">
+                    <Rocket className="w-4 h-4 text-primary" /> Erstklassige Geschäftsmöglichkeit
                  </span>
               </div>
               
@@ -118,7 +118,7 @@ const ResellerPageDE = ({ siteData }) => {
               
               <Button 
                 size="lg" 
-                className="bg-purple-600 hover:bg-purple-700 text-white font-bold h-14 px-10 rounded-xl text-lg shadow-lg shadow-purple-600/40 hover:scale-105 transition-all duration-300"
+                className="bg-primary hover:bg-primary text-white font-bold h-14 px-10 rounded-xl text-lg shadow-lg shadow-primary/40 hover:scale-105 transition-all duration-300"
                 onClick={() => window.open(whatsappLink, '_blank')}
               >
                 <MessageCircle className="mr-2 h-5 w-5" />
@@ -135,10 +135,10 @@ const ResellerPageDE = ({ siteData }) => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="max-w-4xl mx-auto prose prose-invert prose-purple prose-lg prose-headings:text-white"
+                className="max-w-4xl mx-auto prose prose-invert prose prose-lg prose-headings:text-white"
               >
                 <div className="text-gray-300 space-y-6 leading-relaxed">
-                  <h2 className="text-3xl font-bold mb-6 text-purple-400">Einleitung: Die Zukunft des Entertainments als Ihre Geschäftsmöglichkeit</h2>
+                  <h2 className="text-3xl font-bold mb-6 text-primary">Einleitung: Die Zukunft des Entertainments als Ihre Geschäftsmöglichkeit</h2>
                   <p>
                     In der heutigen rasanten digitalen Welt verändert sich die Art und Weise, wie wir Medien konsumieren, grundlegend. Das klassische, lineare Fernsehen verliert rasant an Bedeutung, während das Streaming über das Internet unaufhaltsam wächst. Genau an diesem entscheidenden Wendepunkt bietet Ihnen unser <strong>Wiederverkäufer-Programm</strong> eine einmalige, überaus lukrative Geschäftsmöglichkeit. Als Reseller haben Sie die Chance, Teil eines Milliardenmarktes zu werden, ohne Millionen in die Entwicklung einer eigenen Infrastruktur investieren zu müssen.
                   </p>
@@ -159,8 +159,8 @@ const ResellerPageDE = ({ siteData }) => {
           </div>
 
           {/* 4. Features/Advantages section */}
-          <section className="relative py-20 bg-slate-900/30">
-             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent pointer-events-none"></div>
+          <section className="relative py-20 bg-[#0a0a0a]/30">
+             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#e50914]/5 to-transparent pointer-events-none"></div>
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-16 max-w-3xl mx-auto">
                   <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Ihre Werkzeuge für den Erfolg</h2>
@@ -180,12 +180,12 @@ const ResellerPageDE = ({ siteData }) => {
                     <motion.div
                         key={feature.id}
                         variants={itemVariants}
-                        className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl hover:bg-white/10 hover:border-purple-500/40 transition-all duration-300 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-900/20"
+                        className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl hover:bg-white/10 hover:border-primary/40 transition-all duration-300 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20"
                     >
-                        <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-purple-600/20 border border-purple-500/30 mb-6 group-hover:bg-purple-600 group-hover:border-purple-500 transition-all duration-300 shadow-inner">
-                        <Icon className="w-8 h-8 text-purple-400 group-hover:text-white transition-colors" />
+                        <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/20 border border-primary/30 mb-6 group-hover:bg-primary group-hover:border-primary transition-all duration-300 shadow-inner">
+                        <Icon className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">{feature.title}</h3>
+                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{feature.title}</h3>
                         <p className="text-gray-400 leading-relaxed group-hover:text-gray-200 transition-colors font-light">{feature.description}</p>
                     </motion.div>
                     );
@@ -202,12 +202,12 @@ const ResellerPageDE = ({ siteData }) => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="max-w-4xl mx-auto prose prose-invert prose-purple prose-lg prose-headings:text-white"
+                className="max-w-4xl mx-auto prose prose-invert prose prose-lg prose-headings:text-white"
               >
                 <div className="text-gray-300 space-y-16 leading-relaxed">
                   {/* Why become a reseller? */}
                   <div>
-                    <h2 className="text-3xl font-bold mb-6 text-purple-400">Warum Sie Wiederverkäufer werden sollten: Der Weg zur finanziellen Freiheit</h2>
+                    <h2 className="text-3xl font-bold mb-6 text-primary">Warum Sie Wiederverkäufer werden sollten: Der Weg zur finanziellen Freiheit</h2>
                     <p>
                       Die Entscheidung, sich unserem <strong>Wiederverkäufer</strong>-Netzwerk anzuschließen, ist weit mehr als nur ein gewöhnlicher Nebenjob. Es ist der Einstieg in ein zukunftssicheres Geschäftsmodell, das Ihnen unvergleichliche Freiheiten bietet. Der größte und offensichtlichste Vorteil ist die Möglichkeit, echte <strong>passive Einnahmen</strong> zu generieren. Im Gegensatz zu traditionellen Geschäftsmodellen, bei denen Sie physische Produkte einkaufen, lagern und versenden müssen, operieren Sie hier zu 100% digital. Das bedeutet für Sie: Keine Lagerkosten, keine Versandlogistik, keine Retouren und vor allem keine versteckten Gebühren.
                     </p>
@@ -218,7 +218,7 @@ const ResellerPageDE = ({ siteData }) => {
 
                   {/* Commission model */}
                   <div>
-                    <h2 className="text-3xl font-bold mb-6 text-purple-400">Wie funktioniert das Provisionsmodell in der Praxis?</h2>
+                    <h2 className="text-3xl font-bold mb-6 text-primary">Wie funktioniert das Provisionsmodell in der Praxis?</h2>
                     <p>
                       Transparenz ist der Schlüssel zu einer langfristigen und erfolgreichen Partnerschaft. Unser <strong>Provisionsmodell</strong> ist so konzipiert, dass es sowohl für Neueinsteiger als auch für Vertriebsprofis maximal lukrativ ist. Im Kern basiert das System auf dem Erwerb von "Credits" (Guthaben). Als <strong>Wiederverkäufer</strong> kaufen Sie diese Credits zu einem stark rabattierten Großhandelspreis ein. Ein Credit entspricht in der Regel einem bestimmten Abonnement-Zeitraum (zum Beispiel einem Monat oder einem Jahr).
                     </p>
@@ -229,14 +229,14 @@ const ResellerPageDE = ({ siteData }) => {
 
                   {/* Success stories */}
                   <div>
-                    <h2 className="text-3xl font-bold mb-6 text-purple-400">Erfolgsgeschichten: Realistische Szenarien unserer Geschäftspartner</h2>
-                    <div className="bg-slate-900/60 p-6 rounded-xl border border-white/10 mt-6">
+                    <h2 className="text-3xl font-bold mb-6 text-primary">Erfolgsgeschichten: Realistische Szenarien unserer Geschäftspartner</h2>
+                    <div className="bg-[#0a0a0a]/60 p-6 rounded-xl border border-white/10 mt-6">
                       <h3 className="text-2xl font-bold text-white mb-3 flex items-center gap-2"><Users className="w-6 h-6 text-blue-400" /> Szenario 1: Der engagierte Nebenberufler</h3>
                       <p className="text-gray-300">
                         Thomas S., ein Angestellter aus München, suchte nach einer zusätzlichen <strong>Einkommensquelle</strong>. Er begann als <strong>Geschäftspartner</strong> mit einer kleinen Investition und fokussierte sich auf die <strong>Kundenakquisition</strong> in seinem lokalen Umfeld, in Sportvereinen und über Empfehlungen. Innerhalb von drei Monaten baute er sich einen treuen Stamm von 50 Kunden auf. Bei einer durchschnittlichen <strong>Provisionsquote</strong> von 40% generiert er nun konstante <strong>passive Einnahmen</strong>, die seine monatlichen Fixkosten wie Miete und Auto vollständig decken.
                       </p>
                     </div>
-                    <div className="bg-slate-900/60 p-6 rounded-xl border border-white/10 mt-6">
+                    <div className="bg-[#0a0a0a]/60 p-6 rounded-xl border border-white/10 mt-6">
                       <h3 className="text-2xl font-bold text-white mb-3 flex items-center gap-2"><Target className="w-6 h-6 text-orange-400" /> Szenario 2: Die professionelle Agentur</h3>
                       <p className="text-gray-300">
                         Sarah M. erkannte das immense Potenzial der <strong>Geschäftsmöglichkeit</strong> und entschied sich, voll einzusteigen. Sie nutzte unsere White-Label-Lösung, erstellte eine eigene Marke und nutzte Social Media gezielt zur <strong>Kundenakquisition</strong>. Durch ihren strategischen Ansatz betreut sie heute über 400 aktive Kunden. Da dieses Modell zu 100% <strong>skalierbar</strong> ist, plant sie bereits, weitere Vertriebsmitarbeiter einzustellen. Ihr monatlicher <strong>Verdienst</strong> übersteigt mittlerweile ein reguläres Managergehalt bei Weitem.
@@ -249,7 +249,7 @@ const ResellerPageDE = ({ siteData }) => {
           </section>
 
           {/* 6. FAQ Section */}
-          <section className="py-20 bg-slate-900/30 border-t border-white/5 relative z-10">
+          <section className="py-20 bg-[#0a0a0a]/30 border-t border-white/5 relative z-10">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-12">
@@ -273,9 +273,9 @@ const ResellerPageDE = ({ siteData }) => {
                       a: "Als unser direkter Geschäftspartner sind Sie der erste Ansprechpartner für Ihre Endkunden bei Fragen zu Rechnungen oder Laufzeiten. Sollte es jedoch tiefgreifende technische Probleme mit Streams oder Servern geben, greift unsere professionelle Unterstützung durch unser erfahrenes Technik-Team."
                     }
                   ].map((faq, i) => (
-                    <div key={i} className="bg-[#0c0518] border border-white/10 rounded-2xl p-6 md:p-8 hover:border-purple-500/30 transition-colors">
+                    <div key={i} className="bg-[#0c0518] border border-white/10 rounded-2xl p-6 md:p-8 hover:border-primary/30 transition-colors">
                       <h3 className="text-xl font-bold text-white mb-3 flex items-start gap-3">
-                        <HelpCircle className="w-6 h-6 text-purple-400 shrink-0 mt-0.5" />
+                        <HelpCircle className="w-6 h-6 text-primary shrink-0 mt-0.5" />
                         {faq.q}
                       </h3>
                       <p className="text-gray-400 leading-relaxed pl-9">{faq.a}</p>
@@ -293,11 +293,11 @@ const ResellerPageDE = ({ siteData }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="relative rounded-3xl overflow-hidden p-[2px] bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 shadow-2xl shadow-purple-900/50"
+                className="relative rounded-3xl overflow-hidden p-[2px] bg-gradient-to-r from-[#e50914] via-pink-600 to-[#b20710] shadow-2xl shadow-primary/50"
              >
-                <div className="bg-slate-950/95 backdrop-blur-xl rounded-[22px] p-12 text-center relative overflow-hidden">
+                <div className="bg-[#0a0a0a]/95 backdrop-blur-xl rounded-[22px] p-12 text-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 pointer-events-none"></div>
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"></div>
                     
                     <div className="relative z-10 max-w-3xl mx-auto">
@@ -308,7 +308,7 @@ const ResellerPageDE = ({ siteData }) => {
                         </p>
                         <Button 
                             size="lg" 
-                            className="bg-white text-purple-900 font-bold hover:bg-purple-50 h-16 px-12 rounded-full text-lg shadow-xl hover:scale-105 transition-all duration-300 border-4 border-purple-500/20"
+                            className="bg-white text-primary font-bold hover:bg-primary h-16 px-12 rounded-full text-lg shadow-xl hover:scale-105 transition-all duration-300 border-4 border-primary/20"
                             onClick={() => window.open(whatsappLink, '_blank')}
                         >
                             <MessageCircle className="mr-2 h-6 w-6" />

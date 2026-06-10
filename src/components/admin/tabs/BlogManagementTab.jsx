@@ -9,6 +9,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Loader2, Plus, Search, Edit, Trash2, Eye, EyeOff, X, Save, MessageSquare, MessageSquare as MessageSquareOff, Star, ExternalLink } from 'lucide-react';
 import { validateBlogPostData } from '@/utils/blogValidator';
 import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
+import { pingIndexNowBlogSlug } from '@/utils/pingIndexNow';
 
 const BlogManagementTab = () => {
   const [posts, setPosts] = useState([]);
@@ -93,6 +94,9 @@ const BlogManagementTab = () => {
       );
       if (error) throw error;
       toast({ title: "Başarılı", description: newPublishedAt ? "Yazı yayınlandı." : "Yazı taslağa çekildi." });
+      if (newPublishedAt && post.slug) {
+        void pingIndexNowBlogSlug(post.slug);
+      }
       fetchBlogPosts();
     } catch (error) {
       console.error("Error updating publish status:", error);
@@ -163,6 +167,9 @@ const BlogManagementTab = () => {
       if (error) throw error;
 
       toast({ title: "Başarılı", description: "Blog yazısı güncellendi." });
+      if (editingPost.published_at && editingPost.slug) {
+        void pingIndexNowBlogSlug(editingPost.slug);
+      }
       setEditingPost(null);
       setShowEditModal(false);
       fetchBlogPosts();
@@ -185,16 +192,16 @@ const BlogManagementTab = () => {
           <h2 className="text-2xl font-bold text-white">Blog Yönetimi</h2>
           <p className="text-slate-400">Blog yazılarınızı buradan ekleyebilir ve düzenleyebilirsiniz.</p>
         </div>
-        <Button onClick={() => toast({ description: "Yeni yazı ekleme modülü BlogManager üzerinden kullanılmalıdır." })} className="bg-purple-600 hover:bg-purple-700 text-white">
+        <Button onClick={() => toast({ description: "Yeni yazı ekleme modülü BlogManager üzerinden kullanılmalıdır." })} className="bg-primary hover:bg-primary text-white">
           <Plus className="w-4 h-4 mr-2" /> Yeni Yazı Ekle
         </Button>
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-6">
+      <div className="bg-[#0a0a0a] border border-slate-800 rounded-xl p-4 sm:p-6">
         <div className="relative max-w-md mb-6">
           <Input 
             placeholder="Yazılarda veya URL'de (slug) ara..." 
-            className="pl-10 bg-slate-950 border-slate-700 focus:border-purple-500 text-white placeholder-slate-500"
+            className="pl-10 bg-[#0a0a0a] border-slate-700 focus:border-primary text-white placeholder-slate-500"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -203,7 +210,7 @@ const BlogManagementTab = () => {
 
         {loading ? (
           <div className="flex justify-center py-12">
-            <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
         ) : filteredPosts.length === 0 ? (
           <div className="text-center py-12 text-slate-400">
@@ -212,14 +219,14 @@ const BlogManagementTab = () => {
         ) : (
           <div className="space-y-4">
             {filteredPosts.map((post) => (
-              <div key={post.id} className={`bg-slate-950 border ${post.featured ? 'border-amber-500/50' : 'border-slate-800'} rounded-lg p-4 flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors`}>
+              <div key={post.id} className={`bg-[#0a0a0a] border ${post.featured ? 'border-amber-500/50' : 'border-slate-800'} rounded-lg p-4 flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors`}>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`text-xs px-2 py-0.5 rounded ${post.published_at ? 'bg-green-500/10 text-green-400' : 'bg-amber-500/10 text-amber-400'}`}>
                       {post.published_at ? 'Yayında' : 'Taslak'}
                     </span>
                     {post.category && <span className="text-xs text-slate-400">{post.category}</span>}
-                    {post.focus_keyword && <span className="text-xs text-blue-400 border border-blue-400/30 bg-blue-400/10 px-1.5 py-0.5 rounded ml-1 truncate max-w-[120px]">🔑 {post.focus_keyword}</span>}
+                    {post.focus_keyword && <span className="text-xs text-blue-400 border border-blue-400/30 bg-[#141414]/10 px-1.5 py-0.5 rounded ml-1 truncate max-w-[120px]">🔑 {post.focus_keyword}</span>}
                     <span className="flex items-center text-xs text-slate-500 ml-2" title={post.allow_comments !== false ? 'Yorumlar Açık' : 'Yorumlar Kapalı'}>
                       {post.allow_comments !== false ? <MessageSquare className="w-3.5 h-3.5 text-blue-400" /> : <MessageSquareOff className="w-3.5 h-3.5 text-red-400" />}
                     </span>
@@ -262,8 +269,8 @@ const BlogManagementTab = () => {
 
       {showEditModal && editingPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl w-full max-w-2xl shadow-2xl overflow-hidden my-auto mt-10 mb-10">
-            <div className="flex justify-between items-center p-6 border-b border-slate-800 bg-slate-950/50">
+          <div className="bg-[#0a0a0a] border border-slate-800 rounded-xl w-full max-w-2xl shadow-2xl overflow-hidden my-auto mt-10 mb-10">
+            <div className="flex justify-between items-center p-6 border-b border-slate-800 bg-[#0a0a0a]/50">
               <h3 className="text-xl font-bold text-white">Yazıyı Düzenle</h3>
               <button onClick={() => setShowEditModal(false)} className="text-slate-400 hover:text-white transition-colors">
                 <X className="w-6 h-6" />
@@ -278,7 +285,7 @@ const BlogManagementTab = () => {
                     value={editingPost.title || ''}
                     onChange={(e) => handleInputChange('title', e.target.value)}
                     required
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-[#0a0a0a] border-slate-700 text-white"
                   />
                 </div>
                 <div className="space-y-2">
@@ -287,7 +294,7 @@ const BlogManagementTab = () => {
                     value={editingPost.slug || ''}
                     onChange={(e) => handleInputChange('slug', e.target.value)}
                     required
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-[#0a0a0a] border-slate-700 text-white"
                   />
                 </div>
               </div>
@@ -297,7 +304,7 @@ const BlogManagementTab = () => {
                 <Textarea 
                   value={editingPost.excerpt || ''}
                   onChange={(e) => handleInputChange('excerpt', e.target.value)}
-                  className="bg-slate-950 border-slate-700 text-white h-20"
+                  className="bg-[#0a0a0a] border-slate-700 text-white h-20"
                 />
               </div>
 
@@ -307,7 +314,7 @@ const BlogManagementTab = () => {
                   value={editingPost.content || ''}
                   onChange={(e) => handleInputChange('content', e.target.value)}
                   required
-                  className="bg-slate-950 border-slate-700 text-white h-40 font-mono text-sm"
+                  className="bg-[#0a0a0a] border-slate-700 text-white h-40 font-mono text-sm"
                 />
               </div>
 
@@ -317,7 +324,7 @@ const BlogManagementTab = () => {
                   <Input 
                     value={editingPost.seo_title || ''}
                     onChange={(e) => handleInputChange('seo_title', e.target.value)}
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-[#0a0a0a] border-slate-700 text-white"
                   />
                 </div>
                 <div className="space-y-2">
@@ -325,7 +332,7 @@ const BlogManagementTab = () => {
                   <Input 
                     value={editingPost.seo_description || ''}
                     onChange={(e) => handleInputChange('seo_description', e.target.value)}
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-[#0a0a0a] border-slate-700 text-white"
                   />
                 </div>
                 <div className="space-y-2">
@@ -334,7 +341,7 @@ const BlogManagementTab = () => {
                     value={editingPost.focus_keyword || ''}
                     onChange={(e) => handleInputChange('focus_keyword', e.target.value)}
                     placeholder="örn: best IPTV service"
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-[#0a0a0a] border-slate-700 text-white"
                   />
                 </div>
                 <div className="space-y-2">
@@ -342,13 +349,13 @@ const BlogManagementTab = () => {
                   <Input 
                     value={editingPost.category || ''}
                     onChange={(e) => handleInputChange('category', e.target.value)}
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-[#0a0a0a] border-slate-700 text-white"
                   />
                 </div>
               </div>
 
               <div className="pt-4 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center justify-between bg-slate-950 p-4 rounded-lg border border-slate-700">
+                <div className="flex items-center justify-between bg-[#0a0a0a] p-4 rounded-lg border border-slate-700">
                   <div className="space-y-0.5">
                     <label className="text-sm font-medium text-white">Yorumlar (Allow Comments)</label>
                     <p className="text-xs text-slate-400">Yorumlara izin ver</p>
@@ -359,7 +366,7 @@ const BlogManagementTab = () => {
                   />
                 </div>
                 
-                <div className="flex items-center justify-between bg-slate-950 p-4 rounded-lg border border-slate-700">
+                <div className="flex items-center justify-between bg-[#0a0a0a] p-4 rounded-lg border border-slate-700">
                   <div className="space-y-0.5 flex flex-col">
                     <label className="text-sm font-medium text-white flex items-center gap-1.5">
                       <Star className={`w-3.5 h-3.5 ${editingPost.featured ? 'text-amber-400 fill-current' : 'text-slate-400'}`} />
@@ -379,14 +386,14 @@ const BlogManagementTab = () => {
                   type="button" 
                   variant="outline" 
                   onClick={() => setShowEditModal(false)}
-                  className="border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800"
+                  className="border-slate-700 text-slate-300 hover:text-white hover:bg-[#0a0a0a]"
                 >
                   İptal
                 </Button>
                 <Button 
                   type="submit" 
                   disabled={isUpdating}
-                  className="bg-purple-600 hover:bg-purple-700 text-white"
+                  className="bg-primary hover:bg-primary text-white"
                 >
                   {isUpdating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
                   Değişiklikleri Kaydet

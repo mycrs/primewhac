@@ -21,15 +21,15 @@ const CopyableField = ({ label, value }) => {
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-lg p-4 mb-4">
+    <div className="bg-[#0a0a0a] border border-slate-800 rounded-lg p-4 mb-4">
       <label className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-2 block">{label}</label>
       <div className="flex items-center justify-between gap-4">
-        <code className="text-purple-300 font-mono text-sm break-all">{value}</code>
+        <code className="text-primary font-mono text-sm break-all">{value}</code>
         <Button 
           variant="ghost" 
           size="sm" 
           onClick={handleCopy}
-          className="hover:bg-purple-500/10 hover:text-purple-400 text-slate-400 shrink-0"
+          className="hover:bg-primary/10 hover:text-primary text-slate-400 shrink-0"
         >
           {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
         </Button>
@@ -62,7 +62,7 @@ const StatusBadge = ({ status }) => {
     );
   } else {
     return (
-      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-700 text-slate-400">
+      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#0a0a0a] text-slate-400">
         <HelpCircle className="w-3 h-3 mr-1" />
         Bekliyor
       </span>
@@ -123,13 +123,14 @@ const BingVerificationPage = ({ siteData }) => {
   return (
     <>
       <SEOHead 
-        title="Bing Doğrulama Merkezi | QruzeHD" 
+        title="Bing Doğrulama Merkezi | QruzeTV" 
         description="Bing Webmaster Tools doğrulama talimatları, XML dosyası, Meta Etiketi ve Hostinger DNS CNAME ayarları."
         keywords={["bing doğrulama", "hostinger dns", "webmaster tools", "seo", "bingsiteauth", "cname"]}
         ogType="article"
+        noindex
       />
 
-      <div className="min-h-screen bg-slate-950 flex flex-col font-sans">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans">
         <Header contactData={contactData} siteTexts={siteTexts} />
         
         <main className="flex-grow pt-32 pb-16 px-4">
@@ -139,11 +140,11 @@ const BingVerificationPage = ({ siteData }) => {
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-12"
             >
-              <div className="inline-flex items-center justify-center p-3 bg-purple-500/10 rounded-full mb-6 ring-1 ring-purple-500/20">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Bing_logo_%282016%29.svg" alt="Bing Logo" className="w-8 h-8 opacity-90" />
+              <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-6 ring-1 ring-primary/20">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Bing_logo_%282016%29.svg" alt="Bing logosu" className="w-8 h-8 opacity-90" />
               </div>
               <h1 className="text-3xl md:text-5xl font-black text-white mb-6">
-                Bing Webmaster <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Doğrulama</span>
+                Bing Webmaster <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">Doğrulama</span>
               </h1>
               <p className="text-slate-400 max-w-2xl mx-auto text-lg">
                 Sitenizi Bing arama motorunda indekslemek için gerekli 3 farklı doğrulama yöntemi ve adım adım rehber.
@@ -154,12 +155,12 @@ const BingVerificationPage = ({ siteData }) => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 mb-12 shadow-xl shadow-purple-900/10"
+              className="bg-[#0a0a0a] border border-slate-800 rounded-2xl p-6 md:p-8 mb-12 shadow-xl shadow-primary/10"
             >
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 pb-6 border-b border-slate-800">
                 <div>
                   <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                    <Search className="w-5 h-5 text-purple-500" />
+                    <Search className="w-5 h-5 text-primary" />
                     Canlı Sistem Kontrolü
                   </h2>
                   <p className="text-sm text-slate-400 mt-1">Sitenizin anlık durumunu kontrol eder.</p>
@@ -172,7 +173,7 @@ const BingVerificationPage = ({ siteData }) => {
 
               <div className="grid md:grid-cols-3 gap-6">
                 {/* Check 1: XML */}
-                <div className={`p-4 rounded-xl border flex flex-col gap-3 transition-colors ${verificationStatus.xml === 'success' ? 'bg-green-500/5 border-green-500/20' : 'bg-slate-950/50 border-slate-800'}`}>
+                <div className={`p-4 rounded-xl border flex flex-col gap-3 transition-colors ${verificationStatus.xml === 'success' ? 'bg-green-500/5 border-green-500/20' : 'bg-[#0a0a0a]/50 border-slate-800'}`}>
                   <div className="flex justify-between items-start">
                     <div className="flex items-center gap-2 text-slate-200 font-semibold">
                       <FileCode className="w-4 h-4 text-orange-400" />
@@ -186,14 +187,14 @@ const BingVerificationPage = ({ siteData }) => {
                       : 'Dosya bulunamadı veya içeriği hatalı.'}
                   </p>
                   {verificationStatus.xml === 'success' && (
-                    <a href="/BingSiteAuth.xml" target="_blank" className="text-xs text-purple-400 hover:text-purple-300 hover:underline flex items-center mt-auto">
+                    <a href="/BingSiteAuth.xml" target="_blank" className="text-xs text-primary hover:text-primary hover:underline flex items-center mt-auto">
                       Dosyayı Aç <ExternalLink className="w-3 h-3 ml-1" />
                     </a>
                   )}
                 </div>
 
                 {/* Check 2: Meta */}
-                <div className={`p-4 rounded-xl border flex flex-col gap-3 transition-colors ${verificationStatus.meta === 'success' ? 'bg-green-500/5 border-green-500/20' : 'bg-slate-950/50 border-slate-800'}`}>
+                <div className={`p-4 rounded-xl border flex flex-col gap-3 transition-colors ${verificationStatus.meta === 'success' ? 'bg-green-500/5 border-green-500/20' : 'bg-[#0a0a0a]/50 border-slate-800'}`}>
                   <div className="flex justify-between items-start">
                     <div className="flex items-center gap-2 text-slate-200 font-semibold">
                       <Globe className="w-4 h-4 text-green-400" />
@@ -209,13 +210,13 @@ const BingVerificationPage = ({ siteData }) => {
                 </div>
 
                 {/* Check 3: CNAME */}
-                <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-800 flex flex-col gap-3">
+                <div className="bg-[#0a0a0a]/50 p-4 rounded-xl border border-slate-800 flex flex-col gap-3">
                   <div className="flex justify-between items-start">
                     <div className="flex items-center gap-2 text-slate-200 font-semibold">
                       <Server className="w-4 h-4 text-blue-400" />
                       CNAME Kaydı
                     </div>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#141414]/10 text-blue-400 border border-blue-500/20">
                       <Info className="w-3 h-3 mr-1" />
                       Panelden Bak
                     </span>
@@ -235,7 +236,7 @@ const BingVerificationPage = ({ siteData }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8"
+                className="bg-[#0a0a0a]/50 border border-slate-800 rounded-2xl p-8"
               >
                 <div className="flex flex-col md:flex-row gap-6 md:items-start">
                   <div className="p-3 bg-orange-500/10 rounded-xl shrink-0">
@@ -261,7 +262,7 @@ const BingVerificationPage = ({ siteData }) => {
                           Dosyayı Test Et
                         </Button>
                       </div>
-                      <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 font-mono text-xs">
+                      <div className="bg-[#0a0a0a] p-4 rounded-lg border border-slate-800 font-mono text-xs">
                          <div className="text-slate-500 mb-2">// File Content: public/BingSiteAuth.xml</div>
                          <div className="text-blue-300">&lt;?xml version="1.0"?&gt;</div>
                          <div className="text-yellow-300">&lt;users&gt;</div>
@@ -278,7 +279,7 @@ const BingVerificationPage = ({ siteData }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8"
+                className="bg-[#0a0a0a]/50 border border-slate-800 rounded-2xl p-8"
               >
                  <div className="flex flex-col md:flex-row gap-6 md:items-start">
                   <div className="p-3 bg-green-500/10 rounded-xl shrink-0">
@@ -317,13 +318,13 @@ const BingVerificationPage = ({ siteData }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-slate-900/50 border border-blue-900/30 rounded-2xl p-8 relative overflow-hidden"
+                className="bg-[#0a0a0a]/50 border border-blue-900/30 rounded-2xl p-8 relative overflow-hidden"
               >
                 {/* Background decorative element */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#141414]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
                  <div className="flex flex-col md:flex-row gap-6 md:items-start relative z-10">
-                  <div className="p-3 bg-blue-500/10 rounded-xl shrink-0">
+                  <div className="p-3 bg-[#141414]/10 rounded-xl shrink-0">
                     <Settings className="w-8 h-8 text-blue-400" />
                   </div>
                   <div className="flex-grow">
@@ -333,9 +334,9 @@ const BingVerificationPage = ({ siteData }) => {
                     <div className="space-y-6">
                       
                       {/* Step 1 */}
-                      <div className="bg-slate-950 p-6 rounded-xl border border-slate-800">
+                      <div className="bg-[#0a0a0a] p-6 rounded-xl border border-slate-800">
                         <h3 className="text-white font-semibold mb-4 flex items-center">
-                          <span className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center mr-3">1</span>
+                          <span className="w-6 h-6 rounded-full bg-[#141414] text-white text-xs flex items-center justify-center mr-3">1</span>
                           Hostinger Panelini Açın
                         </h3>
                         <p className="text-sm text-slate-400 ml-9">
@@ -344,9 +345,9 @@ const BingVerificationPage = ({ siteData }) => {
                       </div>
 
                       {/* Step 2 */}
-                      <div className="bg-slate-950 p-6 rounded-xl border border-slate-800">
+                      <div className="bg-[#0a0a0a] p-6 rounded-xl border border-slate-800">
                         <h3 className="text-white font-semibold mb-4 flex items-center">
-                          <span className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center mr-3">2</span>
+                          <span className="w-6 h-6 rounded-full bg-[#141414] text-white text-xs flex items-center justify-center mr-3">2</span>
                           Yeni Kayıt Ekleyin
                         </h3>
                         <div className="ml-9 grid md:grid-cols-2 gap-4">
@@ -358,9 +359,9 @@ const BingVerificationPage = ({ siteData }) => {
                       </div>
 
                       {/* Step 3 */}
-                      <div className="bg-slate-950 p-6 rounded-xl border border-slate-800">
+                      <div className="bg-[#0a0a0a] p-6 rounded-xl border border-slate-800">
                         <h3 className="text-white font-semibold mb-4 flex items-center">
-                          <span className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center mr-3">3</span>
+                          <span className="w-6 h-6 rounded-full bg-[#141414] text-white text-xs flex items-center justify-center mr-3">3</span>
                           Kaydet ve Bekle
                         </h3>
                         <div className="ml-9">

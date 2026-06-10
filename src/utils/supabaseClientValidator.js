@@ -9,21 +9,50 @@ import { supabase } from '@/lib/customSupabaseClient';
  * Verifies Supabase URL and ANON_KEY are present in the environment (or replaced by bundler).
  * @returns {Object} Validation result
  */
+function cleanEnv(s) {
+  if (s == null || typeof s !== 'string') return '';
+  return s.trim().replace(/^["']|["']$/g, '');
+}
+
 export const validateSupabaseConfig = () => {
-  const url = import.meta.env.VITE_SUPABASE_URL;
-  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
-  
-  // Note: customSupabaseClient.js uses string replacements like '__SUPABASE_URL__' 
-  // We check if the environment variables themselves exist as a fallback for standard Vite setups.
-  const isUrlValid = !!url && url !== 'YOUR_SUPABASE_URL';
-  const isKeyValid = !!key && key !== 'YOUR_SUPABASE_ANON_KEY';
+  const url = cleanEnv(import.meta.env.VITE_SUPABASE_URL);
+  const key = cleanEnv(import.meta.env.VITE_SUPABASE_ANON_KEY);
+
+  const isUrlValid =
+    !!url &&
+    url !== 'YOUR_SUPABASE_URL' &&
+    url.startsWith('https://') &&
+    url.includes('.supabase.co');
+  const isKeyValid =
+    !!key && key !== 'YOUR_SUPABASE_ANON_KEY' && key.split('.').length === 3;
+
+  /** customSupabaseClient ile aynı gömülü proje — URL bu projeyse anon .env’de olmasa da istemci çalışır */
+  const BUNDLED_PROJECT_REF = 'pkppewdtnuchwjtmulev';
+  const refFromUrl = (() => {
+    const m = String(url).match(/^https:\/\/([a-z0-9-]+)\.supabase\.co\/?$/i);
+    return m ? m[1].toLowerCase() : null;
+  })();
+
+  // VITE yoksa customSupabaseClient gömülü varsayılanlarla açılır; uygulama yine de çalışsın
+  if (!isUrlValid && !isKeyValid) {
+    return { isValid: true, errors: [] };
+  }
+
+  // Sadece URL doğru, anon eksik/hatalı ama URL gömülü projeyle aynı → izin ver (anon kodda varsayılan)
+  if (isUrlValid && !isKeyValid && refFromUrl === BUNDLED_PROJECT_REF) {
+    return { isValid: true, errors: [] };
+  }
 
   return {
     isValid: isUrlValid && isKeyValid,
     errors: [
-      ...(!isUrlValid ? ['Supabase URL is missing or default.'] : []),
-      ...(!isKeyValid ? ['Supabase Anon Key is missing or default.'] : [])
-    ]
+      ...(!isUrlValid ? ['VITE_SUPABASE_URL eksik veya hatalı (.env, tırnak/boşluk olmadan https://....supabase.co).'] : []),
+      ...(!isKeyValid
+        ? [
+            'VITE_SUPABASE_ANON_KEY eksik veya hatalı. Supabase → Project Settings → API → anon (public) anahtarını yapıştırın (eyJ ile başlayan uzun JWT). Başka bir proje URL’si kullanıyorsanız o projenin anon key’i zorunludur.',
+          ]
+        : []),
+    ],
   };
 };
 

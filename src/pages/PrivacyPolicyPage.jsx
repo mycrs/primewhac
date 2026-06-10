@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import { Link } from 'react-router-dom';
+import { breadcrumbSchema } from '@/utils/seoSchema';
 
 const PrivacyPolicyPage = ({ siteData }) => {
   useEffect(() => {
@@ -18,18 +19,25 @@ const PrivacyPolicyPage = ({ siteData }) => {
     ogType: "article"
   };
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Gizlilik Politikası ve Veri Koruması",
-    "author": { "@type": "Organization", "name": "QruzeHD" }
-  };
+  const breadcrumb = breadcrumbSchema([
+    { name: 'Ana Sayfa', path: '/' },
+    { name: 'Gizlilik Politikası', path: '/gizlilik' },
+  ]);
+  const jsonLd = [
+    breadcrumb,
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Gizlilik Politikası ve Veri Koruması",
+      "author": { "@type": "Organization", "name": "QruzeTV" }
+    },
+  ];
 
   const sections = [
     {
       title: "Gizlilik Politikası Nedir?",
       subsections: [
-        { subtitle: "Amacımız", content: "QruzeHD olarak, platformumuzu kullanan tüm ziyaretçilerin ve abonelerin gizliliğine maksimum saygı duyuyoruz. Bu gizlilik politikası, hizmetlerimizi kullanırken toplanan verilerin nasıl işlendiğini, saklandığını ve korunduğunu şeffaf bir şekilde açıklamaktadır. Tüm IPTV gizlilik standartlarımız, uluslararası veri koruma yönetmeliklerine ve KVKK/GDPR kurallarına uygun olarak tasarlanmıştır." }
+        { subtitle: "Amacımız", content: "QruzeTV olarak, platformumuzu kullanan tüm ziyaretçilerin ve abonelerin gizliliğine maksimum saygı duyuyoruz. Bu gizlilik politikası, hizmetlerimizi kullanırken toplanan verilerin nasıl işlendiğini, saklandığını ve korunduğunu şeffaf bir şekilde açıklamaktadır. Tüm IPTV gizlilik standartlarımız, uluslararası veri koruma yönetmeliklerine ve KVKK/GDPR kurallarına uygun olarak tasarlanmıştır." }
       ]
     },
     {
@@ -94,21 +102,21 @@ const PrivacyPolicyPage = ({ siteData }) => {
   return (
     <>
       <SEOHead {...metadata} jsonLd={jsonLd} />
-      <div className="min-h-screen bg-[#0F0F1E] flex flex-col font-sans text-white">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans text-white">
         <Header contactData={safeSiteData.contactData} siteTexts={safeSiteData.siteTexts} />
         
         <main className="flex-grow pt-32 pb-16 px-4">
           <div className="container mx-auto max-w-4xl">
             <BreadcrumbNavigation />
             
-            <article className="mt-8 bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-12">
-              <h1 className="text-4xl md:text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-500 leading-tight">
+            <article className="mt-8 bg-[#0a0a0a]/50 border border-slate-800 rounded-2xl p-6 md:p-12">
+              <h1 className="text-4xl md:text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] leading-tight">
                 Gizlilik Politikası ve Veri Koruması
               </h1>
               
               <div className="prose prose-invert prose-lg max-w-none">
                 <p className="text-slate-300 mb-10 leading-relaxed">
-                  QruzeHD, tüm abonelerinin ve ziyaretçilerinin <strong>veri koruması</strong> ve <strong>IPTV güvenliği</strong> konularında sektördeki en yüksek standartları benimser. Bu şeffaf <strong>gizlilik politikası</strong> metni, platformumuzla paylaştığınız verilerinizin nasıl toplandığını, hangi şartlarda işlendiğini ve kötü niyetli erişimlere karşı nasıl korunduğunu detaylandırmaktadır.
+                  QruzeTV, tüm abonelerinin ve ziyaretçilerinin <strong>veri koruması</strong> ve <strong>IPTV güvenliği</strong> konularında sektördeki en yüksek standartları benimser. Bu şeffaf <strong>gizlilik politikası</strong> metni, platformumuzla paylaştığınız verilerinizin nasıl toplandığını, hangi şartlarda işlendiğini ve kötü niyetli erişimlere karşı nasıl korunduğunu detaylandırmaktadır.
                 </p>
 
                 {sections.map((section, idx) => (
@@ -117,8 +125,8 @@ const PrivacyPolicyPage = ({ siteData }) => {
                       {section.title}
                     </h2>
                     {section.subsections.map((sub, sIdx) => (
-                      <div key={sIdx} className="mb-6 bg-slate-800/20 p-4 rounded-xl border border-slate-700/30">
-                        <h3 className="text-xl font-semibold text-teal-300 mb-2">
+                      <div key={sIdx} className="mb-6 bg-[#0a0a0a]/20 p-4 rounded-xl border border-slate-700/30">
+                        <h3 className="text-xl font-semibold text-white mb-2">
                           {sub.subtitle}
                         </h3>
                         <p className="text-slate-300 leading-relaxed m-0">
@@ -129,10 +137,10 @@ const PrivacyPolicyPage = ({ siteData }) => {
                   </div>
                 ))}
 
-                <div className="mt-12 p-8 bg-slate-800/50 rounded-2xl border border-slate-700 flex flex-wrap gap-4">
-                  <Link to="/sartlar" className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors border border-slate-600">Kullanım Şartları</Link>
-                  <Link to="/sss" className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors border border-slate-600">Sık Sorulan Sorular</Link>
-                  <Link to="/kurulum" className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg transition-colors border border-slate-600">Kurulum Rehberi</Link>
+                <div className="mt-12 p-8 bg-[#0a0a0a]/50 rounded-2xl border border-slate-700 flex flex-wrap gap-4">
+                  <Link to="/sartlar" className="px-6 py-3 bg-[#0a0a0a] hover:bg-[#141414] text-white font-bold rounded-lg transition-colors border border-slate-600">Kullanım Şartları</Link>
+                  <Link to="/sss" className="px-6 py-3 bg-[#0a0a0a] hover:bg-[#141414] text-white font-bold rounded-lg transition-colors border border-slate-600">Sık Sorulan Sorular</Link>
+                  <Link to="/kurulum" className="px-6 py-3 bg-[#0a0a0a] hover:bg-[#141414] text-white font-bold rounded-lg transition-colors border border-slate-600">Kurulum Rehberi</Link>
                 </div>
               </div>
             </article>

@@ -45,7 +45,7 @@ const AdminPanel = ({ siteData = {}, setSiteData = () => {}, onClose }) => {
 
   const TabLoader = () => (
     <div className="flex items-center justify-center h-64 w-full">
-      <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />
+      <Loader2 className="w-8 h-8 text-primary animate-spin" />
     </div>
   );
 

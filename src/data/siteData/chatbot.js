@@ -1,6 +1,6 @@
 export const defaultChatbot = {
   enabled: true,
-  title: "QRUZEHD Yardımcı Bot",
+  title: "QruzeTV Yardımcı Bot",
   welcomeMessage: "Merhaba! Size nasıl yardımcı olabilirim? Paketler, kurulum veya diğer konular hakkında soru sorabilirsiniz.",
   inputPlaceholder: "Mesajınızı buraya yazın...",
   qna: [

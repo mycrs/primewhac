@@ -36,10 +36,10 @@ const DynamicAppLinksEditor = React.memo(({ appLinks, setAppLinks, errors = {} }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+      <div className="flex items-center justify-between bg-[#0a0a0a]/50 p-4 rounded-xl border border-slate-800">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-purple-500/10 rounded-lg border border-purple-500/20">
-            <Download className="w-5 h-5 text-purple-400" />
+          <div className="p-2 bg-primary/10 rounded-lg border border-primary/20">
+            <Download className="w-5 h-5 text-primary" />
           </div>
           <div>
             <h3 className="font-semibold text-white">İndirme Linkleri</h3>
@@ -50,7 +50,7 @@ const DynamicAppLinksEditor = React.memo(({ appLinks, setAppLinks, errors = {} }
           onClick={handleAddLink}
           type="button"
           size="sm"
-          className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-900/20"
+          className="bg-primary hover:bg-primary text-white shadow-lg shadow-primary/20"
         >
           <Plus className="w-4 h-4 mr-2" />
           Link Ekle
@@ -65,12 +65,12 @@ const DynamicAppLinksEditor = React.memo(({ appLinks, setAppLinks, errors = {} }
 
       <div className="grid gap-3">
         {links.length === 0 ? (
-          <div className="text-center py-8 border border-dashed border-slate-800 rounded-xl bg-slate-900/20">
+          <div className="text-center py-8 border border-dashed border-slate-800 rounded-xl bg-[#0a0a0a]/20">
             <p className="text-slate-500 text-sm">Henüz link eklenmemiş.</p>
           </div>
         ) : (
           links.map((link, index) => (
-            <Card key={link.id || index} className="bg-slate-950 border-slate-800 shadow-sm hover:border-slate-700 transition-colors">
+            <Card key={link.id || index} className="bg-[#0a0a0a] border-slate-800 shadow-sm hover:border-slate-700 transition-colors">
               <CardContent className="p-4 flex flex-col md:flex-row gap-4 items-start md:items-end">
                 <div className="w-full md:w-1/3 grid gap-2">
                   <Label className="text-xs text-slate-400">Uygulama Adı</Label>
@@ -79,7 +79,7 @@ const DynamicAppLinksEditor = React.memo(({ appLinks, setAppLinks, errors = {} }
                     onChange={(e) => handleChange(index, 'app_name', e.target.value)}
                     placeholder="Örn: Smarters Pro"
                     className={cn(
-                      "bg-slate-900 border-slate-800 h-9 text-sm",
+                      "bg-[#0a0a0a] border-slate-800 h-9 text-sm",
                       errors[`app_links_${index}_name`] && "border-red-500 focus-visible:ring-red-500"
                     )}
                   />
@@ -91,7 +91,7 @@ const DynamicAppLinksEditor = React.memo(({ appLinks, setAppLinks, errors = {} }
                     onChange={(e) => handleChange(index, 'app_url', e.target.value)}
                     placeholder="https://..."
                     className={cn(
-                      "bg-slate-900 border-slate-800 h-9 text-sm font-mono",
+                      "bg-[#0a0a0a] border-slate-800 h-9 text-sm font-mono",
                       errors[`app_links_${index}_url`] && "border-red-500 focus-visible:ring-red-500"
                     )}
                   />

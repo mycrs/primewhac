@@ -63,7 +63,7 @@ const ChatBotAddForm = ({ onSuccess }) => {
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-lg p-6 space-y-4">
+    <div className="bg-[#0a0a0a] border border-slate-800 rounded-lg p-6 space-y-4">
       <h4 className="text-lg font-semibold text-white">Yeni Soru & Cevap Ekle</h4>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
@@ -72,7 +72,7 @@ const ChatBotAddForm = ({ onSuccess }) => {
             value={formData.keyword}
             onChange={e => setFormData(prev => ({...prev, keyword: e.target.value}))}
             placeholder="paket, fiyat, iptv"
-            className="bg-slate-950 text-white border-slate-700"
+            className="bg-[#0a0a0a] text-white border-slate-700"
           />
         </div>
         
@@ -83,7 +83,7 @@ const ChatBotAddForm = ({ onSuccess }) => {
             onChange={e => setFormData(prev => ({...prev, response: e.target.value}))}
             rows={3}
             placeholder="Fiyatlarımız aylık 50 TL'den başlamaktadır..."
-            className="bg-slate-950 text-white border-slate-700"
+            className="bg-[#0a0a0a] text-white border-slate-700"
           />
         </div>
 
@@ -97,7 +97,7 @@ const ChatBotAddForm = ({ onSuccess }) => {
           <Label htmlFor="add-active" className="text-slate-300 cursor-pointer">Aktif olarak kullan</Label>
         </div>
 
-        <Button type="submit" disabled={loading} className="bg-cyan-600 hover:bg-cyan-700 text-white mt-4">
+        <Button type="submit" disabled={loading} className="bg-[#e50914] hover:bg-[#e50914] text-white mt-4">
           {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
           Kaydet
         </Button>

@@ -12,10 +12,10 @@ const ImportantInfoSection = ({ selectedDevice, lang = 'tr' }) => {
   const isDe = currentLang === 'de';
 
   return (
-    <section className="py-16 bg-slate-950/50" aria-label={isDe ? "Wichtige Informationen" : "Önemli Bilgiler"}>
+    <section className="py-16 bg-[#0a0a0a]/50" aria-label={isDe ? "Wichtige Informationen" : "Önemli Bilgiler"}>
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-12">
-          <span className="text-purple-400 font-semibold tracking-wider text-sm uppercase mb-3 block">
+          <span className="text-primary font-semibold tracking-wider text-sm uppercase mb-3 block">
             {isDe ? "Informationszentrum" : "Bilgi Merkezi"}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -27,12 +27,12 @@ const ImportantInfoSection = ({ selectedDevice, lang = 'tr' }) => {
         </div>
 
         <Tabs defaultValue="requirements" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 bg-slate-900 border border-slate-800 p-1 mb-8 h-auto rounded-xl">
-            <TabsTrigger value="requirements" className="data-[state=active]:bg-purple-600 text-slate-400 gap-2 py-3 rounded-lg">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 bg-[#0a0a0a] border border-slate-800 p-1 mb-8 h-auto rounded-xl">
+            <TabsTrigger value="requirements" className="data-[state=active]:bg-primary text-slate-400 gap-2 py-3 rounded-lg">
               <Wifi className="w-4 h-4" /> <span className="hidden md:inline">{isDe ? "Anforderungen" : "Gereksinimler"}</span>
               <span className="md:hidden">{isDe ? "Netzwerk" : "Ağ"}</span>
             </TabsTrigger>
-            <TabsTrigger value="compatibility" className="data-[state=active]:bg-blue-600 text-slate-400 gap-2 py-3 rounded-lg">
+            <TabsTrigger value="compatibility" className="data-[state=active]:bg-[#141414] text-slate-400 gap-2 py-3 rounded-lg">
               <Smartphone className="w-4 h-4" /> <span className="hidden md:inline">{isDe ? "Kompatibilität" : "Uyumluluk"}</span>
               <span className="md:hidden">{isDe ? "Gerät" : "Cihaz"}</span>
             </TabsTrigger>

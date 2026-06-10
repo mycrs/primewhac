@@ -16,10 +16,10 @@ const ResellerCalculatorSection = () => {
   };
 
   return (
-    <section className="py-20 px-4 bg-slate-950 relative overflow-hidden">
+    <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-[#0a0a0a] relative overflow-hidden">
         {/* Background Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px]"></div>
+            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px]"></div>
             <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-[100px]"></div>
         </div>
 
@@ -28,10 +28,10 @@ const ResellerCalculatorSection = () => {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-14 md:mb-16"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-white tracking-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400 animate-gradient-x">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] via-pink-500 to-[#b20710] animate-gradient-x">
               Gelir Hesaplayıcı
             </span>
           </h2>
@@ -40,16 +40,16 @@ const ResellerCalculatorSection = () => {
           </p>
         </motion.div>
 
-        {/* Colorful SEO Paragraphs - Moved to top as requested */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20 max-w-6xl mx-auto">
+        {/* Colorful SEO Paragraphs */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-16 md:mb-24 max-w-6xl mx-auto">
           {/* Paragraph 1 */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 p-6 md:p-8 rounded-3xl border-2 border-purple-500/30 transition-all duration-300 hover:scale-105 hover:border-purple-400 hover:shadow-[0_0_30px_rgba(168,85,247,0.2)] flex items-start gap-5 group"
+            className="bg-gradient-to-br from-[#e50914]/10 to-[#b20710]/10 p-6 md:p-8 rounded-3xl border-2 border-primary/30 transition-all duration-300 hover:scale-105 hover:border-primary hover:shadow-[0_0_30px_rgba(229,9,20,0.2)] flex items-start gap-5 group"
           >
-            <div className="p-4 rounded-2xl bg-purple-500/20 text-purple-400 flex-shrink-0 group-hover:bg-gradient-to-br group-hover:from-purple-500 group-hover:to-pink-500 group-hover:text-white transition-all duration-300 shadow-inner">
+            <div className="p-4 rounded-2xl bg-primary/20 text-primary flex-shrink-0 group-hover:bg-gradient-to-br group-hover:from-[#e50914] group-hover:to-[#b20710] group-hover:text-white transition-all duration-300 shadow-inner">
               <Briefcase className="w-8 h-8" />
             </div>
             <div>
@@ -65,9 +65,9 @@ const ResellerCalculatorSection = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 p-6 md:p-8 rounded-3xl border-2 border-blue-500/30 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] flex items-start gap-5 group"
+            className="bg-gradient-to-br from-[#e50914]/10 to-[#b20710]/10 p-6 md:p-8 rounded-3xl border-2 border-blue-500/30 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] flex items-start gap-5 group"
           >
-            <div className="p-4 rounded-2xl bg-blue-500/20 text-blue-400 flex-shrink-0 group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-500 group-hover:text-white transition-all duration-300 shadow-inner">
+            <div className="p-4 rounded-2xl bg-[#141414]/20 text-blue-400 flex-shrink-0 group-hover:bg-gradient-to-br group-hover:from-[#e50914] group-hover:to-[#b20710] group-hover:text-white transition-all duration-300 shadow-inner">
               <TrendingUp className="w-8 h-8" />
             </div>
             <div>
@@ -83,9 +83,9 @@ const ResellerCalculatorSection = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 p-6 md:p-8 rounded-3xl border-2 border-emerald-500/30 transition-all duration-300 hover:scale-105 hover:border-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] flex items-start gap-5 group"
+            className="bg-gradient-to-br from-[#e50914]/10 to-[#b20710]/10 p-6 md:p-8 rounded-3xl border-2 border-[#e50914]/30 transition-all duration-300 hover:scale-105 hover:border-[#e50914] hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] flex items-start gap-5 group"
           >
-            <div className="p-4 rounded-2xl bg-emerald-500/20 text-emerald-400 flex-shrink-0 group-hover:bg-gradient-to-br group-hover:from-emerald-500 group-hover:to-teal-500 group-hover:text-white transition-all duration-300 shadow-inner">
+            <div className="p-4 rounded-2xl bg-[#e50914]/20 text-[#e50914] flex-shrink-0 group-hover:bg-gradient-to-br group-hover:from-[#e50914] group-hover:to-[#b20710] group-hover:text-white transition-all duration-300 shadow-inner">
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <div>
@@ -116,7 +116,7 @@ const ResellerCalculatorSection = () => {
         </div>
 
         {/* Calculator and Presets Section */}
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-stretch">
           {/* Left Column: Calculator */}
           <div className="lg:col-span-7">
             <EarningsCalculator 
@@ -131,7 +131,7 @@ const ResellerCalculatorSection = () => {
 
           {/* Right Column: Presets */}
           <div className="lg:col-span-5 h-full">
-            <div className="h-full bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 md:p-10 shadow-2xl flex flex-col justify-center">
+            <div className="h-full bg-[#0a0a0a]/60 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl flex flex-col justify-center">
               <PackagePresets 
                 onSelectPreset={handlePresetSelect}
                 currentValues={{ users, avgPrice, commission }}

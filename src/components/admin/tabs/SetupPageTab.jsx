@@ -68,10 +68,10 @@ const GeneralSettings = ({ data, onSave }) => {
   };
 
   return (
-    <Card className="bg-slate-900 border-slate-800 max-w-2xl mt-6">
+    <Card className="bg-[#0a0a0a] border-slate-800 max-w-2xl mt-6">
       <CardContent className="p-6 space-y-6">
         <h3 className="font-semibold text-white flex items-center gap-2">
-          <Settings className="w-5 h-5 text-purple-400" />
+          <Settings className="w-5 h-5 text-primary" />
           Genel Sayfa Ayarları
         </h3>
         
@@ -81,7 +81,7 @@ const GeneralSettings = ({ data, onSave }) => {
             name="sayfa_baslik"
             value={formData.sayfa_baslik} 
             onChange={handleChange}
-            className={`bg-slate-950 text-white ${errors.sayfa_baslik ? 'border-red-500' : 'border-slate-800'}`}
+            className={`bg-[#0a0a0a] text-white ${errors.sayfa_baslik ? 'border-red-500' : 'border-slate-800'}`}
             disabled={saving}
           />
           {errors.sayfa_baslik && <p className="text-red-500 text-xs">{errors.sayfa_baslik}</p>}
@@ -92,7 +92,7 @@ const GeneralSettings = ({ data, onSave }) => {
             name="secme_baslik"
             value={formData.secme_baslik} 
             onChange={handleChange}
-            className="bg-slate-950 border-slate-800 text-white"
+            className="bg-[#0a0a0a] border-slate-800 text-white"
             disabled={saving}
           />
         </div>
@@ -102,12 +102,12 @@ const GeneralSettings = ({ data, onSave }) => {
             name="kurulum_aciklamasi"
             value={formData.kurulum_aciklamasi} 
             onChange={handleChange}
-            className="bg-slate-950 border-slate-800 min-h-[100px] text-white"
+            className="bg-[#0a0a0a] border-slate-800 min-h-[100px] text-white"
             disabled={saving}
           />
         </div>
         
-        <div className="grid gap-4 p-4 border border-slate-800 rounded-lg bg-slate-950/50">
+        <div className="grid gap-4 p-4 border border-slate-800 rounded-lg bg-[#0a0a0a]/50">
             <h4 className="text-sm font-medium text-slate-400 flex items-center gap-2">
                 <ImageIcon className="w-4 h-4" />
                 Görsel Ayarları
@@ -120,14 +120,14 @@ const GeneralSettings = ({ data, onSave }) => {
                 value={formData.cover_image_url} 
                 onChange={handleChange}
                 placeholder="https://example.com/cover-image.jpg"
-                className="bg-slate-950 border-slate-800 font-mono text-sm text-white"
+                className="bg-[#0a0a0a] border-slate-800 font-mono text-sm text-white"
                 disabled={saving}
               />
               {formData.cover_image_url && (
                 <div className="relative h-32 rounded overflow-hidden border border-slate-800 mt-2">
                   <img 
                     src={formData.cover_image_url} 
-                    alt="Cover Preview" 
+                    alt="Kurulum sayfası kapak önizlemesi" 
                     className="w-full h-full object-cover"
                     onError={(e) => e.target.style.display = 'none'}
                   />
@@ -141,13 +141,13 @@ const GeneralSettings = ({ data, onSave }) => {
                 name="admin_1_gorsel_url"
                 value={formData.admin_1_gorsel_url} 
                 onChange={handleChange}
-                className="bg-slate-950 border-slate-800 font-mono text-xs h-8 text-white"
+                className="bg-[#0a0a0a] border-slate-800 font-mono text-xs h-8 text-white"
                 disabled={saving}
               />
             </div>
         </div>
         
-        <Button onClick={handleSave} disabled={saving} className="w-full bg-purple-600 hover:bg-purple-700">
+        <Button onClick={handleSave} disabled={saving} className="w-full bg-primary hover:bg-primary">
           {saving ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Kaydediliyor...</> : "Genel Ayarları Kaydet"}
         </Button>
       </CardContent>
@@ -156,7 +156,9 @@ const GeneralSettings = ({ data, onSave }) => {
 };
 
 const SetupPageTab = () => {
-  const { setupData, loading, error, fetchSetupPage, updateGeneralSettings } = useSetupPage();
+  const { setupData, loading, error, fetchSetupPage, updateGeneralSettings } = useSetupPage({
+    enableRealtime: true,
+  });
   const [activeTab, setActiveTab] = useState("general");
 
   useEffect(() => {
@@ -167,7 +169,7 @@ const SetupPageTab = () => {
     return (
       <AdminTabWrapper title="Kurulum Sayfası Yönetimi" description="Tüm cihazlar için kurulum rehberlerini buradan yönetebilirsiniz.">
         <div className="flex items-center justify-center h-64">
-          <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />
+          <Loader2 className="w-8 h-8 text-primary animate-spin" />
         </div>
       </AdminTabWrapper>
     );
@@ -190,23 +192,23 @@ const SetupPageTab = () => {
     >
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <div className="overflow-x-auto pb-4">
-          <TabsList className="bg-slate-900 border border-slate-800 p-1 h-auto flex w-max min-w-full lg:min-w-0 lg:w-full lg:flex-wrap justify-start gap-1">
-            <TabsTrigger value="general" className="data-[state=active]:bg-purple-600 text-slate-400 gap-2 px-4 py-2">
+          <TabsList className="bg-[#0a0a0a] border border-slate-800 p-1 h-auto flex w-max min-w-full lg:min-w-0 lg:w-full lg:flex-wrap justify-start gap-1">
+            <TabsTrigger value="general" className="data-[state=active]:bg-primary text-slate-400 gap-2 px-4 py-2">
               <Settings className="w-4 h-4" /> Genel
             </TabsTrigger>
-            <TabsTrigger value="android_tv" className="data-[state=active]:bg-blue-600 text-slate-400 gap-2 px-4 py-2">
+            <TabsTrigger value="android_tv" className="data-[state=active]:bg-[#141414] text-slate-400 gap-2 px-4 py-2">
               <Tv className="w-4 h-4" /> Android TV
             </TabsTrigger>
-            <TabsTrigger value="ios" className="data-[state=active]:bg-sky-600 text-slate-400 gap-2 px-4 py-2">
+            <TabsTrigger value="ios" className="data-[state=active]:bg-[#e50914] text-slate-400 gap-2 px-4 py-2">
               <Smartphone className="w-4 h-4" /> iOS
             </TabsTrigger>
             <TabsTrigger value="android_phone" className="data-[state=active]:bg-green-600 text-slate-400 gap-2 px-4 py-2">
               <Smartphone className="w-4 h-4" /> Android
             </TabsTrigger>
-            <TabsTrigger value="windows" className="data-[state=active]:bg-blue-500 text-slate-400 gap-2 px-4 py-2">
+            <TabsTrigger value="windows" className="data-[state=active]:bg-[#141414] text-slate-400 gap-2 px-4 py-2">
               <Monitor className="w-4 h-4" /> Windows
             </TabsTrigger>
-            <TabsTrigger value="mac" className="data-[state=active]:bg-slate-600 text-slate-400 gap-2 px-4 py-2">
+            <TabsTrigger value="mac" className="data-[state=active]:bg-[#141414] text-slate-400 gap-2 px-4 py-2">
               <Laptop className="w-4 h-4" /> Mac
             </TabsTrigger>
             <TabsTrigger value="smart_tv" className="data-[state=active]:bg-pink-600 text-slate-400 gap-2 px-4 py-2">

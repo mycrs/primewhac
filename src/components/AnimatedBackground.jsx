@@ -7,60 +7,60 @@ const AnimatedBackground = () => {
   // If user prefers reduced motion, render a static gradient
   if (isLowPowerMode) {
     return (
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#115e59] z-0" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#141414] to-[#0a0a0a] z-0" />
     );
   }
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-[#0f172a]">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-[#0a0a0a]">
       {/* Base Layer */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a] to-[#1e1b4b] opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] to-[#141414] opacity-90" />
 
       {/* Animated Orbs */}
       <div className="mesh-gradient-container absolute inset-0 opacity-60">
-        {/* Orb 1: Deep Purple */}
+        {/** Orb 1 */}
         <div 
           className="absolute w-[60vw] h-[60vw] rounded-full mix-blend-screen filter blur-[80px] opacity-40 animate-blob"
           style={{
             top: '-10%',
             left: '-10%',
-            background: 'radial-gradient(circle, rgba(124, 58, 237, 0.8) 0%, rgba(76, 29, 149, 0) 70%)',
+            background: 'radial-gradient(circle, rgba(229, 9, 20, 0.45) 0%, transparent 70%)',
             animationDelay: '0s',
             willChange: 'transform'
           }}
         />
 
-        {/* Orb 2: Teal/Cyan */}
+        {/** Orb 2 */}
         <div 
-          className="absolute w-[50vw] h-[50vw] rounded-full mix-blend-screen filter blur-[80px] opacity-30 animate-blob"
+          className="absolute w-[50vw] h-[50vw] rounded-full mix-blend-screen filter blur-[80px] opacity-25 animate-blob"
           style={{
             top: '20%',
             right: '-10%',
-            background: 'radial-gradient(circle, rgba(45, 212, 191, 0.6) 0%, rgba(13, 148, 136, 0) 70%)',
+            background: 'radial-gradient(circle, rgba(178, 7, 16, 0.35) 0%, transparent 70%)',
             animationDelay: '2s',
             willChange: 'transform'
           }}
         />
 
-        {/* Orb 3: Deep Blue */}
+        {/** Orb 3 */}
         <div 
-          className="absolute w-[60vw] h-[60vw] rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-blob"
+          className="absolute w-[60vw] h-[60vw] rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-blob"
           style={{
             bottom: '-20%',
             left: '20%',
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.7) 0%, rgba(30, 58, 138, 0) 70%)',
+            background: 'radial-gradient(circle, rgba(20, 20, 20, 0.9) 0%, transparent 70%)',
             animationDelay: '4s',
             willChange: 'transform'
           }}
         />
         
-        {/* Orb 4: Indigo Accent */}
+        {/** Orb 4 */}
         <div 
-          className="absolute w-[40vw] h-[40vw] rounded-full mix-blend-screen filter blur-[60px] opacity-30 animate-blob"
+          className="absolute w-[40vw] h-[40vw] rounded-full mix-blend-screen filter blur-[60px] opacity-25 animate-blob"
           style={{
             bottom: '10%',
             right: '30%',
-            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.6) 0%, rgba(67, 56, 202, 0) 70%)',
+            background: 'radial-gradient(circle, rgba(229, 9, 20, 0.3) 0%, transparent 70%)',
             animationDelay: '6s',
             willChange: 'transform'
           }}

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MessageCircle, Loader2, ExternalLink } from 'lucide-react';
 import { useWhatsAppIntegration } from '@/hooks/useWhatsAppIntegration';
+import { useToast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
 
 const WhatsAppRedirectHandler = ({ data, autoRedirect = false, delay = 2000 }) => {
   const { redirectToWhatsApp } = useWhatsAppIntegration();
+  const { toast } = useToast();
   const [countdown, setCountdown] = useState(delay / 1000);
   const [isRedirecting, setIsRedirecting] = useState(autoRedirect);
 
@@ -37,9 +39,14 @@ const WhatsAppRedirectHandler = ({ data, autoRedirect = false, delay = 2000 }) =
 
   const handleRedirect = () => {
     setIsRedirecting(true);
-    // Track event if analytics existed
-    // console.log('Analytics: test_form_whatsapp_redirect', data);
-    redirectToWhatsApp(data);
+    const redirected = redirectToWhatsApp(data);
+    if (!redirected) {
+      toast({
+        variant: "destructive",
+        title: "WhatsApp Numarası Eksik",
+        description: "Lütfen admin panelinden İletişim Bilgileri veya Sistem Ayarları bölümüne WhatsApp numarası ekleyin."
+      });
+    }
   };
 
   return (

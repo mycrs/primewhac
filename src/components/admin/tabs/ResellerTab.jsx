@@ -84,7 +84,7 @@ export const ResellerTab = ({ siteData, setSiteData }) => {
                     <Button onClick={addFeature} size="sm" variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> Özellik Ekle</Button>
                 </div>
                  {(formData.features || []).map((feature, index) => (
-                    <div key={feature.id || index} className="space-y-2 p-4 border border-gray-700 rounded-md relative bg-slate-900/50">
+                    <div key={feature.id || index} className="space-y-2 p-4 border border-gray-700 rounded-md relative bg-[#0a0a0a]/50">
                         <Input label={`Özellik ${index + 1} Başlık`} value={feature.title} onChange={e => handleFeatureChange(index, 'title', e.target.value)} />
                         <Textarea label={`Özellik ${index + 1} Açıklama`} value={feature.description} onChange={e => handleFeatureChange(index, 'description', e.target.value)} rows={2} />
                         <Input label={`Özellik ${index + 1} İkon Adı`} value={feature.icon} onChange={e => handleFeatureChange(index, 'icon', e.target.value)} placeholder="Örn: LayoutDashboard, Wallet, Shield" />

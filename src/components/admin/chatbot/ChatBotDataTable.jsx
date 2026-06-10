@@ -87,7 +87,7 @@ const ChatBotDataTable = ({ refreshTrigger, onRefresh }) => {
                 setSearchTerm(e.target.value);
                 setCurrentPage(1);
             }}
-            className="pl-9 bg-slate-900 border-slate-800 text-white w-full"
+            className="pl-9 bg-[#0a0a0a] border-slate-800 text-white w-full"
           />
         </div>
         <div className="text-sm text-slate-400">
@@ -96,10 +96,10 @@ const ChatBotDataTable = ({ refreshTrigger, onRefresh }) => {
       </div>
 
       {/* Content Area */}
-      <div className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden">
+      <div className="bg-[#0a0a0a] border border-slate-800 rounded-lg overflow-hidden">
         {loading ? (
           <div className="flex justify-center items-center py-16">
-            <Loader2 className="w-8 h-8 text-cyan-500 animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#e50914] animate-spin" />
           </div>
         ) : error ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
@@ -116,8 +116,8 @@ const ChatBotDataTable = ({ refreshTrigger, onRefresh }) => {
         ) : (
           <div className="overflow-x-auto">
             <Table>
-              <TableHeader className="bg-slate-950/50">
-                <TableRow className="border-slate-800 hover:bg-slate-950/50">
+              <TableHeader className="bg-[#0a0a0a]/50">
+                <TableRow className="border-slate-800 hover:bg-[#0a0a0a]/50">
                   <TableHead className="w-[80px] text-slate-400">ID</TableHead>
                   <TableHead className="w-[250px] text-slate-400">Soru (Anahtar Kelimeler)</TableHead>
                   <TableHead className="text-slate-400">Cevap</TableHead>
@@ -127,7 +127,7 @@ const ChatBotDataTable = ({ refreshTrigger, onRefresh }) => {
               </TableHeader>
               <TableBody>
                 {currentData.map((item) => (
-                  <TableRow key={item.id} className="border-slate-800 hover:bg-slate-800/50 transition-colors">
+                  <TableRow key={item.id} className="border-slate-800 hover:bg-[#0a0a0a]/50 transition-colors">
                     <TableCell className="text-slate-500 font-mono text-xs">
                       {item.id.substring(0, 6)}...
                     </TableCell>
@@ -138,7 +138,7 @@ const ChatBotDataTable = ({ refreshTrigger, onRefresh }) => {
                       <div className="line-clamp-2 text-sm">{item.response}</div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant={item.active ? "default" : "secondary"} className={item.active ? "bg-green-500/10 text-green-500 hover:bg-green-500/20" : "bg-slate-800 text-slate-400 hover:bg-slate-700"}>
+                      <Badge variant={item.active ? "default" : "secondary"} className={item.active ? "bg-green-500/10 text-green-500 hover:bg-green-500/20" : "bg-[#0a0a0a] text-slate-400 hover:bg-[#0a0a0a]"}>
                         {item.active ? 'Aktif' : 'Pasif'}
                       </Badge>
                     </TableCell>
@@ -154,7 +154,7 @@ const ChatBotDataTable = ({ refreshTrigger, onRefresh }) => {
 
         {/* Pagination Controls */}
         {!loading && !error && filteredData.length > 0 && (
-          <div className="flex items-center justify-between border-t border-slate-800 p-4 bg-slate-950/30">
+          <div className="flex items-center justify-between border-t border-slate-800 p-4 bg-[#0a0a0a]/30">
             <div className="text-sm text-slate-400">
               Sayfa <span className="text-white">{currentPage}</span> / {totalPages}
             </div>
@@ -164,7 +164,7 @@ const ChatBotDataTable = ({ refreshTrigger, onRefresh }) => {
                 size="sm"
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="bg-slate-800 border-slate-700 hover:bg-slate-700 text-white disabled:opacity-50"
+                className="bg-[#0a0a0a] border-slate-700 hover:bg-[#0a0a0a] text-white disabled:opacity-50"
               >
                 <ChevronLeft className="w-4 h-4 mr-1" /> Önceki
               </Button>
@@ -173,7 +173,7 @@ const ChatBotDataTable = ({ refreshTrigger, onRefresh }) => {
                 size="sm"
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="bg-slate-800 border-slate-700 hover:bg-slate-700 text-white disabled:opacity-50"
+                className="bg-[#0a0a0a] border-slate-700 hover:bg-[#0a0a0a] text-white disabled:opacity-50"
               >
                 Sonraki <ChevronRight className="w-4 h-4 ml-1" />
               </Button>

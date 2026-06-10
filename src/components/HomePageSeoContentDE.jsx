@@ -1,24 +1,26 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Tv, Zap, Shield, Users, CheckCircle2, Star } from 'lucide-react';
+import { useTestModal } from '@/contexts/TestModalContext';
 
-const HomePageSeoContentDE = () => {
+const HomePageSeoContentDE = ({ siteData }) => {
+  const { openTestModal } = useTestModal();
   return (
     <div className="container mx-auto px-4 py-16 text-slate-300 leading-relaxed">
       <article className="max-w-5xl mx-auto">
         
         <header className="mb-12 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Premium IPTV Deutschland – Stabile Streams in <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">4K Qualität</span>
+            Premium IPTV Deutschland – Stabile Streams in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">4K Qualität</span>
           </h2>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            Erleben Sie das beste IPTV-Erlebnis in Deutschland mit kristallklarer Bildqualität, stabilen Verbindungen und über 10.000 Premium-Kanälen. Ihr verlässlicher Partner für hochwertiges Internet-Fernsehen.
+            Erleben Sie das beste IPTV-Erlebnis in Deutschland mit kristallklarer Bildqualität, stabilen Verbindungen und 10.000+ Premium-Kanälen. Ihr verlässlicher Partner für hochwertiges Internet-Fernsehen.
           </p>
         </header>
 
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-            <Tv className="w-8 h-8 text-purple-500" />
+            <Tv className="w-8 h-8 text-primary" />
             Warum IPTV Deutschland die beste Wahl ist
           </h2>
           
@@ -33,9 +35,9 @@ const HomePageSeoContentDE = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+            <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
               <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                <Zap className="w-6 h-6 text-purple-500" />
+                <Zap className="w-6 h-6 text-primary" />
                 Stabile IPTV ohne Unterbrechung
               </h3>
               <p className="text-slate-400 mb-4">
@@ -43,23 +45,23 @@ const HomePageSeoContentDE = () => {
               </p>
               <ul className="space-y-2">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>99,9% Verfügbarkeit durch redundante Server</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>Automatische Fehlerkorrektur in Echtzeit</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>Optimierte Verbindung zu deutschen Internetanbietern</span>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+            <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
               <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                <Star className="w-6 h-6 text-purple-500" />
+                <Star className="w-6 h-6 text-primary" />
                 4K IPTV für ultimatives Seherlebnis
               </h3>
               <p className="text-slate-400 mb-4">
@@ -67,15 +69,15 @@ const HomePageSeoContentDE = () => {
               </p>
               <ul className="space-y-2">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>Ultra HD Auflösung bis zu 4K (2160p)</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>HDR-Unterstützung für brillante Farben</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>Adaptive Bitrate für optimale Qualität</span>
                 </li>
               </ul>
@@ -85,7 +87,7 @@ const HomePageSeoContentDE = () => {
 
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-            <Shield className="w-8 h-8 text-purple-500" />
+            <Shield className="w-8 h-8 text-primary" />
             Premium IPTV Anbieter – Was uns auszeichnet
           </h2>
 
@@ -96,27 +98,27 @@ const HomePageSeoContentDE = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-xl border border-slate-700 hover:border-purple-500 transition-all">
+            <div className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-6 rounded-xl border border-slate-700 hover:border-primary transition-all">
               <h3 className="text-xl font-bold text-white mb-4">Umfangreiches Kanalangebot</h3>
               <p className="text-slate-400 mb-4">
                 Über 10.000 Live-TV-Kanäle aus aller Welt stehen Ihnen zur Verfügung. Von deutschen öffentlich-rechtlichen und privaten Sendern über internationale Nachrichten- und Sportkanäle bis hin zu exklusiven Premium-Inhalten – bei uns finden Sie garantiert Ihr Lieblingsprogramm. Zusätzlich bieten wir Ihnen Zugriff auf über 50.000 Filme und Serien on demand.
               </p>
-              <Link to="/channels" className="text-purple-400 hover:text-purple-300 font-semibold inline-flex items-center gap-2">
+              <Link to="/de/kanale" className="text-primary hover:text-primary font-semibold inline-flex items-center gap-2">
                 Kanalliste ansehen →
               </Link>
             </div>
 
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-xl border border-slate-700 hover:border-purple-500 transition-all">
+            <div className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-6 rounded-xl border border-slate-700 hover:border-primary transition-all">
               <h3 className="text-xl font-bold text-white mb-4">Zuverlässiger Kundenservice</h3>
               <p className="text-slate-400 mb-4">
                 Unser deutschsprachiges Support-Team steht Ihnen 24 Stunden am Tag, 7 Tage die Woche zur Verfügung. Egal ob Sie Fragen zur Installation haben, technische Unterstützung benötigen oder Hilfe bei der Konfiguration Ihrer Geräte – wir sind für Sie da. Per WhatsApp, E-Mail oder Telefon erreichen Sie uns jederzeit schnell und unkompliziert.
               </p>
-              <Link to="/sss" className="text-purple-400 hover:text-purple-300 font-semibold inline-flex items-center gap-2">
+              <Link to="/de/sss" className="text-primary hover:text-primary font-semibold inline-flex items-center gap-2">
                 Häufige Fragen →
               </Link>
             </div>
 
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-xl border border-slate-700 hover:border-purple-500 transition-all">
+            <div className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-6 rounded-xl border border-slate-700 hover:border-primary transition-all">
               <h3 className="text-xl font-bold text-white mb-4">Sichere und legale Nutzung</h3>
               <p className="text-slate-400 mb-4">
                 Ihre Sicherheit und Privatsphäre haben für uns oberste Priorität. Wir arbeiten ausschließlich mit lizenzierten Inhaltsanbietern zusammen und gewährleisten eine rechtskonforme Nutzung. Alle Datenübertragungen sind verschlüsselt, und wir speichern keine sensiblen Nutzerdaten. So können Sie unser <strong>IPTV ohne Unterbrechung</strong> und Sorgen genießen.
@@ -125,9 +127,9 @@ const HomePageSeoContentDE = () => {
           </div>
         </section>
 
-        <section className="mb-16 bg-gradient-to-br from-purple-900/20 to-slate-900/50 p-8 md:p-12 rounded-2xl border border-purple-500/30">
+        <section className="mb-16 bg-gradient-to-br from-[#e50914]/20 to-[#141414]/50 p-8 md:p-12 rounded-2xl border border-primary/30">
           <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-            <Users className="w-8 h-8 text-purple-500" />
+            <Users className="w-8 h-8 text-primary" />
             IPTV kaufen – Einfach und sicher
           </h2>
 
@@ -141,25 +143,25 @@ const HomePageSeoContentDE = () => {
                 <h4 className="text-xl font-semibold text-white">Der Kaufprozess in 4 Schritten:</h4>
                 <ol className="space-y-3 list-none">
                   <li className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold">1</span>
+                    <span className="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center font-bold">1</span>
                     <div>
                       <strong className="text-white">Paket wählen:</strong> Entscheiden Sie sich für ein Abonnement, das zu Ihren Bedürfnissen passt
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold">2</span>
+                    <span className="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center font-bold">2</span>
                     <div>
                       <strong className="text-white">Sicher bezahlen:</strong> Nutzen Sie eine unserer vielen sicheren Zahlungsmethoden
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold">3</span>
+                    <span className="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center font-bold">3</span>
                     <div>
                       <strong className="text-white">Zugangsdaten erhalten:</strong> Sie erhalten sofort per E-Mail Ihre Login-Daten
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold">4</span>
+                    <span className="flex-shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center font-bold">4</span>
                     <div>
                       <strong className="text-white">Sofort starten:</strong> Installieren Sie die App und genießen Sie IPTV in bester Qualität
                     </div>
@@ -167,7 +169,7 @@ const HomePageSeoContentDE = () => {
                 </ol>
               </div>
 
-              <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-700">
+              <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700">
                 <h4 className="text-xl font-semibold text-white mb-4">Sichere Zahlungsmethoden</h4>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-2">
@@ -194,7 +196,7 @@ const HomePageSeoContentDE = () => {
             </div>
 
             <p className="text-lg mb-6">
-              Nach erfolgreichem Kauf erhalten Sie innerhalb weniger Minuten Ihre persönlichen Zugangsdaten per E-Mail. Diese können Sie auf beliebig vielen Geräten gleichzeitig nutzen – je nach gewähltem Paket. Unsere detaillierte Installationsanleitung hilft Ihnen dabei, IPTV auf Smart TVs, Smartphones, Tablets, Fire TV Sticks oder anderen kompatiblen Geräten einzurichten. <Link to="/kurulum" className="text-purple-400 hover:text-purple-300 font-semibold">Zur Installationsanleitung →</Link>
+              Nach erfolgreichem Kauf erhalten Sie innerhalb weniger Minuten Ihre persönlichen Zugangsdaten per E-Mail. Diese können Sie auf beliebig vielen Geräten gleichzeitig nutzen – je nach gewähltem Paket. Unsere detaillierte Installationsanleitung hilft Ihnen dabei, IPTV auf Smart TVs, Smartphones, Tablets, Fire TV Sticks oder anderen kompatiblen Geräten einzurichten. <Link to="/de/einrichtung" className="text-primary hover:text-primary font-semibold">Zur Installationsanleitung →</Link>
             </p>
           </div>
         </section>
@@ -208,89 +210,90 @@ const HomePageSeoContentDE = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-r from-purple-900/30 to-indigo-900/30 p-8 rounded-2xl border border-purple-500/50 text-center mb-8">
+          <div className="bg-gradient-to-r from-[#e50914]/30 to-[#b20710]/30 p-8 rounded-2xl border border-primary/50 text-center mb-8">
             <h3 className="text-2xl font-bold text-white mb-4">Bereit für Premium IPTV?</h3>
             <p className="text-lg text-slate-300 mb-6 max-w-2xl mx-auto">
               <strong>Wählen Sie Ihr Paket</strong> und starten Sie noch heute mit dem besten IPTV-Erlebnis in Deutschland. Von monatlichen Testpaketen bis zu 12-Monats-Abonnements mit bis zu 40% Rabatt – bei uns finden Sie garantiert das richtige Angebot.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                to="/paketler" 
-                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-purple-500/50"
+              <Link
+                to="/de/pakete"
+                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#e50914] to-[#b20710] text-white font-bold rounded-xl hover:from-[#e50914] hover:to-[#b20710] transition-all shadow-lg hover:shadow-primary/50"
               >
                 Jetzt IPTV kaufen →
               </Link>
-              <Link 
-                to="/test" 
-                className="inline-flex items-center justify-center px-8 py-4 bg-slate-700 text-white font-bold rounded-xl hover:bg-slate-600 transition-all"
+              <button
+                type="button"
+                className="inline-flex items-center justify-center px-8 py-4 bg-[#0a0a0a] text-white font-bold rounded-xl hover:bg-[#141414] transition-all"
+                onClick={() => openTestModal()}
               >
                 Kostenlos testen
-              </Link>
+              </button>
             </div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+            <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
               <h4 className="text-lg font-bold text-white mb-3">Alle Pakete beinhalten:</h4>
               <ul className="space-y-2 text-slate-400">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
-                  <span>Über 10.000 Live-TV-Kanäle</span>
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                  <span>10.000+ Live-TV-Kanäle</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>50.000+ Filme und Serien</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>4K/HD/SD Qualitätsoptionen</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>EPG (Elektronischer Programmguide)</span>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+            <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
               <h4 className="text-lg font-bold text-white mb-3">Gerätekompatibilität:</h4>
               <ul className="space-y-2 text-slate-400">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>Smart TV (Samsung, LG, Sony)</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>Android TV / Fire TV Stick</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>iOS und Android Smartphones</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>Windows und Mac Computer</span>
                 </li>
               </ul>
             </div>
 
-            <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+            <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
               <h4 className="text-lg font-bold text-white mb-3">Service & Support:</h4>
               <ul className="space-y-2 text-slate-400">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>24/7 deutschsprachiger Support</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>Schnelle Hilfe per WhatsApp</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>Umfangreiche Anleitungen</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                   <span>Regelmäßige Updates</span>
                 </li>
               </ul>
@@ -300,7 +303,7 @@ const HomePageSeoContentDE = () => {
 
         <footer className="text-center pt-8 border-t border-slate-800">
           <p className="text-slate-500 text-sm">
-            Dieser SEO-optimierte Inhalt wurde speziell für <strong>IPTV Deutschland</strong> erstellt, um Ihnen alle wichtigen Informationen über unseren Premium IPTV Service zu bieten. Profitieren Sie von stabilen Verbindungen, 4K-Qualität und über 10.000 Kanälen.
+            Dieser SEO-optimierte Inhalt wurde speziell für <strong>IPTV Deutschland</strong> erstellt, um Ihnen alle wichtigen Informationen über unseren Premium IPTV Service zu bieten. Profitieren Sie von stabilen Verbindungen, 4K-Qualität und 10.000+ Kanälen.
           </p>
         </footer>
 

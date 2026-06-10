@@ -41,8 +41,10 @@ export const useTestFormSubmit = () => {
       return { success: true, data };
     } catch (err) {
       console.error('Error submitting test request:', err);
-      setError(err.message || 'Bir hata oluştu, lütfen tekrar deneyin.');
-      return { success: false, error: err.message };
+      const msg =
+        'Talep şu an kaydedilemedi. WhatsApp üzerinden bize ulaşarak test veya paket için devam edebilirsiniz.';
+      setError(msg);
+      return { success: false, error: msg };
     } finally {
       setLoading(false);
     }

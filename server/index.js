@@ -9,18 +9,38 @@ import express from 'express';
 import { GoogleGenAI } from '@google/genai';
 import { generateMatchContentWithAI } from './api/generateMatchContent.js';
 import { getCachedContent, saveContentToCache } from './api/matchContentCache.js';
+import { requireSupabaseAdmin } from './requireSupabaseAdmin.js';
+import { registerAdminCustomerRoutes } from './routes/adminCustomers.js';
+import { registerPublicCustomerRoutes } from './routes/publicCustomers.js';
+import { registerPortalCaptchaRoutes } from './routes/portalCaptcha.js';
+import { registerSyncTeamLogosRoute } from './routes/syncTeamLogosRoute.js';
+import {
+  pickNotificationPayload,
+  insertNotificationWithFallback,
+  updateNotificationWithFallback,
+} from './notificationPayload.js';
 
 const app = express();
 const PORT = process.env.API_PORT || 3001;
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.sendStatus(200);
   next();
 });
 app.use(express.json());
+
+/** API ayakta mı — dev:all smoke test */
+app.get('/api/health', (_req, res) => {
+  res.json({
+    ok: true,
+    service: 'qruzetv-api',
+    supabaseUrl: Boolean(process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL),
+    serviceRole: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY),
+  });
+});
 
 /** Gemini API bağlantı testi - admin panel Sistem Durumu için */
 app.get('/api/health/gemini', async (req, res) => {
@@ -63,6 +83,69 @@ app.post('/api/generate-match-content', async (req, res) => {
       error: err?.message || 'İçerik üretilemedi',
       fallback: true,
     });
+  }
+});
+
+registerAdminCustomerRoutes(app, requireSupabaseAdmin);
+registerPublicCustomerRoutes(app);
+registerPortalCaptchaRoutes(app);
+registerSyncTeamLogosRoute(app, requireSupabaseAdmin);
+
+/** Admin duyurular — RLS bypass (npm run dev:all). Ziyaretçi okuması Supabase'te kalır. */
+app.get('/api/admin/notifications', requireSupabaseAdmin, async (req, res) => {
+  try {
+    const { data, error } = await req.supabaseService
+      .from('notifications')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    res.json({ success: true, notifications: data || [] });
+  } catch (err) {
+    console.error('[GET /api/admin/notifications]', err?.message || err);
+    res.status(500).json({ success: false, error: err?.message || 'Liste alınamadı' });
+  }
+});
+
+app.post('/api/admin/notifications', requireSupabaseAdmin, async (req, res) => {
+  try {
+    const payload = pickNotificationPayload(req.body);
+    if (!payload.title || !payload.message) {
+      return res.status(400).json({ success: false, error: 'title ve message zorunludur' });
+    }
+    const { data, error } = await insertNotificationWithFallback(req.supabaseService, payload);
+    if (error) throw error;
+    res.json({ success: true, notification: data });
+  } catch (err) {
+    console.error('[POST /api/admin/notifications]', err?.message || err);
+    res.status(500).json({ success: false, error: err?.message || 'Duyuru eklenemedi' });
+  }
+});
+
+app.patch('/api/admin/notifications/:id', requireSupabaseAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const payload = pickNotificationPayload(req.body);
+    if (Object.keys(payload).length === 0) {
+      return res.status(400).json({ success: false, error: 'Güncellenecek alan yok' });
+    }
+    const { data, error } = await updateNotificationWithFallback(req.supabaseService, id, payload);
+    if (error) throw error;
+    res.json({ success: true, notification: data });
+  } catch (err) {
+    console.error('[PATCH /api/admin/notifications/:id]', err?.message || err);
+    res.status(500).json({ success: false, error: err?.message || 'Güncellenemedi' });
+  }
+});
+
+app.delete('/api/admin/notifications/:id', requireSupabaseAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { error } = await req.supabaseService.from('notifications').delete().eq('id', id);
+    if (error) throw error;
+    res.json({ success: true });
+  } catch (err) {
+    console.error('[DELETE /api/admin/notifications/:id]', err?.message || err);
+    res.status(500).json({ success: false, error: err?.message || 'Silinemedi' });
   }
 });
 

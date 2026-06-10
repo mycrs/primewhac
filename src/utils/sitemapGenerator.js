@@ -1,130 +1,254 @@
-import { supabase } from '@/lib/customSupabaseClient';
-import { makeMatchSlug } from './matchSlug';
+import { supabase } from '../lib/customSupabaseClient.js';
+import { SITE_URL as DEFAULT_SITEMAP_BASE } from '../constants/siteUrl.js';
+import { EXCLUDED_PATTERNS as DEFAULT_EXCLUDED_PATTERNS } from '../sitemapExcludedPatterns.js';
+import { getSitemapHreflangAlternates } from './seoCanonicalHreflang.js';
+import {
+  pathnameShouldNoindex,
+  plainTextLengthFromHtml,
+  MIN_CONTENT_THRESHOLD,
+} from './seoNoindexPaths.js';
 
 const baseUrlNorm = (baseUrl) => (baseUrl || '').replace(/\/+$/, '');
 
-export const generateSitemapXml = async (baseUrl = "https://primewatch.tv") => {
+function pathnameFromLoc(loc) {
+  if (!loc) return '/';
+  const s = String(loc);
+  if (s.startsWith('http')) {
+    try {
+      return new URL(s).pathname.replace(/\/+$/, '') || '/';
+    } catch {
+      return '/';
+    }
+  }
+  return (s.startsWith('/') ? s : `/${s}`).replace(/\/+$/, '') || '/';
+}
+
+function absoluteLoc(loc, base) {
+  const s = String(loc);
+  if (s.startsWith('http')) {
+    try {
+      const u = new URL(s);
+      const path = u.pathname.replace(/\/+$/, '') || '/';
+      return `${u.origin}${path}`;
+    } catch {
+      return null;
+    }
+  }
+  const p = (s.startsWith('/') ? s : `/${s}`).replace(/\/+$/, '') || '/';
+  return `${base}${p}`;
+}
+
+function escapeXmlAttr(val) {
+  return String(val).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+function formatUrlEntry(full, lastmod, changefreq, priority, base) {
+  const pathForAlt = pathnameFromLoc(full);
+  const alt = getSitemapHreflangAlternates(pathForAlt, base);
+  const hrefBlock = alt
+    ? `\n    <xhtml:link rel="alternate" hreflang="tr" href="${escapeXmlAttr(alt.tr)}"/>\n    <xhtml:link rel="alternate" hreflang="de" href="${escapeXmlAttr(alt.de)}"/>\n    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXmlAttr(alt.xDefault)}"/>`
+    : '';
+  return `  <url>\n    <loc>${escapeXmlAttr(full)}</loc>${hrefBlock}\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+}
+
+/**
+ * @param {string} pathname path veya tam URL path kısmı
+ * @param {string[]} patterns örn. ['/admin', '/film']
+ */
+export function pathMatchesExcludedPatterns(pathname, patterns) {
+  if (!patterns?.length) return false;
+  let norm = pathname || '/';
+  if (norm.startsWith('http')) {
+    try {
+      norm = new URL(norm).pathname;
+    } catch {
+      return false;
+    }
+  }
+  norm = norm.replace(/\/+$/, '') || '/';
+  for (const pat of patterns) {
+    const pref = (pat || '').replace(/\/+$/, '') || '/';
+    if (norm === pref) return true;
+    if (norm.startsWith(`${pref}/`)) return true;
+  }
+  return false;
+}
+
+/**
+ * @param {string} [baseUrl]
+ * @param {{ excludedPatterns?: string[] }} [options]
+ */
+export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options = {}) => {
+  const excludedPatterns = options.excludedPatterns ?? DEFAULT_EXCLUDED_PATTERNS;
   const base = baseUrlNorm(baseUrl);
   const currentDate = new Date().toISOString().split('T')[0];
   const seen = new Set();
 
+  const STATIC_PRIORITY = '1.0';
+  const BLOG_PRIORITY = '0.8';
+
+  // SADECE canonical, indexlenebilir URL'ler (takvim / TMDB / arama / admin yok)
   const staticRoutes = [
-    { loc: '/', priority: '1.0', changefreq: 'daily' },
-    { loc: '/paketler', priority: '0.9', changefreq: 'weekly' },
-    { loc: '/kurulum', priority: '0.9', changefreq: 'weekly' },
-    { loc: '/karsilastirma', priority: '0.9', changefreq: 'weekly' },
-    { loc: '/ne-izlesem', priority: '0.9', changefreq: 'daily' },
-    { loc: '/mac-programi', priority: '0.9', changefreq: 'daily' },
-    { loc: '/detailed-guides', priority: '0.8', changefreq: 'monthly' },
-    { loc: '/blog', priority: '0.9', changefreq: 'daily' },
-    { loc: '/reseller', priority: '0.8', changefreq: 'monthly' },
-    { loc: '/sss', priority: '0.8', changefreq: 'monthly' },
-    { loc: '/hakkimizda', priority: '0.7', changefreq: 'monthly' },
-    { loc: '/sartlar', priority: '0.6', changefreq: 'yearly' },
-    { loc: '/gizlilik', priority: '0.6', changefreq: 'yearly' },
-    { loc: '/sitemap', priority: '0.5', changefreq: 'monthly' },
-    { loc: '/de', priority: '1.0', changefreq: 'daily' },
-    { loc: '/de/paketler', priority: '0.9', changefreq: 'weekly' },
-    { loc: '/de/einrichtung', priority: '0.9', changefreq: 'weekly' },
-    { loc: '/de/sss', priority: '0.8', changefreq: 'monthly' },
-    { loc: '/de/blog', priority: '0.9', changefreq: 'daily' },
-    { loc: '/de/reseller', priority: '0.8', changefreq: 'monthly' },
-    { loc: '/de/uber-uns', priority: '0.7', changefreq: 'monthly' },
-    { loc: '/de/terms', priority: '0.6', changefreq: 'yearly' },
-    { loc: '/de/privacy', priority: '0.6', changefreq: 'yearly' },
-    { loc: '/de/test', priority: '0.8', changefreq: 'monthly' },
-    { loc: '/de/was-soll-ich-schauen', priority: '0.9', changefreq: 'daily' },
-    { loc: '/de/m3u-olustur', priority: '0.7', changefreq: 'monthly' },
-    { loc: '/de/kanale', priority: '0.8', changefreq: 'weekly' },
-    { loc: '/de/spielplan', priority: '0.9', changefreq: 'daily' },
-    { loc: '/de/guide/iptv-kurulum-rehberi', priority: '0.8', changefreq: 'monthly' },
+    { loc: '/', changefreq: 'daily' },
+    { loc: '/paketler', changefreq: 'weekly' },
+    { loc: '/channels', changefreq: 'weekly' },
+    { loc: '/m3u-converter', changefreq: 'monthly' },
+    { loc: '/ne-izlesem', changefreq: 'daily' },
+    { loc: '/ne-izlesem/aksiyon-filmleri', changefreq: 'weekly' },
+    { loc: '/ne-izlesem/populer-yabanci-diziler', changefreq: 'weekly' },
+    { loc: '/ne-izlesem/korku-filmleri', changefreq: 'weekly' },
+    { loc: '/ne-izlesem/romantik-filmler', changefreq: 'weekly' },
+    { loc: '/ne-izlesem/turk-dizileri', changefreq: 'weekly' },
+    { loc: '/ne-izlesem/imdb-yuksek-filmler', changefreq: 'weekly' },
+    { loc: '/mac-programi', changefreq: 'daily' },
+    { loc: '/kurulum', changefreq: 'weekly' },
+    { loc: '/kurulum/android-tv', changefreq: 'weekly' },
+    { loc: '/kurulum/ios', changefreq: 'weekly' },
+    { loc: '/kurulum/android-phone', changefreq: 'weekly' },
+    { loc: '/kurulum/windows', changefreq: 'weekly' },
+    { loc: '/kurulum/mac', changefreq: 'weekly' },
+    { loc: '/kurulum/smart-tv', changefreq: 'weekly' },
+    { loc: '/kurulum/samsung-tv', changefreq: 'weekly' },
+    { loc: '/kurulum/lg-tv', changefreq: 'weekly' },
+    { loc: '/kurulum/tablet', changefreq: 'weekly' },
+    { loc: '/karsilastirma', changefreq: 'weekly' },
+    { loc: '/detailed-guides', changefreq: 'monthly' },
+    { loc: '/yorumlar', changefreq: 'weekly' },
+    { loc: '/blog', changefreq: 'daily' },
+    { loc: '/reseller', changefreq: 'monthly' },
+    { loc: '/sss', changefreq: 'monthly' },
+    { loc: '/hakkimizda', changefreq: 'monthly' },
+    { loc: '/sartlar', changefreq: 'yearly' },
+    { loc: '/gizlilik', changefreq: 'yearly' },
+    { loc: '/guide/iptv-kurulum-rehberi', changefreq: 'monthly' },
+    { loc: '/test', changefreq: 'monthly' },
+    { loc: '/musteri-kayit', changefreq: 'monthly' },
+    { loc: '/de', changefreq: 'daily' },
+    { loc: '/de/pakete', changefreq: 'weekly' },
+    { loc: '/de/einrichtung', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/android-tv', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/ios', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/android-phone', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/windows', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/mac', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/smart-tv', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/samsung-tv', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/lg-tv', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/tablet', changefreq: 'weekly' },
+    { loc: '/de/bewertungen', changefreq: 'weekly' },
+    { loc: '/de/blog', changefreq: 'daily' },
+    { loc: '/de/reseller', changefreq: 'monthly' },
+    { loc: '/de/uber-uns', changefreq: 'monthly' },
+    { loc: '/de/terms', changefreq: 'yearly' },
+    { loc: '/de/privacy', changefreq: 'yearly' },
+    { loc: '/de/was-soll-ich-schauen', changefreq: 'daily' },
+    { loc: '/de/was-soll-ich-schauen/beste-action-filme', changefreq: 'weekly' },
+    { loc: '/de/was-soll-ich-schauen/beliebte-auslaendische-serien', changefreq: 'weekly' },
+    { loc: '/de/was-soll-ich-schauen/horrorfilme', changefreq: 'weekly' },
+    { loc: '/de/was-soll-ich-schauen/romantische-filme', changefreq: 'weekly' },
+    { loc: '/de/spielplan', changefreq: 'daily' },
+    { loc: '/de/kanale', changefreq: 'weekly' },
+    { loc: '/de/sss', changefreq: 'monthly' },
+    { loc: '/de/m3u-olustur', changefreq: 'monthly' },
+    { loc: '/de/guide/iptv-kurulum-rehberi', changefreq: 'monthly' },
+    { loc: '/de/test', changefreq: 'monthly' },
+    { loc: '/de/vergleich', changefreq: 'weekly' },
+    { loc: '/de/detaillierte-anleitungen', changefreq: 'monthly' },
   ];
 
-  const appendUrl = (loc, lastmod = currentDate, changefreq = 'monthly', priority = '0.8') => {
-    const full = loc.startsWith('http') ? loc : `${base}${loc.startsWith('/') ? loc : '/' + loc}`;
-    if (seen.has(full)) return;
+  const tryAppendUrl = (loc, lastmod = currentDate, changefreq = 'monthly', priority = STATIC_PRIORITY) => {
+    const pathCheck = pathnameFromLoc(loc);
+    if (pathMatchesExcludedPatterns(pathCheck, excludedPatterns)) return null;
+    const full = absoluteLoc(loc, base);
+    if (!full || seen.has(full)) return null;
     seen.add(full);
-    return `  <url>\n    <loc>${full}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+    return formatUrlEntry(full, lastmod, changefreq, priority, base);
   };
 
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">`;
 
-  staticRoutes.forEach(route => {
-    const line = appendUrl(route.loc, currentDate, route.changefreq, route.priority);
-    if (line) xml += '\n' + line;
+  staticRoutes.forEach((route) => {
+    const line = tryAppendUrl(route.loc, currentDate, route.changefreq, STATIC_PRIORITY);
+    if (line) xml += `\n${line}`;
   });
 
-  // Yalnızca yayındaki blog yazıları (published_at dolu olanlar)
+  // Yayındaki blog yazıları — tablo: blog_posts (Supabase)
   try {
     const { data: posts, error } = await supabase
       .from('blog_posts')
-      .select('slug, updated_at, published_at')
+      .select('slug, updated_at, created_at, published_at, content')
       .not('published_at', 'is', null);
-    if (!error && posts && posts.length > 0) {
-      posts.forEach(post => {
+
+    if (!error && posts?.length) {
+      posts.forEach((post) => {
+        if (!post.slug) return;
+        if (plainTextLengthFromHtml(post.content) < MIN_CONTENT_THRESHOLD) return;
         let lastModDate = currentDate;
-        if (post.updated_at) lastModDate = new Date(post.updated_at).toISOString().split('T')[0];
-        else if (post.published_at) lastModDate = new Date(post.published_at).toISOString().split('T')[0];
-        const line = appendUrl(`/blog/${post.slug}`, lastModDate, 'monthly', '0.8');
-        if (line) xml += '\n' + line;
-        const lineDe = appendUrl(`/de/blog/${post.slug}`, lastModDate, 'monthly', '0.8');
-        if (lineDe) xml += '\n' + lineDe;
+        const u = post.updated_at ? new Date(post.updated_at).getTime() : 0;
+        const p = post.published_at ? new Date(post.published_at).getTime() : 0;
+        const c = post.created_at ? new Date(post.created_at).getTime() : 0;
+        const best = Math.max(u, p, c);
+        if (best > 0) {
+          lastModDate = new Date(best).toISOString().split('T')[0];
+        }
+
+        const trPath = `/blog/${post.slug}`;
+        const dePath = `/de/blog/${post.slug}`;
+        const lineTr = tryAppendUrl(trPath, lastModDate, 'weekly', BLOG_PRIORITY);
+        if (lineTr) xml += `\n${lineTr}`;
+        const lineDe = tryAppendUrl(dePath, lastModDate, 'weekly', BLOG_PRIORITY);
+        if (lineDe) xml += `\n${lineDe}`;
       });
     }
   } catch (err) {
     console.error('Sitemap generation exception (Blog Posts):', err);
   }
 
-  // Maç detay sayfaları (fixtures'tan - bugünden 7 gün)
-  try {
-    const LEAGUES = ['super-lig-2025', 'epl-2024', 'la-liga-2025', 'champions-league-2025', 'bundesliga-2025', 'serie-a-2025'];
-    const fixtureBase = 'https://fixturedownload.com/feed/json';
-    const dates = [];
-    for (let i = 0; i <= 7; i++) {
-      const d = new Date();
-      d.setDate(d.getDate() + i);
-      dates.push(d.toISOString().split('T')[0]);
-    }
-    const matchSlugs = new Set();
-    await Promise.all(LEAGUES.map(async (leagueSlug) => {
-      try {
-        const res = await fetch(`${fixtureBase}/${leagueSlug}`);
-        if (!res.ok) return;
-        const data = await res.json();
-        const list = Array.isArray(data) ? data : (data.matches || []);
-        list.forEach((m) => {
-          const matchDate = (m.DateUtc || m.date || '').toString().split(' ')[0].split('T')[0];
-          if (!dates.includes(matchDate)) return;
-          const home = (m.HomeTeam || m.team1 || m.homeTeam?.name || '-').toString();
-          const away = (m.AwayTeam || m.team2 || m.awayTeam?.name || '-').toString();
-          const slug = makeMatchSlug(home, away, matchDate);
-          if (slug) matchSlugs.add(slug);
-        });
-      } catch (_) {}
-    }));
-    matchSlugs.forEach((slug) => {
-      const line = appendUrl(`/mac-programi/${slug}`, currentDate, 'daily', '0.8');
-      if (line) xml += '\n' + line;
-      const lineDe = appendUrl(`/de/spielplan/${slug}`, currentDate, 'daily', '0.8');
-      if (lineDe) xml += '\n' + lineDe;
-    });
-  } catch (err) {
-    console.warn('Sitemap match URLs:', err?.message);
-  }
+  const blockedEntryPaths = new Set([
+    '/packages', '/about', '/installation', '/faq', '/bayilik', '/kanallar',
+    '/privacy', '/terms', '/what-to-watch', '/instructions',
+    '/spor-gundemi',
+    '/karsilastir', '/detayli-kurulum', '/iletisim',
+    '/gizlilik-politikasi', '/kullanim-sartlari',
+    '/sitemap', '/bing-verification', '/admin', '/admin-login', '/yonetim', '/yonetim/giris',
+    '/de/packages', '/de/paketler', '/de/kurulum', '/de/iptv',
+    '/de/karsilastir', '/de/detayli-kurulum', '/de/iletisim',
+    '/blog/[slug]', '/de/blog/[slug]',
+    '/blog-kategorileri', '/de/blog-kategorien',
+    '/video-rehberleri', '/de/video-anleitungen',
+    '/urun-detay', '/de/produkt-details',
+    '/galeri', '/de/galerie',
+    '/referans', '/de/referenzen',
+  ]);
 
-  // Admin panelden eklenen sitemap_entries (published); çakışan URL'ler atlanır
+  const isBlockedUrl = (p) => {
+    const norm = p.replace(/\/+$/, '') || '/';
+    if (blockedEntryPaths.has(norm)) return true;
+    if (pathMatchesExcludedPatterns(norm, excludedPatterns)) return true;
+    if (pathnameShouldNoindex(norm)) return true;
+    if (norm.includes('[') || norm.includes(']')) return true;
+    return false;
+  };
+
   try {
     const { data: entries, error } = await supabase
       .from('sitemap_entries')
       .select('url, last_modified, changefreq, priority')
       .eq('published', true);
-    if (!error && entries && entries.length > 0) {
-      entries.forEach(entry => {
-        const fullUrl = entry.url.startsWith('http') ? entry.url : `${base}${entry.url.startsWith('/') ? entry.url : '/' + entry.url}`;
-        if (seen.has(fullUrl)) return;
+    if (!error && entries?.length) {
+      entries.forEach((entry) => {
+        const rawPath = entry.url.startsWith('http')
+          ? new URL(entry.url).pathname.replace(/\/+$/, '')
+          : (`/${entry.url.replace(/^[\s/]+/, '')}`).replace(/\/+$/, '') || '/';
+        if (isBlockedUrl(rawPath)) return;
+        const fullUrl = absoluteLoc(rawPath, base);
+        if (!fullUrl || seen.has(fullUrl)) return;
         seen.add(fullUrl);
-        const lastmod = entry.last_modified ? new Date(entry.last_modified).toISOString().split('T')[0] : currentDate;
-        xml += `\n  <url>\n    <loc>${fullUrl}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${entry.changefreq || 'monthly'}</changefreq>\n    <priority>${entry.priority ?? '0.8'}</priority>\n  </url>`;
+        const lastmod = entry.last_modified
+          ? new Date(entry.last_modified).toISOString().split('T')[0]
+          : currentDate;
+        const pr = entry.priority != null ? String(entry.priority) : STATIC_PRIORITY;
+        xml += `\n${formatUrlEntry(fullUrl, lastmod, entry.changefreq || 'monthly', pr, base)}`;
       });
     }
   } catch (err) {

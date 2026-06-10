@@ -44,7 +44,7 @@ const SimpleAdminDashboard = ({ siteData = {} }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard title="Toplam Kanal" value={stats.channels} icon={Tv} color="blue" />
-        <StatCard title="Aktif Paketler" value={stats.packages} icon={Package} color="purple" />
+        <StatCard title="Aktif Paketler" value={stats.packages} icon={Package} color="red" />
         <StatCard title="Blog Yazıları" value={stats.blogPosts} icon={BookText} color="green" />
         <StatCard title="Yöneticiler" value={stats.users} icon={Users} color="pink" />
       </div>
@@ -52,7 +52,7 @@ const SimpleAdminDashboard = ({ siteData = {} }) => {
       <Card className="border-white/10 bg-[#131326] mt-8">
         <CardHeader>
           <CardTitle className="text-white flex items-center gap-2">
-            <Activity className="w-5 h-5 text-purple-400" />
+            <Activity className="w-5 h-5 text-primary" />
             Sistem Durumu
           </CardTitle>
         </CardHeader>

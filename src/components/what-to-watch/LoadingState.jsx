@@ -8,7 +8,7 @@ const LoadingState = () => {
   return (
     <div className="w-full">
       <div className="flex flex-col items-center justify-center mb-12">
-        <Loader2 className="w-12 h-12 text-purple-500 animate-spin mb-4" />
+        <Loader2 className="w-12 h-12 text-primary animate-spin mb-4" />
         <p className="text-slate-400 font-medium animate-pulse">Yükleniyor...</p>
       </div>
 
@@ -19,7 +19,7 @@ const LoadingState = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 h-full flex flex-col"
+            className="bg-[#0a0a0a] rounded-xl overflow-hidden border border-slate-800 h-full flex flex-col"
           >
             <Skeleton className="relative aspect-[2/3] w-full rounded-none" />
             <div className="p-4 flex flex-col flex-grow">

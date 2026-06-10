@@ -24,13 +24,14 @@ import {
   debounce
 } from '@/utils/blogAutomation';
 import { validateBlogPostData } from '@/utils/blogValidator';
+import { pingIndexNowBlogSlug } from '@/utils/pingIndexNow';
 
 const CATEGORIES = [
   'IPTV Genel', 'Kurulum Rehberi', 'Sektör Haberleri', 
   'İnceleme', 'Duyuru', 'İpuçları ve Taktikler'
 ];
 
-const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
+const AdminBlogForm = ({ post, siteData, onSuccess, onCancel }) => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [existingTags, setExistingTags] = useState([]);
@@ -127,7 +128,8 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
         }
         
         if (!currentManualEdits.seo_title && newFormData.title) {
-          updates.seo_title = generateMetaTitle(newFormData.title);
+          const titleSuffix = siteData?.blog_seo_settings?.title_suffix || siteData?.siteTexts?.brandName || 'QruzeTV';
+          updates.seo_title = generateMetaTitle(newFormData.title, titleSuffix);
         }
         
         // Use the just-generated or existing excerpt for meta description
@@ -143,7 +145,7 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
         return updates;
       });
     }, 500),
-    []
+    [siteData]
   );
 
   // Trigger debounced updates when title, content, or tags change
@@ -152,7 +154,7 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
   }, [formData.title, formData.content, tags]);
 
   const validateForm = () => {
-    const { isValid, errors } = validateBlogPostData(formData);
+    const { isValid, errors } = validateBlogPostData({ ...formData, tags });
     
     // Add additional specific validation for AdminBlogForm
     if (!formData.cover_image_url?.trim()) errors.cover_image_url = "Kapak görseli zorunludur.";
@@ -181,11 +183,20 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
     setFormData(prev => ({ ...prev, [name]: checked }));
   };
 
+  const MAX_TAGS = 60;
   const handleAddTag = (e) => {
     if (e.key === 'Enter' || e.type === 'click') {
       e.preventDefault();
       const newTag = tagInput.trim();
-      if (newTag && !tags.includes(newTag)) {
+      if (!newTag) {
+        setTagInput('');
+        return;
+      }
+      if (tags.length >= MAX_TAGS) {
+        toast({ variant: 'destructive', title: 'Etiket Limiti', description: `En fazla ${MAX_TAGS} etiket ekleyebilirsiniz.` });
+        return;
+      }
+      if (!tags.includes(newTag)) {
         setTags([...tags, newTag]);
       }
       setTagInput('');
@@ -224,7 +235,11 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
       switch(field) {
         case 'slug': updates.slug = generateSlugFromTitle(prev.title); break;
         case 'excerpt': updates.excerpt = extractExcerptFromContent(prev.content); break;
-        case 'seo_title': updates.seo_title = generateMetaTitle(prev.title); break;
+        case 'seo_title': {
+          const titleSuffix = siteData?.blog_seo_settings?.title_suffix || siteData?.siteTexts?.brandName || 'QruzeTV';
+          updates.seo_title = generateMetaTitle(prev.title, titleSuffix);
+          break;
+        }
         case 'seo_description': updates.seo_description = generateMetaDescription(prev.excerpt || extractExcerptFromContent(prev.content)); break;
         case 'focus_keyword': updates.focus_keyword = generateKeywordsFromTags(tags, prev.title); break;
       }
@@ -292,6 +307,9 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
         if (error) throw error;
         toast({ title: 'Başarılı', description: 'Yeni yazı başarıyla eklendi.', icon: <CheckCircle2 className="w-5 h-5 text-green-500" /> });
       }
+      if (!formData.isDraft && formData.slug) {
+        void pingIndexNowBlogSlug(formData.slug);
+      }
       onSuccess();
     } catch (error) {
       toast({ variant: 'destructive', title: 'Hata', description: error.message, icon: <AlertCircle className="w-5 h-5" /> });
@@ -307,7 +325,7 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
         {tooltip && (
           <div className="group relative flex items-center">
             <Info className="w-3.5 h-3.5 text-gray-500 cursor-help" />
-            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-800 text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 text-center">
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-[#0a0a0a] text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 text-center">
               {tooltip}
               <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-800"></div>
             </div>
@@ -318,7 +336,7 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
         </Badge>
       </div>
       {isManual && (
-        <Button type="button" variant="ghost" size="sm" onClick={() => forceAutoFill(field)} className="h-6 px-2 text-xs text-[#A855F7] hover:text-[#9333EA] hover:bg-[#A855F7]/10 flex items-center gap-1">
+        <Button type="button" variant="ghost" size="sm" onClick={() => forceAutoFill(field)} className="h-6 px-2 text-xs text-[#e50914] hover:text-[#b20710] hover:bg-[#e50914]/10 flex items-center gap-1">
           <Wand2 className="w-3 h-3" /> Auto-fill
         </Button>
       )}
@@ -326,12 +344,12 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
   );
 
   return (
-    <form onSubmit={handleSubmit} className="bg-[#1a1a2e] rounded-xl border border-[#2a2a40] text-gray-100 flex flex-col h-full max-h-[90vh]">
+    <form onSubmit={handleSubmit} className="bg-[#0a0a0a] rounded-xl border border-[#2a2a40] text-gray-100 flex flex-col h-full max-h-[90vh]">
       <div className="p-6 border-b border-[#2a2a40] flex items-center justify-between flex-shrink-0">
         <h2 className="text-2xl font-bold text-white">{post ? 'Yazıyı Düzenle' : 'Yeni Blog Yazısı'}</h2>
         <div className="flex items-center gap-3">
           <Button type="button" variant="outline" onClick={onCancel} className="border-[#2a2a40] hover:bg-[#2a2a40] text-gray-300">İptal</Button>
-          <Button type="submit" disabled={loading} className="bg-[#A855F7] hover:bg-[#9333EA] text-white">
+          <Button type="submit" disabled={loading} className="bg-[#e50914] hover:bg-[#b20710] text-white">
             {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
             {post ? 'Güncelle' : 'Yayınla'}
           </Button>
@@ -340,7 +358,7 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
 
       <div className="p-6 overflow-y-auto flex-grow custom-scrollbar">
         <Tabs defaultValue="basic" className="w-full">
-          <TabsList className="mb-6 bg-[#0F0F1E] border border-[#2a2a40]">
+          <TabsList className="mb-6 bg-[#0a0a0a] border border-[#2a2a40]">
             <TabsTrigger value="basic">Temel Bilgiler</TabsTrigger>
             <TabsTrigger value="content">İçerik Editörü</TabsTrigger>
             <TabsTrigger value="seo">SEO Ayarları</TabsTrigger>
@@ -352,33 +370,38 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
               <div className="space-y-4">
                 <div>
                   <Label className="text-gray-300">Başlık *</Label>
-                  <Input name="title" value={formData.title} onChange={handleChange} placeholder="Harika bir blog yazısı..." className={`bg-[#0F0F1E] border-[#2a2a40] text-white mt-1.5 ${formErrors.title ? 'border-red-500' : ''}`} />
+                  <Input name="title" value={formData.title} onChange={handleChange} placeholder="Harika bir blog yazısı..." className={`bg-[#0a0a0a] border-[#2a2a40] text-white mt-1.5 ${formErrors.title ? 'border-red-500' : ''}`} />
                   {formErrors.title && <p className="text-red-400 text-xs mt-1">{formErrors.title}</p>}
                 </div>
                 
                 <div>
                   {renderFieldLabel('Kalıcı Bağlantı (Slug) *', 'slug', manualEdits.slug, 'Başlıktan otomatik üretilir. URL adresini belirler.')}
-                  <Input name="slug" value={formData.slug} onChange={handleChange} placeholder="harika-bir-blog-yazisi" className={`bg-[#0F0F1E] border-[#2a2a40] text-white ${formErrors.slug ? 'border-red-500' : ''}`} />
+                  <Input name="slug" value={formData.slug} onChange={handleChange} placeholder="harika-bir-blog-yazisi" maxLength={100} className={`bg-[#0a0a0a] border-[#2a2a40] text-white ${formErrors.slug ? 'border-red-500' : ''}`} />
                   {formErrors.slug && <p className="text-red-400 text-xs mt-1">{formErrors.slug}</p>}
                 </div>
                 
                 <div>
                   <Label className="text-gray-300">Kategori</Label>
-                  <select name="category" value={formData.category} onChange={handleChange} className="w-full mt-1.5 bg-[#0F0F1E] border border-[#2a2a40] text-white rounded-md h-10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#A855F7]">
+                  <select name="category" value={formData.category} onChange={handleChange} className="w-full mt-1.5 bg-[#0a0a0a] border border-[#2a2a40] text-white rounded-md h-10 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#e50914]">
                     <option value="">Kategori Seçin</option>
                     {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
                 
                 <div>
-                  <Label className="text-gray-300">Etiketler</Label>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <Label className="text-gray-300">Etiketler</Label>
+                    <span className={`text-xs ${tags.length > MAX_TAGS ? 'text-red-400' : 'text-gray-500'}`}>
+                      {tags.length} / {MAX_TAGS}
+                    </span>
+                  </div>
                   <div className="flex gap-2 mt-1.5">
                     <Input 
                       value={tagInput} 
                       onChange={(e) => setTagInput(e.target.value)}
                       onKeyDown={handleAddTag}
                       placeholder="Etiket yazıp Enter'a basın" 
-                      className="bg-[#0F0F1E] border-[#2a2a40] text-white" 
+                      className="bg-[#0a0a0a] border-[#2a2a40] text-white" 
                       list="existing-tags"
                     />
                     <datalist id="existing-tags">
@@ -388,11 +411,12 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
                   </div>
                   <div className="flex flex-wrap gap-2 mt-3">
                     {tags.map(tag => (
-                      <Badge key={tag} variant="secondary" className="bg-[#A855F7]/20 text-[#A855F7] border border-[#A855F7]/30 flex items-center gap-1 py-1 px-3">
+                      <Badge key={tag} variant="secondary" className="bg-[#e50914]/20 text-[#e50914] border border-[#e50914]/30 flex items-center gap-1 py-1 px-3">
                         {tag} <X className="w-3 h-3 cursor-pointer hover:text-white" onClick={() => removeTag(tag)} />
                       </Badge>
                     ))}
                   </div>
+                  {formErrors.tags && <p className="text-red-400 text-xs mt-1">{formErrors.tags}</p>}
                 </div>
                 
                 <div>
@@ -402,16 +426,16 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
                       {formData.excerpt.length} / 200
                     </span>
                   </div>
-                  <Textarea name="excerpt" value={formData.excerpt} onChange={handleChange} placeholder="Yazının kısa bir özeti..." className="h-24 bg-[#0F0F1E] border-[#2a2a40] text-white resize-none" />
+                  <Textarea name="excerpt" value={formData.excerpt} onChange={handleChange} placeholder="Yazının kısa bir özeti..." maxLength={200} className="h-24 bg-[#0a0a0a] border-[#2a2a40] text-white resize-none" />
                 </div>
               </div>
 
               <div className="space-y-4">
                 <Label className="text-gray-300">Kapak Görseli *</Label>
-                <div className={`border-2 border-dashed ${formErrors.cover_image_url ? 'border-red-500' : 'border-[#2a2a40]'} rounded-xl p-4 bg-[#0F0F1E] flex flex-col items-center justify-center gap-4 group hover:border-[#A855F7]/50 transition-colors relative overflow-hidden`}>
+                <div className={`border-2 border-dashed ${formErrors.cover_image_url ? 'border-red-500' : 'border-[#2a2a40]'} rounded-xl p-4 bg-[#0a0a0a] flex flex-col items-center justify-center gap-4 group hover:border-[#e50914]/50 transition-colors relative overflow-hidden`}>
                   {formData.cover_image_url ? (
                     <>
-                      <img src={formData.cover_image_url} alt="Cover Preview" className="w-full aspect-video object-cover rounded-lg shadow-md" />
+                      <img src={formData.cover_image_url} alt="Blog kapak görseli önizlemesi" className="w-full aspect-video object-cover rounded-lg shadow-md" />
                       <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm rounded-xl">
                         <Button type="button" variant="destructive" size="sm" onClick={() => setFormData(p => ({...p, cover_image_url: ''}))}>
                           Görseli Kaldır
@@ -425,7 +449,7 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
                     </div>
                   )}
                 </div>
-                <Input name="cover_image_url" value={formData.cover_image_url} onChange={handleChange} placeholder="https://ornek.com/gorsel.jpg" className={`bg-[#0F0F1E] border-[#2a2a40] text-white ${formErrors.cover_image_url ? 'border-red-500' : ''}`} />
+                <Input name="cover_image_url" value={formData.cover_image_url} onChange={handleChange} placeholder="https://ornek.com/gorsel.jpg" className={`bg-[#0a0a0a] border-[#2a2a40] text-white ${formErrors.cover_image_url ? 'border-red-500' : ''}`} />
                 {formErrors.cover_image_url && <p className="text-red-400 text-xs">{formErrors.cover_image_url}</p>}
               </div>
             </div>
@@ -433,8 +457,8 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
 
           <TabsContent value="content" className="animate-in fade-in slide-in-from-bottom-2 h-full flex flex-col">
              {formErrors.content && <div className="mb-2 text-red-400 text-sm flex items-center gap-1"><AlertCircle className="w-4 h-4"/> {formErrors.content}</div>}
-            <div className={`border ${formErrors.content ? 'border-red-500' : 'border-[#2a2a40]'} rounded-xl overflow-hidden bg-[#0F0F1E] flex flex-col min-h-[500px]`}>
-              <div className="bg-[#1a1a2e] border-b border-[#2a2a40] p-2 flex flex-wrap items-center justify-between gap-2">
+            <div className={`border ${formErrors.content ? 'border-red-500' : 'border-[#2a2a40]'} rounded-xl overflow-hidden bg-[#0a0a0a] flex flex-col min-h-[500px]`}>
+              <div className="bg-[#0a0a0a] border-b border-[#2a2a40] p-2 flex flex-wrap items-center justify-between gap-2">
                 <div className="flex flex-wrap items-center gap-1">
                   <Button type="button" variant="ghost" size="sm" onClick={() => insertHtml('<b>', '</b>')} className="text-gray-300 hover:text-white hover:bg-[#2a2a40] h-8 w-8 p-0" title="Kalın"><Bold className="w-4 h-4" /></Button>
                   <Button type="button" variant="ghost" size="sm" onClick={() => insertHtml('<i>', '</i>')} className="text-gray-300 hover:text-white hover:bg-[#2a2a40] h-8 w-8 p-0" title="İtalik"><Italic className="w-4 h-4" /></Button>
@@ -449,14 +473,14 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
                   <Button type="button" variant="ghost" size="sm" onClick={() => insertHtml('<a href="URL_BURAYA">', '</a>')} className="text-gray-300 hover:text-white hover:bg-[#2a2a40] h-8 w-8 p-0" title="Bağlantı Ekle"><LinkIcon className="w-4 h-4" /></Button>
                   <Button type="button" variant="ghost" size="sm" onClick={() => insertHtml('<img src="GÖRSEL_URL" alt="Açıklama" />')} className="text-gray-300 hover:text-white hover:bg-[#2a2a40] h-8 w-8 p-0" title="Görsel Ekle"><ImagePlus className="w-4 h-4" /></Button>
                 </div>
-                <Button type="button" variant="outline" size="sm" onClick={() => setIsPreview(!isPreview)} className="border-[#A855F7] text-[#A855F7] hover:bg-[#A855F7]/10 h-8">
+                <Button type="button" variant="outline" size="sm" onClick={() => setIsPreview(!isPreview)} className="border-[#e50914] text-[#e50914] hover:bg-[#e50914]/10 h-8">
                   {isPreview ? <><Code className="w-4 h-4 mr-2"/> Kod Görünümü</> : <><Eye className="w-4 h-4 mr-2"/> Önizleme</>}
                 </Button>
               </div>
               <div className="flex-grow relative">
                 {isPreview ? (
                   <div 
-                    className="absolute inset-0 p-6 overflow-y-auto prose prose-invert max-w-none bg-[#0F0F1E] prose-p:text-gray-300 prose-headings:text-white prose-a:text-[#A855F7]"
+                    className="absolute inset-0 p-6 overflow-y-auto prose prose-invert max-w-none bg-[#0a0a0a] prose-p:text-gray-300 prose-headings:text-white prose-a:text-[#e50914]"
                     dangerouslySetInnerHTML={{ __html: formData.content || '<p class="text-gray-500 italic">Önizleme yapılacak içerik yok...</p>' }}
                   />
                 ) : (
@@ -466,7 +490,7 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
                     value={formData.content} 
                     onChange={handleChange} 
                     placeholder="İçeriğinizi buraya yazın veya HTML kodlarınızı yapıştırın..." 
-                    className="absolute inset-0 h-full bg-[#0F0F1E] border-0 text-gray-300 font-mono text-sm resize-none focus-visible:ring-0 p-6 rounded-none"
+                    className="absolute inset-0 h-full bg-[#0a0a0a] border-0 text-gray-300 font-mono text-sm resize-none focus-visible:ring-0 p-6 rounded-none"
                   />
                 )}
               </div>
@@ -477,10 +501,13 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div>
-                  <div className="mb-1.5">
-                     {renderFieldLabel('Focus Keyword (SEO)', 'focus_keyword', manualEdits.focus_keyword, 'Main keyword this blog post targets for SEO')}
+                  <div className="flex justify-between items-center mb-1.5">
+                    {renderFieldLabel('Focus Keyword (SEO)', 'focus_keyword', manualEdits.focus_keyword, 'Ana anahtar kelime. En fazla 100 karakter.')}
+                    <span className={`text-xs ${formData.focus_keyword.length > 100 ? 'text-red-400' : 'text-gray-500'}`}>
+                      {formData.focus_keyword.length} / 100
+                    </span>
                   </div>
-                  <Input name="focus_keyword" value={formData.focus_keyword} onChange={handleChange} placeholder="Enter main keyword for this blog post. ex: best IPTV service" className={`bg-[#0F0F1E] border-[#2a2a40] text-white ${formErrors.focus_keyword ? 'border-red-500' : ''}`} />
+                  <Input name="focus_keyword" value={formData.focus_keyword} onChange={handleChange} placeholder="iptv satın alma, iptv tavsiye, iptv paketleri" maxLength={100} className={`bg-[#0a0a0a] border-[#2a2a40] text-white ${formErrors.focus_keyword ? 'border-red-500' : ''}`} />
                   {formErrors.focus_keyword && <p className="text-red-400 text-xs mt-1">{formErrors.focus_keyword}</p>}
                 </div>
 
@@ -491,7 +518,8 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
                       {formData.seo_title.length} / 60
                     </span>
                   </div>
-                  <Input name="seo_title" value={formData.seo_title} onChange={handleChange} placeholder="Arama sonuçlarında görünecek başlık" className="bg-[#0F0F1E] border-[#2a2a40] text-white" />
+                  <Input name="seo_title" value={formData.seo_title} onChange={handleChange} placeholder="Arama sonuçlarında görünecek başlık" maxLength={60} className={`bg-[#0a0a0a] border-[#2a2a40] text-white ${formErrors.seo_title ? 'border-red-500' : ''}`} />
+                  {formErrors.seo_title && <p className="text-red-400 text-xs mt-1">{formErrors.seo_title}</p>}
                 </div>
                 
                 <div>
@@ -501,7 +529,8 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
                       {formData.seo_description.length} / 160
                     </span>
                   </div>
-                  <Textarea name="seo_description" value={formData.seo_description} onChange={handleChange} placeholder="Arama sonuçlarında görünecek açıklama..." className="h-24 bg-[#0F0F1E] border-[#2a2a40] text-white resize-none" />
+                  <Textarea name="seo_description" value={formData.seo_description} onChange={handleChange} placeholder="Arama sonuçlarında görünecek açıklama..." maxLength={160} className={`h-24 bg-[#0a0a0a] border-[#2a2a40] text-white resize-none ${formErrors.seo_description ? 'border-red-500' : ''}`} />
+                  {formErrors.seo_description && <p className="text-red-400 text-xs mt-1">{formErrors.seo_description}</p>}
                 </div>
               </div>
 
@@ -511,8 +540,8 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
                   <div className="text-[14px] text-[#202124] flex items-center gap-2 mb-1">
                     <span className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center text-xs text-gray-500">G</span>
                     <div className="flex flex-col">
-                      <span className="leading-tight">primewatch.tv</span>
-                      <span className="text-[12px] text-[#4d5156] leading-tight">https://primewatch.tv/blog/{formData.slug || 'ornek-yazi'}</span>
+                      <span className="leading-tight">streamtr.eu</span>
+                      <span className="text-[12px] text-[#4d5156] leading-tight">https://streamtr.eu/blog/{formData.slug || 'ornek-yazi'}</span>
                     </div>
                   </div>
                   <h3 className="text-[20px] text-[#1a0dab] hover:underline cursor-pointer mb-1 leading-snug truncate">
@@ -523,7 +552,7 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
                   </p>
                 </div>
                 
-                <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-700">
+                <div className="mt-6 p-4 bg-[#0a0a0a]/50 rounded-lg border border-slate-700">
                   <h4 className="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2"><Info className="w-4 h-4"/> Otomasyon Bilgisi</h4>
                   <ul className="text-xs text-slate-400 space-y-2">
                     <li>• <b>Slug:</b> Başlık yazıldıkça otomatik oluşturulur.</li>
@@ -538,7 +567,7 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
 
           <TabsContent value="settings" className="space-y-8 animate-in fade-in slide-in-from-bottom-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-[#0F0F1E] border border-[#2a2a40] rounded-xl p-6 space-y-6">
+              <div className="bg-[#0a0a0a] border border-[#2a2a40] rounded-xl p-6 space-y-6">
                 <h3 className="text-lg font-semibold text-white mb-4 border-b border-[#2a2a40] pb-2">Yayın Ayarları</h3>
                 
                 <div className="flex items-center justify-between">
@@ -569,22 +598,22 @@ const AdminBlogForm = ({ post, onSuccess, onCancel }) => {
                 </div>
               </div>
 
-              <div className="bg-[#0F0F1E] border border-[#2a2a40] rounded-xl p-6 space-y-4">
+              <div className="bg-[#0a0a0a] border border-[#2a2a40] rounded-xl p-6 space-y-4">
                 <h3 className="text-lg font-semibold text-white mb-4 border-b border-[#2a2a40] pb-2">Yazar Bilgileri</h3>
                 
                 <div>
                   <Label className="text-gray-300">Yazar Adı</Label>
-                  <Input name="author" value={formData.author} onChange={handleChange} className="bg-[#1a1a2e] border-[#2a2a40] text-white mt-1.5" />
+                  <Input name="author" value={formData.author} onChange={handleChange} className="bg-[#0a0a0a] border-[#2a2a40] text-white mt-1.5" />
                 </div>
                 
                 <div>
                   <Label className="text-gray-300">Yazar Görsel URL</Label>
-                  <Input name="author_image" value={formData.author_image} onChange={handleChange} placeholder="https://..." className="bg-[#1a1a2e] border-[#2a2a40] text-white mt-1.5" />
+                  <Input name="author_image" value={formData.author_image} onChange={handleChange} placeholder="https://..." className="bg-[#0a0a0a] border-[#2a2a40] text-white mt-1.5" />
                 </div>
 
                 <div>
                   <Label className="text-gray-300">Yazar Biyografisi</Label>
-                  <Textarea name="author_bio" value={formData.author_bio} onChange={handleChange} className="h-20 bg-[#1a1a2e] border-[#2a2a40] text-white mt-1.5 resize-none" />
+                  <Textarea name="author_bio" value={formData.author_bio} onChange={handleChange} className="h-20 bg-[#0a0a0a] border-[#2a2a40] text-white mt-1.5 resize-none" />
                 </div>
               </div>
             </div>

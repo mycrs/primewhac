@@ -57,7 +57,7 @@ const SitemapXMLGenerator = ({ pages }) => {
   };
 
   return (
-    <Button onClick={handleDownload} className="bg-blue-600 hover:bg-blue-700 text-white">
+    <Button onClick={handleDownload} className="bg-[#141414] hover:bg-[#0a0a0a] text-white">
       <Download className="w-4 h-4 mr-2" />
       Sitemap XML İndir
     </Button>

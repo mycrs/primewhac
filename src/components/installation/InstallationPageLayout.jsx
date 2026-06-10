@@ -31,10 +31,10 @@ const SwipeInstructionOverlay = ({ onDismiss, isDe }) => {
   );
 };
 
-const InstallationPageLayout = ({ siteData, pageContent, isLoading }) => {
+const InstallationPageLayout = ({ siteData, pageContent, isLoading, forceDevice, hideDeviceSelector }) => {
   const location = useLocation();
   const isDe = location.pathname.includes('/de');
-  const [selectedDevice, setSelectedDevice] = useState('android-tv');
+  const [selectedDevice, setSelectedDevice] = useState(forceDevice || 'android-tv');
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [showSwipeHint, setShowSwipeHint] = useState(false);
   const [touchStart, setTouchStart] = useState(null);
@@ -44,6 +44,10 @@ const InstallationPageLayout = ({ siteData, pageContent, isLoading }) => {
   useEffect(() => {
     setCurrentStepIndex(0);
   }, [selectedDevice]);
+
+  useEffect(() => {
+    if (forceDevice) setSelectedDevice(forceDevice);
+  }, [forceDevice]);
 
   useEffect(() => {
     const hintKey = isDe ? 'hasSeenSwipeHintDE' : 'hasSeenSwipeHintTR';
@@ -92,14 +96,21 @@ const InstallationPageLayout = ({ siteData, pageContent, isLoading }) => {
     return titles[deviceId] || (isDe ? 'Geräteinstallation' : 'Cihaz Kurulumu');
   };
 
+  const effectiveDevice = forceDevice || selectedDevice;
+
   const currentConfig = useMemo(() => {
      if (!pageContent) return null;
-     const key = getDbKey(selectedDevice);
+     const key = getDbKey(effectiveDevice);
      const config = pageContent[key] || {};
-     return { ...config, title: config.title || getDeviceTitle(selectedDevice) };
-  }, [pageContent, selectedDevice, isDe]);
+     return { ...config, title: config.title || getDeviceTitle(effectiveDevice) };
+  }, [pageContent, effectiveDevice, isDe]);
 
-  const steps = useMemo(() => currentConfig?.steps || [], [currentConfig]);
+  const steps = useMemo(() => {
+    if (!pageContent) return [];
+    const key = getDbKey(effectiveDevice);
+    const config = pageContent[key] || currentConfig;
+    return config?.steps || [];
+  }, [pageContent, effectiveDevice, currentConfig]);
 
   const handleNext = useCallback(() => {
     if (currentStepIndex < steps.length - 1) {
@@ -146,43 +157,52 @@ const InstallationPageLayout = ({ siteData, pageContent, isLoading }) => {
     if (distance < -minSwipeDistance) handlePrev();
   };
 
+  const configForDevice = useMemo(() => {
+    if (!pageContent) return currentConfig;
+    const key = getDbKey(effectiveDevice);
+    return pageContent[key] || currentConfig;
+  }, [pageContent, effectiveDevice, currentConfig]);
+
   const appLinks = useMemo(() => {
-    if (!currentConfig) return [];
-    if (Array.isArray(currentConfig.app_links) && currentConfig.app_links.length > 0) {
-      return currentConfig.app_links;
+    const cfg = configForDevice || currentConfig;
+    if (!cfg) return [];
+    if (Array.isArray(cfg.app_links) && cfg.app_links.length > 0) {
+      return cfg.app_links;
     }
-    if (currentConfig.download_url) {
+    if (cfg.download_url) {
       return [{
         id: 'legacy-link',
         app_name: isDe ? 'App herunterladen' : 'Uygulamayı İndir',
-        app_url: currentConfig.download_url
+        app_url: cfg.download_url
       }];
     }
     return [];
-  }, [currentConfig, isDe]);
+  }, [configForDevice, currentConfig, isDe]);
   
   return (
       <ErrorBoundary>
         <div className="relative w-full" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
           
-          {/* Device Selection Wrapper */}
-          <div className="relative z-20 mb-12 w-full">
-            <div className="relative group rounded-3xl overflow-hidden shadow-2xl bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-2">
-                <DeviceSelectionSection 
-                  selectedDevice={selectedDevice} 
-                  onSelect={setSelectedDevice} 
-                />
+          {/* Device Selection Wrapper - gizlenebilir (cihaz sayfasında) */}
+          {!hideDeviceSelector && (
+            <div className="relative z-20 mb-12 w-full">
+              <div className="relative group rounded-3xl overflow-hidden shadow-2xl bg-[#0a0a0a]/80 backdrop-blur-xl border border-slate-800 p-2">
+                  <DeviceSelectionSection 
+                    selectedDevice={selectedDevice} 
+                    onSelect={setSelectedDevice} 
+                  />
+              </div>
             </div>
-          </div>
+          )}
           
           {/* Main Content Area */}
           {isLoading ? (
              <div className="w-full py-24 flex justify-center items-center">
-                 <Loader2 className="w-12 h-12 text-purple-500 animate-spin" />
+                 <Loader2 className="w-12 h-12 text-primary animate-spin" />
              </div>
           ) : !currentConfig ? (
               <div className="w-full py-20 text-center">
-                <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl p-12 shadow-2xl">
+                <div className="bg-[#0a0a0a]/50 backdrop-blur-md border border-slate-800 rounded-3xl p-12 shadow-2xl">
                   <AlertCircle className="w-16 h-16 text-slate-500 mx-auto mb-6 opacity-50" />
                   <h3 className="text-2xl font-bold text-white mb-3">
                     {isDe ? "Inhalt nicht gefunden" : "İçerik bulunamadı"}
@@ -198,9 +218,9 @@ const InstallationPageLayout = ({ siteData, pageContent, isLoading }) => {
               <div className="w-full pb-16">
                   <div className="w-full mb-12">
                       <div className="text-center mb-10">
-                          <h3 className="text-3xl font-bold text-white mb-4 sr-only md:not-sr-only md:block">{currentConfig.title}</h3>
+                          <h2 className="text-3xl font-bold text-white mb-4 sr-only md:not-sr-only md:block">{configForDevice?.title || currentConfig?.title}</h2>
                           <p className="text-slate-400 max-w-2xl mx-auto text-lg hidden md:block font-light">
-                              {currentConfig.description || (isDe 
+                              {(configForDevice?.description || currentConfig?.description) || (isDe 
                                 ? "Sie können die erforderlichen Apps für die IPTV-Installation auf Ihren Android TV-, Google TV- und Fire TV Stick-Geräten herunterladen und Ihre Verbindung einfach hinzufügen." 
                                 : "Android TV, Google TV ve Fire TV Stick cihazlarınıza IPTV kurulumu için gerekli uygulamaları indirebilir ve bağlantınızı kolayca ekleyebilirsiniz.")}
                           </p>
@@ -211,9 +231,9 @@ const InstallationPageLayout = ({ siteData, pageContent, isLoading }) => {
                               initial={{ opacity: 0, x: -20 }}
                               whileInView={{ opacity: 1, x: 0 }}
                               viewport={{ once: true }}
-                              className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 flex items-start gap-4 shadow-lg hover:shadow-2xl transition-all duration-300"
+                              className="bg-[#0a0a0a]/60 border border-slate-800 rounded-2xl p-6 flex items-start gap-4 shadow-lg hover:shadow-2xl transition-all duration-300"
                           >
-                              <div className="p-3 bg-blue-500/10 rounded-xl text-blue-400 shrink-0">
+                              <div className="p-3 bg-[#141414]/10 rounded-xl text-blue-400 shrink-0">
                                 <AlertTriangle className="w-6 h-6" />
                               </div>
                               <div>
@@ -249,7 +269,7 @@ const InstallationPageLayout = ({ siteData, pageContent, isLoading }) => {
 
                   <div className="w-full mt-20">
                       <div className="container mx-auto">
-                        <ImportantInfoSection selectedDevice={selectedDevice} lang={isDe ? 'de' : 'tr'} />
+                        <ImportantInfoSection selectedDevice={effectiveDevice} lang={isDe ? 'de' : 'tr'} />
                       </div>
                   </div>
               </div>

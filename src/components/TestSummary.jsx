@@ -1,50 +1,73 @@
-import React from 'react';
-import { ArrowRight, Loader2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useWhatsAppIntegration } from '@/hooks/useWhatsAppIntegration';
-import { useTestFormSubmit } from '@/hooks/useTestFormSubmit';
+import { getLivingRegionWhatsAppLine } from '@/components/LivingRegionSelect';
+import { isAbroadLivingRegion } from '@/utils/turkeyPackageWhatsAppGate';
 import { toast } from '@/components/ui/use-toast';
 import TestSummaryDisplay from './TestSummaryDisplay';
+import TurkeyPackageWhatsAppWarningDialog from '@/components/packages/TurkeyPackageWhatsAppWarningDialog';
 
-const TestSummary = ({ formData, selectedDevice, selectedApp, onEditStep, onSuccess }) => {
-  const { submitTestRequest, loading } = useTestFormSubmit();
+const TestSummary = ({ formData, selectedDevice, selectedApp, livingRegion, lang = 'tr', onEditStep, onSuccess }) => {
   const { redirectToWhatsApp } = useWhatsAppIntegration();
+  const livingRegionMessage = getLivingRegionWhatsAppLine(livingRegion, lang);
+  const [trWarningOpen, setTrWarningOpen] = useState(false);
+  const isTrLang = lang === 'tr';
 
-  const handleFinish = async () => {
-    // 1. Prepare Data
+  useEffect(() => {
+    if (livingRegion !== 'not_in_turkey') setTrWarningOpen(false);
+  }, [livingRegion]);
+
+  const handleFinish = () => {
+    const tvBrandInfo = formData.tv_brand ? ` (${formData.tv_brand})` : '';
     const requestData = {
       username: formData.username,
       special_note: formData.special_note,
-      device: selectedDevice?.name,
-      app: selectedApp?.name
+      note: formData.special_note,
+      device: selectedDevice?.name + tvBrandInfo,
+      app: selectedApp?.name,
+      livingRegionMessage,
     };
-    
-    // 2. Submit to DB
-    const { success } = await submitTestRequest({
-        ...requestData,
-        device_type: selectedDevice?.name,
-        app_name: selectedApp?.name
-    });
 
-    if (success) {
-        // 3. Notify
-        toast({
-            title: "Talep Oluşturuldu",
-            description: "WhatsApp'a yönlendiriliyorsunuz...",
-            className: "bg-green-600 border-none text-white shadow-lg"
-        });
-
-        // 4. Redirect WhatsApp
-        redirectToWhatsApp(requestData);
-
-        // 5. Close Modal
-        if (onSuccess) onSuccess();
+    const redirected = redirectToWhatsApp(requestData);
+    if (!redirected) {
+      toast({
+        variant: "destructive",
+        title: "WhatsApp Numarası Eksik",
+        description: "Lütfen admin panelinden İletişim Bilgileri veya Sistem Ayarları bölümüne WhatsApp numarası ekleyin."
+      });
+      return;
     }
+
+    toast({
+      title: "Yönlendiriliyorsunuz",
+      description: "WhatsApp açılıyor...",
+      className: "bg-green-600 border-none text-white shadow-lg"
+    });
+    if (onSuccess) onSuccess();
+  };
+
+  const requestWhatsApp = () => {
+    if (isTrLang && isAbroadLivingRegion(livingRegion)) {
+      setTrWarningOpen(true);
+      return;
+    }
+    handleFinish();
+  };
+
+  const handleWarningContinue = () => {
+    setTrWarningOpen(false);
+    handleFinish();
   };
 
   return (
-    <div className="flex flex-col h-full">
-       <div className="flex-1 overflow-y-auto custom-scrollbar pr-1 pb-4">
+    <div className="flex min-h-0 flex-1 flex-col">
+       <TurkeyPackageWhatsAppWarningDialog
+         open={trWarningOpen}
+         variant="test"
+         onContinue={handleWarningContinue}
+       />
+       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 [-webkit-overflow-scrolling:touch] custom-scrollbar">
           <TestSummaryDisplay 
             formData={formData}
             selectedDevice={selectedDevice}
@@ -53,21 +76,15 @@ const TestSummary = ({ formData, selectedDevice, selectedApp, onEditStep, onSucc
           />
        </div>
 
-       <div className="pt-4 mt-auto border-t border-slate-800/50">
+       <div className="shrink-0 border-t border-slate-800/50 bg-[#0B0F19] pt-3 pb-[max(0.35rem,env(safe-area-inset-bottom))]">
             <Button 
-                onClick={handleFinish}
-                disabled={loading}
-                className="w-full h-14 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold text-lg rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all hover:scale-[1.02] active:scale-[0.98]"
+                onClick={requestWhatsApp}
+                disabled={!livingRegion}
+                className="h-12 w-full rounded-xl bg-gradient-to-r from-green-600 to-[#b20710] text-base font-bold text-white shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:from-green-500 hover:to-[#b20710] hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 sm:h-14 sm:text-lg"
             >
-                {loading ? (
-                    <Loader2 className="w-6 h-6 animate-spin mr-2" />
-                ) : (
-                    <>
-                        WhatsApp ile İste <ArrowRight className="ml-2 w-5 h-5" />
-                    </>
-                )}
+                WhatsApp ile İste <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <p className="text-center text-xs text-slate-500 mt-3 font-medium">
+            <p className="mt-2 text-center text-[11px] font-medium text-slate-500 sm:mt-3 sm:text-xs">
                 Kişisel verileriniz gizlilik politikamız kapsamında korunmaktadır.
             </p>
        </div>

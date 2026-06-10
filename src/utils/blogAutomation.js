@@ -8,14 +8,14 @@ export const convertTurkishToLatin = (text) => {
 };
 
 export const generateSlugFromTitle = (title) => {
-  if (!title) return '';
-  return convertTurkishToLatin(title)
+  if (!title || typeof title !== 'string') return '';
+  const cleaned = convertTurkishToLatin(title.trim())
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .substring(0, 100);
+    .replace(/^-+|-+$/g, '');
+  return cleaned ? cleaned.substring(0, 100) : '';
 };
 
 export const validateSlug = (slug) => {
@@ -30,35 +30,51 @@ export const validateSlug = (slug) => {
 
 export const extractExcerptFromContent = (content, maxLength = 200) => {
   if (!content) return '';
-  // Remove HTML tags
-  const textOnly = content.replace(/<[^>]*>?/gm, ' ');
-  // Remove multiple spaces and empty lines
-  const cleanedText = textOnly.replace(/\s+/g, ' ').trim();
+  let cleaned = content;
+  // Remove <style>...</style> blocks (including CSS content)
+  cleaned = cleaned.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, ' ');
+  // Remove <script>...</script> blocks
+  cleaned = cleaned.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ' ');
+  // Remove HTML comments
+  cleaned = cleaned.replace(/<!--[\s\S]*?-->/g, ' ');
+  // Remove remaining HTML tags
+  cleaned = cleaned.replace(/<[^>]+>/g, ' ');
+  // Decode common HTML entities
+  cleaned = cleaned.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+  // Collapse whitespace
+  const textOnly = cleaned.replace(/\s+/g, ' ').trim();
   
-  if (cleanedText.length <= maxLength) return cleanedText;
+  if (!textOnly || textOnly.length <= maxLength) return textOnly;
   
-  // Truncate and add ellipsis, trying to not break words
-  const truncated = cleanedText.substring(0, maxLength);
+  const truncated = textOnly.substring(0, maxLength);
   const lastSpace = truncated.lastIndexOf(' ');
   return (lastSpace > 0 ? truncated.substring(0, lastSpace) : truncated) + '...';
 };
 
-export const generateMetaTitle = (title) => {
+export const generateMetaTitle = (title, suffix = 'QruzeTV') => {
   if (!title) return '';
-  const suffix = " | KaliteliIPTV";
-  const maxTitleLength = 60 - suffix.length;
+  const suffixPart = suffix ? ` | ${suffix}` : '';
+  const maxTitleLength = 60 - suffixPart.length;
   let cleanTitle = title;
   
   if (cleanTitle.length > maxTitleLength) {
     cleanTitle = cleanTitle.substring(0, maxTitleLength - 3) + '...';
   }
-  return `${cleanTitle}${suffix}`;
+  return `${cleanTitle}${suffixPart}`;
 };
 
-export const generateMetaDescription = (excerpt) => {
+export const generateMetaDescription = (excerpt, maxLength = 160) => {
   if (!excerpt) return '';
-  return excerpt.substring(0, 160);
+  const text = excerpt.replace(/\s+/g, ' ').trim();
+  if (text.length <= maxLength) return text;
+  const reserve = 3; // for "..."
+  const truncated = text.substring(0, maxLength - reserve);
+  const lastSpace = truncated.lastIndexOf(' ');
+  const cut = lastSpace > (maxLength - reserve) * 0.7 ? truncated.substring(0, lastSpace) : truncated;
+  return cut + '...';
 };
+
+const FOCUS_KEYWORD_MAX_LENGTH = 100;
 
 export const generateKeywordsFromTags = (tags, title) => {
   const keywords = new Set();
@@ -76,7 +92,11 @@ export const generateKeywordsFromTags = (tags, title) => {
     titleWords.forEach(word => keywords.add(word));
   }
   
-  return Array.from(keywords).join(', ');
+  const result = Array.from(keywords).join(', ');
+  if (result.length <= FOCUS_KEYWORD_MAX_LENGTH) return result;
+  const truncated = result.substring(0, FOCUS_KEYWORD_MAX_LENGTH);
+  const lastComma = truncated.lastIndexOf(',');
+  return lastComma > FOCUS_KEYWORD_MAX_LENGTH * 0.5 ? truncated.substring(0, lastComma).trim() : truncated.trim();
 };
 
 export const debounce = (func, wait) => {

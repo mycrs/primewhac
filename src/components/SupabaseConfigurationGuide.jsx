@@ -23,7 +23,7 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
 
   return (
     <div className="min-h-screen bg-[#05050A] text-slate-200 flex flex-col items-center py-12 px-4 sm:px-6 font-sans">
-      <div className="max-w-3xl w-full bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden">
+      <div className="max-w-3xl w-full bg-[#0a0a0a] border border-slate-800 rounded-3xl shadow-2xl overflow-hidden">
         
         {/* Header */}
         <div className="bg-red-500/10 p-8 border-b border-red-500/20 flex flex-col sm:flex-row items-start sm:items-center gap-6">
@@ -44,12 +44,12 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
             <Terminal className="w-4 h-4" /> Mevcut Durum Analizi
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-mono">
-            <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
+            <div className="bg-[#0a0a0a]/50 p-3 rounded-xl border border-slate-700/50">
               <div className="text-slate-500 mb-1">VITE_SUPABASE_URL</div>
               <div className="text-slate-300 break-all">{envStatus.rawUrlMasked}</div>
               {envStatus.hasQuotesUrl && <div className="text-orange-400 mt-1 text-xs">⚠️ Tırnak işaretleri kaldırılmalı</div>}
             </div>
-            <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
+            <div className="bg-[#0a0a0a]/50 p-3 rounded-xl border border-slate-700/50">
               <div className="text-slate-500 mb-1">VITE_SUPABASE_ANON_KEY</div>
               <div className="text-slate-300 break-all">{envStatus.rawKeyMasked}</div>
               {envStatus.hasQuotesKey && <div className="text-orange-400 mt-1 text-xs">⚠️ Tırnak işaretleri kaldırılmalı</div>}
@@ -78,32 +78,32 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
           
           <div className="space-y-8">
             <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold shrink-0 text-lg">1</div>
+              <div className="w-10 h-10 rounded-full bg-[#141414]/20 text-blue-400 flex items-center justify-center font-bold shrink-0 text-lg">1</div>
               <div>
                 <h3 className="text-white font-semibold mb-2">Supabase'e Giriş Yapın</h3>
                 <p className="text-slate-400 text-sm mb-3">
                   <a href="https://app.supabase.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline underline-offset-4">https://app.supabase.com</a> adresine gidin ve projenizi seçin.
                 </p>
-                <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 text-sm text-slate-300">
+                <div className="bg-[#0a0a0a]/50 p-4 rounded-xl border border-slate-700/50 text-sm text-slate-300">
                   <p>Sol menüden <strong className="text-white">Project Settings</strong> (Dişli çark) ikonuna tıklayın, ardından <strong className="text-white">API</strong> sekmesini seçin.</p>
                 </div>
               </div>
             </div>
 
             <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold shrink-0 text-lg">2</div>
+              <div className="w-10 h-10 rounded-full bg-[#141414]/20 text-blue-400 flex items-center justify-center font-bold shrink-0 text-lg">2</div>
               <div className="w-full">
                 <h3 className="text-white font-semibold mb-2">.env Dosyanızı Düzenleyin</h3>
-                <p className="text-slate-400 text-sm mb-3">Projenizin ana dizinindeki <code className="text-blue-400 bg-blue-500/10 px-1.5 py-0.5 rounded">.env</code> dosyasına aşağıdaki bilgileri <strong>tırnak işareti olmadan</strong> yapıştırın:</p>
+                <p className="text-slate-400 text-sm mb-3">Projenizin ana dizinindeki <code className="text-blue-400 bg-[#141414]/10 px-1.5 py-0.5 rounded">.env</code> dosyasına aşağıdaki bilgileri <strong>tırnak işareti olmadan</strong> yapıştırın:</p>
                 
                 <div className="relative group mt-4">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl blur opacity-50"></div>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-[#e50914]/20 to-[#b20710]/20 rounded-2xl blur opacity-50"></div>
                   <pre className="relative bg-[#0A0A0F] p-5 rounded-xl text-sm font-mono text-slate-300 overflow-x-auto border border-slate-700/50 leading-loose">
                     {envTemplate}
                   </pre>
                   <button 
                     onClick={copyToClipboard}
-                    className="absolute top-4 right-4 p-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-all text-slate-400 hover:text-white border border-slate-700"
+                    className="absolute top-4 right-4 p-2 bg-[#0a0a0a] hover:bg-[#0a0a0a] rounded-lg transition-all text-slate-400 hover:text-white border border-slate-700"
                     title="Şablonu Kopyala"
                   >
                     {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
@@ -111,14 +111,14 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
                 </div>
 
                 <div className="mt-4 space-y-3">
-                  <div className="flex items-start gap-3 text-sm text-slate-400 bg-slate-800/30 p-3 rounded-lg border border-slate-700/50">
-                    <Database className="w-5 h-5 text-purple-400 shrink-0" />
+                  <div className="flex items-start gap-3 text-sm text-slate-400 bg-[#0a0a0a]/30 p-3 rounded-lg border border-slate-700/50">
+                    <Database className="w-5 h-5 text-primary shrink-0" />
                     <div>
                       <strong className="text-slate-200 block mb-1">Project URL:</strong>
                       "https://" ile başlamalı, ".supabase.co" ile bitmeli ve <strong>sonunda "/" (slash) olmamalıdır</strong>.
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 text-sm text-slate-400 bg-slate-800/30 p-3 rounded-lg border border-slate-700/50">
+                  <div className="flex items-start gap-3 text-sm text-slate-400 bg-[#0a0a0a]/30 p-3 rounded-lg border border-slate-700/50">
                     <Key className="w-5 h-5 text-green-400 shrink-0" />
                     <div>
                       <strong className="text-slate-200 block mb-1">Anon Key:</strong>
@@ -132,13 +132,13 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`;
         </div>
 
         {/* Footer actions */}
-        <div className="bg-slate-950 p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
+        <div className="bg-[#0a0a0a] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
           <p className="text-xs text-slate-500 text-center sm:text-left">
             Değişiklikleri yaptıktan sonra uygulamanın yeniden derlenmesi gerekebilir.
           </p>
           <button 
             onClick={() => window.location.reload()}
-            className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-colors shadow-lg shadow-blue-900/20"
+            className="w-full sm:w-auto px-8 py-3 bg-[#141414] hover:bg-[#141414] text-white font-bold rounded-xl transition-colors shadow-lg shadow-blue-900/20"
           >
             Tekrar Kontrol Et
           </button>

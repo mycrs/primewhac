@@ -5,6 +5,7 @@ import SEOHead from '@/components/SEOHead';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import { Link } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
+import { breadcrumbSchema } from '@/utils/seoSchema';
 
 const DetailedGuidesPage = ({ siteData }) => {
   useEffect(() => {
@@ -19,28 +20,36 @@ const DetailedGuidesPage = ({ siteData }) => {
     ogType: "article"
   };
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "IPTV İzleme Rehberi | Kurulum ve Kullanım Kılavuzu",
-    "description": metadata.description,
-    "author": { "@type": "Organization", "name": "QruzeHD" }
-  };
+  const breadcrumb = breadcrumbSchema([
+    { name: 'Ana Sayfa', path: '/' },
+    { name: 'Kurulum', path: '/kurulum' },
+    { name: 'Detaylı Rehberler', path: '/detailed-guides' },
+  ]);
+  const jsonLd = [
+    breadcrumb,
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "IPTV İzleme Rehberi | Kurulum ve Kullanım Kılavuzu",
+      "description": metadata.description,
+      "author": { "@type": "Organization", "name": "QruzeTV" }
+    },
+  ];
 
   return (
     <>
       <SEOHead {...metadata} jsonLd={jsonLd} />
-      <div className="min-h-screen bg-[#0F0F1E] flex flex-col font-sans text-white">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans text-white">
         <Header contactData={safeSiteData.contactData} siteTexts={safeSiteData.siteTexts} />
         
         <main className="flex-grow pt-32 pb-16 px-4">
           <div className="container mx-auto max-w-4xl">
             <BreadcrumbNavigation />
             
-            <article className="mt-8 bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-12">
+            <article className="mt-8 bg-[#0a0a0a]/50 border border-slate-800 rounded-2xl p-6 md:p-12">
               <div className="flex items-center gap-4 mb-8">
                 <BookOpen className="w-10 h-10 md:w-12 md:h-12 text-blue-400" />
-                <h1 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">
+                <h1 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">
                   IPTV İzleme Rehberi | Kurulum ve Kullanım Kılavuzu
                 </h1>
               </div>
@@ -68,21 +77,21 @@ const DetailedGuidesPage = ({ siteData }) => {
                     IPTV Nedir ve Sistem Nasıl Çalışır? Kavramsal Çerçeve
                   </h2>
                   <div className="space-y-6">
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Teknolojinin Temel Tanımı</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
-                        IPTV (Internet Protocol Television), en yalın tabiriyle, televizyon yayınlarının geleneksel anten, çanak uydu veya analog kablolu TV sistemleri yerine doğrudan internet protokolü üzerinden, yüksek hızlı dijital veri paketleri halinde aktarıldığı ultra modern ve yenilikçi bir yayıncılık teknolojisidir. Kapsamlı bir <strong>IPTV izleme rehberi</strong> okuduğunuzda veya incelediğinizde ilk fark edeceğiniz ve sizi en çok etkileyecek şey, bu sistemin sunduğu muazzam esnekliktir. Klasik, saatlere ve günlere bağlanmış yayın akışlarına mahkum kalmadan, binlerce yerel ve global kanalı, on-demand (isteğe bağlı) film ve devasa dizi içeriklerini dilediğiniz her an, dilediğiniz ekrandan izlemenize olanak tanır. Bu teknolojik ve yenilikçi yaklaşım sayesinde kullanıcılar, coğrafi veya bölgesel sınırlamalardan tamamen kurtularak dünyanın dört bir yanındaki niş veya popüler içeriklere anında, saniyeler içinde erişim sağlayabilirler. Sistemin geleneksel yöntemlere kıyasla en temel avantajı, tek yönlü bir yayın yerine çift yönlü bir iletişime (interaktiviteye) izin vermesi ve izleme kontrolünü tamamen kullanıcının ellerine, yani kumandasına teslim etmesidir.
+                        IPTV (Internet Protocol Television), en yalın tabiriyle, televizyon yayınlarının geleneksel anten, çanak uydu veya analog kablolu TV sistemleri yerine doğrudan internet protokolü üzerinden, yüksek hızlı dijital veri paketleri halinde aktarıldığı ultra modern ve yenilikçi bir yayıncılık teknolojisidir. Kapsamlı bir <strong>IPTV izleme rehberi</strong> okuduğunuzda veya incelediğinizde ilk fark edeceğiniz ve sizi en çok etkileyecek şey, bu sistemin sunduğu muazzam esnekliktir. Klasik, saatlere ve günlere bağlanmış yayın akışlarına mahkum kalmadan, 10.000+ yerel ve global kanalı, on-demand (isteğe bağlı) film ve devasa dizi içeriklerini dilediğiniz her an, dilediğiniz ekrandan izlemenize olanak tanır. Bu teknolojik ve yenilikçi yaklaşım sayesinde kullanıcılar, coğrafi veya bölgesel sınırlamalardan tamamen kurtularak dünyanın dört bir yanındaki niş veya popüler içeriklere anında, saniyeler içinde erişim sağlayabilirler. Sistemin geleneksel yöntemlere kıyasla en temel avantajı, tek yönlü bir yayın yerine çift yönlü bir iletişime (interaktiviteye) izin vermesi ve izleme kontrolünü tamamen kullanıcının ellerine, yani kumandasına teslim etmesidir.
                       </p>
                     </div>
                     
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Çalışma Prensibi ve Arka Plan</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
                         Bu devasa sistemin çalışma prensibi, ham video içeriklerinin ileri düzey kodeklerle (H.264, H.265 vb.) sıkıştırılarak, devasa veri merkezlerinden internet üzerinden doğrudan cihazınıza gönderilmesine dayanır. Canlı yayınlar veya dev boyutlardaki kayıtlı 4K videolar, merkez sunucularda özel stream formatlarına dönüştürülür ve evinizdeki genişbant internet bağlantınız aracılığıyla ekranınıza ışık hızında ulaştırılır. Burada, arka planda akan veri paketlerinin sürekliliği ve stabilizasyonu çok ama çok önemlidir. Güçlü, yedekli bir ağ altyapısı ve son teknoloji Load Balancer (yük dengeleyici) donanımlarına sahip kaliteli sunucular, milyonlarca verinin yolda paket kaybı (packet loss) yaşanmadan cihazınıza iletilmesini garanti altına alır. Cihazınızda kurulu olan akıllı medya uygulaması, bu şifrelenmiş veri paketlerini anında çözerek (decode ederek) anlamlı video ve sese dönüştürür. Bu saniyeden çok daha kısa süren karmaşık ve hızlı işlem süreci, izleyiciye pürüzsüz, cam gibi net bir yayın olarak yansır ve yayıncılık tarihinde dijital devrimin en temel taşını oluşturur.
                       </p>
                     </div>
 
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Başlangıç Aşaması ve Hazırlık</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
                         Yepyeni bir teknolojik sisteme ve eğlence platformuna geçerken temel gereksinimleri bilmek ve hazırlıkları tam yapmak şarttır. Başarılı, kesintisiz bir başlangıç için öncelikle stabil ve dalgalanmayan bir internet bağlantısına (tercihen fiber optik veya yüksek hızlı VDSL altyapısına) ve bu teknolojiyi destekleyen modern, uyumlu bir akıllı cihaza ihtiyacınız vardır. Sistem gereksinimlerini net bir şekilde anladıktan sonra, mağazadan cihazınıza en uygun, lisanslı veya güvenilir oynatıcı uygulamasını seçmek ve servis sağlayıcınızdan size özel olarak oluşturulan şifreli veya link formatındaki bilgileri eksiksiz girmek kritik önem taşıyan adımlardır. <strong>IPTV nasıl izlenir</strong> diye merak ediyorsanız, bu hazırlık aşamasında cihazınızın ağa ethernet (LAN) kablosu ile mi yoksa Wi-Fi sinyalleriyle mi bağlanacağını belirlemek, ileride yaşayacağınız yayın performansını doğrudan ve derinden etkiler. Tüm bu temel adımları doğru ve sırasına uygun şekilde uyguladığınızda, <Link to="/kurulum" className="text-blue-400 hover:underline">kapsamlı kurulum rehberini</Link> okuyarak sisteminizi mükemmel, hatasız bir şekilde yapılandırabilir ve izlemeye hemen başlayabilirsiniz.
@@ -97,21 +106,21 @@ const DetailedGuidesPage = ({ siteData }) => {
                     Detaylı IPTV Kurulum Rehberi – Cihazlara Göre Optimizasyon
                   </h2>
                   <div className="space-y-6">
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">IPTV Cihaz Kurulumu Esasları</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
-                        Herhangi bir teknik aksaklık yaşamadan ilerlemek için <strong>IPTV kurulum rehberi</strong> oldukça merkezi bir rol üstlenir. <strong>IPTV cihaz kurulumu</strong>, servis sağlayıcınız tarafından size güvenli bir şekilde iletilen yayın lisans bilgilerinin (M3U bağlantı adresi, Xtream Codes API kullanıcı adı/şifresi, MAC adresi aktivasyonu vb.), izleme yapmayı planladığınız cihazdaki uygun, güncel ve uyumlu bir medya oynatıcı uygulamasına (player) entegre edilmesi ve tanımlanması işlemidir. Sanılanın veya dışarıdan görünenin aksine, bu süreç derin bir yazılım bilgisi veya teknik bir uzmanlık kesinlikle gerektirmez. Menülerde doğru adımları izlediğiniz takdirde, sadece birkaç dakika (hatta saniyeler) içerisinde binlerce yerli ve yabancı kanalı, ödüllü filmleri barındıran devasa kütüphanenizi ekranınıza tam çözünürlükle yansıtabilirsiniz. İşlemin en sadeleşmiş temeli; cihazınızın işlemci ve işletim sistemine uygun uygulamanın resmi mağazadan indirilmesi, üyelik veya link bilgilerinin manuel ya da portal üzerinden eksiksiz girilmesi ve listenin sunucudan indirilmesinin (download) beklenmesinden ibarettir. Modern, son kullanıcı dostu arayüzlerle tasarlanmış sistemler sayesinde, anında HD yayına başlayabilirsiniz.
+                        Herhangi bir teknik aksaklık yaşamadan ilerlemek için <strong>IPTV kurulum rehberi</strong> oldukça merkezi bir rol üstlenir. <strong>IPTV cihaz kurulumu</strong>, servis sağlayıcınız tarafından size güvenli bir şekilde iletilen yayın lisans bilgilerinin (M3U bağlantı adresi, Xtream Codes API kullanıcı adı/şifresi, MAC adresi aktivasyonu vb.), izleme yapmayı planladığınız cihazdaki uygun, güncel ve uyumlu bir medya oynatıcı uygulamasına (player) entegre edilmesi ve tanımlanması işlemidir. Sanılanın veya dışarıdan görünenin aksine, bu süreç derin bir yazılım bilgisi veya teknik bir uzmanlık kesinlikle gerektirmez. Menülerde doğru adımları izlediğiniz takdirde, sadece birkaç dakika (hatta saniyeler) içerisinde 10.000+ yerli ve yabancı kanalı, ödüllü filmleri barındıran devasa kütüphanenizi ekranınıza tam çözünürlükle yansıtabilirsiniz. İşlemin en sadeleşmiş temeli; cihazınızın işlemci ve işletim sistemine uygun uygulamanın resmi mağazadan indirilmesi, üyelik veya link bilgilerinin manuel ya da portal üzerinden eksiksiz girilmesi ve listenin sunucudan indirilmesinin (download) beklenmesinden ibarettir. Modern, son kullanıcı dostu arayüzlerle tasarlanmış sistemler sayesinde, anında HD yayına başlayabilirsiniz.
                       </p>
                     </div>
                     
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Akıllı TV'ler (Smart TV) İçin Kurulum</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
-                        Salonlarımızın baş köşesini süsleyen LG (WebOS) veya Samsung (Tizen işletim sistemi) gibi modern akıllı televizyonlarda entegrasyon son derece pratik, güvenli ve hızlıdır. Televizyonunuzun kendi resmi uygulama mağazasına (Content Store veya Smart Hub) giriş yaparak IBO Player, SET IPTV, Duplex Play, Flix IPTV veya Smart IPTV gibi sektörde kendini kanıtlamış popüler ve stabil uygulamalardan birini indirin. İndirdiğiniz uygulamayı ilk kez açtığınızda ekranda genellikle harfler ve rakamlardan oluşan benzersiz bir 'Device MAC adresi' veya 'Device Key' belirecektir. Bu bilgiyi not alın. Sağlayıcınızın veya o uygulamanın resmi web yönetici sitesine bilgisayarınızdan veya telefonunuzdan giderek, bu MAC adresi üzerinden size verilen M3U yayın linkini uzaktan cihaza gönderin (upload edin). Televizyonunuzu yüksek bant genişliği gerektiren UHD (4K) yayınlar için tercihen bir ethernet (Cat6) kablosu ile doğrudan modeme veya router'a bağlamak, stabil bir deneyim için en hayati detaylardan biridir. İşlemi portal üzerinden tamamladığınızda televizyonunuzdaki uygulamanızı kapatıp yeniden başlatarak kategorize edilmiş binlerce kanallık listenizi anında görebilirsiniz.
+                        Salonlarımızın baş köşesini süsleyen LG (WebOS) veya Samsung (Tizen işletim sistemi) gibi modern akıllı televizyonlarda entegrasyon son derece pratik, güvenli ve hızlıdır. Televizyonunuzun kendi resmi uygulama mağazasına (Content Store veya Smart Hub) giriş yaparak IBO Player, SET IPTV, Duplex Play, Flix IPTV veya Smart IPTV gibi sektörde kendini kanıtlamış popüler ve stabil uygulamalardan birini indirin. İndirdiğiniz uygulamayı ilk kez açtığınızda ekranda genellikle harfler ve rakamlardan oluşan benzersiz bir 'Device MAC adresi' veya 'Device Key' belirecektir. Bu bilgiyi not alın. Sağlayıcınızın veya o uygulamanın resmi web yönetici sitesine bilgisayarınızdan veya telefonunuzdan giderek, bu MAC adresi üzerinden size verilen M3U yayın linkini uzaktan cihaza gönderin (upload edin). Televizyonunuzu yüksek bant genişliği gerektiren UHD (4K) yayınlar için tercihen bir ethernet (Cat6) kablosu ile doğrudan modeme veya router'a bağlamak, stabil bir deneyim için en hayati detaylardan biridir. İşlemi portal üzerinden tamamladığınızda televizyonunuzdaki uygulamanızı kapatıp yeniden başlatarak kategorize edilmiş 10.000+ kanallık listenizi anında görebilirsiniz.
                       </p>
                     </div>
 
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Android TV ve Kutu (Box) Cihazları</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
                         Açık kaynak kodlu yapısıyla Android tabanlı dev ekran televizyonlar ve özellikle TV Box cihazları (Xiaomi Mi Box, Nvidia Shield, Amazon Fire Stick, Mecool vb.), inanılmaz uygulama çeşitliliği ve donanım güçleri sayesinde bu teknoloji için yeryüzündeki en özgür, en performanslı donanımlardır. Google Play Store'a güvenli giriş yaparak IPTV Smarters Pro, XCIPTV Player, Televizo veya premium deneyim sunan Tivimate uygulamalarından donanımınıza en uygun olanını cihazınıza kurun. Uygulamayı başlattığınızda karşınıza çıkan ekranda "Xtream Codes API ile Giriş Yap" (Login with Xtream Codes) seçeneğini tıklayın. Size SMS veya e-posta ile verilen kullanıcı adı (username), şifre (password) ve sunucu URL adresini (host/port) dikkatlice, boşluk bırakmadan ilgili alanlara yazarak giriş (login) yapın. Bu güçlü cihazlarda yayın performansı alabilmek, kanal geçiş hızını milisaniyelere düşürmek için uygulamanın ayarlar menüsünden "Donanım Hızlandırma (Hardware Decoding / OMX)" seçeneğini mutlaka aktif etmeniz şiddetle önerilir. Daha fazla pratik bilgi ve resimli anlatım için <Link to="/guide" className="text-blue-400 hover:underline">IPTV cihaz kurulumu makalesini</Link> inceleyerek sistemin inceliklerini keşfedebilirsiniz.
@@ -126,14 +135,14 @@ const DetailedGuidesPage = ({ siteData }) => {
                     Sorun Giderme ve Bağlantı Optimizasyonu
                   </h2>
                   <div className="space-y-6">
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Yayın Kesintileri ve Nedenleri</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
                         Yüksek heyecanla izlediğiniz bir yayın esnasında karşılaşılan donma, takılma, pikselleşme ve görüntü bozulmalarının ana nedenleri genellikle teknolojik olarak üç temel başlık ve altyapı sorunu altında toplanır: Birincisi ve en yaygını, internet servis sağlayıcınızdan (ISP) kaynaklı anlık hız düşüşleri (speed drops) veya kasıtlı bant genişliği kısıtlamalarıdır (traffic throttling). İkincisi, ev içi ağınızda (yerel ağ) yaşanan kablosuz sinyal zayıflıkları, modemin cihaza uzak olması veya aradaki kalın duvarların yarattığı frekans parazitleridir. Üçüncüsü ise, eski veya belleği dolmuş cihazın düşük işlemci/RAM yetersizliği nedeniyle yüksek bitrate'li videoyu zamanında işleyememesidir. Ekranda sürekli dönen bir yükleme (buffering) ikonu görmek, sesin aniden görüntüden kopup senkronun bozulması veya yayının tamamen donması, paketlerin cihaza zamanında ulaşamadığının en net, en belirgin teknik kanıtlarıdır. Bu can sıkıcı sorunlar, izleme keyfini ve eğlencenizi ciddi şekilde baltalar ve uzman bir gözle, hızlı bir teknik müdahale veya ayar değişikliği gerektirir.
                       </p>
                     </div>
                     
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Bağlantı Sorunlarına Kalıcı Çözümler</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
                         Bu kronik sorunların kalıcı olarak üstesinden gelmek ve kaliteli bir sinema deneyimi yaşamak için uygulanabilecek, evde herkesin yapabileceği çeşitli pratik teknikler ve profesyonel ağ ayarlamaları vardır. İlk ve en etkili olarak, televizyonunuzu veya medya kutunuzu Wi-Fi yerine modeme mutlaka kaliteli bir Ethernet (Cat5e veya Cat6) kablosu ile bağlayarak veri paket kaybını ve anlık ping sıçramalarını sıfıra indirin. İkinci ileri düzey adım olarak, internet servis sağlayıcınızın olası yoğun saat yavaşlatmalarını ve trafik filtrelerini aşmak, bağlantınızı şifrelemek için global ve güvenilir bir VPN servisi (Virtual Private Network) kullanmayı cihazınızda mutlaka düşünebilirsiniz. Uygulama yazılımı tarafında ise, player ayarlarından video önbellek (buffer size) değerini 'Small' veya 'Normal'den 'Large' (Büyük) seviyesine artırmak, anlık 3-5 saniyelik internet hızı düşüşlerinde önceden yüklenen veriyi kullanarak yayının kesilmesini, takılmasını fiziksel olarak engeller. Tüm bu hayati optimizasyonlar için <Link to="/faq" className="text-blue-400 hover:underline">Sık Sorulan Sorular rehberini</Link> ziyaret ederek kendi ev ağınızı adeta bir bilişim uzmanı profesyonelliğiyle, en üst düzeyde yapılandırabilirsiniz.
@@ -148,14 +157,14 @@ const DetailedGuidesPage = ({ siteData }) => {
                     Cihaz Performansı İçin En İyi Konfigürasyon Ayarları
                   </h2>
                   <div className="space-y-6">
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">IPTV Kullanım Kılavuzu: Player Ayarları</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
                         Seçtiğiniz ve kurduğunuz uygulamadan, dolayısıyla cihazınızdan en yüksek, en saf verimi almak için kurulum sonrası yapmanız gereken ince ayarlamalara ve modifikasyonlara genel olarak sistem konfigürasyon ayarları denir. Bu kritik ayarlar; video çözünürlüğünün ekranınızın native değerine optimizasyonu, ev sinema sisteminize uygun ses formatı senkronizasyonu, kesintileri önleyen önbellek yönetimi ve sunucuyla iletişim kuran ağ bağlantı protokollerini kapsamlı şekilde içerir. Kurulumla birlikte gelen standart fabrika ayarları (default settings) çoğu giriş seviyesi kullanıcı için anlık olarak yeterli olsa da, donanımınızın gerçek ve tam potansiyelini korkusuzca ortaya çıkarmak ve sinema kalitesinde büyüleyici bir izleme şöleni yaşamak için bu teknik yapılandırmaları kendi yerel internet altyapınıza, cihazınızın çip kalitesine göre dikkatlice özelleştirmeniz gerekir. Doğru bir konfigürasyon, uygulamanın akıcılığını ve kanal değiştirme performansını doğrudan ikiye, üçe katlar. <strong>IPTV kullanım kılavuzu</strong> yönergelerini dikkate almak her zaman kazandırır.
                       </p>
                     </div>
                     
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Ağ ve Donanım Optimizasyonu</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
                         Kesintisiz medya akışında bağlantı kararlılığı, cihazın marka ve modelinden her zaman daha büyük önem taşır. İnternet modemi altyapınızın izin verdiği ölçüde cihazınızın veya yönlendiricinizin (router) DNS adres ayarlarını, ISP'nin yavaş sunucuları yerine Google DNS (8.8.8.8 - 8.8.4.4) veya Cloudflare (1.1.1.1 - 1.0.0.1) gibi devasa global sunucular olarak manuel değiştirmek, yayın sunucularına çok daha hızlı ping paketleri göndermenizi sağlayarak altyapıya büyük bir reaksiyon hızı katkısında bulunur. Eğer kablolu bağlantı imkanınız yoksa ve Wi-Fi kullanmak zorundaysanız, modemin eski ve yavaş 2.4GHz bandı yerine kesinlikle yüksek veri taşıma kapasiteli 5GHz bandını tercih ederek mikrodalga fırın veya Bluetooth cihazlardan kaynaklanan radyo frekans parazitlerini önleyin. Ayrıca, cihazınızın arka planında RAM tüketen gereksiz uygulamaları kapatmak ve depolama alanında en az 1-2 GB boş yer bırakmak, uygulamanın önbellek (cache) dosyalarını rahatça yazabilmesi için altın değerinde bir kuraldır.
@@ -170,17 +179,17 @@ const DetailedGuidesPage = ({ siteData }) => {
                     Günlük Kullanım ve Arayüz Navigasyonu
                   </h2>
                   <div className="space-y-6">
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Temel Arayüz Kullanımı</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
-                        Sistemi ve ayarları başarıyla kurduktan sonra <strong>IPTV nasıl izlenir</strong> sorusunun günlük kullanımdaki uygulamalı yanıtı olağanüstü derecede basittir. Açtığınız uygulamanızın ana menü arayüzü (dashboard) genel standart olarak Live TV (Canlı Yayınlar), Movies (Seç-İzle Filmler/VOD) ve Series (Diziler) olmak üzere üç büyük ve belirgin ana kategoriye ayrılır. Televizyon kumandanızın ok (yön) tuşlarını, air mouse özellikli kumandanızı veya tabletinizdeki dokunmatik kaydırma ekranınızı kullanarak bu zengin kategoriler arasında hızla gezinebilirsiniz. Canlı TV bölümüne girdiğinizde, ülkeler, diller ve içerik türlerine (Ulusal Spor, Global Haber, Çocuk Çizgi Film, Belgesel vb.) göre titizlikle klasörlenmiş binlerce HD/4K kanal sizi düzenli bir şekilde karşılar. İhtiyacınız olan ve yapmanız gereken tek şey, o anki modunuza göre izlemek istediğiniz muhteşem içeriği seçip kumandanızın 'OK/Enter' tuşuna basmaktır; eskinin karmaşık uydu cihazı menüleri arasında asla kaybolmaz, saniyeler içinde yayına bağlanırsınız. Rehberimizin ve sunduğumuz <strong>IPTV izleme rehberi</strong> adımlarının sadeliği bu konforu garanti eder.
+                        Sistemi ve ayarları başarıyla kurduktan sonra <strong>IPTV nasıl izlenir</strong> sorusunun günlük kullanımdaki uygulamalı yanıtı olağanüstü derecede basittir. Açtığınız uygulamanızın ana menü arayüzü (dashboard) genel standart olarak Live TV (Canlı Yayınlar), Movies (Seç-İzle Filmler/VOD) ve Series (Diziler) olmak üzere üç büyük ve belirgin ana kategoriye ayrılır. Televizyon kumandanızın ok (yön) tuşlarını, air mouse özellikli kumandanızı veya tabletinizdeki dokunmatik kaydırma ekranınızı kullanarak bu zengin kategoriler arasında hızla gezinebilirsiniz. Canlı TV bölümüne girdiğinizde, ülkeler, diller ve içerik türlerine (Ulusal Spor, Global Haber, Çocuk Çizgi Film, Belgesel vb.) göre titizlikle klasörlenmiş 10.000+ HD/4K kanal sizi düzenli bir şekilde karşılar. İhtiyacınız olan ve yapmanız gereken tek şey, o anki modunuza göre izlemek istediğiniz muhteşem içeriği seçip kumandanızın 'OK/Enter' tuşuna basmaktır; eskinin karmaşık uydu cihazı menüleri arasında asla kaybolmaz, saniyeler içinde yayına bağlanırsınız. Rehberimizin ve sunduğumuz <strong>IPTV izleme rehberi</strong> adımlarının sadeliği bu konforu garanti eder.
                       </p>
                     </div>
                     
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Kanal Filtreleme ve Favoriler Listesi</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
-                        Sistemin size sunduğu on binlerce küresel ve ulusal kanal arasından o an tam olarak aradığınızı anında bulmak ilk bakışta zor veya yorucu görünebilir, ancak kullandığınız modern ve yapay zeka destekli uygulamaların sunduğu akıllı arama (smart search) ve gelişmiş filtreleme özellikleri bu zorlu süreci inanılmaz derecede kolaylaştırır. Menüdeki arama butonuna (genellikle evrensel büyüteç ikonu) tıklayarak ekran klavyesiyle kanalın veya favori filminizin adını yazabilir ve yüz binlerce içerik arasından anında hedefe ulaşabilirsiniz. Günlük rutininizde sürekli izlediğiniz kanalları tek tek bulmak yerine, üzerlerine gelip kumandanız üzerinden "Favorilere Ekle" (Add to Favorites) renkli tuşuna veya uzun basma seçeneğine basarak kendi özel, VIP kanal listenizi (buketinizi) kolayca oluşturabilirsiniz. Böylece, televizyonu her açışınızda veya uygulamaya her girişinizde devasa, bitmek bilmeyen listeler içinde aşağı yukarı kaydırarak zaman kaybetmeden, sadece en sevdiğiniz kanallara saniyenin onda biri gibi bir sürede erişim sağlarsınız. Gerçek, pratik ve konforlu kullanım işte tam olarak budur.
+                        Sistemin size sunduğu 10.000+ küresel ve ulusal kanal arasından o an tam olarak aradığınızı anında bulmak ilk bakışta zor veya yorucu görünebilir, ancak kullandığınız modern ve yapay zeka destekli uygulamaların sunduğu akıllı arama (smart search) ve gelişmiş filtreleme özellikleri bu zorlu süreci inanılmaz derecede kolaylaştırır. Menüdeki arama butonuna (genellikle evrensel büyüteç ikonu) tıklayarak ekran klavyesiyle kanalın veya favori filminizin adını yazabilir ve yüz binlerce içerik arasından anında hedefe ulaşabilirsiniz. Günlük rutininizde sürekli izlediğiniz kanalları tek tek bulmak yerine, üzerlerine gelip kumandanız üzerinden "Favorilere Ekle" (Add to Favorites) renkli tuşuna veya uzun basma seçeneğine basarak kendi özel, VIP kanal listenizi (buketinizi) kolayca oluşturabilirsiniz. Böylece, televizyonu her açışınızda veya uygulamaya her girişinizde devasa, bitmek bilmeyen listeler içinde aşağı yukarı kaydırarak zaman kaybetmeden, sadece en sevdiğiniz kanallara saniyenin onda biri gibi bir sürede erişim sağlarsınız. Gerçek, pratik ve konforlu kullanım işte tam olarak budur.
                       </p>
                     </div>
                   </div>
@@ -192,14 +201,14 @@ const DetailedGuidesPage = ({ siteData }) => {
                     Kapsamlı Öğrenme ve Ekstra Destek Kaynakları
                   </h2>
                   <div className="space-y-6">
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Yardım Merkezi ve Profesyonel Destek</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
                         Evinizde ne kadar son teknoloji ürünü bir televizyon, ne kadar yüksek hızlı bir fiber optik internet bağlantısı veya ne kadar gelişmiş, pahalı bir cihaz kullanırsanız kullanın, dijital dünyada bazen öngörülemeyen altyapısal engeller, insan faktörlü hatalar veya anlık yazılımsal teknik aksaklıklar yaşanması son derece doğal bir ihtimaldir. Böyle beklenmedik anlarda, sorunu tek başınıza çözmeye çalışmak yerine uzman, deneyimli ve sorunun kaynağını saniyeler içinde tespit edebilen bir ekibin tamamen arkanızda olduğunu, size rehberlik ettiğini bilmek bir kullanıcı olarak büyük bir huzur ve güven verir. Aktif canlı destek web hattımız, doğrudan cep telefonunuzdan ulaşabileceğiniz WhatsApp hızlı iletişim numaramız ve detaylı raporlama yapabileceğiniz e-posta bilet destek sistemimiz tam 7 gün 24 saat, tatil veya resmi gün gözetmeksizin tamamen kesintisiz olarak hizmetinize sunulmuştur. Sitedeki yazılı makalelerin veya kılavuzların yeterli gelmediği aşırı spesifik ve çok karmaşık yönlendirme durumlarında, yaşadığınız ekranın fotoğraflarını, aldığınız sistem hata kodlarını detaylıca bizimle paylaşarak eğitimli teknik destek mühendisleri ekibimizden anında, nokta atışı profesyonel yardım alabilir; maçın veya filmin en heyecanlı yerinde kesilen yayın keyfinize, kaldığınız yerden büyük bir coşkuyla hızla devam edebilirsiniz.
                       </p>
                     </div>
                     
-                    <div className="bg-slate-800/30 rounded-xl p-5 border border-slate-700/30">
+                    <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Eğitim Ekosistemimizin Parçası Olun</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
                         Sitemizde yer alan ve sürekli güncellenen bilgi kütüphanemiz, sizlere sadece bir kerelik donanım kurulumu öğretmekle kalmaz, aynı zamanda uzun vadeli, verimli bir dijital medya kullanım kültürü oluşturmaya yönelik çok geniş çaplı, derin eğitim kaynaklarını gururla barındırır. Televizyon teknolojileriyle yeni tanışanlar için en temel, sıfırdan adım adım eğitim kılavuzlarından, cihazını rootlayarak limitleri aşmak isteyen tecrübeli, profesyonel kullanıcılar için gizli sunucu yapılandırması ve ev içi ağ frekans optimizasyonu rehberlerine kadar çok geniş bir yelpazede, zengin çeşitli içerikler sunuyoruz. Bizim temel ve sarsılmaz amacımız, size sadece arka arkaya sıralanmış basit bir kanal izleme veya yayın platformu hesabı sağlamak değil; aynı zamanda siz değerli kullanıcılarımızı geleceğin dijital medya tüketimi, yayın formatları ve ev sinema teknolojileri konusunda derinlemesine bilinçlendirerek tam bağımsız birer medya uzmanı haline getirmektir. Bu sürekli büyüyen, interaktif ve devasa kapsamlı bilgi ekosistemi, kesintisiz, özgür ve sınırsız bir ev içi eğlence hayatının kapılarını altın anahtarla aralayan en güvenilir, en kalıcı yol göstericiniz olacaktır.
@@ -208,16 +217,16 @@ const DetailedGuidesPage = ({ siteData }) => {
                   </div>
                 </section>
 
-                <div className="mt-16 p-8 bg-gradient-to-br from-indigo-900/20 to-blue-900/20 rounded-2xl border border-blue-500/20">
+                <div className="mt-16 p-8 bg-gradient-to-br from-[#e50914]/20 to-[#b20710]/20 rounded-2xl border border-blue-500/20">
                   <h3 className="text-2xl font-bold text-white mb-6">Faydalı Bağlantılar</h3>
                   <div className="grid sm:grid-cols-3 gap-4">
-                    <Link to="/kurulum" className="flex items-center justify-center p-4 bg-slate-800/80 hover:bg-blue-600/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
+                    <Link to="/kurulum" className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
                       Cihaz Kurulum Sayfası
                     </Link>
-                    <Link to="/sss" className="flex items-center justify-center p-4 bg-slate-800/80 hover:bg-blue-600/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
+                    <Link to="/sss" className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
                       Sık Sorulan Sorular
                     </Link>
-                    <Link to="/gizlilik" className="flex items-center justify-center p-4 bg-slate-800/80 hover:bg-blue-600/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
+                    <Link to="/gizlilik" className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
                       Güvenlik Politikası
                     </Link>
                   </div>

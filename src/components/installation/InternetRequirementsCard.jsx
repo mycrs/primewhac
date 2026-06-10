@@ -13,17 +13,17 @@ const InternetRequirementsCard = ({ lang = 'tr' }) => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-4 md:p-6 lg:p-8 hover:shadow-lg hover:shadow-purple-900/10 transition-all duration-300 group relative overflow-hidden w-full"
+        className="bg-[#0a0a0a]/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-4 md:p-6 lg:p-8 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 group relative overflow-hidden w-full"
       >
-        <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-purple-500/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110" />
+        <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110" />
         
-        <div className="w-10 h-10 md:w-12 md:h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform relative z-10">
-          <Wifi className="w-5 h-5 md:w-6 md:h-6 text-purple-400" />
+        <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform relative z-10">
+          <Wifi className="w-5 h-5 md:w-6 md:h-6 text-primary" />
         </div>
         
-        <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 md:mb-3 relative z-10">
+        <p className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 md:mb-3 relative z-10">
           {isDe ? "Internetgeschwindigkeit" : "İnternet Hızı"}
-        </h3>
+        </p>
         <p className="text-slate-400 text-xs md:text-sm leading-relaxed mb-3 md:mb-4 relative z-10">
           {isDe ? "Für 4K- und HD-Streams ist eine stabile Verbindung erforderlich." : "4K ve HD akışları için stabil bir bağlantı gereklidir."}
         </p>
@@ -50,17 +50,17 @@ const InternetRequirementsCard = ({ lang = 'tr' }) => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1 }}
-        className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-4 md:p-6 lg:p-8 hover:shadow-lg hover:shadow-blue-900/10 transition-all duration-300 group relative overflow-hidden w-full"
+        className="bg-[#0a0a0a]/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-4 md:p-6 lg:p-8 hover:shadow-lg hover:shadow-blue-900/10 transition-all duration-300 group relative overflow-hidden w-full"
       >
-        <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-blue-500/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110" />
+        <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-[#141414]/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110" />
 
-        <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform relative z-10">
+        <div className="w-10 h-10 md:w-12 md:h-12 bg-[#141414]/10 rounded-xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform relative z-10">
           <Zap className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
         </div>
         
-        <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 md:mb-3 relative z-10">
+        <p className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 md:mb-3 relative z-10">
           {isDe ? "Einfrierungslösungen" : "Donma Çözümleri"}
-        </h3>
+        </p>
         <p className="text-slate-400 text-xs md:text-sm leading-relaxed mb-3 md:mb-4 relative z-10">
           {isDe ? "Befolgen Sie diese Schritte, wenn Sie Ruckler erleben." : "Takılma yaşıyorsanız bu adımları izleyin."}
         </p>
@@ -87,7 +87,7 @@ const InternetRequirementsCard = ({ lang = 'tr' }) => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2 }}
-        className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-4 md:p-6 lg:p-8 hover:shadow-lg hover:shadow-amber-900/10 transition-all duration-300 group relative overflow-hidden w-full"
+        className="bg-[#0a0a0a]/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-4 md:p-6 lg:p-8 hover:shadow-lg hover:shadow-amber-900/10 transition-all duration-300 group relative overflow-hidden w-full"
       >
         <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-amber-500/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110" />
 
@@ -95,9 +95,9 @@ const InternetRequirementsCard = ({ lang = 'tr' }) => {
           <AlertTriangle className="w-5 h-5 md:w-6 md:h-6 text-amber-500" />
         </div>
         
-        <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 md:mb-3 relative z-10">
+        <p className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-2 md:mb-3 relative z-10">
           {isDe ? "Verbindungsabbrüche" : "Bağlantı Kesintileri"}
-        </h3>
+        </p>
         <p className="text-slate-400 text-xs md:text-sm leading-relaxed mb-3 md:mb-4 relative z-10">
           {isDe ? "Beachten Sie dies, wenn häufig Verbindungsfehler auftreten." : "Sık sık bağlantı hatası alıyorsanız dikkat edin."}
         </p>

@@ -57,7 +57,7 @@ const TestTab = ({ siteData, setSiteData }) => {
       </div>
 
       {/* Info Alert about Apps Location */}
-      <Alert className="bg-blue-900/20 border-blue-800 text-blue-200">
+      <Alert className="bg-[#0a0a0a]/20 border-blue-800 text-blue-200">
         <Info className="h-4 w-4" />
         <AlertTitle>Önemli Bilgi</AlertTitle>
         <AlertDescription className="mt-2 text-sm">
@@ -68,7 +68,7 @@ const TestTab = ({ siteData, setSiteData }) => {
 
       <div className="grid gap-6">
         {/* General Settings Card */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-[#0a0a0a] border-slate-700">
           <CardHeader>
             <CardTitle className="text-white">Genel Ayarlar</CardTitle>
             <CardDescription className="text-slate-400">
@@ -76,7 +76,7 @@ const TestTab = ({ siteData, setSiteData }) => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700">
+            <div className="flex items-center justify-between p-4 bg-[#0a0a0a]/50 rounded-lg border border-slate-700">
               <div className="space-y-1">
                 <Label className="text-base text-white">Test Modülü Aktif</Label>
                 <p className="text-sm text-slate-400">Kapalıyken sitedeki tüm "Test Al" butonları gizlenir.</p>
@@ -94,23 +94,23 @@ const TestTab = ({ siteData, setSiteData }) => {
                   id="whatsapp"
                   value={formData.whatsapp}
                   onChange={(e) => handleSettingsChange('whatsapp', e.target.value)}
-                  placeholder="905551234567"
-                  className="bg-slate-900 border-slate-700 text-white"
+                  placeholder="4916345869030"
+                  className="bg-[#0a0a0a] border-slate-700 text-white"
                 />
               </div>
               <p className="text-xs text-slate-500">
                   Bu numara sadece test başvurularını almak için kullanılır. Boş bırakılırsa genel iletişim numarası kullanılır.
-                  Lütfen numarayı ülke koduyla birlikte başında + olmadan yazın (örn: 90555...)
+                  Lütfen numarayı ülke koduyla birlikte başında + olmadan yazın (örn: 49163...)
               </p>
             </div>
           </CardContent>
         </Card>
 
         {/* Message Template Card */}
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-[#0a0a0a] border-slate-700">
           <CardHeader>
              <CardTitle className="text-white flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-purple-400" />
+                <MessageSquare className="w-5 h-5 text-primary" />
                 Mesaj Şablonu
              </CardTitle>
              <CardDescription className="text-slate-400">
@@ -124,16 +124,16 @@ const TestTab = ({ siteData, setSiteData }) => {
                    id="template"
                    value={formData.message_template}
                    onChange={(e) => handleSettingsChange('message_template', e.target.value)}
-                   className="bg-slate-900 border-slate-700 text-white min-h-[100px]"
+                   className="bg-[#0a0a0a] border-slate-700 text-white min-h-[100px]"
                    placeholder="Merhaba, test almak istiyorum..."
                 />
              </div>
 
-             <div className="bg-slate-900/50 p-4 rounded-md border border-slate-700">
+             <div className="bg-[#0a0a0a]/50 p-4 rounded-md border border-slate-700">
                 <p className="text-sm font-semibold text-slate-300 mb-2">Kullanılabilir Değişkenler:</p>
                 <ul className="text-xs text-slate-400 space-y-1 list-disc list-inside">
-                   <li><code className="bg-slate-800 px-1 py-0.5 rounded text-purple-300">{`{appName}`}</code> - Seçilen uygulama adı (örn: IBO Player)</li>
-                   <li><code className="bg-slate-800 px-1 py-0.5 rounded text-purple-300">{`{deviceType}`}</code> - Cihaz türü (örn: Android TV)</li>
+                   <li><code className="bg-[#0a0a0a] px-1 py-0.5 rounded text-primary">{`{appName}`}</code> - Seçilen uygulama adı (örn: IBO Player)</li>
+                   <li><code className="bg-[#0a0a0a] px-1 py-0.5 rounded text-primary">{`{deviceType}`}</code> - Cihaz türü (örn: Android TV)</li>
                 </ul>
                 <p className="text-xs text-slate-500 mt-3">
                    Örnek Çıktı: "Merhaba, <strong>IBO Player</strong> uygulamasını <strong>Android TV</strong> cihazında test etmek istiyorum."

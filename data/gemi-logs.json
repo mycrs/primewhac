@@ -1,0 +1,74 @@
+[
+  {
+    "timestamp": "2026-03-09T08:34:28.229Z",
+    "apiCalls": 51,
+    "cachedMatches": 0,
+    "totalMatches": 51,
+    "quotaExhausted": false,
+    "durationSec": 438,
+    "forceRefresh": false
+  },
+  {
+    "timestamp": "2026-03-07T12:19:36.779Z",
+    "apiCalls": 58,
+    "cachedMatches": 0,
+    "totalMatches": 58,
+    "quotaExhausted": false,
+    "durationSec": 503,
+    "forceRefresh": false
+  },
+  {
+    "timestamp": "2026-03-07T03:15:24.212Z",
+    "apiCalls": 58,
+    "cachedMatches": 0,
+    "totalMatches": 58,
+    "quotaExhausted": false,
+    "durationSec": 528,
+    "forceRefresh": false
+  },
+  {
+    "timestamp": "2026-03-04T02:12:29.243Z",
+    "apiCalls": 6,
+    "cachedMatches": 45,
+    "totalMatches": 48,
+    "quotaExhausted": true,
+    "durationSec": 347,
+    "forceRefresh": false
+  },
+  {
+    "timestamp": "2026-03-04T00:12:37.522Z",
+    "apiCalls": 5,
+    "cachedMatches": 45,
+    "totalMatches": 48,
+    "quotaExhausted": true,
+    "durationSec": 304,
+    "forceRefresh": false
+  },
+  {
+    "timestamp": "2026-03-04T00:10:56.251Z",
+    "apiCalls": 5,
+    "cachedMatches": 45,
+    "totalMatches": 48,
+    "quotaExhausted": true,
+    "durationSec": 304,
+    "forceRefresh": false
+  },
+  {
+    "timestamp": "2026-03-04T00:10:10.462Z",
+    "apiCalls": 6,
+    "cachedMatches": 44,
+    "totalMatches": 48,
+    "quotaExhausted": true,
+    "durationSec": 339,
+    "forceRefresh": false
+  },
+  {
+    "timestamp": "2026-03-03T23:57:55.717Z",
+    "apiCalls": 0,
+    "cachedMatches": 44,
+    "totalMatches": 44,
+    "quotaExhausted": false,
+    "durationSec": 28,
+    "forceRefresh": false
+  }
+]

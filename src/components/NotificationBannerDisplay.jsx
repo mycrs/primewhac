@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useNotifications } from '@/hooks/useNotifications';
 import NotificationAlert from '@/components/NotificationAlert';
+import { isTrustDamagingNotification } from '@/utils/trustBannerFilter';
+import { filterScheduledNotifications } from '@/utils/notificationSchedule';
 
 const NotificationBannerDisplay = () => {
   const location = useLocation();
@@ -15,7 +17,7 @@ const NotificationBannerDisplay = () => {
   const [hasShownOnce, setHasShownOnce] = useState(() => {
     if (typeof window === 'undefined') return false;
     try {
-      return window.sessionStorage.getItem('primewatch_notification_shown') === 'true';
+      return window.sessionStorage.getItem('qruzetv_notification_shown') === 'true';
     } catch {
       return false;
     }
@@ -26,8 +28,9 @@ const NotificationBannerDisplay = () => {
     const loadNotifications = async () => {
       const data = await fetchNotifications(true);
       if (isMounted && data) {
-        // Sadece ilk aktif bildirimi göster (birden fazla kayıt olsa bile)
-        const firstActive = Array.isArray(data) ? data.slice(0, 1) : [];
+        const firstActive = filterScheduledNotifications(Array.isArray(data) ? data : [])
+          .filter((n) => !isTrustDamagingNotification(n))
+          .slice(0, 1);
         setActiveNotifications(firstActive);
       }
     };
@@ -46,7 +49,7 @@ const NotificationBannerDisplay = () => {
       setHasShownOnce(true);
       try {
         if (typeof window !== 'undefined') {
-          window.sessionStorage.setItem('primewatch_notification_shown', 'true');
+          window.sessionStorage.setItem('qruzetv_notification_shown', 'true');
         }
       } catch {
         // ignore

@@ -60,9 +60,9 @@ const DynamicStepsEditor = React.memo(({ steps, setSteps, errors = {} }) => {
 
   return (
     <div className="space-y-6 mt-8">
-      <div className="flex items-center justify-between bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+      <div className="flex items-center justify-between bg-[#0a0a0a]/50 p-4 rounded-xl border border-slate-800">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
+          <div className="p-2 bg-[#141414]/10 rounded-lg border border-blue-500/20">
             <ListOrdered className="w-5 h-5 text-blue-400" />
           </div>
           <div>
@@ -76,7 +76,7 @@ const DynamicStepsEditor = React.memo(({ steps, setSteps, errors = {} }) => {
           onClick={handleAddStep}
           type="button"
           size="sm"
-          className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-900/20 transition-all active:scale-95"
+          className="bg-[#141414] hover:bg-[#0a0a0a] text-white shadow-lg shadow-blue-900/20 transition-all active:scale-95"
         >
           <Plus className="w-4 h-4 mr-2" />
           Adım Ekle
@@ -92,7 +92,7 @@ const DynamicStepsEditor = React.memo(({ steps, setSteps, errors = {} }) => {
 
       <div className="grid gap-4">
         {stepsList.length === 0 ? (
-          <div className="text-center py-12 border-2 border-dashed border-slate-800 rounded-xl bg-slate-900/20 hover:bg-slate-900/40 transition-colors">
+          <div className="text-center py-12 border-2 border-dashed border-slate-800 rounded-xl bg-[#0a0a0a]/20 hover:bg-[#0a0a0a]/40 transition-colors">
             <p className="text-slate-500 font-medium">Henüz adım eklenmemiş.</p>
             <p className="text-slate-600 text-sm mt-1 mb-4">Kurulum rehberi için en az bir adım ekleyin.</p>
             <Button variant="outline" size="sm" onClick={handleAddStep} className="border-slate-700 text-slate-300 hover:text-white">
@@ -102,10 +102,10 @@ const DynamicStepsEditor = React.memo(({ steps, setSteps, errors = {} }) => {
           </div>
         ) : (
           stepsList.map((step, index) => (
-            <Card key={step.id || `step-${index}`} className="bg-slate-950 border-slate-800 overflow-hidden group hover:border-slate-700 transition-colors duration-300">
-              <CardHeader className="py-3 px-4 bg-slate-900/30 border-b border-slate-800 flex flex-row items-center justify-between">
+            <Card key={step.id || `step-${index}`} className="bg-[#0a0a0a] border-slate-800 overflow-hidden group hover:border-slate-700 transition-colors duration-300">
+              <CardHeader className="py-3 px-4 bg-[#0a0a0a]/30 border-b border-slate-800 flex flex-row items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="bg-slate-800 text-slate-400 w-6 h-6 rounded flex items-center justify-center text-xs font-mono border border-slate-700">
+                  <span className="bg-[#0a0a0a] text-slate-400 w-6 h-6 rounded flex items-center justify-center text-xs font-mono border border-slate-700">
                     {index + 1}
                   </span>
                   <span className="text-sm font-medium text-slate-300 truncate max-w-[200px] md:max-w-md">
@@ -119,7 +119,7 @@ const DynamicStepsEditor = React.memo(({ steps, setSteps, errors = {} }) => {
                     type="button"
                     onClick={() => handleMoveStep(index, 'up')}
                     disabled={index === 0}
-                    className="h-7 w-7 text-slate-400 hover:text-white hover:bg-slate-800"
+                    className="h-7 w-7 text-slate-400 hover:text-white hover:bg-[#0a0a0a]"
                     title="Yukarı Taşı"
                   >
                     <ChevronUp className="w-4 h-4" />
@@ -130,12 +130,12 @@ const DynamicStepsEditor = React.memo(({ steps, setSteps, errors = {} }) => {
                     type="button"
                     onClick={() => handleMoveStep(index, 'down')}
                     disabled={index === stepsList.length - 1}
-                    className="h-7 w-7 text-slate-400 hover:text-white hover:bg-slate-800"
+                    className="h-7 w-7 text-slate-400 hover:text-white hover:bg-[#0a0a0a]"
                     title="Aşağı Taşı"
                   >
                     <ChevronDown className="w-4 h-4" />
                   </Button>
-                  <div className="w-px h-4 bg-slate-800 mx-2" />
+                  <div className="w-px h-4 bg-[#0a0a0a] mx-2" />
                   <Button
                     variant="ghost"
                     size="icon"
@@ -157,7 +157,7 @@ const DynamicStepsEditor = React.memo(({ steps, setSteps, errors = {} }) => {
                       onChange={(e) => handleChange(index, 'title', e.target.value)}
                       placeholder="Örn: Uygulamayı Açın"
                       className={cn(
-                        "bg-slate-900 border-slate-800 focus:border-blue-500/50 transition-colors",
+                        "bg-[#0a0a0a] border-slate-800 focus:border-blue-500/50 transition-colors",
                         errors.stepErrors?.[index]?.title && "border-red-500 focus-visible:ring-red-500"
                       )}
                     />
@@ -172,7 +172,7 @@ const DynamicStepsEditor = React.memo(({ steps, setSteps, errors = {} }) => {
                       onChange={(e) => handleChange(index, 'description', e.target.value)}
                       placeholder="Adım detaylarını buraya yazın..."
                       className={cn(
-                        "bg-slate-900 border-slate-800 min-h-[100px] focus:border-blue-500/50 transition-colors resize-y",
+                        "bg-[#0a0a0a] border-slate-800 min-h-[100px] focus:border-blue-500/50 transition-colors resize-y",
                         errors.stepErrors?.[index]?.description && "border-red-500 focus-visible:ring-red-500"
                       )}
                     />
@@ -188,14 +188,14 @@ const DynamicStepsEditor = React.memo(({ steps, setSteps, errors = {} }) => {
                       value={step.image || ''}
                       onChange={(e) => handleChange(index, 'image', e.target.value)}
                       placeholder="https://..."
-                      className="bg-slate-900 border-slate-800 font-mono text-xs"
+                      className="bg-[#0a0a0a] border-slate-800 font-mono text-xs"
                     />
                   </div>
-                  <div className="aspect-video bg-slate-900 rounded-lg border border-slate-800 flex items-center justify-center overflow-hidden relative group-hover:border-slate-700 transition-colors">
+                  <div className="aspect-video bg-[#0a0a0a] rounded-lg border border-slate-800 flex items-center justify-center overflow-hidden relative group-hover:border-slate-700 transition-colors">
                     {step.image ? (
                       <img 
                         src={step.image} 
-                        alt="" 
+                        alt="Kurulum adımı görsel önizlemesi"
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           e.target.style.display = 'none';

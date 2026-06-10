@@ -106,11 +106,11 @@ const DeviceInstallationForm = ({ deviceKey, deviceName, existingData }) => {
   return (
     <div className="space-y-8 py-8 animate-in fade-in duration-500">
       {/* Header Section */}
-      <div className="flex items-center justify-between sticky top-0 z-30 bg-slate-950/80 backdrop-blur-md p-4 -mx-4 border-b border-slate-800/50 shadow-sm">
+      <div className="flex items-center justify-between sticky top-0 z-30 bg-[#0a0a0a]/80 backdrop-blur-md p-4 -mx-4 border-b border-slate-800/50 shadow-sm">
         <div>
           <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
             {deviceName} Ayarları
-            {existingData && <span className="text-xs font-normal bg-slate-800 text-slate-400 px-2 py-1 rounded-full">Düzenleniyor</span>}
+            {existingData && <span className="text-xs font-normal bg-[#0a0a0a] text-slate-400 px-2 py-1 rounded-full">Düzenleniyor</span>}
           </h2>
           <p className="text-sm text-slate-400">Bu cihaz için kurulum rehberini ve adımlarını düzenleyin.</p>
         </div>
@@ -119,7 +119,7 @@ const DeviceInstallationForm = ({ deviceKey, deviceName, existingData }) => {
           disabled={saving}
           className={cn(
             "min-w-[120px] shadow-lg transition-all",
-            saving ? "bg-slate-700" : "bg-green-600 hover:bg-green-700 shadow-green-900/20"
+            saving ? "bg-[#0a0a0a]" : "bg-green-600 hover:bg-green-700 shadow-green-900/20"
           )}
         >
           {saving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
@@ -143,7 +143,7 @@ const DeviceInstallationForm = ({ deviceKey, deviceName, existingData }) => {
       )}
 
       {/* Main Info Card */}
-      <Card className="bg-slate-900 border-slate-800 shadow-lg">
+      <Card className="bg-[#0a0a0a] border-slate-800 shadow-lg">
         <CardContent className="p-6 space-y-6">
           <div className="grid gap-2">
             <Label className="text-slate-300">Rehber Başlığı *</Label>
@@ -152,7 +152,7 @@ const DeviceInstallationForm = ({ deviceKey, deviceName, existingData }) => {
               onChange={(e) => setFormData(p => ({ ...p, title: e.target.value }))}
               placeholder="Örn: Android TV Kurulum Rehberi"
               className={cn(
-                "bg-slate-950 border-slate-800 text-lg font-semibold",
+                "bg-[#0a0a0a] border-slate-800 text-lg font-semibold",
                 errors.title && "border-red-500 ring-1 ring-red-500"
               )}
             />
@@ -164,7 +164,7 @@ const DeviceInstallationForm = ({ deviceKey, deviceName, existingData }) => {
               value={formData.description}
               onChange={(e) => setFormData(p => ({ ...p, description: e.target.value }))}
               placeholder="Rehber hakkında kısa bir açıklama..."
-              className="bg-slate-950 border-slate-800 min-h-[80px]"
+              className="bg-[#0a0a0a] border-slate-800 min-h-[80px]"
             />
           </div>
 
@@ -174,14 +174,14 @@ const DeviceInstallationForm = ({ deviceKey, deviceName, existingData }) => {
               value={formData.hero_image}
               onChange={(e) => setFormData(p => ({ ...p, hero_image: e.target.value }))}
               placeholder="https://example.com/device-specific-cover.jpg"
-              className="bg-slate-950 border-slate-800 font-mono text-sm"
+              className="bg-[#0a0a0a] border-slate-800 font-mono text-sm"
             />
             <p className="text-xs text-slate-500">Bu görsel, cihaz seçildiğinde arka planda görünecektir.</p>
             {formData.hero_image && (
-              <div className="mt-2 h-40 rounded-lg overflow-hidden border border-slate-800 relative bg-slate-950 group">
+              <div className="mt-2 h-40 rounded-lg overflow-hidden border border-slate-800 relative bg-[#0a0a0a] group">
                 <img 
                   src={formData.hero_image} 
-                  alt="Preview" 
+                  alt={`${formData.title || deviceName || 'Cihaz'} IPTV kurulum`}
                   className="w-full h-full object-cover opacity-60 transition-opacity group-hover:opacity-100"
                   onError={(e) => e.target.style.display = 'none'}
                 />
@@ -220,7 +220,7 @@ const DeviceInstallationForm = ({ deviceKey, deviceName, existingData }) => {
       
       {/* Bottom Save Button (Floating) */}
       <div className="sticky bottom-6 flex justify-end z-20 pointer-events-none">
-        <div className="bg-slate-900/90 backdrop-blur-lg border border-slate-700/50 p-2 rounded-xl shadow-2xl pointer-events-auto transform transition-all hover:scale-105">
+        <div className="bg-[#0a0a0a]/90 backdrop-blur-lg border border-slate-700/50 p-2 rounded-xl shadow-2xl pointer-events-auto transform transition-all hover:scale-105">
           <Button 
             onClick={handleSave} 
             disabled={saving}

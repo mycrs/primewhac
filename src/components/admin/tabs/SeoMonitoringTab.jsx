@@ -25,17 +25,17 @@ const SeoMonitoringTab = () => {
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="bg-slate-900 border-slate-800">
+        <Card className="bg-[#0a0a0a] border-slate-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-slate-200">Toplam Tıklama</CardTitle>
-            <MousePointerClick className="h-4 w-4 text-purple-500" />
+            <MousePointerClick className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-white">1,245</div>
             <p className="text-xs text-slate-500">+12% geçen haftaya göre</p>
           </CardContent>
         </Card>
-        <Card className="bg-slate-900 border-slate-800">
+        <Card className="bg-[#0a0a0a] border-slate-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-slate-200">Görüntülenme</CardTitle>
             <Users className="h-4 w-4 text-blue-500" />
@@ -45,7 +45,7 @@ const SeoMonitoringTab = () => {
             <p className="text-xs text-slate-500">+5% geçen haftaya göre</p>
           </CardContent>
         </Card>
-        <Card className="bg-slate-900 border-slate-800">
+        <Card className="bg-[#0a0a0a] border-slate-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-slate-200">Ort. Pozisyon</CardTitle>
             <TrendingUp className="h-4 w-4 text-green-500" />
@@ -55,7 +55,7 @@ const SeoMonitoringTab = () => {
             <p className="text-xs text-slate-500">0.4 artış</p>
           </CardContent>
         </Card>
-        <Card className="bg-slate-900 border-slate-800">
+        <Card className="bg-[#0a0a0a] border-slate-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-slate-200">SEO Puanı</CardTitle>
             <CheckCircle2 className="h-4 w-4 text-yellow-500" />
@@ -68,7 +68,7 @@ const SeoMonitoringTab = () => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <Card className="bg-slate-900 border-slate-800 col-span-2 md:col-span-1">
+        <Card className="bg-[#0a0a0a] border-slate-800 col-span-2 md:col-span-1">
           <CardHeader>
             <CardTitle className="text-white">Anahtar Kelime Performansı</CardTitle>
             <CardDescription>Google arama sonuçlarındaki performansınız.</CardDescription>
@@ -84,7 +84,7 @@ const SeoMonitoringTab = () => {
                 </TableHeader>
                 <TableBody>
                     {keywords.map((k, i) => (
-                        <TableRow key={i} className="border-slate-800 hover:bg-slate-800/50">
+                        <TableRow key={i} className="border-slate-800 hover:bg-[#0a0a0a]/50">
                             <TableCell className="font-medium text-slate-200">{k.term}</TableCell>
                             <TableCell className="text-slate-300">{k.position}</TableCell>
                             <TableCell className="text-slate-300">{k.clicks}</TableCell>
@@ -92,13 +92,13 @@ const SeoMonitoringTab = () => {
                     ))}
                 </TableBody>
              </Table>
-             <Button variant="outline" className="w-full mt-4 border-slate-700 hover:bg-slate-800 text-slate-300">
+             <Button variant="outline" className="w-full mt-4 border-slate-700 hover:bg-[#0a0a0a] text-slate-300">
                 <Download className="w-4 h-4 mr-2" /> Raporu İndir
              </Button>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900 border-slate-800 col-span-2 md:col-span-1">
+        <Card className="bg-[#0a0a0a] border-slate-800 col-span-2 md:col-span-1">
           <CardHeader>
             <CardTitle className="text-white">Sayfa Analizi</CardTitle>
             <CardDescription>Sayfa bazlı SEO uyumluluk durumu.</CardDescription>
@@ -123,7 +123,7 @@ const SeoMonitoringTab = () => {
                     </div>
                 ))}
              </div>
-             <div className="mt-4 p-3 bg-blue-500/10 rounded-lg border border-blue-500/20 flex gap-3">
+             <div className="mt-4 p-3 bg-[#141414]/10 rounded-lg border border-blue-500/20 flex gap-3">
                 <AlertCircle className="w-5 h-5 text-blue-400 shrink-0" />
                 <div className="text-xs text-blue-300">
                     <strong>Öneri:</strong> SSS sayfasındaki anahtar kelime yoğunluğu düşük. "iptv nedir" ve "iptv kurulum" kelimelerini daha sık kullanın.

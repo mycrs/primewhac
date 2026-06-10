@@ -1,355 +1,441 @@
-import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useMemo, useRef, useEffect, useCallback } from 'react';
 import SEOHead from '@/components/SEOHead';
-import { makeMatchSlug } from '@/utils/matchSlug';
 import HeaderDE from '@/components/HeaderDE';
 import FooterDE from '@/components/FooterDE';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import MatchScheduleSeoSectionDE from '@/components/MatchScheduleSeoSectionDE';
-import { useMatchSchedule } from '@/hooks/useMatchSchedule';
-import { Loader2, Calendar, Trophy } from 'lucide-react';
+import TeamLogoOrInitials from '@/components/match/TeamLogoOrInitials';
+import { useMatchScheduleStatic, SPORT_FOOTBALL, SPORT_BASKETBALL, SPORT_TENNIS } from '@/hooks/useMatchScheduleStatic';
+import { resolveTeamLogoUrl } from '@/utils/teamLogos';
+import { Calendar, Trophy, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
+import { SITE_URL } from '@/constants/siteUrl';
 
-const SITE_URL = 'https://primewatch.tv';
+/** Sinematik sayfa noise (feTurbulence tabanlı SVG) */
+const CINEMA_NOISE_DATA_URI = `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")`;
 
-/** "2025-03-03" -> "3. März 2025" */
+function MatchScheduleLoadingSkeletonDE() {
+  return (
+    <section
+      aria-label="Laden"
+      className="rounded-2xl border border-white/[0.12] bg-white/[0.04] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:p-8"
+    >
+      <div className="space-y-6">
+        {[0, 1, 2].map((i) => (
+          <div key={i} className="space-y-3">
+            <div className="h-4 w-36 animate-pulse rounded-lg bg-gradient-to-r from-[#e50914]/30 to-[#b20710]/20" />
+            <div className="h-[4.5rem] animate-pulse rounded-xl border border-white/[0.06] bg-white/[0.04]" />
+            <div className="h-[4.5rem] animate-pulse rounded-xl border border-white/[0.06] bg-white/[0.04]" />
+          </div>
+        ))}
+      </div>
+      <p className="mt-8 bg-gradient-to-r from-[#e50914] via-white/85 to-[#b20710] bg-clip-text text-center text-sm font-semibold tracking-wide text-transparent">
+        Spielplan wird geladen...
+      </p>
+    </section>
+  );
+}
+
 function formatDateForSeo(dateStr) {
   const [y, m, d] = dateStr.split('-').map(Number);
   const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
   return `${d}. ${months[m - 1]} ${y}`;
 }
 
-/** Heute prüfen */
 function isToday(dateStr) {
-  const today = new Date().toISOString().split('T')[0];
-  return dateStr === today;
-}
-
-function getTeamInitials(name) {
-  const parts = String(name || '')
-    .split(' ')
-    .filter(Boolean);
-  if (!parts.length) return '?';
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0][0] + parts[1][0]).toUpperCase();
+  return dateStr === new Date().toISOString().split('T')[0];
 }
 
 const MatchSchedulePageDE = ({ siteData }) => {
-  const { matches, loading, error, selectedDate, changeDate, getDateOptions } = useMatchSchedule();
+  const { matches, loading, error, selectedDate, changeDate, getDateOptions, retry, sport, setSport } = useMatchScheduleStatic();
   const { contactData, siteTexts } = siteData || {};
 
-  const dateOpts = getDateOptions('de');
+  const logoEntries = useMemo(() => {
+    const tl = siteData?.team_logos;
+    if (!tl) return [];
+    return Array.isArray(tl.entries) ? tl.entries : Array.isArray(tl) ? tl : [];
+  }, [siteData?.team_logos]);
+
+  const logoFor = useCallback((name) => resolveTeamLogoUrl(name, logoEntries), [logoEntries]);
+  const logoUrlForList = useCallback((name) => logoFor(name), [logoFor]);
+
+  const dateOpts = getDateOptions('de', sport);
   const formattedDate = formatDateForSeo(selectedDate);
   const matchCount = matches.reduce((sum, g) => sum + g.matches.length, 0);
   const leagueNames = matches.map((g) => g.league.name).join(', ');
 
+  const PAGE_SIZE = 7;
+  const isBasketball = sport === SPORT_BASKETBALL;
+  const isTennis = sport === SPORT_TENNIS;
+  const isPaginated = dateOpts.length > PAGE_SIZE;
+  const selectedIdx = dateOpts.findIndex((o) => o.value === selectedDate);
+  const currentPage = selectedIdx >= 0 ? Math.floor(selectedIdx / PAGE_SIZE) : 0;
+  const totalPages = Math.ceil(dateOpts.length / PAGE_SIZE);
+  const visibleDates = isPaginated
+    ? dateOpts.slice(currentPage * PAGE_SIZE, currentPage * PAGE_SIZE + PAGE_SIZE)
+    : dateOpts;
+  const hasPrev = isPaginated && currentPage > 0;
+  const hasNext = isPaginated && currentPage < totalPages - 1;
+
+  const dateBarRef = useRef(null);
+  const selectedBtnRef = useRef(null);
+
+  useEffect(() => {
+    if (selectedBtnRef.current && dateBarRef.current) {
+      const bar = dateBarRef.current;
+      const btn = selectedBtnRef.current;
+      bar.scrollLeft = btn.offsetLeft - bar.clientWidth / 2 + btn.offsetWidth / 2;
+    }
+  }, [selectedDate, sport]);
+
+  const goPrev = () => {
+    if (!hasPrev) return;
+    changeDate(dateOpts[(currentPage - 1) * PAGE_SIZE].value);
+  };
+  const goNext = () => {
+    if (!hasNext) return;
+    changeDate(dateOpts[(currentPage + 1) * PAGE_SIZE].value);
+  };
+
   const metadata = useMemo(() => {
     const dateLabel = isToday(selectedDate) ? 'Heutiger' : `${formattedDate}`;
     let title = matchCount > 0
-      ? `${dateLabel} Spielplan - ${leagueNames} | PrimeWatch TV`
-      : `Spielplan - ${formattedDate} Fixture | PrimeWatch TV`;
-    if (title.length > 60) {
-      title = `${dateLabel} Spielplan | PrimeWatch TV`;
-    }
+      ? `${dateLabel} Spielplan - ${leagueNames} | QruzeTV`
+      : `Spielplan - ${formattedDate} Fixture | QruzeTV`;
+    if (title.length > 60) title = `${dateLabel} Spielplan | QruzeTV`;
     const description = matchCount > 0
-      ? `Am ${formattedDate} ${matchCount} Spiele: ${leagueNames}. Welcher Sender, wann? Live mit PrimeWatch TV IPTV.`
-      : `Super Lig, Premier League, La Liga, Champions League Spielplan. ${formattedDate} Fixture. Sportkanäle mit PrimeWatch TV – unterbrechungsfrei Fußball schauen.`;
+      ? `Am ${formattedDate} ${matchCount} Spiele: ${leagueNames}. Welcher Sender, wann? Live mit QruzeTV IPTV.`
+      : `Super Lig, Premier League, La Liga, Champions League Spielplan. ${formattedDate} Fixture. Sportkanäle mit QruzeTV – unterbrechungsfrei Fußball schauen.`;
     return {
       title: title.substring(0, 60) + (title.length > 60 ? '...' : ''),
       description: description.substring(0, 160),
-      keywords: [
-        'Spielplan',
-        'heutige Spiele',
-        formattedDate,
-        'Super Lig Fixture',
-        'Premier League Spiele',
-        'welcher Sender',
-        'IPTV Fußball schauen',
-      ],
+      keywords: ['Spielplan', 'heutige Spiele', formattedDate, 'Super Lig Fixture', 'Premier League Spiele', 'welcher Sender', 'IPTV Fußball schauen'],
       ogType: 'website',
       canonicalUrl: `${SITE_URL}/de/spielplan`,
     };
   }, [selectedDate, formattedDate, matchCount, leagueNames]);
 
-  const jsonLd = useMemo(() => {
-    const schemas = [];
-
-    schemas.push({
+  const jsonLd = useMemo(() => [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Startseite', item: `${SITE_URL}/de` },
+        { '@type': 'ListItem', position: 2, name: 'Spielplan', item: `${SITE_URL}/de/spielplan` },
+      ],
+    },
+    {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       name: `Spielplan - ${formattedDate}`,
       description: metadata.description,
       url: `${SITE_URL}/de/spielplan`,
-      publisher: { '@type': 'Organization', name: 'PrimeWatch TV' },
-    });
-
-    if (matchCount > 0) {
-      const events = [];
-      matches.forEach((group) => {
-        group.matches.forEach((m) => {
-          const [y, mo, d] = selectedDate.split('-');
-          const [h, min] = (m.time || '20:00').split(':');
-          const startDate = `${y}-${mo}-${d}T${h.padStart(2, '0')}:${(min || '00').padStart(2, '0')}:00+03:00`;
-          events.push({
-            '@type': 'SportsEvent',
-            name: `${m.home} - ${m.away}`,
-            sport: 'Soccer',
-            startDate,
-            homeTeam: { '@type': 'SportsTeam', name: m.home },
-            awayTeam: { '@type': 'SportsTeam', name: m.away },
-            competitor: [
-              { '@type': 'SportsTeam', name: m.home },
-              { '@type': 'SportsTeam', name: m.away },
-            ],
-            organizer: { '@type': 'SportsOrganization', name: group.league.name },
-          });
-        });
-      });
-      schemas.push({
-        '@context': 'https://schema.org',
-        '@type': 'ItemList',
-        name: `${formattedDate} Spielplan`,
-        itemListElement: events.slice(0, 20).map((e, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          item: e,
-        })),
-      });
-    }
-
-    return schemas;
-  }, [matches, selectedDate, formattedDate, matchCount, metadata.description]);
+      publisher: { '@type': 'Organization', name: 'QruzeTV' },
+    },
+  ], [formattedDate, metadata.description]);
 
   return (
     <>
       <SEOHead {...metadata} jsonLd={jsonLd} />
 
-      <div className="min-h-screen bg-slate-950 bg-[radial-gradient(circle_at_top,_#4c1d95_0,_#020617_55%)] flex flex-col text-white selection:bg-purple-500/30">
-        <HeaderDE contactData={contactData} siteTexts={siteTexts} />
-        <main className="flex-grow pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-          <BreadcrumbNavigation
-            customCrumbs={[
-              { name: 'Startseite', path: '/de' },
-              { name: 'Spielplan', path: null },
-            ]}
-          />
+      <div className="relative flex min-h-screen flex-col bg-[#0a0a0a] text-white selection:bg-white/20">
+        <div className="pointer-events-none fixed inset-0 z-0 bg-[#0a0a0a]" aria-hidden />
+        <div
+          className="pointer-events-none fixed inset-0 z-[1] opacity-[0.045] mix-blend-overlay"
+          style={{ backgroundImage: CINEMA_NOISE_DATA_URI, backgroundSize: '200px 200px' }}
+          aria-hidden
+        />
 
-          <article className="mt-4 space-y-8">
-            {/* Hero-Karte */}
-            <header className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-950 px-5 py-6 sm:px-8 sm:py-8 shadow-xl shadow-purple-900/20">
-              <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-                <div className="space-y-3 lg:max-w-3xl">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-200">
-                    <Trophy className="w-3.5 h-3.5" aria-hidden />
-                    <span>Live aktualisierter Spielplan</span>
-                  </div>
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-300 via-fuchsia-300 to-sky-300 bg-clip-text text-transparent drop-shadow-[0_0_18px_rgba(168,85,247,0.35)]">
-                    Heutiger und kommender Spielplan
-                  </h1>
-                  <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-2xl">
-                    {matchCount > 0
-                      ? <><span className="text-purple-200/90 font-semibold">{formattedDate}</span> – <span className="text-amber-200/90">{matchCount} Partien</span> auf einen Blick, nach Ligen gefiltert, Uhrzeiten schnell prüfbar.</>
-                      : <><span className="text-purple-200/90">{formattedDate}</span> – <span className="text-emerald-300/90">Super Lig, Premier League, La Liga</span> und weitere Top-Ligen. Offizielle Spiele Schritt für Schritt verfolgen.</>}
-                  </p>
+        <div className="relative z-10 flex min-h-screen flex-col bg-[#0a0a0a]">
+          <HeaderDE contactData={contactData} siteTexts={siteTexts} />
+          <main className="mx-auto w-full max-w-7xl flex-grow bg-[#0a0a0a] px-5 pb-24 pt-24 sm:px-6 sm:pb-28 sm:pt-28 lg:px-10">
+            <BreadcrumbNavigation
+              tone="cinema"
+              className="py-3 sm:py-4"
+              listClassName="text-[0.8125rem] sm:text-sm opacity-90"
+              customCrumbs={[
+                { name: 'Startseite', path: '/de' },
+                { name: 'Spielplan', path: null },
+              ]}
+            />
 
-                  <dl className="mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
-                    <div className="rounded-2xl border border-slate-800 bg-slate-900/60 px-3 py-2">
-                      <dt className="text-slate-400">Gewähltes Datum</dt>
-                      <dd className="font-semibold text-purple-200">{formattedDate}</dd>
-                    </div>
-                    <div className="rounded-2xl border border-slate-800 bg-slate-900/60 px-3 py-2">
-                      <dt className="text-slate-400">Spiele gesamt</dt>
-                      <dd className="font-semibold text-amber-200">{matchCount}</dd>
-                    </div>
-                    <div className="rounded-2xl border border-slate-800 bg-slate-900/60 px-3 py-2 hidden sm:block">
-                      <dt className="text-slate-300 text-xs">Top-Ligen</dt>
-                      <dd className="mt-0.5 text-[11px] font-medium text-emerald-200/90 leading-snug">
-                        {leagueNames || 'Programm wird geladen'}
-                      </dd>
-                    </div>
-                    <div className="rounded-2xl border border-slate-800 bg-slate-900/60 px-3 py-2 hidden lg:block">
-                      <dt className="text-slate-400 text-xs">Zeitraum</dt>
-                      <dd className="mt-0.5 text-[11px] font-medium text-sky-200/90 leading-snug">
-                        Heute + 6 Tage, nur aktuelles Programm
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
-
-                <div className="hidden lg:block lg:flex-1">
-                  <div className="relative h-32 rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-900/40 via-slate-900/40 to-slate-950 flex items-center justify-center">
-                    <div className="absolute -right-6 -bottom-10 h-28 w-28 rounded-full bg-purple-500/30 blur-3xl" />
-                    <div className="relative text-center space-y-1">
-                      <p className="text-xs uppercase tracking-[0.25em] text-purple-200/80">PrimeWatch Fixture</p>
-                      <p className="text-sm text-slate-200">
-                        Spielplan wird <span className="text-emerald-200/90">täglich automatisch</span> aktualisiert.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+            <article className="mt-1 space-y-6 sm:space-y-7">
+              <div className="pb-1">
+                <h1
+                  className="font-extrabold tracking-tight text-white"
+                  style={{ fontSize: 'clamp(1.6rem, 5vw, 2.4rem)', lineHeight: 1.2 }}
+                >
+                  <span className="text-[#e50914]">Spielplan</span> & Fixture – {formattedDate}
+                </h1>
+                <div
+                  className="mt-4 h-px w-full max-w-2xl bg-gradient-to-r from-transparent via-[#e50914]/45 to-transparent shadow-[0_0_14px_rgba(229,9,20,0.45)]"
+                  aria-hidden
+                />
               </div>
 
-              <div className="pointer-events-none absolute -right-10 -bottom-20 h-44 w-44 rounded-full bg-purple-500/10 blur-3xl" />
-            </header>
+              <header className="rounded-2xl border border-white/[0.12] bg-white/[0.06] px-5 py-5 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-[12px] sm:px-6 sm:py-5">
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex w-full flex-col gap-4 sm:w-auto">
+                    <div
+                      className="flex flex-wrap gap-1.5 rounded-2xl bg-black/25 p-1.5 ring-1 ring-white/[0.08]"
+                      role="tablist"
+                    >
+                      <button
+                        role="tab"
+                        aria-selected={sport === SPORT_FOOTBALL}
+                        onClick={() => setSport(SPORT_FOOTBALL)}
+                        className={`inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-xl px-4 text-sm font-bold transition-all sm:flex-initial sm:px-5 ${
+                          sport === SPORT_FOOTBALL
+                            ? 'bg-[linear-gradient(135deg,#e50914,#b20710)] text-white shadow-[0_4px_15px_rgba(229, 9, 20,0.5),0_0_24px_rgba(229, 9, 20,0.25)] ring-1 ring-white/25'
+                            : 'text-white/55 hover:bg-white/[0.08] hover:text-white'
+                        }`}
+                      >
+                        <span className="text-base leading-none" aria-hidden>
+                          ⚽
+                        </span>
+                        Fußball
+                      </button>
+                      <button
+                        role="tab"
+                        aria-selected={isBasketball}
+                        onClick={() => setSport(SPORT_BASKETBALL)}
+                        className={`inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-xl px-4 text-sm font-bold transition-all sm:flex-initial sm:px-5 ${
+                          isBasketball
+                            ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-[0_4px_15px_rgba(245,158,11,0.45),0_0_20px_rgba(251,146,60,0.2)] ring-1 ring-white/20'
+                            : 'text-white/55 hover:bg-white/[0.08] hover:text-white'
+                        }`}
+                      >
+                        <span className="text-base leading-none" aria-hidden>
+                          🏀
+                        </span>
+                        Basketball
+                      </button>
+                      <button
+                        role="tab"
+                        aria-selected={isTennis}
+                        onClick={() => setSport(SPORT_TENNIS)}
+                        className={`inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-xl px-4 text-sm font-bold transition-all sm:flex-initial sm:px-5 ${
+                          isTennis
+                            ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white shadow-[0_4px_15px_rgba(16,185,129,0.45),0_0_20px_rgba(20,184,166,0.2)] ring-1 ring-white/20'
+                            : 'text-white/55 hover:bg-white/[0.08] hover:text-white'
+                        }`}
+                      >
+                        <span className="text-base leading-none" aria-hidden>
+                          🎾
+                        </span>
+                        Tennis
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 rounded-xl border border-white/[0.1] bg-black/20 px-4 py-3 text-sm backdrop-blur-sm">
+                    <Calendar className="h-5 w-5 shrink-0 text-[#e50914]/90" aria-hidden />
+                    <span className="font-semibold text-white">{formattedDate}</span>
+                    <span className="text-white/35">·</span>
+                    <span className="font-semibold text-amber-200/95">{matchCount} Spiele</span>
+                  </div>
+                </div>
+              </header>
 
-            {/* Datumsauswahl */}
-            <section aria-labelledby="date-selector-heading-de" className="rounded-3xl border border-slate-800 bg-slate-900/80 px-4 py-4 sm:px-6 sm:py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-purple-600/20 border border-purple-500/40">
-                  <Calendar className="w-5 h-5 text-purple-300" aria-hidden />
-                </div>
-                <div>
-                  <h2 id="date-selector-heading-de" className="text-sm font-medium text-slate-100">Tag wählen</h2>
-                  <p className="text-xs text-slate-300">
-                    <span className="text-purple-200/90">Heute und die nächsten 6 Tage</span> – Fixture auf einen Blick.
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-wrap items-center gap-2 overflow-x-auto md:justify-end scrollbar-hide">
-                {dateOpts.map((opt) => {
-                  const isSelected = selectedDate === opt.value;
-                  const isTodayOpt = opt.label.startsWith('Heute');
-                  return (
+              <section
+                aria-labelledby="date-selector-heading-de"
+                className="rounded-2xl border border-white/[0.12] bg-white/[0.05] px-3 py-4 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-[12px] sm:px-4 sm:py-4"
+              >
+                <h2 id="date-selector-heading-de" className="sr-only">
+                  Datumsauswahl
+                </h2>
+                <div className="flex items-stretch gap-2 sm:gap-3">
+                  {isPaginated && (
                     <button
-                      key={opt.value}
-                      onClick={() => changeDate(opt.value)}
-                      className={`shrink-0 rounded-2xl px-4 py-2.5 text-xs sm:text-sm font-medium transition-all border ${
-                        isSelected
-                          ? 'bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white border-transparent shadow-lg shadow-purple-500/40'
-                          : isTodayOpt
-                            ? 'bg-slate-900/80 text-purple-200 border-purple-500/60 hover:bg-slate-800 hover:text-white'
-                            : 'bg-slate-900 text-slate-300 border-slate-700 hover:bg-slate-800 hover:text-white'
+                      type="button"
+                      onClick={goPrev}
+                      disabled={!hasPrev}
+                      aria-label="Vorherige Woche"
+                      className={`flex min-h-[48px] min-w-[48px] shrink-0 items-center justify-center rounded-xl border border-white/[0.12] bg-white/[0.06] transition-all ${
+                        hasPrev
+                          ? 'text-white/90 hover:border-[#e50914]/40 hover:bg-white/[0.12] hover:text-white hover:shadow-[0_0_20px_rgba(229, 9, 20,0.25)] active:scale-95'
+                          : 'cursor-not-allowed text-white/20 opacity-50'
                       }`}
                     >
-                      {opt.label}
+                      <ChevronLeft className="h-7 w-7" strokeWidth={2.25} />
                     </button>
-                  );
-                })}
-              </div>
-            </section>
+                  )}
+                  <div ref={dateBarRef} className="flex flex-1 gap-2 overflow-x-auto pb-1 pt-0.5 scrollbar-hide sm:gap-2.5">
+                    {visibleDates.map((opt) => {
+                      const isSelected = selectedDate === opt.value;
+                      const isTodayOpt = opt.label.startsWith('Heute');
+                      const selectedClasses = isBasketball
+                        ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-[0_4px_18px_rgba(245,158,11,0.45),0_0_20px_rgba(251,146,60,0.2)] ring-1 ring-white/25'
+                        : isTennis
+                          ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white shadow-[0_4px_18px_rgba(16,185,129,0.4),0_0_18px_rgba(20,184,166,0.2)] ring-1 ring-white/25'
+                          : 'bg-[linear-gradient(135deg,#e50914,#b20710)] text-white shadow-[0_4px_16px_rgba(229, 9, 20,0.5),0_0_22px_rgba(229, 9, 20,0.25)] ring-1 ring-white/25';
+                      return (
+                        <button
+                          key={opt.value}
+                          ref={isSelected ? selectedBtnRef : null}
+                          onClick={() => changeDate(opt.value)}
+                          className={`shrink-0 rounded-full px-3.5 py-2.5 text-xs font-semibold transition-all sm:px-5 sm:py-3 sm:text-sm ${
+                            isSelected
+                              ? selectedClasses
+                              : isTodayOpt
+                                ? 'border border-[#e50914]/35 bg-[#e50914]/10 text-white/90 hover:border-[#e50914]/50 hover:bg-[#e50914]/18'
+                                : 'border border-white/[0.1] bg-white/[0.04] text-white/55 hover:border-white/[0.2] hover:bg-white/[0.1] hover:text-white/95'
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {isPaginated && (
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      disabled={!hasNext}
+                      aria-label="Nächste Woche"
+                      className={`flex min-h-[48px] min-w-[48px] shrink-0 items-center justify-center rounded-xl border border-white/[0.12] bg-white/[0.06] transition-all ${
+                        hasNext
+                          ? 'text-white/90 hover:border-[#e50914]/40 hover:bg-white/[0.12] hover:text-white hover:shadow-[0_0_20px_rgba(229, 9, 20,0.25)] active:scale-95'
+                          : 'cursor-not-allowed text-white/20 opacity-50'
+                      }`}
+                    >
+                      <ChevronRight className="h-7 w-7" strokeWidth={2.25} />
+                    </button>
+                  )}
+                </div>
+              </section>
 
-            {/* Status / Spiellisten */}
-            {loading ? (
-              <section
-                aria-label="Spielplan wird geladen"
-                className="flex flex-col items-center justify-center rounded-3xl border border-slate-800 bg-slate-900/60 py-16 px-6 text-center"
-              >
-                <Loader2 className="w-12 h-12 text-purple-500 animate-spin mb-4" aria-hidden />
-                <p className="text-slate-200 text-sm sm:text-base mb-1">Spielplan wird geladen...</p>
-                <p className="text-slate-400 text-xs sm:text-sm max-w-md">
-                  Fixturedownload-Daten werden <span className="text-purple-200/90">sicher</span> abgerufen. Bitte warten Sie einige Sekunden.
-                </p>
-              </section>
-            ) : error ? (
-              <section
-                aria-label="Fehler beim Laden der Spieldaten"
-                className="rounded-3xl border border-amber-500/40 bg-amber-500/10 px-6 py-8 text-center"
-              >
-                <p className="text-amber-100 font-semibold mb-2 text-sm sm:text-base">Spieldaten konnten nicht geladen werden</p>
-                <p className="text-amber-50/80 text-xs sm:text-sm mb-4">{error}</p>
-                <p className="text-amber-100/70 text-xs max-w-md mx-auto">
-                  Daten stammen von fixturedownload.com. Bei anhaltenden Problemen die Seite in einigen Minuten neu laden.
-                </p>
-              </section>
-            ) : matches.length === 0 ? (
-              <section
-                aria-label="Keine Spiele am gewählten Tag"
-                className="rounded-3xl border border-slate-800 bg-slate-900/70 px-8 py-16 text-center"
-              >
-                <Trophy className="w-16 h-16 text-slate-600 mx-auto mb-4" aria-hidden />
-                <h2 className="text-xl sm:text-2xl font-semibold text-white mb-3">An diesem Tag keine offiziellen Spiele</h2>
-                <p className="text-slate-300 text-sm max-w-md mx-auto">
-                  Am gewählten Tag sind in <span className="text-purple-200/90">Super Lig, Premier League, La Liga</span> oder anderen Top-Ligen keine offiziellen Spiele. Wählen Sie über die <span className="text-amber-200/90">Datumsleiste</span> einen anderen Tag.
-                </p>
-              </section>
-            ) : (
-              <section aria-labelledby="match-list-heading-de" className="space-y-6">
-                <h2 id="match-list-heading-de" className="sr-only">Täglicher Spielplan</h2>
-                {matches.map((group, groupIdx) => (
-                  <section
-                    key={`${group.league.slug || group.league.name}-${group.league.name}`}
-                    className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-950/70"
-                    aria-labelledby={`league-de-${groupIdx}`}
+              {loading ? (
+                <MatchScheduleLoadingSkeletonDE />
+              ) : error ? (
+                <section
+                  aria-label="Fehler"
+                  className="rounded-2xl border border-amber-400/35 bg-amber-500/[0.12] px-6 py-8 text-center shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md"
+                >
+                  <p className="mb-2 text-sm font-semibold text-amber-100">{error}</p>
+                  <button
+                    onClick={retry}
+                    className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-5 py-2.5 text-sm font-semibold text-slate-900 transition-colors hover:bg-amber-400"
                   >
-                    <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border-b border-slate-800/80">
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl" aria-hidden>
-                          {group.league.flag}
-                        </span>
-                        <div>
-                          <h3 id={`league-de-${groupIdx}`} className="font-semibold text-sm sm:text-base text-white">
-                            {group.league.name}
-                          </h3>
-                          <p className="text-[11px] sm:text-xs text-slate-300">{group.league.country}</p>
-                        </div>
-                      </div>
-                      <span className="text-[11px] sm:text-xs text-amber-200/90 font-medium">
-                        {group.matches.length} Spiele
+                    <RefreshCw className="h-4 w-4" aria-hidden />
+                    Erneut versuchen
+                  </button>
+                </section>
+              ) : matches.length === 0 ? (
+                <section
+                  aria-label="Keine Spiele"
+                  className="rounded-2xl border border-white/[0.12] bg-white/[0.05] px-6 py-14 text-center shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-[12px] sm:px-10"
+                >
+                  {isBasketball ? (
+                    <>
+                      <span className="mb-3 inline-block text-4xl" aria-hidden>
+                        🏀
                       </span>
-                    </div>
-
-                    <ul className="divide-y divide-slate-800/60" aria-label={`${group.league.name} Spiele`}>
-                      {group.matches.map((m) => {
-                        const matchSlug = makeMatchSlug(m.home, m.away, selectedDate);
-                        const matchData = { ...m, date: selectedDate, league: group.league };
-                        return (
-                          <li key={m.id} className="px-2 sm:px-3 py-2">
-                            <Link
-                              to={`/de/spielplan/${matchSlug}`}
-                              state={{ match: matchData }}
-                              className="group relative flex items-center gap-4 px-3 py-3 sm:px-4 sm:py-3"
-                              aria-label={`${m.home} - ${m.away} Spielinfo, ${m.time}`}
-                            >
-                              <div className="absolute inset-0 rounded-2xl bg-slate-900/70 border border-slate-800 group-hover:border-purple-500/70 group-hover:bg-slate-900/95 transition-all duration-200 shadow-sm group-hover:shadow-[0_0_22px_rgba(168,85,247,0.45)]" />
-                              <div className="relative flex items-center gap-4 w-full">
-                                <div className="shrink-0">
-                                  <span className="inline-flex items-center justify-center rounded-full border border-purple-500/60 bg-purple-500/15 px-3 py-1 text-[11px] font-semibold text-purple-100">
-                                    {m.time}
+                      <h2 className="mb-2 text-lg font-semibold text-white">Keine Basketballspiele an diesem Tag</h2>
+                      <p className="mx-auto max-w-md text-sm text-white/55">
+                        Wählen Sie ein anderes Datum oder wechseln Sie zu{' '}
+                        <button
+                          type="button"
+                          onClick={() => setSport(SPORT_FOOTBALL)}
+                          className="font-medium text-[#e50914] underline decoration-[#e50914]/50 hover:text-white"
+                        >
+                          Fußball
+                        </button>
+                        .
+                      </p>
+                    </>
+                  ) : isTennis ? (
+                    <>
+                      <span className="mb-3 inline-block text-4xl" aria-hidden>
+                        🎾
+                      </span>
+                      <h2 className="mb-2 text-lg font-semibold text-white">Keine Tennisspiele an diesem Tag</h2>
+                      <p className="mx-auto max-w-md text-sm text-white/55">
+                        Wählen Sie ein anderes Datum oder wechseln Sie zu{' '}
+                        <button
+                          type="button"
+                          onClick={() => setSport(SPORT_FOOTBALL)}
+                          className="font-medium text-[#e50914] underline decoration-[#e50914]/50 hover:text-white"
+                        >
+                          Fußball
+                        </button>
+                        .
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <Trophy className="mx-auto mb-3 h-12 w-12 text-white/30" aria-hidden />
+                      <h2 className="mb-2 text-lg font-semibold text-white">Keine Spiele an diesem Tag</h2>
+                      <p className="mx-auto max-w-md text-sm text-white/55">
+                        Wählen Sie über die Datumsleiste einen anderen Tag.
+                      </p>
+                    </>
+                  )}
+                </section>
+              ) : (
+                <section aria-labelledby="match-list-heading-de" className="space-y-4">
+                  <h2 id="match-list-heading-de" className="sr-only">
+                    Täglicher Spielplan
+                  </h2>
+                  {matches.map((group, groupIdx) => (
+                    <section
+                      key={`${group.league.slug || group.league.name}-${group.league.name}`}
+                      className="overflow-hidden rounded-2xl border border-white/[0.12] bg-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-[12px]"
+                      aria-labelledby={`league-de-${groupIdx}`}
+                    >
+                      <div className="flex items-center justify-between gap-3 border-b border-white/[0.1] bg-black/20 px-4 py-3.5 backdrop-blur-sm sm:px-5">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xl" aria-hidden>
+                            {group.league.flag}
+                          </span>
+                          <div>
+                            <h3 id={`league-de-${groupIdx}`} className="text-sm font-semibold text-white">
+                              {group.league.name}
+                            </h3>
+                            <p className="text-[11px] text-white/45">{group.league.country}</p>
+                          </div>
+                        </div>
+                        <span className="text-xs font-medium text-amber-200/90">{group.matches.length} Spiele</span>
+                      </div>
+                      <ul className="divide-y divide-white/[0.06]" aria-label={`${group.league.name} Spiele`}>
+                        {group.matches.map((m) => (
+                          <li key={m.id} className="px-3 py-2 sm:px-4">
+                            <div className="flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-3 backdrop-blur-sm sm:gap-4">
+                              <span className="shrink-0 rounded-lg border border-primary/35 bg-primary/15 px-2.5 py-1 text-xs font-semibold text-primary shadow-[0_0_12px_rgba(229, 9, 20,0.2)]">
+                                {m.time}
+                              </span>
+                              <div className="grid min-w-0 flex-1 grid-cols-[1fr_auto_1fr] items-center gap-2">
+                                <div className="flex min-w-0 items-center gap-2">
+                                  <TeamLogoOrInitials teamName={m.home} logoUrl={logoUrlForList(m.home)} variant="home" />
+                                  <span className="truncate text-xs font-semibold text-white/90 sm:text-sm" title={m.home}>
+                                    {m.home}
                                   </span>
                                 </div>
-                                <div className="flex-1 flex items-center justify-between gap-2 min-w-0">
-                                  <div className="flex items-center gap-2 min-w-0">
-                                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 text-[11px] font-bold text-white shadow-md">
-                                      {getTeamInitials(m.home)}
-                                    </div>
-                                    <span className="truncate font-semibold text-sm sm:text-base text-slate-50">
-                                      {m.home}
-                                    </span>
-                                    <span className="shrink-0 text-base opacity-70" aria-hidden>⚽</span>
-                                  </div>
-                                  <span className="text-slate-500 shrink-0 px-2 text-xs sm:text-sm" aria-hidden>
-                                    vs
+                                <span className="shrink-0 text-xs font-medium text-white/35">vs</span>
+                                <div className="flex min-w-0 items-center justify-end gap-2">
+                                  <span
+                                    className="truncate text-right text-xs font-semibold text-white/90 sm:text-sm"
+                                    title={m.away}
+                                  >
+                                    {m.away}
                                   </span>
-                                  <div className="flex items-center gap-2 min-w-0 justify-end">
-                                    <span className="shrink-0 text-base opacity-70" aria-hidden>⚽</span>
-                                    <span className="truncate font-semibold text-right text-sm sm:text-base text-slate-50">
-                                      {m.away}
-                                    </span>
-                                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-emerald-500 text-[11px] font-bold text-white shadow-md">
-                                      {getTeamInitials(m.away)}
-                                    </div>
-                                  </div>
+                                  <TeamLogoOrInitials teamName={m.away} logoUrl={logoUrlForList(m.away)} variant="away" />
                                 </div>
-                                <span className="shrink-0 text-[11px] sm:text-xs text-slate-300 group-hover:text-purple-200">
-                                  Details
-                                </span>
                               </div>
-                            </Link>
+                            </div>
                           </li>
-                        );
-                      })}
-                    </ul>
-                  </section>
-                ))}
-              </section>
-            )}
+                        ))}
+                      </ul>
+                    </section>
+                  ))}
+                </section>
+              )}
 
-            {/* SEO-Bereich */}
-            <section>
-              <MatchScheduleSeoSectionDE />
-            </section>
-          </article>
-        </main>
-        <FooterDE contactData={contactData} siteTexts={siteTexts} siteData={siteData} />
+              <section>
+                <MatchScheduleSeoSectionDE />
+              </section>
+            </article>
+          </main>
+          <FooterDE contactData={contactData} siteTexts={siteTexts} siteData={siteData} />
+        </div>
       </div>
     </>
   );

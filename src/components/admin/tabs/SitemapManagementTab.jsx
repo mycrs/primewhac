@@ -29,21 +29,9 @@ const SitemapManagementTab = () => {
   const missingPages = [
     // TR Pages
     { url: '/blog', page_name: 'Blog Ana Sayfa', language: 'TR', published: true, priority: 0.8, changefreq: 'weekly' },
-    { url: '/blog/[slug]', page_name: 'Blog Yazısı', language: 'TR', published: true, priority: 0.7, changefreq: 'weekly' },
-    { url: '/blog-kategorileri', page_name: 'Blog Kategorileri', language: 'TR', published: true, priority: 0.7, changefreq: 'monthly' },
-    { url: '/video-rehberleri', page_name: 'Video Rehberleri', language: 'TR', published: true, priority: 0.7, changefreq: 'weekly' },
-    { url: '/urun-detay', page_name: 'Ürün Detay', language: 'TR', published: true, priority: 0.8, changefreq: 'weekly' },
-    { url: '/galeri', page_name: 'Galeri', language: 'TR', published: true, priority: 0.6, changefreq: 'monthly' },
-    { url: '/referans', page_name: 'Referanslar', language: 'TR', published: true, priority: 0.6, changefreq: 'monthly' },
     
     // DE Pages
     { url: '/de/blog', page_name: 'Blog Startseite', language: 'DE', published: true, priority: 0.8, changefreq: 'weekly' },
-    { url: '/de/blog/[slug]', page_name: 'Blog Artikel', language: 'DE', published: true, priority: 0.7, changefreq: 'weekly' },
-    { url: '/de/blog-kategorien', page_name: 'Blog Kategorien', language: 'DE', published: true, priority: 0.7, changefreq: 'monthly' },
-    { url: '/de/video-anleitungen', page_name: 'Video Anleitungen', language: 'DE', published: true, priority: 0.7, changefreq: 'weekly' },
-    { url: '/de/produkt-details', page_name: 'Produktdetails', language: 'DE', published: true, priority: 0.8, changefreq: 'weekly' },
-    { url: '/de/galerie', page_name: 'Galerie', language: 'DE', published: true, priority: 0.6, changefreq: 'monthly' },
-    { url: '/de/referenzen', page_name: 'Referenzen', language: 'DE', published: true, priority: 0.6, changefreq: 'monthly' }
   ];
 
   const handleAddMissingPages = async () => {
@@ -131,17 +119,17 @@ const SitemapManagementTab = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-center bg-slate-900 p-6 rounded-xl border border-slate-800 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-center bg-[#0a0a0a] p-6 rounded-xl border border-slate-800 gap-4">
         <div>
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Map className="w-6 h-6 text-purple-500" />
+            <Map className="w-6 h-6 text-primary" />
             Sitemap Management
           </h2>
           <p className="text-gray-400 mt-1">Manage XML sitemap entries and download the generated sitemap.</p>
         </div>
         <div className="flex flex-wrap gap-3 items-center">
           <Select value={filterLang} onValueChange={setFilterLang}>
-            <SelectTrigger className="w-[120px] bg-slate-950 border-slate-800 text-white">
+            <SelectTrigger className="w-[120px] bg-[#0a0a0a] border-slate-800 text-white">
               <SelectValue placeholder="Language" />
             </SelectTrigger>
             <SelectContent>
@@ -155,24 +143,24 @@ const SitemapManagementTab = () => {
             onClick={handleAddMissingPages} 
             disabled={isAddingMissing}
             variant="outline" 
-            className="border-blue-600 text-blue-400 hover:bg-blue-600/10"
+            className="border-blue-600 text-blue-400 hover:bg-[#141414]/10"
           >
             <ListPlus className="w-4 h-4 mr-2" />
             {isAddingMissing ? 'Adding...' : 'Add Missing Pages'}
           </Button>
 
-          <Button onClick={downloadSitemap} variant="outline" className="border-purple-600 text-purple-400 hover:bg-purple-600/10">
+          <Button onClick={downloadSitemap} variant="outline" className="border-primary text-primary hover:bg-primary/10">
             <Download className="w-4 h-4 mr-2" />
             Download XML
           </Button>
-          <Button onClick={() => handleOpenModal()} className="bg-purple-600 hover:bg-purple-700 text-white">
+          <Button onClick={() => handleOpenModal()} className="bg-primary hover:bg-primary text-white">
             <Plus className="w-4 h-4 mr-2" />
             Add Entry
           </Button>
         </div>
       </div>
 
-      <Card className="bg-slate-900 border-slate-800">
+      <Card className="bg-[#0a0a0a] border-slate-800">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <Table>
@@ -217,7 +205,7 @@ const SitemapManagementTab = () => {
       </Card>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="bg-slate-900 border-slate-800 text-white">
+        <DialogContent className="bg-[#0a0a0a] border-slate-800 text-white">
           <DialogHeader>
             <DialogTitle>{editingEntry ? 'Edit Entry' : 'New Entry'}</DialogTitle>
           </DialogHeader>
@@ -225,11 +213,11 @@ const SitemapManagementTab = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Page Name</Label>
-                <Input value={formData.page_name} onChange={(e) => setFormData({ ...formData, page_name: e.target.value })} required className="bg-slate-950 border-slate-800" />
+                <Input value={formData.page_name} onChange={(e) => setFormData({ ...formData, page_name: e.target.value })} required className="bg-[#0a0a0a] border-slate-800" />
               </div>
               <div className="space-y-2">
                 <Label>URL</Label>
-                <Input value={formData.url} onChange={(e) => setFormData({ ...formData, url: e.target.value })} required className="bg-slate-950 border-slate-800" />
+                <Input value={formData.url} onChange={(e) => setFormData({ ...formData, url: e.target.value })} required className="bg-[#0a0a0a] border-slate-800" />
               </div>
             </div>
             
@@ -237,14 +225,14 @@ const SitemapManagementTab = () => {
               <div className="space-y-2">
                 <Label>Language</Label>
                 <Select value={formData.language} onValueChange={(val) => setFormData({ ...formData, language: val })}>
-                  <SelectTrigger className="bg-slate-950 border-slate-800"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="bg-[#0a0a0a] border-slate-800"><SelectValue /></SelectTrigger>
                   <SelectContent><SelectItem value="TR">TR</SelectItem><SelectItem value="DE">DE</SelectItem></SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label>Change Frequency</Label>
                 <Select value={formData.changefreq} onValueChange={(val) => setFormData({ ...formData, changefreq: val })}>
-                  <SelectTrigger className="bg-slate-950 border-slate-800"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="bg-[#0a0a0a] border-slate-800"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     {frequencies.map(f => <SelectItem key={f} value={f}>{f}</SelectItem>)}
                   </SelectContent>
@@ -264,7 +252,7 @@ const SitemapManagementTab = () => {
 
             <DialogFooter className="mt-6">
               <Button type="button" variant="ghost" onClick={() => setIsModalOpen(false)}>Cancel</Button>
-              <Button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white">{editingEntry ? 'Update' : 'Add'}</Button>
+              <Button type="submit" className="bg-primary hover:bg-primary text-white">{editingEntry ? 'Update' : 'Add'}</Button>
             </DialogFooter>
           </form>
         </DialogContent>

@@ -59,7 +59,7 @@ const TroubleshootingAccordion = ({ lang = 'tr' }) => {
     },
     {
       id: "playlist-error",
-      icon: <PlayCircle className="w-5 h-5 text-purple-400" />,
+      icon: <PlayCircle className="w-5 h-5 text-primary" />,
       title: isDe ? "Wiedergabeliste lädt nicht" : "Oynatma Listesi Yüklenmiyor",
       content: (
         <div className="space-y-2 text-xs md:text-sm">
@@ -75,9 +75,9 @@ const TroubleshootingAccordion = ({ lang = 'tr' }) => {
   ];
 
   return (
-    <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-4 md:p-6 w-full">
+    <div className="bg-[#0a0a0a]/40 border border-slate-800 rounded-2xl p-4 md:p-6 w-full">
       <h3 className="text-lg md:text-xl font-bold text-white mb-4 md:mb-6 flex items-center gap-2">
-        <AlertCircle className="w-5 h-5 md:w-6 md:h-6 text-purple-500" />
+        <AlertCircle className="w-5 h-5 md:w-6 md:h-6 text-primary" />
         {isDe ? "Fehlerbehebungsleitfaden" : "Sorun Giderme Kılavuzu"}
       </h3>
       
@@ -86,14 +86,14 @@ const TroubleshootingAccordion = ({ lang = 'tr' }) => {
           <AccordionItem 
             key={item.id} 
             value={item.id} 
-            className="border border-slate-800 bg-slate-950/50 rounded-lg px-2 overflow-hidden data-[state=open]:border-purple-500/50 transition-colors w-full"
+            className="border border-slate-800 bg-[#0a0a0a]/50 rounded-lg px-2 overflow-hidden data-[state=open]:border-primary/50 transition-colors w-full"
           >
             <AccordionTrigger className="hover:no-underline py-3 md:py-4 px-2 md:px-3 min-h-[44px] touch-manipulation w-full">
               <div className="flex items-center gap-2 md:gap-3 text-left w-full">
-                <div className="bg-slate-900 p-1.5 md:p-2 rounded-md border border-slate-800 shrink-0">
+                <div className="bg-[#0a0a0a] p-1.5 md:p-2 rounded-md border border-slate-800 shrink-0">
                   {item.icon}
                 </div>
-                <span className="text-sm md:text-base text-slate-200 font-medium hover:text-purple-400 transition-colors flex-1 pr-2">
+                <span className="text-sm md:text-base text-slate-200 font-medium hover:text-primary transition-colors flex-1 pr-2">
                   {item.title}
                 </span>
               </div>

@@ -1,6 +1,7 @@
 
 import { migrateUrl, migrateContent } from './linkMigration';
 import { executeDomainRedirect } from '@/middleware/redirectMiddleware';
+import { SITE_URL } from '@/constants/siteUrl';
 
 export const DomainMigrationManager = {
   checkAndRedirect: () => {
@@ -17,6 +18,6 @@ export const DomainMigrationManager = {
   
   getCanonicalUrl: (path) => {
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    return `https://primewatch.tv${cleanPath}`;
+    return `${SITE_URL}${cleanPath}`;
   }
 };

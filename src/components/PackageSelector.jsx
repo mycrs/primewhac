@@ -18,7 +18,7 @@ const PackageSelector = ({ siteTexts }) => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+    <section className="py-20 bg-gradient-to-br from-[#0a0a0a] via-[#e50914] to-[#141414]">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -70,7 +70,7 @@ const PackageSelector = ({ siteTexts }) => {
               </Button>
               <Button
                 onClick={() => openOrderModal(null, false)}
-                className="flex-1 max-w-xs bg-blue-600 hover:bg-blue-700 text-white font-bold py-6 text-lg shadow-lg shadow-blue-900/20"
+                className="flex-1 max-w-xs bg-[#141414] hover:bg-[#0a0a0a] text-white font-bold py-6 text-lg shadow-lg shadow-blue-900/20"
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 {texts.buyButton || 'Hemen Satın Al'}

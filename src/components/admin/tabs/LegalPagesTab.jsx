@@ -81,7 +81,7 @@ export const LegalPagesTab = ({ siteData, setSiteData }) => {
       </div>
 
       <Tabs defaultValue="privacy" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-slate-800">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-[#0a0a0a]">
             {pages.map(page => (
                 <TabsTrigger key={page.id} value={page.id}>{page.label}</TabsTrigger>
             ))}
@@ -89,7 +89,7 @@ export const LegalPagesTab = ({ siteData, setSiteData }) => {
         
         {pages.map(page => (
             <TabsContent key={page.id} value={page.id} className="space-y-4 mt-4">
-                <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-700">
+                <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700">
                     <div className="flex justify-between items-start mb-4">
                         <div>
                             <h3 className="text-lg font-bold text-white">{page.label}</h3>
@@ -114,7 +114,7 @@ export const LegalPagesTab = ({ siteData, setSiteData }) => {
                             placeholder={page.placeholder}
                             value={formData[page.key]} 
                             onChange={(e) => handleChange(page.key, e.target.value)}
-                            className="font-mono text-sm bg-slate-950 border-slate-800 focus:border-purple-500"
+                            className="font-mono text-sm bg-[#0a0a0a] border-slate-800 focus:border-primary"
                         />
                     </div>
                 </div>

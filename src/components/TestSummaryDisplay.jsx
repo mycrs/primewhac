@@ -1,16 +1,18 @@
 import React from 'react';
-import { Edit2, Tv, Smartphone, Monitor, Tablet, Watch, AppWindow, User, FileText } from 'lucide-react';
+import { Edit2, Tv, AppWindow, User, FileText } from 'lucide-react';
+import { useSiteData } from '@/hooks/useSiteData';
+import { getIptvDeviceIcon } from '@/constants/iptvFlowDevices';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const SummaryCard = ({ title, value, icon: Icon, onEdit, subValue }) => (
-  <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-4 flex items-center justify-between group hover:border-slate-700 hover:shadow-lg transition-all duration-300">
+  <div className="bg-[#0a0a0a]/40 border border-slate-800 rounded-xl p-4 flex items-center justify-between group hover:border-slate-700 hover:shadow-lg transition-all duration-300">
     <div className="flex items-center gap-4 min-w-0">
       <div className={cn(
         "w-12 h-12 flex items-center justify-center rounded-xl shrink-0 bg-gradient-to-br border border-slate-700/50",
-        title === 'Cihaz' ? "from-blue-500/20 to-indigo-500/20 text-blue-400" :
-        title === 'Uygulama' ? "from-purple-500/20 to-pink-500/20 text-purple-400" :
-        "from-emerald-500/20 to-green-500/20 text-emerald-400"
+        title === 'Cihaz' ? "from-[#e50914]/20 to-[#b20710]/20 text-blue-400" :
+        title === 'Uygulama' ? "from-[#e50914]/20 to-[#b20710]/20 text-primary" :
+        "from-[#e50914]/20 to-green-500/20 text-[#e50914]"
       )}>
         {Icon ? <Icon className="w-6 h-6" /> : <User className="w-6 h-6" />}
       </div>
@@ -25,7 +27,7 @@ const SummaryCard = ({ title, value, icon: Icon, onEdit, subValue }) => (
     <Button 
       size="icon" 
       variant="ghost" 
-      className="h-9 w-9 rounded-lg text-slate-500 hover:text-white hover:bg-slate-800 shrink-0" 
+      className="h-9 w-9 rounded-lg text-slate-500 hover:text-white hover:bg-[#0a0a0a] shrink-0" 
       onClick={onEdit}
     >
       <Edit2 className="w-4 h-4" />
@@ -34,22 +36,21 @@ const SummaryCard = ({ title, value, icon: Icon, onEdit, subValue }) => (
 );
 
 const TestSummaryDisplay = ({ formData, selectedDevice, selectedApp, onEditStep }) => {
+  const { siteData } = useSiteData();
   const getDeviceIcon = () => {
-    switch(selectedDevice?.id) {
-        case 'tv': return Tv;
-        case 'android': 
-        case 'ios': return Smartphone;
-        case 'pc': return Monitor;
-        case 'tablet': return Tablet;
-        default: return Watch;
-    }
+    if (!selectedDevice?.id) return Tv;
+    return getIptvDeviceIcon(selectedDevice.id, siteData?.iptvFlowDevicesData);
   };
+
+  const deviceDisplay = formData?.tv_brand
+    ? `${selectedDevice?.name} (${formData.tv_brand})`
+    : selectedDevice?.name;
 
   return (
     <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <SummaryCard 
         title="Cihaz" 
-        value={selectedDevice?.name} 
+        value={deviceDisplay} 
         icon={getDeviceIcon()} 
         onEdit={() => onEditStep(0)} 
       />
@@ -69,7 +70,7 @@ const TestSummaryDisplay = ({ formData, selectedDevice, selectedApp, onEditStep 
       />
 
       {formData.special_note && (
-        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-4 group hover:border-slate-700 transition-colors">
+        <div className="bg-[#0a0a0a]/40 border border-slate-800 rounded-xl p-4 group hover:border-slate-700 transition-colors">
            <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2 text-slate-500">
                  <FileText className="w-4 h-4" />
@@ -78,7 +79,7 @@ const TestSummaryDisplay = ({ formData, selectedDevice, selectedApp, onEditStep 
               <Button 
                 size="icon" 
                 variant="ghost" 
-                className="h-8 w-8 rounded-lg text-slate-500 hover:text-white hover:bg-slate-800" 
+                className="h-8 w-8 rounded-lg text-slate-500 hover:text-white hover:bg-[#0a0a0a]" 
                 onClick={() => onEditStep(2)}
               >
                 <Edit2 className="w-3 h-3" />

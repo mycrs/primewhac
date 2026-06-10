@@ -20,7 +20,7 @@ const ColorfulChannelCard = memo(({ channel, index }) => {
         {/* Full coverage background image */}
         <img 
           src={bgImageUrl}
-          alt={`${channel.name} background`}
+          alt=""
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 z-0"
           loading="lazy"
         />
@@ -29,7 +29,7 @@ const ColorfulChannelCard = memo(({ channel, index }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 z-0" />
         
         {/* Glow effect on hover */}
-        <div className="absolute inset-0 bg-purple-500/0 group-hover:bg-purple-500/20 transition-colors duration-300 z-0 pointer-events-none mix-blend-overlay" />
+        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors duration-300 z-0 pointer-events-none mix-blend-overlay" />
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           {/* Top Section: Logo */}
@@ -37,7 +37,7 @@ const ColorfulChannelCard = memo(({ channel, index }) => {
             {channel.logoUrl || channel.logo_url ? (
               <img 
                 src={channel.logoUrl || channel.logo_url} 
-                alt={channel.name} 
+                alt="IPTV kanal logosu"
                 className="h-full w-full object-contain drop-shadow-md"
                 loading="lazy"
                 onError={(e) => {

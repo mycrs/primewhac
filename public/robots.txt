@@ -1,3 +1,29 @@
 User-agent: *
 Allow: /
-Sitemap: https://primewatch.tv/sitemap.xml
+Disallow: /admin
+Disallow: /yonetim
+Disallow: /search
+Disallow: /*?*
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://streamtr.eu/sitemap.xml

@@ -27,7 +27,7 @@ const GenreFilter = ({ selectedGenre, onSelectGenre, type = 'movie' }) => {
   if (loading) {
     return (
       <div className="flex justify-center py-4">
-        <Loader2 className="w-6 h-6 animate-spin text-purple-400" />
+        <Loader2 className="w-6 h-6 animate-spin text-primary" />
       </div>
     );
   }
@@ -60,13 +60,13 @@ const GenreFilter = ({ selectedGenre, onSelectGenre, type = 'movie' }) => {
           className={cn(
             "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border border-transparent outline-none focus:ring-2 ring-offset-2 ring-offset-slate-900 relative overflow-hidden group",
             selectedGenre === genre.id
-              ? "text-white shadow-[0_0_15px_rgba(168,85,247,0.5)] scale-105 border-purple-500/50 bg-gradient-to-r from-purple-600 to-pink-600"
-              : "bg-white/5 text-slate-400 border-white/5 hover:border-purple-500/30 hover:text-white hover:bg-white/10"
+              ? "text-white shadow-[0_0_15px_rgba(229,9,20,0.5)] scale-105 border-primary/50 bg-gradient-to-r from-[#e50914] to-[#b20710]"
+              : "bg-white/5 text-slate-400 border-white/5 hover:border-primary/30 hover:text-white hover:bg-white/10"
           )}
         >
           <span className="relative z-10">{genre.name}</span>
           <div className={cn(
-            "absolute inset-0 bg-gradient-to-r from-purple-600/80 to-pink-600/80 opacity-0 transition-opacity duration-300",
+            "absolute inset-0 bg-gradient-to-r from-[#e50914]/80 to-[#b20710]/80 opacity-0 transition-opacity duration-300",
             selectedGenre !== genre.id && "group-hover:opacity-100"
           )} />
         </button>

@@ -6,7 +6,8 @@
 
 export const trackEvent = (eventName, params = {}) => {
   try {
-    if (window.dataLayer) {
+    if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: eventName,
         ...params,
@@ -59,5 +60,37 @@ export const trackContentView = (contentTitle, contentType, contentId) => {
 export const trackPackagesPageView = (source) => {
   trackEvent('packages_page_reached', {
     referrer_source: source
+  });
+};
+
+export const trackCtaClick = (ctaName, location = 'unknown', extra = {}) => {
+  trackEvent('cta_clicked', {
+    cta_name: ctaName,
+    location,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    ...extra,
+  });
+};
+
+export const trackTestRequestStart = (location = 'unknown') => {
+  trackEvent('test_request_started', {
+    location,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+  });
+};
+
+export const trackWhatsAppClick = (location = 'unknown', extra = {}) => {
+  trackEvent('whatsapp_clicked', {
+    location,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    ...extra,
+  });
+};
+
+export const trackOrderIntent = (packageName, location = 'packages') => {
+  trackEvent('order_intent_started', {
+    package_name: packageName,
+    location,
+    page_path: typeof window !== 'undefined' ? window.location.pathname : '',
   });
 };

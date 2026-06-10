@@ -31,7 +31,7 @@ const SupabaseConnectionStatus = () => {
 
   if (status === 'checking') {
     return (
-      <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/50 border border-white/10 shadow-md">
+      <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0a0a0a]/50 border border-white/10 shadow-md">
         <Loader2 className="w-4 h-4 text-blue-400 animate-spin" />
         <span className="text-xs font-medium text-slate-300">Kontrol ediliyor...</span>
       </div>

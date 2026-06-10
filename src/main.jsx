@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import './index.css';
 import { AuthProvider } from '@/contexts/SupabaseAuthContext';
 import SupabaseConfigurationError from '@/components/SupabaseConfigurationError';
@@ -14,24 +15,11 @@ import { initPerformanceMonitoring } from '@/utils/performanceMetrics';
 const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(rootElement);
 
-// Initialize Service Worker
+// Service Worker devre dışı - SW aktivasyonu sayfa yenileme döngüsüne yol açıyordu
+// Eski SW varsa kaldır (kullanıcılar için)
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then((reg) => {
-      // Yeni SW yüklenip beklemeye girerse sayfayı otomatik yenile
-      reg.addEventListener('updatefound', () => {
-        const newWorker = reg.installing;
-        if (!newWorker) return;
-        newWorker.addEventListener('statechange', () => {
-          if (newWorker.state === 'activated') {
-            // Yeni SW aktive oldu → sayfayı yenile (eski chunk hatası kırılsın)
-            window.location.reload();
-          }
-        });
-      });
-    }).catch((err) => {
-      console.log('SW registration failed: ', err);
-    });
+  navigator.serviceWorker.getRegistrations().then((regs) => {
+    regs.forEach((r) => r.unregister());
   });
 }
 
@@ -64,7 +52,9 @@ if (preInitValidation()) {
     <>
       <BrowserRouter>
         <AuthProvider>
-          <App />
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
         </AuthProvider>
       </BrowserRouter>
     </>

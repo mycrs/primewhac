@@ -1,0 +1,863 @@
+{
+  "entries": [
+    {
+      "name": "1. FC Heidenheim 1846",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "1. FC Köln",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "1. FC Union Berlin",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "1. FSV Mainz 05",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Adelaide 36ers",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Ajax",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Alanyaspor",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Antalyaspor",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Arsenal",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Aston Villa",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Atalanta",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Athletic Club",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Atlanta Dream",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Atlanta Hawks",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Atleti",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Atlético de Madrid",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "B. Dortmund",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Bayer 04 Leverkusen",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Bayern München",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Benfica",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Besiktas",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Bodø/Glimt",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Bologna",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Borussia Dortmund",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Borussia Mönchengladbach",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Boston Celtics",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Bournemouth",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Brentford",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Brighton",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Brisbane Bullets",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Brooklyn Nets",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Burnley",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "CA Osasuna",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Cagliari",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Cairns Taipans",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Celta",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Charlotte Hornets",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Chelsea",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Chicago Bulls",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Chicago Sky",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Cleveland Cavaliers",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Club Brugge",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Como",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Connecticut Sun",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Copenhagen",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Cremonese",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Crystal Palace",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Çaykur Rizespor",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Dallas Mavericks",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Dallas Wings",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Denver Nuggets",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Deportivo Alavés",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Detroit Pistons",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Eintracht Frankfurt",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Elche CF",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Everton",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Eyüpspor",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Fatih Karagümrük",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "FC Augsburg",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "FC Barcelona",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "FC St. Pauli",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Fenerbahçe",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Fiorentina",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Frankfurt",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Fulham",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Galatasaray",
+      "url": "data:image/png;base64,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",
+      "aliases": [
+        "Galatasaray",
+        "gs",
+        "GS"
+      ]
+    },
+    {
+      "name": "Gaziantep",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Gençlerbirligi",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Genoa",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Getafe CF",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Girona FC",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Golden State Valkyries",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Golden State Warriors",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Göztepe",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Hamburger SV",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Hellas Verona",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Houston Rockets",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Illawarra Hawks",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Indiana Fever",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Indiana Pacers",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Inter",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Istanbul Basaksehir",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Juventus",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Kairat Almaty",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Kasimpasa",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Kayserispor",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Kocaelispor",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Konyaspor",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "LA Clippers",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Las Vegas Aces",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Lazio",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Lecce",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Leeds",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Levante UD",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Leverkusen",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Liverpool",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Los Angeles Lakers",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Los Angeles Sparks",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Man City",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Man Utd",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Marseille",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Melbourne United",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Memphis Grizzlies",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Miami Heat",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Milan",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Milwaukee Bucks",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Minnesota Lynx",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Minnesota Timberwolves",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Monaco",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Napoli",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "New Orleans Pelicans",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "New York Knicks",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "New York Liberty",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "New Zealand Breakers",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Newcastle",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Nott'm Forest",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Oklahoma City Thunder",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Olympiacos",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Orlando Magic",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Pafos",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Paris",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Parma",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Perth Wildcats",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Philadelphia 76ers",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Phoenix Mercury",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Phoenix Suns",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Pisa",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Portland Trail Blazers",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "PSV",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Qarabag",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Rayo Vallecano",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "RB Leipzig",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "RCD Espanyol de Barcelona",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "RCD Mallorca",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Real Betis",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Real Madrid",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Real Oviedo",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Real Sociedad",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Roma",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Sacramento Kings",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Samsunspor",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "San Antonio Spurs",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Sassuolo",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Seattle Storm",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Sevilla FC",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Slavia Praha",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "South East Melbourne Phoenix",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Sport-Club Freiburg",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Sporting CP",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Spurs",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Sunderland",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "SV Werder Bremen",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Sydney Kings",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Tasmania JackJumpers",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Torino",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Toronto Raptors",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Tottenham",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Trabzonspor",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "TSG Hoffenheim",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Udinese",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Union SG",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Utah Jazz",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Valencia CF",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "VfB Stuttgart",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "VfL Wolfsburg",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Villarreal",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Villarreal CF",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Washington Mystics",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Washington Wizards",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "West Ham",
+      "url": "",
+      "aliases": []
+    },
+    {
+      "name": "Wolves",
+      "url": "",
+      "aliases": []
+    }
+  ]
+}

@@ -7,7 +7,7 @@ const stories = [
   {
     name: "Ahmet K.",
     role: "Premium Üye",
-    quote: "Yıllardır farklı IPTV hizmetleri denedim ama QruzeHD gibisini görmedim. Donma yok, görüntü kalitesi harika ve destek ekibi çok ilgili.",
+    quote: "Yıllardır farklı IPTV hizmetleri denedim ama QruzeTV gibisini görmedim. Donma yok, görüntü kalitesi harika ve destek ekibi çok ilgili.",
     avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=100&h=100"
   },
   {
@@ -26,7 +26,7 @@ const stories = [
 
 const SuccessStoriesSection = () => {
   return (
-    <section className="py-24 bg-slate-900/30">
+    <section className="py-24 bg-[#0a0a0a]/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Müşteri Yorumları</h2>
@@ -41,17 +41,17 @@ const SuccessStoriesSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-slate-950 p-8 rounded-2xl border border-slate-800 relative hover:-translate-y-2 transition-transform duration-300"
+              className="bg-[#0a0a0a] p-8 rounded-2xl border border-slate-800 relative hover:-translate-y-2 transition-transform duration-300"
             >
-              <Quote className="w-10 h-10 text-purple-500/20 absolute top-6 right-6" />
+              <Quote className="w-10 h-10 text-primary/20 absolute top-6 right-6" />
               
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-700">
-                  <img src={story.avatar} alt={story.name} className="w-full h-full object-cover" />
+                  <img src={story.avatar} alt={`${story.name} fotoğrafı`} className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-white text-lg">{story.name}</h3>
-                  <span className="text-purple-400 text-xs uppercase tracking-wide">{story.role}</span>
+                  <p className="font-bold text-white text-lg">{story.name}</p>
+                  <span className="text-primary text-xs uppercase tracking-wide">{story.role}</span>
                 </div>
               </div>
               

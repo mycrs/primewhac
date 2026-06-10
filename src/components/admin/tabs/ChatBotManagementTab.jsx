@@ -122,16 +122,26 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
   const handleSaveGeneralSettings = async () => {
     setIsSavingGeneral(true);
     try {
+      if (!setSiteData?.setChatBotData) {
+        toast({ variant: "destructive", title: "Hata", description: "Kaydetme özelliği yüklenemedi. Sayfayı yenileyip tekrar deneyin." });
+        return;
+      }
       const updatedData = { 
         ...siteData.chatBotData, 
         ...generalSettings 
       };
       
-      await setSiteData.setChatBotData(updatedData);
+      const result = await setSiteData.setChatBotData(updatedData);
+      if (result?.success === false) {
+        const errMsg = result?.error?.message || result?.error?.error_description || (typeof result?.error === 'string' ? result.error : 'Bilinmeyen hata');
+        toast({ variant: "destructive", title: "Kaydedilemedi", description: errMsg });
+        return;
+      }
       toast({ title: "Başarılı", description: "Genel bot ayarları kaydedildi." });
     } catch (error) {
       console.error(error);
-      toast({ variant: "destructive", title: "Hata", description: "Ayarlar kaydedilemedi." });
+      const msg = error?.message || error?.error_description || (typeof error === 'string' ? error : 'Ayarlar kaydedilemedi');
+      toast({ variant: "destructive", title: "Hata", description: msg });
     } finally {
       setIsSavingGeneral(false);
     }
@@ -401,7 +411,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
     const displayLabel = standardOption ? standardOption.label : url;
     
     return (
-      <Badge variant="outline" className="border-cyan-500/30 text-cyan-400 bg-cyan-500/10 whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px]" title={displayLabel}>
+      <Badge variant="outline" className="border-[#e50914]/30 text-[#e50914] bg-[#e50914]/10 whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px]" title={displayLabel}>
         {displayLabel}
       </Badge>
     );
@@ -420,7 +430,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
         <div>
           <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Bot className="w-6 h-6 text-cyan-500" />
+            <Bot className="w-6 h-6 text-[#e50914]" />
             ChatBot Yönetimi
           </h3>
           <p className="text-slate-400 text-sm mt-1">Sitenizdeki canlı destek botunun ayarlarını yönetin.</p>
@@ -428,16 +438,16 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
       </div>
 
       {/* General Settings */}
-      <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-800 relative overflow-hidden">
+      <div className="bg-[#0a0a0a]/50 rounded-lg p-6 border border-slate-800 relative overflow-hidden">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 z-10 relative">
           <h4 className="text-xl font-bold text-white">Genel Ayarlar</h4>
-          <Button onClick={handleSaveGeneralSettings} disabled={isSavingGeneral} className="bg-cyan-600 hover:bg-cyan-700 text-white w-full sm:w-auto">
+          <Button onClick={handleSaveGeneralSettings} disabled={isSavingGeneral} className="bg-[#e50914] hover:bg-[#e50914] text-white w-full sm:w-auto">
             {isSavingGeneral ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
             Ayarları Kaydet
           </Button>
         </div>
 
-        <div className="flex items-center space-x-3 z-10 relative bg-slate-950 p-4 rounded-lg border border-slate-800 mb-6 inline-flex">
+        <div className="flex items-center space-x-3 z-10 relative bg-[#0a0a0a] p-4 rounded-lg border border-slate-800 mb-6 inline-flex">
           <Switch 
             id="chatbot-enabled" 
             checked={generalSettings.enabled} 
@@ -469,7 +479,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
       </div>
 
       {/* New Message Form Section */}
-      <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-6 mb-6">
+      <div className="bg-[#0a0a0a]/50 border border-slate-800 rounded-lg p-6 mb-6">
         <h4 className="text-xl font-bold text-white mb-4">Yeni Mesaj Ekle</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
@@ -491,7 +501,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                   }
                 }}
                 placeholder="Örn: paket, fiyat, ücret, abonelik"
-                className={`bg-slate-950 border-slate-800 text-white placeholder:text-slate-500 ${formErrors.question ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                className={`bg-[#0a0a0a] border-slate-800 text-white placeholder:text-slate-500 ${formErrors.question ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
               />
               {formErrors.question && <p className="text-red-400 text-xs mt-1">{formErrors.question}</p>}
             </div>
@@ -505,12 +515,12 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                   setFormErrors(rest);
                 }
               }}>
-                <SelectTrigger className="bg-slate-950 border-slate-800 text-white">
+                <SelectTrigger className="bg-[#0a0a0a] border-slate-800 text-white">
                   <SelectValue placeholder="Yönlendirme seçin" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-900 border-slate-800">
+                <SelectContent className="bg-[#0a0a0a] border-slate-800">
                   {REDIRECT_OPTIONS.map((option) => (
-                    <SelectItem key={option.value} value={option.value} className="text-white hover:bg-slate-800">
+                    <SelectItem key={option.value} value={option.value} className="text-white hover:bg-[#0a0a0a]">
                       {option.label}
                     </SelectItem>
                   ))}
@@ -531,7 +541,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                     }
                   }}
                   placeholder="https://ornek.com/sayfa"
-                  className={`bg-slate-950 border-slate-800 text-white placeholder:text-slate-500 ${formErrors.customUrl ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                  className={`bg-[#0a0a0a] border-slate-800 text-white placeholder:text-slate-500 ${formErrors.customUrl ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                 />
                 {formErrors.customUrl && <p className="text-red-400 text-xs mt-1">{formErrors.customUrl}</p>}
               </div>
@@ -556,7 +566,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                   }
                 }}
                 placeholder="Cevabı girin (min 5 karakter)..."
-                className={`bg-slate-950 border-slate-800 text-white placeholder:text-slate-500 w-full rounded-md px-3 py-2 text-sm h-[130px] resize-none ${formErrors.answer ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                className={`bg-[#0a0a0a] border-slate-800 text-white placeholder:text-slate-500 w-full rounded-md px-3 py-2 text-sm h-[130px] resize-none ${formErrors.answer ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
               />
               {formErrors.answer && <p className="text-red-400 text-xs mt-1">{formErrors.answer}</p>}
             </div>
@@ -564,7 +574,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
               <Button 
                 onClick={() => handleAddMessage(false)}
                 disabled={isFormDisabled}
-                className="bg-cyan-600 hover:bg-cyan-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-[#e50914] hover:bg-[#e50914] text-white disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isAdding ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
                 Mesaj Ekle
@@ -575,7 +585,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
       </div>
 
       {/* Simple Data Table Section */}
-      <div className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden">
+      <div className="bg-[#0a0a0a] border border-slate-800 rounded-lg overflow-hidden">
         <div className="p-6 border-b border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h4 className="text-xl font-bold text-white">ChatBot Verileri</h4>
@@ -586,7 +596,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
             size="sm"
             onClick={handleLoadDefaults}
             disabled={isLoadingDefaults}
-            className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 shrink-0"
+            className="border-[#e50914]/50 text-[#e50914] hover:bg-[#e50914]/10 shrink-0"
           >
             {isLoadingDefaults ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
             Varsayılan Anahtar Kelimeleri Yükle
@@ -596,7 +606,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
         <div className="p-0">
           {isLoadingData ? (
             <div className="flex justify-center items-center py-12">
-              <Loader2 className="w-8 h-8 text-cyan-500 animate-spin" />
+              <Loader2 className="w-8 h-8 text-[#e50914] animate-spin" />
             </div>
           ) : botData.length === 0 ? (
             <div className="text-center py-12 text-slate-400">
@@ -605,8 +615,8 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
           ) : (
             <div className="overflow-x-auto">
               <Table>
-                <TableHeader className="bg-slate-950/50">
-                  <TableRow className="border-slate-800 hover:bg-slate-950/50">
+                <TableHeader className="bg-[#0a0a0a]/50">
+                  <TableRow className="border-slate-800 hover:bg-[#0a0a0a]/50">
                     <TableHead className="w-[25%] text-slate-400 font-semibold">Anahtar Kelimeler (virgülle bağlı)</TableHead>
                     <TableHead className="text-slate-400 font-semibold">Cevap</TableHead>
                     <TableHead className="w-[15%] text-slate-400 font-semibold">Yönlendirme</TableHead>
@@ -615,7 +625,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                 </TableHeader>
                 <TableBody>
                   {botData.map((item, index) => (
-                    <TableRow key={item.id || index} className="border-slate-800 hover:bg-slate-800/50 transition-colors">
+                    <TableRow key={item.id || index} className="border-slate-800 hover:bg-[#0a0a0a]/50 transition-colors">
                       <TableCell className="font-medium text-white align-top">
                         {item.keyword || item.question}
                       </TableCell>
@@ -631,7 +641,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                             variant="ghost"
                             size="sm"
                             onClick={() => handleEdit(item)}
-                            className="bg-blue-600/10 text-blue-500 hover:bg-blue-600 hover:text-white"
+                            className="bg-[#141414]/10 text-blue-500 hover:bg-[#141414] hover:text-white"
                           >
                             <Edit className="w-4 h-4" />
                           </Button>
@@ -657,7 +667,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
       {/* Edit Modal */}
       {showEditModal && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-lg w-full max-w-lg shadow-2xl overflow-hidden my-auto">
+          <div className="bg-[#0a0a0a] border border-slate-800 rounded-lg w-full max-w-lg shadow-2xl overflow-hidden my-auto">
             <div className="flex justify-between items-center p-6 border-b border-slate-800">
               <h3 className="text-lg font-bold text-white">Mesajı Düzenle</h3>
               <button onClick={handleCancel} className="text-slate-400 hover:text-white">
@@ -678,7 +688,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                     }
                   }}
                   placeholder="Örn: paket, fiyat, ücret"
-                  className={`bg-slate-950 border-slate-800 text-white placeholder:text-slate-500 ${editFormErrors.question ? 'border-red-500' : ''}`}
+                  className={`bg-[#0a0a0a] border-slate-800 text-white placeholder:text-slate-500 ${editFormErrors.question ? 'border-red-500' : ''}`}
                 />
                 {editFormErrors.question && <p className="text-red-400 text-xs mt-1">{editFormErrors.question}</p>}
               </div>
@@ -695,7 +705,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                   }}
                   placeholder="Cevabı girin..."
                   rows={4}
-                  className={`bg-slate-950 border-slate-800 text-white placeholder:text-slate-500 w-full rounded-md px-3 py-2 text-sm ${editFormErrors.answer ? 'border-red-500' : ''}`}
+                  className={`bg-[#0a0a0a] border-slate-800 text-white placeholder:text-slate-500 w-full rounded-md px-3 py-2 text-sm ${editFormErrors.answer ? 'border-red-500' : ''}`}
                 />
                 {editFormErrors.answer && <p className="text-red-400 text-xs mt-1">{editFormErrors.answer}</p>}
               </div>
@@ -709,12 +719,12 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                     setEditFormErrors(rest);
                   }
                 }}>
-                  <SelectTrigger className="bg-slate-950 border-slate-800 text-white">
+                  <SelectTrigger className="bg-[#0a0a0a] border-slate-800 text-white">
                     <SelectValue placeholder="Yönlendirme seçin" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-900 border-slate-800">
+                  <SelectContent className="bg-[#0a0a0a] border-slate-800">
                     {REDIRECT_OPTIONS.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className="text-white hover:bg-slate-800">
+                      <SelectItem key={option.value} value={option.value} className="text-white hover:bg-[#0a0a0a]">
                         {option.label}
                       </SelectItem>
                     ))}
@@ -735,24 +745,24 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                       }
                     }}
                     placeholder="https://ornek.com/sayfa"
-                    className={`bg-slate-950 border-slate-800 text-white placeholder:text-slate-500 ${editFormErrors.customUrl ? 'border-red-500' : ''}`}
+                    className={`bg-[#0a0a0a] border-slate-800 text-white placeholder:text-slate-500 ${editFormErrors.customUrl ? 'border-red-500' : ''}`}
                   />
                   {editFormErrors.customUrl && <p className="text-red-400 text-xs mt-1">{editFormErrors.customUrl}</p>}
                 </div>
               )}
             </div>
-            <div className="p-6 border-t border-slate-800 flex justify-end gap-3 bg-slate-950/50">
+            <div className="p-6 border-t border-slate-800 flex justify-end gap-3 bg-[#0a0a0a]/50">
               <Button 
                 variant="outline" 
                 onClick={handleCancel}
-                className="bg-transparent border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+                className="bg-transparent border-slate-700 text-slate-300 hover:bg-[#0a0a0a] hover:text-white"
               >
                 İptal
               </Button>
               <Button 
                 onClick={handleSave}
                 disabled={isEditFormDisabled}
-                className="bg-cyan-600 hover:bg-cyan-700 text-white disabled:opacity-50"
+                className="bg-[#e50914] hover:bg-[#e50914] text-white disabled:opacity-50"
               >
                 {isEditing ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
                 Kaydet
@@ -765,7 +775,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
       {/* Delete Confirmation Dialog */}
       {showDeleteModal && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-slate-800 rounded-lg w-full max-w-md shadow-2xl overflow-hidden">
+          <div className="bg-[#0a0a0a] border border-slate-800 rounded-lg w-full max-w-md shadow-2xl overflow-hidden">
             <div className="flex justify-between items-center p-6 border-b border-slate-800">
               <h3 className="text-lg font-bold text-white">Mesajı Sil</h3>
               <button onClick={handleCancel} className="text-slate-400 hover:text-white">
@@ -779,7 +789,7 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
                 <p className="font-semibold text-sm">Bu işlem geri alınamaz!</p>
               </div>
               
-              <div className="space-y-3 bg-slate-950 p-4 rounded-lg border border-slate-800">
+              <div className="space-y-3 bg-[#0a0a0a] p-4 rounded-lg border border-slate-800">
                 <div>
                   <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Soru:</span>
                   <p className="text-slate-300 text-sm mt-1">{deletingItem?.keyword || deletingItem?.question}</p>
@@ -791,11 +801,11 @@ export const ChatBotManagementTab = ({ siteData, setSiteData }) => {
               </div>
             </div>
             
-            <div className="p-6 border-t border-slate-800 flex justify-end gap-3 bg-slate-950/50">
+            <div className="p-6 border-t border-slate-800 flex justify-end gap-3 bg-[#0a0a0a]/50">
               <Button 
                 variant="outline" 
                 onClick={handleCancel}
-                className="bg-transparent border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+                className="bg-transparent border-slate-700 text-slate-300 hover:bg-[#0a0a0a] hover:text-white"
               >
                 İptal
               </Button>

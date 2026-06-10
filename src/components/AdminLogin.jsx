@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ADMIN_BASE_PATH } from '@/constants/adminRoutes';
 
 // Modal AdminLogin is disabled as authentication is completely removed.
 const AdminLogin = ({ onClose }) => {
@@ -8,7 +9,7 @@ const AdminLogin = ({ onClose }) => {
 
   useEffect(() => {
     if (onClose) onClose();
-    navigate('/admin', { replace: true });
+    navigate(ADMIN_BASE_PATH, { replace: true });
   }, [navigate, onClose]);
 
   return null;

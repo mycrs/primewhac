@@ -2,6 +2,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
+import { pingIndexNow } from '@/utils/pingIndexNow';
 
 export const useUpdateSitemapEntry = () => {
   const [entries, setEntries] = useState([]);
@@ -58,6 +59,9 @@ export const useUpdateSitemapEntry = () => {
       }]);
       if (error) throw error;
       toast({ title: "Success", description: "Entry added successfully." });
+      if (entry.published && entry.url) {
+        void pingIndexNow([entry.url]);
+      }
       await fetchEntries();
       return true;
     } catch (error) {
@@ -76,6 +80,9 @@ export const useUpdateSitemapEntry = () => {
         .eq('id', id);
       if (error) throw error;
       toast({ title: "Success", description: "Entry updated successfully." });
+      if (updatedData.published && updatedData.url) {
+        void pingIndexNow([updatedData.url]);
+      }
       await fetchEntries();
       return true;
     } catch (error) {

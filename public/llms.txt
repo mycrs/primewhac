@@ -1,11 +1,71 @@
-## Pages
-- [/4 | QruzeHD`}](/testform): Ücretsiz IPTV test yayını talep edin. Cihazınızı seçin, uygulamanızı belirleyin ve hemen izlemeye başlayın. Kaliteli IPTV test deneyimi için iptv deneme hesabı oluşturun.
-- [| $`}](/installationguide): No description available
-- [| Yönetim](/blogwrite): No description available
-- [IPTV kostenlos testen - Premium IPTV Probe ohne Verpflichtung](/testpagede): Testen Sie unseren Premium IPTV Service kostenlos! Mit unserem IPTV Test Deutschland können Sie eine stabile IPTV testen, ohne sich zu verpflichten. Unsere Premium IPTV Probe.
-- [M3U erstellen - IPTV M3U Playlist für Deutschland | QruzeHD](/m3uconverterpagede): Erstellen Sie mühelos Ihre IPTV M3U Playlist mit unserem kostenlosen Tool. Generieren Sie IPTV M3U Links für Ihr IPTV Setup in Deutschland und genießen Sie Premium Streaming.
-- [Untitled Page](/channels): No description available
-- [Untitled Page](/channelspagede): No description available
-- [Untitled Page](/notfound): No description available
-- [Untitled Page](/packages): No description available
-- [Untitled Page](/welcomesplash): No description available
+# StreamTR
+
+StreamTR, Türkçe ve Almanca yayın deneyimi için IPTV paketleri, cihaz kurulum rehberleri, kanal listesi, test hesabı ve kullanıcı desteği sunan bir yayın platformudur.
+
+## Ana Hizmetler
+
+- Premium IPTV paketleri
+- Türkiye ve Avrupa kullanıcıları için paket seçenekleri
+- 4K / Full HD yayın desteği
+- Canlı TV kanalları
+- Film ve dizi arşivi
+- Spor ve maç yayınları
+- IPTV test hesabı
+- Smart TV, Android TV, iOS, Windows ve Mac kurulum rehberleri
+- M3U dönüştürücü
+- Bayilik / reseller başvurusu
+
+## Önemli Türkçe Sayfalar
+
+- Ana Sayfa: https://streamtr.eu/
+- Paketler: https://streamtr.eu/paketler
+- Kanallar: https://streamtr.eu/channels
+- Kurulum: https://streamtr.eu/kurulum
+- Android TV Kurulum: https://streamtr.eu/kurulum/android-tv
+- Android Telefon Kurulum: https://streamtr.eu/kurulum/android-phone
+- iOS Kurulum: https://streamtr.eu/kurulum/ios
+- Smart TV Kurulum: https://streamtr.eu/kurulum/smart-tv
+- Samsung TV Kurulum: https://streamtr.eu/kurulum/samsung-tv
+- LG TV Kurulum: https://streamtr.eu/kurulum/lg-tv
+- Windows Kurulum: https://streamtr.eu/kurulum/windows
+- Mac Kurulum: https://streamtr.eu/kurulum/mac
+- Tablet Kurulum: https://streamtr.eu/kurulum/tablet
+- Hakkımızda: https://streamtr.eu/hakkimizda
+- Blog: https://streamtr.eu/blog
+- SSS: https://streamtr.eu/sss
+- Yorumlar: https://streamtr.eu/yorumlar
+- Test: https://streamtr.eu/test
+- M3U Dönüştürücü: https://streamtr.eu/m3u-converter
+- Bayilik: https://streamtr.eu/reseller
+
+## Wichtige deutsche Seiten
+
+- Startseite: https://streamtr.eu/de
+- Pakete: https://streamtr.eu/de/pakete
+- Einrichtung: https://streamtr.eu/de/einrichtung
+- Android TV Einrichtung: https://streamtr.eu/de/einrichtung/android-tv
+- Android Smartphone Einrichtung: https://streamtr.eu/de/einrichtung/android-phone
+- iOS Einrichtung: https://streamtr.eu/de/einrichtung/ios
+- Smart TV Einrichtung: https://streamtr.eu/de/einrichtung/smart-tv
+- Samsung TV Einrichtung: https://streamtr.eu/de/einrichtung/samsung-tv
+- LG TV Einrichtung: https://streamtr.eu/de/einrichtung/lg-tv
+- Windows Einrichtung: https://streamtr.eu/de/einrichtung/windows
+- Mac Einrichtung: https://streamtr.eu/de/einrichtung/mac
+- Tablet Einrichtung: https://streamtr.eu/de/einrichtung/tablet
+- Über uns: https://streamtr.eu/de/uber-uns
+- Blog: https://streamtr.eu/de/blog
+- FAQ: https://streamtr.eu/de/sss
+- Bewertungen: https://streamtr.eu/de/bewertungen
+- AGB: https://streamtr.eu/de/terms
+
+## Paket Bilgisi
+
+StreamTR paket sayfalarında Türkiye ve Avrupa kullanımına uygun seçenekler ayrı şekilde sunulur. Kullanıcılar cihazlarına göre kurulum rehberlerini takip edebilir ve destek için test hesabı talep edebilir.
+
+## Kurulum Desteği
+
+Kurulum rehberleri Android TV, Android telefon, Smart TV, Samsung TV, LG TV, iOS, Windows, Mac ve tablet cihazları kapsar.
+
+## İletişim ve Destek
+
+Destek, test hesabı ve paket bilgisi için sitedeki test, SSS ve iletişim alanları kullanılabilir.

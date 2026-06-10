@@ -38,18 +38,18 @@ const MoviesSection = ({ filters, searchQuery }) => {
     fetchMovies(page);
   }, [page, filters, searchQuery]);
 
-  if (loading && movies.length === 0) return <div className="flex justify-center py-20"><Loader2 className="w-10 h-10 text-purple-500 animate-spin" /></div>;
+  if (loading && movies.length === 0) return <div className="flex justify-center py-20"><Loader2 className="w-10 h-10 text-primary animate-spin" /></div>;
   if (error && movies.length === 0) return <div className="text-center py-20 text-red-400"><AlertCircle className="w-10 h-10 mx-auto mb-4" />{error} <Button onClick={() => fetchMovies(page)} className="mt-4">Tekrar Dene</Button></div>;
 
   return (
     <div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-        {movies.map((movie, i) => <ContentCard key={`${movie.id}-${i}`} item={movie} type="movie" />)}
+        {movies.map((movie, i) => <ContentCard key={`${movie.id}-${i}`} item={movie} type="movie" accentIndex={i} />)}
       </div>
       {movies.length === 0 && !loading && <p className="text-center py-10 text-slate-400">Sonuç bulunamadı.</p>}
       {page < totalPages && (
         <div className="flex justify-center mt-10">
-          <Button onClick={() => setPage(p => p + 1)} disabled={loading} className="bg-slate-800 text-white hover:bg-slate-700 px-8 py-2 rounded-full">
+          <Button onClick={() => setPage(p => p + 1)} disabled={loading} className="bg-[#0a0a0a] text-white hover:bg-[#0a0a0a] px-8 py-2 rounded-full">
             {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
             {loading ? 'Yükleniyor...' : 'Daha Fazla Göster'}
           </Button>

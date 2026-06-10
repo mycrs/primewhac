@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 160" fill="none" role="img" aria-label="QruzeTV Premium IPTV">
+  <defs>
+    <linearGradient id="qtvRed" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EF233C"/>
+      <stop offset="55%" stop-color="#D90429"/>
+      <stop offset="100%" stop-color="#9E1B2F"/>
+    </linearGradient>
+    <linearGradient id="qtvYellow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFE066"/>
+      <stop offset="45%" stop-color="#FFC93C"/>
+      <stop offset="100%" stop-color="#FF9E1B"/>
+    </linearGradient>
+    <linearGradient id="qtvWhite" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F1F5F9"/>
+    </linearGradient>
+    <filter id="qtvShadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="qtvTextShadow" x="-10%" y="-10%" width="120%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="1.2" flood-color="#3a0a13" flood-opacity="0.85"/>
+    </filter>
+    <filter id="qtvGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Rozet arkaplan: kırmızı degrade + sarı çerçeve (logo DNA'sı) -->
+  <g filter="url(#qtvShadow)">
+    <rect x="18" y="24" width="444" height="112" rx="22" ry="22" fill="url(#qtvRed)"/>
+    <rect x="18" y="24" width="444" height="112" rx="22" ry="22" fill="none" stroke="url(#qtvYellow)" stroke-width="4"/>
+    <!-- Üstten parlama efekti -->
+    <rect x="28" y="32" width="424" height="36" rx="16" ry="16" fill="#FFFFFF" opacity="0.10"/>
+  </g>
+
+  <!-- Sol süs: mini popcorn baloncukları -->
+  <g filter="url(#qtvGlow)" opacity="0.92">
+    <circle cx="52" cy="60" r="6" fill="url(#qtvYellow)"/>
+    <circle cx="66" cy="48" r="4" fill="url(#qtvYellow)"/>
+    <circle cx="46" cy="78" r="4" fill="url(#qtvYellow)"/>
+    <circle cx="62" cy="82" r="3" fill="url(#qtvYellow)"/>
+  </g>
+
+  <!-- Sağ süs: mini popcorn baloncukları -->
+  <g filter="url(#qtvGlow)" opacity="0.92">
+    <circle cx="428" cy="60" r="6" fill="url(#qtvYellow)"/>
+    <circle cx="414" cy="48" r="4" fill="url(#qtvYellow)"/>
+    <circle cx="434" cy="78" r="4" fill="url(#qtvYellow)"/>
+    <circle cx="418" cy="82" r="3" fill="url(#qtvYellow)"/>
+  </g>
+
+  <!-- Ana marka yazısı: QRUZE beyaz + TV sarı -->
+  <text x="240" y="92" text-anchor="middle"
+        font-family="'Arial Black', 'Helvetica Neue', Impact, sans-serif"
+        font-weight="900" font-size="56" letter-spacing="2"
+        filter="url(#qtvTextShadow)">
+    <tspan fill="url(#qtvWhite)">QRUZE</tspan><tspan fill="url(#qtvYellow)">TV</tspan>
+  </text>
+
+  <!-- Alt şerit: PREMIUM IPTV -->
+  <rect x="160" y="106" width="160" height="18" rx="9" ry="9" fill="#2B0A0F" opacity="0.55"/>
+  <text x="240" y="120" text-anchor="middle"
+        font-family="'Inter', 'Segoe UI', system-ui, sans-serif"
+        font-weight="800" font-size="12" letter-spacing="5.5"
+        fill="url(#qtvYellow)">PREMIUM IPTV</text>
+</svg>

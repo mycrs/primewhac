@@ -12,7 +12,8 @@ export const validatePackageForm = (formData) => {
     errors.price = 'Geçerli bir fiyat giriniz.';
   }
 
-  if (!formData.duration || formData.duration.trim() === '') {
+  const duration = formData.duration || formData.duration_custom || formData.duration_preset || '';
+  if (!duration || String(duration).trim() === '') {
     errors.duration = 'Süre zorunludur.';
   }
 
@@ -22,6 +23,18 @@ export const validatePackageForm = (formData) => {
 
   if (!formData.features || formData.features.length === 0) {
     errors.features = 'En az bir özellik eklemelisiniz.';
+  }
+
+  if (formData.countdown_active) {
+    const raw = formData.campaign_end_datetime ?? formData.campaign_end_date_input ?? '';
+    if (!String(raw).trim()) {
+      errors.campaign_end_datetime = 'Geri sayım açıkken kampanya bitiş tarihi zorunludur.';
+    } else {
+      const d = new Date(raw);
+      if (Number.isNaN(d.getTime())) {
+        errors.campaign_end_datetime = 'Geçerli bir tarih ve saat seçin.';
+      }
+    }
   }
 
   return {

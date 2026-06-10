@@ -8,7 +8,7 @@ import { Edit, Trash2, Plus, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import AdminBlogForm from './AdminBlogForm';
 
-const BlogManager = () => {
+const BlogManager = ({ siteData }) => {
   const { fetchBlogPosts, deletePost, loading } = useAdminData();
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState('');
@@ -37,6 +37,7 @@ const BlogManager = () => {
     return (
       <AdminBlogForm 
         post={editingPost} 
+        siteData={siteData}
         onSuccess={() => { setEditingPost(null); setIsCreating(false); loadPosts(); }}
         onCancel={() => { setEditingPost(null); setIsCreating(false); }}
       />
@@ -47,12 +48,12 @@ const BlogManager = () => {
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-white">Blog Yönetimi</h2>
-        <Button onClick={() => setIsCreating(true)} className="bg-purple-600 hover:bg-purple-700 text-white">
+        <Button onClick={() => setIsCreating(true)} className="bg-primary hover:bg-primary text-white">
           <Plus className="w-4 h-4 mr-2" /> Yeni Yazı
         </Button>
       </div>
 
-      <div className="flex items-center gap-2 bg-slate-900 p-2 rounded-lg border border-slate-800">
+      <div className="flex items-center gap-2 bg-[#0a0a0a] p-2 rounded-lg border border-slate-800">
         <Search className="w-5 h-5 text-slate-400 ml-2" />
         <Input 
           placeholder="Yazılarda ara..." 
@@ -62,7 +63,7 @@ const BlogManager = () => {
         />
       </div>
 
-      <div className="bg-slate-900 rounded-lg border border-slate-800 overflow-x-auto">
+      <div className="bg-[#0a0a0a] rounded-lg border border-slate-800 overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow className="border-slate-800">
@@ -88,7 +89,7 @@ const BlogManager = () => {
                   <TableCell>{post.category || '-'}</TableCell>
                   <TableCell>{new Date(post.created_at).toLocaleDateString('tr-TR')}</TableCell>
                   <TableCell className="text-right">
-                    <Button variant="ghost" size="sm" onClick={() => setEditingPost(post)} className="text-blue-400 hover:text-blue-300 hover:bg-blue-400/10">
+                    <Button variant="ghost" size="sm" onClick={() => setEditingPost(post)} className="text-blue-400 hover:text-blue-300 hover:bg-[#141414]/10">
                       <Edit className="w-4 h-4" />
                     </Button>
                     <Button variant="ghost" size="sm" onClick={() => handleDelete(post.id)} className="text-red-400 hover:text-red-300 hover:bg-red-400/10">

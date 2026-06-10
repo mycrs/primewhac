@@ -26,10 +26,10 @@ const StatCard = ({ title, value, icon: Icon, trend, subValue, color, delay }) =
     className="relative group h-full"
   >
     <div className={`absolute inset-0 bg-gradient-to-br ${color} opacity-10 rounded-xl blur-lg transition-opacity group-hover:opacity-20`} />
-    <Card className="relative h-full border-slate-800 bg-slate-900/60 backdrop-blur-sm overflow-hidden hover:border-slate-700 transition-colors shadow-lg">
+    <Card className="relative h-full border-slate-800 bg-[#0a0a0a]/60 backdrop-blur-sm overflow-hidden hover:border-slate-700 transition-colors shadow-lg">
       <CardContent className="p-6">
         <div className="flex justify-between items-start mb-4">
-          <div className="p-3 rounded-lg bg-slate-800/80 ring-1 ring-white/10">
+          <div className="p-3 rounded-lg bg-[#0a0a0a]/80 ring-1 ring-white/10">
             <Icon className="w-6 h-6 text-white" />
           </div>
           {trend && (
@@ -124,7 +124,7 @@ const ContentStatsTab = () => {
   if (loading && !stats) {
     return (
       <div className="flex flex-col items-center justify-center py-32 text-slate-400">
-        <Loader2 className="w-10 h-10 animate-spin text-purple-500 mb-4" />
+        <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
         <p>Veriler analiz ediliyor...</p>
       </div>
     );
@@ -149,7 +149,7 @@ const ContentStatsTab = () => {
             <h2 className="text-2xl font-bold text-white tracking-tight">İçerik & Performans İstatistikleri</h2>
             <p className="text-slate-400">Site içeriği ve kullanıcı etkileşimlerinin anlık özeti.</p>
          </div>
-         <Button onClick={fetchStats} variant="outline" className="border-slate-700 hover:bg-slate-800 text-slate-300">
+         <Button onClick={fetchStats} variant="outline" className="border-slate-700 hover:bg-[#0a0a0a] text-slate-300">
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             Yenile
          </Button>
@@ -160,7 +160,7 @@ const ContentStatsTab = () => {
             title="Toplam Blog Yazısı" 
             value={stats.blogPosts} 
             icon={FileText} 
-            color="from-blue-600 to-cyan-600"
+            color="from-[#e50914] to-[#b20710]"
             trend="+2 bu hafta"
             delay={0.1}
         />
@@ -169,7 +169,7 @@ const ContentStatsTab = () => {
             value={stats.totalComments} 
             subValue={`${stats.pendingComments} onay bekliyor`}
             icon={MessageSquare} 
-            color="from-purple-600 to-pink-600"
+            color="from-[#e50914] to-[#b20710]"
             trend="+15%"
             delay={0.2}
         />
@@ -184,7 +184,7 @@ const ContentStatsTab = () => {
             title="Potansiyel Müşteri" 
             value={stats.totalLeads} 
             icon={Users} 
-            color="from-emerald-500 to-teal-600"
+            color="from-[#e50914] to-[#b20710]"
             trend="+8 bugün"
             delay={0.4}
         />
@@ -192,7 +192,7 @@ const ContentStatsTab = () => {
             title="Tahmini Aylık Gelir" 
             value={stats.revenue} 
             icon={DollarSign} 
-            color="from-indigo-600 to-violet-600"
+            color="from-[#e50914] to-[#b20710]"
             trend="+12.5%"
             delay={0.5}
         />

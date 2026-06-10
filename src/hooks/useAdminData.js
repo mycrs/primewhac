@@ -2,6 +2,8 @@
 import { useState, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
+import { inferPackageTier } from '@/constants/packageTiers';
+import { sortPackagesForDisplay } from '@/utils/buildPackagePayload';
 
 export const useAdminData = () => {
   const [loading, setLoading] = useState(false);
@@ -46,7 +48,11 @@ export const useAdminData = () => {
         .select('*')
         .order('created_at', { ascending: false });
       if (error) throw error;
-      return data;
+      const rows = (data || []).map((p) => ({
+        ...p,
+        tier: p.tier ?? inferPackageTier(p),
+      }));
+      return sortPackagesForDisplay(rows);
     } catch (err) {
       setError(err.message);
       toast({ variant: 'destructive', title: 'Hata', description: 'Paketler alınamadı.' });

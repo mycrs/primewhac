@@ -25,7 +25,7 @@ const EnvironmentVariableDebugger = () => {
       <button 
         onClick={() => setIsOpen(true)}
         className={`fixed bottom-4 right-4 p-3 rounded-full shadow-lg z-[9999] flex items-center justify-center transition-all hover:scale-110 ${
-          status?.isValid ? 'bg-emerald-600/90 text-white' : 'bg-red-600/90 text-white animate-pulse'
+          status?.isValid ? 'bg-[#e50914]/90 text-white' : 'bg-red-600/90 text-white animate-pulse'
         }`}
         title="Environment Variables Debugger"
       >
@@ -35,8 +35,8 @@ const EnvironmentVariableDebugger = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 w-96 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl z-[9999] overflow-hidden flex flex-col font-mono text-sm">
-      <div className="bg-slate-950 p-3 flex items-center justify-between border-b border-slate-800">
+    <div className="fixed bottom-4 right-4 w-96 bg-[#0a0a0a] border border-slate-700 rounded-2xl shadow-2xl z-[9999] overflow-hidden flex flex-col font-mono text-sm">
+      <div className="bg-[#0a0a0a] p-3 flex items-center justify-between border-b border-slate-800">
         <div className="flex items-center gap-2 text-slate-300 font-bold">
           <Terminal className="w-4 h-4" />
           <span>Env Debugger</span>
@@ -55,7 +55,7 @@ const EnvironmentVariableDebugger = () => {
         
         <div className="space-y-2">
           <h3 className="text-xs text-slate-500 uppercase tracking-wider">Status</h3>
-          <div className={`p-2 rounded flex items-center gap-2 ${status?.isValid ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
+          <div className={`p-2 rounded flex items-center gap-2 ${status?.isValid ? 'bg-[#e50914]/10 text-[#e50914]' : 'bg-red-500/10 text-red-400'}`}>
             {status?.isValid ? <CheckCircle2 className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
             <span>{status?.isValid ? 'All Configs Valid' : 'Configuration Errors Detected'}</span>
           </div>
@@ -68,11 +68,11 @@ const EnvironmentVariableDebugger = () => {
             <div>
               <div className="flex justify-between items-center mb-1">
                 <span className="text-slate-300">VITE_SUPABASE_URL</span>
-                <span className={status?.details?.urlValid ? 'text-emerald-400' : 'text-red-400'}>
+                <span className={status?.details?.urlValid ? 'text-[#e50914]' : 'text-red-400'}>
                   {status?.details?.urlValid ? 'OK' : 'INVALID'}
                 </span>
               </div>
-              <div className="text-xs text-slate-400 break-all bg-slate-800/50 p-1.5 rounded">
+              <div className="text-xs text-slate-400 break-all bg-[#0a0a0a]/50 p-1.5 rounded">
                 {envDetails?.rawUrlMasked}
               </div>
               {(envDetails?.hasQuotesUrl || envDetails?.hasWhitespaceUrl) && (
@@ -82,16 +82,16 @@ const EnvironmentVariableDebugger = () => {
               )}
             </div>
 
-            <div className="h-px bg-slate-800 w-full"></div>
+            <div className="h-px bg-[#0a0a0a] w-full"></div>
 
             <div>
               <div className="flex justify-between items-center mb-1">
                 <span className="text-slate-300">VITE_SUPABASE_ANON_KEY</span>
-                <span className={status?.details?.keyValid ? 'text-emerald-400' : 'text-red-400'}>
+                <span className={status?.details?.keyValid ? 'text-[#e50914]' : 'text-red-400'}>
                   {status?.details?.keyValid ? 'OK' : 'INVALID'}
                 </span>
               </div>
-              <div className="text-xs text-slate-400 break-all bg-slate-800/50 p-1.5 rounded">
+              <div className="text-xs text-slate-400 break-all bg-[#0a0a0a]/50 p-1.5 rounded">
                 {envDetails?.rawKeyMasked}
               </div>
                {(envDetails?.hasQuotesKey || envDetails?.hasWhitespaceKey) && (

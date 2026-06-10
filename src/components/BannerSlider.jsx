@@ -51,7 +51,7 @@ const BannerSlider = ({ banners }) => {
   ];
 
   return (
-    <section className="relative w-full h-[500px] md:h-[600px] overflow-hidden bg-slate-900 group content-visibility-auto">
+    <section className="relative w-full h-[500px] md:h-[600px] overflow-hidden bg-[#0a0a0a] group content-visibility-auto">
       <div className="absolute inset-0 embla h-full" ref={emblaRef}>
         <div className="embla__container h-full flex gpu-accelerated">
           {displayBanners.map((banner, index) => (
@@ -63,8 +63,8 @@ const BannerSlider = ({ banners }) => {
                   className="w-full h-full object-cover"
                   priority={index === 0}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent opacity-90" />
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-transparent to-slate-950/80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent opacity-90" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/80 via-transparent to-[#141414]/80" />
               </div>
 
               <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">

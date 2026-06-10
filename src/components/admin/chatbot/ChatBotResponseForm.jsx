@@ -67,7 +67,7 @@ const ChatBotResponseForm = ({ onSuccess }) => {
             value={formData.keyword}
             onChange={e => setFormData(prev => ({...prev, keyword: e.target.value}))}
             placeholder="paket, fiyat, üyelik"
-            className="bg-slate-950/50 text-white border-slate-700"
+            className="bg-[#0a0a0a]/50 text-white border-slate-700"
           />
         </div>
         
@@ -78,7 +78,7 @@ const ChatBotResponseForm = ({ onSuccess }) => {
             onChange={e => setFormData(prev => ({...prev, response: e.target.value}))}
             rows={3}
             placeholder="Tüm paketlerimizi paketler sayfasından görebilirsiniz."
-            className="bg-slate-950/50 text-white border-slate-700"
+            className="bg-[#0a0a0a]/50 text-white border-slate-700"
           />
         </div>
 
@@ -92,7 +92,7 @@ const ChatBotResponseForm = ({ onSuccess }) => {
           <Label htmlFor="new-active" className="text-slate-300 cursor-pointer">Aktif</Label>
         </div>
 
-        <Button type="submit" disabled={loading} className="bg-blue-600 hover:bg-blue-700 w-full md:w-auto mt-2">
+        <Button type="submit" disabled={loading} className="bg-[#141414] hover:bg-[#0a0a0a] w-full md:w-auto mt-2">
           {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
           Listeye Ekle
         </Button>

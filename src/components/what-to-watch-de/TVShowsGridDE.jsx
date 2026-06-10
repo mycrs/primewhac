@@ -47,7 +47,7 @@ const TVShowsGridDE = ({ filters, searchQuery }) => {
     return (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         {[...Array(8)].map((_, i) => (
-          <div key={i} className="bg-slate-900 rounded-xl aspect-[2/3] animate-pulse border border-slate-800" />
+          <div key={i} className="bg-[#0a0a0a] rounded-xl aspect-[2/3] animate-pulse border border-slate-800" />
         ))}
       </div>
     );

@@ -9,6 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Loader2, Save, X, AlertCircle } from 'lucide-react';
 import NotificationPreview from './NotificationPreview';
 import { useNotificationInsert } from '@/hooks/useNotificationInsert';
+import {
+  NOTIFICATION_THEME_KEYS,
+  NOTIFICATION_THEME_LABELS,
+  resolveNotificationTheme,
+} from '@/utils/notificationBannerTheme';
 
 const NotificationForm = ({ initialData, onSave, onCancel, serverError }) => {
   const { insertNotification, loading: insertLoading } = useNotificationInsert();
@@ -20,6 +25,7 @@ const NotificationForm = ({ initialData, onSave, onCancel, serverError }) => {
     link: '',
     type: 'Duyuru',
     color: 'mavi',
+    theme: 'info',
     active: true,
     start_date: '',
     end_date: '',
@@ -31,6 +37,7 @@ const NotificationForm = ({ initialData, onSave, onCancel, serverError }) => {
     if (initialData) {
       setFormData({
         ...initialData,
+        theme: resolveNotificationTheme(initialData.theme),
         link: initialData.link || '',
         start_date: initialData.start_date ? new Date(initialData.start_date).toISOString().slice(0, 16) : '',
         end_date: initialData.end_date ? new Date(initialData.end_date).toISOString().slice(0, 16) : '',
@@ -145,6 +152,29 @@ const NotificationForm = ({ initialData, onSave, onCancel, serverError }) => {
                 className="bg-slate-950/50 text-white border-slate-700"
               />
               <p className="text-xs text-slate-500">Kullanıcılar bildirime tıkladığında bu adrese yönlendirilir. (İsteğe bağlı)</p>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-slate-300">Banner teması</Label>
+              <Select
+                disabled={loading}
+                value={formData.theme}
+                onValueChange={(val) => setFormData((prev) => ({ ...prev, theme: val }))}
+              >
+                <SelectTrigger className="bg-slate-950/50 text-white border-slate-700">
+                  <SelectValue placeholder="Tema seç" />
+                </SelectTrigger>
+                <SelectContent className="bg-slate-900 border-slate-700 text-white">
+                  {NOTIFICATION_THEME_KEYS.map((key) => (
+                    <SelectItem key={key} value={key}>
+                      {NOTIFICATION_THEME_LABELS[key]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-slate-500">
+                Ziyaretçi bandında renk ve emoji bu temadan gelir (~3 sn gecikme, oturumda bir kez).
+              </p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">

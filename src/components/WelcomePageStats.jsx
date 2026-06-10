@@ -34,7 +34,7 @@ const StatItem = ({ label, value, subtext, delay }) => {
       viewport={{ once: true }}
       className="flex flex-col items-center p-6 text-center"
     >
-      <h3 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 mb-2 font-mono tracking-tight">
+      <h3 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] mb-2 font-mono tracking-tight">
         <AnimatedCounter value={value} />
       </h3>
       <p className="text-xl font-bold text-white mb-2">{label}</p>
@@ -46,7 +46,7 @@ const StatItem = ({ label, value, subtext, delay }) => {
 const WelcomePageStats = () => {
   const stats = [
     { label: "Kullanıcı", value: "50000", subtext: "Mutlu Müşteri" },
-    { label: "Kanal", value: "12000", subtext: "4K/HD Yayın" },
+    { label: "Kanal", value: "10000+", subtext: "4K/HD Yayın" },
     { label: "Film & Dizi", value: "85000", subtext: "Sürekli Güncel Arşiv" },
     { label: "Uptime", value: "99", suffix: "%", subtext: "Kesintisiz Hizmet" }
   ];

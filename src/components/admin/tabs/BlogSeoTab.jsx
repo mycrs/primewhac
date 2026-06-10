@@ -50,10 +50,17 @@ export const BlogSeoTab = ({ siteData, setSiteData }) => {
 
       <div className="grid gap-6">
         {/* Meta Tags Section */}
-        <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 space-y-4">
+        <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700 space-y-4">
             <h3 className="text-lg font-bold text-white border-b border-white/10 pb-2">Genel Meta Etiketleri</h3>
             
             <div className="grid md:grid-cols-2 gap-4">
+                <Input 
+                    label="Blog Başlık Sonrası (Meta Title Suffix)" 
+                    placeholder="QruzeTV"
+                    helperText="Blog yazılarının meta başlığına eklenir: Başlık | Bu Değer"
+                    value={settings.title_suffix || ''} 
+                    onChange={(e) => handleChange('title_suffix', e.target.value)} 
+                />
                 <Input 
                     label="Meta Başlık Şablonu" 
                     placeholder="%title% | Blog - %site_name%"
@@ -87,7 +94,7 @@ export const BlogSeoTab = ({ siteData, setSiteData }) => {
         </div>
 
         {/* Open Graph / Social Media Section */}
-        <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 space-y-4">
+        <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700 space-y-4">
             <h3 className="text-lg font-bold text-white border-b border-white/10 pb-2">Sosyal Medya (Open Graph)</h3>
             
             <ImagePreviewInput
@@ -119,10 +126,10 @@ export const BlogSeoTab = ({ siteData, setSiteData }) => {
         </div>
 
         {/* Technical SEO Section */}
-        <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 space-y-4">
+        <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700 space-y-4">
             <h3 className="text-lg font-bold text-white border-b border-white/10 pb-2">Teknik SEO & Schema</h3>
             
-            <div className="flex items-center justify-between p-4 bg-slate-900 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-[#0a0a0a] rounded-lg">
                 <div>
                     <Label htmlFor="enable-schema" className="text-white font-medium">Otomatik Schema.org (JSON-LD)</Label>
                     <p className="text-sm text-gray-400">Blog yazıları için otomatik yapısal veri oluştur.</p>

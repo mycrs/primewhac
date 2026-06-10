@@ -1,4 +1,4 @@
-import { slugify } from './matchSlug';
+import { slugify } from './matchSlug.js';
 
 const TAGE = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
 const LIGA_KONTEXT = {
@@ -67,12 +67,12 @@ const BLOECKE = {
     (lig) => `Am Spieltag herrscht auf den Sportkanälen Hochbetrieb. Bei mehreren parallelen Spielen laufen verschiedene Partien auf verschiedenen Sendern. Zuschauer wählen nach Programm. Sportkanäle, nationale und internationale Sender übertragen gleichzeitig. Der Senderwechsel ist schnell – wichtige Momente können verfolgt werden.`,
   ],
   iptv: [
-    () => `IPTV bietet als Alternative zu Satellit und Kabel Fernsehen über das Internet. Mit einem Abo erhalten Sie Zugang zu tausenden Kanälen, Filmen und Serien. Sportkanäle sind besonders gefragt; am Spieltag ist eine stabile Infrastruktur wichtig. Apps für verschiedene Geräte ermöglichen flexibles Schauen.`,
+    () => `IPTV bietet als Alternative zu Satellit und Kabel Fernsehen über das Internet. Mit einem Abo erhalten Sie Zugang zu 10.000+ Kanälen, Filmen und Serien. Sportkanäle sind besonders gefragt; am Spieltag ist eine stabile Infrastruktur wichtig. Apps für verschiedene Geräte ermöglichen flexibles Schauen.`,
     () => `IPTV bietet breite Kanallandschaft, hohe Bildqualität und 24/7-Zugang. Wer beim Spiel kein Ruckeln erleben möchte, wählt Anbieter mit starker Server-Infrastruktur. Smart TV, Android, iOS oder PC – ein Abo reicht für alle Geräte.`,
   ],
-  primewatch: [
-    () => `PrimeWatch TV ist ein IPTV-Anbieter für Nutzer in Europa. Sportkanäle, Filme, Serien, Live-TV und Video-on-Demand sind in einem Abo enthalten. Das Ziel ist eine stabile und unterbrechungsfreie Erfahrung, besonders an Spieltagen. Verschiedene Pakete decken unterschiedliche Bedürfnisse ab.`,
-    () => `PrimeWatch TV bietet eine umfangreiche Kanalliste und technischen Support. Für Fußballfans steht die stabile Übertragung der Sportkanäle im Vordergrund. Infrastruktur und Server-Optimierung sollen Ruckeln und Verzögerung minimieren.`,
+  qruzetv: [
+    () => `QruzeTV ist ein IPTV-Anbieter für Nutzer in Europa. Sportkanäle, Filme, Serien, Live-TV und Video-on-Demand sind in einem Abo enthalten. Das Ziel ist eine stabile und unterbrechungsfreie Erfahrung, besonders an Spieltagen. Verschiedene Pakete decken unterschiedliche Bedürfnisse ab.`,
+    () => `QruzeTV bietet eine umfangreiche Kanalliste und technischen Support. Für Fußballfans steht die stabile Übertragung der Sportkanäle im Vordergrund. Infrastruktur und Server-Optimierung sollen Ruckeln und Verzögerung minimieren.`,
   ],
   spielVorher: [
     (h, a) => `Vorberichte deuten auf ein spannendes Spiel zwischen ${h} und ${a} hin. Beide Teams zielen auf drei Punkte. Form, Verletzungen und Taktik beeinflussen den Spielverlauf. Fans warten gespannt; in den sozialen Medien werden Prognosen geteilt. Trainer halten sich mit taktischen Details zurück.`,
@@ -154,7 +154,7 @@ export function generateMatchContentDE(match) {
     paragraphs.push(pick('p', BLOECKE.iptv)());
   }
   if (pickIndex(seed + 'q', 5) === 0) {
-    paragraphs.push(pick('q', BLOECKE.primewatch)());
+    paragraphs.push(pick('q', BLOECKE.qruzetv)());
   }
 
   paragraphs.push(pick('c', BLOECKE.schluss)());

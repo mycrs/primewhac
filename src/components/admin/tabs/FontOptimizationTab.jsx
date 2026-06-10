@@ -16,7 +16,7 @@ export const FontOptimizationTab = ({ siteData, setSiteData }) => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+      <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700">
         <h3 className="text-lg font-bold text-white mb-6">Font Yükleme ve FOUC Önleme</h3>
         
         <div className="space-y-6">
@@ -38,7 +38,7 @@ export const FontOptimizationTab = ({ siteData, setSiteData }) => {
               <SelectTrigger className="bg-white/10 border-gray-600 text-white">
                 <SelectValue placeholder="Seçiniz" />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 text-white border-slate-700">
+              <SelectContent className="bg-[#0a0a0a] text-white border-slate-700">
                 <SelectItem value="swap">Swap (Önerilen)</SelectItem>
                 <SelectItem value="block">Block</SelectItem>
                 <SelectItem value="fallback">Fallback</SelectItem>

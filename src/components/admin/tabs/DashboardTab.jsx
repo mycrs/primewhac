@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
+import {
   BarChart3, Users, Tv, Film, Package, Activity, ArrowRight,
-  TrendingUp, Clock, AlertCircle, CheckCircle2
+  TrendingUp, Clock, CheckCircle2, AlertCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -21,7 +21,7 @@ const StatCard = ({ title, value, icon: Icon, color, trend, delay }) => (
     transition={{ duration: 0.5, delay }}
     className="relative group"
   >
-    <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-blue-600/10 rounded-2xl blur-xl transition-opacity opacity-50 group-hover:opacity-100" />
+    <div className="absolute inset-0 bg-gradient-to-r from-[#e50914]/10 to-[#b20710]/10 rounded-2xl blur-xl transition-opacity opacity-50 group-hover:opacity-100" />
     <Card className="relative border-white/5 bg-[#131326] hover:bg-[#1A1A32] transition-colors overflow-hidden">
       <CardContent className="p-6">
         <div className="flex justify-between items-start mb-4">
@@ -51,7 +51,7 @@ const ActivityItem = ({ title, desc, time, type }) => (
     <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
       type === 'success' ? 'bg-green-500/10 text-green-400' :
       type === 'warning' ? 'bg-yellow-500/10 text-yellow-400' :
-      'bg-blue-500/10 text-blue-400'
+      'bg-[#141414]/10 text-blue-400'
     }`}>
       {type === 'success' ? <CheckCircle2 className="w-5 h-5" /> :
        type === 'warning' ? <AlertCircle className="w-5 h-5" /> :
@@ -74,7 +74,6 @@ export const DashboardTab = ({ siteData }) => {
   });
 
   const [recentRequests, setRecentRequests] = useState([]);
-
   useEffect(() => {
     // Populate stats from siteData
     setStats({
@@ -110,7 +109,7 @@ export const DashboardTab = ({ siteData }) => {
           <p className="text-gray-400">Panel genel durum özeti ve istatistikler.</p>
         </div>
         <div className="flex gap-3">
-          <Button className="bg-purple-600 hover:bg-purple-700">
+          <Button className="bg-primary hover:bg-primary">
             <Activity className="w-4 h-4 mr-2" />
             Rapor Al
           </Button>
@@ -131,7 +130,7 @@ export const DashboardTab = ({ siteData }) => {
           title="Film Arşivi" 
           value={stats.movies} 
           icon={Film} 
-          color="purple"
+          color="red"
           trend="+5%"
           delay={0.2}
         />
@@ -152,6 +151,8 @@ export const DashboardTab = ({ siteData }) => {
         />
       </div>
 
+
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Chart Area */}
         <Card className="lg:col-span-2 border-white/5 bg-[#131326]">
@@ -163,12 +164,12 @@ export const DashboardTab = ({ siteData }) => {
             <div className="h-[300px] w-full flex items-end justify-between gap-4 pt-10 px-4">
               {chartData.map((val, i) => (
                 <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                  <div className="relative w-full bg-slate-800 rounded-t-lg h-full flex items-end overflow-hidden">
+                  <div className="relative w-full bg-[#0a0a0a] rounded-t-lg h-full flex items-end overflow-hidden">
                     <motion.div 
                       initial={{ height: 0 }}
                       animate={{ height: `${(val / maxVal) * 100}%` }}
                       transition={{ duration: 1, delay: i * 0.1 }}
-                      className="w-full bg-gradient-to-t from-purple-600 to-blue-500 opacity-80 group-hover:opacity-100 transition-opacity relative"
+                      className="w-full bg-gradient-to-t from-[#e50914] to-[#b20710] opacity-80 group-hover:opacity-100 transition-opacity relative"
                     >
                       <div className="absolute top-0 left-0 w-full h-1 bg-white/30" />
                     </motion.div>
@@ -200,7 +201,7 @@ export const DashboardTab = ({ siteData }) => {
                  />
                ))
             )}
-            <Button variant="ghost" className="w-full mt-4 text-purple-400 hover:text-purple-300 hover:bg-purple-500/10">
+            <Button variant="ghost" className="w-full mt-4 text-primary hover:text-primary hover:bg-primary/10">
               Tümünü Gör <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </CardContent>

@@ -6,6 +6,7 @@ import { clearAllAuth } from '@/utils/clearAllAuth';
 import AuthRecoveryManager from '@/utils/authRecoveryManager';
 import TokenValidator from '@/utils/tokenValidator';
 import { useNavigate } from 'react-router-dom';
+import { ADMIN_LOGIN_PATH } from '@/constants/adminRoutes';
 
 const AuthErrorRecovery = ({ errorDetails, errorType, onRecover }) => {
   const navigate = useNavigate();
@@ -34,10 +35,8 @@ const AuthErrorRecovery = ({ errorDetails, errorType, onRecover }) => {
     // If the error detail looks like a JWT token, attempt to parse it
     if (typeof errorDetails === 'string' && errorDetails.split('.').length === 3) {
       try {
-        console.log('[AuthErrorRecovery] Attempting to parse token details for debugging');
         const report = TokenValidator.getDetailedClaimsReport(errorDetails);
         setTokenReport(report);
-        console.log('[AuthErrorRecovery] Token analysis complete:', report);
       } catch (err) {
         console.error('[AuthErrorRecovery] Failed to analyze token details:', err);
         setTokenReport({ 
@@ -58,7 +57,7 @@ const AuthErrorRecovery = ({ errorDetails, errorType, onRecover }) => {
       
       setRecoverySuccess(true);
       setTimeout(() => {
-        window.location.href = '/admin-login';
+        window.location.href = ADMIN_LOGIN_PATH;
       }, 1500);
     } catch (e) {
       console.error('[AuthErrorRecovery] Cleanup failed', e);
@@ -82,7 +81,7 @@ const AuthErrorRecovery = ({ errorDetails, errorType, onRecover }) => {
       setRecoverySuccess(true);
       setTimeout(() => {
         if (onRecover) onRecover();
-        else window.location.href = '/admin-login';
+        else window.location.href = ADMIN_LOGIN_PATH;
       }, 1500);
     } catch (e) {
       console.error('[AuthErrorRecovery] Reset failed', e);
@@ -105,7 +104,7 @@ const AuthErrorRecovery = ({ errorDetails, errorType, onRecover }) => {
 
   const handleManualLogin = () => {
     AuthRecoveryManager.wipeAuthStorage();
-    window.location.href = '/admin-login';
+    window.location.href = ADMIN_LOGIN_PATH;
   };
 
   const getSpecificErrorMessage = () => {
@@ -117,19 +116,19 @@ const AuthErrorRecovery = ({ errorDetails, errorType, onRecover }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#05050A] p-4 text-slate-200">
-      <div className="max-w-md w-full bg-slate-900 border border-red-500/30 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+      <div className="max-w-md w-full bg-[#0a0a0a] border border-red-500/30 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
         {isRecovering && !recoverySuccess && (
-          <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center">
-            <RefreshCw className="w-10 h-10 text-purple-500 animate-spin mb-4" />
+          <div className="absolute inset-0 bg-[#0a0a0a]/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center">
+            <RefreshCw className="w-10 h-10 text-primary animate-spin mb-4" />
             <p className="text-white font-medium">Sistem kurtarılıyor...</p>
           </div>
         )}
 
         {recoverySuccess && (
-          <div className="absolute inset-0 bg-emerald-900/90 z-10 flex flex-col items-center justify-center">
-            <ShieldAlert className="w-12 h-12 text-emerald-400 mb-4" />
+          <div className="absolute inset-0 bg-[#e50914]/90 z-10 flex flex-col items-center justify-center">
+            <ShieldAlert className="w-12 h-12 text-[#e50914] mb-4" />
             <h3 className="text-xl font-bold text-white mb-2">Başarılı!</h3>
-            <p className="text-emerald-200 text-center px-4">Sistem temizlendi ve yetkilendirme sıfırlandı, yönlendiriliyorsunuz...</p>
+            <p className="text-[#e50914] text-center px-4">Sistem temizlendi ve yetkilendirme sıfırlandı, yönlendiriliyorsunuz...</p>
           </div>
         )}
 
@@ -175,7 +174,7 @@ const AuthErrorRecovery = ({ errorDetails, errorType, onRecover }) => {
           <Button 
             onClick={handleRetryLogin}
             disabled={isRecovering}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-5 rounded-xl flex items-center gap-2"
+            className="w-full bg-[#141414] hover:bg-[#0a0a0a] text-white font-semibold py-5 rounded-xl flex items-center gap-2"
           >
             <RefreshCw className="w-5 h-5" />
             Tekrar Dene
@@ -185,7 +184,7 @@ const AuthErrorRecovery = ({ errorDetails, errorType, onRecover }) => {
             onClick={handleComprehensiveCleanup}
             disabled={isRecovering}
             variant="outline"
-            className="w-full border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white py-5 rounded-xl flex items-center gap-2"
+            className="w-full border-slate-700 text-slate-300 hover:bg-[#0a0a0a] hover:text-white py-5 rounded-xl flex items-center gap-2"
           >
             <Trash2 className="w-5 h-5 text-orange-400" />
             Yetkilendirme Verilerini Temizle

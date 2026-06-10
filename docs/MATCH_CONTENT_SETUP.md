@@ -8,7 +8,7 @@ Build sırasında bu dosyalar `dist/` içine kopyalanır, statik olarak sunulur.
 
 ## 2. Ön Üretim (Kaydetme)
 
-AI içeriği önceden üretmek için (GEMINI_API_KEY gerekli):
+Şablon içeriği önceden üretmek için (Gemini gerekmez):
 
 ```bash
 npm run pregenerate:content

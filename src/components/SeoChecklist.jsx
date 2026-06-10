@@ -11,7 +11,7 @@ const SeoChecklist = () => {
             </div>
 
             <div className="space-y-4">
-                <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                <div className="bg-[#0a0a0a]/50 border border-slate-700 rounded-lg p-4">
                     <h3 className="flex items-center text-lg font-semibold text-yellow-400 mb-3">
                         <FileText className="w-5 h-5 mr-2" /> İçerik Kalitesi & Yapısı
                     </h3>
@@ -35,7 +35,7 @@ const SeoChecklist = () => {
                     </ul>
                 </div>
 
-                <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                <div className="bg-[#0a0a0a]/50 border border-slate-700 rounded-lg p-4">
                     <h3 className="flex items-center text-lg font-semibold text-blue-400 mb-3">
                         <ImageIcon className="w-5 h-5 mr-2" /> Medya & Görseller
                     </h3>
@@ -51,8 +51,8 @@ const SeoChecklist = () => {
                     </ul>
                 </div>
 
-                <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
-                    <h3 className="flex items-center text-lg font-semibold text-purple-400 mb-3">
+                <div className="bg-[#0a0a0a]/50 border border-slate-700 rounded-lg p-4">
+                    <h3 className="flex items-center text-lg font-semibold text-primary mb-3">
                         <Search className="w-5 h-5 mr-2" /> Teknik SEO
                     </h3>
                     <ul className="space-y-2 text-gray-300 text-sm">

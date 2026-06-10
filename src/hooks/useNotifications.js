@@ -4,6 +4,7 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
+import { filterScheduledNotifications } from '@/utils/notificationSchedule';
 
 export const useNotifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -44,10 +45,12 @@ export const useNotifications = () => {
         });
       }
     } else {
-      setNotifications(result.data || []);
+      const rows = result.data || [];
+      setNotifications(activeOnly ? filterScheduledNotifications(rows) : rows);
     }
-    
-    return result.data || [];
+
+    const rows = result.data || [];
+    return activeOnly ? filterScheduledNotifications(rows) : rows;
   }, [toast, isAdmin, user]);
 
   const createNotification = async (notificationData) => {

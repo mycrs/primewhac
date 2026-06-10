@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 const DetailedContentSection = () => {
   const location = useLocation();
   const isDe = location.pathname.startsWith('/de');
-  const packagesLink = isDe ? "/de/pakete" : "/packages";
+  const packagesLink = isDe ? "/de/pakete" : "/paketler";
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -28,15 +28,15 @@ const DetailedContentSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 rounded-[2.5rem] p-8 md:p-14 shadow-2xl relative overflow-hidden"
+          className="bg-[#0a0a0a]/60 backdrop-blur-xl border border-slate-800/80 rounded-[2.5rem] p-8 md:p-14 shadow-2xl relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#141414]/10 rounded-full blur-[120px] pointer-events-none"></div>
 
           <div className="relative z-10 space-y-12 text-slate-300 text-lg leading-relaxed">
             
             <motion.div variants={itemVariants} className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">
                 Filme und Serien mit IPTV ansehen – Umfassender Leitfaden
               </h2>
               <p className="max-w-4xl mx-auto">
@@ -45,7 +45,7 @@ const DetailedContentSection = () => {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-indigo-300 mb-4 inline-block">
+              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] mb-4 inline-block">
                 Wie werden beliebte Filme und Serien ausgewählt?
               </h3>
               <p>
@@ -54,7 +54,7 @@ const DetailedContentSection = () => {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300 mb-4 inline-block">
+              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] mb-4 inline-block">
                 4K- und HD-Filmgenuss – Ultrascharfes Bilderlebnis
               </h3>
               <p>
@@ -69,7 +69,7 @@ const DetailedContentSection = () => {
               </p>
               <Link 
                 to={packagesLink}
-                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300"
+                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-[#e50914] to-[#b20710] rounded-full shadow-lg hover:shadow-primary/50 hover:scale-105 transition-all duration-300"
               >
                 Zum Angebot
               </Link>
@@ -88,15 +88,15 @@ const DetailedContentSection = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 rounded-[2.5rem] p-8 md:p-14 shadow-2xl relative overflow-hidden"
+        className="bg-[#0a0a0a]/60 backdrop-blur-xl border border-slate-800/80 rounded-[2.5rem] p-8 md:p-14 shadow-2xl relative overflow-hidden"
       >
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#141414]/10 rounded-full blur-[120px] pointer-events-none"></div>
 
         <div className="relative z-10 space-y-12 text-slate-300 text-lg leading-relaxed">
           
           <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">
               IPTV ile Film ve Dizi İzleme – Kapsamlı Rehber
             </h2>
             <p className="max-w-4xl mx-auto">
@@ -105,7 +105,7 @@ const DetailedContentSection = () => {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-indigo-300 mb-4 inline-block">
+            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] mb-4 inline-block">
               Popüler Filmler ve Diziler Nasıl Seçiliyor?
             </h3>
             <p>
@@ -114,7 +114,7 @@ const DetailedContentSection = () => {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-rose-300 mb-4 inline-block">
+            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-rose-300 mb-4 inline-block">
               En Çok İzlenen İçerikler – Trend Filmler ve Diziler
             </h3>
             <p>
@@ -123,7 +123,7 @@ const DetailedContentSection = () => {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300 mb-4 inline-block">
+            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] mb-4 inline-block">
               4K ve HD Film Keyfi – Ultra Net Görüntü Deneyimi
             </h3>
             <p>
@@ -132,7 +132,7 @@ const DetailedContentSection = () => {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-300 mb-4 inline-block">
+            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] mb-4 inline-block">
               IPTV ile Film İzlemenin Avantajları
             </h3>
             <p>
@@ -156,7 +156,7 @@ const DetailedContentSection = () => {
             </p>
             <Link 
               to={packagesLink}
-              className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-[#e50914] to-[#b20710] rounded-full shadow-lg hover:shadow-primary/50 hover:scale-105 transition-all duration-300"
             >
               Hemen Paket Seçin
             </Link>

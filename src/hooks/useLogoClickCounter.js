@@ -3,7 +3,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/components/ui/use-toast';
 
-export const useLogoClickCounter = (targetPath = '/admin', clickThreshold = 8, timeout = 2000) => {
+export const useLogoClickCounter = (targetPath = '/yonetim', clickThreshold = 8, timeout = 2000) => {
   const [count, setCount] = useState(0);
   const timeoutRef = useRef(null);
   const navigate = useNavigate();

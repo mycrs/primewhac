@@ -109,7 +109,7 @@ export const AppsTab = ({ siteData, setSiteData }) => {
             </div>
 
             {/* Info Alert */}
-            <Alert className="bg-purple-900/20 border-purple-800 text-purple-200">
+            <Alert className="bg-primary/20 border-primary text-primary">
                 <Info className="h-4 w-4" />
                 <AlertTitle>Bilgilendirme</AlertTitle>
                 <AlertDescription className="mt-2 text-sm">
@@ -151,7 +151,7 @@ export const AppsTab = ({ siteData, setSiteData }) => {
                                         label="Uygulama Adı" 
                                         value={app.name} 
                                         onChange={(e) => handleChange(index, 'name', e.target.value)} 
-                                        placeholder="Örn: Qruze Player"
+                                        placeholder="Örn: QruzeTV Player"
                                     />
                                     <Input 
                                         label="Benzersiz ID (Otomatik)" 
@@ -181,8 +181,8 @@ export const AppsTab = ({ siteData, setSiteData }) => {
                                                     className={cn(
                                                         "flex items-center gap-3 p-3 rounded-lg border transition-all text-sm font-medium text-left",
                                                         isSelected 
-                                                            ? "bg-blue-600/20 border-blue-500 text-blue-100" 
-                                                            : "bg-slate-800/50 border-gray-700 text-gray-400 hover:border-gray-600 hover:bg-slate-800"
+                                                            ? "bg-[#141414]/20 border-blue-500 text-blue-100" 
+                                                            : "bg-[#0a0a0a]/50 border-gray-700 text-gray-400 hover:border-gray-600 hover:bg-[#0a0a0a]"
                                                     )}
                                                 >
                                                     <Icon className={cn("w-4 h-4", isSelected ? "text-blue-400" : "text-gray-500")} />
@@ -203,7 +203,7 @@ export const AppsTab = ({ siteData, setSiteData }) => {
                     ))}
 
                     {safeApps.length === 0 && (
-                        <div className="text-center py-12 border-2 border-dashed border-gray-700 rounded-xl bg-slate-800/30">
+                        <div className="text-center py-12 border-2 border-dashed border-gray-700 rounded-xl bg-[#0a0a0a]/30">
                             <p className="text-gray-400 mb-4">Henüz hiç uygulama eklenmemiş.</p>
                             <div className="flex gap-4 justify-center">
                                 <Button onClick={handleLoadDefaults} variant="default" className="bg-yellow-600 hover:bg-yellow-700 text-white">

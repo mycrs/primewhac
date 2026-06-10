@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import AdminSidebar from './AdminSidebar';
 import * as Tabs from './AdminTabs';
 import ChatBotManagementTab from '@/components/admin/tabs/ChatBotManagementTab';
+import { ADMIN_BASE_PATH, adminPath } from '@/constants/adminRoutes';
 
 // Error boundary wrapper for tabs
 class TabErrorBoundary extends React.Component {
@@ -21,7 +22,7 @@ class TabErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex flex-col items-center justify-center p-8 bg-slate-900 rounded-lg border border-red-500/30">
+        <div className="flex flex-col items-center justify-center p-8 bg-[#0a0a0a] rounded-lg border border-red-500/30">
           <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
           <h3 className="text-xl font-bold text-white mb-2">Bileşen Yüklenemedi</h3>
           <p className="text-slate-400 text-center">Bu sekmeyi yüklerken bir hata oluştu. Lütfen sayfayı yenileyin.</p>
@@ -39,23 +40,23 @@ const AdminPanel = ({ onClose, siteData, setSiteData }) => {
 
   useEffect(() => {
     const path = location.pathname;
-    if (path === '/admin/chatbot') {
+    if (path === adminPath('chatbot')) {
       setActiveTab('chatbot');
-    } else if (path === '/admin/channels') {
+    } else if (path === adminPath('channels')) {
       setActiveTab('channels');
-    } else if (path === '/admin/packages') {
+    } else if (path === adminPath('packages')) {
       setActiveTab('packages');
-    } else if (path === '/admin/blog') {
+    } else if (path === adminPath('blog')) {
       setActiveTab('blog');
-    } else if (path === '/admin/notifications') {
+    } else if (path === adminPath('notifications')) {
       setActiveTab('notification');
-    } else if (path === '/admin/setup') {
+    } else if (path === adminPath('setup')) {
       setActiveTab('installation');
-    } else if (path === '/admin/faqs') {
+    } else if (path === adminPath('faqs')) {
       setActiveTab('faq');
-    } else if (path === '/admin/settings') {
+    } else if (path === adminPath('settings')) {
       setActiveTab('settings');
-    } else if (path === '/admin') {
+    } else if (path === ADMIN_BASE_PATH) {
       setActiveTab('dashboard');
     }
   }, [location.pathname]);
@@ -97,7 +98,7 @@ const AdminPanel = ({ onClose, siteData, setSiteData }) => {
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
         exit={{ opacity: 0 }} 
-        className="bg-slate-950 w-full h-full overflow-hidden flex shadow-2xl relative"
+        className="bg-[#0a0a0a] w-full h-full overflow-hidden flex shadow-2xl relative"
       >
         {/* Sidebar */}
         <AdminSidebar 
@@ -108,10 +109,10 @@ const AdminPanel = ({ onClose, siteData, setSiteData }) => {
         />
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col h-full overflow-hidden bg-slate-900 relative md:ml-64 w-full">
+        <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#0a0a0a] relative md:ml-64 w-full">
           
           {/* Mobile Header */}
-          <div className="md:hidden p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950 sticky top-0 z-30">
+          <div className="md:hidden p-4 border-b border-slate-800 flex items-center justify-between bg-[#0a0a0a] sticky top-0 z-30">
              <div className="font-semibold text-white capitalize">{activeTab.replace(/_/g, ' ')}</div>
              <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(true)}>
                <Menu className="h-5 w-5 text-white" />

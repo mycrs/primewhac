@@ -36,7 +36,7 @@ const SetupPageWelcomeNotification = ({
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           className="fixed top-24 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none"
         >
-          <div className="pointer-events-auto max-w-md w-full bg-gradient-to-r from-blue-900/90 to-purple-900/90 backdrop-blur-md border border-white/10 shadow-2xl rounded-2xl p-4 flex items-start gap-4 relative overflow-hidden group">
+          <div className="pointer-events-auto max-w-md w-full bg-gradient-to-r from-[#e50914]/90 to-[#b20710]/90 backdrop-blur-md border border-white/10 shadow-2xl rounded-2xl p-4 flex items-start gap-4 relative overflow-hidden group">
             {/* Glossy Effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-50 pointer-events-none" />
             

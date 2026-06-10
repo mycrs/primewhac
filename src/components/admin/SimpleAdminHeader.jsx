@@ -5,9 +5,9 @@ import { Button } from '@/components/ui/button';
 
 const SimpleAdminHeader = ({ onLogout }) => {
   return (
-    <header className="flex items-center justify-between p-4 bg-[#0F0F1E] border-b border-white/10">
+    <header className="flex items-center justify-between p-4 bg-[#0a0a0a] border-b border-white/10">
       <div className="flex items-center gap-3">
-        <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
           <span className="font-bold text-white text-lg">A</span>
         </div>
         <h1 className="text-lg font-bold text-white">Admin Panel</h1>

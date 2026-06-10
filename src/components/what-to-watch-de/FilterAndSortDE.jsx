@@ -54,7 +54,7 @@ const FilterAndSortDE = ({ type = 'movie', onFilterChange }) => {
   if (sortBy !== 'popularity.desc') activeCount++;
 
   return (
-    <div className="bg-slate-900/50 p-5 rounded-2xl border border-slate-800 mb-8">
+    <div className="bg-[#0a0a0a]/50 p-5 rounded-2xl border border-slate-800 mb-8">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2 text-white font-bold text-lg">
           <Filter className="w-5 h-5 text-pink-500" /> Filter & Sortierung
@@ -71,8 +71,8 @@ const FilterAndSortDE = ({ type = 'movie', onFilterChange }) => {
         <div>
           <label className="text-xs text-slate-400 font-semibold mb-2 block uppercase tracking-wider">Genre</label>
           <Select value={selectedGenre} onValueChange={setSelectedGenre}>
-            <SelectTrigger className="bg-slate-800 border-slate-700 text-white"><SelectValue placeholder="Alle Genres" /></SelectTrigger>
-            <SelectContent className="bg-slate-800 text-white border-slate-700 max-h-60">
+            <SelectTrigger className="bg-[#0a0a0a] border-slate-700 text-white"><SelectValue placeholder="Alle Genres" /></SelectTrigger>
+            <SelectContent className="bg-[#0a0a0a] text-white border-slate-700 max-h-60">
               <SelectItem value="all">Alle Genres</SelectItem>
               {genres.map(g => <SelectItem key={g.id} value={g.id.toString()}>{g.name}</SelectItem>)}
             </SelectContent>
@@ -81,8 +81,8 @@ const FilterAndSortDE = ({ type = 'movie', onFilterChange }) => {
         <div>
           <label className="text-xs text-slate-400 font-semibold mb-2 block uppercase tracking-wider">Jahr</label>
           <Select value={selectedYear} onValueChange={setSelectedYear}>
-            <SelectTrigger className="bg-slate-800 border-slate-700 text-white"><SelectValue placeholder="Alle Jahre" /></SelectTrigger>
-            <SelectContent className="bg-slate-800 text-white border-slate-700 max-h-60">
+            <SelectTrigger className="bg-[#0a0a0a] border-slate-700 text-white"><SelectValue placeholder="Alle Jahre" /></SelectTrigger>
+            <SelectContent className="bg-[#0a0a0a] text-white border-slate-700 max-h-60">
               <SelectItem value="all">Alle Jahre</SelectItem>
               {years.map(y => <SelectItem key={y} value={y.toString()}>{y}</SelectItem>)}
             </SelectContent>
@@ -91,8 +91,8 @@ const FilterAndSortDE = ({ type = 'movie', onFilterChange }) => {
         <div>
           <label className="text-xs text-slate-400 font-semibold mb-2 block uppercase tracking-wider">Sortieren nach</label>
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="bg-slate-800 border-slate-700 text-white"><SelectValue placeholder="Auswählen" /></SelectTrigger>
-            <SelectContent className="bg-slate-800 text-white border-slate-700">
+            <SelectTrigger className="bg-[#0a0a0a] border-slate-700 text-white"><SelectValue placeholder="Auswählen" /></SelectTrigger>
+            <SelectContent className="bg-[#0a0a0a] text-white border-slate-700">
               <SelectItem value="popularity.desc">Popularität</SelectItem>
               <SelectItem value="vote_average.desc">Bewertung</SelectItem>
               <SelectItem value="primary_release_date.desc">Veröffentlichungsdatum</SelectItem>
@@ -108,7 +108,7 @@ const FilterAndSortDE = ({ type = 'movie', onFilterChange }) => {
       </div>
       
       <div className="flex justify-end border-t border-slate-800 pt-4">
-        <Button onClick={applyFilters} className="bg-slate-800 hover:bg-slate-700 text-white">
+        <Button onClick={applyFilters} className="bg-[#0a0a0a] hover:bg-[#0a0a0a] text-white">
           Filter anwenden
         </Button>
       </div>

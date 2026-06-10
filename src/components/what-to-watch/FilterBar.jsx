@@ -57,10 +57,10 @@ const FilterBar = ({ type = 'movie', onFilterChange }) => {
   const hasActiveFilters = selectedGenre || selectedYear || ratingRange[0] > 0 || ratingRange[1] < 10 || sortBy !== 'popularity.desc';
 
   return (
-    <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800 mb-8 space-y-4">
+    <div className="bg-[#0a0a0a]/50 p-4 rounded-xl border border-slate-800 mb-8 space-y-4">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-white font-semibold flex items-center gap-2">
-          <Filter className="w-4 h-4 text-purple-400" /> Filtreler
+          <Filter className="w-4 h-4 text-primary" /> Filtreler
         </h3>
         {hasActiveFilters && (
           <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 text-slate-400 hover:text-white">
@@ -74,10 +74,10 @@ const FilterBar = ({ type = 'movie', onFilterChange }) => {
         <div className="space-y-2">
           <label className="text-xs text-slate-400 font-medium">Tür</label>
           <Select value={selectedGenre} onValueChange={setSelectedGenre}>
-            <SelectTrigger className="bg-slate-800 border-slate-700 text-white">
+            <SelectTrigger className="bg-[#0a0a0a] border-slate-700 text-white">
               <SelectValue placeholder="Tüm Türler" />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700 text-white max-h-60">
+            <SelectContent className="bg-[#0a0a0a] border-slate-700 text-white max-h-60">
               <SelectItem value="all">Tüm Türler</SelectItem>
               {genres.map(g => (
                 <SelectItem key={g.id} value={g.id.toString()}>{g.name}</SelectItem>
@@ -90,10 +90,10 @@ const FilterBar = ({ type = 'movie', onFilterChange }) => {
         <div className="space-y-2">
           <label className="text-xs text-slate-400 font-medium">Yıl</label>
           <Select value={selectedYear} onValueChange={setSelectedYear}>
-            <SelectTrigger className="bg-slate-800 border-slate-700 text-white">
+            <SelectTrigger className="bg-[#0a0a0a] border-slate-700 text-white">
               <SelectValue placeholder="Tüm Yıllar" />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700 text-white max-h-60">
+            <SelectContent className="bg-[#0a0a0a] border-slate-700 text-white max-h-60">
               <SelectItem value="all">Tüm Yıllar</SelectItem>
               {years.map(y => (
                 <SelectItem key={y} value={y.toString()}>{y}</SelectItem>
@@ -106,10 +106,10 @@ const FilterBar = ({ type = 'movie', onFilterChange }) => {
         <div className="space-y-2">
           <label className="text-xs text-slate-400 font-medium">Sıralama</label>
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="bg-slate-800 border-slate-700 text-white">
+            <SelectTrigger className="bg-[#0a0a0a] border-slate-700 text-white">
               <SelectValue placeholder="Sıralama Seç" />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700 text-white">
+            <SelectContent className="bg-[#0a0a0a] border-slate-700 text-white">
               <SelectItem value="popularity.desc">En Popüler</SelectItem>
               <SelectItem value="vote_average.desc">En Yüksek Puan</SelectItem>
               <SelectItem value="primary_release_date.desc">En Yeni</SelectItem>
@@ -121,7 +121,7 @@ const FilterBar = ({ type = 'movie', onFilterChange }) => {
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <label className="text-xs text-slate-400 font-medium">IMDb Puanı</label>
-            <span className="text-xs text-purple-400 font-bold">{ratingRange[0]} - {ratingRange[1]}</span>
+            <span className="text-xs text-primary font-bold">{ratingRange[0]} - {ratingRange[1]}</span>
           </div>
           <Slider
             min={0}
@@ -138,22 +138,22 @@ const FilterBar = ({ type = 'movie', onFilterChange }) => {
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-800/50 mt-4">
           {selectedGenre && selectedGenre !== 'all' && (
-            <Badge variant="secondary" className="bg-purple-500/20 text-purple-300 hover:bg-purple-500/30">
+            <Badge variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30">
               Tür: {genres.find(g => g.id.toString() === selectedGenre)?.name}
             </Badge>
           )}
           {selectedYear && selectedYear !== 'all' && (
-            <Badge variant="secondary" className="bg-purple-500/20 text-purple-300 hover:bg-purple-500/30">
+            <Badge variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30">
               Yıl: {selectedYear}
             </Badge>
           )}
           {(ratingRange[0] > 0 || ratingRange[1] < 10) && (
-            <Badge variant="secondary" className="bg-purple-500/20 text-purple-300 hover:bg-purple-500/30">
+            <Badge variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30">
               Puan: {ratingRange[0]} - {ratingRange[1]}
             </Badge>
           )}
           {sortBy !== 'popularity.desc' && (
-            <Badge variant="secondary" className="bg-purple-500/20 text-purple-300 hover:bg-purple-500/30">
+            <Badge variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30">
               Sıralama: {sortBy === 'vote_average.desc' ? 'Puan' : 'Yeni'}
             </Badge>
           )}

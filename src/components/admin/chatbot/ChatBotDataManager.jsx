@@ -95,7 +95,7 @@ const ChatBotDataManager = ({ item, onSuccess }) => {
   if (isEditing) {
     return (
       <div className="fixed inset-0 bg-black/80 z-[200] flex items-center justify-center p-4">
-        <div className="bg-slate-900 border border-slate-700 rounded-xl p-6 w-full max-w-lg shadow-2xl space-y-4">
+        <div className="bg-[#0a0a0a] border border-slate-700 rounded-xl p-6 w-full max-w-lg shadow-2xl space-y-4">
           <div className="flex justify-between items-center mb-4">
             <h4 className="text-xl font-bold text-white">Kaydı Düzenle</h4>
             <Button variant="ghost" size="icon" onClick={() => setIsEditing(false)}>
@@ -109,7 +109,7 @@ const ChatBotDataManager = ({ item, onSuccess }) => {
               <Input 
                 value={formData.keyword}
                 onChange={e => setFormData(prev => ({...prev, keyword: e.target.value}))}
-                className="bg-slate-950 text-white border-slate-700"
+                className="bg-[#0a0a0a] text-white border-slate-700"
               />
             </div>
             
@@ -119,7 +119,7 @@ const ChatBotDataManager = ({ item, onSuccess }) => {
                 value={formData.response}
                 onChange={e => setFormData(prev => ({...prev, response: e.target.value}))}
                 rows={4}
-                className="bg-slate-950 text-white border-slate-700"
+                className="bg-[#0a0a0a] text-white border-slate-700"
               />
             </div>
 
@@ -138,7 +138,7 @@ const ChatBotDataManager = ({ item, onSuccess }) => {
             <Button variant="outline" onClick={() => setIsEditing(false)} disabled={isSaving}>
               İptal
             </Button>
-            <Button onClick={handleSave} disabled={isSaving} className="bg-cyan-600 hover:bg-cyan-700 text-white">
+            <Button onClick={handleSave} disabled={isSaving} className="bg-[#e50914] hover:bg-[#e50914] text-white">
               {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
               Kaydet
             </Button>
@@ -154,7 +154,7 @@ const ChatBotDataManager = ({ item, onSuccess }) => {
         variant="outline" 
         size="sm" 
         onClick={() => setIsEditing(true)}
-        className="bg-slate-800 border-slate-700 hover:bg-slate-700 hover:text-white h-8 px-2"
+        className="bg-[#0a0a0a] border-slate-700 hover:bg-[#0a0a0a] hover:text-white h-8 px-2"
         title="Düzenle"
       >
         <Edit className="w-4 h-4" />

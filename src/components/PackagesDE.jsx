@@ -8,6 +8,12 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import PackageRegionSelector from './PackageRegionSelector';
 import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
 import { isSupabaseConfigured } from '@/utils/envValidator';
+import { PACKAGE_LIST_COLUMNS } from '@/constants/publicSupabaseQueries';
+import { readSessionCache, writeSessionCache, removeSessionCacheKey } from '@/utils/supabaseSessionCache';
+import PackageCountdownBadge from '@/components/packages/PackageCountdownBadge';
+import { STATIC_PACKAGES_TR, STATIC_PACKAGES_EU } from '@/constants/staticPackagesFallback';
+import { useToast } from '@/components/ui/use-toast';
+import { showPublicMaintenanceToastOnce } from '@/utils/supabaseMaintenanceToast';
 
 const translateFeature = (feature) => {
   if (!feature) return '';
@@ -42,7 +48,7 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
   const [selectedRegion, setSelectedRegion] = useState('tr');
 
   const handleOrder = () => {
-    if (pkg.isRegionSelectable) {
+    if (pkg.isRegionSelectable ?? pkg.is_region_selectable) {
       const regionNames = {
         'tr': 'Türkei',
         'eu': 'Europa',
@@ -76,16 +82,32 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
   const seoDescription = getSeoDescription(pkg.name);
 
   return (
-    <div className={`relative p-6 rounded-xl border flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${isPopular ? 'border-[#A855F7] bg-gradient-to-br from-[#1a1a2e] to-[#1e1e32] shadow-lg shadow-purple-900/20' : 'border-[#2a2a40] bg-gradient-to-br from-[#1a1a2e] to-[#16161e] hover:border-slate-600'}`}>
+    <article className={`luxury-card relative p-6 rounded-3xl border-2 flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${isPopular ? 'border-primary/50 shadow-lg shadow-primary/20 ring-2 ring-primary/60 ring-offset-2 ring-offset-[#0a0a0a] shadow-[0_0_30px_rgba(229,9,20,0.25)] hover:shadow-[0_0_40px_rgba(229,9,20,0.4)] hover:ring-primary/80' : 'border-[#2a2a40] hover:border-slate-600'}`}>
       {isPopular && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#A855F7] to-[#9333EA] text-white text-xs font-bold px-4 py-1 rounded-full uppercase flex items-center gap-1 shadow-lg shadow-purple-600/40 z-20 whitespace-nowrap">
-          <Star className="w-3 h-3 fill-current" /> AM BELIEBTESTEN
-        </div>
+        <>
+          <div className="absolute inset-0 rounded-xl pointer-events-none -z-10 bg-gradient-to-r from-[#e50914]/10 via-transparent to-[#b20710]/10 animate-pulse" style={{ animationDuration: '3s' }} />
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#e50914] to-[#b20710] text-white text-xs font-bold px-4 py-1 rounded-full uppercase flex items-center gap-1 shadow-lg shadow-primary/40 z-20 whitespace-nowrap">
+            <Star className="w-3 h-3 fill-current" /> AM BELIEBTESTEN
+          </div>
+        </>
       )}
 
+      <PackageCountdownBadge pkg={pkg} isDe />
+
       <div className="text-center mb-6 pt-4">
-        <div className="text-[#A855F7] font-bold uppercase tracking-widest text-sm mb-2">{translateDuration(pkg.duration)}</div>
-        <div className="flex items-center justify-center gap-0.5 relative z-10">
+        <span className="qruze-premium-seal mb-4">
+          {isPopular ? 'Premium Choice' : 'Qruze Paket'}
+        </span>
+        <div className="text-[#e50914] font-bold uppercase tracking-widest text-sm mb-2">{translateDuration(pkg.duration)}</div>
+        {pkg.campaign_label && (
+          <div className="inline-block mb-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold border border-amber-500/30">
+            {pkg.campaign_label}
+          </div>
+        )}
+        <div className="flex items-center justify-center gap-0.5 relative z-10 flex-wrap">
+          {pkg.original_price != null && Number(pkg.original_price) > Number(pkg.price) && (
+            <span className="text-lg text-gray-500 line-through mr-2 align-baseline">{currencySymbol}{pkg.original_price}</span>
+          )}
           <span className="text-xl text-gray-300 font-semibold align-top mt-1">{currencySymbol}</span>
           <span className="text-5xl font-bold text-white tracking-tight">{pkg.price}</span>
         </div>
@@ -93,7 +115,7 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
         <p className="text-gray-500 text-xs mt-1 italic">{seoDescription}</p>
       </div>
       
-      {pkg.isRegionSelectable && (
+      {(pkg.isRegionSelectable ?? pkg.is_region_selectable) && (
         <PackageRegionSelector 
           selectedRegion={selectedRegion} 
           onRegionChange={setSelectedRegion} 
@@ -105,8 +127,8 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
         <ul className="space-y-3 mb-8">
           {(pkg.features || []).slice(0, 6).map((feature, i) => (
             <li key={i} className="flex items-start text-sm text-gray-300 font-medium leading-snug">
-              <div className="mr-3 mt-0.5 shrink-0 bg-purple-900/30 rounded-full p-0.5">
-                <Check className="w-3 h-3 text-[#A855F7]" />
+              <div className="mr-3 mt-0.5 shrink-0 bg-primary/30 rounded-full p-0.5">
+                <Check className="w-3 h-3 text-[#e50914]" />
               </div>
               <span>{translateFeature(feature)}</span>
             </li>
@@ -121,21 +143,22 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
 
       <Button 
         onClick={handleOrder}
-        className={`w-full h-12 rounded-lg font-bold text-base mt-auto transition-all duration-300 ${
+        className={`w-full h-12 rounded-2xl font-bold text-base mt-auto transition-all duration-300 ${
           isPopular 
-            ? 'bg-gradient-to-r from-[#A855F7] to-[#9333EA] text-white hover:from-[#9333EA] hover:to-[#7E22CE] hover:shadow-lg hover:shadow-purple-600/30' 
+            ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white hover:from-[#b20710] hover:to-[#b20710] hover:shadow-lg hover:shadow-primary/30' 
             : 'bg-[#1e1e30] text-white hover:bg-[#2d2d45] border border-[#2a2a40] hover:border-slate-500'
         }`}
       >
         <Zap className="w-4 h-4 mr-2" />
         Jetzt bestellen
       </Button>
-    </div>
+    </article>
   );
 });
 
 const PackagesDE = ({ packages: initialPackages, title, hideRegions = [] }) => {
   const { openModal } = useOrderModal();
+  const { toast } = useToast();
   const [trPackages, setTrPackages] = useState([]);
   const [euPackages, setEuPackages] = useState([]);
   const [trLoading, setTrLoading] = useState(true);
@@ -163,42 +186,68 @@ const PackagesDE = ({ packages: initialPackages, title, hideRegions = [] }) => {
     }
   }, [activeTab]);
 
-  const fetchTurkeyPackages = async () => {
+  const fetchTurkeyPackages = async (force = false) => {
     setTrLoading(true);
     setTrError(null);
-    const fallbackData = initialPackages?.turkiye || [];
-    
+    const fallbackData = STATIC_PACKAGES_TR;
+    const cacheKey = 'sb_pub_packages_tr_v2';
+
     if (!isSupabaseConfigured()) {
       setTrPackages(fallbackData);
       setTrLoading(false);
       return;
     }
 
+    if (!force) {
+      const cached = readSessionCache(cacheKey);
+      if (cached && Array.isArray(cached) && cached.length >= 0) {
+        setTrPackages(cached.length > 0 ? cached : fallbackData);
+        setTrLoading(false);
+        return;
+      }
+    } else {
+      removeSessionCacheKey(cacheKey);
+    }
+
     try {
-      const { data, error, isFallback, message } = await executeSupabaseQuery(
-        () => supabase.from('packages').select('*').eq('enabled', true).in('region', ['TR', 'tr', 'turkiye', 'Türkiye', 'turkey']).order('price', { ascending: true }),
-        { retries: 3, context: 'fetch_packages_tr', fallback: fallbackData }
+      const { data, error, isFallback } = await executeSupabaseQuery(
+        () =>
+          supabase
+            .from('packages')
+            .select(PACKAGE_LIST_COLUMNS)
+            .eq('enabled', true)
+            .in('region', ['TR', 'tr', 'turkiye', 'Türkiye', 'turkey'])
+            .order('price', { ascending: true }),
+        { retries: 3, context: 'fetch_packages_tr_de', fallback: fallbackData }
       );
 
       if (error && isFallback) {
-        setTrError(message || "Netzwerkfehler beim Laden der Pakete.");
+        setTrError(null);
         setTrPackages(fallbackData);
+        showPublicMaintenanceToastOnce(toast);
       } else {
-        setTrPackages(data && data.length > 0 ? data : fallbackData);
+        const rows = data && data.length > 0 ? data : fallbackData;
+        if (import.meta.env.DEV) {
+          console.log('paket data (TR):', rows);
+        }
+        setTrPackages(rows);
+        if (!isFallback && rows.length >= 0) writeSessionCache(cacheKey, rows);
       }
     } catch (err) {
       console.error("Failed to load Turkey packages:", err);
-      setTrError("Ein unerwarteter Fehler ist aufgetreten.");
+      setTrError(null);
       setTrPackages(fallbackData);
+      showPublicMaintenanceToastOnce(toast);
     } finally {
       setTrLoading(false);
     }
   };
 
-  const fetchEuropePackages = async () => {
+  const fetchEuropePackages = async (force = false) => {
     setEuLoading(true);
     setEuError(null);
-    const fallbackData = initialPackages?.avrupa || [];
+    const fallbackData = STATIC_PACKAGES_EU;
+    const cacheKey = 'sb_pub_packages_eu_v2';
 
     if (!isSupabaseConfigured()) {
       setEuPackages(fallbackData);
@@ -206,35 +255,59 @@ const PackagesDE = ({ packages: initialPackages, title, hideRegions = [] }) => {
       return;
     }
 
+    if (!force) {
+      const cached = readSessionCache(cacheKey);
+      if (cached && Array.isArray(cached) && cached.length >= 0) {
+        setEuPackages(cached.length > 0 ? cached : fallbackData);
+        setEuLoading(false);
+        return;
+      }
+    } else {
+      removeSessionCacheKey(cacheKey);
+    }
+
     try {
-      const { data, error, isFallback, message } = await executeSupabaseQuery(
-        () => supabase.from('packages').select('*').eq('enabled', true).in('region', ['EU', 'eu', 'europe', 'Avrupa', 'avrupa', 'AVRUPA']).order('price', { ascending: true }),
-        { retries: 3, context: 'fetch_packages_eu', fallback: fallbackData }
+      const { data, error, isFallback } = await executeSupabaseQuery(
+        () =>
+          supabase
+            .from('packages')
+            .select(PACKAGE_LIST_COLUMNS)
+            .eq('enabled', true)
+            .in('region', ['EU', 'eu', 'europe', 'Avrupa', 'avrupa', 'AVRUPA'])
+            .order('price', { ascending: true }),
+        { retries: 3, context: 'fetch_packages_eu_de', fallback: fallbackData }
       );
 
       if (error && isFallback) {
-        setEuError(message || "Netzwerkfehler beim Laden der Europa-Pakete.");
+        setEuError(null);
         setEuPackages(fallbackData);
+        showPublicMaintenanceToastOnce(toast);
       } else {
-        setEuPackages(data && data.length > 0 ? data : fallbackData);
+        const rows = data && data.length > 0 ? data : fallbackData;
+        if (import.meta.env.DEV) {
+          console.log('paket data (EU):', rows);
+        }
+        setEuPackages(rows);
+        if (!isFallback && rows.length >= 0) writeSessionCache(cacheKey, rows);
       }
     } catch (err) {
       console.error("Failed to load Europe packages:", err);
-      setEuError("Ein unerwarteter Fehler ist aufgetreten.");
+      setEuError(null);
       setEuPackages(fallbackData);
+      showPublicMaintenanceToastOnce(toast);
     } finally {
       setEuLoading(false);
     }
   };
 
-  const handleRetryTurkey = () => fetchTurkeyPackages();
-  const handleRetryEurope = () => fetchEuropePackages();
+  const handleRetryTurkey = () => fetchTurkeyPackages(true);
+  const handleRetryEurope = () => fetchEuropePackages(true);
 
   if (euLoading && euPackages.length === 0 && !hideRegions.includes('EU')) {
     return (
-      <section id="packages" className="py-24 bg-[#0F0F1E] border-t border-[#2a2a40] min-h-[600px] flex items-center justify-center">
+      <section id="packages" className="qruze-cinema-section py-24 border-t border-[#2a2a40] min-h-[600px] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-[#A855F7] animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-[#e50914] animate-spin mx-auto mb-4" />
           <p className="text-gray-400">Pakete werden geladen...</p>
         </div>
       </section>
@@ -242,17 +315,18 @@ const PackagesDE = ({ packages: initialPackages, title, hideRegions = [] }) => {
   }
 
   return (
-    <section id="packages" className="py-20 bg-[#0F0F1E] border-t border-[#2a2a40] relative overflow-hidden">
+    <section id="packages" className="qruze-cinema-section py-20 border-t border-[#2a2a40] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-purple-900/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-blue-900/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-primary/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-[#0a0a0a]/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
+          <span className="qruze-premium-seal mb-4">Premium Abo Lounge</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
             {title ? title : (
-              <>IPTV-Preise und <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">Paketoptionen</span></>
+              <>IPTV-Preise und <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">Paketoptionen</span></>
             )}
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
@@ -263,7 +337,7 @@ const PackagesDE = ({ packages: initialPackages, title, hideRegions = [] }) => {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-[90rem] mx-auto">
           {/* Hide tabs completely with conditional rendering and hidden class */}
           <div className="hidden justify-center mb-10">
-            <TabsList className="hidden bg-[#1a1a2e] border border-[#2a2a40] p-1 h-auto rounded-full">
+            <TabsList className="hidden bg-[#0a0a0a] border border-[#2a2a40] p-1 h-auto rounded-full">
               <TabsTrigger value="EU" className="hidden">Europa-Pakete</TabsTrigger>
               <TabsTrigger value="TR" className="hidden">Türkei-Pakete</TabsTrigger>
             </TabsList>
@@ -274,7 +348,7 @@ const PackagesDE = ({ packages: initialPackages, title, hideRegions = [] }) => {
               <div className="text-center py-12">
                 <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
                 <p className="text-gray-400 mb-4">{euError}</p>
-                <Button onClick={handleRetryEurope} className="bg-[#A855F7] text-white hover:bg-[#9333EA]">
+                <Button onClick={handleRetryEurope} className="bg-[#e50914] text-white hover:bg-[#b20710]">
                   <RefreshCw className="w-4 h-4 mr-2" /> Erneut versuchen
                 </Button>
               </div>

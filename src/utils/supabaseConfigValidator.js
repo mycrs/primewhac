@@ -74,7 +74,23 @@ export const validateSupabaseConfig = (rawUrl, rawKey) => {
 };
 
 export const getConfigStatus = () => {
-  const url = import.meta.env.VITE_SUPABASE_URL;
-  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
-  return validateSupabaseConfig(url, key);
+  const url = sanitizeEnvVar(import.meta.env.VITE_SUPABASE_URL);
+  const key = sanitizeEnvVar(import.meta.env.VITE_SUPABASE_ANON_KEY);
+  // customSupabaseClient gömülü URL/key kullanır; site_content isteği de aynı projeye gitsin
+  if (!url && !key) {
+    return {
+      isValid: true,
+      errors: [],
+      warnings: [],
+      details: {
+        urlPresent: false,
+        keyPresent: false,
+        urlValid: true,
+        keyValid: true,
+        cleanedUrl: '',
+        cleanedKey: '',
+      },
+    };
+  }
+  return validateSupabaseConfig(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
 };

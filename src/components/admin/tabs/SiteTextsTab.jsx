@@ -54,14 +54,14 @@ export const SiteTextsTab = ({ siteData, setSiteData }) => {
             </div>
             
             <Tabs defaultValue="home" className="w-full">
-                <TabsList className="bg-slate-800">
+                <TabsList className="bg-[#0a0a0a]">
                     <TabsTrigger value="home">Ana Sayfa</TabsTrigger>
                     <TabsTrigger value="about">Hakkımızda</TabsTrigger>
                     <TabsTrigger value="contact">İletişim</TabsTrigger>
                     <TabsTrigger value="blog">Blog</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="home" className="space-y-4 mt-4 bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                <TabsContent value="home" className="space-y-4 mt-4 bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700">
                     <h3 className="text-lg font-bold text-white mb-4">Ana Sayfa Bölümleri</h3>
                     <Input 
                         label="Ana Sayfa Başlık (Hero)" 
@@ -80,7 +80,7 @@ export const SiteTextsTab = ({ siteData, setSiteData }) => {
                     />
                 </TabsContent>
 
-                <TabsContent value="about" className="space-y-4 mt-4 bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                <TabsContent value="about" className="space-y-4 mt-4 bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700">
                     <h3 className="text-lg font-bold text-white mb-4">Hakkımızda Sayfası</h3>
                     <Input 
                         label="Hakkımızda Başlık" 
@@ -95,7 +95,7 @@ export const SiteTextsTab = ({ siteData, setSiteData }) => {
                     />
                 </TabsContent>
 
-                <TabsContent value="contact" className="space-y-4 mt-4 bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                <TabsContent value="contact" className="space-y-4 mt-4 bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700">
                     <h3 className="text-lg font-bold text-white mb-4">İletişim Sayfası</h3>
                     <Input 
                         label="İletişim Başlık" 
@@ -110,7 +110,7 @@ export const SiteTextsTab = ({ siteData, setSiteData }) => {
                     />
                 </TabsContent>
 
-                <TabsContent value="blog" className="space-y-4 mt-4 bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                <TabsContent value="blog" className="space-y-4 mt-4 bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700">
                     <h3 className="text-lg font-bold text-white mb-4">Blog Sayfası</h3>
                     <Input 
                         label="Blog Ana Başlık" 

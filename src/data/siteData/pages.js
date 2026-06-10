@@ -8,17 +8,17 @@ export const defaultPages = {
           { id: 3, title: "7/24 Teknik Destek", description: "Bayilerimize özel, öncelikli WhatsApp ve Ticket teknik destek hizmeti.", icon: "Shield" },
           { id: 4, title: "Yüksek Kar Marjı", description: "Sektördeki en rekabetçi fiyatlar ile gelirinizi maksimize edin.", icon: "TrendingUp" },
           { id: 5, title: "Markalaşma İmkanı", description: "Kendi markanız (DNS) altında satış yapma özgürlüğü. Beyaz etiket çözümleri.", icon: "Award" },
-          { id: 6, title: "Sürekli Güncel İçerik", description: "Binlerce kanal, film ve dizi arşiviyle müşterilerinizi her zaman memnun edin.", icon: "Clapperboard" },
+          { id: 6, title: "Sürekli Güncel İçerik", description: "10.000+ kanal, film ve dizi arşiviyle müşterilerinizi her zaman memnun edin.", icon: "Clapperboard" },
         ],
         cta: {
           title: "Bayilik Başvurusu İçin Bize Ulaşın",
           description: "Kaliteli IPTV bayilik şartları, panel demosu ve detaylı bilgi için hemen WhatsApp üzerinden bizimle iletişime geçin.",
           buttonText: "WhatsApp'tan Başvur",
-          whatsappMessage: "Merhaba, QRUZEHD Kaliteli IPTV bayilik programı hakkında bilgi almak ve başvuru yapmak istiyorum."
+          whatsappMessage: "Merhaba, QruzeTV Kaliteli IPTV bayilik programı hakkında bilgi almak ve başvuru yapmak istiyorum."
         }
     },
     heroData: {
-        titlePrefix: "QruzeHD",
+        titlePrefix: "QruzeTV",
         titleHighlight: "Sınırsız Eğlence",
         description: "Dünyanın önde gelen spor organizasyonları, en yeni filmler ve favori dizileriniz tek bir platformda. 4K Ultra HD görüntü kalitesi ve kesintisiz yayın teknolojisi ile televizyon izleme alışkanlıklarınızı değiştiriyoruz.",
         primaryButtonText: "Hemen Başla",
@@ -40,7 +40,7 @@ export const defaultPages = {
         title: "Neden En Kaliteli IPTV Biziz?",
         subtitle: "Güvenilir, donmayan ve kesintisiz IPTV hizmetinin arkasındaki ekibi ve teknolojiyi tanıyın.",
         section1Title: "Misyonumuz: Mükemmel Yayın Deneyimi",
-        mainText: "QRUZEHD olarak misyonumuz, Avrupa ve Türkiye'deki tüm kullanıcılara en üst düzeyde, kesintisiz ve donmayan bir IPTV deneyimi sunmaktır. En iyi IPTV server altyapısını kullanarak, müşteri memnuniyetini her zaman ilk sırada tutuyoruz. Vizyonumuz, yenilikçi teknolojilerle IPTV sektöründe standartları belirleyen, en güvenilir ve en çok tercih edilen kaliteli IPTV markası olmaktır.",
+        mainText: "QruzeTV olarak misyonumuz, Avrupa ve Türkiye'deki tüm kullanıcılara en üst düzeyde, kesintisiz ve donmayan bir IPTV deneyimi sunmaktır. En iyi IPTV server altyapısını kullanarak, müşteri memnuniyetini her zaman ilk sırada tutuyoruz. Vizyonumuz, yenilikçi teknolojilerle IPTV sektöründe standartları belirleyen, en güvenilir ve en çok tercih edilen kaliteli IPTV markası olmaktır.",
         imageUrl: "https://images.unsplash.com/photo-1540986-5271989501a3?q=80&w=2623&auto=format&fit=crop",
         features: [
             { id: 1, title: 'Gerçek Donmayan Yayın', description: 'Gelişmiş sunucu altyapımız ile donma ve takılmalara son veriyoruz.', icon: 'Zap' },
@@ -53,7 +53,7 @@ export const defaultPages = {
         secondaryImageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2940&auto=format&fit=crop"
     },
     statsData: [
-        { baseNumber: 18000, label: "CANLI TV KANALI" },
+        { baseNumber: 10000, label: "CANLI TV KANALI" },
         { baseNumber: 25000, label: "VOD FİLM ARŞİVİ" },
         { baseNumber: 12000, label: "DİZİ ARŞİVİ" },
         { baseNumber: 99, label: "% MÜŞTERİ MEMNUNİYETİ" }
@@ -63,7 +63,7 @@ export const defaultPages = {
         items: [
           {
             question: "Kaliteli IPTV nedir ve nasıl çalışır?",
-            answer: "Kaliteli IPTV, TV yayınlarının üst düzey sunucular üzerinden, donma ve takılma olmadan internetle dağıtıldığı sistemdir. QRUZEHD olarak en iyi server altyapısını kullanarak kesintisiz bir izleme deneyimi sunuyoruz."
+            answer: "Kaliteli IPTV, TV yayınlarının üst düzey sunucular üzerinden, donma ve takılma olmadan internetle dağıtıldığı sistemdir. QruzeTV olarak en iyi server altyapısını kullanarak kesintisiz bir izleme deneyimi sunuyoruz."
           },
           {
             question: "Yayınlarda donma veya takılma yaşar mıyım?",

@@ -11,10 +11,10 @@ const FeatureCard = ({ icon: Icon, title, description, delay }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay, duration: 0.5 }}
-    className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-purple-500/30 hover:bg-slate-800/50 transition-all duration-300 group"
+    className="bg-[#0a0a0a]/50 border border-slate-800 rounded-xl p-6 hover:border-primary/30 hover:bg-[#0a0a0a]/50 transition-all duration-300 group"
   >
-    <div className="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
-      <Icon className="w-6 h-6 text-purple-400" />
+    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+      <Icon className="w-6 h-6 text-primary" />
     </div>
     <h3 className="text-lg font-bold text-white mb-2">{title}</h3>
     <p className="text-slate-400 text-sm leading-relaxed">{description}</p>
@@ -28,7 +28,7 @@ const WelcomeTabs = () => {
   const features = [
     { icon: Monitor, title: "Tüm Cihazlarla Uyumlu", description: "Smart TV, PC, Telefon ve Tabletlerinizde sorunsuz çalışır." },
     { icon: Wifi, title: "Kesintisiz Yayın", description: "Güçlü altyapımız ile donmadan, takılmadan izleme keyfi." },
-    { icon: Globe, title: "Evrensel İçerik", description: "Dünyanın her yerinden binlerce kanal ve içerik parmaklarınızın ucunda." },
+    { icon: Globe, title: "Evrensel İçerik", description: "Dünyanın her yerinden 10.000+ kanal ve içerik parmaklarınızın ucunda." },
     { icon: Shield, title: "Güvenli ve Gizli", description: "Kullanıcı verileriniz şifrelenir ve güvenle saklanır." }
   ];
 
@@ -53,7 +53,7 @@ const WelcomeTabs = () => {
         <Button 
           onClick={openTestModal}
           size="lg"
-          className="bg-purple-600 hover:bg-purple-700 text-white font-bold h-12 px-8 rounded-full shadow-lg hover:shadow-purple-500/25 transition-all w-full sm:w-auto"
+          className="bg-primary hover:bg-primary text-white font-bold h-12 px-8 rounded-full shadow-lg hover:shadow-primary/25 transition-all w-full sm:w-auto"
         >
           <Play className="w-4 h-4 mr-2 fill-current" />
           Hemen Test Et
@@ -62,7 +62,7 @@ const WelcomeTabs = () => {
           onClick={() => navigate('/paketler')}
           variant="outline"
           size="lg"
-          className="border-slate-700 text-white hover:bg-slate-800 font-semibold h-12 px-8 rounded-full w-full sm:w-auto"
+          className="border-slate-700 text-white hover:bg-[#0a0a0a] font-semibold h-12 px-8 rounded-full w-full sm:w-auto"
         >
           Paketleri İncele
         </Button>

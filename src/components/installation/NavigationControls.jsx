@@ -25,19 +25,19 @@ const NavigationControls = ({
           <span className="text-sm font-medium text-slate-400" aria-current="step">
             Adım <span className="text-white font-bold">{currentStep + 1}</span> / {totalSteps}
           </span>
-          <span className="text-xs font-semibold text-purple-400">
+          <span className="text-xs font-semibold text-primary">
             {Math.round(progress)}% Tamamlandı
           </span>
         </div>
         <div 
-          className="h-2 bg-slate-800/50 rounded-full overflow-hidden backdrop-blur-sm border border-slate-800"
+          className="h-2 bg-[#0a0a0a]/50 rounded-full overflow-hidden backdrop-blur-sm border border-slate-800"
           role="progressbar"
           aria-valuenow={progress}
           aria-valuemin="0"
           aria-valuemax="100"
         >
           <motion.div 
-            className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 shadow-[0_0_10px_rgba(168,85,247,0.4)]"
+            className="h-full bg-gradient-to-r from-[#e50914] via-[#e50914] to-[#b20710] shadow-[0_0_10px_rgba(229,9,20,0.4)]"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -52,7 +52,7 @@ const NavigationControls = ({
           onClick={onPrev}
           disabled={!canGoPrev}
           className={cn(
-            "min-w-[110px] border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-slate-600 transition-all duration-300",
+            "min-w-[110px] border-slate-700 text-slate-300 hover:text-white hover:bg-[#0a0a0a] hover:border-slate-600 transition-all duration-300",
             !canGoPrev && "opacity-50 cursor-not-allowed hover:bg-transparent hover:text-slate-300"
           )}
           aria-label="Önceki Adım"
@@ -66,8 +66,8 @@ const NavigationControls = ({
           className={cn(
             "min-w-[130px] font-bold shadow-lg transition-all duration-300 hover:scale-105 active:scale-95",
             isLastStep 
-              ? "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white shadow-green-900/20" 
-              : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white shadow-purple-900/20"
+              ? "bg-gradient-to-r from-green-600 to-[#b20710] hover:from-green-500 hover:to-[#b20710] text-white shadow-green-900/20" 
+              : "bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#e50914] hover:to-[#b20710] text-white shadow-primary/20"
           )}
           aria-label={isLastStep ? "Kurulumu Tamamla" : "Sonraki Adım"}
         >

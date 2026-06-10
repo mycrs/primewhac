@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { parseMatchSlug, makeMatchSlug } from '@/utils/matchSlug';
-
-const FIXTURE_BASE = import.meta.env.DEV ? '/api/fixtures' : 'https://fixturedownload.com/feed/json';
+import { fetchLeagueFixturesJson } from '@/utils/liveMatchFixtures';
+import { matchBelongsToProgramDay } from '@/utils/fixtureProgramDay';
 
 const LEAGUES = [
   { slug: 'super-lig-2025', name: 'Süper Lig', country: 'Türkiye', flag: '🇹🇷' },
-  { slug: 'epl-2024', name: 'Premier Lig', country: 'İngiltere', flag: '🏴' },
+  { slug: 'epl-2025', name: 'Premier Lig', country: 'İngiltere', flag: '🏴' },
   { slug: 'la-liga-2025', name: 'La Liga', country: 'İspanya', flag: '🇪🇸' },
   { slug: 'champions-league-2025', name: 'Şampiyonlar Ligi', country: 'Avrupa', flag: '🇪🇺' },
   { slug: 'bundesliga-2025', name: 'Bundesliga', country: 'Almanya', flag: '🇩🇪' },
@@ -35,15 +35,11 @@ export function useMatchBySlug(slug) {
     const results = await Promise.all(
       LEAGUES.map(async (league) => {
         try {
-          const res = await fetch(`${FIXTURE_BASE}/${league.slug}`);
-          if (!res.ok) return [];
-          const data = await res.json();
+          const data = await fetchLeagueFixturesJson(league.slug);
+          if (!data) return [];
           const list = Array.isArray(data) ? data : (data.matches || []);
           return list
-            .filter((m) => {
-              const matchDate = (m.DateUtc || m.date || '').toString().split(' ')[0].split('T')[0];
-              return matchDate === parsed.date;
-            })
+            .filter((m) => matchBelongsToProgramDay(m, parsed.date, league.slug))
             .map((m) => {
               const dateUtc = m.DateUtc || m.date;
               const home = m.HomeTeam || m.team1 || m.homeTeam?.name || '-';

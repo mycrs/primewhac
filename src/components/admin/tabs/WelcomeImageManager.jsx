@@ -152,10 +152,10 @@ export const WelcomeImageManager = ({ siteData }) => {
 
   return (
     <div className="space-y-6">
-      <Card className="bg-slate-900 border-slate-800">
+      <Card className="bg-[#0a0a0a] border-slate-800">
         <CardHeader>
           <CardTitle className="text-white flex items-center gap-2">
-            <ImageIcon className="w-5 h-5 text-purple-500" />
+            <ImageIcon className="w-5 h-5 text-primary" />
             Karşılama Ekranı Yönetimi
           </CardTitle>
           <CardDescription className="text-gray-400">
@@ -177,7 +177,7 @@ export const WelcomeImageManager = ({ siteData }) => {
                     <label htmlFor="hero-upload">
                         <Button 
                             variant="default" 
-                            className="cursor-pointer bg-purple-600 hover:bg-purple-700"
+                            className="cursor-pointer bg-primary hover:bg-primary"
                             asChild
                             disabled={uploading}
                         >
@@ -191,7 +191,7 @@ export const WelcomeImageManager = ({ siteData }) => {
            </div>
 
            {loading ? (
-             <div className="flex justify-center p-8"><Loader2 className="animate-spin text-purple-500 w-8 h-8" /></div>
+             <div className="flex justify-center p-8"><Loader2 className="animate-spin text-primary w-8 h-8" /></div>
            ) : (
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {images.length === 0 ? (
@@ -204,10 +204,10 @@ export const WelcomeImageManager = ({ siteData }) => {
                             key={img.id} 
                             className={cn(
                                 "relative group aspect-video rounded-xl overflow-hidden border-2 transition-all",
-                                activeImage === img.url ? "border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.3)]" : "border-slate-800 hover:border-slate-600"
+                                activeImage === img.url ? "border-primary shadow-[0_0_15px_rgba(229,9,20,0.3)]" : "border-slate-800 hover:border-slate-600"
                             )}
                         >
-                            <img src={img.url} alt={img.name} className="w-full h-full object-cover" />
+                            <img src={img.url} alt={`${img.name} karşılama görseli`} className="w-full h-full object-cover" />
                             
                             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-4">
                                 {activeImage !== img.url && (
@@ -230,7 +230,7 @@ export const WelcomeImageManager = ({ siteData }) => {
                             </div>
 
                             {activeImage === img.url && (
-                                <div className="absolute top-2 right-2 bg-purple-600 text-white text-xs px-2 py-1 rounded-full flex items-center shadow-lg">
+                                <div className="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded-full flex items-center shadow-lg">
                                     <Check className="w-3 h-3 mr-1" /> Aktif
                                 </div>
                             )}

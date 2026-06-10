@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Save, Loader2, AlertCircle, Layout, Image as ImageIcon, Type, FileText, Bug, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { Save, Loader2, AlertCircle, Layout, Image as ImageIcon, Type, FileText, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,7 +13,9 @@ import { cn } from '@/lib/utils';
 
 const SetupPage = () => {
   const { toast } = useToast();
-  const { fetchSetupPage, updateSetupPage, loading: hookLoading, error: hookError } = useSetupPage();
+  const { fetchSetupPage, updateSetupPage, loading: hookLoading, error: hookError } = useSetupPage({
+    enableRealtime: true,
+  });
   
   const [isInitializing, setIsInitializing] = useState(true);
   
@@ -91,7 +93,7 @@ const SetupPage = () => {
   if (isInitializing) {
     return (
       <div className="flex justify-center py-12">
-        <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -116,10 +118,10 @@ const SetupPage = () => {
       <div className="max-w-4xl mx-auto space-y-6">
         
         {/* Title Section */}
-        <Card className="bg-slate-900/50 border-slate-800">
+        <Card className="bg-[#0a0a0a]/50 border-slate-800">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
-              <Type className="w-5 h-5 text-purple-400" />
+              <Type className="w-5 h-5 text-primary" />
               Sayfa Başlıkları
             </CardTitle>
           </CardHeader>
@@ -129,7 +131,7 @@ const SetupPage = () => {
               <Input
                 value={formData.sayfa_baslik}
                 onChange={(e) => handleInputChange('sayfa_baslik', e.target.value)}
-                className="bg-slate-950 border-slate-800 text-white"
+                className="bg-[#0a0a0a] border-slate-800 text-white"
                 placeholder="Android TV Kurulumu"
               />
             </div>
@@ -138,7 +140,7 @@ const SetupPage = () => {
               <Input
                 value={formData.secme_baslik}
                 onChange={(e) => handleInputChange('secme_baslik', e.target.value)}
-                className="bg-slate-950 border-slate-800 text-white"
+                className="bg-[#0a0a0a] border-slate-800 text-white"
                 placeholder="8 adımda kolay kurulum."
               />
             </div>
@@ -146,7 +148,7 @@ const SetupPage = () => {
         </Card>
 
         {/* Content Section */}
-        <Card className="bg-slate-900/50 border-slate-800">
+        <Card className="bg-[#0a0a0a]/50 border-slate-800">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <FileText className="w-5 h-5 text-blue-400" />
@@ -159,7 +161,7 @@ const SetupPage = () => {
               <Textarea
                 value={formData.kurulum_aciklamasi}
                 onChange={(e) => handleInputChange('kurulum_aciklamasi', e.target.value)}
-                className="bg-slate-950 border-slate-800 text-white min-h-[100px]"
+                className="bg-[#0a0a0a] border-slate-800 text-white min-h-[100px]"
               />
             </div>
             <div className="grid gap-2">
@@ -167,7 +169,7 @@ const SetupPage = () => {
               <Textarea
                 value={formData.admin_1_aciklama}
                 onChange={(e) => handleInputChange('admin_1_aciklama', e.target.value)}
-                className="bg-slate-950 border-slate-800 text-white min-h-[80px]"
+                className="bg-[#0a0a0a] border-slate-800 text-white min-h-[80px]"
                 placeholder="İlk adımı buraya yazın..."
               />
               <p className="text-xs text-slate-500">Bu alan kurulum rehberinin ilk adımı veya öne çıkan açıklaması olarak kullanılır.</p>
@@ -176,7 +178,7 @@ const SetupPage = () => {
         </Card>
 
         {/* Image Section */}
-        <Card className="bg-slate-900/50 border-slate-800">
+        <Card className="bg-[#0a0a0a]/50 border-slate-800">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <ImageIcon className="w-5 h-5 text-pink-400" />
@@ -189,14 +191,14 @@ const SetupPage = () => {
               <Input
                 value={formData.admin_1_gorsel_url}
                 onChange={(e) => handleInputChange('admin_1_gorsel_url', e.target.value)}
-                className="bg-slate-950 border-slate-800 text-white"
+                className="bg-[#0a0a0a] border-slate-800 text-white"
               />
             </div>
             {formData.admin_1_gorsel_url && (
-              <div className="mt-4 p-2 bg-slate-950 rounded-lg border border-slate-800">
+              <div className="mt-4 p-2 bg-[#0a0a0a] rounded-lg border border-slate-800">
                 <img 
                   src={formData.admin_1_gorsel_url} 
-                  alt="Preview" 
+                  alt="Kurulum görsel önizlemesi" 
                   className="max-h-60 w-auto mx-auto rounded"
                   onError={(e) => e.target.style.display = 'none'}
                 />

@@ -1,9 +1,16 @@
 import { useCallback } from 'react';
+import { useSiteData } from '@/hooks/useSiteData';
+import { defaultData } from '@/data/defaultSiteData';
+
+const getEnvWhatsApp = () => (import.meta.env.VITE_WHATSAPP_PHONE || '').replace(/\D/g, '');
 
 export const useWhatsAppIntegration = () => {
-  // Use the specific UK number requested: +44 7542 953987
-  // Removing any non-numeric characters for the link
-  const phoneNumber = "447542953987";
+  const { siteData } = useSiteData();
+  const fromDb = siteData?.contact_info || siteData?.contactData;
+  const contactInfo = fromDb || defaultData?.contactData || {};
+  // phone / whatsapp bazen DB'den number gelir; .replace yalnızca stringde güvenli
+  const fromContact = String(contactInfo?.whatsapp || contactInfo?.phone || '').replace(/\D/g, '');
+  const phoneNumber = fromContact || getEnvWhatsApp() || (fromDb ? '' : '4916345869030');
 
   const createWhatsAppLink = useCallback((message) => {
     const encodedMessage = encodeURIComponent(message);
@@ -24,7 +31,9 @@ export const useWhatsAppIntegration = () => {
     } 
     else if (data.username && data.device) {
       // Test Request
+      const livingLine = data.livingRegionMessage ? `${data.livingRegionMessage}\n\n` : '';
       message = `Merhaba, Ücretsiz Test Yayını almak istiyorum.\n\n` +
+        livingLine +
         `👤 *İsim:* ${data.username}\n` +
         `📱 *Cihaz:* ${data.device}\n` +
         `📲 *Uygulama:* ${data.app || 'Belirtilmedi'}\n` +
@@ -36,9 +45,11 @@ export const useWhatsAppIntegration = () => {
       message = `Merhaba, bilgi almak istiyorum.`;
     }
 
+    if (!phoneNumber) return false;
     const link = createWhatsAppLink(message);
     window.open(link, '_blank');
-  }, [createWhatsAppLink]);
+    return true;
+  }, [createWhatsAppLink, phoneNumber]);
 
   return {
     phoneNumber,

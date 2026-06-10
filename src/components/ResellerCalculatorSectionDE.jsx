@@ -22,7 +22,7 @@ const dePresets = [
     title: 'Wachstum',
     desc: 'Für schnell wachsende Reseller',
     icon: Zap,
-    color: 'purple',
+    color: 'red',
     users: 150,
     price: 80,
     rate: 30,
@@ -76,10 +76,10 @@ const ResellerCalculatorSectionDE = () => {
   };
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-purple-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    <section className="py-20 px-4 bg-gradient-to-br from-[#e50914] via-[#0a0a0a] to-[#141414] relative overflow-hidden">
         {/* Background Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl"></div>
         </div>
 
@@ -91,7 +91,7 @@ const ResellerCalculatorSectionDE = () => {
           className="text-center mb-16"
         >
           <h3 className="text-4xl md:text-5xl font-black mb-4 text-white">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">
               Einkommensrechner
             </span>
           </h3>

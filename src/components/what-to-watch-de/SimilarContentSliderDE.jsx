@@ -43,7 +43,7 @@ const SimilarContentSliderDE = ({ items = [], type = 'movie' }) => {
         variant="ghost"
         size="icon"
         onClick={scrollPrev}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-6 w-12 h-12 rounded-full bg-slate-900 border border-slate-700 text-white hover:bg-pink-600 opacity-0 group-hover/slider:opacity-100 transition-opacity z-10 shadow-xl"
+        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-6 w-12 h-12 rounded-full bg-[#0a0a0a] border border-slate-700 text-white hover:bg-pink-600 opacity-0 group-hover/slider:opacity-100 transition-opacity z-10 shadow-xl"
       >
         <ChevronLeft className="w-6 h-6" />
       </Button>
@@ -52,7 +52,7 @@ const SimilarContentSliderDE = ({ items = [], type = 'movie' }) => {
         variant="ghost"
         size="icon"
         onClick={scrollNext}
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-6 w-12 h-12 rounded-full bg-slate-900 border border-slate-700 text-white hover:bg-pink-600 opacity-0 group-hover/slider:opacity-100 transition-opacity z-10 shadow-xl"
+        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-6 w-12 h-12 rounded-full bg-[#0a0a0a] border border-slate-700 text-white hover:bg-pink-600 opacity-0 group-hover/slider:opacity-100 transition-opacity z-10 shadow-xl"
       >
         <ChevronRight className="w-6 h-6" />
       </Button>

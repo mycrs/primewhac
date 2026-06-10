@@ -14,11 +14,11 @@ const MissionVisionSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-slate-900 to-slate-950 p-8 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden group hover:border-purple-500/30 transition-colors duration-300"
+            className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-8 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden group hover:border-primary/30 transition-colors duration-300"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-purple-600/20 transition-colors duration-500"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/20 transition-colors duration-500"></div>
             
-            <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 text-purple-400 group-hover:scale-110 transition-transform duration-300">
+            <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300">
               <Target className="w-8 h-8" />
             </div>
             
@@ -29,7 +29,7 @@ const MissionVisionSection = () => {
             <ul className="space-y-3">
               {['Müşteri Odaklılık', 'Şeffaflık', 'Kalite Standartları'].map((item, index) => (
                 <li key={index} className="flex items-center text-slate-300">
-                  <span className="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                  <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
                   {item}
                 </li>
               ))}
@@ -42,11 +42,11 @@ const MissionVisionSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-gradient-to-br from-slate-900 to-slate-950 p-8 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden group hover:border-blue-500/30 transition-colors duration-300"
+            className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-8 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden group hover:border-blue-500/30 transition-colors duration-300"
           >
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl -ml-16 -mb-16 group-hover:bg-blue-600/20 transition-colors duration-500"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#141414]/10 rounded-full blur-3xl -ml-16 -mb-16 group-hover:bg-[#141414]/20 transition-colors duration-500"></div>
             
-            <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 text-blue-400 group-hover:scale-110 transition-transform duration-300">
+            <div className="w-16 h-16 bg-[#141414]/10 rounded-2xl flex items-center justify-center mb-6 text-blue-400 group-hover:scale-110 transition-transform duration-300">
               <Rocket className="w-8 h-8" />
             </div>
             
@@ -57,7 +57,7 @@ const MissionVisionSection = () => {
             <ul className="space-y-3">
               {['Global Erişim', 'Teknolojik Liderlik', 'Sürdürülebilir Büyüme'].map((item, index) => (
                 <li key={index} className="flex items-center text-slate-300">
-                  <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                  <span className="w-2 h-2 bg-[#141414] rounded-full mr-3"></span>
                   {item}
                 </li>
               ))}

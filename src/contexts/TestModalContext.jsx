@@ -1,9 +1,16 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const TestModalContext = createContext();
 
 export const TestModalProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  // Sayfa değişince veya admin sayfalarına geçince modalı kapat
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
 
   // Expose both names to maintain compatibility while satisfying the prompt
   const openModal = () => {

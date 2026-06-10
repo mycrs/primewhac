@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -13,16 +13,20 @@ import { Calendar, User, ArrowLeft, Loader2, Tag, Clock, RefreshCw, MessageSquar
 import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
 import { DomainMigrationManager } from '@/utils/domainMigration';
 import { isSupabaseConfigured } from '@/utils/envValidator';
+import { plainTextLengthFromHtml } from '@/utils/seoNoindexPaths';
+import { SITE_URL } from '@/constants/siteUrl';
 
 const BlogPostPage = ({ siteData }) => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [refreshCommentCount, setRefreshCommentCount] = useState(0);
   const { contactData, siteTexts } = siteData;
-  const canonicalUrl = DomainMigrationManager.getCanonicalUrl(`/blog/${post?.slug || slug}`);
+  const isDe = location.pathname.startsWith('/de/');
+  const canonicalUrl = DomainMigrationManager.getCanonicalUrl(`${isDe ? '/de/blog' : '/blog'}/${post?.slug || slug}`);
 
   // Utility to detect if the passed param is an old UUID
   const isUUID = (str) => {
@@ -35,7 +39,7 @@ const BlogPostPage = ({ siteData }) => {
     setError(null);
     
     if (!isSupabaseConfigured()) {
-      setError(new Error("Supabase is not configured"));
+      setError(new Error('not_configured'));
       setLoading(false);
       return;
     }
@@ -61,7 +65,7 @@ const BlogPostPage = ({ siteData }) => {
       if (data) {
         // Redirect legacy UUID links to proper slug links
         if (isIdBased && data.slug) {
-          navigate(`/blog/${data.slug}`, { replace: true });
+          navigate(`${isDe ? '/de/blog' : '/blog'}/${data.slug}`, { replace: true });
           return;
         }
 
@@ -81,7 +85,7 @@ const BlogPostPage = ({ siteData }) => {
 
   useEffect(() => {
     fetchPost();
-  }, [slug]);
+  }, [slug, isDe]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('tr-TR', {
@@ -91,10 +95,10 @@ const BlogPostPage = ({ siteData }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0F0F1E] flex flex-col">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col">
         <Header contactData={contactData} siteTexts={siteTexts} />
         <div className="flex-grow flex items-center justify-center">
-          <Loader2 className="w-12 h-12 text-[#A855F7] animate-spin" />
+          <Loader2 className="w-12 h-12 text-[#e50914] animate-spin" />
         </div>
       </div>
     );
@@ -102,13 +106,13 @@ const BlogPostPage = ({ siteData }) => {
 
   if (error || !post) {
     return (
-      <div className="min-h-screen bg-[#0F0F1E] flex flex-col">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col">
         <Header contactData={contactData} siteTexts={siteTexts} />
         <main className="flex-grow flex items-center justify-center text-center px-4">
           <div>
             <h1 className="text-4xl font-bold text-white mb-4">Blog Yazısı Bulunamadı</h1>
             <p className="text-gray-400 mb-8">Aradığınız yazıya ulaşılamıyor. Adresi yanlış yazmış olabilir veya yazı kaldırılmış olabilir.</p>
-            <Link to="/blog" className="mt-8 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-[#A855F7] hover:bg-[#9333EA]">
+            <Link to="/blog" className="mt-8 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-[#e50914] hover:bg-[#b20710]">
               <ArrowLeft className="mr-2 -ml-1 h-5 w-5" /> Blog'a Dön
             </Link>
           </div>
@@ -119,10 +123,11 @@ const BlogPostPage = ({ siteData }) => {
   }
 
   const keywords = [post.focus_keyword, post.category, ...(post.tags || []), "kaliteli iptv", "iptv kurulumu"].filter(Boolean);
-  const metaTitle = post.seo_title || `${post.title} | PrimeWatch TV`;
+  const metaTitle = post.seo_title || `${post.title} | QruzeTV`;
   const metaDescription = post.seo_description || `${(post.excerpt || post.title).substring(0, 120)}...`;
-  const ogImage = post.cover_image_url || "https://primewatch.tv/default-og-image.jpg";
-  const blogSchema = generateBlogSchema(post, "https://primewatch.tv");
+  const ogImage = post.cover_image_url || `${SITE_URL}/default-og-image.jpg`;
+  const blogSchema = generateBlogSchema(post, canonicalUrl);
+  const bodyTextLen = plainTextLengthFromHtml(post.content);
   
   const commentsEnabled = post.allow_comments !== false;
   
@@ -131,15 +136,24 @@ const BlogPostPage = ({ siteData }) => {
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Ana Sayfa", "item": DomainMigrationManager.getCanonicalUrl('/') },
-      { "@type": "ListItem", "position": 2, "name": "Blog", "item": DomainMigrationManager.getCanonicalUrl('/blog') },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": DomainMigrationManager.getCanonicalUrl(isDe ? '/de/blog' : '/blog') },
       { "@type": "ListItem", "position": 3, "name": post.title, "item": canonicalUrl }
     ]
   };
 
   return (
     <>
-      <SEOHead title={metaTitle} description={metaDescription} keywords={keywords} ogType="article" ogImage={ogImage} canonicalUrl={canonicalUrl} jsonLd={[blogSchema, breadcrumbSchema]} />
-      <div className="min-h-screen bg-[#0F0F1E] flex flex-col text-white">
+      <SEOHead
+        title={metaTitle}
+        description={metaDescription}
+        keywords={keywords}
+        ogType="article"
+        ogImage={ogImage}
+        canonicalUrl={canonicalUrl}
+        jsonLd={[blogSchema, breadcrumbSchema]}
+        pageData={{ contentLength: bodyTextLen }}
+      />
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col text-white">
         <Header contactData={contactData} siteTexts={siteTexts} />
         <main className="flex-grow pt-24 pb-12">
           <article itemScope itemType="http://schema.org/BlogPosting">
@@ -150,7 +164,7 @@ const BlogPostPage = ({ siteData }) => {
             {post.focus_keyword && <meta name="keywords" content={post.focus_keyword} />}
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="max-w-6xl mx-auto bg-[#1a1a2e] rounded-3xl overflow-hidden border border-[#2a2a40] shadow-2xl">
+              <div className="max-w-6xl mx-auto bg-[#0a0a0a] rounded-3xl overflow-hidden border border-[#2a2a40] shadow-2xl">
                 {/* Hero Section of the Post */}
                 <div className="p-6 sm:p-8 md:p-12 lg:p-16 border-b border-[#2a2a40]/50">
                   <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -167,16 +181,16 @@ const BlogPostPage = ({ siteData }) => {
                   </h1>
                   
                   <div className="flex flex-wrap items-center gap-6">
-                    <div className="flex items-center gap-3 bg-[#0F0F1E]/50 px-4 py-2 rounded-full border border-[#2a2a40]">
-                      <Calendar className="w-4 h-4 text-[#A855F7]" />
+                    <div className="flex items-center gap-3 bg-[#0a0a0a]/50 px-4 py-2 rounded-full border border-[#2a2a40]">
+                      <Calendar className="w-4 h-4 text-[#e50914]" />
                       <time className="text-sm font-medium text-gray-300" dateTime={post.published_at}>
                         {formatDate(post.published_at)}
                       </time>
                     </div>
                     {post.category && (
-                      <div className="flex items-center gap-3 bg-[#A855F7]/10 px-4 py-2 rounded-full border border-[#A855F7]/20">
-                        <Tag className="w-4 h-4 text-[#A855F7]" />
-                        <span className="text-sm font-semibold text-[#A855F7] uppercase tracking-wider">
+                      <div className="flex items-center gap-3 bg-[#e50914]/10 px-4 py-2 rounded-full border border-[#e50914]/20">
+                        <Tag className="w-4 h-4 text-[#e50914]" />
+                        <span className="text-sm font-semibold text-[#e50914] uppercase tracking-wider">
                           {post.category}
                         </span>
                       </div>
@@ -191,7 +205,7 @@ const BlogPostPage = ({ siteData }) => {
                     className="prose prose-invert prose-lg sm:prose-xl max-w-none text-gray-300 
                       prose-headings:text-white prose-headings:font-bold prose-headings:tracking-tight
                       prose-p:leading-relaxed prose-p:mb-6
-                      prose-a:text-[#A855F7] prose-a:no-underline hover:prose-a:underline
+                      prose-a:text-[#e50914] prose-a:no-underline hover:prose-a:underline
                       prose-strong:text-white prose-strong:font-bold
                       prose-img:rounded-2xl prose-img:shadow-xl prose-img:border prose-img:border-[#2a2a40]
                       prose-ul:list-disc prose-ol:list-decimal"
@@ -200,13 +214,13 @@ const BlogPostPage = ({ siteData }) => {
                 </div>
 
                 {/* Footer/Comments Area */}
-                <div className="bg-[#0F0F1E]/30 p-6 sm:p-8 md:p-12 lg:p-16 border-t border-[#2a2a40]">
+                <div className="bg-[#0a0a0a]/30 p-6 sm:p-8 md:p-12 lg:p-16 border-t border-[#2a2a40]">
                   {commentsEnabled ? (
                     <div onBlur={() => setRefreshCommentCount(prev => prev + 1)}>
                       <CommentSection postId={post.id} />
                     </div>
                   ) : (
-                    <div className="text-center py-12 bg-[#0F0F1E] rounded-xl border border-[#2a2a40]">
+                    <div className="text-center py-12 bg-[#0a0a0a] rounded-xl border border-[#2a2a40]">
                       <MessageSquareOff className="w-12 h-12 text-slate-600 mx-auto mb-4" />
                       <h3 className="text-xl font-semibold text-slate-300 mb-2">Yorumlar Kapalı</h3>
                       <p className="text-slate-500">Bu yazı için yorumlar kapatılmıştır.</p>

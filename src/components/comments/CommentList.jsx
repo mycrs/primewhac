@@ -14,17 +14,17 @@ const CommentItem = ({ comment, replies, postId, onReplyAdded }) => {
 
   return (
     <div className="mb-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
-      <div className="relative p-6 rounded-lg shadow-sm border border-purple-100 bg-gradient-to-r from-purple-50 to-blue-50 group hover:shadow-md transition-all duration-300">
+      <div className="relative p-6 rounded-lg shadow-sm border border-primary bg-gradient-to-r from-[#e50914] to-[#b20710] group hover:shadow-md transition-all duration-300">
         <div className="flex gap-4">
           <Avatar className="w-10 h-10 border-2 border-white shadow-sm shrink-0">
-            <AvatarFallback className="bg-purple-100 text-purple-700 font-bold">
+            <AvatarFallback className="bg-primary text-primary font-bold">
               {comment.author_name ? comment.author_name.charAt(0).toUpperCase() : '?'}
             </AvatarFallback>
           </Avatar>
           
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-              <h5 className="font-bold text-purple-700 truncate pr-2">
+              <h5 className="font-bold text-primary truncate pr-2">
                 {comment.author_name}
               </h5>
               <div className="flex items-center gap-3">
@@ -32,7 +32,7 @@ const CommentItem = ({ comment, replies, postId, onReplyAdded }) => {
                   {comment.created_at && formatDistanceToNow(new Date(comment.created_at), { addSuffix: true, locale: tr })}
                 </span>
                 {replies && replies.length > 0 && (
-                  <span className="text-xs font-medium text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">
+                  <span className="text-xs font-medium text-primary bg-primary px-2 py-0.5 rounded-full">
                     {replies.length} Cevap
                   </span>
                 )}
@@ -43,12 +43,12 @@ const CommentItem = ({ comment, replies, postId, onReplyAdded }) => {
               {comment.content}
             </p>
 
-            <div className="mt-3 flex items-center pt-3 border-t border-purple-100/50">
+            <div className="mt-3 flex items-center pt-3 border-t border-primary/50">
               <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={() => setIsReplying(!isReplying)}
-                className="text-purple-600 hover:text-purple-800 hover:bg-purple-100/50 px-2 h-8 text-xs font-medium transition-colors"
+                className="text-primary hover:text-primary hover:bg-primary/50 px-2 h-8 text-xs font-medium transition-colors"
               >
                 <Reply className="w-3 h-3 mr-1.5" />
                 Cevapla
@@ -73,19 +73,19 @@ const CommentItem = ({ comment, replies, postId, onReplyAdded }) => {
       </div>
 
       {replies && replies.length > 0 && (
-        <div className="ml-8 mt-3 pl-4 border-l-4 border-purple-200 space-y-3">
+        <div className="ml-8 mt-3 pl-4 border-l-4 border-primary space-y-3">
           {replies.map(reply => (
             <div key={reply.id} className="relative p-4 rounded-lg bg-gray-50 border border-slate-100 hover:bg-white hover:shadow-sm transition-all duration-200">
               <div className="flex gap-3">
                 <Avatar className="w-8 h-8 border border-white shrink-0">
-                  <AvatarFallback className="bg-blue-100 text-blue-700 text-xs font-bold">
+                  <AvatarFallback className="bg-[#141414] text-blue-700 text-xs font-bold">
                     {reply.author_name ? reply.author_name.charAt(0).toUpperCase() : '?'}
                   </AvatarFallback>
                 </Avatar>
                 
                 <div className="flex-1">
                   <div className="flex justify-between items-baseline mb-1">
-                    <h6 className="font-semibold text-purple-700 text-sm">
+                    <h6 className="font-semibold text-primary text-sm">
                       {reply.author_name}
                     </h6>
                     <span className="text-[10px] text-slate-400">
@@ -139,14 +139,6 @@ const CommentList = React.memo(({ postId, refreshTrigger }) => {
     fetchComments();
   }, [fetchComments, refreshTrigger, localRefresh]);
 
-  useEffect(() => {
-    const channel = supabase.channel(`public:blog_comments:${postId}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'blog_comments', filter: `blog_post_id=eq.${postId}` }, () => {
-             setLocalRefresh(prev => prev + 1);
-        }).subscribe();
-    return () => supabase.removeChannel(channel);
-  }, [postId]);
-
   const { rootComments, repliesByParent } = useMemo(() => {
     const root = [];
     const byParent = {};
@@ -179,11 +171,11 @@ const CommentList = React.memo(({ postId, refreshTrigger }) => {
     return (
       <div className="space-y-6 mt-8">
         {[1, 2].map((i) => (
-          <div key={i} className="p-6 rounded-lg bg-slate-800/20 border border-slate-800 animate-pulse flex gap-4">
-            <div className="w-10 h-10 rounded-full bg-slate-700/50 shrink-0" />
+          <div key={i} className="p-6 rounded-lg bg-[#0a0a0a]/20 border border-slate-800 animate-pulse flex gap-4">
+            <div className="w-10 h-10 rounded-full bg-[#0a0a0a]/50 shrink-0" />
             <div className="flex-1 space-y-3">
-              <div className="h-4 bg-slate-700/50 rounded w-1/3" />
-              <div className="h-16 bg-slate-700/50 rounded w-full" />
+              <div className="h-4 bg-[#0a0a0a]/50 rounded w-1/3" />
+              <div className="h-16 bg-[#0a0a0a]/50 rounded w-full" />
             </div>
           </div>
         ))}
@@ -194,14 +186,14 @@ const CommentList = React.memo(({ postId, refreshTrigger }) => {
   return (
     <div className="mt-12 space-y-6">
       <div className="flex items-center gap-2 mb-6 border-b border-slate-800 pb-4">
-        <MessageCircle className="w-5 h-5 text-purple-400" />
+        <MessageCircle className="w-5 h-5 text-primary" />
         <h3 className="text-xl font-bold text-white">
           Yorumlar <span className="text-slate-500 text-lg font-normal">({comments.length})</span>
         </h3>
       </div>
 
       {rootComments.length === 0 ? (
-        <div className="text-center py-12 px-4 rounded-2xl bg-slate-800/30 border border-dashed border-slate-700">
+        <div className="text-center py-12 px-4 rounded-2xl bg-[#0a0a0a]/30 border border-dashed border-slate-700">
           <MessageCircle className="w-12 h-12 text-slate-600 mx-auto mb-3" />
           <p className="text-slate-400 font-medium">Henüz yorum yapılmamış.</p>
           <p className="text-slate-500 text-sm mt-1">İlk yorumu siz yaparak sohbete katılın!</p>

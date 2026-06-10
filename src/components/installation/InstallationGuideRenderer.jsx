@@ -19,9 +19,9 @@ const InstallationGuideRenderer = ({
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="text-center py-24 px-6 border border-slate-800/50 rounded-3xl bg-slate-900/20 backdrop-blur-sm max-w-2xl mx-auto"
+        className="text-center py-24 px-6 border border-slate-800/50 rounded-3xl bg-[#0a0a0a]/20 backdrop-blur-sm max-w-2xl mx-auto"
       >
-        <div className="w-16 h-16 bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-black/20">
+        <div className="w-16 h-16 bg-[#0a0a0a]/50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-black/20">
              <AlertCircle className="w-8 h-8 text-slate-500" />
         </div>
         <h3 className="text-xl font-bold text-white mb-2">

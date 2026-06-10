@@ -88,7 +88,7 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   // === KANAL ===
   {
     keyword: 'kanal, kanallar, kanal listesi, kaç kanal, hangi kanallar, kanal sayısı, kanallar neler',
-    response: 'Binlerce kanal sunuyoruz: yerli ve yabancı TV, spor, film, dizi, belgesel, çocuk kanalları. Tam kanal listesi için Kanallar sayfamızı inceleyebilirsiniz.',
+    response: '10.000+ kanal sunuyoruz: yerli ve yabancı TV, spor, film, dizi, belgesel, çocuk kanalları. Tam kanal listesi için Kanallar sayfamızı inceleyebilirsiniz.',
     redirect_url: '/channels',
   },
   {
@@ -122,7 +122,7 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   // === IPTV NEDİR ===
   {
     keyword: 'iptv nedir, iptv ne, iptv ne işe yarar, iptv açıklama, iptv tanım, ıptv nedir, ip tv nedir',
-    response: 'IPTV (Internet Protocol Television), internet üzerinden TV kanallarını izlemenizi sağlayan bir hizmettir. Klasik uydu/anten yerine internet bağlantısı kullanır. Binlerce kanal, film ve dizi tek abonelikle.',
+    response: 'IPTV (Internet Protocol Television), internet üzerinden TV kanallarını izlemenizi sağlayan bir hizmettir. Klasik uydu/anten yerine internet bağlantısı kullanır. 10.000+ kanal, film ve dizi tek abonelikle.',
     redirect_url: null,
   },
   {

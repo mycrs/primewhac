@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
 import HeaderDE from '@/components/HeaderDE';
@@ -8,8 +8,12 @@ import { useMatchBySlug } from '@/hooks/useMatchBySlug';
 import { useMatchContent } from '@/hooks/useMatchContent';
 import { Loader2, Trophy, ArrowLeft, Calendar, Clock, Flame, Tv } from 'lucide-react';
 import { parseMatchSlug } from '@/utils/matchSlug';
-
-const SITE_URL = 'https://primewatch.tv';
+import MatchDetailRelatedLinks from '@/components/match/MatchDetailRelatedLinks';
+import TeamLogoOrInitials from '@/components/match/TeamLogoOrInitials';
+import { useTeamLogoDisplayMode } from '@/hooks/useTeamLogoDisplayMode';
+import { resolveTeamLogoUrl } from '@/utils/teamLogos';
+import { matchSportsEventSchema } from '@/utils/seoSchema';
+import { SITE_URL } from '@/constants/siteUrl';
 
 function formatDateForSeo(dateStr) {
   const [y, m, d] = (dateStr || '').split('-').map(Number);
@@ -18,34 +22,14 @@ function formatDateForSeo(dateStr) {
   return `${d}. ${months[m - 1]} ${y}`;
 }
 
-function getTeamInitials(name) {
-  const parts = String(name || '').split(' ').filter(Boolean);
-  if (!parts.length) return '?';
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0][0] + parts[1][0]).toUpperCase();
-}
-
-/** Fußball-Icon mit leichtem Bounce */
-function FootballIcon({ className = 'w-6 h-6' }) {
-  return (
-    <span
-      className={`inline-flex items-center justify-center ${className}`}
-      style={{ animation: 'football-bounce 2.5s ease-in-out infinite' }}
-      aria-hidden
-    >
-      ⚽
-    </span>
-  );
-}
-
 /** Wichtige Begriffe hervorheben */
 function highlightParagraph(text, home, away) {
   const phrases = [
-    ['Derby', 'text-amber-200/90 font-semibold'],
-    ['PrimeWatch TV', 'text-purple-200/90 font-semibold'],
+    ['Derby', 'text-amber-200 font-semibold'],
+    ['QruzeTV', 'text-primary font-semibold'],
   ];
-  if (home) phrases.push([home, 'text-purple-200/90 font-semibold']);
-  if (away) phrases.push([away, 'text-sky-200/90 font-semibold']);
+  if (home) phrases.push([home, 'text-primary font-semibold']);
+  if (away) phrases.push([away, 'text-white font-semibold']);
   let parts = [text];
   phrases.forEach(([phrase, cls]) => {
     if (!phrase) return;
@@ -69,37 +53,35 @@ const MatchDetailPageDE = ({ siteData }) => {
   const parsedFromSlug = useMemo(() => parseMatchSlug(slug || ''), [slug]);
   const { contactData, siteTexts } = siteData || {};
 
-  const { content } = useMatchContent(slug, match, { locale: 'de' });
+  const logoEntries = useMemo(() => {
+    const tl = siteData?.team_logos;
+    if (!tl) return [];
+    return Array.isArray(tl.entries) ? tl.entries : Array.isArray(tl) ? tl : [];
+  }, [siteData?.team_logos]);
 
-  const isPastMatch = useMemo(() => {
-    if (!match?.date) return false;
-    const [y, m, d] = match.date.split('-').map(Number);
-    const matchDate = new Date(y, m - 1, d);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    matchDate.setHours(0, 0, 0, 0);
-    return matchDate < today;
-  }, [match?.date]);
+  const logoFor = useCallback((name) => resolveTeamLogoUrl(name, logoEntries), [logoEntries]);
+  const { showLogos, setShowLogos } = useTeamLogoDisplayMode();
+  const logoUrlForDetail = useCallback((name) => (showLogos ? logoFor(name) : null), [showLogos, logoFor]);
+
+  const { content, contentLoadMessage } = useMatchContent(slug, match, { locale: 'de' });
 
   const metadata = useMemo(() => {
-    if (!match) return { title: 'Spielinfo | PrimeWatch TV', description: 'Spielinformationen werden geladen.', canonicalUrl: `${SITE_URL}/de/spielplan` };
+    if (!match) return { title: 'Spielinfo | QruzeTV', description: 'Spielinformationen werden geladen.', canonicalUrl: `${SITE_URL}/de/spielplan` };
     const formattedDate = formatDateForSeo(match.date);
-    const title = `${match.home} - ${match.away} | ${match.league.name} ${formattedDate} | PrimeWatch TV`;
-    const description = `${formattedDate} ${match.time} – ${match.home} vs ${match.away}. ${match.league.name}. Live auf Sportkanälen mit PrimeWatch TV IPTV.`;
+    const title = `${match.home} - ${match.away} | ${match.league.name} ${formattedDate} | QruzeTV`;
+    const description = `${formattedDate} ${match.time} – ${match.home} vs ${match.away}. ${match.league.name}. Live auf Sportkanälen mit QruzeTV IPTV.`;
     return {
       title: title.substring(0, 60) + (title.length > 60 ? '...' : ''),
       description: description.substring(0, 160),
-      keywords: [match.home, match.away, match.league.name, 'Spiel schauen', 'welcher Sender', 'PrimeWatch TV'],
+      keywords: [match.home, match.away, match.league.name, 'Spiel schauen', 'welcher Sender', 'QruzeTV'],
       canonicalUrl: `${SITE_URL}/de/spielplan/${slug}`,
-      noindex: isPastMatch,
+      noindex: true,
     };
-  }, [match, slug, isPastMatch]);
+  }, [match, slug]);
 
   const jsonLd = useMemo(() => {
     if (!match) return [];
-    const [y, mo, d] = (match.date || '').split('-');
-    const [h, min] = (match.time || '20:00').split(':');
-    const startDate = `${y}-${mo}-${d}T${(h || '20').padStart(2, '0')}:${(min || '00').padStart(2, '0')}:00+03:00`;
+    const currentUrl = `${SITE_URL}/de/spielplan/${slug}`;
     return [
       {
         '@context': 'https://schema.org',
@@ -107,19 +89,10 @@ const MatchDetailPageDE = ({ siteData }) => {
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Startseite', item: `${SITE_URL}/de` },
           { '@type': 'ListItem', position: 2, name: 'Spielplan', item: `${SITE_URL}/de/spielplan` },
-          { '@type': 'ListItem', position: 3, name: `${match.home} - ${match.away}`, item: `${SITE_URL}/de/spielplan/${slug}` },
+          { '@type': 'ListItem', position: 3, name: `${match.home} - ${match.away}`, item: currentUrl },
         ],
       },
-      {
-        '@context': 'https://schema.org',
-        '@type': 'SportsEvent',
-        name: `${match.home} - ${match.away}`,
-        sport: 'Soccer',
-        startDate,
-        homeTeam: { '@type': 'SportsTeam', name: match.home },
-        awayTeam: { '@type': 'SportsTeam', name: match.away },
-        organizer: { '@type': 'SportsOrganization', name: match.league.name },
-      },
+      matchSportsEventSchema({ match, url: currentUrl, locale: 'de' }),
     ];
   }, [match, slug]);
 
@@ -130,37 +103,51 @@ const MatchDetailPageDE = ({ siteData }) => {
 
   if (!passedMatch && loading) {
     return (
-      <div className="min-h-screen bg-slate-950 bg-[radial-gradient(circle_at_top,_#4c1d95_0,_#020617_55%)] flex flex-col text-white">
+      <>
+      <SEOHead
+        title="Spielinformationen werden geladen | QruzeTV"
+        description="Spieldetails werden geladen. Spielinformationen und Senderhinweise werden vorbereitet."
+        pageData={{ isAutoGenerated: true }}
+      />
+      <div className="min-h-screen bg-[#0a0a0a] bg-[radial-gradient(circle_at_top,_#2a0a0a_0,_#020617_55%)] flex flex-col text-white">
         <HeaderDE contactData={contactData} siteTexts={siteTexts} />
         <main className="flex-grow pt-24 pb-16 flex flex-col items-center justify-center">
-          <div className="w-16 h-16 rounded-2xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center mb-4">
-            <Loader2 className="w-8 h-8 text-purple-400 animate-spin" />
+          <div className="w-16 h-16 rounded-2xl bg-primary/20 border border-primary/40 flex items-center justify-center mb-4">
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
           </div>
           <p className="text-slate-200 font-medium">Spielinformationen werden geladen...</p>
           <p className="text-slate-400 text-sm mt-1">Spieldetails werden vorbereitet</p>
         </main>
       </div>
+      </>
     );
   }
 
   if (!match) {
     return (
-      <div className="min-h-screen bg-slate-950 bg-[radial-gradient(circle_at_top,_#4c1d95_0,_#020617_55%)] flex flex-col text-white">
+      <>
+      <SEOHead
+        title="Spiel nicht gefunden | QruzeTV"
+        description="Dieses Spiel wurde nicht gefunden oder die Information ist nicht mehr verfügbar. Kehren Sie zum Spielplan zurück."
+        pageData={{ isAutoGenerated: true }}
+      />
+      <div className="min-h-screen bg-[#0a0a0a] bg-[radial-gradient(circle_at_top,_#2a0a0a_0,_#020617_55%)] flex flex-col text-white">
         <HeaderDE contactData={contactData} siteTexts={siteTexts} />
         <main className="flex-grow pt-24 pb-16 px-4 text-center">
-          <div className="w-20 h-20 rounded-2xl bg-slate-800/80 border border-slate-700 flex items-center justify-center mx-auto mb-4">
+          <div className="w-20 h-20 rounded-2xl bg-[#0a0a0a]/80 border border-slate-700 flex items-center justify-center mx-auto mb-4">
             <Trophy className="w-10 h-10 text-slate-500" />
           </div>
           <h1 className="text-xl font-bold mb-4 text-white">Spiel nicht gefunden</h1>
           <p className="text-slate-300 mb-6 max-w-md mx-auto">Die gesuchte Spielinformation ist nicht verfügbar oder das Datum liegt in der Vergangenheit.</p>
           <Link
             to={schedulePath}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600/80 hover:bg-purple-600 text-white font-medium transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary/80 hover:bg-primary text-white font-medium transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Zurück zum Spielplan
           </Link>
         </main>
       </div>
+      </>
     );
   }
 
@@ -169,40 +156,81 @@ const MatchDetailPageDE = ({ siteData }) => {
 
   return (
     <>
-      <SEOHead {...metadata} jsonLd={jsonLd} noindex={metadata.noindex} />
+      <SEOHead {...metadata} jsonLd={jsonLd} noindex={metadata.noindex} pageData={{ isAutoGenerated: true }} />
 
-      <div className="min-h-screen bg-slate-950 bg-[radial-gradient(circle_at_top,_#4c1d95_0,_#020617_55%)] flex flex-col text-white selection:bg-purple-500/30">
-        <style>{`
-          @keyframes football-bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-          }
-        `}</style>
+      <div className="min-h-screen bg-[#0a0a0a] bg-[radial-gradient(circle_at_top,_#2a0a0a_0,_#020617_55%)] flex flex-col text-white selection:bg-white/20 relative">
         <HeaderDE contactData={contactData} siteTexts={siteTexts} />
-        <main className="flex-grow pt-24 pb-16 px-4 sm:px-6 lg:px-10 xl:px-12 max-w-[90rem] mx-auto w-full">
+        <main className="flex-grow pt-24 pb-16 px-4 sm:px-6 lg:px-10 xl:px-12 max-w-[90rem] mx-auto w-full relative z-10">
           <BreadcrumbNavigation customCrumbs={[
             { name: 'Startseite', path: '/de' },
             { name: 'Spielplan', path: schedulePath },
             { name: `${match.home} - ${match.away}`, path: null },
           ]} />
 
-          <Link
-            to={schedulePath}
-            className="inline-flex items-center gap-2 text-slate-300 hover:text-purple-200 mb-6 transition-colors group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Zurück zum Spielplan
-          </Link>
+          {contentLoadMessage && (
+            <div
+              className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-amber-100 text-sm"
+              role="alert"
+            >
+              {contentLoadMessage}
+            </div>
+          )}
 
-          <article className="overflow-hidden rounded-3xl border border-slate-800 shadow-xl shadow-purple-900/10">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
+            <Link
+              to={schedulePath}
+              className="inline-flex items-center gap-2 text-slate-300 hover:text-primary transition-colors group"
+            >
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Zurück zum Spielplan
+            </Link>
+            <div className="flex flex-wrap items-center justify-start sm:justify-end gap-2">
+              <div
+                className="flex rounded-lg bg-[#0a0a0a]/90 p-0.5 border border-slate-600/60 shrink-0"
+                role="group"
+                aria-label="Team-Abzeichen: Logo oder Kürzel"
+              >
+                <button
+                  type="button"
+                  onClick={() => setShowLogos(true)}
+                  aria-pressed={showLogos}
+                  className={`rounded-md py-1.5 px-2.5 text-xs font-bold transition-all ${
+                    showLogos
+                      ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white shadow-sm'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Logo
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowLogos(false)}
+                  aria-pressed={!showLogos}
+                  className={`rounded-md py-1.5 px-2.5 text-xs font-bold transition-all ${
+                    !showLogos
+                      ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white shadow-sm'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Kürzel
+                </button>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0a0a0a]/80 border border-slate-700">
+                <Clock className="w-4 h-4 text-primary" />
+                <time className="text-primary font-bold text-lg" dateTime={match.date}>{match.time}</time>
+              </div>
+            </div>
+          </div>
+
+          <article className="overflow-hidden rounded-3xl border border-slate-800 shadow-xl shadow-primary/10">
             {/* Spielkarte - Hero */}
-            <div className="relative bg-gradient-to-br from-slate-900 via-slate-900/95 to-slate-950 border-b border-slate-800 overflow-hidden">
-              <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl" />
+            <div className="relative bg-gradient-to-br from-[#0a0a0a] via-[#0a0a0a]/95 to-[#141414] border-b border-slate-800 overflow-hidden">
+              <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-primary/20 blur-3xl" />
               <div className="absolute -left-10 -bottom-10 h-32 w-32 rounded-full bg-amber-500/10 blur-3xl" />
               <div className="relative p-6 sm:p-8">
                 <div className="flex items-center justify-between gap-3 mb-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center">
-                      <Trophy className="w-5 h-5 text-purple-300" />
+                    <div className="w-10 h-10 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center">
+                      <Trophy className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                       <span className="text-2xl" aria-hidden>{match.league.flag}</span>
@@ -219,74 +247,72 @@ const MatchDetailPageDE = ({ siteData }) => {
                   )}
                 </div>
 
-                {/* Teams und Uhrzeit */}
-                <div className="flex items-center justify-between gap-4 sm:gap-6 flex-wrap">
-                  <div className="flex-1 min-w-0 flex items-center justify-center gap-3">
-                    <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 text-base font-bold text-white shadow-lg shadow-purple-500/30">
-                      {getTeamInitials(match.home)}
-                    </div>
-                    <p className="text-xl sm:text-2xl font-bold truncate text-slate-50">{match.home}</p>
-                    <FootballIcon className="w-6 h-6 sm:w-7 sm:h-7 text-purple-400/80" />
+                {/* Teams – zentriert */}
+                <div className="flex items-center justify-center gap-4 sm:gap-8 flex-wrap">
+                  <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 min-w-0 flex-1 justify-end">
+                    <TeamLogoOrInitials teamName={match.home} logoUrl={logoUrlForDetail(match.home)} variant="home" size="lg" />
+                    <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white text-center sm:text-right break-words" title={match.home}>{match.home}</p>
                   </div>
-                  <div className="flex flex-col items-center gap-2 shrink-0">
-                    <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-slate-800/80 border border-slate-700">
-                      <Clock className="w-4 h-4 text-purple-300" />
-                      <time className="text-purple-200 font-bold text-2xl" dateTime={match.date}>{match.time}</time>
-                    </div>
+                  <div className="flex flex-col items-center gap-1 shrink-0">
                     <span className="text-slate-500 text-xs font-medium uppercase tracking-wider">vs</span>
                   </div>
-                  <div className="flex-1 min-w-0 flex items-center justify-center gap-3">
-                    <FootballIcon className="w-6 h-6 sm:w-7 sm:h-7 text-sky-400/80 shrink-0" />
-                    <p className="text-xl sm:text-2xl font-bold truncate text-slate-50 text-right">{match.away}</p>
-                    <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 to-emerald-600 text-base font-bold text-white shadow-lg shadow-sky-500/30">
-                      {getTeamInitials(match.away)}
-                    </div>
+                  <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 min-w-0 flex-1 justify-start">
+                    <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white text-center sm:text-left order-2 sm:order-1 break-words" title={match.away}>{match.away}</p>
+                    <TeamLogoOrInitials teamName={match.away} logoUrl={logoUrlForDetail(match.away)} variant="away" size="lg" className="order-1 sm:order-2" />
                   </div>
                 </div>
 
                 <div className="flex items-center justify-center gap-2 mt-5 text-slate-400 text-base">
-                  <Calendar className="w-5 h-5 text-purple-300/80" />
-                  <span className="text-purple-200/90 font-medium">{formattedDate}</span>
+                  <Calendar className="w-5 h-5 text-primary/80" />
+                  <span className="text-primary/90 font-medium">{formattedDate}</span>
                 </div>
               </div>
             </div>
 
-            {/* Über das Spiel */}
-            <div className="p-6 sm:p-8 lg:p-12 bg-slate-900/30">
-              <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-                <Trophy className="w-6 h-6 text-purple-400" />
-                Über das Spiel
-              </h2>
-              <div className="prose prose-invert max-w-none space-y-5">
-                {paragraphs.map((p, i) => (
-                  <p key={i} className="text-slate-200 leading-relaxed text-lg sm:text-xl">
-                    {highlightParagraph(p, match.home, match.away)}
-                  </p>
-                ))}
+            {/* Über das Spiel – schönes Karten-Design, FAB-Überlappung vermeiden */}
+            <div className="relative p-6 sm:p-8 lg:p-12 pr-20 sm:pr-8 lg:pr-12 bg-gradient-to-br from-[#0a0a0a]/60 via-[#0a0a0a]/40 to-[#141414]/60 border-t border-slate-800/80">
+              <div className="absolute left-0 top-0 bottom-0 w-1 rounded-r-full bg-gradient-to-b from-[#e50914]/60 via-[#e50914]/40 to-transparent" aria-hidden />
+              <div className="relative pl-4 sm:pl-0">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center">
+                    <Trophy className="w-5 h-5 text-primary" />
+                  </div>
+                  Über das Spiel
+                </h2>
+                <div className="space-y-5">
+                  {paragraphs.map((p, i) => (
+                    <p key={i} className="text-slate-200 leading-[1.85] text-base sm:text-lg lg:text-xl">
+                      {highlightParagraph(p, match.home, match.away)}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
 
             {/* Senderinfo */}
-            <div className="p-6 sm:p-8 lg:p-12 bg-slate-800/30 border-t border-slate-800">
+            <div className="p-6 sm:p-8 lg:p-12 pr-20 sm:pr-8 lg:pr-12 bg-[#0a0a0a]/40 border-t border-slate-800">
               <h2 className="text-xl font-semibold text-white mb-5 flex items-center gap-2">
-                <Tv className="w-6 h-6 text-purple-400" />
+                <Tv className="w-6 h-6 text-primary" />
                 Auf welchem Sender?
               </h2>
-              <p className="text-slate-200 text-lg sm:text-xl mb-5 leading-relaxed">
+              <p className="text-slate-100 text-base sm:text-lg lg:text-xl mb-5 leading-[1.8]">
                 {match.league.country === 'Türkiye'
                   ? <>Super-Lig-Spiele werden live auf Sportkanälen übertragen. Welcher Sender, wann? Das wöchentliche Programm enthält aktuelle Infos.</>
                   : <>Europäische Ligen sind auf Sportkanälen und digitalen Plattformen verfügbar. Senderinfos werden im wöchentlichen Programm aktualisiert.</>}
               </p>
-              <p className="text-slate-300 text-lg sm:text-xl mb-6 leading-relaxed">
-                Mit einem <span className="text-purple-200/90 font-semibold">PrimeWatch TV</span> IPTV-Abo haben Sie unterbrechungsfreien Zugang zu allen Sportkanälen.
+              <p className="text-slate-100 text-base sm:text-lg lg:text-xl mb-6 leading-[1.8]">
+                Mit einem <span className="text-primary font-semibold">QruzeTV</span> IPTV-Abo haben Sie unterbrechungsfreien Zugang zu allen Sportkanälen.
               </p>
               <Link
                 to="/de/pakete"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary text-white font-semibold transition-colors"
               >
                 Pakete ansehen
               </Link>
             </div>
+
+            {/* SEO: Verwandte Seiten verlinken */}
+            <MatchDetailRelatedLinks locale="de" />
           </article>
         </main>
         <FooterDE contactData={contactData} siteTexts={siteTexts} siteData={siteData} />

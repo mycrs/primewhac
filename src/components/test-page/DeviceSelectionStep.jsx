@@ -1,22 +1,19 @@
-
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Smartphone, Tv, Laptop, Monitor, Tablet, Box, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLocation } from 'react-router-dom';
+import { useSiteData } from '@/hooks/useSiteData';
+import { getIptvFlowDevices } from '@/constants/iptvFlowDevices';
 
 const DeviceSelectionStep = ({ selectedDevice, onSelect }) => {
   const location = useLocation();
+  const { siteData } = useSiteData();
   const isDe = location.pathname.includes('/de');
-
-  const devices = [
-    { id: 'smart-tv', name: 'Smart TV', icon: Tv, desc: isDe ? 'Samsung, LG, Sony, Android TV' : 'Samsung, LG, Sony, Android TV' },
-    { id: 'android-box', name: 'Android Box', icon: Box, desc: isDe ? 'Nvidia Shield, Mi Box, Formuler' : 'Nvidia Shield, Mi Box, Formuler' },
-    { id: 'firestick', name: 'Firestick', icon: Box, desc: isDe ? 'Amazon Fire TV Stick / Cube' : 'Amazon Fire TV Stick / Cube' },
-    { id: 'smartphone', name: isDe ? 'Telefon und TV Box' : 'Telefon ve TV Box', icon: Smartphone, desc: isDe ? 'Android- und iOS-Geräte' : 'Android ve iOS cihazlar' },
-    { id: 'mag-box', name: 'Mag Box', icon: Monitor, desc: isDe ? 'Mag Box, Enigma2, usw.' : 'Mag Box, Enigma2, vb.' },
-    { id: 'pc-mac', name: 'PC / Mac', icon: Laptop, desc: 'Windows, MacOS, Linux' },
-  ];
+  const devices = useMemo(
+    () => getIptvFlowDevices(isDe ? 'de' : 'tr', siteData?.iptvFlowDevicesData),
+    [isDe, siteData?.iptvFlowDevicesData]
+  );
 
   return (
     <div className="space-y-8">
@@ -46,12 +43,12 @@ const DeviceSelectionStep = ({ selectedDevice, onSelect }) => {
                 "relative group flex flex-col items-start p-6 rounded-2xl border-2 transition-all duration-300 text-left overflow-hidden",
                 isSelected 
                   ? "bg-green-600/10 border-green-500 shadow-[0_0_20px_rgba(34,197,94,0.2)]" 
-                  : "bg-slate-900/40 border-slate-800 hover:border-slate-700 hover:bg-slate-800/60"
+                  : "bg-[#0a0a0a]/40 border-slate-800 hover:border-slate-700 hover:bg-[#0a0a0a]/60"
               )}
             >
               <div className={cn(
                 "w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300",
-                isSelected ? "bg-green-500 text-white" : "bg-slate-800 text-slate-400 group-hover:bg-slate-700"
+                isSelected ? "bg-green-500 text-white" : "bg-[#0a0a0a] text-slate-400 group-hover:bg-[#0a0a0a]"
               )}>
                 <Icon className="w-6 h-6" />
               </div>

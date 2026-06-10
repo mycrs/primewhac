@@ -23,28 +23,29 @@ export const isRetryableError = (error) => {
   return true;
 };
 
+/** Kullanıcıya asla ham API / altyapı metni sızdırmaz (toast dışı kısa özet). */
 export const getUserFriendlyMessage = (error) => {
-  if (!error) return "Bilinmeyen bir hata oluştu.";
-  
+  if (!error) return 'Geçici olarak bağlantı kurulamadı.';
+
   const msg = error.message?.toLowerCase() || '';
-  
+
   if (isNetworkError(error) || !checkOnlineStatus()) {
-    return "Ağ hatası: Sunucuya ulaşılamıyor. Lütfen internet bağlantınızı kontrol edin.";
-  }
-  
-  if (msg.includes('timeout') || msg.includes('zaman aşımına uğradı')) {
-    return "Sunucu yanıt vermedi (Zaman aşımı). Lütfen tekrar deneyin.";
-  }
-  
-  if (msg.includes('missing sub claim') || msg.includes('jwt')) {
-    return "Oturum süresi dolmuş veya geçersiz. Lütfen tekrar giriş yapın.";
-  }
-  
-  if (error.code === '42501' || msg.includes('row-level security')) {
-    return "Yetkiniz reddedildi. Bu işlemi gerçekleştirmek için gerekli izinlere sahip değilsiniz.";
+    return 'İnternet bağlantınızı kontrol edip tekrar deneyebilirsiniz.';
   }
 
-  return "İşlem sırasında beklenmeyen bir hata oluştu.";
+  if (msg.includes('timeout') || msg.includes('zaman aşımına') || msg.includes('zaman aşımı')) {
+    return 'İstek zaman aşımına uğradı. Lütfen bir süre sonra tekrar deneyin.';
+  }
+
+  if (msg.includes('missing sub claim') || msg.includes('jwt')) {
+    return 'Oturum süresi dolmuş olabilir. Yönetici sayfası için tekrar giriş yapın.';
+  }
+
+  if (error.code === '42501' || msg.includes('row-level security')) {
+    return 'Bu işlem için yetkiniz bulunmuyor.';
+  }
+
+  return 'Geçici olarak bağlantı kurulamadı.';
 };
 
 export const executeSupabaseQuery = async (queryFn, options = {}) => {
@@ -67,8 +68,8 @@ export const executeSupabaseQuery = async (queryFn, options = {}) => {
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
       // Execute query with a strict timeout wrapper
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Supabase isteği zaman aşımına uğradı')), timeoutMs)
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('İstek zaman aşımına uğradı')), timeoutMs)
       );
 
       const result = await Promise.race([queryFn(), timeoutPromise]);
@@ -77,7 +78,12 @@ export const executeSupabaseQuery = async (queryFn, options = {}) => {
         throw result.error;
       }
 
-      return { data: result?.data || result, error: null, isFallback: false };
+      return {
+        data: result?.data ?? result,
+        count: typeof result?.count === 'number' ? result.count : undefined,
+        error: null,
+        isFallback: false,
+      };
     } catch (error) {
       lastError = error;
       const status = error?.status || error?.code;

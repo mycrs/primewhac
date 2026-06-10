@@ -14,6 +14,24 @@ import { Label } from '@/components/ui/label';
 // Import new enhanced components
 import EnhancedPackageForm from '../EnhancedPackageForm';
 import PackagesList from '../PackagesList';
+import PackagesPageContentTab from './PackagesPageContentTab';
+import { buildPackagePayload, savePackageToSupabase, sortPackagesForDisplay } from '@/utils/buildPackagePayload';
+import { inferPackageTier } from '@/constants/packageTiers';
+import { packagesNeedTierMigration, packagesTierMigrationHint } from '@/utils/packageTierMigration';
+
+/** Supabase bazen features'ı JSON string döndürür; düzenlerken dizi gönder */
+function ensureFeaturesArray(features) {
+  if (Array.isArray(features)) return features;
+  if (typeof features === 'string') {
+    try {
+      const parsed = JSON.parse(features);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return features.split('\n').map((s) => s.trim()).filter(Boolean);
+    }
+  }
+  return [];
+}
 
 const AppEditor = ({ appData, onSave, onCancel }) => {
   const [formData, setFormData] = useState(appData);
@@ -41,16 +59,16 @@ const AppEditor = ({ appData, onSave, onCancel }) => {
           <label className="admin-label mb-2">Desteklenen Platformlar</label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {allPlatforms.map(platform => (
-              <label key={platform} className={`flex items-center justify-center space-x-2 cursor-pointer p-3 rounded-lg border transition-all ${(formData.platforms || []).includes(platform) ? 'bg-purple-600/20 border-purple-500 text-white' : 'bg-slate-900/50 border-slate-700 text-slate-400 hover:border-slate-500'}`}>
+              <label key={platform} className={`flex items-center justify-center space-x-2 cursor-pointer p-3 rounded-lg border transition-all ${(formData.platforms || []).includes(platform) ? 'bg-primary/20 border-primary text-white' : 'bg-[#0a0a0a]/50 border-slate-700 text-slate-400 hover:border-slate-500'}`}>
                 <input type="checkbox" checked={(formData.platforms || []).includes(platform)} onChange={() => togglePlatform(platform)} className="hidden" />
                 <span className="capitalize font-medium">{platform === 'smarttv' ? 'Smart TV' : platform === 'ios' ? 'iOS' : platform}</span>
-                {(formData.platforms || []).includes(platform) && <Check className="w-4 h-4 text-purple-400 ml-1" />}
+                {(formData.platforms || []).includes(platform) && <Check className="w-4 h-4 text-primary ml-1" />}
               </label>
             ))}
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 p-4 bg-slate-900/50 rounded-lg border border-slate-700">
+        <div className="flex items-center space-x-2 p-4 bg-[#0a0a0a]/50 rounded-lg border border-slate-700">
            <Switch id="app-rec" checked={formData.recommended || false} onCheckedChange={(checked) => setFormData({...formData, recommended: checked})} className="data-[state=checked]:bg-green-500" />
             <Label htmlFor="app-rec" className="text-white cursor-pointer">Önerilen Uygulama</Label>
         </div>
@@ -84,7 +102,11 @@ export const PackagesTab = ({ siteData, setSiteData }) => {
     if (error && isFallback) {
       toast({ variant: "destructive", title: "Hata", description: message || "Paketler alınamadı." });
     } else {
-      setPackages(data || []);
+      const rows = (data || []).map((p) => ({
+        ...p,
+        tier: p.tier ?? inferPackageTier(p),
+      }));
+      setPackages(sortPackagesForDisplay(rows));
     }
     setLoadingPackages(false);
   }, [toast]);
@@ -94,46 +116,36 @@ export const PackagesTab = ({ siteData, setSiteData }) => {
   const handleSavePackage = async (formData) => {
     setLoadingPackages(true);
     try {
-      const normalizeRegionForDB = (r) => {
-        if (!r) return 'TR';
-        const lower = r.toLowerCase();
-        if (['eu', 'europe', 'avrupa'].includes(lower)) return 'EU';
-        return 'TR';
-      };
-
-      const dbData = {
-        name: formData.name,
-        price: parseFloat(formData.price),
-        duration: formData.duration,
-        features: formData.features,
-        region: normalizeRegionForDB(formData.region), 
-        popular: formData.popular || false,
-        enabled: formData.enabled !== false,
-        whatsapp_message: formData.whatsapp_message || ''
-      };
-
-      const queryFn = formData.id 
-          ? () => supabase.from('packages').update(dbData).eq('id', formData.id)
-          : () => supabase.from('packages').insert([dbData]).select();
-
-      const { error, message } = await executeSupabaseQuery(queryFn, { retries: 2, context: 'save_package' });
+      const payload = buildPackagePayload(formData);
+      const { error, stripped } = await savePackageToSupabase(supabase, {
+        id: formData.id,
+        payload,
+      });
 
       if (error) {
-         toast({ variant: "destructive", title: "Hata", description: message || "Paket kaydedilemedi." });
-         return;
+        toast({ variant: 'destructive', title: 'Hata', description: error.message || 'Paket kaydedilemedi.' });
+        return;
       }
 
-      toast({
-        title: "Başarılı",
-        description: formData.id ? "Paket güncellendi." : "Yeni paket oluşturuldu.",
-        className: "bg-green-600 border-none text-white"
-      });
-      
-      setEditingPackage(null);
-      fetchPackages(); 
+      if (stripped?.length > 0) {
+        toast({
+          title: 'Uyarı',
+          description: `Paket kaydedildi. Eksik DB sütunları: ${stripped.join(', ')}. docs/supabase-packages-tier-migration.sql çalıştırın.`,
+          className: 'bg-amber-600 border-none text-white',
+          duration: 9000,
+        });
+      } else {
+        toast({
+          title: 'Başarılı',
+          description: formData.id ? 'Paket güncellendi.' : 'Yeni paket oluşturuldu.',
+          className: 'bg-green-600 border-none text-white',
+        });
+      }
 
-    } catch (err) {
-      toast({ variant: "destructive", title: "Hata", description: "Beklenmeyen bir hata oluştu." });
+      setEditingPackage(null);
+      fetchPackages();
+    } catch {
+      toast({ variant: 'destructive', title: 'Hata', description: 'Beklenmeyen bir hata oluştu.' });
     } finally {
       setLoadingPackages(false);
     }
@@ -177,6 +189,8 @@ export const PackagesTab = ({ siteData, setSiteData }) => {
     toast({ title: "Başarılı", description: "Uygulama silindi." });
   };
 
+  const tierMigrationPending = packagesNeedTierMigration(packages);
+
   const filteredPackages = packages.filter(p => {
     const region = (p.region || 'TR').toLowerCase(); 
     if (activeRegion === 'TR') return ['tr', 'turkiye', 'türkiye', 'turkey'].includes(region);
@@ -185,17 +199,21 @@ export const PackagesTab = ({ siteData, setSiteData }) => {
   });
 
   return (
-    <AdminTabWrapper title="Paketler & Uygulamalar" description="Fiyat paketleri ve başvuru formu uygulamalarını yönetin." icon={PackageIcon}>
+    <AdminTabWrapper title="Paket Yönetimi" description="IPTV paketleri, sayfa içerikleri ve form uygulamalarını yönetin." icon={PackageIcon}>
       <Tabs defaultValue="packages" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-8 bg-slate-800 p-1 rounded-xl">
-          <TabsTrigger value="packages" className="rounded-lg data-[state=active]:bg-purple-600 data-[state=active]:text-white">Fiyat Paketleri</TabsTrigger>
-          <TabsTrigger value="apps" className="rounded-lg data-[state=active]:bg-purple-600 data-[state=active]:text-white">Akıllı Form Uygulamaları</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3 mb-8 bg-[#0a0a0a] p-1 rounded-xl">
+          <TabsTrigger value="packages" className="rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white">Paketler</TabsTrigger>
+          <TabsTrigger value="page-content" className="rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white">Sayfa İçeriği</TabsTrigger>
+          <TabsTrigger value="apps" className="rounded-lg data-[state=active]:bg-primary data-[state=active]:text-white">Form Uygulamaları</TabsTrigger>
         </TabsList>
 
         <TabsContent value="packages" className="space-y-6">
           {editingPackage ? (
             <EnhancedPackageForm 
-              initialData={editingPackage} 
+              initialData={{
+                ...editingPackage,
+                features: ensureFeaturesArray(editingPackage.features)
+              }} 
               loading={loadingPackages} 
               onSubmit={handleSavePackage} 
               onCancel={() => setEditingPackage(null)} 
@@ -203,29 +221,35 @@ export const PackagesTab = ({ siteData, setSiteData }) => {
           ) : (
             <div className="space-y-6">
               {/* Controls Header */}
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/50 p-4 rounded-xl border border-slate-800">
-                <div className="flex bg-slate-950 rounded-lg p-1 border border-slate-800">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[#0a0a0a]/50 p-4 rounded-xl border border-slate-800">
+                <div className="flex bg-[#0a0a0a] rounded-lg p-1 border border-slate-800">
                   <button 
                     onClick={() => setActiveRegion('TR')} 
-                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${activeRegion === 'TR' ? 'bg-purple-600 text-white shadow-md' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}
+                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${activeRegion === 'TR' ? 'bg-primary text-white shadow-md' : 'text-slate-400 hover:text-white hover:bg-[#0a0a0a]'}`}
                   >
                     Türkiye (TR)
                   </button>
                   <button 
                     onClick={() => setActiveRegion('EU')} 
-                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${activeRegion === 'EU' ? 'bg-purple-600 text-white shadow-md' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}
+                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${activeRegion === 'EU' ? 'bg-primary text-white shadow-md' : 'text-slate-400 hover:text-white hover:bg-[#0a0a0a]'}`}
                   >
                     Avrupa (EU)
                   </button>
                 </div>
                 
                 <Button 
-                  onClick={() => setEditingPackage({features: [], region: activeRegion, enabled: true, popular: false})} 
-                  className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-500/20"
+                  onClick={() => setEditingPackage({ features: [], region: activeRegion, enabled: true, popular: false, tier: 'standard', sort_order: 0 })} 
+                  className="bg-primary hover:bg-primary text-white shadow-lg shadow-primary/20"
                 >
                   <Plus className="w-4 h-4 mr-2" /> Yeni Paket Ekle
                 </Button>
               </div>
+
+              {tierMigrationPending && (
+                <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+                  {packagesTierMigrationHint()}
+                </div>
+              )}
 
               {/* Package List */}
               <PackagesList 
@@ -238,26 +262,30 @@ export const PackagesTab = ({ siteData, setSiteData }) => {
           )}
         </TabsContent>
 
+        <TabsContent value="page-content" className="space-y-6">
+          <PackagesPageContentTab siteData={siteData} setSiteData={setSiteData} />
+        </TabsContent>
+
         <TabsContent value="apps" className="space-y-6">
           {editingApp ? (
             <AppEditor appData={editingApp} onSave={handleSaveApp} onCancel={() => setEditingApp(null)} />
           ) : (
             <>
                <div className="flex justify-end mb-4">
-                    <Button onClick={() => setEditingApp({ platforms: [] })} className="bg-purple-600 hover:bg-purple-700 text-white">
+                    <Button onClick={() => setEditingApp({ platforms: [] })} className="bg-primary hover:bg-primary text-white">
                         <Plus className="w-4 h-4 mr-2" />Yeni Uygulama Ekle
                     </Button>
                </div>
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {safeAppsData.map((app) => (
-                <div key={app.id} className="admin-card group relative hover:shadow-xl transition-all border border-slate-800 bg-slate-900 rounded-xl p-5">
-                    <div className="absolute top-4 right-4 bg-slate-950/80 p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 border border-slate-800">
-                         <button onClick={() => setEditingApp(app)} className="p-1.5 text-slate-400 hover:text-blue-400 hover:bg-slate-800 rounded-md"><Edit className="w-4 h-4"/></button>
-                         <button onClick={() => handleDeleteApp(app.id)} className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-800 rounded-md"><Trash2 className="w-4 h-4"/></button>
+                <div key={app.id} className="admin-card group relative hover:shadow-xl transition-all border border-slate-800 bg-[#0a0a0a] rounded-xl p-5">
+                    <div className="absolute top-4 right-4 bg-[#0a0a0a]/80 p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 border border-slate-800">
+                         <button onClick={() => setEditingApp(app)} className="p-1.5 text-slate-400 hover:text-blue-400 hover:bg-[#0a0a0a] rounded-md"><Edit className="w-4 h-4"/></button>
+                         <button onClick={() => handleDeleteApp(app.id)} className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-[#0a0a0a] rounded-md"><Trash2 className="w-4 h-4"/></button>
                     </div>
                     
                     <div className="flex items-center gap-3 mb-4">
-                        <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 border border-purple-500/20">
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
                             <Smartphone className="w-6 h-6" />
                         </div>
                         <div>
@@ -270,7 +298,7 @@ export const PackagesTab = ({ siteData, setSiteData }) => {
                     
                     <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-800">
                     {(app.platforms || []).map(platform => (
-                        <span key={platform} className="bg-slate-950 border border-slate-800 text-slate-300 text-[10px] px-2.5 py-1 rounded-md capitalize font-medium">
+                        <span key={platform} className="bg-[#0a0a0a] border border-slate-800 text-slate-300 text-[10px] px-2.5 py-1 rounded-md capitalize font-medium">
                         {platform === 'smarttv' ? 'Smart TV' : platform === 'ios' ? 'iOS' : platform}
                         </span>
                     ))}

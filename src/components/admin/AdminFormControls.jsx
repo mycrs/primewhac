@@ -26,7 +26,7 @@ export const ImagePreviewInput = ({ label, value, ...props }) => (
     <div className="admin-form-group">
         <Input label={label} value={value || ''} {...props} />
         {value && (
-            <div className="mt-3 p-2 border border-slate-700 rounded-lg bg-slate-950/50 inline-block">
+            <div className="mt-3 p-2 border border-slate-700 rounded-lg bg-[#0a0a0a]/50 inline-block">
                 <div className="relative group">
                     <img 
                         src={value} 
