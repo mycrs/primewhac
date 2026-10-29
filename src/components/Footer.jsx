@@ -107,7 +107,12 @@ const Footer = ({ contactData: propContactData, siteData }) => {
 
         {/* Alt bar: telif + dil geçişi + yasal */}
         <div className="flex flex-col items-center justify-between gap-4 border-t border-white/[0.07] pt-8 text-sm text-gray-500 md:flex-row">
-          <p>&copy; {currentYear} QruzeTV. Tüm hakları saklıdır.</p>
+          <div className="text-center md:text-left">
+            <p>&copy; {currentYear} QruzeTV. Tüm hakları saklıdır.</p>
+            <p className="text-[11px] text-gray-600 mt-1 max-w-xl font-light">
+              QruzeTV; bağımsız bir yayın teknolojisi ve medya oynatıcı protokol platformudur. Kendi sunucularında telifli içerik barındırmaz, açık standartlarda arayüz ve akış desteği sağlar.
+            </p>
+          </div>
 
           <Link
             to={langSwitch.to}

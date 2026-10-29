@@ -103,7 +103,12 @@ const FooterDE = ({ contactData: propContactData, siteData }) => {
 
         {/* Untere Leiste: Copyright + Sprachwechsel + Rechtliches */}
         <div className="flex flex-col items-center justify-between gap-4 border-t border-white/[0.07] pt-8 text-sm text-gray-500 md:flex-row">
-          <p>&copy; {currentYear} QruzeTV. Alle Rechte vorbehalten.</p>
+          <div className="text-center md:text-left">
+            <p>&copy; {currentYear} QruzeTV. Alle Rechte vorbehalten.</p>
+            <p className="text-[11px] text-gray-600 mt-1 max-w-xl font-light">
+              QruzeTV ist eine unabhängige Streaming-Technologie- und Player-Plattform. Auf eigenen Servern werden keine urheberrechtlich geschützten Inhalte gehostet.
+            </p>
+          </div>
 
           <Link
             to={langSwitch.to}

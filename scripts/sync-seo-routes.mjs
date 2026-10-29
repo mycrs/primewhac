@@ -36,6 +36,8 @@ function sanitizePost(post) {
     return val
       .replace(/MARKA_ADINIZ/gi, 'QruzeTV')
       .replace(/MARKA ADINIZ/gi, 'QruzeTV')
+      .replace(/Qruze<[^>]*>HD<\/[^>]*>/gi, 'QruzeTV')
+      .replace(/Qruze<[^>]*>HD/gi, 'QruzeTV')
       .replace(/Qruze\s*HD/gi, 'QruzeTV')
       .replace(/QruzeHD/gi, 'QruzeTV')
       .replace(/KaliteliIPTV/gi, 'QruzeTV')

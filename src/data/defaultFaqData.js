@@ -1,114 +1,80 @@
 export const defaultFaqData = {
-    title: 'Sıkça Sorulan Sorular — IPTV Rehberi | QruzeTV',
-    description: 'QruzeTV IPTV hakkında merak ettiğiniz her şey. Kurulum, ödeme, teknik destek ve kanal soruları için kapsamlı SSS rehberi.',
+    title: 'Sıkça Sorulan Sorular — QruzeTV Yayın Rehberi',
+    description: 'QruzeTV yayın altyapısı, kurulum adımları, cihaz uyumluluğu ve taahhütsüz paketler hakkında merak edilen tüm sorular ve teknik yanıtlar.',
     sections: [
         {
-            title: 'IPTV Hakkında Genel Sorular',
+            title: 'Yayın Teknolojisi ve Genel Bilgiler',
             items: [
                 {
-                    question: 'IPTV Nedir ve Sistem Nasıl Çalışır?',
-                    answer: 'IPTV (İnternet Protokolü Televizyonu), televizyon yayınlarının geleneksel uydu veya kablo antenleri yerine internet bağlantısı üzerinden iletilmesini sağlayan modern bir dijital yayın teknolojisidir. Kaliteli iptv sistemimiz, dünya genelindeki 10.000+ kanalı ve zengin VOD (İsteğe Bağlı Video) içeriklerini yüksek hızlı sunucularımız aracılığıyla cihazınıza aktarır. Kullanıcılarımıza sağladığımız özel M3U bağlantısı veya Xtream Codes API bilgileri sayesinde, internete bağlı herhangi bir akıllı cihazdan en iyi iptv servisi deneyimine anında ulaşabilirsiniz. Sistem, verileri küçük paketler halinde anlık olarak indirip oynattığı için geniş bant internet bağlantısı gerektirir ve bu sayede donmayan iptv keyfi yaşatır.'
+                    question: 'IPTV Nedir ve Geleneksel Yayından Farkı Nedir?',
+                    answer: 'IPTV, televizyon sinyallerinin çanak anten veya kablo yerine doğrudan yüksek hızlı internet bağlantısı üzerinden aktarılması teknolojisidir. Çanak anten montajı, kablo çekimi veya hava koşullarından etkilenme riskini ortadan kaldırır. Smart TV, telefon, tablet, Apple TV veya bilgisayarınız üzerinden dilediğiniz an canlı yayınlara ve elektronik program rehberine (EPG) ulaşabilirsiniz.'
                 },
                 {
-                    question: 'Hizmetleriniz Yasal Olarak Güvenilir mi?',
-                    answer: 'IPTV teknolojisinin kendisi, tıpkı popüler dijital yayın platformları gibi tamamen yasal bir protokoldür. Biz, internet üzerinde serbestçe erişilebilen ve paylaşıma açık yayınları, kendi güçlü altyapımızla organize ederek size kaliteli iptv formatında sunuyoruz. Kullanıcılarımızın kişisel verileri üst düzey şifreleme yöntemleriyle korunmakta olup, üçüncü şahıslarla kesinlikle paylaşılmamaktadır. İptv satın al işlemi sonrasında tarafınıza sağlanan bireysel kullanım lisansı ile evinizin konforunda, tamamen güvenli bir altyapı üzerinden dünyanın en iyi iptv servisi standartlarında televizyon izleme ayrıcalığına sahip olursunuz.'
-                },
-                {
-                    question: 'Aynı Anda Kaç Farklı Cihazdan İzleyebilirim?',
-                    answer: 'Standart paketlerimiz güvenlik ve bant genişliği optimizasyonu nedeniyle tek eşzamanlı bağlantı (1 connection) ile sınırlandırılmıştır. Bu, iptv kurulumu işlemini evinizdeki Smart TV, cep telefonu, tablet ve bilgisayar gibi dilediğiniz kadar cihaza yapabileceğiniz, ancak aynı saniye içinde yalnızca tek bir cihazdan aktif yayın izleyebileceğiniz anlamına gelir. Aile boyu kullanım veya farklı odalarda aynı anda donmayan iptv izlemek isterseniz, ek bağlantı hakkı sunan çoklu cihaz paketlerimizi inceleyebilir ve ihtiyacınıza en uygun olan iptv satın al seçeneğini değerlendirebilirsiniz. Kaliteli iptv deneyiminin bölünmemesi için kurallara uyulması önemlidir.'
+                    question: 'Aynı Anda Kaç Cihazdan İzleyebilirim?',
+                    answer: 'Standart bireysel paketler tek eşzamanlı bağlantıyı destekler. Bu, üyeliğinizi evinizdeki televizyona, telefonunuza veya tabletinize kurabileceğiniz, ancak aynı saniye içinde yalnızca tek bir ekranda aktif yayın açabileceğiniz anlamına gelir. Evde aynı anda birden fazla odada yayın izlemek isteyen aileler için çoklu cihaz (2 Kullanıcı) paket seçeneklerimiz mevcuttur.'
                 },
                 {
                     question: 'İzlemek İçin Smart TV Şart mı?',
-                    answer: 'Hayır, en iyi iptv servisi esnekliği sayesinde izlemek için mutlaka bir Smart TV sahibi olmanız gerekmez. Kaliteli iptv altyapımız Android telefonlar ve tabletler, iOS (iPhone/iPad) cihazlar, Windows ve Mac bilgisayarlar, Apple TV, Android TV Box (Mi Box, Nvidia Shield vb.) ve Firestick gibi internete bağlanabilen hemen hemen her akıllı cihazla tam uyumludur. İptv kurulumu rehberlerimiz sayesinde cihazınız ne olursa olsun dakikalar içinde yayına bağlanabilir, nerede olursanız olun donmayan iptv kalitesiyle favori içeriklerinizi kesintisiz olarak takip edebilirsiniz.'
+                    answer: 'Hayır. Smart TV zorunlu değildir. Evinizdeki eski bir televizyona bağlayacağınız Amazon Fire TV Stick, Xiaomi Mi Box, Google Chromecast veya Apple TV gibi akıllı kutularla sistemi anında kullanabilirsiniz. Ayrıca iOS, Android mobil cihazlar ve bilgisayarlar üzerinden de sorunsuz çalışır.'
+                },
+                {
+                    question: 'Sözleşme veya Otomatik Kart Çekimi Var mı?',
+                    answer: 'Kesinlikle hayır. QruzeTV tamamen taahhütsüz ve şeffaf bir modelle çalışır. Satın aldığınız paket süresi (örneğin 3, 6 veya 12 ay) bittiğinde aboneliğiniz kendiliğinden sona erer; kartınızdan bilginiz dışında hiçbir otomatik yenileme ücreti tahsil edilmez.'
                 }
             ]
         },
         {
-            title: 'IPTV Satın Alma ve Fiyatlandırma',
+            title: 'Kurulum ve Cihaz Uyumluluğu',
             items: [
                 {
-                    question: 'Hangi Ödeme Yöntemlerini Kabul Ediyorsunuz?',
-                    answer: 'Kullanıcılarımızın iptv satın al işlemlerini en güvenli ve hızlı şekilde gerçekleştirebilmesi için çeşitli ödeme alternatifleri sunuyoruz. Güncel ödeme yöntemlerimiz arasında 3D Secure korumalı Kredi/Banka Kartı ödemeleri, Havale/EFT işlemleri ve uluslararası kullanıcılarımız için Kripto Para transferleri bulunmaktadır. Tüm finansal işlemleriniz uçtan uca şifrelenir ve sistemlerimizde hiçbir kart bilginiz saklanmaz. Kaliteli iptv hizmetine adım atarken ödeme güvenliğiniz bizim için en iyi iptv servisi olmanın getirdiği birincil sorumluluktur. Ödemeniz onaylandığı anda sistem otomatik olarak aboneliğinizi başlatır.'
+                    question: 'Smart TV Kurulumu Nasıl Yapılır?',
+                    answer: 'Samsung Tizen ve LG webOS televizyonlarda IBO Player, Smart IPTV veya Nanomid gibi popüler uygulamaları televizyonunuzun uygulama mağazasından indirmeniz yeterlidir. Uygulamanın ekranında beliren MAC adresini destek ekibimize ilettiğinizde veya panelden girdiğinizde kanal listeniz dakikalar içinde aktifleşir.'
                 },
                 {
-                    question: 'Paket Fiyatları Neye Göre Değişiklik Gösteriyor?',
-                    answer: 'İptv satın al sayfamızdaki fiyatlandırmalar temel olarak abonelik süresine (1, 3, 6 veya 12 aylık) ve içerik kapsamına göre belirlenmektedir. Uzun süreli paketlerimizde (örneğin 12 aylık), aylık bazda çok daha ekonomik fiyatlar sunularak müşteri avantajı sağlanır. Tüm paketlerimizde standart olarak donmayan iptv garantisi, 4K/UHD kanal seçenekleri ve geniş film/dizi arşivi dahildir. En iyi iptv servisi kalitesinden ödün vermeden, her bütçeye uygun kaliteli iptv çözümleri üretiyoruz. Ayrıca zaman zaman düzenlediğimiz kampanyalarla fiyat avantajlarını daha da cazip hale getiriyoruz.'
+                    question: 'Hangi IPTV Oynatıcı Uygulamalarını Öneriyorsunuz?',
+                    answer: 'Android TV ve Firestick cihazlarda TiviMate veya IPTV Smarters Pro en akıcı ve kullanıcı dostu arayüzü sunar. Apple TV ve iPhone/iPad cihazlarda IPTVX veya GSE Smart IPTV, Smart TV tarafında ise IBO Player tavsiye edilir. QruzeTV açık M3U ve Xtream Codes protokollerini desteklediği için sizi zorunlu bir uygulamaya bağlamaz.'
                 },
                 {
-                    question: 'Satın Alım Sonrası Bilgilerim Ne Zaman İletilir?',
-                    answer: 'Hızlı ve kesintisiz hizmet politikamız gereği, iptv satın al işleminiz ve ödemeniz onaylandıktan hemen sonra abonelik bilgileriniz dakikalar içinde oluşturulur. İlgili iptv kurulumu yönergeleri, size özel M3U linkiniz ve Xtream Codes giriş bilgileriniz, kayıt sırasında belirttiğiniz e-posta adresinize veya WhatsApp hattınıza otomatik olarak gönderilir. Kurulumu tamamlayıp anında kaliteli iptv izlemeye başlayabilirsiniz. Olası gecikmelerde 7/24 aktif olan destek hattımız anında müdahale ederek en iyi iptv servisi deneyiminizi başlatmanızı sağlar.'
+                    question: 'M3U Linki ve Xtream Codes Bilgisi Nedir?',
+                    answer: 'M3U, oynatıcı uygulamalara yapıştırılan tek satırlık akış bağlantısıdır. Xtream Codes ise Sunucu Adresi (URL), Kullanıcı Adı ve Şifre formatında çalışan pratik bir API giriş yöntemidir. Siparişinizin hemen ardından her iki format da WhatsApp veya e-posta ile tarafınıza iletilir.'
                 },
                 {
-                    question: 'Memnun Kalmazsam İade Hakkım Var mı?',
-                    answer: 'Kendi donmayan iptv altyapımıza ve kaliteli iptv içeriklerimize olan güvenimiz tamdır. Ancak herhangi bir teknik uyumsuzluk veya beklentilerinizin karşılanmaması durumunda, iptv satın al işleminizin ardından ilk 24 saat içinde koşulsuz iade garantisi sunuyoruz. İade talepleriniz için müşteri hizmetlerimizle iletişime geçmeniz yeterlidir. Amacımız sadece satış yapmak değil, sektördeki en iyi iptv servisi olarak uzun vadeli müşteri memnuniyeti sağlamaktır. Bu nedenle satın almadan önce altyapımızı test edebilmeniz için ücretsiz deneme (test) yayınları da sağlamaktayız.'
+                    question: 'Elektronik Program Rehberi (EPG) Otomatik Yüklenir mi?',
+                    answer: 'Evet. Yayın altyapımız canlı EPG entegrasyonuna sahiptir. Xtream Codes veya EPG destekli M3U bağlantısı girdiğinizde, kanalların o anki yayın akışı ve günün program takvimi oynatıcınızın arayüzünde otomatik olarak listelenir.'
                 }
             ]
         },
         {
-            title: 'IPTV Kurulumu ve Teknik Sorular',
+            title: 'Yayın Kalitesi ve İnternet Altyapısı',
             items: [
                 {
-                    question: 'Farklı Cihazlar İçin IPTV Kurulumu Nasıl Yapılır?',
-                    answer: 'Her cihazın işletim sistemi farklı olduğundan iptv kurulumu adımları küçük farklılıklar gösterir. Smart TV\'ler için mağazadan IPTV Smarters Pro, IBO Player veya Set IPTV gibi uygulamaları indirmeniz; Android cihazlar için Google Play\'den, iOS cihazlar için App Store\'dan uyumlu oynatıcıları kurmanız gerekmektedir. Web sitemizdeki detaylı iptv kurulumu rehberlerimiz, cihaz bazlı olarak adım adım görsellerle anlatılmıştır. İşlemler oldukça basit olup, ortalama 3-5 dakika içinde tamamlanır. Kurulum esnasında takıldığınız herhangi bir noktada, kaliteli iptv izlemeye bir an önce başlamanız için teknik destek ekibimiz canlı olarak yardımcı olmaktadır.'
+                    question: 'Yayınlarda Donma veya Takılma Yaşanır mı?',
+                    answer: 'Yayın sunucularımız doğrudan Frankfurt (DE-CIX) ve Amsterdam ana internet değişim noktalarındaki yüksek kapasiteli CDN ağlarına bağlıdır. Bu sayede akşam saatlerindeki yoğunlukta veya derbi maçlarında tamponlama (buffering) yaşanmaz. En yüksek verim için evinizde modeme kablolu (Ethernet) bağlanmanızı öneririz.'
                 },
                 {
-                    question: 'Hangi IPTV Uygulamasını (Player) Kullanmalıyım?',
-                    answer: 'Kusursuz bir kaliteli iptv deneyimi için doğru uygulama seçimi kritiktir. Android ve iOS cihazlar ile Smart TV\'lerde en stabil çalışan, arayüzü kullanıcı dostu olan ve donmayan iptv performansını en iyi yansıtan uygulama IPTV Smarters Pro\'dur. Alternatif olarak XCIPTV, Tivimate (özellikle Android Box için) ve DuplexPlay uygulamaları da yüksek performans sunar. En iyi iptv servisi kalitesini hissetmek için cihazınıza ve kullanım alışkanlıklarınıza en uygun uygulamayı seçmeniz önemlidir. İptv kurulumu aşamasında ekibimiz cihaz modelinize göre size en uygun premium uygulamayı tavsiye edecektir.'
+                    question: 'İnternet Hızım Minimum Kaç Mbps Olmalı?',
+                    answer: 'Full HD 1080p yayınlar için kesintisiz 16 Mbps, gerçek 60 FPS canlı spor ve 4K yayınlar için ise 25-35 Mbps ve üzeri stabil bir bağlantı tavsiye edilir. Önemli olan anlık hızdan ziyade hattın ping ve paket kaybı (jitter) kararlılığıdır.'
                 },
                 {
-                    question: 'Kanal Listesi (M3U) Nasıl Güncellenir?',
-                    answer: 'İçerik arşivimiz ve kanal listelerimiz teknik ekibimiz tarafından arka planda sürekli olarak güncellenmektedir. Xtream Codes API kullanan modern uygulamalarda iptv kurulumu yaptıysanız, programı her açtığınızda listeler otomatik olarak güncellenir. Eğer manuel bir M3U dosyası kullanıyorsanız, uygulamanızın menüsünden "Reload Playlist" (Listeyi Yenile) veya "Update" butonuna basmanız yeterlidir. VOD (film/dizi) arşivimize her hafta eklenen yeni içerikleri anında görebilmek ve kaliteli iptv arşivinin tadını çıkarmak için uygulamanızın güncellemeleri otomatik alacak şekilde ayarlandığından emin olunuz.'
-                },
-                {
-                    question: 'İzlemek İçin İnternet Hızım Minimum Ne Olmalı?',
-                    answer: 'Görüntü kalitesi ve veri akışının kesintiye uğramaması için internet hızı en önemli faktördür. Standart Çözünürlük (SD) ve Yüksek Çözünürlük (HD) kanallar için kesintisiz minimum 16 Mbps indirme (download) hızı gereklidir. Ancak gerçek donmayan iptv keyfini Full HD ve 4K Ultra HD yayınlarda yaşamak istiyorsanız, stabil olarak 35-50 Mbps ve üzeri bir fiber veya VDSL bağlantıya sahip olmanızı öneriyoruz. İptv satın al kararınızı vermeden önce hız testi (Speedtest) yaparak altyapınızı kontrol etmeniz, en iyi iptv servisi deneyimini eksiksiz yaşamanız açısından faydalı olacaktır.'
+                    question: 'Avrupa ve Yurt Dışında VPN Gerekir mi?',
+                    answer: 'Hayır. Sunucularımız doğrudan Avrupa lokasyonlu olduğu için Almanya, Hollanda, Fransa, Avusturya ve diğer Avrupa ülkelerinde herhangi bir VPN kullanmanıza gerek kalmadan en düşük gecikmeyle doğrudan bağlanabilirsiniz.'
                 }
             ]
         },
         {
-            title: 'IPTV Kalitesi ve Performans',
+            title: 'Sipariş, Deneme ve Destek',
             items: [
                 {
-                    question: 'Yayınlarda Donma veya Takılma Yaşar mıyım?',
-                    answer: 'Yük dengeleme ve yedekli altyapıyla yüksek erişilebilirlik hedeflenir. Buna rağmen yayın kalitesi internet bağlantınıza, Wi-Fi sinyaline, kullandığınız cihaza ve kaynak yayına göre değişebilir. En iyi sonucu görmek için satın almadan önce ücretsiz test yapın; mümkünse ethernet bağlantısı kullanın.'
+                    question: 'Satın Almadan Önce Ücretsiz Test Edebilir miyim?',
+                    answer: 'Evet. Altyapımızın görüntü netliğini, kanal akıcılığını ve cihazınızdaki uyumunu kendi gözlerinizle görmeniz için 2 saatlik ücretsiz test yayını sağlıyoruz. Test talebinizi sitemizdeki formdan veya WhatsApp destek hattımızdan iletebilirsiniz.'
                 },
                 {
-                    question: '4K ve Ultra HD Yayınlar Mevcut mu?',
-                    answer: 'Evet, arşivimizde teknolojinin ulaştığı en yüksek görüntü standartları mevcuttur. Başta belgesel, sinema ve seçkin spor kanalları olmak üzere yüzlerce kanal ve binlerce VOD içeriği 4K ve UHD çözünürlükte sunulmaktadır. Geleneksel yayınların ötesinde bir kaliteli iptv deneyimi yaşamak isteyen kullanıcılarımız için sürekli genişleyen bir yüksek çözünürlük arşivi oluşturuyoruz. 4K yayınlarda donmayan iptv akışını sağlayabilmek için televizyonunuzun veya cihazınızın bu çözünürlüğü desteklediğinden ve internet hızınızın yeterince yüksek olduğundan emin olmalısınız.'
+                    question: 'Sipariş Sonrası Bilgilerim Ne Kadar Sürede Gelir?',
+                    answer: 'Ödemeniz onaylandıktan sonra aktivasyon bilgileriniz genelde 5 ile 15 dakika arasında WhatsApp veya e-posta yoluyla size ulaştırılır. Kurulum adımlarında takıldığınız her an destek uzmanlarımız birebir yardımcı olur.'
                 },
                 {
-                    question: 'Maç Günlerinde Sunucularda Yoğunluk Oluyor mu?',
-                    answer: 'Akşam saatleri gibi yoğun kullanım dilimlerinde sektör genelinde trafik artışı yaşanır. Bizim altyapımız, anlık kullanıcı artışlarını kaldırabilecek devasa bant genişliklerine (Bandwidth) ve yedekli sunucu (Backup Server) sistemlerine sahiptir. Bu teknolojik yatırımımız sayesinde en yoğun saatlerde bile donmayan iptv kalitemizden taviz vermeyiz. Kesintisiz bir izleme deneyimi için iptv satın alırken altyapı gücüne dikkat etmek çok önemlidir.'
-                }
-            ]
-        },
-        {
-            title: 'IPTV Kanal ve İçerik Soruları',
-            items: [
-                {
-                    question: 'Paketlerde Hangi Ülkelerin Kanalları Bulunuyor?',
-                    answer: 'Geniş kapsamlı iptv satın al paketlerimiz, gerçek bir küresel televizyon deneyimi sunar. Başta Türkiye ulusal, yerel, spor ve sinema kanalları olmak üzere; Almanya, İngiltere, Fransa, Hollanda, ABD, Arap ülkeleri, Rusya ve İskandinav ülkeleri gibi dünyanın dört bir yanından 10.000+ canlı kanal bulunmaktadır. Yurtdışında yaşayan gurbetçilerimiz için memleket hasretini dindiren kaliteli iptv yayınlarının yanı sıra, yabancı dilini geliştirmek isteyenler için de eşsiz bir kaynaktır. Menünüzden dilediğiniz ülkenin kategorisine kolayca erişebilirsiniz.'
-                },
-                {
-                    question: 'Film ve Dizi Arşivi (VOD) Ne Sıklıkla Güncellenir?',
-                    answer: 'En iyi iptv servisi olmanın gerekliliklerinden biri de içeriği daima taze tutmaktır. VOD (Video on Demand) kütüphanemiz, sinema filmleri, dizi ve belgesel kategorileriyle her hafta düzenli olarak güncellenir. On binlerce içerikten oluşan bu dev arşivde, tüm içerikler Türkçe dublaj veya altyazı seçenekleriyle, yüksek görüntü kalitesinde sunulmaktadır. Donmayan iptv sunucularımız üzerinden dilediğiniz filmi istediğiniz an durdurup, ileri geri sararak izleme özgürlüğüne sahipsiniz.'
-                },
-                {
-                    question: 'Yetişkin (Adult) Kanalları Şifreleyebilir miyim?',
-                    answer: 'Evet, aile dostu bir kaliteli iptv kullanımını destekliyoruz. İptv kurulumu için kullandığınız IPTV Smarters Pro, Tivimate veya benzeri uygulamaların neredeyse tamamında "Ebeveyn Kontrolü" (Parental Control) veya "Kanal Kilitleme" özelliği bulunmaktadır. Uygulama ayarlarından belirleyeceğiniz 4 haneli bir PIN kodu ile yetişkin içerikli kategorileri veya çocuklarınızın izlemesini istemediğiniz diğer buketleri kolayca şifreleyebilir veya tamamen gizleyebilirsiniz. Böylece evinizdeki en iyi iptv servisi, her yaş grubuna uygun güvenli bir eğlence merkezine dönüşür.'
-                }
-            ]
-        },
-        {
-            title: 'IPTV Destek ve Sorun Giderme',
-            items: [
-                {
-                    question: 'Ses Var Fakat Görüntü Yok, Ne Yapmalıyım?',
-                    answer: 'Bu durum genellikle cihazınızın oynatıcısındaki video çözücü (codec) ayarlarıyla ilgili bir uyumsuzluktan kaynaklanır. Eğer kaliteli iptv yayınınızda siyah ekran görüyor ancak sesi duyuyorsanız, kullandığınız iptv kurulumu uygulamasının ayarlarına (Settings) girin. "Player Selection" (Oynatıcı Seçimi) veya "Decoder" bölümünden ayarı VLC Player, ExoPlayer veya HW (Hardware Decoder) / SW (Software Decoder) olarak değiştirerek test edin. Donmayan iptv izleme ayarlarını cihazınıza en uygun hale getirdiğinizde sorun anında çözülecektir. Çözülmemesi durumunda destek ekibimiz uzaktan yardımcı olacaktır.'
-                },
-                {
-                    question: 'Satış Sonrası Teknik Destek Hizmetiniz Var mı?',
-                    answer: 'Kesinlikle! Bizi sektördeki en iyi iptv servisi yapan özelliklerimizin başında, satış sonrasında sunduğumuz premium teknik destek gelir. İptv satın al işleminizin üzerinden aylar geçse bile; iptv kurulumu, kanal güncellemeleri, donma problemleri veya cihaz değişiklikleri gibi her türlü teknik konuda uzman ekibimiz 7/24 hizmetinizdedir. Web sitemizdeki canlı destek paneli veya WhatsApp hattımız üzerinden bize anında ulaşabilir, sorunlarınıza dakikalar içinde profesyonel çözümler bulabilirsiniz. Amacımız, kaliteli iptv keyfinizin yılın 365 günü kesintisiz sürmesini sağlamaktır.'
+                    question: 'Teknik Sorun Yaşadığımda Kiminle Görüşeceğim?',
+                    answer: 'Otomatik robot cevapları yerine; televizyonunuzun ve cihazınızın dilinden anlayan gerçek Türkçe destek uzmanlarımız WhatsApp üzerinden 7 gün boyunca hizmet vermektedir.'
                 }
             ]
         }

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { Star, Calendar, Film, ArrowLeft, Play, Users, Loader2, AlertCircle, Globe } from 'lucide-react';
+import { Star, Calendar, Film, ArrowLeft, Play, Users, Loader2, AlertCircle, Globe, Tv } from 'lucide-react';
 import HeaderDE from '@/components/HeaderDE';
 import FooterDE from '@/components/FooterDE';
 import useMovieDatabase from '@/hooks/useMovieDatabase';
@@ -155,9 +155,12 @@ const WhatToWatchDetailPageDE = ({ siteData }) => {
               <img src={buildImageUrl(poster_path, 'w500')} alt={`${displayTitle} posteri`} className="w-full" loading="eager" fetchPriority="high" decoding="async" />
             </div>
             <div className="mt-6 space-y-3">
-              <Button onClick={() => navigate('/de/paketler')} className="w-full bg-pink-600 hover:bg-pink-700 h-12 rounded-xl text-lg font-bold shadow-lg shadow-pink-600/20">
-                <Play className="w-5 h-5 mr-2 fill-current" /> Jetzt ansehen
+              <Button onClick={() => navigate('/de/paketler')} className="w-full bg-primary hover:bg-primary h-12 rounded-xl text-base font-bold shadow-lg shadow-primary/20">
+                <Tv className="w-5 h-5 mr-2" /> Streaming-Pakete ansehen
               </Button>
+              <p className="text-[11px] text-slate-500 mt-2 text-center leading-relaxed font-light">
+                * Diese Seite dient rein informativen Zwecken via TMDB. QruzeTV hostet keine urheberrechtlich geschützten Kinofilme.
+              </p>
               <div className="pt-1">
                 <SocialShareButtons
                   url={canonicalUrl}

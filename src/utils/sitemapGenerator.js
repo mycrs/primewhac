@@ -270,6 +270,7 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
     '/packages', '/about', '/installation', '/faq', '/bayilik', '/kanallar',
     '/privacy', '/terms', '/what-to-watch', '/instructions',
     '/spor-gundemi',
+    '/contact', '/de/contact', '/de/iletisim', '/de/kontakt',
     '/karsilastir', '/detayli-kurulum',
     '/gizlilik-politikasi', '/kullanim-sartlari',
     '/sitemap', '/bing-verification', '/admin', '/admin-login', '/yonetim', '/yonetim/giris',

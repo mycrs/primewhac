@@ -5,7 +5,7 @@ export const defaultData = {
   siteTexts: {
     brandName: "QruzeTV",
     welcomeTitle: "Sınırsız Eğlence Dünyasına Hoş Geldiniz",
-    welcomeSubtitle: "10.000+ canlı kanal ve zengin film/dizi arşivi en yüksek kalitede ekranlarınızda.",
+    welcomeSubtitle: "Ulusal kanallar, kesintisiz canlı spor akışı ve zengin tematik yayınlar en yüksek kalitede ekranlarınızda.",
     heroButtonText: "Hemen Başla",
     heroButtonLink: "/paketler/",
     contact: {
@@ -24,7 +24,7 @@ export const defaultData = {
   heroData: {
     titlePrefix: "QruzeTV",
     titleHighlight: "Premium IPTV",
-    description: "10.000+ canlı kanal ve geniş film/dizi arşivi tek platformda. 4K/UHD seçeneklerini ücretsiz test edin, cihazınıza uygun kurulum desteği alın.",
+    description: "Ulusal kanallar, canlı spor fikstürü ve tematik yayınlar tek platformda. 4K/60FPS seçeneklerini ücretsiz test edin, cihazınıza uygun kurulum desteği alın.",
     primaryButtonText: "Hemen Test Et",
     primaryButtonLink: "/test/",
     secondaryButtonText: "Paketleri İncele",

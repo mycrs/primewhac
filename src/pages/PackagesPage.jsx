@@ -20,7 +20,7 @@ const PACKAGES_FAQ_ITEMS = [
   },
   {
     q: 'Paket fiyatları nasıl belirleniyor?',
-    a: 'Fiyatlar abonelik süresine (1, 3, 6, 12 veya 15 ay) ve kullanıcı sayısına göre belirlenir. Süre uzadıkça aylık maliyet düşer; 12 ve 15 aylık paketler bu yüzden en ekonomik seçeneklerdir. Tüm paketlere aynı kanal listesi, film-dizi arşivi ve 7/24 destek dahildir.',
+    a: 'Fiyatlar abonelik süresine (1, 3, 6, 12 veya 15 ay) ve kullanıcı sayısına göre belirlenir. Süre uzadıkça aylık maliyet düşer; 12 ve 15 aylık paketler bu yüzden en ekonomik seçeneklerdir. Tüm paketlere aynı kanal listesi, tematik yayın akışı ve 7/24 destek dahildir.',
   },
   {
     q: 'Hangi ödeme yöntemlerini kabul ediyorsunuz?',

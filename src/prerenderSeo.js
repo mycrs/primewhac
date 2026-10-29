@@ -142,6 +142,8 @@ const BLOG_TEXT_FIXES = [
   [/MARKA_ADINIZ/gi, 'QruzeTV'],
   [/MARKA ADINIZ/gi, 'QruzeTV'],
   [/Qruze Tv /gi, 'QruzeTV '],
+  [/Qruze<[^>]*>HD<\/[^>]*>/gi, 'QruzeTV'],
+  [/Qruze<[^>]*>HD/gi, 'QruzeTV'],
   [/Qruze\s*HD/gi, 'QruzeTV'],
   [/QruzeHD/g, 'QruzeTV'],
   [/KaliteliIPTV/g, 'QruzeTV'],

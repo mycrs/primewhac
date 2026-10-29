@@ -1,95 +1,89 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Shield, Zap } from 'lucide-react';
+import { Network, ShieldCheck, HeartHandshake, Sparkles } from 'lucide-react';
 
-const values = [
+const VALUES = [
   {
     id: 1,
-    title: 'Deneyim',
-    icon: Briefcase,
-    description: 'Sektördeki 10 yılı aşkın tecrübemizle, kullanıcılarımızın ihtiyaçlarını en iyi şekilde analiz ediyor ve en doğru çözümleri sunuyoruz. Geçmişten gelen bilgi birikimimizi geleceğin teknolojisiyle harmanlıyoruz.',
-    color: 'from-[#e50914] to-[#b20710]',
-    shadow: 'shadow-blue-500/20',
-    delay: 0.1
+    title: 'Açık Standartlar & Donanım Özgürlüğü',
+    icon: Network,
+    kicker: 'M3U & Xtream Uyumlu',
+    description: 'Sizi tek bir hantal uygulamaya hapsetmiyoruz. Samsung Tizen, LG webOS, Apple TV, Fire TV veya TiviMate; sevdiğiniz arayüzü seçmekte tamamen özgürsünüz.',
+    accent: 'from-emerald-500 to-emerald-700',
+    borderGlow: 'hover:border-emerald-500/40'
   },
   {
     id: 2,
-    title: 'Güvenilirlik',
-    icon: Shield,
-    description: 'Müşteri memnuniyeti ve veri güvenliği bizim için her şeyden önce gelir. Güçlü altyapımız ve şeffaf hizmet politikamızla, size her zaman söz verdiğimiz kaliteyi ve güveni sunmayı taahhüt ediyoruz.',
-    color: 'from-[#e50914] to-[#b20710]',
-    shadow: 'shadow-primary/20',
-    delay: 0.2
+    title: 'Taahhütsüz & Gizli Kesintisiz Şeffaflık',
+    icon: ShieldCheck,
+    kicker: 'Otomatik Kart Çekimi Yok',
+    description: 'Sürpriz faturalar veya iptali zor sözleşmeler politikamızda yer almaz. Paket süreniz bittiğinde yenilemek tamamen sizin kararınızdır.',
+    accent: 'from-[#e50914] to-[#b20710]',
+    borderGlow: 'hover:border-primary/40'
   },
   {
     id: 3,
-    title: 'İnovasyon',
-    icon: Zap,
-    description: 'Teknoloji dünyasındaki gelişmeleri yakından takip ediyor, altyapımızı sürekli güncelliyoruz. En yeni yayın teknolojilerini ve modern çözümleri sistemimize entegre ederek, her zaman bir adım önde olmanızı sağlıyoruz.',
-    color: 'from-amber-500 to-orange-500',
-    shadow: 'shadow-amber-500/20',
-    delay: 0.3
+    title: 'Birebir İnsan Rehberliği & Empati',
+    icon: HeartHandshake,
+    kicker: 'Gerçek Türkçe Destek',
+    description: 'Yapay zeka robotları yerine, televizyonunuzun ve ev internetinizin teknik gereksinimlerine göre doğrudan WhatsApp üzerinden çözüm sunan gerçek uzmanlar.',
+    accent: 'from-amber-500 to-amber-700',
+    borderGlow: 'hover:border-amber-500/40'
   }
 ];
 
 const AboutValueSection = () => {
   return (
-    <section className="py-24 relative overflow-hidden bg-[#0a0a0a]">
-      {/* Background Decor */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0a0a0a] to-transparent opacity-50" />
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0a0a0a] to-transparent opacity-50" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-20 relative overflow-hidden" aria-labelledby="about-values-heading">
+      <div className="container mx-auto px-4 relative z-10 max-w-6xl">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16 max-w-3xl mx-auto"
         >
-          <span className="text-sm font-bold tracking-wider text-slate-500 uppercase mb-3 block">Değerlerimiz</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Mükemmelliği Hedefleyen <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-[#141414]">Standartlarımız</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-semibold uppercase tracking-wider mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-primary" />
+            <span>Yayın Felsefemiz</span>
+          </div>
+          <h2 id="about-values-heading" className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">
+            Taviz Vermediğimiz Temel İlkelerimiz
           </h2>
-          <p className="text-slate-400 text-lg leading-relaxed">
-            Hizmet kalitemizi belirleyen temel prensiplerimizle, size sadece bir yayın değil, kusursuz bir deneyim sunuyoruz.
+          <p className="text-slate-300 text-base md:text-lg leading-relaxed font-light">
+            Sadece bir yayın akışı değil; gurbette evinize huzur ve güven getiren dürüst bir hizmet anlayışı.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {values.map((item) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: item.delay }}
-              className={`relative group p-1 rounded-2xl bg-gradient-to-b from-[#0a0a0a] to-[#141414] hover:from-[#0a0a0a] hover:to-[#141414] transition-all duration-300`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"
-                   style={{ background: `linear-gradient(to bottom right, var(--tw-gradient-stops))` }} 
-              />
-              
-              <div className="h-full bg-[#0a0a0a] rounded-xl p-8 relative overflow-hidden group-hover:-translate-y-1 transition-transform duration-300 border border-slate-800 group-hover:border-slate-700">
-                {/* Glow Effect */}
-                <div className={`absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-br ${item.color} blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full pointer-events-none`} />
-
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.color} p-0.5 mb-8 shadow-lg ${item.shadow} group-hover:scale-110 transition-transform duration-300`}>
-                  <div className="w-full h-full bg-[#0a0a0a] rounded-[14px] flex items-center justify-center backface-hidden">
-                    <item.icon className={`w-8 h-8 text-transparent bg-clip-text bg-gradient-to-br ${item.color} stroke-current`} />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {VALUES.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: idx * 0.1 }}
+                className={`group relative rounded-3xl border border-white/10 bg-gradient-to-b from-[#141418] via-[#0d0d10] to-[#08080a] p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 ${item.borderGlow} hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)]`}
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 text-white group-hover:scale-105 transition-transform">
+                    <Icon className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
                   </div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-primary block mb-2 font-mono">
+                    {item.kicker}
+                  </span>
+                  <h3 className="text-xl font-bold text-white mb-3 leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-slate-300 leading-relaxed font-light">
+                    {item.description}
+                  </p>
                 </div>
-
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#141414] transition-colors">
-                  {item.title}
-                </h3>
-                
-                <p className="text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">
-                  {item.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

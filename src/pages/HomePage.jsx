@@ -22,7 +22,7 @@ import FeaturedReviewsCarousel from '@/components/FeaturedReviewsCarousel';
 import LazySection from '@/components/LazySection';
 import PremiumConversionStrip from '@/components/PremiumConversionStrip';
 import { initPerformanceMonitoring } from '@/utils/performanceMonitoring';
-import { ShieldCheck, Lock, Calendar, Film } from 'lucide-react';
+import { ShieldCheck, Lock, Calendar, Tv, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { homePageSchemas } from '@/utils/seoSchema';
 import { SITE_URL } from '@/constants/siteUrl';
@@ -82,7 +82,7 @@ const HomePage = ({ siteData }) => {
           
           <LazySection className="qruze-cinema-section premium-section-signature py-16 relative z-10 content-visibility-auto">
             <ErrorBoundary onRetry={handleRetry}>
-               <TrendingContentSlider title="4K Kalitesinde Popüler İçerikler" />
+               <TrendingContentSlider title="Editoryal Seçki: Tematik Yayın Kuşakları" />
             </ErrorBoundary>
           </LazySection>
 
@@ -127,41 +127,38 @@ const HomePage = ({ siteData }) => {
                     className="pointer-events-none absolute inset-0 translate-x-[-100%] bg-[linear-gradient(110deg,transparent_18%,rgba(255,255,255,0.12)_50%,transparent_82%)] transition-transform duration-700 group-hover:translate-x-[100%]"
                     aria-hidden
                   />
-                  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center gap-0.5 rounded-xl bg-gradient-to-br from-[#e50914]/40 to-[#b20710]/50 shadow-[0_0_24px_rgba(229,9,20,0.35)] ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105">
-                    <span className="text-xl drop-shadow-md" aria-hidden>
-                      ⚽
-                    </span>
-                    <Calendar className="h-5 w-5 text-white drop-shadow-md" />
+                  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#e50914]/40 to-[#b20710]/50 shadow-[0_0_24px_rgba(229,9,20,0.35)] ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105">
+                    <Calendar className="h-6 w-6 text-white drop-shadow-md" />
                   </div>
                   <div className="relative z-10 min-w-0 flex-1">
                     <p className="text-xl font-bold text-white transition-colors group-hover:text-[#ff3b45]">
-                      Maç Takvimi & Fikstür
+                      Maç Takvimi & Canlı Fikstür
                     </p>
                     <p className="mt-1 text-sm text-slate-300">
-                      Günlük fikstür ve başlama saatleri. <span className="font-medium text-[#e50914]/95">Haftanın programı</span> tek ekranda.
+                      Süper Lig ve Avrupa ligleri başlama saatleri. <span className="font-medium text-[#e50914]/95">14 günlük program</span> tek ekranda.
                     </p>
                   </div>
                   <span className="relative z-10 shrink-0 text-sm font-semibold text-[#e50914] transition-transform duration-300 group-hover:translate-x-1">
-                    Program →
+                    Fikstür →
                   </span>
                 </Link>
                 <Link
-                  to="/ne-izlesem"
-                  title="Film ve dizi önerilerini keşfedin"
-                  className="qruze-cinema-link group flex w-full items-center gap-4 rounded-2xl border border-[#e50914]/40 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#e50914]/65 hover:shadow-[0_0_64px_rgba(229,9,20,0.24)]"
+                  to="/channels"
+                  title="Canlı kanal ve yayın rehberini inceleyin"
+                  className="qruze-cinema-link group flex w-full items-center gap-4 rounded-2xl border border-white/15 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-[0_0_64px_rgba(229,9,20,0.2)]"
                 >
                   <span
                     className="pointer-events-none absolute inset-0 translate-x-[-100%] bg-[linear-gradient(110deg,transparent_18%,rgba(255,255,255,0.12)_50%,transparent_82%)] transition-transform duration-700 group-hover:translate-x-[100%]"
                     aria-hidden
                   />
                   <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#e50914]/40 to-[#b20710]/50 shadow-[0_0_24px_rgba(229,9,20,0.35)] ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105">
-                    <Film className="h-6 w-6 text-white drop-shadow-md" />
+                    <Tv className="h-6 w-6 text-white drop-shadow-md" />
                   </div>
                   <div className="relative z-10 min-w-0 flex-1">
-                    <p className="text-xl font-bold text-white transition-colors group-hover:text-[#ff3b45]">Ne İzlesem?</p>
-                    <p className="mt-1 text-sm text-slate-300">Film ve dizi önerileri. <span className="font-medium text-[#e50914]/95">IPTV&apos;de izleyebileceğiniz</span> popüler içerikler.</p>
+                    <p className="text-xl font-bold text-white transition-colors group-hover:text-[#ff3b45]">Kanal Listesi & Türler</p>
+                    <p className="mt-1 text-sm text-slate-300">Ulusal, haber, belgesel ve çocuk yayınları. <span className="font-medium text-[#e50914]/95">Elektronik rehber (EPG)</span> ile anlık akış.</p>
                   </div>
-                  <span className="relative z-10 shrink-0 text-sm font-semibold text-[#e50914] transition-transform duration-300 group-hover:translate-x-1">Öneriler →</span>
+                  <span className="relative z-10 shrink-0 text-sm font-semibold text-[#e50914] transition-transform duration-300 group-hover:translate-x-1">Kanallar →</span>
                 </Link>
                 </div>
               </div>

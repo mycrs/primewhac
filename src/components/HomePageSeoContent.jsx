@@ -1,279 +1,173 @@
-
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Tv, Zap, Shield, Users, CheckCircle2, Star } from 'lucide-react';
-import HomePageVideoSection from '@/components/HomePageVideoSection';
+import { Tv, Zap, Shield, Users, CheckCircle2, Star, Cpu, HelpCircle, ArrowRight, Laptop, Smartphone } from 'lucide-react';
 import { useTestModal } from '@/contexts/TestModalContext';
 
 const HomePageSeoContent = ({ siteData }) => {
   const { openTestModal } = useTestModal();
 
   return (
-    <div className="container mx-auto px-4 py-16 text-slate-300 leading-relaxed">
-      <article className="max-w-5xl mx-auto">
+    <div className="container mx-auto px-4 py-16 text-slate-300 leading-relaxed max-w-6xl">
+      <article className="space-y-16">
         
-        <header className="mb-12 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Premium IPTV – <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">4K/UHD</span> Yayın Seçenekleri
+        {/* Editorial Heading */}
+        <header className="text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
+            <Cpu className="w-3.5 h-3.5 text-primary" />
+            <span>Dijital Yayın Rehberi & Mühendislik</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+            Yurt Dışında Türk Kanalları ve{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] via-[#f40612] to-amber-500">
+              Yüksek Çözünürlüklü Yayın Standartları
+            </span>
           </h2>
-            <p className="text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed">
-            Yurt dışından Türk kanallarını izlemek isteyen kullanıcılar için <span className="text-primary/90">cihaza uyumlu kurulum rehberleri</span>, 10.000+ canlı kanal, ücretsiz test ve Türkçe destek sunuyoruz.
+          <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-light">
+            Almanya, Avusturya, Hollanda ve Avrupa genelinde yaşayan Türk topluluğu için televizyon sadece bir eğlence aracı değil; anadili, kültürü ve memleket gündemini evde canlı tutmanın en samimi yoludur. QruzeTV, bu ihtiyacı modern yayın altyapısıyla buluşturur.
           </p>
         </header>
 
-        <section className="mb-16">
-          <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-            <Tv className="w-8 h-8 text-primary" />
-            Neden Premium IPTV Tercih Etmelisiniz?
-          </h3>
-          
-          <div className="prose prose-invert max-w-none mb-8">
-            <p className="text-lg mb-6 text-slate-200 leading-relaxed">
-              <span className="text-primary font-semibold">IPTV</span>, televizyon yayınlarını internet bağlantısı üzerinden izlemeyi sağlayan bir teknolojidir. Kanal seçimi, cihaz uyumluluğu ve esnek kurulum avantajı sunar; gerçek görüntü kalitesi ise bağlantı hızı, cihaz ve seçilen yayına göre değişir. QruzeTV, satın alma öncesinde ücretsiz test olanağı ve adım adım kurulum desteği sağlar.
-            </p>
+        {/* Section 1: Yayın Teknolojisi ve Bitrate Gerçekleri */}
+        <section className="bg-gradient-to-b from-[#141418] via-[#0d0d10] to-[#08080a] p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl">
+          <div className="max-w-4xl mx-auto">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+              <Zap className="w-7 h-7 text-primary shrink-0" />
+              <span>Yayın Donması Neden Olur ve Nasıl Önlenir?</span>
+            </h3>
             
-            <p className="text-lg mb-6 text-slate-200 leading-relaxed">
-              IPTV çözümümüz, özellikle kullanıcıların ihtiyaçları göz önünde bulundurularak geliştirilmiştir. <span className="text-amber-200/90">Kapsamlı yerel kanallar</span>, uluslararası yayınlar, özel spor müsabakaları ve eğlence programları yelpazemizden faydalanırsınız. Teknik mükemmellik ve müşteri memnuniyetine büyük önem veriyoruz.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
-              <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                <Zap className="w-6 h-6 text-primary" />
-                Kesintisiz ve Donmasız IPTV
-              </h4>
-              <p className="text-slate-300 mb-4 leading-relaxed">
-                Akıcı bir izleme deneyimi için <span className="text-primary font-semibold">kararlı bir internet bağlantısı</span> gerekir. Yayın altyapımız, yedekli sistemler ve yük dağıtımıyla yoğun saatlerde performansı korumak üzere optimize edilmiştir. Sonuç; bağlantı hızı, Wi-Fi kalitesi, cihaz ve kaynak yayına göre değişebileceği için satın alma öncesinde ücretsiz test öneriyoruz.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <span>Yedekli sunucularla yüksek erişilebilirlik hedefi</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <span>Gerçek zamanlı otomatik hata düzeltme</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <span>İnternet servis sağlayıcıları ile optimize edilmiş bağlantı</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
-              <h4 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                <Star className="w-6 h-6 text-primary" />
-                Mükemmel İzleme Deneyimi için 4K IPTV
-              </h4>
-              <p className="text-slate-300 mb-4 leading-relaxed">
-                Ultra HD eğlence dünyasına adım atın! <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-orange-300 font-semibold">4K IPTV</span> hizmetimiz, Full HD'den dört kat daha yüksek çözünürlükle jilet gibi keskin görüntüler sunar. En sevdiğiniz programların, filmlerin ve spor etkinliklerinin keyfini nefes kesici görüntü kalitesinde çıkarın. Akıllı TV'nizde, tabletinizde veya akıllı telefonunuzda – <span className="text-white">adaptif yayın teknolojimiz</span> kaliteyi internet hızınıza ve cihazınıza göre otomatik olarak ayarlar.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <span>4K'ya kadar Ultra HD Çözünürlük (2160p)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <span>Canlı renkler için HDR desteği</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <span>Optimum kalite için uyarlanabilir bit hızı</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-16">
-          <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-            <Shield className="w-8 h-8 text-primary" />
-            Premium IPTV Sağlayıcısı – Farkımız Nedir?
-          </h3>
-
-          <div className="prose prose-invert max-w-none mb-8">
-            <p className="text-lg mb-6 text-slate-200 leading-relaxed">
-              QruzeTV, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] font-semibold">Premium IPTV paketleri</span> ve cihaz kurulum desteği sunar. Paket kapsamını, cihaz uyumluluğunu ve kurulum adımlarını açıkça paylaşarak karar vermenizi kolaylaştırıyoruz. Satın almadan önce ücretsiz test ile yayın deneyimini kendi cihazınızda doğrulayabilirsiniz.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-6 rounded-xl border border-slate-700 hover:border-primary transition-all">
-              <h4 className="text-xl font-bold text-white mb-4">Geniş Kanal Seçenekleri</h4>
-              <p className="text-slate-300 mb-4 leading-relaxed">
-                Dünyanın farklı bölgelerinden <span className="text-amber-200/90 font-semibold">10.000+ canlı TV kanalı</span> sunulur. Ulusal ve uluslararası haber, spor, belgesel ve eğlence kategorilerinin yanında isteğe bağlı geniş bir film ve dizi arşivi bulunur. Güncel kapsamı satın alma öncesinde kanal listesi ve ücretsiz test üzerinden doğrulayabilirsiniz.
-              </p>
-              <Link to="/channels" title="IPTV kanal listesini inceleyin" className="text-primary hover:text-primary font-semibold inline-flex items-center gap-2">
-                Kanal Listesini İncele →
-              </Link>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-6 rounded-xl border border-slate-700 hover:border-primary transition-all">
-              <h4 className="text-xl font-bold text-white mb-4">Güvenilir Müşteri Desteği</h4>
-              <p className="text-slate-300 mb-4 leading-relaxed">
-                Destek ekibimiz <span className="text-[#e50914]/90 font-semibold">haftanın 7 günü, günün 24 saati</span> hizmetinizdedir. Kurulumla ilgili sorularınız mı var, teknik desteğe mi ihtiyacınız var veya cihazlarınızı yapılandırma konusunda yardıma mı ihtiyacınız var – sizin için buradayız. WhatsApp veya e-posta yoluyla bize her zaman hızlı ve kolay bir şekilde ulaşabilirsiniz.
-              </p>
-              <Link to="/sss" title="IPTV sıkça sorulan sorularını görün" className="text-primary hover:text-primary font-semibold inline-flex items-center gap-2">
-                Tüm soruları gör →
-              </Link>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-6 rounded-xl border border-slate-700 hover:border-primary transition-all">
-              <h4 className="text-xl font-bold text-white mb-4">Güvenli ve Gizli Kullanım</h4>
-              <p className="text-slate-300 mb-4 leading-relaxed">
-                Güvenliğiniz ve gizliliğiniz bizim için önceliklidir. <span className="text-white">Bağlantı güvenliği ve veri minimizasyonu</span> ilkelerini uygularız; hangi verilerin işlendiğini gizlilik sayfamızda açıklarız. Böylece <span className="text-primary font-semibold">IPTV hizmetini</span> daha bilinçli kullanabilirsiniz.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-16 bg-gradient-to-br from-[#e50914]/20 to-[#141414]/50 p-8 md:p-12 rounded-2xl border border-primary/30">
-          <h3 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-            <Users className="w-8 h-8 text-primary" />
-            IPTV Satın Al – Kolay ve Güvenli
-          </h3>
-
-          <div className="prose prose-invert max-w-none">
-            <p className="text-lg mb-6 text-slate-200 leading-relaxed">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] font-semibold">IPTV satın almak</span> istiyor ve sipariş sürecinin nasıl işlediğini mi merak ediyorsunuz? Premium televizyona başlamak bizimle çok kolay. Sadece size uygun paketi seçin; ister deneme için 1 aylık abonelik, ister <span className="text-amber-200/90">cazip indirimlerle uzun vadeli paketler</span> olsun. Gizli maliyetler barındırmayan şeffaf fiyatlandırma sistemimiz sayesinde tam maliyet kontrolü sağlıyoruz.
+            <p className="text-slate-300 text-base md:text-lg mb-6 leading-relaxed font-light">
+              Dijital yayınlarda akıcılık; yalnızca evinizdeki internet hızına değil, yayını ileten sunucunun Avrupa ana omurgasına (DE-CIX Frankfurt, AMS-IX Amsterdam) olan doğrudan bağlantısına bağlıdır. Geleneksel ucuz sunucular, akşam saatlerinde veya derbi maçlarında bant genişliği yetersizliğinden kilitlenir.
             </p>
 
             <div className="grid md:grid-cols-2 gap-6 my-8">
-              <div className="space-y-4">
-                <p className="text-xl font-semibold text-white">4 Adımda Satın Alma Süreci:</p>
-                <ol className="space-y-3 list-none">
-                  <li className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[#e50914] to-[#b20710] rounded-full flex items-center justify-center font-bold text-white shadow-lg shadow-primary/20">1</span>
-                    <div className="text-slate-200">
-                      <strong className="text-primary">Paket Seçimi:</strong> İhtiyaçlarınıza uygun bir abonelik süresi seçin.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[#e50914] to-[#b20710] rounded-full flex items-center justify-center font-bold text-white shadow-lg shadow-emerald-500/20">2</span>
-                    <div className="text-slate-200">
-                      <strong className="text-[#e50914]">Şeffaf Ödeme:</strong> Kullanılabilir yöntemleri, toplam tutarı ve iade koşullarını sipariş öncesinde inceleyin.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-amber-500 to-amber-700 rounded-full flex items-center justify-center font-bold text-white shadow-lg shadow-amber-500/20">3</span>
-                    <div className="text-slate-200">
-                      <strong className="text-amber-200">Bilgileri Teslim Alın:</strong> Giriş bilgileriniz anında WhatsApp veya e-posta ile iletilir.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[#e50914] to-[#b20710] rounded-full flex items-center justify-center font-bold text-white shadow-lg shadow-sky-500/20">4</span>
-                    <div className="text-slate-200">
-                      <strong className="text-white">Hemen Başlayın:</strong> Uygulamayı kurun ve en iyi kalitede IPTV'nin keyfini çıkarın.
-                    </div>
-                  </li>
-                </ol>
+              <div className="bg-black/40 p-6 rounded-2xl border border-white/10">
+                <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  Doğrudan Avrupa CDN Peering
+                </h4>
+                <p className="text-sm text-slate-300 leading-relaxed font-light mb-4">
+                  Sunucularımız, Avrupa&apos;nın önde gelen telekom sağlayıcılarıyla (Telekom Deutschland, Vodafone, KPN) doğrudan eşleşerek aradaki aracı düğümleri atlar ve gecikmeyi en alt seviyeye çeker.
+                </p>
+                <div className="text-xs text-emerald-400 font-mono">✓ Sıfır Paket Kaybı Hedefi</div>
               </div>
 
-              <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-700">
-                <p className="text-xl font-semibold text-white mb-4">Güvenli Ödeme Yöntemleri</p>
-                <ul className="space-y-3">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-green-500" />
-                    <span>Kredi Kartı / Banka Kartı (Güvenli Altyapı)</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-green-500" />
-                    <span>Havale / EFT / FAST</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-green-500" />
-                    <span>Kripto Para Seçenekleri</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-green-500" />
-                    <span>Uluslararası Ödeme Seçenekleri</span>
-                  </li>
-                </ul>
-                <p className="text-sm text-slate-400 mt-4">
-                  Tüm ödemeler SSL şifrelidir ve en yüksek güvenlik standartlarını karşılar.
+              <div className="bg-black/40 p-6 rounded-2xl border border-white/10">
+                <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-amber-400" />
+                  H.265 / HEVC Akıllı Sıkıştırma
+                </h4>
+                <p className="text-sm text-slate-300 leading-relaxed font-light mb-4">
+                  Eski H.264 teknolojisine kıyasla yarı yarıya daha az bant genişliği tüketerek iki kat daha net piksel yoğunluğu sağlar. Wi-Fi bağlantınız zayıflasa bile akış kesintiye uğramaz.
                 </p>
+                <div className="text-xs text-amber-300 font-mono">✓ 60 FPS Hareket Netliği</div>
               </div>
             </div>
 
-            <p className="text-lg mb-6 text-slate-200 leading-relaxed">
-              Başarılı bir satın almanın ardından, <span className="text-[#e50914]/90">dakikalar içinde</span> kişisel erişim verilerinizi alacaksınız. Detaylı kurulum rehberlerimiz Smart TV, akıllı telefon, tablet, TV box veya bilgisayarınıza IPTV kurmanıza yardımcı olacaktır. <Link to="/kurulum" title="Cihazınıza göre IPTV kurulum rehberini açın" className="text-primary hover:text-primary font-semibold underline decoration-primary/50 underline-offset-2">Kurulum rehberine git →</Link>
-            </p>
-          </div>
-        </section>
-
-        <section className="mb-12">
-          <h3 className="text-3xl font-bold text-white mb-8 text-center">Tüm Cihazlarla Uyumlu IPTV Paketleri</h3>
-          
-          <div className="prose prose-invert max-w-none mb-8">
-            <p className="text-lg text-center mb-6 text-slate-200 leading-relaxed">
-              Her bütçeye ve ihtiyaca uygun esnek abonelik seçenekleri sunuyoruz. Tüm paketlerimiz, kanal ve içerik arşivimizin tamamına hiçbir kısıtlama olmaksızın erişim sağlar. <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] font-semibold">Paketlerimizi şimdi keşfedin</span> ve sizin için en uygun olanı hemen seçin.
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-r from-[#e50914]/30 to-[#b20710]/30 p-8 rounded-2xl border border-primary/50 text-center mb-8">
-            <h4 className="text-2xl font-bold text-white mb-4">Premium IPTV Dünyasına Katılmaya Hazır Mısınız?</h4>
-            <p className="text-lg text-slate-200 mb-6 max-w-2xl mx-auto leading-relaxed">
-              <span className="text-amber-200 font-semibold">Paketinizi seçmeden önce ücretsiz testi kullanın.</span> Süre, kullanıcı sayısı, bölge, fiyat ve iade koşullarını karşılaştırarak ihtiyacınıza uygun seçeneğe karar verin.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                to="/paketler" 
-                title="IPTV paketlerini ve fiyatlarını karşılaştırın"
-                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#e50914] to-[#b20710] text-white font-bold rounded-xl hover:from-[#e50914] hover:to-[#b20710] transition-all shadow-lg hover:shadow-primary/50"
-              >
-                Hemen Paket Seç →
-              </Link>
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/10">
+              <span className="text-sm text-slate-400">
+                Kendi cihazınızda performansı test etmek için 2 saatlik ücretsiz test hattımızı deneyin.
+              </span>
               <button
                 type="button"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#0a0a0a] text-white font-bold rounded-xl hover:bg-[#141414] transition-all"
-                onClick={() => openTestModal()}
+                onClick={openTestModal}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-white transition-colors"
               >
-                Ücretsiz Test Et
+                <span>Hemen Ücretsiz Test İste</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
+        </section>
+
+        {/* Section 2: Donanım ve Cihaz Uyumluluğu Rehberi */}
+        <section className="space-y-8">
+          <div className="text-center max-w-3xl mx-auto">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+              <Laptop className="w-7 h-7 text-primary" />
+              <span>Hangi Cihazlarda Nasıl İzlenir?</span>
+            </h3>
+            <p className="text-slate-400 text-base font-light">
+              QruzeTV açık standartları (M3U Plus & Xtream Codes API) destekler; sizi kapalı veya hantal bir uygulamaya mahkûm etmez.
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
-              <h4 className="text-lg font-bold text-white mb-3">Tüm paketlerin içerikleri:</h4>
-              <ul className="space-y-2 text-slate-300">
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span><span className="text-amber-200/90">10.000+</span> Canlı TV Kanalı</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span>Geniş Film ve Dizi Arşivi (VOD)</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span><span className="text-white">4K / FHD / HD</span> Yayın Seçenekleri</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span>EPG (Elektronik Yayın Rehberi)</span></li>
-              </ul>
+            <div className="rounded-2xl border border-white/10 bg-[#0e0e12] p-6 hover:border-primary/40 transition-all">
+              <h4 className="text-lg font-bold text-white mb-2">Smart TV (Samsung & LG)</h4>
+              <p className="text-sm text-slate-300 mb-4 font-light leading-relaxed">
+                Tizen ve webOS işletim sistemlerinde IBO Player, Smart IPTV veya Nanomid uygulamaları ile ek kutuya gerek kalmadan kumandanızla izleyin.
+              </p>
+              <Link to="/kurulum/smart-tv" className="text-xs font-semibold text-primary hover:underline">
+                Smart TV Kurulum Rehberi →
+              </Link>
             </div>
 
-            <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
-              <h4 className="text-lg font-bold text-white mb-3">Cihaz Uyumluluğu:</h4>
-              <ul className="space-y-2 text-slate-300">
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span><span className="text-[#e50914]/90">Smart TV</span> (Samsung, LG, Philips vs.)</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span>Android TV Box / Amazon Fire TV</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span><span className="text-amber-200/90">iOS & Android</span> Mobil Cihazlar</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span>Windows ve Mac Bilgisayarlar</span></li>
-              </ul>
+            <div className="rounded-2xl border border-white/10 bg-[#0e0e12] p-6 hover:border-primary/40 transition-all">
+              <h4 className="text-lg font-bold text-white mb-2">Android TV & Firestick</h4>
+              <p className="text-sm text-slate-300 mb-4 font-light leading-relaxed">
+                TiviMate, IPTV Smarters Pro veya XCIPTV oynatıcıları ile gelişmiş kanal listeleme, canlı EPG ve favori kategorilendirme kolaylığı.
+              </p>
+              <Link to="/kurulum" className="text-xs font-semibold text-primary hover:underline">
+                Firestick & Android Rehberi →
+              </Link>
             </div>
 
-            <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
-              <h4 className="text-lg font-bold text-white mb-3">Destek & Hizmetler:</h4>
-              <ul className="space-y-2 text-slate-300">
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span><span className="text-[#e50914]/90">7/24</span> Kesintisiz Türkçe Destek</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span>WhatsApp üzerinden anında iletişim</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span><span className="text-white">Videolu kurulum</span> rehberleri</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" /><span>Düzenli sistem güncellemeleri</span></li>
-              </ul>
+            <div className="rounded-2xl border border-white/10 bg-[#0e0e12] p-6 hover:border-primary/40 transition-all">
+              <h4 className="text-lg font-bold text-white mb-2">Apple TV & iOS</h4>
+              <p className="text-sm text-slate-300 mb-4 font-light leading-relaxed">
+                GSE Smart IPTV veya IPTVX uygulamalarıyla Apple ekosisteminde akıcı 4K ve AirPlay uyumlu üst düzey deneyim.
+              </p>
+              <Link to="/kurulum/ios" className="text-xs font-semibold text-primary hover:underline">
+                Apple TV Kurulum Rehberi →
+              </Link>
             </div>
           </div>
         </section>
 
-        <footer className="text-center pt-8 border-t border-slate-800">
-          <p className="text-slate-400 text-sm leading-relaxed">
-            Paketleri, cihaz uyumluluğunu ve kurulum adımlarını karşılaştırarak size uygun <span className="text-primary font-semibold">Premium IPTV</span> deneyimini seçebilirsiniz. Kararsız kalırsanız ücretsiz test ve destek ekibimiz yardımcı olur.
-          </p>
-        </footer>
+        {/* Section 3: Şeffaf Hizmet Anlayışı & Taahhütsüz Model */}
+        <section className="bg-gradient-to-br from-[#121217] via-[#09090b] to-black p-8 md:p-12 rounded-3xl border border-white/10">
+          <div className="max-w-4xl mx-auto space-y-6">
+            <h3 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+              <Shield className="w-7 h-7 text-emerald-400" />
+              <span>Güvenlik, Şeffaflık ve Taahhütsüz Kullanım</span>
+            </h3>
+            
+            <p className="text-slate-300 leading-relaxed font-light text-base md:text-lg">
+              Sektördeki en büyük çekincelerden biri; otomatik yenilenen gizli abonelikler ve muhatap bulunamayan teknik sorunlardır. QruzeTV modelinde:
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-4 pt-2">
+              <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold text-white">Sözleşmesiz & Açık Fiyat</p>
+                  <p className="text-xs text-slate-400 mt-1">Kartınızdan asla bilginiz dışında otomatik para çekilmez; süreniz bittiğinde yenilemek tamamen sizin tercihinizdir.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold text-white">Canlı İnsan Destek Ekibi</p>
+                  <p className="text-xs text-slate-400 mt-1">Botlar yerine, televizyonunuzun ve modeminizin modeline göre doğrudan çözüm üreten Türkçe destek uzmanları.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-xs text-slate-400">
+                Sorularınız mı var? Destek ekibimize dilediğiniz an WhatsApp üzerinden ulaşabilirsiniz.
+              </p>
+              <Link
+                to="/iletisim"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold transition-all border border-white/15"
+              >
+                <span>İletişim Bilgileri</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
 
       </article>
     </div>

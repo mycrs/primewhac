@@ -20,7 +20,7 @@ import FeaturedReviewsCarousel from '@/components/FeaturedReviewsCarousel';
 import LazySection from '@/components/LazySection';
 import PremiumConversionStrip from '@/components/PremiumConversionStrip';
 import { initPerformanceMonitoring } from '@/utils/performanceMonitoring';
-import { ShieldCheck, Lock, Calendar, Film } from 'lucide-react';
+import { ShieldCheck, Lock, Calendar, Tv } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const HomePageDE = ({ siteData }) => {
@@ -122,15 +122,12 @@ const HomePageDE = ({ siteData }) => {
                     className="pointer-events-none absolute inset-0 translate-x-[-100%] bg-[linear-gradient(110deg,transparent_18%,rgba(255,255,255,0.12)_50%,transparent_82%)] transition-transform duration-700 group-hover:translate-x-[100%]"
                     aria-hidden
                   />
-                  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center gap-0.5 rounded-xl bg-gradient-to-br from-[#e50914]/40 to-[#b20710]/50 shadow-[0_0_24px_rgba(16,185,129,0.45)] ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105">
-                    <span className="text-xl drop-shadow-md" aria-hidden>
-                      ⚽
-                    </span>
-                    <Calendar className="h-5 w-5 text-white drop-shadow-md" />
+                  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#e50914]/40 to-[#b20710]/50 shadow-[0_0_24px_rgba(229,9,20,0.35)] ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105">
+                    <Calendar className="h-6 w-6 text-white drop-shadow-md" />
                   </div>
                   <div className="relative z-10 min-w-0 flex-1">
-                    <h3 className="text-xl font-bold text-white drop-shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-colors group-hover:text-[#e50914]">
-                      Spielplan & Fixture
+                    <h3 className="text-xl font-bold text-white transition-colors group-hover:text-[#e50914]">
+                      Spielplan & Live-Fixtures
                     </h3>
                     <p className="mt-1 text-sm text-slate-300">
                       Tagesaktuelle Fixtures und Anstoßzeiten. <span className="font-medium text-[#e50914]/95">Wochenprogramm</span> auf einen Blick.
@@ -141,17 +138,17 @@ const HomePageDE = ({ siteData }) => {
                   </span>
                 </Link>
                 <Link
-                  to="/de/was-soll-ich-schauen"
-                  className="qruze-cinema-link flex items-center gap-4 w-full p-6 rounded-2xl border-primary/20 hover:border-primary/40 transition-all group"
+                  to="/de/kanale"
+                  className="qruze-cinema-link flex items-center gap-4 w-full p-6 rounded-2xl border border-white/15 hover:border-primary/50 transition-all group"
                 >
                   <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
-                    <Film className="w-7 h-7 text-primary" />
+                    <Tv className="w-7 h-7 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">Was soll ich schauen?</h3>
-                    <p className="text-slate-300 text-sm mt-1">Film- und Serienempfehlungen. <span className="text-primary/90">Beliebte Inhalte</span> für Ihr IPTV.</p>
+                    <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">Kanalübersicht & Sparten</h3>
+                    <p className="text-slate-300 text-sm mt-1">Nationale Sender, Nachrichten, Sport und Dokumentationen. <span className="text-primary/90">Mit Live-EPG</span>.</p>
                   </div>
-                  <span className="text-primary text-sm font-medium group-hover:translate-x-1 transition-transform shrink-0">Empfehlungen →</span>
+                  <span className="text-primary text-sm font-medium group-hover:translate-x-1 transition-transform shrink-0">Kanäle →</span>
                 </Link>
                 </div>
               </div>
