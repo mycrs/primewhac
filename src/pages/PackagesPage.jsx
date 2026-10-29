@@ -1,4 +1,3 @@
-
 import React, { memo, useMemo } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -11,40 +10,58 @@ import PackagesPageSeoSections from '@/components/packages/PackagesPageSeoSectio
 import { defaultData } from '@/data/defaultSiteData';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import ChatBot from '@/components/ChatBot';
-import { CheckCircle2 } from 'lucide-react';
+import {
+  CheckCircle2,
+  ShieldCheck,
+  Zap,
+  Clock,
+  Sparkles,
+  Headphones,
+  Tv,
+  Award,
+  Check,
+  HelpCircle,
+  ArrowRight,
+} from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 const PACKAGES_FAQ_ITEMS = [
   {
     q: 'Hangi IPTV paketini seçmeliyim?',
-    a: 'İzleme alışkanlığınız belirler. Hizmeti ilk kez deniyorsanız 1 veya 3 aylık paketle başlayın; yayın kalitesinden memnun kaldığınızda 6 veya 12 aya geçmek aylık maliyeti belirgin şekilde düşürür. Aynı anda iki ekranda izlenecekse çift kullanıcılı seçeneği tercih edin.',
+    a: 'İzleme alışkanlığınız ve kullanım bölgeniz belirler. Hizmeti ilk kez deniyorsanız 3 aylık paketle başlayabilir; yayın kalitesinden memnun kaldığınızda 6, 12 veya 15 aya geçerek aylık maliyeti belirgin şekilde düşürebilirsiniz. Türkiye içi veya Avrupa/dünya kullanımınıza göre ilgili bölge sekmesini seçebilirsiniz.',
   },
   {
     q: 'Paket fiyatları nasıl belirleniyor?',
-    a: 'Fiyatlar abonelik süresine (1, 3, 6, 12 veya 15 ay) ve kullanıcı sayısına göre belirlenir. Süre uzadıkça aylık maliyet düşer; 12 ve 15 aylık paketler bu yüzden en ekonomik seçeneklerdir. Tüm paketlere aynı kanal listesi, tematik yayın akışı ve 7/24 destek dahildir.',
+    a: 'Fiyatlar abonelik süresine (3, 6, 12 veya 15 ay), yayın kalitesi tercihinize ve kullanım bölgenize göre belirlenir. Süre uzadıkça aylık maliyet düşer; 12 ve 15 aylık paketler bu yüzden en ekonomik seçeneklerdir. Tüm paketlerimize zengin kanal listesi, geniş VOD film/dizi arşivi ve 7/24 teknik destek dahildir.',
   },
   {
     q: 'Hangi ödeme yöntemlerini kabul ediyorsunuz?',
-    a: '3D Secure korumalı kredi/banka kartı, havale/EFT ve uluslararası müşterilerimiz için kripto para ile ödeme kabul ediyoruz. Kart bilgileriniz sistemimizde saklanmaz. Ödeme adımları paket seçiminden sonra gösterilir.',
+    a: '3D Secure korumalı kredi/banka kartı, havale/EFT ve uluslararası müşterilerimiz için kripto para ile ödeme kabul ediyoruz. Kart bilgileriniz sistemimizde saklanmaz. Ödeme adımları paket seçiminden sonra güvenli ekranda gösterilir.',
   },
   {
     q: 'Aktivasyon ne kadar sürüyor?',
-    a: 'Ödeme onayından sonra erişim bilgileri çoğunlukla birkaç dakika içinde iletilir. Yoğun dönemlerde süre uzayabilir; güncel teslimat bilgisi sipariş sırasında paylaşılır.',
+    a: 'Ödeme onayından sonra erişim bilgileriniz dakikalar içinde WhatsApp ve SMS üzerinden iletilir. Kurulum rehberimiz sayesinde cihazınızda hemen izlemeye başlayabilirsiniz.',
   },
   {
     q: 'Paketler hangi cihazlarla uyumlu?',
-    a: 'Samsung ve LG Smart TV, Android TV, Fire TV Stick, iPhone/iPad, Android telefon ve tablet ile Windows ve Mac bilgisayarlarda izleyebilirsiniz. Kurulum sayfamızda her cihaz için adım adım anlatım bulunur.',
+    a: 'Samsung ve LG Smart TV, Android TV, Fire TV Stick, iPhone/iPad, Android telefon/tablet ile Windows ve Mac bilgisayarların tümünde sorunsuz izleyebilirsiniz. Kurulum sayfamızda cihazınıza özel adım adım görsel anlatım mevcuttur.',
   },
   {
-    q: 'Yayınlarda donma olur mu?',
-    a: 'Yük dengelemeli altyapıyla yüksek erişilebilirlik hedeflenir; ancak sonuç internet hızına, Wi-Fi kalitesine, cihazınıza ve kaynak yayına göre değişir. 4K için mümkünse ethernet bağlantısı kullanın ve satın alma öncesinde ücretsiz test yapın.',
+    q: 'Yayınlarda donma veya takılma olur mu?',
+    a: 'Anycast CDN altyapısı ve yedekli fiber hatlarımız sayesinde yoğun saatlerde bile yayınlarda donma yaşanmaz. En iyi 4K deneyimi için stabil internet bağlantısı veya kablolu ethernet önerilir. Satın almadan önce ücretsiz test hesabıyla kalitemizi deneyebilirsiniz.',
   },
   {
     q: 'Memnun kalmazsam iade hakkım var mı?',
-    a: 'Aktivasyondan sonraki ilk 24 saat içinde iade talebi iletebilirsiniz. Dijital hizmetlerde iade; firmamız kaynaklı ve destek tarafından çözülemeyen teknik sorunlar için hizmet şartlarına göre değerlendirilir. Satın almadan önce ücretsiz test önerilir.',
+    a: 'Aktivasyondan sonraki ilk 24 saat içinde iade talebi iletebilirsiniz. Teknik destek ekibimiz çözülemeyen altyapı sorunlarında müşteri memnuniyeti kapsamında iade sürecini hızla tamamlar.',
   },
   {
     q: 'Aboneliğimi sonradan uzatabilir veya yükseltebilir miyim?',
-    a: 'Evet. Süre bitmeden uzatma yapabilir, dilerseniz daha uzun süreli ya da çift kullanıcılı pakete geçebilirsiniz. Destek ekibimiz geçiş işlemini birkaç dakika içinde tamamlar.',
+    a: 'Evet. Süreniz dolmadan dilediğiniz zaman paketinizi uzatabilir, daha yüksek süreli veya VIP paketlere geçiş yapabilirsiniz. Mevcut kalan süreniz yeni paketinize kesintisiz eklenir.',
   },
 ];
 
@@ -60,6 +77,42 @@ const PACKAGES_FAQ_SCHEMA = {
     },
   })),
 };
+
+const DURATION_CARDS = [
+  {
+    duration: '3 Ay',
+    tag: 'Sezonluk Esneklik',
+    badgeClass: 'bg-white/10 text-slate-300 border-white/15',
+    profile: 'İlk kez deneyenler, kısa dönemli izleyiciler ve sezonluk takipçiler.',
+    highlight: 'Düşük başlangıç maliyeti, sıfır taahhüt riski ve tüm arşive tam erişim.',
+    icon: Clock,
+  },
+  {
+    duration: '6 Ay',
+    tag: 'Dengeli Tercih',
+    badgeClass: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
+    profile: 'Düzenli izleyen haneler ve yarıyıl boyunca yenileme düşünmek istemeyenler.',
+    highlight: 'Fiyat dalgalanmalarından etkilenmeden yarım yıl boyunca kesintisiz konfor.',
+    icon: ShieldCheck,
+  },
+  {
+    duration: '12 Ay',
+    tag: 'En Popüler ⭐',
+    badgeClass: 'bg-primary/20 text-[#ff4d58] border-primary/40 font-bold',
+    profile: 'Günlük TV, sinema ve spor tüketen aileler ile uzun vadeli kullanıcılar.',
+    highlight: 'Aylık birim maliyeti en çok düşüren, en yüksek tasarruflu ana paket.',
+    icon: Sparkles,
+    isPopular: true,
+  },
+  {
+    duration: '15 Ay VIP',
+    tag: 'VIP Maksimum Avantaj 👑',
+    badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold',
+    profile: 'Maksimum tasarruf ve kesintisiz VIP ayrıcalığı talep eden seçkin izleyiciler.',
+    highlight: '+3 ay ekstra avantaj, en düşük birim fiyat ve öncelikli VIP altyapı.',
+    icon: Award,
+  },
+];
 
 const PackagesPage = ({ siteData }) => {
   const safeSiteData = siteData || defaultData;
@@ -91,41 +144,53 @@ const PackagesPage = ({ siteData }) => {
     <>
       <SEOHead {...metadata} canonicalUrl={`${SITE_URL}/paketler`} jsonLd={jsonLd} />
 
-      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans text-white selection:bg-primary/40">
+      <div className="min-h-screen bg-[#070709] flex flex-col font-sans text-white selection:bg-primary/40">
         <Header contactData={safeSiteData.contactData} />
 
         <main className="flex-grow pt-24 pb-16">
-          <section className="relative overflow-hidden py-12 md:py-16">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#e50914]/10 via-amber-500/5 to-transparent -z-10" />
+          {/* Artisan Hero Section */}
+          <section className="relative overflow-hidden pt-8 pb-12 md:pt-12 md:pb-16">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#e50914]/15 via-[#180a0c]/30 to-transparent pointer-events-none -z-10" />
 
             <div className="container mx-auto px-4 text-center">
-              <span className="luxury-kicker mb-5">Premium Paket Salonu</span>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 mt-4 tracking-tight text-white drop-shadow-sm">
-                {h1Title}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary/10 border border-primary/30 text-[#ff4d58] mb-5 shadow-[0_0_25px_rgba(229,9,20,0.25)]">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                PREMİUM PAKET SALONU & BÖLGE SEÇİMİ
+              </div>
+
+              <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-5 mt-2 tracking-tight text-white drop-shadow-sm leading-tight">
+                IPTV Paketleri ve <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-[#ff4b55]">Fiyatları</span>
               </h1>
-              <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-8 leading-relaxed font-medium">
+
+              <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-8 leading-relaxed font-normal">
                 {pageContent.page?.shortDescription ||
-                  'Güncel IPTV paketlerini süre, kullanıcı sayısı ve bölgeye göre karşılaştırın. Satın almadan önce 4K/UHD yayın seçeneklerini kendi cihazınızda ücretsiz test edin.'}
+                  'Güncel IPTV paketlerini süre, yayın niteliği ve bölgeye göre inceleyin. Satın almadan önce 4K Ultra HD yayın seçeneklerini kendi cihazınızda ücretsiz test edin.'}
               </p>
 
-              <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-                <div className="glass-effect flex items-center gap-3 px-6 py-3 rounded-full">
-                  <CheckCircle2 className="w-5 h-5 text-[#e50914]" />
-                  <span className="text-white font-medium">Anında Teslimat</span>
+              {/* Bespoke Obsidian Trust Badges */}
+              <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5">
+                <div className="bg-[#121217]/85 border border-white/10 hover:border-primary/40 backdrop-blur-md flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full transition-all duration-300 shadow-md">
+                  <Zap className="w-4 h-4 text-[#ff4b55]" />
+                  <span className="text-white text-xs sm:text-sm font-medium">Anında Aktivasyon</span>
                 </div>
-                <div className="glass-effect flex items-center gap-3 px-6 py-3 rounded-full">
-                  <CheckCircle2 className="w-5 h-5 text-[#e50914]" />
-                  <span className="text-white font-medium">7/24 Canlı Destek</span>
+                <div className="bg-[#121217]/85 border border-white/10 hover:border-emerald-500/40 backdrop-blur-md flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full transition-all duration-300 shadow-md">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                  <span className="text-white text-xs sm:text-sm font-medium">Anycast CDN & Donmasız Altyapı</span>
                 </div>
-                <div className="glass-effect flex items-center gap-3 px-6 py-3 rounded-full">
-                  <CheckCircle2 className="w-5 h-5 text-[#e50914]" />
-                  <span className="text-white font-medium">Tüm Cihazlarla Uyumlu</span>
+                <div className="bg-[#121217]/85 border border-white/10 hover:border-blue-500/40 backdrop-blur-md flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full transition-all duration-300 shadow-md">
+                  <Tv className="w-4 h-4 text-blue-400" />
+                  <span className="text-white text-xs sm:text-sm font-medium">Tüm Cihazlarla Uyumlu</span>
+                </div>
+                <div className="bg-[#121217]/85 border border-white/10 hover:border-amber-500/40 backdrop-blur-md flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full transition-all duration-300 shadow-md">
+                  <Headphones className="w-4 h-4 text-amber-400" />
+                  <span className="text-white text-xs sm:text-sm font-medium">7/24 Birebir Destek</span>
                 </div>
               </div>
             </div>
           </section>
 
-          <section id="packages-list" className="relative z-10 py-8">
+          {/* Core Packages Showcase (TR & EU) */}
+          <section id="packages-list" className="relative z-10 py-6 md:py-8">
             <ErrorBoundary>
               <Packages
                 packages={safeSiteData.packagesData}
@@ -136,108 +201,189 @@ const PackagesPage = ({ siteData }) => {
             </ErrorBoundary>
           </section>
 
+          {/* Artisan 3-Pillar Reassurance Strip */}
+          <section className="py-8 border-y border-white/5 bg-[#0a0a0f]/60">
+            <div className="container mx-auto px-4 max-w-6xl">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                <div className="p-6 rounded-2xl bg-[#121217]/80 border border-white/5 hover:border-primary/30 transition-all duration-300 flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center shrink-0">
+                    <Zap className="w-6 h-6 text-[#ff4b55]" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-base mb-1.5">Anında Otomatik Teslimat</h4>
+                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                      Sipariş onayınızın ardından M3U listesi, kullanıcı adı ve şifreniz anında WhatsApp & SMS ile iletilir.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-[#121217]/80 border border-white/5 hover:border-emerald-500/30 transition-all duration-300 flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                    <ShieldCheck className="w-6 h-6 text-emerald-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-base mb-1.5">Anycast CDN & Sıfır Donma</h4>
+                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                      Yoğun derbi ve prime-time saatlerinde bile yük dengelemeli fiber hatlarla cam netliğinde 4K yayın.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-[#121217]/80 border border-white/5 hover:border-blue-500/30 transition-all duration-300 flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0">
+                    <Headphones className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-base mb-1.5">Birebir Uzman Türkçe Destek</h4>
+                    <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                      Smart TV, TV Box veya telefonunuza özel adım adım kurulum ve kanal sıralama rehberliği.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* SEO Content Sections (What is IPTV, Region Differences, Usage Tips) */}
           <PackagesPageSeoSections siteData={safeSiteData} contactData={safeSiteData.contactData} lang="tr" />
 
-          {/* Hangi paket kime uygun? — süre bazlı karşılaştırma */}
-          <section className="py-16 border-t border-white/5">
-            <div className="container mx-auto px-4 max-w-5xl">
-              <h2 className="text-3xl font-bold mb-6 text-white">Hangi Paket Kime Uygun?</h2>
-              <div className="text-slate-300 space-y-4 leading-relaxed text-lg">
-                <p>
-                  Paket seçimi aslında iki soruya iner: ne kadar süre izleyeceksiniz ve kaç ekran kullanacaksınız?
-                  Süre seçenekleri 1, 3, 6, 12 ve 15 ay; içerik tarafında ise tüm paketler aynı kanal listesini,
-                  film-dizi arşivini ve destek hizmetini içerir. Yani kısa paket aldığınızda kaliteden değil,
-                  yalnızca süreden feragat etmiş olursunuz.
-                </p>
-                <p>
-                  <strong className="text-white">1 aylık abonelik,</strong> hizmeti ilk kez deneyenler ya da yalnızca
-                  belirli bir dönem için — bir turnuva, tatil ya da kısa bir seyahat gibi — yayın isteyenler için
-                  mantıklıdır. Taahhüt süresi kısadır; beğenirseniz süre bitmeden uzatabilirsiniz.
-                </p>
-                <p>
-                  <strong className="text-white">3 aylık paket,</strong> bir sezonluk dizi veya lig takibi için ideal
-                  orta yoldur. Aylık maliyeti 1 aylık pakete göre daha düşüktür ve üç ay boyunca yenileme
-                  düşünmezsiniz.
-                </p>
-                <p>
-                  <strong className="text-white">6 aylık abonelik,</strong> düzenli izleyen haneler için dengeli bir
-                  seçimdir. Yaz ve kış yoğun dönemlerini tek ödemeyle geçirir, yarıyıl boyunca fiyat değişiminden
-                  etkilenmezsiniz.
-                </p>
-                <p>
-                  <strong className="text-white">12 aylık paket</strong> ise aylık maliyeti en düşük seçeneklerden biridir ve uzun
-                  vadede ciddi tasarruf sağlar. Yurt dışında yaşayıp Türk kanallarını günlük izleyenler ve spor
-                  severler genellikle bu pakette karar kılar. Evde iki ekran aynı anda kullanılacaksa çift kullanıcılı
-                  12 aylık paket toplam maliyeti daha da makul hâle getirir.
-                </p>
-                <p>
-                  <strong className="text-white">15 Ay VIP abonelik,</strong> en uzun süreli ve en avantajlı paketimizdir.
-                  Aylık maliyet tüm seçenekler arasında en düşük seviyeye iner; 15 ay boyunca hiç yenileme
-                  derdi yaşamadan kesintisiz izleme keyfini sürersiniz. Uzun vadeli kullanıcılar ve aileler
-                  için özellikle önerilir.
+          {/* Hangi Paket Kime Uygun? — Bespoke Obsidian Duration Guide */}
+          <section className="py-16 border-t border-white/5 relative">
+            <div className="container mx-auto px-4 max-w-6xl">
+              <div className="text-center max-w-3xl mx-auto mb-12">
+                <span className="text-xs uppercase tracking-widest text-[#ff4b55] font-semibold mb-2 block">
+                  DOĞRU TERCİH REHBERİ
+                </span>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">
+                  Hangi Paket Kime Uygun?
+                </h2>
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                  Paket seçimi temelde iki soruya dayanır: ne kadar süre izleyeceksiniz ve kullanım bölgeniz neresi?
+                  Süre seçeneklerimiz 3, 6, 12 ve 15 aydır. Tüm paketlerimizde zengin kanal listesi, geniş film-dizi arşivi ve 7/24 destek eksiksiz yer alır.
                 </p>
               </div>
 
-              <div className="mt-10 overflow-x-auto rounded-2xl border border-white/10">
-                <table className="w-full text-left border-collapse">
+              {/* 4 Bespoke Duration Glass Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+                {DURATION_CARDS.map((card) => {
+                  const Icon = card.icon;
+                  return (
+                    <div
+                      key={card.duration}
+                      className={`relative p-6 rounded-2xl transition-all duration-300 flex flex-col justify-between ${
+                        card.isPopular
+                          ? 'bg-gradient-to-b from-[#1c1214]/90 to-[#0e090b]/95 border border-[#e50914]/50 shadow-[0_0_35px_rgba(229,9,20,0.15)] ring-1 ring-[#e50914]/30'
+                          : 'bg-[#121217]/70 border border-white/10 hover:border-white/20'
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-4">
+                          <span className="text-2xl font-black text-white">{card.duration}</span>
+                          <span className={`text-[11px] px-2.5 py-1 rounded-full border ${card.badgeClass}`}>
+                            {card.tag}
+                          </span>
+                        </div>
+
+                        <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                          <Icon className={`w-5 h-5 ${card.isPopular ? 'text-[#ff4b55]' : 'text-slate-300'}`} />
+                        </div>
+
+                        <h4 className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Kimin İçin Uygun?</h4>
+                        <p className="text-slate-200 text-xs sm:text-sm leading-relaxed mb-4">
+                          {card.profile}
+                        </p>
+                      </div>
+
+                      <div className="pt-4 border-t border-white/5">
+                        <h4 className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Öne Çıkan Avantaj</h4>
+                        <p className="text-slate-300 text-xs leading-relaxed">
+                          {card.highlight}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Modern Glass Matrix Table */}
+              <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#101015]/70 backdrop-blur-md shadow-xl">
+                <table className="w-full text-left border-collapse text-xs sm:text-sm">
                   <thead>
-                    <tr className="bg-white/5">
-                      <th className="px-5 py-4 text-slate-200 font-semibold border-b border-white/10">Süre</th>
-                      <th className="px-5 py-4 text-slate-200 font-semibold border-b border-white/10">Kimin için uygun?</th>
-                      <th className="px-5 py-4 text-slate-200 font-semibold border-b border-white/10">Öne çıkan avantaj</th>
+                    <tr className="bg-white/5 border-b border-white/10 text-slate-200">
+                      <th className="px-5 py-4 font-bold">Süre</th>
+                      <th className="px-5 py-4 font-bold">Hedef Kullanıcı Profili</th>
+                      <th className="px-5 py-4 font-bold">Öne Çıkan Değer & Tasarruf</th>
                     </tr>
                   </thead>
-                  <tbody className="text-slate-300">
-                    <tr>
-                      <td className="px-5 py-4 border-b border-white/5 font-medium text-white">1 Ay</td>
-                      <td className="px-5 py-4 border-b border-white/5">İlk kez deneyenler, kısa dönemli ihtiyaç</td>
-                      <td className="px-5 py-4 border-b border-white/5">Düşük başlangıç maliyeti, kısa taahhüt</td>
+                  <tbody className="text-slate-300 divide-y divide-white/5">
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="px-5 py-4 font-bold text-white whitespace-nowrap">3 Ay</td>
+                      <td className="px-5 py-4">İlk kez deneyenler, lig ve dizi sezonu takipçileri</td>
+                      <td className="px-5 py-4">Fiyat-süre dengesi, taahhütsüz esnek başlangıç</td>
                     </tr>
-                    <tr>
-                      <td className="px-5 py-4 border-b border-white/5 font-medium text-white">3 Ay</td>
-                      <td className="px-5 py-4 border-b border-white/5">Sezonluk dizi ve lig takipçileri</td>
-                      <td className="px-5 py-4 border-b border-white/5">Fiyat-süre dengesi, sezon boyu kesintisiz izleme</td>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="px-5 py-4 font-bold text-white whitespace-nowrap">6 Ay</td>
+                      <td className="px-5 py-4">Düzenli izleyen haneler, yarıyıl konforu arayanlar</td>
+                      <td className="px-5 py-4">Yenileme derdi olmadan yarım yıl sabit fiyat güvencesi</td>
                     </tr>
-                    <tr>
-                      <td className="px-5 py-4 border-b border-white/5 font-medium text-white">6 Ay</td>
-                      <td className="px-5 py-4 border-b border-white/5">Düzenli izleyen haneler</td>
-                      <td className="px-5 py-4 border-b border-white/5">Yenileme derdi olmadan yarım yıl</td>
+                    <tr className="bg-primary/5 hover:bg-primary/10 transition-colors">
+                      <td className="px-5 py-4 font-extrabold text-[#ff4b55] whitespace-nowrap flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5" /> 12 Ay (Popüler)
+                      </td>
+                      <td className="px-5 py-4 font-medium text-slate-200">Günlük izleyiciler, aileler ve gurbetçi kullanıcılar</td>
+                      <td className="px-5 py-4 font-medium text-slate-200">En çok tercih edilen, en düşük aylık birim maliyet</td>
                     </tr>
-                    <tr>
-                      <td className="px-5 py-4 border-b border-white/5 font-medium text-white">12 Ay</td>
-                      <td className="px-5 py-4 border-b border-white/5">Günlük izleyenler ve aileler</td>
-                      <td className="px-5 py-4 border-b border-white/5">En düşük aylık maliyet, en yüksek tasarruf</td>
-                    </tr>
-                    <tr className="bg-gradient-to-r from-[#e50914]/5 to-transparent">
-                      <td className="px-5 py-4 font-bold text-[#e50914]">15 Ay VIP ⭐</td>
-                      <td className="px-5 py-4">Maksimum tasarruf ve kesintisiz deneyim isteyenler</td>
-                      <td className="px-5 py-4">En uzun süre, en düşük aylık maliyet, VIP ayrıcalıklar</td>
+                    <tr className="bg-amber-500/5 hover:bg-amber-500/10 transition-colors">
+                      <td className="px-5 py-4 font-extrabold text-amber-300 whitespace-nowrap flex items-center gap-1.5">
+                        <Award className="w-3.5 h-3.5" /> 15 Ay VIP
+                      </td>
+                      <td className="px-5 py-4 font-medium text-slate-200">Maksimum tasarruf ve kesintisiz VIP deneyim isteyenler</td>
+                      <td className="px-5 py-4 font-medium text-slate-200">+3 ay ekstra avantaj, en düşük aylık ortalama maliyet</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
 
-              <p className="mt-6 text-slate-400 leading-relaxed">
-                Tablodaki özet süre bazlı seçim mantığını gösterir; güncel fiyat ve kullanıcı sayısı detaylarını
-                sayfanın üst bölümündeki paket kartlarında bulabilirsiniz. Kartlardaki "popüler" rozeti,
-                müşterilerimizin en çok tercih ettiği süreyi işaretler. Kararsız kalırsanız ücretsiz test hesabıyla
-                yayını kendi cihazınızda deneyip öyle karar vermenizi öneririz.
+              <p className="mt-6 text-slate-400 text-xs sm:text-sm leading-relaxed text-center max-w-3xl mx-auto">
+                Türkiye paketlerimiz Türkiye IP ve yurt içi kullanıma, Avrupa paketlerimiz ise tüm Avrupa ve dünya geneline özel sunucularla hizmet verir. Satın alma öncesinde dilediğiniz zaman ücretsiz test talebinde bulunabilirsiniz.
               </p>
             </div>
           </section>
 
-          {/* Paketler hakkında SSS — PACKAGES_FAQ_ITEMS ile birebir aynı içerik */}
-          <section className="py-16 border-t border-white/5">
+          {/* Interactive Luxury FAQ Accordion */}
+          <section className="py-16 border-t border-white/5 bg-[#0a0a0f]/40">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="text-3xl font-bold mb-10 text-white">Paketler Hakkında Sık Sorulan Sorular</h2>
-              <div className="space-y-6">
-                {PACKAGES_FAQ_ITEMS.map(({ q, a }) => (
-                  <div key={q} className="bg-[#0a0a0a]/40 p-6 rounded-2xl border border-white/10">
-                    <h3 className="text-lg font-bold text-white mb-2">{q}</h3>
-                    <p className="text-slate-300 leading-relaxed">{a}</p>
-                  </div>
-                ))}
+              <div className="text-center mb-10">
+                <span className="text-xs uppercase tracking-widest text-[#ff4b55] font-semibold mb-2 block">
+                  MERAK EDİLENLER
+                </span>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-3">
+                  Paketler Hakkında Sık Sorulan Sorular
+                </h2>
+                <p className="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto">
+                  IPTV abonelik süreleri, kurulum desteği ve ödeme güvenliği hakkında en çok yöneltilen soruların yanıtları.
+                </p>
               </div>
+
+              <Accordion type="single" collapsible className="w-full space-y-3">
+                {PACKAGES_FAQ_ITEMS.map(({ q, a }, index) => (
+                  <AccordionItem
+                    key={q}
+                    value={`packages-faq-${index}`}
+                    className="border border-white/10 bg-[#121217]/75 backdrop-blur-md px-5 sm:px-6 rounded-2xl data-[state=open]:border-primary/40 data-[state=open]:bg-[#16161d] transition-all duration-300 shadow-sm"
+                  >
+                    <AccordionTrigger className="text-left text-sm sm:text-base font-semibold text-white hover:text-[#ff4b55] hover:no-underline py-4 sm:py-5">
+                      <span className="flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-primary/80 shrink-0" />
+                        {q}
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-slate-300 text-xs sm:text-sm leading-relaxed pb-5 pl-5 border-t border-white/5 pt-3">
+                      {a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </section>
         </main>
