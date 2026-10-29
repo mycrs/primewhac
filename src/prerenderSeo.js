@@ -104,11 +104,11 @@ const DEVICE_SEO_OVERRIDES = {
   },
   ios: {
     tr: { title: 'iOS ve iPhone IPTV Kurulumu — Uygulama Seçin | QruzeTV', description: 'iPhone ve iPad için NEXT+, CASTORA ve 9Xtream kurulum rehberleri.' },
-    de: { title: 'iOS IPTV Einrichtung — App wählen | QruzeTV', description: 'NEXT+, CASTORA oder 9Xtream für iPhone und iPad.' },
+    de: { title: 'iOS IPTV Einrichtung — App wählen | QruzeTV', description: 'IPTV auf iPhone und iPad einrichten: NEXT+, CASTORA oder 9Xtream App wählen und M3U Playlist Schritt für Schritt laden.' },
   },
   mac: {
     tr: { title: 'Mac IPTV Kurulumu — Uygulama Seçin | QruzeTV', description: 'Mac için NEXT+ ve CASTORA kurulum rehberleri. Paketinize uygun uygulamayı seçin.' },
-    de: { title: 'Mac IPTV Einrichtung — App wählen | QruzeTV', description: 'NEXT+ oder CASTORA für Mac — passende App wählen.' },
+    de: { title: 'Mac IPTV Einrichtung — App wählen | QruzeTV', description: 'IPTV auf Mac OS einrichten: NEXT+ oder CASTORA App wählen, M3U Playlist konfigurieren und 4K Streams starten.' },
   },
   'smart-tv': {
     tr: { title: 'Smart TV IPTV Kurulumu — Marka Rehberleri | QruzeTV', description: 'Samsung, LG, Philips, Vestel, Hisense ve TCL TV IPTV kurulumu. İşletim sistemini bulun, resmî mağazayı seçin ve M3U/Xtream ekleyin.' },
@@ -226,8 +226,8 @@ const STATIC_SEO = {
   ),
   '/hakkimizda': buildSeo(
     '/hakkimizda',
-    'Hakkımızda - QruzeTV',
-    'QruzeTV hakkında detaylı bilgi. Vizyonumuz, misyonumuz ve kalite standartlarımız.'
+    'Hakkımızda — Güvenilir 4K IPTV Altyapısı | QruzeTV',
+    'QruzeTV hakkında detaylı bilgi. Güçlü CDN altyapımız, kesintisiz yayın standartlarımız, vizyonumuz ve 7/24 müşteri odaklı hizmetimiz.'
   ),
   '/reseller': buildSeo(
     '/reseller',
@@ -266,8 +266,8 @@ const STATIC_SEO = {
   ),
   '/sitemap': buildSeo(
     '/sitemap',
-    'Site Haritası - QruzeTV',
-    'QruzeTV site haritası ile tüm sayfalara kolayca ulaşın. Paketler, kurulum rehberleri, blog yazıları ve daha fazlası.'
+    'Site Haritası — Tüm Sayfalar ve Rehberler | QruzeTV',
+    'QruzeTV HTML site haritası: IPTV paketleri, cihaz kurulum rehberleri, blog makaleleri ve tüm platform sayfalarına hızlı erişim.'
   ),
   '/de/test': buildSeo(
     '/de/test',

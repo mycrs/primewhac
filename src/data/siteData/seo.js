@@ -5,7 +5,7 @@ export const defaultSeoData = {
       keywords: "kaliteli iptv, iptv satın al, 4k iptv, avrupa iptv, yurt dışından türk kanalları izle, avrupa'da türk tv, almanya türk kanalları izle, yurtdışından trt izle, gurbetçi iptv"
     },
     about: {
-      title: "Hakkımızda - QruzeTV",
+      title: "Hakkımızda — Güvenilir 4K IPTV Altyapısı | QruzeTV",
       description: "QruzeTV hakkında detaylı bilgi. Vizyonumuz, misyonumuz ve kalite standartlarımız.",
       keywords: "kaliteli iptv, güvenilir iptv, hakkımızda, QruzeTV vizyon, iptv misyonu, donmayan yayın, iptv teknolojisi"
     },

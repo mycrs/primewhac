@@ -71,8 +71,8 @@ export const seoMetadata = {
     h1: "Detaylı IPTV Kullanım Rehberi"
   },
   sitemap: {
-    title: "Site Haritası - QruzeTV",
-    description: "QruzeTV site haritası ile tüm sayfalara kolayca ulaşın. Paketler, kurulum rehberleri, blog yazıları ve daha fazlası.",
+    title: "Site Haritası — Tüm Sayfalar ve Rehberler | QruzeTV",
+    description: "QruzeTV HTML site haritası: IPTV paketleri, cihaz kurulum rehberleri, blog makaleleri ve tüm platform sayfalarına hızlı erişim.",
     keywords: ["site haritası", "sitemap", "QruzeTV sayfalar", "iptv linkleri"],
     ogType: "website",
     ogImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
@@ -81,8 +81,8 @@ export const seoMetadata = {
     h1: "Site Haritası"
   },
   about: {
-    title: "Hakkımızda - QruzeTV",
-    description: "QruzeTV hakkında detaylı bilgi. Vizyonumuz, misyonumuz ve kalite standartlarımız.",
+    title: "Hakkımızda — Güvenilir 4K IPTV Altyapısı | QruzeTV",
+    description: "QruzeTV hakkında detaylı bilgi. Güçlü CDN altyapımız, kesintisiz yayın standartlarımız, vizyonumuz ve 7/24 müşteri odaklı hizmetimiz.",
     keywords: ["hakkımızda", "QruzeTV kimdir", "güvenilir iptv", "premium iptv", "iptv sağlayıcı", "kurumsal"],
     ogType: "website",
     ogImage: "https://cineverse.pro/og/hakkimizda.jpg",

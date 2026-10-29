@@ -227,8 +227,10 @@ function AppContent() {
                 <Route path="/de/pakete" element={<ED><PackagesPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/paketler" element={<ED><Navigate to="/de/pakete" replace /></ED>} />
                 <Route path="/de/kanale" element={<ED><ChannelsPageDE siteData={siteData} /></ED>} />
+                <Route path="/de/kanaele" element={<ED><Navigate to="/de/kanale" replace /></ED>} />
                 <Route path="/de/sss" element={<ED><FaqPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/m3u-olustur" element={<ED><M3uConverterPageDE siteData={siteData} /></ED>} />
+                <Route path="/de/m3u-playlist-konverter" element={<ED><Navigate to="/de/m3u-olustur" replace /></ED>} />
                 <Route path="/de/uber-uns" element={<ED><AboutPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/einrichtung" element={<ED><SetupPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/einrichtung/:device" element={<ED><InstallationDevicePage siteData={siteData} /></ED>} />
@@ -273,6 +275,7 @@ function AppContent() {
                 <Route path="/reseller" element={<ET><ResellerPage siteData={siteData} /></ET>} />
                 <Route path="/bayilik" element={<ET><ResellerPage siteData={siteData} /></ET>} />
                 <Route path="/channels" element={<ET><ChannelsPage siteData={siteData} /></ET>} />
+                <Route path="/kanallar" element={<ET><Navigate to="/channels" replace /></ET>} />
 
                 <Route path="/blog/write/:id" element={<ET><ProtectedRoute><BlogWritePage siteData={siteData} /></ProtectedRoute></ET>} />
                 <Route path="/blog/write" element={<ET><ProtectedRoute><BlogWritePage siteData={siteData} /></ProtectedRoute></ET>} />
@@ -280,6 +283,8 @@ function AppContent() {
                 <Route path="/blog/:slug" element={<ET><BlogPostPage siteData={siteData} /></ET>} />
 
                 <Route path="/m3u-converter" element={<ET><M3uConverterPage siteData={siteData} /></ET>} />
+                <Route path="/m3u-donusturucu" element={<ET><Navigate to="/m3u-converter" replace /></ET>} />
+                <Route path="/m3u-olustur" element={<ET><Navigate to="/m3u-converter" replace /></ET>} />
                 <Route path="/privacy" element={<ET><PrivacyPolicyPage siteData={siteData} /></ET>} />
                 <Route path="/gizlilik" element={<ET><PrivacyPolicyPage siteData={siteData} /></ET>} />
                 <Route path="/terms" element={<ET><TermsOfServicePage siteData={siteData} /></ET>} />

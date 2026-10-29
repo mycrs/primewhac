@@ -19,8 +19,8 @@ import SuccessStoriesSection from '@/components/SuccessStoriesSection';
 const AboutPage = ({ siteData }) => {
   // Safely access metadata with fallback to prevent undefined errors
   const metadata = seoMetadata.about || {
-    title: "Hakkımızda - QruzeTV",
-    description: "QruzeTV hakkında detaylı bilgi, vizyonumuz ve misyonumuz.",
+    title: "Hakkımızda — Güvenilir 4K IPTV Altyapısı | QruzeTV",
+    description: "QruzeTV hakkında detaylı bilgi. Güçlü CDN altyapımız, kesintisiz yayın standartlarımız, vizyonumuz ve 7/24 müşteri odaklı hizmetimiz.",
     keywords: ["hakkımızda", "iptv", "vizyon", "misyon"],
     ogType: "website"
   };
