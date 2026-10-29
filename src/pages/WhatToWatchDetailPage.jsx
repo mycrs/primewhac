@@ -132,7 +132,7 @@ const WhatToWatchDetailPage = ({ siteData }) => {
 
         <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
           <div className="w-64 md:w-80 shrink-0 mx-auto md:mx-0">
-            <img src={poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : 'https://via.placeholder.com/500x750'} alt={`${displayTitle} posteri`} className="w-full rounded-2xl shadow-2xl border border-slate-800" loading="eager" fetchPriority="high" decoding="async" />
+            <img src={poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : 'https://via.placeholder.com/500x750'} alt={`${displayTitle} posteri`} className="w-full rounded-2xl shadow-2xl border border-slate-800" loading="eager" fetchpriority="high" decoding="async" />
             <Button onClick={() => navigate('/paketler')} className="w-full mt-6 bg-primary hover:bg-primary h-12 rounded-xl text-base font-bold shadow-lg">
               <Tv className="w-5 h-5 mr-2" /> Yayın Paketlerini İncele
             </Button>

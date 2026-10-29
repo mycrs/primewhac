@@ -149,10 +149,10 @@ function ReviewSlideCompact({ review, copy, accentIndex }) {
           </blockquote>
 
           {review.subscription_months != null && review.customer_since_months != null && (
-            <footer className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 font-mono">
+            <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 font-mono">
               <span>{copy.pkgMeta(review.subscription_months, review.customer_since_months)}</span>
               <span className="text-emerald-400 text-[11px]">✓ Aktif Abone</span>
-            </footer>
+            </div>
           )}
         </div>
       </motion.div>

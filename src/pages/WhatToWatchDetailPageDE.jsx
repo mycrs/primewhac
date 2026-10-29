@@ -152,7 +152,7 @@ const WhatToWatchDetailPageDE = ({ siteData }) => {
           {/* Poster & Actions */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-64 md:w-80 shrink-0 mx-auto lg:mx-0">
             <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-[#0a0a0a]">
-              <img src={buildImageUrl(poster_path, 'w500')} alt={`${displayTitle} posteri`} className="w-full" loading="eager" fetchPriority="high" decoding="async" />
+              <img src={buildImageUrl(poster_path, 'w500')} alt={`${displayTitle} posteri`} className="w-full" loading="eager" fetchpriority="high" decoding="async" />
             </div>
             <div className="mt-6 space-y-3">
               <Button onClick={() => navigate('/de/paketler')} className="w-full bg-primary hover:bg-primary h-12 rounded-xl text-base font-bold shadow-lg shadow-primary/20">

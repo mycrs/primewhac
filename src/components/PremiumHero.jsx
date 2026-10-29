@@ -458,7 +458,7 @@ const PremiumHero = ({ siteData, mainTitle, subTitle }) => {
                 width={160}
                 height={160}
                 className="mx-auto h-auto w-full max-w-[120px] object-contain opacity-95 drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)] drop-shadow-[0_0_40px_rgba(229,9,20,0.45)] md:mx-0 md:max-w-[160px]"
-                fetchPriority="high"
+                fetchpriority="high"
                 decoding="async"
                 referrerPolicy="no-referrer"
               />
@@ -469,8 +469,12 @@ const PremiumHero = ({ siteData, mainTitle, subTitle }) => {
             </p>
 
             <h1 className="font-display mb-4 w-full max-w-lg font-black tracking-tight text-white antialiased md:mb-5 md:max-w-none">
-              <span className="block text-3xl leading-tight sm:text-4xl md:text-[3.4rem] md:leading-[1.05] lg:text-[4rem]">{line1}</span>
-              <span className="mt-1.5 block bg-gradient-to-r from-[#ff2430] via-[#e50914] to-[#b20710] bg-clip-text text-xl font-black text-transparent sm:text-2xl md:mt-2 md:text-[2rem]">{line2}</span>
+              <span className="block text-3xl leading-tight sm:text-4xl md:text-[3.4rem] md:leading-[1.05] lg:text-[4rem]">
+                {line1}
+              </span>{' '}
+              <span className="mt-1.5 block bg-gradient-to-r from-[#ff2430] via-[#e50914] to-[#b20710] bg-clip-text text-xl font-black text-transparent sm:text-2xl md:mt-2 md:text-[2rem]">
+                {line2}
+              </span>
             </h1>
 
             {subTitle && (
