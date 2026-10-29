@@ -492,9 +492,9 @@ const Packages = ({
   );
   const tierOptions = getActiveTierOptions(pageContent, isDe);
   const quizConfig = showTierFilter ? resolvePackageQuiz(pageContent, isDe) : { enabled: false };
-  const [trPackages, setTrPackages] = useState([]);
-  const [euPackages, setEuPackages] = useState([]);
-  const [trLoading, setTrLoading] = useState(true);
+  const [trPackages, setTrPackages] = useState(() => STATIC_PACKAGES_TR.map(normalizePackage));
+  const [euPackages, setEuPackages] = useState(() => STATIC_PACKAGES_EU.map(normalizePackage));
+  const [trLoading, setTrLoading] = useState(false);
   const [euLoading, setEuLoading] = useState(false);
   const [trError, setTrError] = useState(null);
   const [euError, setEuError] = useState(null);
@@ -528,7 +528,7 @@ const Packages = ({
     setTrLoading(true);
     setTrError(null);
     const fallbackData = STATIC_PACKAGES_TR;
-    const cacheKey = 'sb_pub_packages_tr_v5';
+    const cacheKey = 'sb_pub_packages_tr_v6';
 
     if (!isSupabaseConfigured()) {
       setTrPackages(fallbackData.map(normalizePackage));
@@ -579,7 +579,7 @@ const Packages = ({
     setEuLoading(true);
     setEuError(null);
     const fallbackData = STATIC_PACKAGES_EU;
-    const cacheKey = 'sb_pub_packages_eu_v5';
+    const cacheKey = 'sb_pub_packages_eu_v6';
 
     if (!isSupabaseConfigured()) {
       setEuPackages(fallbackData.map(normalizePackage));
