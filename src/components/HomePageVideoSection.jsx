@@ -30,11 +30,11 @@ const VideoBlock = ({ source, isYouTube, title }) => {
   return (
     <div
       ref={blockRef}
-      className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-[#050505]/90 shadow-[0_18px_50px_rgba(0,0,0,0.38)]"
+      className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-[#09090d] shadow-[0_18px_50px_rgba(0,0,0,0.48)] group"
     >
       {!visible ? (
-        <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0a]/80">
-          <PlayCircle className="w-12 h-12 text-primary/70" aria-hidden />
+        <div className="absolute inset-0 flex items-center justify-center bg-[#09090d]">
+          <PlayCircle className="w-12 h-12 text-primary/70 animate-pulse" aria-hidden />
           <span className="sr-only">{title}</span>
         </div>
       ) : isYouTube ? (
@@ -51,8 +51,9 @@ const VideoBlock = ({ source, isYouTube, title }) => {
           src={source}
           controls
           playsInline
-          preload="none"
-          className="w-full h-full object-contain"
+          preload="metadata"
+          poster="/og/home.jpg"
+          className="w-full h-full object-cover"
         >
           Tarayıcınız video oynatmayı desteklemiyor.
         </video>

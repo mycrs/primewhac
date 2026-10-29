@@ -439,9 +439,10 @@ export default defineConfig({
 						routes: prerenderRoutes,
 						renderer: '@prerenderer/renderer-puppeteer',
 						rendererOptions: {
-							// Supabase destekli sayfaların yükleme kabuğu yerine gerçek içeriğini yakala.
-							renderAfterTime: 12000,
+							renderAfterTime: 3500,
 							timeout: 120000,
+							maxConcurrentRoutes: 4,
+							args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu'],
 						},
 						postProcess(renderedRoute) {
 							let html = stripJsonLdScripts(renderedRoute.html);

@@ -82,37 +82,41 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
   const seoDescription = getSeoDescription(pkg.name);
 
   return (
-    <article className={`luxury-card relative p-6 rounded-3xl border-2 flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${isPopular ? 'border-primary/50 shadow-lg shadow-primary/20 ring-2 ring-primary/60 ring-offset-2 ring-offset-[#0a0a0a] shadow-[0_0_30px_rgba(229,9,20,0.25)] hover:shadow-[0_0_40px_rgba(229,9,20,0.4)] hover:ring-primary/80' : 'border-[#262626] hover:border-slate-600'}`}>
+    <article className={`luxury-card relative p-6 md:p-7 rounded-3xl border flex flex-col h-full backdrop-blur-xl group z-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(0,0,0,0.8)] ${
+      isPopular
+        ? 'bg-gradient-to-b from-[#1e1416] via-[#120d0f] to-[#0a0a0d] border-[#e50914]/60 shadow-[0_0_40px_rgba(229,9,20,0.22)] ring-1 ring-[#e50914]/40 hover:border-[#e50914] hover:shadow-[0_0_60px_rgba(229,9,20,0.4)]'
+        : 'bg-gradient-to-b from-[#16161c] via-[#0e0e12] to-[#070709] border-white/10 hover:border-white/25'
+    }`}>
       {isPopular && (
         <>
-          <div className="absolute inset-0 rounded-xl pointer-events-none -z-10 bg-gradient-to-r from-[#e50914]/10 via-transparent to-[#b20710]/10 animate-pulse" style={{ animationDuration: '3s' }} />
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#e50914] to-[#b20710] text-white text-xs font-bold px-4 py-1 rounded-full uppercase flex items-center gap-1 shadow-lg shadow-primary/40 z-20 whitespace-nowrap">
-            <Star className="w-3 h-3 fill-current" /> AM BELIEBTESTEN
+          <div className="absolute inset-0 rounded-3xl pointer-events-none -z-10 bg-gradient-to-r from-[#e50914]/15 via-transparent to-[#b20710]/15" />
+          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white text-[11px] font-black px-4 py-1.5 rounded-full uppercase flex items-center gap-1.5 shadow-xl shadow-[#e50914]/40 z-20 whitespace-nowrap border border-white/30 tracking-wider">
+            <Star className="w-3.5 h-3.5 fill-current animate-pulse text-amber-300" /> AM BELIEBTESTEN
           </div>
         </>
       )}
 
       <PackageCountdownBadge pkg={pkg} isDe />
 
-      <div className="text-center mb-6 pt-4">
-        <span className="qruze-premium-seal mb-4">
-          {isPopular ? 'Premium Choice' : 'Qruze Paket'}
+      <div className="text-center mb-5 pt-3">
+        <span className="qruze-premium-seal mb-2 text-[10px] tracking-widest uppercase">
+          {isPopular ? 'VIP Premium-Auswahl' : 'Qruze Paket'}
         </span>
-        <div className="text-[#e50914] font-bold uppercase tracking-widest text-sm mb-2">{translateDuration(pkg.duration)}</div>
+        <div className="text-[#ff4b55] font-black uppercase tracking-widest text-sm mb-1.5">{translateDuration(pkg.duration)}</div>
         {pkg.campaign_label && (
-          <div className="inline-block mb-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold border border-amber-500/30">
+          <div className="inline-block mb-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[11px] font-bold border border-amber-500/40 shadow-sm">
             {pkg.campaign_label}
           </div>
         )}
-        <div className="flex items-center justify-center gap-0.5 relative z-10 flex-wrap">
+        <div className="flex items-center justify-center gap-1 relative z-10 flex-wrap my-2">
           {pkg.original_price != null && Number(pkg.original_price) > Number(pkg.price) && (
-            <span className="text-lg text-gray-500 line-through mr-2 align-baseline">{currencySymbol}{pkg.original_price}</span>
+            <span className="text-base text-gray-500 line-through mr-1 align-baseline">{currencySymbol}{pkg.original_price}</span>
           )}
-          <span className="text-xl text-gray-300 font-semibold align-top mt-1">{currencySymbol}</span>
-          <span className="text-5xl font-bold text-white tracking-tight">{pkg.price}</span>
+          <span className="text-2xl text-gray-400 font-extrabold align-top mt-1">{currencySymbol}</span>
+          <span className="font-display text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-md">{pkg.price}</span>
         </div>
-        <h3 className="text-gray-200 text-lg mt-3 font-bold">{translateName(pkg.name)}</h3>
-        <p className="text-gray-500 text-xs mt-1 italic">{seoDescription}</p>
+        <h3 className="text-white text-lg mt-3 font-bold">{translateName(pkg.name)}</h3>
+        <p className="text-slate-400 text-[12px] mt-1 line-clamp-1">{seoDescription}</p>
       </div>
       
       {(pkg.isRegionSelectable ?? pkg.is_region_selectable) && (
@@ -122,19 +126,19 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
         />
       )}
 
-      <div className="flex-grow">
-        <div className="h-px bg-gradient-to-r from-transparent via-[#262626] to-transparent mb-6"></div>
-        <ul className="space-y-3 mb-8">
+      <div className="flex-grow my-4">
+        <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent mb-4"></div>
+        <ul className="space-y-2.5 mb-6">
           {(pkg.features || []).slice(0, 6).map((feature, i) => (
-            <li key={i} className="flex items-start text-sm text-gray-300 font-medium leading-snug">
-              <div className="mr-3 mt-0.5 shrink-0 bg-primary/30 rounded-full p-0.5">
-                <Check className="w-3 h-3 text-[#e50914]" />
+            <li key={i} className="flex items-start text-xs md:text-sm text-slate-200 font-medium leading-relaxed">
+              <div className="mr-2.5 mt-0.5 shrink-0 bg-[#e50914]/20 border border-[#e50914]/40 rounded-full p-0.5 group-hover:bg-[#e50914] group-hover:text-white transition-colors duration-300">
+                <Check className="w-3.5 h-3.5 text-[#ff4b55] group-hover:text-white" />
               </div>
-              <span>{translateFeature(feature)}</span>
+              <span className="line-clamp-2">{translateFeature(feature)}</span>
             </li>
           ))}
           {(pkg.features || []).length > 6 && (
-            <li className="text-xs text-gray-500 pl-8 pt-1 italic">
+            <li className="text-[11px] text-slate-400 pl-6 pt-0.5 italic">
               +{(pkg.features.length - 6)} weitere Funktion{(pkg.features.length - 6) > 1 ? 'en' : ''}
             </li>
           )}
@@ -143,13 +147,13 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
 
       <Button 
         onClick={handleOrder}
-        className={`w-full h-12 rounded-2xl font-bold text-base mt-auto transition-all duration-300 ${
+        className={`w-full h-12 md:h-14 rounded-2xl font-black text-base mt-auto transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-98 ${
           isPopular 
-            ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white hover:from-[#b20710] hover:to-[#b20710] hover:shadow-lg hover:shadow-primary/30' 
-            : 'bg-[#1a1a1a] text-white hover:bg-[#2a2a2a] border border-[#262626] hover:border-slate-500'
+            ? 'bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white shadow-xl shadow-[#e50914]/40 hover:shadow-[0_0_35px_rgba(229,9,20,0.6)] hover:scale-[1.02]' 
+            : 'bg-white/[0.08] hover:bg-[#e50914] text-white border border-white/20 hover:border-[#e50914] hover:shadow-[0_0_30px_rgba(229,9,20,0.35)] hover:scale-[1.01]'
         }`}
       >
-        <Zap className="w-4 h-4 mr-2" />
+        <Zap className="w-4 h-4 fill-yellow-300 text-yellow-300 mr-1" />
         Jetzt bestellen
       </Button>
     </article>

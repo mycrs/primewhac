@@ -88,6 +88,12 @@ const AboutPage = ({ siteData }) => {
             </div>
           </section>
 
+          {/* Core Values Section */}
+          <AboutValueSection />
+
+          {/* Mission & Vision Section */}
+          <MissionVisionSection />
+
           {/* SEO Odaklı Hakkımızda İçeriği – TR (zenginleştirilmiş) */}
           <section className="py-12 md:py-20 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#141414]" aria-label="QruzeTV Hakkımızda Detaylı İçerik">
             <div className="container mx-auto px-4 max-w-6xl text-slate-200 space-y-16">
@@ -474,6 +480,9 @@ const AboutPage = ({ siteData }) => {
               </motion.div>
             </div>
           </section>
+
+          {/* Broadcast Engineering Pillars */}
+          <WhyChooseUsSection title="Mühendislik Standartlarımız ve Altyapı" />
 
         </main>
 

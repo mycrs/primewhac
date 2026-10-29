@@ -5,6 +5,7 @@ import SEOHead from '@/components/SEOHead';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Target, Tv, Server, Zap, HeartHandshake, Headphones as HeadphonesIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import WhyChooseUsSectionDE from '@/components/WhyChooseUsSectionDE';
 
 const AboutPageDE = ({ siteData }) => {
   const metadata = {
@@ -142,6 +143,9 @@ const AboutPageDE = ({ siteData }) => {
             </motion.div>
 
           </section>
+
+          {/* Broadcast Engineering Standards */}
+          <WhyChooseUsSectionDE title="Unsere technischen Standards & Infrastruktur" />
         </main>
 
         <FooterDE contactData={siteData?.contactData} siteData={siteData} />

@@ -112,6 +112,44 @@ const WhyChooseUsSection = ({ title }) => {
             );
           })}
         </div>
+
+        {/* Live Infrastructure Telemetry Bar */}
+        <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.02] p-4 md:p-6 backdrop-blur-md">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+            <div className="pt-2 md:pt-0">
+              <span className="flex items-center justify-center gap-1.5 text-xs text-emerald-400 font-bold mb-1">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+                DE-CIX Frankfurt
+              </span>
+              <span className="font-mono text-lg font-black text-white">&lt; 9ms</span>
+              <p className="text-[10px] text-slate-400 mt-0.5">Avrupa Ana Düğümü</p>
+            </div>
+            <div className="pt-2 md:pt-0">
+              <span className="flex items-center justify-center gap-1.5 text-xs text-emerald-400 font-bold mb-1">
+                <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                AMS-IX Amsterdam
+              </span>
+              <span className="font-mono text-lg font-black text-white">&lt; 12ms</span>
+              <p className="text-[10px] text-slate-400 mt-0.5">Yedekli Fiber Aktarımı</p>
+            </div>
+            <div className="pt-2 md:pt-0">
+              <span className="flex items-center justify-center gap-1.5 text-xs text-emerald-400 font-bold mb-1">
+                <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                Equinix Zürih & Viyana
+              </span>
+              <span className="font-mono text-lg font-black text-white">&lt; 11ms</span>
+              <p className="text-[10px] text-slate-400 mt-0.5">DACH Bölge Dağıtımı</p>
+            </div>
+            <div className="pt-2 md:pt-0">
+              <span className="flex items-center justify-center gap-1.5 text-xs text-[#e50914] font-bold mb-1">
+                <span className="h-2 w-2 rounded-full bg-[#e50914]" />
+                Yayın Hat Sağlığı
+              </span>
+              <span className="font-mono text-lg font-black text-white">99.98%</span>
+              <p className="text-[10px] text-slate-400 mt-0.5">Yıllık Uptime Ortalaması</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -93,8 +93,8 @@ export const TOPIC_CLUSTERS = {
       id: 'izle',
       title: 'İzleme Rehberleri',
       links: [
-        { to: '/mac-programi/', label: 'Maç Programı' },
-        { to: '/ne-izlesem/', label: 'Ne İzlesem?' },
+        { to: '/ne-izlesem/', label: 'Sinema & Dizi Arşivi' },
+        { to: '/channels/', label: 'Kanal Listesi' },
         { to: '/almanyada-turk-kanallari/', label: "Almanya'da Türk Kanalları" },
         { to: '/blog/', label: 'Blog & Haberler' },
         { to: '/yorumlar/', label: 'Müşteri Yorumları' },
@@ -132,8 +132,8 @@ export const TOPIC_CLUSTERS = {
       id: 'ansehen',
       title: 'Tipps zum Anschauen',
       links: [
-        { to: '/de/spielplan/', label: 'Spielplan' },
-        { to: '/de/was-soll-ich-schauen/', label: 'Was soll ich schauen?' },
+        { to: '/de/was-soll-ich-schauen/', label: 'Filme & Serien Archiv' },
+        { to: '/de/kanale/', label: 'Alle Sender' },
         { to: '/de/tuerkische-sender-in-deutschland/', label: 'Türkische Sender in DE' },
         { to: '/de/kanale/', label: 'Alle Sender' },
         { to: '/de/einrichtung/', label: 'Einrichtung & Support' },
