@@ -1,53 +1,70 @@
 /**
- * Paket tier sistemi — economic / standard / premium / ultra genişletilebilir.
+ * Paket tier sistemi — stabil / cinema / global (ve geriye uyumlu standard / premium / economic).
  * region: tr | eu (DB'de TR/EU olabilir; normalize edilir).
  */
 
-/** Tüm desteklenen tier kimlikleri (ileride economic, ultra eklenebilir) */
-export const PACKAGE_TIER_IDS = ['economic', 'standard', 'premium', 'ultra'];
+export const PACKAGE_TIER_IDS = ['stabil', 'cinema', 'global', 'economic', 'standard', 'premium', 'ultra'];
 
-export const DEFAULT_PACKAGE_TIER = 'premium';
+export const DEFAULT_PACKAGE_TIER = 'cinema';
 export const DEFAULT_PACKAGE_REGION = 'tr';
 
-/** Şu an UI'da gösterilen tier seçenekleri */
+/** UI'da gösterilen 3 özelleştirilmiş paket hattı */
 export const ACTIVE_TIER_OPTIONS = [
-  { id: 'economic', labelTr: 'Ekonomik Paketler', labelDe: 'Wirtschaftspakete' },
-  { id: 'standard', labelTr: 'Standart Paketler', labelDe: 'Standard Pakete' },
-  { id: 'premium', labelTr: 'Premium Paketler', labelDe: 'Premium Pakete' },
+  { id: 'stabil', labelTr: 'Premium Stabil', labelDe: 'Premium Stabil' },
+  { id: 'cinema', labelTr: '4K Yoğun İçerik & Sinema', labelDe: '4K Ultra Kino & VOD' },
+  { id: 'global', labelTr: 'Global & Dünya', labelDe: 'Global & Welt' },
 ];
 
-/** Paket kartlarının üstünde — seçili tier için 1-2 satır */
+/** Paket kartlarının üstünde — seçili tier için 1 satırlık rafine açıklama */
 export const TIER_SHORT_DESCRIPTIONS_TR = {
-  standard: 'Günlük kullanım için uygun fiyatlı IPTV paketleri.',
-  premium: 'Daha geniş içerik, yüksek kalite yayın ve öncelikli destek isteyen kullanıcılar için.',
-  economic: 'Uygun fiyatlı, temel ihtiyaçlar için ideal IPTV paketleri.',
+  stabil: 'Anti-Freeze v4 altyapısı ile donmayan, kesintisiz canlı TV ve maç yayını odaklı paket.',
+  cinema: '15.000+ film ve dizi arşivi, gerçek 4K HDR görüntü ve Dolby Atmos ses deneyimi.',
+  global: 'Tüm Avrupa ve dünya kanalları, küresel Anycast CDN ve çok dilli yayın erişimi.',
+  standard: 'Anti-Freeze v4 altyapısı ile donmayan, kesintisiz canlı TV ve maç yayını odaklı paket.',
+  premium: '15.000+ film ve dizi arşivi, gerçek 4K HDR görüntü ve Dolby Atmos ses deneyimi.',
+  economic: 'Ekonomik fiyatlı temel yayın paketi.',
   ultra: '',
 };
 
 export const TIER_SHORT_DESCRIPTIONS_DE = {
-  standard: 'Preiswerte IPTV-Pakete für den täglichen Gebrauch.',
-  premium: 'Für Nutzer mit größerem Inhaltsarchiv, hoher Qualität und priorisiertem Support.',
-  economic: 'Günstige IPTV-Pakete für grundlegende Bedürfnisse.',
+  stabil: 'Unterbrechungsfreies Live-TV und Sport mit Anti-Freeze v4 Infrastruktur.',
+  cinema: '15.000+ Filme & Serien, echtes 4K HDR und Dolby Atmos Raumklang.',
+  global: 'Alle Welt- & Europakanäle mit Anycast CDN ohne Latenz.',
+  standard: 'Unterbrechungsfreies Live-TV und Sport mit Anti-Freeze v4 Infrastruktur.',
+  premium: '15.000+ Filme & Serien, echtes 4K HDR und Dolby Atmos Raumklang.',
+  economic: 'Wirtschaftliche Basispakete.',
   ultra: '',
 };
 
 export const TIER_DESCRIPTIONS_TR = {
+  stabil:
+    'Premium Stabil paket; yoğun saatlerde donma yaşamadan akıcı canlı TV ve maç izlemek isteyen kullanıcılar için dedicated altyapıyla sunulur.',
+  cinema:
+    '4K Yoğun İçerik & Sinema paketi; 15.000+ film ve dizi arşivi, 4K HDR master yayınlar ve Dolby çevresel ses kalitesiyle sinema tutkunları için hazırlanmıştır.',
+  global:
+    'Global & Dünya İçerikleri paketi; tüm dünya ve Avrupa kanallarına sıfır gecikmeli Anycast CDN üzerinden VPN gerektirmeden erişim sunar.',
   standard:
-    'Standart IPTV paketleri, günlük kullanım için hazırlanmış uygun fiyatlı abonelik seçenekleridir. Temel kanal erişimi, film/dizi içerikleri ve yaygın cihaz desteği sunar.',
+    'Premium Stabil paket; yoğun saatlerde donma yaşamadan akıcı canlı TV ve maç izlemek isteyen kullanıcılar için dedicated altyapıyla sunulur.',
   premium:
-    'Premium IPTV paketleri, daha geniş içerik arşivi, yüksek kalite yayın seçenekleri ve öncelikli destek isteyen kullanıcılar için hazırlanmıştır.',
+    '4K Yoğun İçerik & Sinema paketi; 15.000+ film ve dizi arşivi, 4K HDR master yayınlar ve Dolby çevresel ses kalitesiyle sinema tutkunları için hazırlanmıştır.',
   economic:
-    'Ekonomik IPTV paketleri, bütçe dostu fiyatlarla temel kanal erişimi, popüler içerikler ve yaygın cihaz desteği sunar. Hizmeti keşfetmek isteyenler için ideal başlangıç noktasıdır.',
+    'Ekonomik IPTV paketleri, bütçe dostu fiyatlarla temel kanal erişimi sunar.',
   ultra: '',
 };
 
 export const TIER_DESCRIPTIONS_DE = {
+  stabil:
+    'Premium Stabil-Paket: Unterbrechungsfreies Live-TV und Sportübertragungen mit dedizierter Anti-Freeze-Infrastruktur.',
+  cinema:
+    '4K Ultra Kino & VOD-Paket: Riesiges Archiv mit über 15.000 Filmen und Serien, echtes 4K HDR und Dolby-Audio.',
+  global:
+    'Global & Weltkanäle-Paket: Voller Zugriff auf europäische und weltweite Sender über das globale Anycast-Netzwerk.',
   standard:
-    'Standard-IPTV-Pakete sind preiswerte Abonnements für den täglichen Gebrauch mit Grundkanälen, Film- und Serieninhalten sowie breiter Geräteunterstützung.',
+    'Premium Stabil-Paket: Unterbrechungsfreies Live-TV und Sportübertragungen mit dedizierter Anti-Freeze-Infrastruktur.',
   premium:
-    'Premium-IPTV-Pakete bieten ein größeres Inhaltsarchiv, hochwertige Streaming-Optionen und priorisierten Support für anspruchsvolle Nutzer.',
+    '4K Ultra Kino & VOD-Paket: Riesiges Archiv mit über 15.000 Filmen und Serien, echtes 4K HDR und Dolby-Audio.',
   economic:
-    'Economy-IPTV-Pakete bieten zu budgetfreundlichen Preisen Zugang zu den wichtigsten Kanälen, beliebten Inhalten und breiter Geräteunterstützung — ideal für Einsteiger.',
+    'Economy-IPTV-Pakete bieten zu budgetfreundlichen Preisen Zugang zu den wichtigsten Kanälen.',
   ultra: '',
 };
 
@@ -86,14 +103,19 @@ export function inferPackageTier(pkg) {
   const explicit = pkg?.tier ?? pkg?.package_tier;
   if (explicit) {
     const t = String(explicit).toLowerCase().trim();
-    if (PACKAGE_TIER_IDS.includes(t)) return t;
+    if (t === 'stabil') return 'stabil';
+    if (t === 'cinema') return 'cinema';
+    if (t === 'global') return 'global';
+    if (t === 'standard') return 'stabil';
+    if (t === 'premium') return 'cinema';
+    if (t === 'economic') return 'stabil';
   }
 
   const name = (pkg?.name || pkg?.title || '').toLowerCase();
-  if (name.includes('ultra')) return 'ultra';
-  if (name.includes('premium') || name.includes('vip')) return 'premium';
-  if (name.includes('economic') || name.includes('ekonomik')) return 'economic';
-  return 'standard';
+  if (name.includes('global') || name.includes('dünya') || name.includes('welt')) return 'global';
+  if (name.includes('4k') || name.includes('cinema') || name.includes('sinema') || name.includes('kino') || name.includes('içerik')) return 'cinema';
+  if (name.includes('stabil')) return 'stabil';
+  return 'cinema';
 }
 
 /**
