@@ -3,9 +3,7 @@ import HeaderDE from '@/components/HeaderDE';
 import FooterDE from '@/components/FooterDE';
 import PremiumHeroDE from '@/components/PremiumHeroDE'; 
 import TrendingContentSliderDE from '@/components/TrendingContentSliderDE';
-import ChannelSliderDE from '@/components/ChannelSliderDE';
 import Packages from '@/components/Packages';
-import MassiveChannelArchiveSectionDE from '@/components/MassiveChannelArchiveSectionDE';
 import ChatBot from '@/components/ChatBot';
 import SEOHead from '@/components/SEOHead';
 import { homePageSchemasDE } from '@/utils/seoSchema';
@@ -20,7 +18,7 @@ import FeaturedReviewsCarousel from '@/components/FeaturedReviewsCarousel';
 import LazySection from '@/components/LazySection';
 import PremiumConversionStrip from '@/components/PremiumConversionStrip';
 import { initPerformanceMonitoring } from '@/utils/performanceMonitoring';
-import { ShieldCheck, Lock, Calendar, Tv } from 'lucide-react';
+import { ShieldCheck, Lock, Film, Tv } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const HomePageDE = ({ siteData }) => {
@@ -69,16 +67,7 @@ const HomePageDE = ({ siteData }) => {
               <div className="container mx-auto px-4 mb-8 text-center sr-only">
                 <h2 className="text-2xl font-bold">Beliebte Inhalte in 4K IPTV</h2>
               </div>
-              <TrendingContentSliderDE title="Beliebte Inhalte in 4K IPTV" />
-            </ErrorBoundary>
-          </LazySection>
-
-          <LazySection className="qruze-cinema-section relative border-t border-white/5 content-visibility-auto">
-            <ErrorBoundary onRetry={handleRetry}>
-              <div className="container mx-auto px-4 mb-8 text-center sr-only">
-                <h2 className="text-2xl font-bold">Umfangreiche Kanäle für Premium IPTV</h2>
-              </div>
-              <ChannelSliderDE channels={safeSiteData.channelsData} title="Umfangreiche Kanäle für Premium IPTV" />
+              <TrendingContentSliderDE title="Beliebte Filme & Serien in 4K" />
             </ErrorBoundary>
           </LazySection>
 
@@ -111,11 +100,12 @@ const HomePageDE = ({ siteData }) => {
               <div className="container mx-auto px-4">
                 <div className="mb-8 text-center">
                   <span className="qruze-premium-seal mb-3">Qruze Experience</span>
-                  <h2 className="text-xl font-bold text-white">Zuschauer-Guide</h2>
+                  <h2 className="text-xl font-bold text-white">Zuschauer-Guide & Entdeckung</h2>
+                  <p className="text-slate-400 text-sm mt-2 max-w-xl mx-auto">Filme, Serien und Schritt-für-Schritt-Einrichtung für alle gängigen Smart TVs und Streaming-Geräte.</p>
                 </div>
                 <div className="space-y-4 max-w-2xl mx-auto">
                 <Link
-                  to="/de/spielplan"
+                  to="/de/was-soll-ich-schauen"
                   className="qruze-cinema-link group flex w-full items-center gap-4 rounded-2xl border-2 border-[#e50914]/45 p-6 backdrop-blur-sm transition-all duration-300 hover:border-[#e50914]/65 hover:shadow-[0_0_64px_rgba(229,9,20,0.24)]"
                 >
                   <span
@@ -123,32 +113,32 @@ const HomePageDE = ({ siteData }) => {
                     aria-hidden
                   />
                   <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#e50914]/40 to-[#b20710]/50 shadow-[0_0_24px_rgba(229,9,20,0.35)] ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105">
-                    <Calendar className="h-6 w-6 text-white drop-shadow-md" />
+                    <Film className="h-6 w-6 text-white drop-shadow-md" />
                   </div>
                   <div className="relative z-10 min-w-0 flex-1">
                     <h3 className="text-xl font-bold text-white transition-colors group-hover:text-[#e50914]">
-                      Spielplan & Live-Fixtures
+                      Film- & Serienarchiv
                     </h3>
                     <p className="mt-1 text-sm text-slate-300">
-                      Tagesaktuelle Fixtures und Anstoßzeiten. <span className="font-medium text-[#e50914]/95">Wochenprogramm</span> auf einen Blick.
+                      Top-bewertete Filme, Serien-Highlights und IMDb-Empfehlungen. <span className="font-medium text-[#e50914]/95">Ständig aktualisiert</span>.
                     </p>
                   </div>
                   <span className="relative z-10 shrink-0 text-sm font-semibold text-[#e50914] transition-transform duration-300 group-hover:translate-x-1">
-                    Spielplan →
+                    Entdecken →
                   </span>
                 </Link>
                 <Link
-                  to="/de/kanale"
+                  to="/de/einrichtung"
                   className="qruze-cinema-link flex items-center gap-4 w-full p-6 rounded-2xl border border-white/15 hover:border-primary/50 transition-all group"
                 >
                   <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
                     <Tv className="w-7 h-7 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">Kanalübersicht & Sparten</h3>
-                    <p className="text-slate-300 text-sm mt-1">Nationale Sender, Nachrichten, Sport und Dokumentationen. <span className="text-primary/90">Mit Live-EPG</span>.</p>
+                    <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">Einrichtungsanleitungen</h3>
+                    <p className="text-slate-300 text-sm mt-1">Einfache Schritt-für-Schritt-Anleitung für Samsung, LG webOS, Android TV, Apple TV und PC.</p>
                   </div>
-                  <span className="text-primary text-sm font-medium group-hover:translate-x-1 transition-transform shrink-0">Kanäle →</span>
+                  <span className="text-primary text-sm font-medium group-hover:translate-x-1 transition-transform shrink-0">Anleitung →</span>
                 </Link>
                 </div>
               </div>
@@ -201,15 +191,6 @@ const HomePageDE = ({ siteData }) => {
                  <h2 className="text-2xl font-bold">Warum ist unsere IPTV stabil?</h2>
                </div>
               <WhyChooseUsSectionDE title="Warum ist unsere IPTV stabil?" />
-            </ErrorBoundary>
-          </LazySection>
-
-          <LazySection className="qruze-cinema-section py-20 relative border-t border-white/5">
-            <ErrorBoundary onRetry={handleRetry}>
-              <div className="container mx-auto px-4 mb-8 text-center sr-only">
-                 <h2 className="text-2xl font-bold">Stabile IPTV ohne Unterbrechung</h2>
-               </div>
-              <MassiveChannelArchiveSectionDE title="Stabile IPTV ohne Unterbrechung" />
             </ErrorBoundary>
           </LazySection>
 

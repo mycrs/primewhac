@@ -1,204 +1,166 @@
-import React, { useMemo, memo } from 'react';
-import { Link } from 'react-router-dom';
-import { Sparkles, ArrowRight, Tv, Radio, Compass, Film, HeartHandshake, Music2, ShieldCheck } from 'lucide-react';
+
+import React, { useState, useEffect, useCallback } from 'react';
+import { AlertCircle, RefreshCw, Clock } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
+import ContentCard from '@/components/what-to-watch/ContentCard';
+import useMovieDatabase from '@/hooks/useMovieDatabase';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useWhenVisible } from '@/hooks/useWhenVisible';
 
-const EDITORIAL_STREAMS_TR = [
-  {
-    id: 'stream-nature-4k',
-    title: '4K Doğa & Kültür Belgeselleri',
-    category: '4K UHD · 60 FPS',
-    badge: 'Ultra Netlik',
-    description: 'Yaban hayatı, okyanus derinlikleri ve dünya mirası serileri gerçek renk derinliğiyle ekranınızda.',
-    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=900&auto=format&fit=crop',
-    icon: Compass,
-    link: '/channels',
-    gradient: 'from-emerald-500/30 via-emerald-950/20 to-black/80',
-    borderGlow: 'group-hover:border-emerald-500/50',
-    tagColor: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20'
-  },
-  {
-    id: 'stream-national-news',
-    title: '7/24 Kesintisiz Ulusal & Haber Akışı',
-    category: 'Canlı EPG · Sıfır Gecikme',
-    badge: 'Canlı Akış',
-    description: 'Türkiye ve dünyadan tarafsız ana haber bültenleri, ekonomi ve güncel tartışma programları.',
-    imageUrl: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=900&auto=format&fit=crop',
-    icon: Radio,
-    link: '/channels',
-    gradient: 'from-red-500/30 via-red-950/20 to-black/80',
-    borderGlow: 'group-hover:border-[#e50914]/50',
-    tagColor: 'text-red-400 bg-red-500/10 border-red-500/20'
-  },
-  {
-    id: 'stream-live-sports',
-    title: 'Haftalık Canlı Maç & Spor Fikstürü',
-    category: 'Canlı Fikstür · Anlık Saatler',
-    badge: 'Spor Rehberi',
-    description: 'Süper Lig, Şampiyonlar Ligi, EuroLeague ve Premier League karşılaşmalarının eksiksiz programı.',
-    imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=900&auto=format&fit=crop',
-    icon: Tv,
-    link: '/mac-programi',
-    gradient: 'from-amber-500/30 via-amber-950/20 to-black/80',
-    borderGlow: 'group-hover:border-amber-500/50',
-    tagColor: 'text-amber-400 bg-amber-500/10 border-amber-500/20'
-  },
-  {
-    id: 'stream-cinema-arts',
-    title: 'Kültür, Sanat & Klasik Sahne Arşivi',
-    category: 'Restorasyonlu Master',
-    badge: 'Kültür Kuşağı',
-    description: 'Türk tiyatrosu, bağımsız sinema belleği ve uluslararası festival yapımları tek seçkide.',
-    imageUrl: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=900&auto=format&fit=crop',
-    icon: Film,
-    link: '/channels',
-    gradient: 'from-purple-500/30 via-purple-950/20 to-black/80',
-    borderGlow: 'group-hover:border-purple-500/50',
-    tagColor: 'text-purple-400 bg-purple-500/10 border-purple-500/20'
-  },
-  {
-    id: 'stream-family-kids',
-    title: 'Pedagojik Aile & Çocuk Kuşağı',
-    category: 'Güvenli Yayın · Reklamsız',
-    badge: 'Aile Dostu',
-    description: 'Çocuklarınız için uzmanlarca seçilmiş güvenli, eğitici animasyonlar ve Türkçe çizgi diziler.',
-    imageUrl: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=900&auto=format&fit=crop',
-    icon: HeartHandshake,
-    link: '/channels',
-    gradient: 'from-sky-500/30 via-sky-950/20 to-black/80',
-    borderGlow: 'group-hover:border-sky-500/50',
-    tagColor: 'text-sky-400 bg-sky-500/10 border-sky-500/20'
-  },
-  {
-    id: 'stream-acoustic-music',
-    title: 'Akustik Sahne & Stüdyo Müzik Kuşağı',
-    category: 'Lossless Ses · Hi-Fi Audio',
-    badge: 'Stüdyo Sesi',
-    description: 'Canlı oda konserleri, caz performansları, klasik senfoniler ve geleneksel akustik dinletiler.',
-    imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=900&auto=format&fit=crop',
-    icon: Music2,
-    link: '/channels',
-    gradient: 'from-rose-500/30 via-rose-950/20 to-black/80',
-    borderGlow: 'group-hover:border-rose-500/50',
-    tagColor: 'text-rose-400 bg-rose-500/10 border-rose-500/20'
-  }
-];
-
-const EDITORIAL_STREAMS_DE = [
-  {
-    id: 'stream-nature-4k-de',
-    title: '4K Natur- & Kultur-Dokumentationen',
-    category: '4K UHD · 60 FPS',
-    badge: 'Ultra Schärfe',
-    description: 'Faszinierende Tierwelten, Meereswunder und Weltkultur in atemberaubender Farbtiefe.',
-    imageUrl: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=900&auto=format&fit=crop',
-    icon: Compass,
-    link: '/de/kanale',
-    gradient: 'from-emerald-500/30 via-emerald-950/20 to-black/80',
-    borderGlow: 'group-hover:border-emerald-500/50',
-    tagColor: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20'
-  },
-  {
-    id: 'stream-national-news-de',
-    title: '24/7 Nationale Sender & Nachrichten',
-    category: 'Live EPG · Geringe Latenz',
-    badge: 'Live Stream',
-    description: 'Hauptnachrichten, Wirtschaft und Live-Berichterstattung aus der Türkei und der Welt.',
-    imageUrl: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=900&auto=format&fit=crop',
-    icon: Radio,
-    link: '/de/kanale',
-    gradient: 'from-red-500/30 via-red-950/20 to-black/80',
-    borderGlow: 'group-hover:border-[#e50914]/50',
-    tagColor: 'text-red-400 bg-red-500/10 border-red-500/20'
-  },
-  {
-    id: 'stream-live-sports-de',
-    title: 'Live-Sport & Wöchentlicher Spielplan',
-    category: 'Spielplan · Live-Ticker',
-    badge: 'Sport Guide',
-    description: 'Süper Lig, UEFA Champions League, EuroLeague und internationale Begegnungen im Detail.',
-    imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=900&auto=format&fit=crop',
-    icon: Tv,
-    link: '/de/spielplan',
-    gradient: 'from-amber-500/30 via-amber-950/20 to-black/80',
-    borderGlow: 'group-hover:border-amber-500/50',
-    tagColor: 'text-amber-400 bg-amber-500/10 border-amber-500/20'
-  },
-  {
-    id: 'stream-cinema-arts-de',
-    title: 'Bühnenkunst & Unabhängiges Kino',
-    category: 'Restaurierte Master',
-    badge: 'Kulturarchiv',
-    description: 'Klassiker der türkischen Filmgeschichte, Theateraufzeichnungen und Kulturbeiträge.',
-    imageUrl: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=900&auto=format&fit=crop',
-    icon: Film,
-    link: '/de/kanale',
-    gradient: 'from-purple-500/30 via-purple-950/20 to-black/80',
-    borderGlow: 'group-hover:border-purple-500/50',
-    tagColor: 'text-purple-400 bg-purple-500/10 border-purple-500/20'
-  },
-  {
-    id: 'stream-family-kids-de',
-    title: 'Pädagogisches Kinder- & Familienprogramm',
-    category: 'Familienfreundlich · Sicher',
-    badge: 'Familie',
-    description: 'Sorgfältig ausgewählte Trickfilme und Wissenssendungen für Kinder in türkischer Sprache.',
-    imageUrl: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=900&auto=format&fit=crop',
-    icon: HeartHandshake,
-    link: '/de/kanale',
-    gradient: 'from-sky-500/30 via-sky-950/20 to-black/80',
-    borderGlow: 'group-hover:border-sky-500/50',
-    tagColor: 'text-sky-400 bg-sky-500/10 border-sky-500/20'
-  },
-  {
-    id: 'stream-acoustic-music-de',
-    title: 'Akustische Konzerte & Live-Musik',
-    category: 'Lossless Audio · Studio-Sound',
-    badge: 'Hi-Fi Audio',
-    description: 'Live-Sessions, Jazz-Clubs, traditionelle Melodien und kristallklarer Klang für anspruchsvolle Hörer.',
-    imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=900&auto=format&fit=crop',
-    icon: Music2,
-    link: '/de/kanale',
-    gradient: 'from-rose-500/30 via-rose-950/20 to-black/80',
-    borderGlow: 'group-hover:border-rose-500/50',
-    tagColor: 'text-rose-400 bg-rose-500/10 border-rose-500/20'
-  }
-];
-
-const TrendingContentSlider = ({ title, isDe = false }) => {
+const TrendingContentSlider = ({ title = "Trend İçerikler", customItems, customLoading, customError, customRefetch, isDe = false }) => {
+  const { discoverMovies, discoverTV, loading: hookLoading, error: hookError } = useMovieDatabase();
   const [sectionRef, sectionVisible] = useWhenVisible({ rootMargin: '300px' });
+  const [localItems, setLocalItems] = useState([]);
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
+
   const [emblaRef] = useEmblaCarousel(
     { align: 'start', loop: true, dragFree: true },
-    [Autoplay({ delay: 5000, stopOnInteraction: true })]
+    [Autoplay({ delay: 4000, stopOnInteraction: true })]
   );
 
-  const streams = useMemo(() => {
-    return isDe ? EDITORIAL_STREAMS_DE : EDITORIAL_STREAMS_TR;
-  }, [isDe]);
+  const fetchContent = useCallback(async () => {
+    if (Array.isArray(customItems) && customItems.length > 0) return;
+
+    setIsFetching(true);
+    try {
+      const [moviesRes, tvRes] = await Promise.all([
+        discoverMovies({ sort_by: 'popularity.desc', page: 1 }),
+        discoverTV({ sort_by: 'popularity.desc', page: 1 })
+      ]);
+      
+      const movies = (moviesRes?.results || []).map(m => ({ ...m, media_type: 'movie' }));
+      const tvs = (tvRes?.results || []).map(t => ({ ...t, media_type: 'tv' }));
+      
+      const combined = [...movies, ...tvs]
+        .sort((a, b) => b.popularity - a.popularity)
+        .slice(0, 12);
+        
+      setLocalItems(combined);
+      setLastUpdated(new Date());
+    } catch (e) {
+      console.error("Trending fetch error:", e);
+    } finally {
+      setIsFetching(false);
+    }
+  }, [discoverMovies, discoverTV, customItems]);
+
+  useEffect(() => {
+    if (Array.isArray(customItems) && customItems.length > 0) return;
+    if (!sectionVisible) return;
+    fetchContent();
+    const intervalId = setInterval(fetchContent, 600000); // 10 minutes
+    return () => clearInterval(intervalId);
+  }, [fetchContent, customItems, sectionVisible]);
+
+  const items =
+    Array.isArray(customItems) && customItems.length > 0 ? customItems : localItems;
+  const isLoading = customLoading !== undefined ? customLoading : (sectionVisible && (hookLoading || isFetching));
+  const error = customError !== undefined ? customError : hookError;
+  const refetch = customRefetch || fetchContent;
+
+  const formatTime = (date) => {
+    if (!date) return '';
+    return date.toLocaleTimeString(isDe ? 'de-DE' : 'tr-TR', { hour: '2-digit', minute: '2-digit' });
+  };
 
   const copy = isDe
     ? {
-        badge: 'Kuratierte Sendeformate',
-        defaultTitle: 'Editionsauswahl: Hochwertige Sendeformate',
-        subtitle: 'Entdecken Sie thematische Programmsparten in herausragender Bild- und Tonqualität – ohne urheberrechtliche Konflikte, transparent und stabil.',
-        action: 'Kanalübersicht',
-        viewAll: 'Alle Kanäle entdecken →'
+        badge: '4K / Full HD Highlights',
+        subtitle: 'Die beliebtesten Filme und Serien der Woche – hoch bewertet von Zuschauern.',
+        lastUpdate: 'Zuletzt aktualisiert',
+        errorTitle: 'Inhalte konnten nicht geladen werden',
+        retry: 'Erneut versuchen',
+        emptyTitle: 'Keine Inhalte',
+        emptyBody: 'Derzeit sind keine Trend-Inhalte verfügbar. Bitte später erneut versuchen.',
+        refresh: 'Aktualisieren',
       }
     : {
-        badge: 'Özel Editoryal Kuşaklar',
-        defaultTitle: title || 'Editoryal Seçki: Tematik Canlı Yayın Kuşakları',
-        subtitle: 'Özenle seçilmiş tematik yayın kuşakları, yüksek bitrate ve kristal netliğinde ses ile televizyonunuzda. Telif güvencesiyle, şeffaf ve kararlı akış.',
-        action: 'Yayın Detayı',
-        viewAll: 'Tüm Yayınları Keşfet →'
+        badge: '4K / Full HD Öne Çıkanlar',
+        subtitle: 'Haftanın en çok izlenen, izleyiciler tarafından yüksek puanlanmış popüler film ve dizileri.',
+        lastUpdate: 'Son güncelleme',
+        errorTitle: 'İçerikler Yüklenemedi',
+        retry: 'Yeniden Dene',
+        emptyTitle: 'İçerik Bulunamadı',
+        emptyBody: 'Şu an için gösterilecek popüler içerik verisi bulunmuyor. Biraz sonra yeniden deneyin.',
+        refresh: 'Yenile',
       };
 
-  const displayTitle = title || copy.defaultTitle;
-
-  if (!sectionVisible) {
+  // Görünür olmadan TMDB isteği yok — hafif placeholder
+  if (!sectionVisible && !(Array.isArray(customItems) && customItems.length > 0)) {
     return (
-      <section ref={sectionRef} className="py-12 w-full container mx-auto px-4 min-h-[300px]" aria-hidden="true" />
+      <section ref={sectionRef} className="py-12 w-full container mx-auto px-4 min-h-[280px]" aria-hidden="true" />
+    );
+  }
+
+  // Loading State
+  if (isLoading && items.length === 0) {
+    return (
+      <section ref={sectionRef} className="py-12 w-full container mx-auto px-4">
+        <div className="flex items-center gap-3 mb-8">
+            <span className="bg-gradient-to-b from-[#e50914] to-[#b20710] w-2 h-8 rounded-full animate-pulse"></span>
+            <h2 className="section-title text-2xl md:text-3xl">{title}</h2>
+        </div>
+        <div className="overflow-hidden">
+          <div className="flex -ml-2 md:-ml-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="flex-[0_0_33.333%] sm:flex-[0_0_33.333%] md:flex-[0_0_33.333%] lg:flex-[0_0_33.333%] pl-2 md:pl-4">
+                <div className="flex flex-col gap-3">
+                  <Skeleton className="aspect-[2/3] w-full rounded-2xl bg-[#0a0a0a]/60" />
+                  <div className="space-y-2 mt-2 px-1">
+                    <Skeleton className="h-5 w-4/5 rounded-md" />
+                    <Skeleton className="h-4 w-1/2 rounded-md" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Error State
+  if (error && items.length === 0) {
+    return (
+      <section ref={sectionRef} className="py-12 w-full container mx-auto px-4">
+        <div className="bg-[#0a0a0a] border border-slate-800 rounded-2xl p-8 flex flex-col items-center justify-center text-center max-w-2xl mx-auto shadow-xl">
+          <AlertCircle className="w-10 h-10 text-red-500 mb-4" />
+          <p className="text-xl font-bold text-white mb-2">{copy.errorTitle}</p>
+          <p className="text-slate-400 mb-6">{error}</p>
+          <button 
+            onClick={refetch} 
+            className="flex items-center gap-2 bg-primary hover:bg-primary text-white rounded-xl px-6 py-3 font-medium transition-all shadow-lg"
+          >
+            <RefreshCw className="w-5 h-5" /> {copy.retry}
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  if (!isLoading && !error && (!items || items.length === 0)) {
+    return (
+      <section ref={sectionRef} className="py-12 w-full container mx-auto px-4">
+        <div className="flex items-center gap-3 mb-8">
+          <span className="bg-gradient-to-b from-[#e50914] to-[#b20710] w-2 h-8 rounded-full" />
+          <h2 className="section-title text-2xl md:text-3xl">{title}</h2>
+        </div>
+        <div className="text-center py-16 bg-[#0a0a0a]/50 rounded-2xl border border-slate-800">
+          <AlertCircle className="w-12 h-12 text-slate-500 mx-auto mb-4" />
+          <p className="text-xl font-bold text-white mb-2">{copy.emptyTitle}</p>
+          <p className="text-slate-400 max-w-md mx-auto px-4">{copy.emptyBody}</p>
+          <button
+            type="button"
+            onClick={() => refetch?.()}
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white hover:bg-primary"
+          >
+            <RefreshCw className="h-4 w-4" />
+            {copy.refresh}
+          </button>
+        </div>
+      </section>
     );
   }
 
@@ -206,101 +168,42 @@ const TrendingContentSlider = ({ title, isDe = false }) => {
     <section ref={sectionRef} className="py-12 relative w-full container mx-auto px-4 transition-opacity duration-500">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/25 px-3 py-1 backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
-            <span className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/30 px-3 py-1">
+            <span className="inline-flex h-2 w-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.22em] text-primary">
               {copy.badge}
             </span>
           </div>
-          <h2 className="section-title text-2xl md:text-4xl flex items-center gap-3">
-            <span className="bg-gradient-to-b from-[#e50914] to-[#b20710] w-1.5 md:w-2 h-8 md:h-10 rounded-full" />
-            <span className="text-white">{displayTitle}</span>
+          <h2 className="section-title text-3xl md:text-4xl flex items-center gap-3">
+            <span className="bg-gradient-to-b from-[#e50914] to-[#b20710] w-2 h-10 rounded-full" />
+            <span className="text-white">{title}</span>
           </h2>
-          <p className="text-slate-300 mt-1 md:mt-2 md:ml-4 text-sm md:text-base max-w-2xl leading-relaxed">
+          <p className="text-slate-400 mt-1 md:mt-2 md:ml-5 text-sm md:text-base max-w-xl">
             {copy.subtitle}
           </p>
         </div>
-
-        <Link
-          to={isDe ? '/de/kanale' : '/channels'}
-          className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-white transition-colors shrink-0 group pb-2"
-        >
-          <span>{copy.viewAll}</span>
-        </Link>
+        
+        {lastUpdated && !(Array.isArray(customItems) && customItems.length > 0) && (
+          <div className="flex items-center gap-2 text-xs text-slate-400 bg-[#0a0a0a]/70 py-1.5 px-3 rounded-full border border-slate-700/80 shadow-lg shadow-slate-900/70">
+            <Clock className="w-3.5 h-3.5 text-primary" />
+            <span>{copy.lastUpdate}: {formatTime(lastUpdated)}</span>
+          </div>
+        )}
       </div>
 
-      <div className="relative rounded-3xl border border-white/10 bg-gradient-to-b from-[#111114] via-[#0a0a0c] to-[#070709] px-2 md:px-4 py-4 shadow-[0_24px_80px_rgba(0,0,0,0.8)]">
-        {/* Soft edge fades for smooth sliding effect */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 md:w-20 bg-gradient-to-r from-[#0a0a0c] via-[#0a0a0c]/80 to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 md:w-20 bg-gradient-to-l from-[#0a0a0c] via-[#0a0a0c]/80 to-transparent z-10" />
-
+      <div className="relative rounded-3xl border border-slate-800/80 bg-[radial-gradient(circle_at_top,_rgba(229,9,20,0.12),transparent_55%),_radial-gradient(circle_at_bottom,_rgba(229,9,20,0.06),transparent_55%),_#0a0a0a] px-1.5 md:px-3 py-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.75)]">
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#0a0a0a] via-[#0a0a0a]/90 to-transparent" />
         <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex -ml-3 md:-ml-5 py-2">
-            {streams.map((item) => {
-              const IconComponent = item.icon;
-              return (
-                <div
-                  key={item.id}
-                  className="flex-[0_0_84%] sm:flex-[0_0_50%] md:flex-[0_0_38%] lg:flex-[0_0_31%] xl:flex-[0_0_27%] pl-3 md:pl-5"
-                >
-                  <Link
-                    to={item.link}
-                    className="block h-full group focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-2xl"
-                  >
-                    <div
-                      className={`relative h-[380px] md:h-[400px] rounded-2xl overflow-hidden border border-white/10 bg-black/60 transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.7)] ${item.borderGlow} flex flex-col justify-end p-5 md:p-6`}
-                    >
-                      {/* Background Visual */}
-                      <img
-                        src={item.imageUrl}
-                        alt={item.title}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 opacity-45 group-hover:opacity-60"
-                      />
-
-                      {/* Multilayer gradient for perfect text contrast */}
-                      <div className={`absolute inset-0 bg-gradient-to-t ${item.gradient} opacity-90 transition-opacity duration-500 group-hover:opacity-95`} />
-                      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/95 pointer-events-none" />
-
-                      {/* Top Badges */}
-                      <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-xl bg-black/60 backdrop-blur-md border border-white/15 flex items-center justify-center text-white shadow-md">
-                            <IconComponent className="w-4 h-4 text-white" />
-                          </div>
-                          <span className={`text-[10px] md:text-xs font-semibold px-2.5 py-1 rounded-full border backdrop-blur-md uppercase tracking-wider ${item.tagColor}`}>
-                            {item.badge}
-                          </span>
-                        </div>
-                        <span className="text-[10px] text-white/70 font-mono bg-black/50 backdrop-blur-md px-2 py-0.5 rounded border border-white/10">
-                          {item.category}
-                        </span>
-                      </div>
-
-                      {/* Content Section */}
-                      <div className="relative z-10">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2 leading-snug group-hover:text-primary transition-colors duration-300">
-                          {item.title}
-                        </h3>
-                        <p className="text-xs md:text-sm text-slate-300 line-clamp-2 mb-4 leading-relaxed font-light">
-                          {item.description}
-                        </p>
-
-                        <div className="flex items-center justify-between pt-3 border-t border-white/10">
-                          <span className="text-xs font-semibold text-white/90 group-hover:text-primary transition-colors flex items-center gap-1">
-                            {copy.action}
-                            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
-                          </span>
-                          <span className="text-[10px] text-emerald-400 flex items-center gap-1 font-medium">
-                            <ShieldCheck className="w-3.5 h-3.5" /> Telifsiz & Kararlı
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
+          <div className="flex -ml-2 md:-ml-4 py-4">
+            {items.map((item, index) => (
+              <div 
+                key={`${item.media_type || 'content'}-${item.id}`} 
+                className="flex-[0_0_48%] sm:flex-[0_0_38%] md:flex-[0_0_30%] lg:flex-[0_0_22%] xl:flex-[0_0_18%] pl-2 md:pl-4"
+              >
+                <ContentCard item={item} type={item.media_type} isDe={isDe} accentIndex={index} />
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -308,4 +211,4 @@ const TrendingContentSlider = ({ title, isDe = false }) => {
   );
 };
 
-export default memo(TrendingContentSlider);
+export default TrendingContentSlider;

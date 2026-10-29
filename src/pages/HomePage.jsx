@@ -4,9 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PremiumHero from '@/components/PremiumHero'; 
 import TrendingContentSlider from '@/components/TrendingContentSlider';
-import ChannelSlider from '@/components/ChannelSlider';
 import Packages from '@/components/Packages';
-import MassiveChannelArchiveSection from '@/components/MassiveChannelArchiveSection';
 import ChatBot from '@/components/ChatBot';
 import SEOHead from '@/components/SEOHead';
 import { logPerformance } from '@/utils/performance';
@@ -16,13 +14,12 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import WhyChooseUsSection from '@/components/WhyChooseUsSection';
 import HomePageSeoContent from '@/components/HomePageSeoContent';
 import HomeGeoSection from '@/components/home/HomeGeoSection';
-import HomeSpotlightCards from '@/components/home/HomeSpotlightCards';
 import HomePageVideoSection from '@/components/HomePageVideoSection';
 import FeaturedReviewsCarousel from '@/components/FeaturedReviewsCarousel';
 import LazySection from '@/components/LazySection';
 import PremiumConversionStrip from '@/components/PremiumConversionStrip';
 import { initPerformanceMonitoring } from '@/utils/performanceMonitoring';
-import { ShieldCheck, Lock, Calendar, Tv, Trophy } from 'lucide-react';
+import { ShieldCheck, Lock, Film, Tv } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { homePageSchemas } from '@/utils/seoSchema';
 import { SITE_URL } from '@/constants/siteUrl';
@@ -82,13 +79,7 @@ const HomePage = ({ siteData }) => {
           
           <LazySection className="qruze-cinema-section premium-section-signature py-16 relative z-10 content-visibility-auto">
             <ErrorBoundary onRetry={handleRetry}>
-               <TrendingContentSlider title="Editoryal Seçki: Tematik Yayın Kuşakları" />
-            </ErrorBoundary>
-          </LazySection>
-
-          <LazySection className="qruze-cinema-section relative border-t border-white/5 content-visibility-auto">
-            <ErrorBoundary onRetry={handleRetry}>
-               <ChannelSlider />
+               <TrendingContentSlider title="Haftanın Popüler Film & Dizi Arşivi" />
             </ErrorBoundary>
           </LazySection>
           
@@ -114,13 +105,13 @@ const HomePage = ({ siteData }) => {
               <div className="container mx-auto px-4">
                 <div className="mb-10 flex flex-col items-center gap-3 text-center">
                   <span className="qruze-premium-seal">Qruze Experience</span>
-                  <h2 className="section-title text-2xl md:text-4xl">İzleme Rehberi</h2>
-                  <p className="section-lead text-center">Ne izleyeceğinize karar veremediniz mi? Güncel maç programı ve içerik önerileri tek tık uzağınızda.</p>
+                  <h2 className="section-title text-2xl md:text-4xl">İzleme Rehberi & Keşif</h2>
+                  <p className="section-lead text-center">Ne izleyeceğinize karar veremediniz mi? Güncel film/dizi seçkileri ve adım adım cihaz kurulumları tek tık uzağınızda.</p>
                 </div>
                 <div className="space-y-4 max-w-2xl mx-auto">
                 <Link
-                  to="/mac-programi"
-                  title="Güncel maç programı ve yayın kanalları"
+                  to="/ne-izlesem"
+                  title="Film ve dizi arşivi keşif rehberi"
                   className="qruze-cinema-link group flex w-full items-center gap-4 rounded-2xl border border-[#e50914]/40 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#e50914]/65 hover:shadow-[0_0_64px_rgba(229,9,20,0.24)]"
                 >
                   <span
@@ -128,23 +119,23 @@ const HomePage = ({ siteData }) => {
                     aria-hidden
                   />
                   <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#e50914]/40 to-[#b20710]/50 shadow-[0_0_24px_rgba(229,9,20,0.35)] ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105">
-                    <Calendar className="h-6 w-6 text-white drop-shadow-md" />
+                    <Film className="h-6 w-6 text-white drop-shadow-md" />
                   </div>
                   <div className="relative z-10 min-w-0 flex-1">
                     <p className="text-xl font-bold text-white transition-colors group-hover:text-[#ff3b45]">
-                      Maç Takvimi & Canlı Fikstür
+                      Film & Dizi Keşfi
                     </p>
                     <p className="mt-1 text-sm text-slate-300">
-                      Süper Lig ve Avrupa ligleri başlama saatleri. <span className="font-medium text-[#e50914]/95">14 günlük program</span> tek ekranda.
+                      Haftanın en popüler yapımları, tür filtreleri ve IMDb seçkileri. <span className="font-medium text-[#e50914]/95">Sürekli güncel arşiv</span>.
                     </p>
                   </div>
                   <span className="relative z-10 shrink-0 text-sm font-semibold text-[#e50914] transition-transform duration-300 group-hover:translate-x-1">
-                    Fikstür →
+                    Keşfet →
                   </span>
                 </Link>
                 <Link
-                  to="/channels"
-                  title="Canlı kanal ve yayın rehberini inceleyin"
+                  to="/kurulum"
+                  title="Cihaz kurulum rehberlerini inceleyin"
                   className="qruze-cinema-link group flex w-full items-center gap-4 rounded-2xl border border-white/15 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-[0_0_64px_rgba(229,9,20,0.2)]"
                 >
                   <span
@@ -155,10 +146,10 @@ const HomePage = ({ siteData }) => {
                     <Tv className="h-6 w-6 text-white drop-shadow-md" />
                   </div>
                   <div className="relative z-10 min-w-0 flex-1">
-                    <p className="text-xl font-bold text-white transition-colors group-hover:text-[#ff3b45]">Kanal Listesi & Türler</p>
-                    <p className="mt-1 text-sm text-slate-300">Ulusal, haber, belgesel ve çocuk yayınları. <span className="font-medium text-[#e50914]/95">Elektronik rehber (EPG)</span> ile anlık akış.</p>
+                    <p className="text-xl font-bold text-white transition-colors group-hover:text-[#ff3b45]">Cihaz Kurulum Rehberleri</p>
+                    <p className="mt-1 text-sm text-slate-300">Smart TV, Android TV, Apple TV, Fire TV ve PC için <span className="font-medium text-[#e50914]/95">adım adım resimli anlatım</span>.</p>
                   </div>
-                  <span className="relative z-10 shrink-0 text-sm font-semibold text-[#e50914] transition-transform duration-300 group-hover:translate-x-1">Kanallar →</span>
+                  <span className="relative z-10 shrink-0 text-sm font-semibold text-[#e50914] transition-transform duration-300 group-hover:translate-x-1">Kurulum →</span>
                 </Link>
                 </div>
               </div>
@@ -205,18 +196,6 @@ const HomePage = ({ siteData }) => {
           <LazySection className="qruze-cinema-section premium-section-signature py-20 relative border-t border-white/5">
             <ErrorBoundary onRetry={handleRetry}>
               <WhyChooseUsSection title="Neden Bizi Tercih Etmelisiniz?" />
-            </ErrorBoundary>
-          </LazySection>
-
-          <LazySection className="qruze-cinema-section py-20 relative border-t border-white/5">
-            <ErrorBoundary onRetry={handleRetry}>
-              <MassiveChannelArchiveSection title="Kesintisiz ve Dev Arşivli IPTV" />
-            </ErrorBoundary>
-          </LazySection>
-
-          <LazySection className="qruze-cinema-section relative border-t border-white/5 z-20">
-            <ErrorBoundary>
-              <HomeSpotlightCards />
             </ErrorBoundary>
           </LazySection>
 
