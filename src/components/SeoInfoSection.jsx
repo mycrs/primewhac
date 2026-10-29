@@ -134,7 +134,7 @@ const SeoInfoSection = () => {
              </div>
              <div className="flex flex-col items-center gap-2">
                 <ShieldCheck className="w-8 h-8 text-green-400" />
-                <span className="text-xs font-bold text-slate-400">%99.9 Uptime</span>
+                <span className="text-xs font-bold text-slate-400">Yedekli Altyapı</span>
              </div>
         </div>
       </div>

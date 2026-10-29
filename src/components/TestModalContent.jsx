@@ -62,7 +62,7 @@ const TestModalContent = ({ onClose }) => {
   const { title, desc } = getStepInfo();
 
   return (
-    <div className="flex h-full min-h-0 w-full max-w-full flex-1 flex-col overflow-hidden bg-[#0B0F19] text-white">
+    <div className="flex h-full min-h-0 w-full max-w-full flex-1 flex-col overflow-hidden bg-[#0a0a0a] text-white">
         {/* Header */}
         <div className="shrink-0 border-b border-slate-800/50 bg-gradient-to-b from-green-900/20 to-transparent px-4 py-3 text-center sm:px-6 sm:py-4">
           <DialogHeader>
@@ -145,7 +145,7 @@ const TestModalContent = ({ onClose }) => {
             </AnimatePresence>
 
             {step === 2 && (
-              <div className="z-10 flex shrink-0 justify-between gap-2 border-t border-slate-800/50 bg-[#0B0F19] px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm sm:gap-3 sm:px-4">
+              <div className="z-10 flex shrink-0 justify-between gap-2 border-t border-slate-800/50 bg-[#0a0a0a] px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm sm:gap-3 sm:px-4">
                 <Button
                   variant="ghost"
                   onClick={prevStep}
@@ -167,7 +167,7 @@ const TestModalContent = ({ onClose }) => {
             )}
 
             {step === 1 && (
-              <div className="z-10 flex shrink-0 justify-start border-t border-slate-800/50 bg-[#0B0F19] px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm sm:px-4">
+              <div className="z-10 flex shrink-0 justify-start border-t border-slate-800/50 bg-[#0a0a0a] px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm sm:px-4">
                 <Button
                   variant="ghost"
                   onClick={prevStep}

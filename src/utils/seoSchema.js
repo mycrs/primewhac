@@ -6,19 +6,6 @@
 import { SITE_URL } from '../constants/siteUrl.js';
 import { SITE_GEO, getSiteGeoForLang } from '../constants/siteGeo.js';
 import { homeGeoFaqSchema } from '../data/homeGeoContent.js';
-import { enrichOfferForMerchant, SCHEMA_PRICE_VALID_UNTIL } from './schemaMerchantOffer.js';
-
-function enrichOfferCatalog(catalogs) {
-  return (catalogs || []).map((cat) => {
-    const country = /avrupa|europa/i.test(String(cat?.name || '')) ? 'EU' : 'TR';
-    return {
-      ...cat,
-      itemListElement: (cat.itemListElement || []).map((offer) =>
-        enrichOfferForMerchant({ ...offer, priceValidUntil: SCHEMA_PRICE_VALID_UNTIL }, country),
-      ),
-    };
-  });
-}
 
 const ALL_AREA_SERVED = [
   ...SITE_GEO.tr.areaServedSchema,
@@ -40,20 +27,45 @@ export const organizationSchema = {
     width: 512,
     height: 512,
   },
-  description: "QruzeTV — Türkiye'nin premium IPTV aboneliği. 4K HDR kalitesinde spor, dizi, film ve canlı TV kanalları.",
-  telephone: '+4916345869030',
+  description: 'QruzeTV; Türkçe ve Almanca IPTV paketleri, cihaz kurulum rehberleri, ücretsiz test ve kullanıcı desteği sunar.',
+  // telephone alanı bilerek yok: numara statik çıktıda (HTML/JSON-LD) görünürse
+  // spam botları kaynak koddan hasat ediyor. İletişim e-posta + site üzerinden.
   email: 'info@qruzetv.com',
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'customer support',
-    telephone: '+4916345869030',
     email: 'info@qruzetv.com',
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     availableLanguage: ['Turkish', 'German', 'English'],
     areaServed: ['TR', 'DE', 'AT', 'NL', 'CH'],
   },
   areaServed: ALL_AREA_SERVED,
-  sameAs: [SITE_URL],
+  knowsAbout: [
+    'IPTV device setup',
+    'Smart TV streaming',
+    'M3U playlists',
+    'Turkish television channels',
+  ],
+};
+
+export const organizationSchemaDE = {
+  ...organizationSchema,
+  description: 'QruzeTV bietet IPTV-Pakete, Geräte-Anleitungen, einen kostenlosen Test und deutsch-türkischen Support für Nutzer in Deutschland und Europa.',
+  contactPoint: {
+    ...organizationSchema.contactPoint,
+    url: `${SITE_URL}/de/`,
+  },
+};
+
+export const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE_URL}/#website`,
+  url: `${SITE_URL}/`,
+  name: 'QruzeTV',
+  alternateName: 'Qruze TV',
+  inLanguage: ['tr-TR', 'de-DE'],
+  publisher: { '@id': `${SITE_URL}/#organization` },
 };
 
 /**
@@ -78,27 +90,9 @@ export function webPageSchema({ name, description, url, lang }) {
     description: (description || '').substring(0, 160),
     url: url || SITE_URL,
     inLanguage: geo.contentLanguage,
-    publisher: { '@type': 'Organization', name: 'QruzeTV', url: SITE_URL },
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    publisher: { '@id': `${SITE_URL}/#organization` },
   };
-}
-
-/**
- * ISO 8601 uploadDate: tarih + saat + timezone (Google Search Console gereksinimi)
- * Örnek: 2026-03-07T08:00:00+03:00
- */
-function videoUploadDateISO8601() {
-  const d = new Date();
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  const hour = String(d.getHours()).padStart(2, '0');
-  const min = String(d.getMinutes()).padStart(2, '0');
-  const sec = String(d.getSeconds()).padStart(2, '0');
-  const tzOffset = -d.getTimezoneOffset();
-  const tzSign = tzOffset >= 0 ? '+' : '-';
-  const tzHours = String(Math.floor(Math.abs(tzOffset) / 60)).padStart(2, '0');
-  const tzMins = String(Math.abs(tzOffset) % 60).padStart(2, '0');
-  return `${year}-${month}-${day}T${hour}:${min}:${sec}${tzSign}${tzHours}:${tzMins}`;
 }
 
 /**
@@ -108,7 +102,12 @@ function videoUploadDateISO8601() {
 export function videoGuidesSchema(videos) {
   if (!videos) return [];
   const items = [];
-  const uploadDate = videoUploadDateISO8601();
+  // Kaynak dosyaların ilk yayın tarihi. Her build'de "bugün" yazmak sahte tazelik
+  // sinyali üretir; admin verisinde gerçek tarih varsa onu kullanırız.
+  const uploadDate =
+    videos.upload_date ||
+    videos.uploadDate ||
+    '2025-11-28T00:00:00+03:00';
   const addVideo = (url, name, description) => {
     if (!url || typeof url !== 'string') return;
     const u = url.trim();
@@ -143,17 +142,18 @@ export function videoGuidesSchema(videos) {
 }
 
 /**
- * Ana sayfa için Organization + WebPage + Breadcrumb (Ana Sayfa) + VideoObject (varsa)
+ * Ana sayfa için Organization + WebPage + VideoObject (varsa).
+ * Ana sayfada görünür breadcrumb olmadığı için BreadcrumbList üretilmez.
  */
 export function homePageSchemas(metadata, videos) {
   const schemas = [
     organizationSchema,
+    websiteSchema,
     webPageSchema({
       name: metadata?.title || "Premium IPTV Satın Al | Kesintisiz 4K IPTV",
       description: metadata?.description || "Türkiye'nin en iyi Premium IPTV hizmeti. Kesintisiz 4K kalite, anında teslimat.",
       url: SITE_URL,
     }),
-    breadcrumbSchema([{ name: 'Ana Sayfa', path: '/' }]),
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
@@ -214,12 +214,12 @@ export function packagesPageSchemas(metadata) {
     webPageSchema({
       name: metadata?.title || "Premium IPTV Paketleri",
       description: metadata?.description || "Premium IPTV paketleri ile kesintisiz yayın deneyimi. Uygun fiyatlı paketler, 4K kalitesi, 7/24 destek.",
-      url: `${SITE_URL}/paketler`,
+      url: `${SITE_URL}/paketler/`,
     }),
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      '@id': `${SITE_URL}/paketler#service`,
+      '@id': `${SITE_URL}/paketler/#service`,
       name: 'QruzeTV IPTV Abonelik Hizmeti',
       serviceType: 'IPTV Streaming Subscription',
       description:
@@ -233,130 +233,6 @@ export function packagesPageSchemas(metadata) {
         { '@type': 'Country', name: 'Österreich' },
         { '@type': 'Country', name: 'Niederlande' },
       ],
-      hasOfferCatalog: enrichOfferCatalog([
-        {
-          '@type': 'OfferCatalog',
-          name: 'Türkiye Paketleri',
-          itemListElement: [
-            {
-              '@type': 'Offer',
-              name: '3 Aylık Paket',
-              description:
-                '3 aylık IPTV aboneliği. 4K/UHD yayın, geniş VOD arşivi, 7/24 destek, tüm cihazlarla uyumlu.',
-              price: '750',
-              priceCurrency: 'TRY',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/paketler`,
-            },
-            {
-              '@type': 'Offer',
-              name: '3 Aylık Premium Paket',
-              description:
-                '3 aylık premium IPTV aboneliği. Üstün canlı yayın performansı, 4K/UHD, 7/24 destek.',
-              price: '900',
-              priceCurrency: 'TRY',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/paketler`,
-            },
-            {
-              '@type': 'Offer',
-              name: '6 Aylık Paket',
-              description:
-                '6 aylık IPTV aboneliği. 4K/UHD yayın, geniş VOD arşivi, 7/24 destek, tüm cihazlarla uyumlu.',
-              price: '1100',
-              priceCurrency: 'TRY',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/paketler`,
-            },
-            {
-              '@type': 'Offer',
-              name: '6 Aylık Premium Paket',
-              description:
-                '6 aylık premium IPTV aboneliği. Üstün canlı yayın performansı, 4K/UHD, 7/24 destek.',
-              price: '1300',
-              priceCurrency: 'TRY',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/paketler`,
-            },
-            {
-              '@type': 'Offer',
-              name: '12 Aylık Paket',
-              description:
-                '12 aylık IPTV aboneliği. 4K/UHD yayın, geniş VOD arşivi, 7/24 destek, en ekonomik seçenek.',
-              price: '1750',
-              priceCurrency: 'TRY',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/paketler`,
-            },
-            {
-              '@type': 'Offer',
-              name: '12 Aylık Premium Paket',
-              description:
-                '12 aylık premium IPTV aboneliği. En yüksek canlı yayın performansı, 4K/UHD, öncelikli 7/24 destek.',
-              price: '1900',
-              priceCurrency: 'TRY',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/paketler`,
-            },
-          ],
-        },
-        {
-          '@type': 'OfferCatalog',
-          name: 'Avrupa Paketleri',
-          itemListElement: [
-            {
-              '@type': 'Offer',
-              name: '3-Monats-Paket',
-              description:
-                '3-month IPTV subscription for Europe. 4K/UHD, 10,000+ channels, 7/24 support.',
-              price: '45',
-              priceCurrency: 'EUR',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/paketler`,
-            },
-            {
-              '@type': 'Offer',
-              name: '6-Monats-Paket',
-              description:
-                '6-month IPTV subscription for Europe. 4K/UHD, 10,000+ channels, 7/24 support.',
-              price: '65',
-              priceCurrency: 'EUR',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/paketler`,
-            },
-            {
-              '@type': 'Offer',
-              name: '12-Monats-Paket',
-              description:
-                '12-month IPTV subscription for Europe. Best value, 4K/UHD, 10,000+ channels.',
-              price: '100',
-              priceCurrency: 'EUR',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/paketler`,
-            },
-            {
-              '@type': 'Offer',
-              name: '12-Monats-Paket (2 Nutzer)',
-              description:
-                '12-month IPTV subscription for 2 users. 4K/UHD, simultaneous streams, family package.',
-              price: '185',
-              priceCurrency: 'EUR',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/paketler`,
-            },
-          ],
-        },
-      ]),
     },
   ];
 }
@@ -364,6 +240,11 @@ export function packagesPageSchemas(metadata) {
 /**
  * Breadcrumb schema - sayfa hiyerarşisi için
  */
+function withTrailingSlashPath(p) {
+  if (!p || p === '/') return '/';
+  return p.endsWith('/') ? p : `${p}/`;
+}
+
 export function breadcrumbSchema(items) {
   return {
     '@context': 'https://schema.org',
@@ -372,7 +253,7 @@ export function breadcrumbSchema(items) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.name,
-      item: item.url || `${SITE_URL}${(item.path || '').replace(/\/$/, '') || '/'}`,
+      item: item.url || `${SITE_URL}${withTrailingSlashPath(item.path || '/')}`,
     })),
   };
 }
@@ -396,7 +277,7 @@ export function matchSportsEventSchema({ match, url, locale = 'tr' }) {
   const leagueName = match.league?.name || (isDe ? 'Fußball' : 'Futbol');
   const countryName = match.league?.country || (isDe ? 'Europa' : 'Avrupa');
   const eventName = `${match.home} vs ${match.away} - ${leagueName}`;
-  const packagesUrl = `${SITE_URL}${isDe ? '/de/pakete' : '/paketler'}`;
+  const packagesUrl = `${SITE_URL}${isDe ? '/de/pakete/' : '/paketler/'}`;
   const startDate = buildIsoDateTime(match.date, match.time);
 
   return {
@@ -470,7 +351,7 @@ export function channelsPageSchemas(metadata) {
     webPageSchema({
       name: metadata?.title || "Canlı IPTV Kanalları",
       description: metadata?.description || "En iyi IPTV servisi ile donmayan IPTV kanallarını keşfedin. Kaliteli spor kanalları, belgeseller ve HD yayınlar.",
-      url: `${SITE_URL}/channels`,
+      url: `${SITE_URL}/channels/`,
     }),
     breadcrumbSchema([
       { name: 'Ana Sayfa', path: '/' },
@@ -488,7 +369,7 @@ export function channelsPageSchemasDE(metadata) {
     webPageSchema({
       name: metadata?.title || "IPTV Kanäle Deutschland",
       description: metadata?.description || "Entdecken Sie IPTV Kanäle für Deutschland und Europa.",
-      url: `${SITE_URL}/de/kanale`,
+      url: `${SITE_URL}/de/kanale/`,
     }),
     breadcrumbSchema([
       { name: 'Startseite', path: '/de' },
@@ -524,7 +405,7 @@ export function faqPageSchemas(metadata, sections) {
     webPageSchema({
       name: metadata?.title || 'Sıkça Sorulan Sorular — IPTV Rehberi | QruzeTV',
       description: metadata?.description || '',
-      url: `${SITE_URL}/sss`,
+      url: `${SITE_URL}/sss/`,
     }),
     breadcrumbSchema([
       { name: 'Ana Sayfa', path: '/' },
@@ -544,9 +425,9 @@ export function matchSchedulePageSchemas(metadata) {
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      '@id': `${SITE_URL}/mac-programi#webpage`,
-      url: `${SITE_URL}/mac-programi`,
-      name: metadata?.title || 'Maç Programı — Süper Lig ve Avrupa Kupaları | QruzeTV',
+      '@id': `${SITE_URL}/mac-programi/#webpage`,
+      url: `${SITE_URL}/mac-programi/`,
+      name: metadata?.title || 'Maç Programı — Günlük Fikstür ve Saatler | QruzeTV',
       description: metadata?.description || '',
       inLanguage: 'tr-TR',
       publisher: { '@id': `${SITE_URL}/#organization` },
@@ -590,7 +471,7 @@ export function blogListPageSchemas(metadata, posts = []) {
     webPageSchema({
       name: metadata?.title || "Premium IPTV Blog - Blog & Rehberler",
       description: metadata?.description || "IPTV dünyasından en güncel haberler, ipuçları ve teknik rehberler.",
-      url: `${SITE_URL}/blog`,
+      url: `${SITE_URL}/blog/`,
     }),
     breadcrumbSchema([
       { name: 'Ana Sayfa', path: '/' },
@@ -608,7 +489,7 @@ export function blogListPageSchemas(metadata, posts = []) {
           '@type': 'BlogPosting',
           headline: String(post.title).trim(),
           author: { '@type': 'Person', name: (post.author && String(post.author).trim()) || 'QruzeTV' },
-          url: `${SITE_URL}/blog/${urlPath}`,
+          url: `${SITE_URL}/blog/${urlPath}/`,
         };
         if (post.published_at) node.datePublished = post.published_at;
         const mod = post.updated_at || post.published_at;
@@ -621,7 +502,7 @@ export function blogListPageSchemas(metadata, posts = []) {
         '@type': 'Blog',
         name: 'Blog & Rehberler',
         description: metadata?.description || "En son yazılarımız, ipuçları ve rehberler.",
-        url: `${SITE_URL}/blog`,
+        url: `${SITE_URL}/blog/`,
         blogPost,
       });
     }
@@ -660,7 +541,7 @@ export function whatToWatchPageSchemas(metadata) {
     webPageSchema({
       name: metadata?.title || "Ne İzlesem? Film ve Dizi Önerileri",
       description: metadata?.description || "Türkiye'nin en kapsamlı film ve dizi önerisi platformu. IMDb puanları, oyuncu bilgileri ve detaylı açıklamalarla binlerce içerik.",
-      url: `${SITE_URL}/ne-izlesem`,
+      url: `${SITE_URL}/ne-izlesem/`,
     }),
     breadcrumbSchema([
       { name: 'Ana Sayfa', path: '/' },
@@ -675,7 +556,7 @@ export function whatToWatchPageSchemasDE(metadata) {
     webPageSchema({
       name: metadata?.title || "Was soll ich schauen? Filme und Serien",
       description: metadata?.description || "Filme und Serien entdecken, bewerten und für den nächsten IPTV-Abend auswählen.",
-      url: `${SITE_URL}/de/was-soll-ich-schauen`,
+      url: `${SITE_URL}/de/was-soll-ich-schauen/`,
     }),
     breadcrumbSchema([
       { name: 'Startseite', path: '/de' },
@@ -767,37 +648,44 @@ export function whatToWatchCategorySchemas(category, lang = 'tr') {
 /**
  * Bayilik sayfası için Organization + WebPage + Breadcrumb
  */
-export function resellerPageSchemas(metadata) {
+export function resellerPageSchemas(metadata, { route = '/reseller/', lang = 'tr' } = {}) {
+  const isDe = lang === 'de';
+  const home = isDe ? { name: 'Startseite', path: '/de' } : { name: 'Ana Sayfa', path: '/' };
+  const pageLabel = isDe ? 'Wiederverkäufer' : 'Bayilik';
   return [
     organizationSchema,
     webPageSchema({
-      name: metadata?.title || "IPTV Bayilik Paneli",
-      description: metadata?.description || "IPTV bayilik programımızla kendi işinizi kurun. En gelişmiş kontrol paneli ve yüksek kazanç oranları.",
-      url: `${SITE_URL}/reseller`,
+      name: metadata?.title || (isDe ? 'Wiederverkäufer-Programm' : 'IPTV Bayilik Paneli'),
+      description: metadata?.description || (isDe
+        ? 'Starten Sie Ihr eigenes Geschäft mit unserem Wiederverkäufer-Programm.'
+        : 'IPTV bayilik programımızla kendi işinizi kurun. En gelişmiş kontrol paneli ve yüksek kazanç oranları.'),
+      url: `${SITE_URL}${route}`,
+      lang: isDe ? 'de' : 'tr',
     }),
     breadcrumbSchema([
-      { name: 'Ana Sayfa', path: '/' },
-      { name: 'Bayilik', path: '/reseller' },
+      home,
+      { name: pageLabel, path: route },
     ]),
   ];
 }
 
 /**
- * DE sayfaları için schema (Almanca metadata ile)
+ * DE ana sayfası için schema (Almanca metadata ile). Görünür breadcrumb olmadığı
+ * için ana sayfada BreadcrumbList kullanılmaz.
  */
 export function homePageSchemasDE(metadata, videos) {
   const schemas = [
-    organizationSchema,
+    organizationSchemaDE,
+    websiteSchema,
     webPageSchema({
       name: metadata?.title || "Premium IPTV Deutschland",
       description: metadata?.description || "Entdecken Sie Premium IPTV in Deutschland. Stabile 4K IPTV ohne Unterbrechung.",
-      url: `${SITE_URL}/de`,
+      url: `${SITE_URL}/de/`,
     }),
-    breadcrumbSchema([{ name: 'Startseite', path: '/de' }]),
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      '@id': `${SITE_URL}/de#premium-features`,
+      '@id': `${SITE_URL}/de/#premium-features`,
       name: 'QruzeTV Premium IPTV Funktionen',
       itemListElement: [
         {
@@ -846,16 +734,16 @@ export function homePageSchemasDE(metadata, videos) {
 
 export function packagesPageSchemasDE(metadata) {
   return [
-    organizationSchema,
+    organizationSchemaDE,
     webPageSchema({
       name: metadata?.title || "Premium IPTV Deutschland Pakete",
-      description: metadata?.description || "Premium IPTV Abo für Deutschland und Europa. Stabile 4K IPTV ohne Unterbrechungen.",
-      url: `${SITE_URL}/de/pakete`,
+      description: metadata?.description || "IPTV-Pakete für Deutschland und Europa vergleichen und vor dem Kauf kostenlos testen.",
+      url: `${SITE_URL}/de/pakete/`,
     }),
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      '@id': `${SITE_URL}/de/pakete#service`,
+      '@id': `${SITE_URL}/de/pakete/#service`,
       name: 'QruzeTV IPTV Abonnement',
       serviceType: 'IPTV Streaming Subscription',
       description:
@@ -868,58 +756,6 @@ export function packagesPageSchemasDE(metadata) {
         { '@type': 'Country', name: 'Österreich' },
         { '@type': 'Country', name: 'Niederlande' },
       ],
-      hasOfferCatalog: enrichOfferCatalog([
-        {
-          '@type': 'OfferCatalog',
-          name: 'Europa-Pakete',
-          itemListElement: [
-            {
-              '@type': 'Offer',
-              name: '3-Monats-Paket',
-              description:
-                '3-month IPTV subscription for Europe. 4K/UHD, 10,000+ channels, 7/24 support.',
-              price: '45',
-              priceCurrency: 'EUR',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/de/pakete`,
-            },
-            {
-              '@type': 'Offer',
-              name: '6-Monats-Paket',
-              description:
-                '6-month IPTV subscription for Europe. 4K/UHD, 10,000+ channels, 7/24 support.',
-              price: '65',
-              priceCurrency: 'EUR',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/de/pakete`,
-            },
-            {
-              '@type': 'Offer',
-              name: '12-Monats-Paket',
-              description:
-                '12-month IPTV subscription for Europe. Best value, 4K/UHD, 10,000+ channels.',
-              price: '100',
-              priceCurrency: 'EUR',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/de/pakete`,
-            },
-            {
-              '@type': 'Offer',
-              name: '12-Monats-Paket (2 Nutzer)',
-              description:
-                '12-month IPTV subscription for 2 users. 4K/UHD, simultaneous streams, family package.',
-              price: '185',
-              priceCurrency: 'EUR',
-              priceValidUntil: '2026-12-31',
-              availability: 'https://schema.org/InStock',
-              url: `${SITE_URL}/de/pakete`,
-            },
-          ],
-        },
-      ]),
     },
   ];
 }

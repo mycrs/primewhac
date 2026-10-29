@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  <rect x="0" y="0" width="640" height="48" fill="#141414"/>
+  <text x="24" y="30" fill="#64748b" font-family="Arial,sans-serif" font-size="12" font-weight="600">SAMSUNG APPS</text>
+  <rect x="24" y="72" width="592" height="44" rx="10" fill="#1a1a1a" stroke="#334155"/>
+  <text x="52" y="100" fill="#fff" font-family="Arial,sans-serif" font-size="16">0 Player</text>
+  <rect x="24" y="136" width="592" height="88" rx="12" fill="#1c1408" stroke="#d97706" stroke-opacity="0.5"/>
+  <rect x="40" y="152" width="56" height="56" rx="10" fill="#000" stroke="#f59e0b"/>
+  <text x="112" y="178" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="700">0 Player</text>
+  <text x="112" y="200" fill="#94a3b8" font-family="Arial,sans-serif" font-size="12">Premium Media Player</text>
+  <rect x="112" y="210" width="72" height="24" rx="6" fill="#e50914"/>
+  <text x="124" y="227" fill="#fff" font-family="Arial,sans-serif" font-size="11" font-weight="700">Y�kle</text>
+</svg>

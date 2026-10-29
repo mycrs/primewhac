@@ -6,6 +6,7 @@ import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import { Link } from 'react-router-dom';
 import { Check, X, Star, Zap } from 'lucide-react';
 import { breadcrumbSchema } from '@/utils/seoSchema';
+import { SITE_URL } from '@/constants/siteUrl';
 
 const ComparisonPage = ({ siteData }) => {
   useEffect(() => {
@@ -14,11 +15,12 @@ const ComparisonPage = ({ siteData }) => {
 
   const safeSiteData = siteData || {};
   const metadata = {
-    title: 'IPTV Paketleri Karşılaştırması | Hangisi Sizin İçin Uygun?',
+    title: 'En Kaliteli IPTV Hangisi? 2026 Karşılaştırma + Fiyatlar | QruzeTV',
     description:
-      'IPTV paketlerini karşılaştırın. Temel, Standart, Premium paketlerin özellikleri, fiyatları, avantajları ve tüm detayları.',
-    keywords: ['IPTV paketleri', 'IPTV fiyatları', 'IPTV karşılaştırması', 'en iyi IPTV', 'kaliteli IPTV'],
+      'Farklı IPTV paketlerini ve özelliklerini karşılaştırın. HD vs 4K, kanal sayıları ve fiyat analizi. En iyi IPTV deneyimi için doğru seçimi yapın.',
+    keywords: ['IPTV paketleri', 'IPTV fiyatları', 'IPTV karşılaştırması', 'en iyi IPTV', 'IPTV paket seçimi'],
     ogType: 'article',
+    ogImage: `${SITE_URL}/og/karsilastirma.jpg`,
   };
 
   const breadcrumb = breadcrumbSchema([
@@ -31,7 +33,7 @@ const ComparisonPage = ({ siteData }) => {
     {
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: 'IPTV Paketleri Karşılaştırması - Hangisi Sizin İçin Uygun?',
+      headline: 'En Kaliteli IPTV Hangisi? 2026 Karşılaştırma + Fiyatlar',
       author: { '@type': 'Organization', name: 'QruzeTV' },
     },
   ];
@@ -64,7 +66,7 @@ const ComparisonPage = ({ siteData }) => {
 
               <div className="prose prose-invert prose-lg max-w-none mb-12">
                 <p className="text-slate-300 leading-relaxed">
-                  İhtiyacınıza en uygun, bütçenizi yormayan ve kesintisiz eğlence sunan <strong>en iyi IPTV</strong> paketini seçmek zor olabilir. Bu rehberde, sunduğumuz tüm <strong>IPTV paketleri</strong> arasındaki farkları tablo ve açıklamalar halinde detaylıca sunuyoruz. Kapsamlı <strong>IPTV karşılaştırması</strong> sayesinde <strong>kaliteli IPTV</strong> deneyimi için en doğru kararı verebilirsiniz.
+                  İhtiyacınıza en uygun, bütçenizi yormayan ve kesintisiz eğlence sunan <strong>en iyi IPTV</strong> paketini seçmek zor olabilir. Bu rehberde, sunduğumuz tüm <strong>IPTV paketleri</strong> arasındaki farkları tablo ve açıklamalar halinde detaylıca sunuyoruz. Kapsamlı <strong>IPTV karşılaştırması</strong> sayesinde bütçenize ve izleme alışkanlıklarınıza en uygun kararı verebilirsiniz.
                 </p>
               </div>
 

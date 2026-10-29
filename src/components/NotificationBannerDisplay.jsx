@@ -30,13 +30,20 @@ const NotificationBannerDisplay = () => {
       if (isMounted && data) {
         const firstActive = filterScheduledNotifications(Array.isArray(data) ? data : [])
           .filter((n) => !isTrustDamagingNotification(n))
+          .filter((n) => !isDe || (typeof n.message_de === 'string' && n.message_de.trim()))
+          .map((n) => isDe ? {
+            ...n,
+            title: n.title_de || '',
+            message: n.message_de,
+            link: n.link_de || n.link,
+          } : n)
           .slice(0, 1);
         setActiveNotifications(firstActive);
       }
     };
     loadNotifications();
     return () => { isMounted = false; };
-  }, [fetchNotifications]);
+  }, [fetchNotifications, isDe]);
 
   useEffect(() => {
     if (activeNotifications.length === 0 || hasShownOnce) return;

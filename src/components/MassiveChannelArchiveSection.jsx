@@ -31,7 +31,7 @@ const MassiveChannelArchiveSection = () => {
               <Tv className="w-4 h-4" />
               Geniş Kanal Arşivi
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-[#e50914] to-[#b20710] mb-6 tracking-tight drop-shadow-sm">
+            <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-[#e50914] to-[#b20710] mb-6 tracking-tight drop-shadow-sm">
               Dünyanın Eğlencesi Tek Platformda
             </h2>
             <p className="text-lg md:text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto">
@@ -71,6 +71,7 @@ const MassiveChannelArchiveSection = () => {
         >
           <Link 
             to="/channels"
+            title="Tüm IPTV kanallarını inceleyin"
             className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#e50914] hover:to-[#b20710] text-white font-bold py-4 px-10 rounded-full shadow-[0_0_40px_-10px_rgba(229,9,20,0.5)] hover:shadow-[0_0_60px_-15px_rgba(229,9,20,0.7)] transition-all duration-300 text-lg group"
           >
             TÜM KANALLARI İNCELE

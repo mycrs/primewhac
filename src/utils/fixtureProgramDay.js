@@ -1,6 +1,6 @@
 /**
  * Maçın hangi "program günü" sekmesinde gösterileceği (YYYY-MM-DD).
- * fixturedownload bazı Süper Lig haftalarını (2026 Nisan sonu) 1 gün ileri yazıyor;
+ * fixturedownload bazı Türkiye Ligi haftalarını (2026 Nisan sonu) 1 gün ileri yazıyor;
  * Mackolik / TFF ile hizalamak için bu aralıkta UTC gününden 1 çıkarılır.
  */
 
@@ -29,7 +29,7 @@ export function programUtcDayForFixtureLeague(utcDay, leagueSlug) {
 /**
  * @param {object} m - fixturedownload maç objesi
  * @param {string} dateStr - seçilen gün
- * @param {string} [leagueSlug] - lig slug (Süper Lig düzeltmesi için)
+ * @param {string} [leagueSlug] - lig slug (Türkiye Ligi düzeltmesi için)
  */
 export function matchBelongsToProgramDay(m, dateStr, leagueSlug = '') {
   const raw = (m.DateUtc || m.date || '').toString().trim();

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  
+  
+  <rect x="210" y="20" width="220" height="320" rx="32" fill="#0f0f0f" stroke="#64748B" stroke-width="2"/>
+  <rect x="280" y="32" width="80" height="7" rx="3.5" fill="#262626"/>
+  <rect x="228" y="52" width="184" height="272" rx="8" fill="#111827"/>
+  
+    <rect x="248" y="78" width="56" height="56" rx="14" fill="#1E293B"/>
+    <text x="276" y="114" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="800">N+</text>
+    <text x="320" y="158" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="13" font-weight="700">NEXT+</text>
+    <rect x="268" y="172" width="104" height="36" rx="18" fill="#334155"/>
+    <text x="320" y="195" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">Yukleniyor...</text>
+    <circle cx="320" cy="230" r="14" stroke="#64748B" stroke-width="3" fill="none" stroke-dasharray="20 12"/>
+    <text x="320" y="268" text-anchor="middle" fill="#64748b" font-family="Arial,sans-serif" font-size="10">Face ID ile onaylayin</text>
+  
+</svg>

@@ -10,23 +10,23 @@ const HomePageSeoContentDE = ({ siteData }) => {
       <article className="max-w-5xl mx-auto">
         
         <header className="mb-12 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          <h2 className="section-title text-4xl md:text-5xl mb-6">
             Premium IPTV Deutschland – Stabile Streams in <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">4K Qualität</span>
           </h2>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            Erleben Sie das beste IPTV-Erlebnis in Deutschland mit kristallklarer Bildqualität, stabilen Verbindungen und 10.000+ Premium-Kanälen. Ihr verlässlicher Partner für hochwertiges Internet-Fernsehen.
+            Entdecken Sie 10.000+ Live-Kanäle, Geräteanleitungen, einen kostenlosen Test und deutsch-türkischen Support. Die tatsächliche Bildqualität hängt von Stream, Gerät und Internetverbindung ab.
           </p>
         </header>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+          <h2 className="section-title text-2xl md:text-3xl mb-8 flex items-center gap-3">
             <Tv className="w-8 h-8 text-primary" />
             Warum IPTV Deutschland die beste Wahl ist
           </h2>
           
           <div className="prose prose-invert max-w-none mb-8">
             <p className="text-lg mb-6">
-              In der heutigen digitalen Welt ist <strong>IPTV Deutschland</strong> längst zur bevorzugten Alternative zum traditionellen Kabelfernsehen geworden. Immer mehr Haushalte entscheiden sich für flexibles Internet-Fernsehen, das nicht nur kostengünstiger ist, sondern auch deutlich mehr Funktionen und Inhalte bietet. Bei uns erhalten Sie Zugang zu einem <strong>Premium IPTV Anbieter</strong>, der höchste Qualitätsstandards erfüllt und Ihnen ein unvergleichliches Seherlebnis garantiert.
+              <strong>IPTV</strong> überträgt Fernsehprogramme über eine Internetverbindung. Das ermöglicht flexible Gerätewahl und eine große Programmauswahl; Qualität und Stabilität hängen jedoch von Verbindung, Gerät und Quelle ab. QruzeTV bietet deshalb vor dem Kauf einen kostenlosen Test und Schritt-für-Schritt-Anleitungen.
             </p>
             
             <p className="text-lg mb-6">
@@ -38,15 +38,15 @@ const HomePageSeoContentDE = ({ siteData }) => {
             <div className="bg-[#0a0a0a]/50 p-6 rounded-xl border border-slate-800">
               <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
                 <Zap className="w-6 h-6 text-primary" />
-                Stabile IPTV ohne Unterbrechung
+                Stabiles IPTV ohne Unterbrechung
               </h3>
               <p className="text-slate-400 mb-4">
-                Eine <strong>stabile IPTV</strong>-Verbindung ist das A und O für unterbrechungsfreien Fernsehgenuss. Unsere hochmodernen Server-Infrastrukturen in Deutschland und Europa garantieren Ihnen eine durchgehend stabile Übertragung ohne lästiges Ruckeln oder Buffering. Wir setzen auf redundante Systeme und intelligente Lastverteilung, sodass Sie auch zu Stoßzeiten mit erstklassiger Streaming-Qualität rechnen können.
+                Eine <strong>stabile Internetverbindung</strong> ist die Grundlage für flüssiges Streaming. Redundante Systeme und Lastverteilung sind auf hohe Verfügbarkeit ausgelegt. Da WLAN, Gerät und Quellstream das Ergebnis beeinflussen, empfehlen wir einen Testzugang und möglichst eine Ethernet-Verbindung.
               </p>
               <ul className="space-y-2">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <span>99,9% Verfügbarkeit durch redundante Server</span>
+                  <span>Redundante Systeme mit hoher Verfügbarkeit als Ziel</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
@@ -86,7 +86,7 @@ const HomePageSeoContentDE = ({ siteData }) => {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+          <h2 className="section-title text-2xl md:text-3xl mb-8 flex items-center gap-3">
             <Shield className="w-8 h-8 text-primary" />
             Premium IPTV Anbieter – Was uns auszeichnet
           </h2>
@@ -101,7 +101,7 @@ const HomePageSeoContentDE = ({ siteData }) => {
             <div className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-6 rounded-xl border border-slate-700 hover:border-primary transition-all">
               <h3 className="text-xl font-bold text-white mb-4">Umfangreiches Kanalangebot</h3>
               <p className="text-slate-400 mb-4">
-                Über 10.000 Live-TV-Kanäle aus aller Welt stehen Ihnen zur Verfügung. Von deutschen öffentlich-rechtlichen und privaten Sendern über internationale Nachrichten- und Sportkanäle bis hin zu exklusiven Premium-Inhalten – bei uns finden Sie garantiert Ihr Lieblingsprogramm. Zusätzlich bieten wir Ihnen Zugriff auf über 50.000 Filme und Serien on demand.
+                Über 10.000 Live-TV-Kanäle aus verschiedenen Ländern stehen zur Auswahl. Dazu kommen Nachrichten, Sport, Dokumentationen und eine umfangreiche Film- und Serienbibliothek. Prüfen Sie die aktuelle Auswahl vor dem Kauf über die Kanalliste und den kostenlosen Test.
               </p>
               <Link to="/de/kanale" className="text-primary hover:text-primary font-semibold inline-flex items-center gap-2">
                 Kanalliste ansehen →
@@ -121,14 +121,14 @@ const HomePageSeoContentDE = ({ siteData }) => {
             <div className="bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-6 rounded-xl border border-slate-700 hover:border-primary transition-all">
               <h3 className="text-xl font-bold text-white mb-4">Sichere und legale Nutzung</h3>
               <p className="text-slate-400 mb-4">
-                Ihre Sicherheit und Privatsphäre haben für uns oberste Priorität. Wir arbeiten ausschließlich mit lizenzierten Inhaltsanbietern zusammen und gewährleisten eine rechtskonforme Nutzung. Alle Datenübertragungen sind verschlüsselt, und wir speichern keine sensiblen Nutzerdaten. So können Sie unser <strong>IPTV ohne Unterbrechung</strong> und Sorgen genießen.
+                Ihre Sicherheit und Privatsphäre haben für uns oberste Priorität. Wir arbeiten ausschließlich mit lizenzierten Inhaltsanbietern zusammen und gewährleisten eine rechtskonforme Nutzung. Alle Datenübertragungen sind verschlüsselt, und wir speichern keine sensiblen Nutzerdaten. So können Sie Ihr <strong>IPTV-Abo ohne Unterbrechung</strong> und Sorgen genießen.
               </p>
             </div>
           </div>
         </section>
 
         <section className="mb-16 bg-gradient-to-br from-[#e50914]/20 to-[#141414]/50 p-8 md:p-12 rounded-2xl border border-primary/30">
-          <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+          <h2 className="section-title text-2xl md:text-3xl mb-8 flex items-center gap-3">
             <Users className="w-8 h-8 text-primary" />
             IPTV kaufen – Einfach und sicher
           </h2>
@@ -202,7 +202,7 @@ const HomePageSeoContentDE = ({ siteData }) => {
         </section>
 
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">Unsere IPTV Pakete für Deutschland</h2>
+          <h2 className="section-title text-2xl md:text-3xl mb-8 text-center">Unsere IPTV Pakete für Deutschland</h2>
           
           <div className="prose prose-invert max-w-none mb-8">
             <p className="text-lg text-center mb-6">
@@ -213,7 +213,7 @@ const HomePageSeoContentDE = ({ siteData }) => {
           <div className="bg-gradient-to-r from-[#e50914]/30 to-[#b20710]/30 p-8 rounded-2xl border border-primary/50 text-center mb-8">
             <h3 className="text-2xl font-bold text-white mb-4">Bereit für Premium IPTV?</h3>
             <p className="text-lg text-slate-300 mb-6 max-w-2xl mx-auto">
-              <strong>Wählen Sie Ihr Paket</strong> und starten Sie noch heute mit dem besten IPTV-Erlebnis in Deutschland. Von monatlichen Testpaketen bis zu 12-Monats-Abonnements mit bis zu 40% Rabatt – bei uns finden Sie garantiert das richtige Angebot.
+              <strong>Testen Sie den Dienst vor dem Kauf.</strong> Vergleichen Sie anschließend Laufzeit, Nutzerzahl, Region, Preis und Rückgabebedingungen, bevor Sie ein Paket auswählen.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -303,7 +303,7 @@ const HomePageSeoContentDE = ({ siteData }) => {
 
         <footer className="text-center pt-8 border-t border-slate-800">
           <p className="text-slate-500 text-sm">
-            Dieser SEO-optimierte Inhalt wurde speziell für <strong>IPTV Deutschland</strong> erstellt, um Ihnen alle wichtigen Informationen über unseren Premium IPTV Service zu bieten. Profitieren Sie von stabilen Verbindungen, 4K-Qualität und 10.000+ Kanälen.
+            <strong>QruzeTV IPTV Deutschland:</strong> Stabile Verbindungen, gestochen scharfe 4K-Qualität, 10.000+ Kanäle und 24/7 deutscher Support für ein erstklassiges Entertainment-Erlebnis.
           </p>
         </footer>
 

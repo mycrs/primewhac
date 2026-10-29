@@ -1,12 +1,13 @@
 export const seoMetadata = {
   home: {
-    title: "IPTV Satın Al 2026 — Donmayan 4K Yayın | QruzeTV",
-    description: "QruzeTV ile donmayan 4K IPTV keyfi: 20.000+ kanal, canlı spor, film ve dizi. 7/24 destek, anında teslimat, ücretsiz test. Hemen başla.",
+    title: "IPTV Satın Al — 4K Türk Kanalları | QruzeTV",
+    description: "Yurt dışından Türk kanallarını izlemek için IPTV satın alın: 10.000+ canlı kanal, 4K/UHD yayın, ücretsiz test ve 7/24 Türkçe destek.",
     keywords: [
-      "kaliteli iptv", "iptv abonelik", "donmayan iptv", "4k iptv izle", "iptv fiyatları", 
-      "canlı tv izleme", "en iyi iptv", "iptv satın al", "hd iptv", "kesintisiz iptv",
-      "smart tv iptv", "android iptv kurulum", "iptv üyelik", "premium iptv", "spor kanalları izle",
-      "iptv kanalları listesi", "iptv server", "iptv türkiye", "avrupa iptv", "iptv kurulum rehberi"
+      "kaliteli iptv", "iptv satın al", "donmayan iptv", "4k iptv izle", "iptv paketleri",
+      "canlı tv izle", "spor kanalları izle", "premium iptv", "iptv kurulum", "avrupa iptv",
+      "yurt dışından türk kanalları izle", "avrupa'da türk tv", "almanya türk kanalları izle",
+      "yurtdışından trt izle", "gurbetçi iptv", "canlı maç programı",
+      "dünya kupası maçları yurt dışından izle"
     ],
     ogType: "website",
     ogImage: "https://images.unsplash.com/photo-1593784991095-a205069470b6",
@@ -15,8 +16,8 @@ export const seoMetadata = {
     h1: "Kaliteli IPTV ve 4K Yayın Deneyimi"
   },
   packages: {
-    title: "IPTV Paketleri ve Fiyatları 2026 — 4K Abonelik | QruzeTV",
-    description: "QruzeTV IPTV paketleri: aylık, 3-6-12 aylık seçenekler. Anında aktivasyon, ücretsiz test ve 24 saat iade hakkı. Paketleri hemen incele.",
+    title: "IPTV Paketleri ve Fiyatları — 4K Abonelik | QruzeTV",
+    description: "IPTV paketlerini süre, kullanıcı sayısı, bölge ve fiyat açısından karşılaştırın. 4K/UHD seçeneklerini kendi cihazınızda ücretsiz test edin.",
     keywords: [
       "iptv paketleri", "iptv fiyatları", "ucuz iptv", "aylık iptv", "yıllık iptv",
       "spor paketi", "sinema paketi", "taraftar paketi", "iptv kampanya", "iptv üyelik",
@@ -29,7 +30,7 @@ export const seoMetadata = {
     h1: "IPTV Paketleri ve Fiyatları"
   },
   faq: {
-    title: "Sıkça Sorulan Sorular — IPTV Rehberi | QruzeTV",
+    title: "IPTV SSS — Kurulum, Ödeme, İade Soruları | QruzeTV",
     description: "IPTV yasal mı, güvenli mi, nasıl çalışır? QruzeTV hakkında tüm sorularınıza net yanıtlar. Kurulum, ödeme, iade ve destek rehberi.",
     keywords: [
       "iptv nedir", "iptv yasal mı", "iptv internet hızı", "iptv donma sorunu", "iptv güvenli mi",
@@ -43,7 +44,7 @@ export const seoMetadata = {
     h1: "IPTV Sıkça Sorulan Sorular"
   },
   comparison: {
-    title: "IPTV Karşılaştırması - En İyi IPTV Hangisi? | QruzeTV",
+    title: "En Kaliteli IPTV Hangisi? 2026 Karşılaştırma + Fiyatlar | QruzeTV",
     description: "Farklı IPTV paketlerini ve özelliklerini karşılaştırın. HD vs 4K, kanal sayıları ve fiyat analizi. En iyi IPTV deneyimi için doğru seçimi yapın.",
     keywords: [
       "iptv karşılaştırma", "en iyi iptv hangisi", "iptv tavsiye", "kaliteli iptv tavsiye", "iptv yorumları",
@@ -82,12 +83,12 @@ export const seoMetadata = {
   about: {
     title: "Hakkımızda - QruzeTV",
     description: "QruzeTV hakkında detaylı bilgi. Vizyonumuz, misyonumuz ve kalite standartlarımız.",
-    keywords: ["hakkımızda", "QruzeTV kimdir", "iptv sağlayıcı", "kurumsal"],
+    keywords: ["hakkımızda", "QruzeTV kimdir", "güvenilir iptv", "premium iptv", "iptv sağlayıcı", "kurumsal"],
     ogType: "website",
-    ogImage: "https://images.unsplash.com/photo-1593784991095-a205069470b6",
+    ogImage: "https://cineverse.pro/og/hakkimizda.jpg",
     twitterCard: "summary_large_image",
     schemaType: "AboutPage",
-    h1: "Hakkımızda"
+    h1: "QruzeTV ile Güvenilir ve Premium IPTV Deneyimi"
   },
   privacy: {
     title: "Gizlilik Politikası - QruzeTV",
@@ -110,8 +111,8 @@ export const seoMetadata = {
     h1: "Hizmet Şartları"
   },
   reseller: {
-    title: "Bayilik Programı - QruzeTV",
-    description: "QruzeTV bayisi olun, kazanmaya başlayın. Yüksek kar marjı ve 7/24 destek.",
+    title: "IPTV Bayilik (Reseller) Programı | Kendi İşinizi Kurun",
+    description: "IPTV bayilik (reseller) programımızla kendi işinizi kurun. En gelişmiş kontrol paneli ve yüksek kazanç oranları ile hemen başlayın.",
     keywords: ["iptv bayilik", "reseller", "bayi ol", "iptv panel"],
     ogType: "website",
     ogImage: "https://images.unsplash.com/photo-1593784991095-a205069470b6",
@@ -120,8 +121,8 @@ export const seoMetadata = {
     h1: "Bayilik Programı"
   },
   blog: {
-    title: "Blog & Haberler - QruzeTV",
-    description: "IPTV dünyasından en güncel haberler, ipuçları ve teknik rehberler.",
+    title: "IPTV Blog & Rehberler — Kurulum, İpuçları, Haberler | QruzeTV",
+    description: "IPTV dünyasından en güncel haberler, ipuçları ve teknik rehberler. Kurulum, kanal yönetimi ve sorun giderme rehberleri.",
     keywords: ["iptv blog", "iptv haberler", "iptv rehberi", "iptv ipuçları"],
     ogType: "website",
     ogImage: "https://images.unsplash.com/photo-1593784991095-a205069470b6",

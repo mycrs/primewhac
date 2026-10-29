@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  <rect x="0" y="0" width="640" height="48" fill="#141414"/>
+  <text x="24" y="30" fill="#64748b" font-family="Arial,sans-serif" font-size="12" font-weight="600">UYGULAMA DETAY</text>
+  <rect x="40" y="64" width="560" height="276" rx="14" fill="#141414" stroke="#334155"/>
+  <rect x="56" y="80" width="104" height="104" rx="18" fill="#000" stroke="#f59e0b" stroke-width="2"/>
+  <text x="78" y="148" fill="#fbbf24" font-family="Arial,sans-serif" font-size="36" font-weight="800">0</text>
+  <text x="176" y="108" fill="#fff" font-family="Arial,sans-serif" font-size="24" font-weight="700">0 Player</text>
+  <text x="176" y="136" fill="#94a3b8" font-family="Arial,sans-serif" font-size="13">Samsung Tizen � LG webOS � 4K</text>
+  <rect x="176" y="152" width="120" height="40" rx="8" fill="#e50914"/>
+  <text x="206" y="177" fill="#fff" font-family="Arial,sans-serif" font-size="14" font-weight="700">Yukle</text>
+  <rect x="308" y="152" width="120" height="40" rx="8" fill="#1f2937" stroke="#475569"/>
+  <text x="340" y="177" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="14" font-weight="700">Ac</text>
+  <rect x="56" y="204" width="528" height="88" rx="10" fill="#1c1408" stroke="#d97706" stroke-opacity="0.4"/>
+  <text x="72" y="236" fill="#fbbf24" font-family="Arial,sans-serif" font-size="14" font-weight="700">Kurulum tamamlandi</text>
+  <text x="72" y="262" fill="#94a3b8" font-family="Arial,sans-serif" font-size="12">Ana ekranda veya uygulamalar listesinde gorunur</text>
+  <rect x="56" y="308" width="528" height="8" rx="4" fill="#312e81"/>
+  <rect x="56" y="308" width="340" height="8" rx="4" fill="#f59e0b"/>
+</svg>

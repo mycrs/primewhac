@@ -3,15 +3,15 @@ import { ShieldCheck, Zap, Tv, Headphones as Headset } from 'lucide-react';
 
 const WhyChooseUsSectionDE = () => {
   const features = [
-    { icon: Zap, title: "Stabile Verbindung", desc: "Keine Unterbrechungen dank leistungsstarker Server." },
+    { icon: Zap, title: "Stabile Verbindung", desc: "Für hohe Verfügbarkeit und geringe Pufferzeiten optimiert." },
     { icon: Tv, title: "Full HD & 4K Qualität", desc: "Genießen Sie kristallklare Bildqualität auf allen Kanälen." },
-    { icon: ShieldCheck, title: "Sichere Zahlung", desc: "100% sichere und verschlüsselte Zahlungsmöglichkeiten." },
+    { icon: ShieldCheck, title: "Sichere Zahlung", desc: "Verschlüsselte und datensparsame Zahlungsmöglichkeiten." },
     { icon: Headset, title: "24/7 Support", desc: "Unser Support-Team steht Ihnen jederzeit zur Verfügung." }
   ];
 
   return (
     <div className="container mx-auto px-4 text-center">
-      <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">
+      <h2 className="section-title text-3xl md:text-4xl mb-12">
         Warum <span className="text-primary">Uns Wählen?</span>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

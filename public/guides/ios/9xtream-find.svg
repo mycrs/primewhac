@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  
+  
+  <rect x="210" y="20" width="220" height="320" rx="32" fill="#0f0f0f" stroke="#0EA5E9" stroke-width="2"/>
+  <rect x="280" y="32" width="80" height="7" rx="3.5" fill="#262626"/>
+  <rect x="228" y="52" width="184" height="272" rx="8" fill="#111827"/>
+  
+    <rect x="248" y="78" width="56" height="56" rx="14" fill="#0C4A6E"/>
+    <text x="276" y="114" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="800">9X</text>
+    <text x="320" y="152" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="14" font-weight="800">9Xtream</text>
+    <text x="320" y="172" text-anchor="middle" fill="#64748b" font-family="Arial,sans-serif" font-size="10">Resmi uygulama</text>
+    <rect x="268" y="188" width="104" height="32" rx="16" fill="#0284C7"/>
+    <text x="320" y="209" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">Al</text>
+    <rect x="248" y="232" width="144" height="48" rx="8" fill="#111827" stroke="#0EA5E9" stroke-opacity="0.4"/>
+    <text x="320" y="260" text-anchor="middle" fill="#7DD3FC" font-family="Arial,sans-serif" font-size="10">App Store · Ucretsiz</text>
+  
+</svg>

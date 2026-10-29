@@ -8,43 +8,43 @@ import { Settings, HelpCircle, Package, Tv, FileText, BarChart3, Link2, FileCode
  */
 const LINKS_TR = [
   {
-    to: '/kurulum',
+    to: '/kurulum/',
     icon: Settings,
     title: 'IPTV Kurulum Rehberi',
     desc: 'Smart TV, Android, iOS için adım adım kurulum nasıl yapılır?',
   },
   {
-    to: '/sss',
+    to: '/sss/',
     icon: HelpCircle,
     title: 'Sıkça Sorulan Sorular',
     desc: 'IPTV nedir? Hangi internet hızı gerekir? Donma sorunu nasıl çözülür?',
   },
   {
-    to: '/paketler',
+    to: '/paketler/',
     icon: Package,
     title: 'IPTV Paketleri ve Fiyatları',
     desc: '3 aylık, 6 aylık, 12 aylık paketler. Uygun fiyatlı abonelik seçenekleri.',
   },
   {
-    to: '/channels',
+    to: '/channels/',
     icon: Tv,
     title: 'Kanal Listesi',
     desc: '4K ve HD spor kanalları. Hangi kanallar dahil?',
   },
   {
-    to: '/blog',
+    to: '/blog/',
     icon: FileText,
     title: 'Blog & Rehberler',
     desc: 'IPTV ipuçları, kurulum rehberleri ve güncel haberler.',
   },
   {
-    to: '/karsilastirma',
+    to: '/karsilastirma/',
     icon: BarChart3,
     title: 'IPTV Karşılaştırması',
     desc: 'Paket özellikleri, HD vs 4K, en iyi IPTV hangisi?',
   },
   {
-    to: '/m3u-converter',
+    to: '/m3u-converter/',
     icon: FileCode,
     title: 'M3U Dönüştür',
     desc: 'M3U formatında IPTV listesi oluştur. Ücretsiz dönüştürme aracı.',
@@ -52,12 +52,12 @@ const LINKS_TR = [
 ];
 
 const LINKS_DE = [
-  { to: '/de/einrichtung', icon: Settings, title: 'IPTV Einrichtungsanleitung', desc: 'Schritt-für-Schritt für Smart TV, Android, iOS.' },
-  { to: '/de/sss', icon: HelpCircle, title: 'Häufig gestellte Fragen', desc: 'Was ist IPTV? Welche Internetgeschwindigkeit? Störungen beheben.' },
-  { to: '/de/paketler', icon: Package, title: 'IPTV Pakete und Preise', desc: '3, 6, 12 Monate. Günstige Abo-Optionen.' },
-  { to: '/de/kanale', icon: Tv, title: 'Kanal Liste', desc: '4K und HD Sportkanäle. Welche Kanäle enthalten?' },
-  { to: '/de/blog', icon: FileText, title: 'Blog & Anleitungen', desc: 'IPTV Tipps, Einrichtungsanleitungen, aktuelle News.' },
-  { to: '/de/m3u-olustur', icon: BarChart3, title: 'M3U Liste erstellen', desc: 'M3U-Format IPTV-Liste erstellen. Kostenloses Tool.' },
+  { to: '/de/einrichtung/', icon: Settings, title: 'IPTV Einrichtungsanleitung', desc: 'Schritt-für-Schritt für Smart TV, Android, iOS.' },
+  { to: '/de/sss/', icon: HelpCircle, title: 'Häufig gestellte Fragen', desc: 'Was ist IPTV? Welche Internetgeschwindigkeit? Störungen beheben.' },
+  { to: '/de/paketler/', icon: Package, title: 'IPTV Pakete und Preise', desc: '3, 6, 12 Monate. Günstige Abo-Optionen.' },
+  { to: '/de/kanale/', icon: Tv, title: 'Kanal Liste', desc: '4K und HD Sportkanäle. Welche Kanäle enthalten?' },
+  { to: '/de/blog/', icon: FileText, title: 'Blog & Anleitungen', desc: 'IPTV Tipps, Einrichtungsanleitungen, aktuelle News.' },
+  { to: '/de/m3u-olustur/', icon: BarChart3, title: 'M3U Liste erstellen', desc: 'M3U-Format IPTV-Liste erstellen. Kostenloses Tool.' },
 ];
 
 export default function MatchDetailRelatedLinks({ locale = 'tr' }) {

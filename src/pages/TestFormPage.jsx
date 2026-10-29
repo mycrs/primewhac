@@ -32,7 +32,7 @@ const TestFormPage = ({ siteData }) => {
   const [isFormValid, setIsFormValid] = useState(false);
   
   const { submitTestRequest, loading } = useTestFormSubmit();
-  const { redirectToWhatsApp } = useWhatsAppIntegration();
+  const { redirectToWhatsApp, isTelegram } = useWhatsAppIntegration();
 
   // Scroll to top on step change
   useEffect(() => {
@@ -68,14 +68,16 @@ const TestFormPage = ({ siteData }) => {
       if (redirected) {
         toast({
           title: 'Harika! 🎉',
-          description: "WhatsApp'a yönlendiriliyorsunuz...",
-          className: 'bg-green-600 border-none text-white shadow-xl'
+          description: isTelegram ? "Telegram'a yönlendiriliyorsunuz..." : "WhatsApp'a yönlendiriliyorsunuz...",
+          className: isTelegram ? 'bg-sky-600 border-none text-white shadow-xl' : 'bg-green-600 border-none text-white shadow-xl'
         });
       } else {
         toast({
           variant: 'destructive',
-          title: 'WhatsApp Numarası Eksik',
-          description: 'Lütfen admin panelinden İletişim Bilgileri veya Sistem Ayarları bölümüne WhatsApp numarası ekleyin.'
+          title: isTelegram ? 'Telegram Bağlantısı Eksik' : 'WhatsApp Numarası Eksik',
+          description: isTelegram
+            ? 'Lütfen admin panelinden İletişim Bilgileri bölümüne Telegram adresi ekleyin.'
+            : 'Lütfen admin panelinden İletişim Bilgileri veya Sistem Ayarları bölümüne WhatsApp numarası ekleyin.'
         });
       }
     }, 1000);
@@ -122,10 +124,11 @@ const TestFormPage = ({ siteData }) => {
   const prevStep = () => setStep(prev => Math.max(prev - 1, 0));
 
   const seo = {
-    title: 'Ücretsiz Test Yayını Al | QruzeTV',
-    description: 'Ücretsiz IPTV test yayını talep edin. Cihazınızı seçin, uygulamanızı belirleyin ve hemen izlemeye başlayın. Kaliteli IPTV test deneyimi için iptv deneme hesabı oluşturun.',
-    keywords: ['ücretsiz iptv test', 'iptv deneme hesabı', 'kaliteli iptv test', 'donmayan iptv deneme', 'iptv satın al'],
-    canonicalUrl: `${SITE_URL}/test`,
+    title: 'Ücretsiz IPTV Test Yayını — 24 Saat Deneme | QruzeTV',
+    description: 'Ücretsiz IPTV test yayını alın: 24 saat boyunca 20.000+ kanalı kendi cihazınızda deneyin. Kredi kartsız, 5 dakikada aktivasyon.',
+    keywords: ['ücretsiz iptv test', 'iptv deneme hesabı', 'iptv test yayını', 'donmayan iptv deneme'],
+    canonicalUrl: `${SITE_URL}/test/`,
+    ogImage: `${SITE_URL}/og/test.jpg`,
   };
 
   return (
@@ -137,7 +140,7 @@ const TestFormPage = ({ siteData }) => {
       />
       <SEOHead {...seo} />
 
-      <div className="min-h-screen bg-[#0B0F19] flex flex-col font-sans selection:bg-green-500/30 selection:text-green-200">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans selection:bg-green-500/30 selection:text-green-200">
         <Header contactData={siteData?.contactData} siteTexts={siteData?.siteTexts} />
 
         <main className="flex-grow pt-24 pb-20 px-4 relative overflow-hidden">
@@ -350,7 +353,7 @@ const TestFormPage = ({ siteData }) => {
 
                         <h3 className="text-2xl font-semibold mt-8 mb-4 text-green-400">Yüksek Görüntü Kalitesi ve Çözünürlük</h3>
                         <p>
-                            Ev sinema sisteminizin veya televizyonunuzun hakkını vermek için gerçek 4K, UHD, ve FHD yayın kalitesi gereklidir. Gelişmiş <strong>donmayan iptv deneme</strong> teknolojimiz sayesinde, yayınlar cihazınıza sıkıştırılmadan ve kalite kaybı yaşamadan iletilir. Canlı renkler, yüksek kontrast oranları ve akıcı kare hızları (FPS) ile özellikle spor müsabakalarında veya aksiyon filmlerinde en ufak bir bulanıklık hissetmezsiniz. Göz alıcı ve eşsiz görüntü kalitesine tanık olmak için <em>kaliteli IPTV test deneyimi yaşa</em>.
+                            Ev sinema sisteminizin veya televizyonunuzun hakkını vermek için gerçek 4K, UHD, ve FHD yayın kalitesi gereklidir. Gelişmiş <strong>donmayan iptv deneme</strong> teknolojimiz sayesinde, yayınlar cihazınıza sıkıştırılmadan ve kalite kaybı yaşamadan iletilir. Canlı renkler, yüksek kontrast oranları ve akıcı kare hızları (FPS) ile özellikle spor müsabakalarında veya aksiyon filmlerinde en ufak bir bulanıklık hissetmezsiniz. Göz alıcı ve eşsiz görüntü kalitesine tanık olmak için <em>ücretsiz test deneyimini hemen başlat</em>.
                         </p>
 
                         <h3 className="text-2xl font-semibold mt-8 mb-4 text-green-400">Gelişmiş EPG ve Catch-up Desteği</h3>
@@ -358,16 +361,16 @@ const TestFormPage = ({ siteData }) => {
                             Modern yayıncılığın en büyük gerekliliklerinden olan EPG (Elektronik Program Rehberi), <strong>ücretsiz iptv test</strong> hesabınızda standart olarak sunulur. Bu sayede o an hangi programın yayınlandığını ve sonraki yayın akışını ekranınızda şık bir şekilde görebilirsiniz. Ayrıca, belirli kanallarda sunulan Catch-up (Geçmişe Dönük İzleme) özelliği sayesinde kaçırdığınız favori dizinizi veya haber bültenini 24-48 saat geriye dönerek izleme fırsatınız vardır. Teknolojinin zirvesinde bir deneyim yaşamak ve gelecekte rahatça <strong>iptv satın al</strong> diyebilmek için <em>şimdi ücretsiz IPTV test al</em>.
                         </p>
 
-                        <h2 className="text-3xl font-bold mt-16 mb-8 text-white border-b border-slate-800/50 pb-4">Donmayan IPTV Test Avantajları - Kaliteli IPTV Deneme</h2>
+                        <h2 className="text-3xl font-bold mt-16 mb-8 text-white border-b border-slate-800/50 pb-4">Donmayan IPTV Test Avantajları - Ücretsiz Deneme</h2>
 
                         <h3 className="text-2xl font-semibold mt-8 mb-4 text-green-400">Donmayan Yayın Teknolojisinin Sırrı</h3>
                         <p>
                             Çoğu izleyicinin en büyük korkusu, yayınların en heyecanlı anında donması veya yükleniyor (buffering) ekranında takılı kalmasıdır. Bizim altyapımız, dünyanın en güçlü veri merkezlerine yayılan Content Delivery Network (CDN) ve akıllı yük dengeleme teknolojileriyle donatılmıştır. Bu mimari, internetinizden gelen veriyi en yakın ve en boş sunucudan çekmenizi sağlayarak gerçek bir <strong>donmayan iptv deneme</strong> deneyimi sunar. Derbi maçlarındaki milyonlarca anlık giriş bile sunucularımızın stabil yapısını sarsamaz. Bu teknoloji harikasını denemek için <em>test formunu doldur</em>.
                         </p>
 
-                        <h3 className="text-2xl font-semibold mt-8 mb-4 text-green-400">Kaliteli IPTV Test Performansı</h3>
+                        <h3 className="text-2xl font-semibold mt-8 mb-4 text-green-400">Test Sürecinde Kanal Geçiş Performansı</h3>
                         <p>
-                            Performans sadece donmamakla sınırlı değildir; kanal geçiş hızı da <strong>kaliteli iptv test</strong> sürecinin en önemli göstergelerinden biridir. Gelişmiş zapping teknolojimiz sayesinde, uydu alıcılarında olduğu gibi kanallar arasında saniyenin altında sürelerde geçiş yapabilirsiniz. Kanalın yüklenmesi için saniyelerce siyah ekrana bakmak zorunda kalmazsınız. Hem canlı TV hem de VOD izlerken elde edeceğiniz bu yüksek hız, platformumuzun gücünü kanıtlar niteliktedir. Kesintisiz bir performansa şahitlik etmek için <em>donmayan IPTV denemeyi başlat</em>.
+                            Performans sadece donmamakla sınırlı değildir; kanal geçiş hızı da <strong>iptv test</strong> sürecinin en önemli göstergelerinden biridir. Gelişmiş zapping teknolojimiz sayesinde, uydu alıcılarında olduğu gibi kanallar arasında saniyenin altında sürelerde geçiş yapabilirsiniz. Kanalın yüklenmesi için saniyelerce siyah ekrana bakmak zorunda kalmazsınız. Hem canlı TV hem de VOD izlerken elde edeceğiniz bu yüksek hız, platformumuzun gücünü kanıtlar niteliktedir. Kesintisiz bir performansa şahitlik etmek için <em>donmayan IPTV denemeyi başlat</em>.
                         </p>
 
                         <h3 className="text-2xl font-semibold mt-8 mb-4 text-green-400">Ağ Optimizasyonu ve Anti-Freeze Altyapısı</h3>

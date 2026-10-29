@@ -1,6 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { Turnstile } from '@marsidev/react-turnstile';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,12 +9,8 @@ import { toast } from '@/components/ui/use-toast';
 import { ClipboardCopy, Loader2, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { normalizePortalCode, isValidPortalCodeFormat } from '@/utils/portalCodeFormat';
-import {
-  verifyCaptchaWithServer,
-  verifyTurnstileWithServer,
-  turnstileVerifyUserMessage,
-} from '@/utils/portalCaptchaClient';
-import { getTurnstileSiteKeyClient } from '@/constants/turnstileClient';
+import MathCaptcha from '@/components/MathCaptcha';
+import { verifyMathCaptcha, mathCaptchaUserMessage } from '@/utils/mathCaptchaClient';
 import { PUBLIC_MAINTENANCE_INLINE_HINT } from '@/constants/publicMaintenanceMessage';
 import { showPublicMaintenanceToastOnce } from '@/utils/supabaseMaintenanceToast';
 import {
@@ -28,7 +22,6 @@ import {
 
 const LEGACY_PORTAL_LOCK_STORAGE_KEY = 'portal_lookup_guard';
 
-const hCaptchaSiteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY || '';
 const captchaRelaxed = import.meta.env.VITE_PORTAL_CAPTCHA_RELAXED === 'true';
 
 function CopyBtn({ text, label = 'Kopyala', className = '' }) {
@@ -67,17 +60,12 @@ export default function CustomerPortalSection() {
   const [pwRevealUntil, setPwRevealUntil] = useState(0);
   /** Başarılı lookup sonrası normalize kod — şifre iptv_password'a yazılırken eşleştirme */
   const [lastPortalCodeNormalized, setLastPortalCodeNormalized] = useState('');
-  const [turnstileToken, setTurnstileToken] = useState('');
+  const [mathCaptcha, setMathCaptcha] = useState(null);
+  const [captchaRefresh, setCaptchaRefresh] = useState(0);
 
-  const portalTurnstileSiteKey = getTurnstileSiteKeyClient();
-  const hcaptchaRef = useRef(null);
-  const hcaptchaPendingRef = useRef(null);
-  const hcaptchaTimeoutRef = useRef(null);
-  const turnstileRef = useRef(null);
-
-  const resetTurnstile = useCallback(() => {
-    setTurnstileToken('');
-    turnstileRef.current?.reset();
+  const resetMathCaptcha = useCallback(() => {
+    setMathCaptcha(null);
+    setCaptchaRefresh((s) => s + 1);
   }, []);
 
   useEffect(() => {
@@ -97,96 +85,21 @@ export default function CustomerPortalSection() {
     return () => clearTimeout(t);
   }, [pwRevealUntil]);
 
-  const onHcaptchaVerify = useCallback((token) => {
-    if (hcaptchaTimeoutRef.current) {
-      clearTimeout(hcaptchaTimeoutRef.current);
-      hcaptchaTimeoutRef.current = null;
-    }
-    const p = hcaptchaPendingRef.current;
-    hcaptchaPendingRef.current = null;
-    p?.resolve(token);
-  }, []);
-
-  const onHcaptchaError = useCallback((err) => {
-    if (hcaptchaTimeoutRef.current) {
-      clearTimeout(hcaptchaTimeoutRef.current);
-      hcaptchaTimeoutRef.current = null;
-    }
-    const p = hcaptchaPendingRef.current;
-    hcaptchaPendingRef.current = null;
-    p?.reject(err || new Error('hCaptcha hatası'));
-  }, []);
-
-  const onHcaptchaExpire = useCallback(() => {
-    if (hcaptchaTimeoutRef.current) {
-      clearTimeout(hcaptchaTimeoutRef.current);
-      hcaptchaTimeoutRef.current = null;
-    }
-    const p = hcaptchaPendingRef.current;
-    hcaptchaPendingRef.current = null;
-    p?.reject(new Error('Captcha süresi doldu'));
-  }, []);
-
-  const runHcaptchaExecute = useCallback(
-    () =>
-      new Promise((resolve, reject) => {
-        hcaptchaPendingRef.current = { resolve, reject };
-        hcaptchaTimeoutRef.current = setTimeout(() => {
-          hcaptchaTimeoutRef.current = null;
-          if (hcaptchaPendingRef.current) {
-            hcaptchaPendingRef.current.reject(new Error('Captcha zaman aşımı'));
-            hcaptchaPendingRef.current = null;
-          }
-        }, 120000);
-        try {
-          hcaptchaRef.current?.execute();
-        } catch (e) {
-          if (hcaptchaTimeoutRef.current) clearTimeout(hcaptchaTimeoutRef.current);
-          hcaptchaTimeoutRef.current = null;
-          hcaptchaPendingRef.current = null;
-          reject(e);
-        }
-      }),
-    [],
-  );
-
   const runCaptchaGate = useCallback(async () => {
-    if (hCaptchaSiteKey) {
-      const hcaptchaResponse = await runHcaptchaExecute();
-      try {
-        const { ok, status, body } = await verifyCaptchaWithServer({
-          hcaptchaResponse: hcaptchaResponse || undefined,
-        });
-        if (ok) return { ok: true };
-        if (captchaRelaxed && hcaptchaResponse) return { ok: true };
-        if (status === 503 && captchaRelaxed && hcaptchaResponse) return { ok: true };
-        if (body?.error && captchaRelaxed && hcaptchaResponse) return { ok: true };
-        return { ok: false };
-      } catch {
-        return { ok: !!(captchaRelaxed && hcaptchaResponse) };
-      }
+    const answer = String(mathCaptcha?.answer ?? '').trim();
+    if (!mathCaptcha?.id || !answer) {
+      return { ok: false, needAnswer: true };
     }
-
-    if (portalTurnstileSiteKey) {
-      if (!turnstileToken) {
-        return { ok: false, needTurnstile: true };
-      }
-      try {
-        const r = await verifyTurnstileWithServer(turnstileToken);
-        if (r.ok) return { ok: true };
-        if (captchaRelaxed && turnstileToken) return { ok: true };
-        return { ok: false, turnstileFail: r };
-      } catch {
-        return { ok: false, turnstileFail: { fetchFailed: true, ok: false } };
-      }
+    try {
+      const r = await verifyMathCaptcha(mathCaptcha.id, answer);
+      if (r.ok) return { ok: true };
+      if (captchaRelaxed) return { ok: true };
+      return { ok: false, captchaFail: r };
+    } catch {
+      if (captchaRelaxed) return { ok: true };
+      return { ok: false, captchaFail: { ok: false, fetchFailed: true } };
     }
-
-    if (!import.meta.env.DEV && !hCaptchaSiteKey) {
-      return { ok: false, noCaptchaConfigured: true };
-    }
-
-    return { ok: true };
-  }, [runHcaptchaExecute, portalTurnstileSiteKey, turnstileToken]);
+  }, [mathCaptcha]);
 
   const runLookup = async () => {
     setLookupError('');
@@ -205,14 +118,10 @@ export default function CustomerPortalSection() {
     try {
       const gate = await runCaptchaGate();
       if (!gate.ok) {
-        if (gate.needTurnstile) {
-          setLookupError('Lütfen güvenlik doğrulamasını (Turnstile) tamamlayın.');
-        } else if (gate.noCaptchaConfigured) {
-          setLookupError(
-            'Portal güvenliği yapılandırılmamış. VITE_TURNSTILE_SITE_KEY veya VITE_HCAPTCHA_SITE_KEY gerekli.',
-          );
-        } else if (gate.turnstileFail) {
-          setLookupError(turnstileVerifyUserMessage(gate.turnstileFail));
+        if (gate.needAnswer) {
+          setLookupError('Lütfen güvenlik sorusunu yanıtlayın.');
+        } else if (gate.captchaFail) {
+          setLookupError(mathCaptchaUserMessage(gate.captchaFail));
         } else {
           setLookupError('Robot doğrulaması başarısız. Sayfayı yenileyip tekrar deneyin.');
         }
@@ -255,8 +164,7 @@ export default function CustomerPortalSection() {
       showPublicMaintenanceToastOnce(toast);
     } finally {
       setLookupLoading(false);
-      hcaptchaRef.current?.resetCaptcha();
-      resetTurnstile();
+      resetMathCaptcha();
     }
   };
 
@@ -368,10 +276,7 @@ export default function CustomerPortalSection() {
             <Button
               type="button"
               onClick={runLookup}
-              disabled={
-                lookupLoading ||
-                (!hCaptchaSiteKey && !!portalTurnstileSiteKey && !turnstileToken)
-              }
+              disabled={lookupLoading || !String(mathCaptcha?.answer ?? '').trim()}
               className="bg-[#e50914] hover:bg-[#e50914] sm:w-auto"
             >
               {lookupLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="mr-2 h-4 w-4" />}
@@ -380,39 +285,7 @@ export default function CustomerPortalSection() {
           </div>
         </div>
 
-        {hCaptchaSiteKey ? (
-          <form className="min-h-[1px]" onSubmit={(e) => e.preventDefault()}>
-            <HCaptcha
-              ref={hcaptchaRef}
-              sitekey={hCaptchaSiteKey}
-              size="invisible"
-              onVerify={onHcaptchaVerify}
-              onError={onHcaptchaError}
-              onExpire={onHcaptchaExpire}
-            />
-          </form>
-        ) : portalTurnstileSiteKey ? (
-          <div className="flex flex-col items-center gap-2 py-2">
-            <Turnstile
-              ref={turnstileRef}
-              siteKey={portalTurnstileSiteKey}
-              options={{ theme: 'dark', size: 'normal' }}
-              onSuccess={(t) => setTurnstileToken(t)}
-              onExpire={() => {
-                setTurnstileToken('');
-                turnstileRef.current?.reset();
-              }}
-              onError={() => setTurnstileToken('')}
-            />
-            <p className="text-xs text-slate-500 text-center">
-              Sorgulamadan önce doğrulamayı tamamlayın (Cloudflare Turnstile).
-            </p>
-          </div>
-        ) : (
-          <p className="text-xs text-amber-400/90">
-            Güvenlik anahtarı tanımlı değil. VITE_HCAPTCHA_SITE_KEY veya production’da VITE_TURNSTILE_SITE_KEY ekleyin.
-          </p>
-        )}
+        <MathCaptcha onChange={setMathCaptcha} refreshSignal={captchaRefresh} disabled={lookupLoading} />
 
         {lookupError && (
           <p className="rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-200">

@@ -32,14 +32,16 @@ const COPY = {
 const PackagesRegionInfo = ({ lang = 'tr', content }) => {
   const regionContent = content?.regions;
   const seoRegion = content?.seo?.regionDifference;
-  const c = regionContent
+  const c = lang === 'de'
+    ? COPY.de
+    : regionContent
     ? {
-        title: seoRegion?.title || (lang === 'de' ? 'Unterschied zwischen Türkei- und Europa-Paketen' : 'Türkiye ve Avrupa Paketleri Arasındaki Fark'),
+        title: seoRegion?.title || 'Türkiye ve Avrupa Paketleri Arasındaki Fark',
         body: seoRegion?.body || regionContent.tr?.detailDescription || COPY.tr.body,
         warning: regionContent.tr?.warning || seoRegion?.warning || COPY.tr.warning,
-        links: COPY[lang]?.links || COPY.tr.links,
+        links: COPY.tr.links,
       }
-    : COPY[lang] || COPY.tr;
+    : COPY.tr;
 
   return (
     <section

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
 import { 
@@ -14,6 +14,8 @@ import { toast } from '@/components/ui/use-toast';
 import SupabaseConnectionStatus from './SupabaseConnectionStatus';
 import { BRAND_LOGO_URL } from '@/constants/brandAssets';
 import { ADMIN_BASE_PATH, ADMIN_LOGIN_PATH, adminPath } from '@/constants/adminRoutes';
+import { clearAdminDrafts, useAdminDraftPersistence } from './AdminDraftPersistence';
+import { clearAllBlogDrafts } from '@/utils/blogDraftStorage';
 
 const AdminLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -21,15 +23,31 @@ const AdminLayout = ({ children }) => {
   const navigate = useNavigate();
   const { user, signOut, isAdmin } = useAuth();
   const pendingCustomers = usePendingCustomersCount();
+  const draftRootRef = useRef(null);
+
+  useAdminDraftPersistence({
+    rootRef: draftRootRef,
+    userId: user?.id,
+    pathname: location.pathname,
+  });
 
   const handleIdleLogout = useCallback(async () => {
+    clearAdminDrafts(user?.id);
+    clearAllBlogDrafts(user?.id);
     await signOut();
     toast({
       title: 'Oturum kapatıldı',
       description: '30 dakika işlem yapılmadığı için güvenlik nedeniyle çıkış yapıldı.',
     });
     navigate(ADMIN_LOGIN_PATH);
-  }, [signOut, navigate]);
+  }, [signOut, navigate, user?.id]);
+
+  const handleLogout = useCallback(async () => {
+    clearAdminDrafts(user?.id);
+    clearAllBlogDrafts(user?.id);
+    await signOut();
+    navigate(ADMIN_LOGIN_PATH);
+  }, [navigate, signOut, user?.id]);
 
   useAdminIdleLogout({
     enabled: Boolean(user && isAdmin),
@@ -98,7 +116,7 @@ const AdminLayout = ({ children }) => {
 
         <div className="p-4 border-t border-white/10">
           <button 
-            onClick={() => signOut().then(() => navigate(ADMIN_LOGIN_PATH))}
+            onClick={handleLogout}
             className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-400/10 rounded-xl transition-colors"
           >
             <LogOut className="w-5 h-5" />
@@ -115,6 +133,7 @@ const AdminLayout = ({ children }) => {
           </button>
           <div className="flex-1" />
           <div className="flex items-center gap-3">
+            <span className="hidden text-[11px] text-emerald-400/80 lg:inline">Taslaklar otomatik korunuyor</span>
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs font-medium text-slate-400 hidden sm:inline">Sistem Durumu:</span>
               <div className="flex items-center gap-2" title="Supabase veritabanı">
@@ -129,7 +148,9 @@ const AdminLayout = ({ children }) => {
           </div>
         </header>
         <main className="flex-1 overflow-auto p-6">
-          {children}
+          <div ref={draftRootRef} data-admin-draft-root>
+            {children}
+          </div>
         </main>
       </div>
     </div>

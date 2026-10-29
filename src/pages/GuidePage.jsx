@@ -178,10 +178,10 @@ const GuidePage = ({ siteData }) => {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-2xl mx-auto">
-                <Link to="/paketler" className="flex-1 bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#e50914] hover:to-[#b20710] text-white text-center py-4 px-8 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary/25 flex items-center justify-center gap-2">
+                <Link to="/paketler/" className="flex-1 bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#e50914] hover:to-[#b20710] text-white text-center py-4 px-8 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary/25 flex items-center justify-center gap-2">
                   <Tv className="w-5 h-5" /> Paketleri İncele
                 </Link>
-                <Link to="/kurulum" className="flex-1 bg-[#0a0a0a] hover:bg-[#0a0a0a] text-white text-center py-4 px-8 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 border border-slate-700 shadow-lg flex items-center justify-center gap-2">
+                <Link to="/kurulum/" className="flex-1 bg-[#0a0a0a] hover:bg-[#0a0a0a] text-white text-center py-4 px-8 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 border border-slate-700 shadow-lg flex items-center justify-center gap-2">
                   <Monitor className="w-5 h-5" /> Cihaz Rehberleri
                 </Link>
               </div>
@@ -190,23 +190,23 @@ const GuidePage = ({ siteData }) => {
             <section className="mt-16 bg-[#0a0a0a]/50 p-8 rounded-2xl border border-slate-800">
               <h2 className="text-2xl font-bold mb-8 text-white text-center">İlgili İçerikler</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Link to="/paketler" className="p-4 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] border border-slate-800 rounded-xl transition-colors flex items-center justify-between group">
+                <Link to="/paketler/" className="p-4 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] border border-slate-800 rounded-xl transition-colors flex items-center justify-between group">
                   <span className="text-slate-300 group-hover:text-white">Paketleri İncele</span>
                   <CheckCircle2 className="w-5 h-5 text-blue-500" />
                 </Link>
-                <Link to="/kurulum" className="p-4 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] border border-slate-800 rounded-xl transition-colors flex items-center justify-between group">
+                <Link to="/kurulum/" className="p-4 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] border border-slate-800 rounded-xl transition-colors flex items-center justify-between group">
                   <span className="text-slate-300 group-hover:text-white">Kurulum Rehberi</span>
                   <CheckCircle2 className="w-5 h-5 text-blue-500" />
                 </Link>
-                <Link to="/sss" className="p-4 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] border border-slate-800 rounded-xl transition-colors flex items-center justify-between group">
+                <Link to="/sss/" className="p-4 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] border border-slate-800 rounded-xl transition-colors flex items-center justify-between group">
                   <span className="text-slate-300 group-hover:text-white">Sık Sorulan Sorular (SSS)</span>
                   <CheckCircle2 className="w-5 h-5 text-blue-500" />
                 </Link>
-                <Link to="/karsilastirma" className="p-4 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] border border-slate-800 rounded-xl transition-colors flex items-center justify-between group">
+                <Link to="/karsilastirma/" className="p-4 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] border border-slate-800 rounded-xl transition-colors flex items-center justify-between group">
                   <span className="text-slate-300 group-hover:text-white">Paketleri Karşılaştır</span>
                   <CheckCircle2 className="w-5 h-5 text-blue-500" />
                 </Link>
-                <Link to="/guide/iptv-kurulum-rehberi" className="md:col-span-2 p-4 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] border border-slate-800 rounded-xl transition-colors flex items-center justify-between group">
+                <Link to="/guide/iptv-kurulum-rehberi/" className="md:col-span-2 p-4 bg-[#0a0a0a]/50 hover:bg-[#0a0a0a] border border-slate-800 rounded-xl transition-colors flex items-center justify-between group">
                   <span className="text-slate-300 group-hover:text-white">Detaylı Kurulum Rehberi</span>
                   <CheckCircle2 className="w-5 h-5 text-blue-500" />
                 </Link>

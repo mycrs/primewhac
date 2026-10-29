@@ -13,12 +13,12 @@ import { generateMatchContentDE } from '../src/utils/matchContentGeneratorDE.js'
 const forceRefresh = process.argv.includes('--force');
 const FIXTURE_BASE = 'https://fixturedownload.com/feed/json';
 const LEAGUES = [
-  { slug: 'super-lig-2025', name: 'Süper Lig', country: 'Türkiye', flag: '🇹🇷' },
-  { slug: 'epl-2025', name: 'Premier Lig', country: 'İngiltere', flag: '🏴' },
-  { slug: 'la-liga-2025', name: 'La Liga', country: 'İspanya', flag: '🇪🇸' },
-  { slug: 'champions-league-2025', name: 'Şampiyonlar Ligi', country: 'Avrupa', flag: '🇪🇺' },
-  { slug: 'bundesliga-2025', name: 'Bundesliga', country: 'Almanya', flag: '🇩🇪' },
-  { slug: 'serie-a-2025', name: 'Serie A', country: 'İtalya', flag: '🇮🇹' },
+  { slug: 'super-lig-2025', name: 'Türkiye Ligi', country: 'Türkiye', flag: '🇹🇷' },
+  { slug: 'epl-2025', name: 'İngiltere Ligi', country: 'İngiltere', flag: '🏴' },
+  { slug: 'la-liga-2025', name: 'İspanya Ligi', country: 'İspanya', flag: '🇪🇸' },
+  { slug: 'champions-league-2025', name: 'Avrupa Kupası', country: 'Avrupa', flag: '🇪🇺' },
+  { slug: 'bundesliga-2025', name: 'Almanya Ligi', country: 'Almanya', flag: '🇩🇪' },
+  { slug: 'serie-a-2025', name: 'İtalya Ligi', country: 'İtalya', flag: '🇮🇹' },
 ];
 
 function formatDate(d) {

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0B1020"/>
+  <rect x="70" y="36" width="500" height="288" rx="18" fill="#0F172A" stroke="#334155"/>
+  <rect x="90" y="56" width="460" height="228" rx="10" fill="#111827"/>
+  <rect x="110" y="76" width="420" height="44" rx="10" fill="#0F172A" stroke="#475569"/>
+  <text x="130" y="104" fill="#E2E8F0" font-family="Arial,sans-serif" font-size="15" font-weight="700">Smart Hub / LG Content Store</text>
+  <rect x="110" y="136" width="128" height="96" rx="14" fill="#1F2937" stroke="#6366F1" stroke-opacity="0.45"/>
+  <rect x="128" y="154" width="56" height="56" rx="14" fill="#312E81"/>
+  <text x="144" y="190" fill="#C4B5FD" font-family="Arial,sans-serif" font-size="13" font-weight="800">Apps</text>
+  <text x="118" y="218" fill="#94A3B8" font-family="Arial,sans-serif" font-size="12">Uygulamalar</text>
+  <rect x="256" y="136" width="128" height="96" rx="14" fill="#111827" stroke="#334155"/>
+  <rect x="274" y="154" width="92" height="52" rx="8" fill="#000" stroke="#475569"/>
+  <text x="268" y="218" fill="#94A3B8" font-family="Arial,sans-serif" font-size="12">Live TV</text>
+  <rect x="402" y="136" width="128" height="96" rx="14" fill="#111827" stroke="#334155"/>
+  <text x="430" y="188" fill="#64748B" font-family="Arial,sans-serif" font-size="12">Settings</text>
+  <rect x="250" y="292" width="140" height="28" rx="8" fill="#6366F1"/>
+  <text x="278" y="311" fill="#FFF" font-family="Arial,sans-serif" font-size="12" font-weight="700">Apps ac</text>
+</svg>

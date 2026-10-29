@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Play, ArrowDown, Tv, Film, Globe, Compass, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import ChannelsPageContent from '@/components/ChannelsPageContent';
 import HomePageSeoContent from '@/components/HomePageSeoContent';
 import SEOHead from '@/components/SEOHead';
 import { channelsPageSchemasDE } from '@/utils/seoSchema';
+import { turkishChannels } from '@/data/turkishChannels';
 import { Button } from '@/components/ui/button';
 import { useTestModal } from '@/contexts/TestModalContext';
 
@@ -26,6 +27,25 @@ const ChannelsPageDE = ({ siteData }) => {
   }, []);
   
   const pageSeo = seoData?.channels_de || {};
+
+  // DE kanal açıklamaları: veri dosyasındaki description_de alanlarından
+  // kanal adına göre eşleşen bir harita kurulur; kanal listesi bu açıklamalarla
+  // birleştirilerek kanal grid'ine verilir (TR 'description' yalnızca yedek kalır).
+  const channelDescriptionsDe = useMemo(() => {
+    const map = new Map();
+    turkishChannels.forEach((c) => {
+      if (c?.name && c?.description_de) map.set(c.name, c.description_de);
+    });
+    return map;
+  }, []);
+
+  const channelsWithGermanDescriptions = useMemo(() => {
+    const list = Array.isArray(channelsData) ? channelsData : [];
+    return list.map((ch) => ({
+      ...ch,
+      description: channelDescriptionsDe.get(ch?.name) || ch?.description_de || ch?.description,
+    }));
+  }, [channelsData, channelDescriptionsDe]);
   const metadata = {
     title: pageSeo.title || '200+ Türkische Sender live — HD & 4K | QruzeTV',
     description:
@@ -97,7 +117,7 @@ const ChannelsPageDE = ({ siteData }) => {
                   Entdecken Sie unsere Sender <ArrowDown className="w-3 h-3 ml-1" />
                 </motion.div>
 
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-8 drop-shadow-sm leading-tight">
+                <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-8 drop-shadow-sm leading-tight">
                   Premium IPTV Kanäle Deutschland <br className="hidden md:block" />
                   <span className="text-[#e50914]">Live TV in 4K Qualität</span>
                 </h1>
@@ -135,7 +155,7 @@ const ChannelsPageDE = ({ siteData }) => {
           </section>
 
           {/* CHANNELS GRID SECTION */}
-          <AllChannels channels={channelsData} siteTexts={siteTexts} />
+          <AllChannels channels={channelsWithGermanDescriptions} siteTexts={siteTexts} />
           
           {/* COMPACT CHANNEL CATEGORIES SEO INFO SECTION (MOVED TO BOTTOM) */}
           <section id="channel-categories-info" className="py-12 bg-[#0a0a0a] border-b border-t border-white/5">
@@ -162,9 +182,9 @@ const ChannelsPageDE = ({ siteData }) => {
                 </div>
 
                 {/* Movies */}
-                <div className="bg-[#0a0a0a]/50 p-5 rounded-2xl border border-white/5 hover:border-pink-500/30 transition-colors flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                  <div className="w-12 h-12 flex-shrink-0 bg-pink-500/20 rounded-xl flex items-center justify-center">
-                    <Film className="w-6 h-6 text-pink-400" />
+                <div className="bg-[#0a0a0a]/50 p-5 rounded-2xl border border-white/5 hover:border-[#e50914]/30 transition-colors flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <div className="w-12 h-12 flex-shrink-0 bg-[#e50914]/20 rounded-xl flex items-center justify-center">
+                    <Film className="w-6 h-6 text-[#ff3b45]" />
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-white mb-1">Filme & Serien in 4K</h3>

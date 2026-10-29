@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 
 const devices = [
   { id: 'android-tv', name: 'Android TV', icon: Tv, color: 'text-green-500', bg: 'bg-green-500/10 border-green-500/20' },
-  { id: 'ios', name: 'iOS (Apple)', icon: Smartphone, color: 'text-white', bg: 'bg-[#e50914]/10 border-[#e50914]/20' },
+  { id: 'ios', name: 'iOS (Apple)', icon: Smartphone, color: 'text-slate-200', bg: 'bg-slate-500/10 border-slate-500/25' },
   { id: 'android-phone', name: 'Android', icon: Smartphone, color: 'text-[#e50914]', bg: 'bg-[#e50914]/10 border-[#e50914]/20' },
   { id: 'windows', name: 'Windows PC', icon: Monitor, color: 'text-blue-500', bg: 'bg-[#141414]/10 border-blue-500/20' },
   { id: 'mac', name: 'Mac', icon: AppWindow, color: 'text-slate-300', bg: 'bg-[#141414]/10 border-slate-500/20' },

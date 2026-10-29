@@ -1,13 +1,14 @@
 import { slugify } from './matchSlug.js';
 
 const GUNLER = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
+/** Anahtarlar liveMatchFixtures.FOOTBALL_LEAGUES içindeki `name` ile aynı olmalı. */
 const LIG_BAĞLAMI = {
-  'Süper Lig': ['Türkiye\'nin en heyecanlı liginde', 'Süper Lig\'in bu haftaki programında', 'Türk futbolunun zirve liginde'],
-  'Premier Lig': ['İngiltere\'nin en prestijli liginde', 'Premier Lig\'de bu hafta', 'Dünya futbolunun en çok izlenen liginde'],
-  'La Liga': ['İspanya\'nın en üst düzey liginde', 'La Liga\'da bu hafta', 'İspanyol futbolunun kalbi'],
-  'Şampiyonlar Ligi': ['Avrupa\'nın en büyük kupasında', 'UEFA Şampiyonlar Ligi\'nde', 'Kıtalararası mücadelede'],
-  'Bundesliga': ['Almanya\'nın en üst liginde', 'Bundesliga\'da bu hafta', 'Alman futbolunun zirvesinde'],
-  'Serie A': ['İtalya\'nın en üst liginde', 'Serie A\'da bu hafta', 'İtalyan futbolunun kalbi'],
+  'Türkiye Ligi': ['Türkiye\'nin en üst düzey futbol liginde', 'Bu haftanın Türkiye programında', 'Türk futbolunun zirvesinde'],
+  'İngiltere Ligi': ['İngiltere\'nin en üst düzey liginde', 'Bu hafta İngiltere\'de', 'Dünyanın en çok izlenen futbol ülkelerinden birinde'],
+  'İspanya Ligi': ['İspanya\'nın en üst düzey liginde', 'Bu hafta İspanya\'da', 'İspanyol futbolunun kalbinde'],
+  'Avrupa Kupası': ['Avrupa\'nın en büyük kupa organizasyonunda', 'Kıta çapındaki kupa mücadelesinde', 'Kıtalararası mücadelede'],
+  'Almanya Ligi': ['Almanya\'nın en üst düzey liginde', 'Bu hafta Almanya\'da', 'Alman futbolunun zirvesinde'],
+  'İtalya Ligi': ['İtalya\'nın en üst düzey liginde', 'Bu hafta İtalya\'da', 'İtalyan futbolunun kalbinde'],
 };
 
 const DERBİ_TAKIMLAR = [

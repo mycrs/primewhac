@@ -16,7 +16,7 @@ const DetailedGuidesPage = ({ siteData }) => {
   const metadata = {
     title: "IPTV İzleme Rehberi | Kurulum ve Kullanım Kılavuzu",
     description: "IPTV nasıl izlenir? Adım adım kurulum rehberi, cihaz ayarları ve kullanım ipuçları. Tüm cihazlarda IPTV kullanımı öğren.",
-    keywords: ["IPTV izleme rehberi", "IPTV nasıl izlenir", "IPTV kurulum rehberi", "IPTV cihaz kurulumu", "IPTV kullanım kılavuzu", "kaliteli iptv", "donmayan iptv"],
+    keywords: ["IPTV izleme rehberi", "IPTV nasıl izlenir", "IPTV kurulum rehberi", "IPTV cihaz kurulumu", "IPTV kullanım kılavuzu", "donmayan iptv"],
     ogType: "article"
   };
 

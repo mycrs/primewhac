@@ -140,8 +140,8 @@ const ChannelsPageContent = () => {
 
           {/* Sub 5 */}
           <InfoCard 
-            title="Kaliteli IPTV Hizmetleri ve Geniş Kanal Yelpazesi"
-            content="Kaliteli IPTV hizmetleri, sadece yüksek çözünürlük sunmakla kalmaz, aynı zamanda geniş bir kanal yelpazesi de sağlar. Spor, film, belgesel, haber, eğitim, müzik ve daha birçok kategoride yüzlerce kanal, 4K ve HD kalitesinde sunulur. Bu çeşitlilik, her yaş grubundan ve her ilgi alanından izleyicilerin, kendi tercihlerine uygun içeriği bulmasını sağlar. En iyi IPTV servisi, teknolojik üstünlüğün yanı sıra, kullanıcı deneyimini de ön planda tutar. Kolay navigasyon, hızlı kanal değiştirme, kayıt özelliği ve çoklu cihaz desteği, kaliteli IPTV hizmetlerinin temel bileşenleridir. Donmayan IPTV ile birlikte bu özellikler, izleyicilere tam bir kontrol ve esneklik sağlar."
+            title="Geniş Kanal Yelpazesi ve Üst Düzey İzleme Deneyimi"
+            content="Üst düzey IPTV hizmeti, sadece yüksek çözünürlük sunmakla kalmaz, aynı zamanda geniş bir kanal yelpazesi de sağlar. Spor, film, belgesel, haber, eğitim, müzik ve daha birçok kategoride yüzlerce kanal, 4K ve HD kalitesinde sunulur. Bu çeşitlilik, her yaş grubundan ve her ilgi alanından izleyicilerin, kendi tercihlerine uygun içeriği bulmasını sağlar. En iyi IPTV servisi, teknolojik üstünlüğün yanı sıra, kullanıcı deneyimini de ön planda tutar. Kolay navigasyon, hızlı kanal değiştirme, kayıt özelliği ve çoklu cihaz desteği, bu hizmetin temel bileşenleridir. Donmayan IPTV ile birlikte bu özellikler, izleyicilere tam bir kontrol ve esneklik sağlar."
             icon={Crown}
             delay={0.5}
             gradientClass="from-orange-600/10 to-transparent"

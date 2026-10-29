@@ -49,7 +49,7 @@ export const defaultPages = {
             { id: 4, title: 'Güvenli Altyapı', description: 'Verileriniz ve izleme deneyiminiz en son güvenlik protokolleri ile korunur.', icon: 'ShieldCheck' }
         ],
         section2Title: "Teknolojimiz & Müşteri Memnuniyeti",
-        secondaryText: "En son teknolojiye sahip sunucularımız ve yedekli altyapımız sayesinde %99.9 uptime oranıyla hizmet veriyoruz. Anti-buffer teknolojimiz, en yoğun saatlerde bile donma ve takılmaları önler. 7/24 aktif olan teknik destek ekibimiz, her türlü sorunuzda size anında yardımcı olmak için hazırdır. Sizin memnuniyetiniz, bizim başarımızdır.",
+        secondaryText: "Yedekli altyapı ve yük dengeleme ile yüksek erişilebilirlik hedefliyoruz. Yayın deneyimi bağlantı ve cihaza göre değişebildiği için satın alma öncesinde ücretsiz test öneriyoruz. Destek ekibimiz kurulum ve sorun giderme konusunda yardımcı olur.",
         secondaryImageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2940&auto=format&fit=crop"
     },
     statsData: [
@@ -67,7 +67,7 @@ export const defaultPages = {
           },
           {
             question: "Yayınlarda donma veya takılma yaşar mıyım?",
-            answer: "Hayır. Güçlü ve stabil sunucularımız sayesinde yayınlarımızda donma, takılma veya kesinti yaşamazsınız. İnternet hızınız yeterli olduğu sürece %99.9 kesintisiz hizmet garantisi veriyoruz."
+            answer: "Yedekli altyapıyla takılmaları azaltmayı hedefliyoruz; ancak sonuç internet hızına, Wi-Fi kalitesine, cihaza ve kaynak yayına göre değişebilir. Satın almadan önce ücretsiz test yapmanızı öneririz."
           },
           {
             question: "Hangi cihazlarda kullanabilirim?",

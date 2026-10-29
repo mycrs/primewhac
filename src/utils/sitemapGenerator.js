@@ -7,6 +7,12 @@ import {
   plainTextLengthFromHtml,
   MIN_CONTENT_THRESHOLD,
 } from './seoNoindexPaths.js';
+import {
+  fetchBuildSeoExtras,
+  kurulumSitemapEntriesFromSlugs,
+} from './seoRouteRegistry.js';
+import { TV_BRAND_GUIDE_SLUGS } from '../data/tvBrandGuides.js';
+import { isBrandRiskBlogSlug } from '../constants/brandRiskBlogSlugs.js';
 
 const baseUrlNorm = (baseUrl) => (baseUrl || '').replace(/\/+$/, '');
 
@@ -29,26 +35,28 @@ function absoluteLoc(loc, base) {
     try {
       const u = new URL(s);
       const path = u.pathname.replace(/\/+$/, '') || '/';
-      return `${u.origin}${path}`;
+      // Canonical form: kök dışı tüm path'ler sonda slash taşır
+      return `${u.origin}${path === '/' ? '/' : `${path}/`}`;
     } catch {
       return null;
     }
   }
   const p = (s.startsWith('/') ? s : `/${s}`).replace(/\/+$/, '') || '/';
-  return `${base}${p}`;
+  return `${base}${p === '/' ? '/' : `${p}/`}`;
 }
 
 function escapeXmlAttr(val) {
   return String(val).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 }
 
-function formatUrlEntry(full, lastmod, changefreq, priority, base) {
+function formatUrlEntry(full, lastmod, base) {
   const pathForAlt = pathnameFromLoc(full);
   const alt = getSitemapHreflangAlternates(pathForAlt, base);
   const hrefBlock = alt
     ? `\n    <xhtml:link rel="alternate" hreflang="tr" href="${escapeXmlAttr(alt.tr)}"/>\n    <xhtml:link rel="alternate" hreflang="de" href="${escapeXmlAttr(alt.de)}"/>\n    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXmlAttr(alt.xDefault)}"/>`
     : '';
-  return `  <url>\n    <loc>${escapeXmlAttr(full)}</loc>${hrefBlock}\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+  const lastmodBlock = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : '';
+  return `  <url>\n    <loc>${escapeXmlAttr(full)}</loc>${hrefBlock}${lastmodBlock}\n  </url>`;
 }
 
 /**
@@ -81,11 +89,7 @@ export function pathMatchesExcludedPatterns(pathname, patterns) {
 export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options = {}) => {
   const excludedPatterns = options.excludedPatterns ?? DEFAULT_EXCLUDED_PATTERNS;
   const base = baseUrlNorm(baseUrl);
-  const currentDate = new Date().toISOString().split('T')[0];
   const seen = new Set();
-
-  const STATIC_PRIORITY = '1.0';
-  const BLOG_PRIORITY = '0.8';
 
   // SADECE canonical, indexlenebilir URL'ler (takvim / TMDB / arama / admin yok)
   const staticRoutes = [
@@ -104,13 +108,27 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
     { loc: '/kurulum', changefreq: 'weekly' },
     { loc: '/kurulum/android-tv', changefreq: 'weekly' },
     { loc: '/kurulum/ios', changefreq: 'weekly' },
+    { loc: '/kurulum/ios-next-plus', changefreq: 'weekly' },
+    { loc: '/kurulum/ios-castora', changefreq: 'weekly' },
+    { loc: '/kurulum/ios-9xtream', changefreq: 'weekly' },
     { loc: '/kurulum/android-phone', changefreq: 'weekly' },
+    { loc: '/kurulum/android-phone-xc', changefreq: 'weekly' },
+    { loc: '/kurulum/android-phone-ibo', changefreq: 'weekly' },
     { loc: '/kurulum/windows', changefreq: 'weekly' },
+    { loc: '/kurulum/windows-ibo-player', changefreq: 'weekly' },
+    { loc: '/kurulum/windows-abc', changefreq: 'weekly' },
+    { loc: '/kurulum/windows-vs-player', changefreq: 'weekly' },
     { loc: '/kurulum/mac', changefreq: 'weekly' },
+    { loc: '/kurulum/mac-next-plus', changefreq: 'weekly' },
+    { loc: '/kurulum/mac-castora', changefreq: 'weekly' },
     { loc: '/kurulum/smart-tv', changefreq: 'weekly' },
-    { loc: '/kurulum/samsung-tv', changefreq: 'weekly' },
-    { loc: '/kurulum/lg-tv', changefreq: 'weekly' },
+    ...TV_BRAND_GUIDE_SLUGS.map((slug) => ({ loc: `/kurulum/${slug}`, changefreq: 'weekly' })),
+    { loc: '/kurulum/smart-tv-0-player', changefreq: 'weekly' },
+    { loc: '/kurulum/smart-tv-smarters-pro', changefreq: 'weekly' },
     { loc: '/kurulum/tablet', changefreq: 'weekly' },
+    { loc: '/kurulum/tablet-ibo-player', changefreq: 'weekly' },
+    { loc: '/kurulum/tablet-abc', changefreq: 'weekly' },
+    { loc: '/kurulum/tablet-vs-player', changefreq: 'weekly' },
     { loc: '/karsilastirma', changefreq: 'weekly' },
     { loc: '/detailed-guides', changefreq: 'monthly' },
     { loc: '/yorumlar', changefreq: 'weekly' },
@@ -120,21 +138,37 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
     { loc: '/hakkimizda', changefreq: 'monthly' },
     { loc: '/sartlar', changefreq: 'yearly' },
     { loc: '/gizlilik', changefreq: 'yearly' },
+    { loc: '/iletisim', changefreq: 'monthly' },
+    { loc: '/sitemap', changefreq: 'monthly' },
     { loc: '/guide/iptv-kurulum-rehberi', changefreq: 'monthly' },
     { loc: '/test', changefreq: 'monthly' },
-    { loc: '/musteri-kayit', changefreq: 'monthly' },
+    { loc: '/almanyada-turk-kanallari', changefreq: 'monthly' },
     { loc: '/de', changefreq: 'daily' },
     { loc: '/de/pakete', changefreq: 'weekly' },
     { loc: '/de/einrichtung', changefreq: 'weekly' },
     { loc: '/de/einrichtung/android-tv', changefreq: 'weekly' },
     { loc: '/de/einrichtung/ios', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/ios-next-plus', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/ios-castora', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/ios-9xtream', changefreq: 'weekly' },
     { loc: '/de/einrichtung/android-phone', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/android-phone-xc', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/android-phone-ibo', changefreq: 'weekly' },
     { loc: '/de/einrichtung/windows', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/windows-ibo-player', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/windows-abc', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/windows-vs-player', changefreq: 'weekly' },
     { loc: '/de/einrichtung/mac', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/mac-next-plus', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/mac-castora', changefreq: 'weekly' },
     { loc: '/de/einrichtung/smart-tv', changefreq: 'weekly' },
-    { loc: '/de/einrichtung/samsung-tv', changefreq: 'weekly' },
-    { loc: '/de/einrichtung/lg-tv', changefreq: 'weekly' },
+    ...TV_BRAND_GUIDE_SLUGS.map((slug) => ({ loc: `/de/einrichtung/${slug}`, changefreq: 'weekly' })),
+    { loc: '/de/einrichtung/smart-tv-0-player', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/smart-tv-smarters-pro', changefreq: 'weekly' },
     { loc: '/de/einrichtung/tablet', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/tablet-ibo-player', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/tablet-abc', changefreq: 'weekly' },
+    { loc: '/de/einrichtung/tablet-vs-player', changefreq: 'weekly' },
     { loc: '/de/bewertungen', changefreq: 'weekly' },
     { loc: '/de/blog', changefreq: 'daily' },
     { loc: '/de/reseller', changefreq: 'monthly' },
@@ -154,36 +188,60 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
     { loc: '/de/test', changefreq: 'monthly' },
     { loc: '/de/vergleich', changefreq: 'weekly' },
     { loc: '/de/detaillierte-anleitungen', changefreq: 'monthly' },
+    { loc: '/de/tuerkische-sender-in-deutschland', changefreq: 'monthly' },
   ];
 
-  const tryAppendUrl = (loc, lastmod = currentDate, changefreq = 'monthly', priority = STATIC_PRIORITY) => {
+  const tryAppendUrl = (loc, lastmod = null, { forceIndex = false } = {}) => {
     const pathCheck = pathnameFromLoc(loc);
+    if (!forceIndex && pathnameShouldNoindex(pathCheck)) return null;
     if (pathMatchesExcludedPatterns(pathCheck, excludedPatterns)) return null;
     const full = absoluteLoc(loc, base);
     if (!full || seen.has(full)) return null;
     seen.add(full);
-    return formatUrlEntry(full, lastmod, changefreq, priority, base);
+    return formatUrlEntry(full, lastmod, base);
   };
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">`;
 
   staticRoutes.forEach((route) => {
-    const line = tryAppendUrl(route.loc, currentDate, route.changefreq, STATIC_PRIORITY);
+    const line = tryAppendUrl(route.loc);
     if (line) xml += `\n${line}`;
   });
 
+  try {
+    const { extraKurulumSlugs } = await fetchBuildSeoExtras();
+    kurulumSitemapEntriesFromSlugs(extraKurulumSlugs).forEach((route) => {
+      const line = tryAppendUrl(route.loc);
+      if (line) xml += `\n${line}`;
+    });
+  } catch (err) {
+    console.error('Sitemap generation exception (dynamic kurulum):', err);
+  }
+
   // Yayındaki blog yazıları — tablo: blog_posts (Supabase)
   try {
-    const { data: posts, error } = await supabase
+    let queryResult = await supabase
       .from('blog_posts')
-      .select('slug, updated_at, created_at, published_at, content')
+      .select('slug, updated_at, created_at, published_at, content, title_de, content_de')
       .not('published_at', 'is', null);
+
+    if (queryResult.error?.message?.includes('column')) {
+      queryResult = await supabase
+        .from('blog_posts')
+        .select('slug, updated_at, created_at, published_at, content')
+        .not('published_at', 'is', null);
+    }
+
+    const { data: posts, error } = queryResult;
 
     if (!error && posts?.length) {
       posts.forEach((post) => {
         if (!post.slug) return;
+        // Telif/marka riski nedeniyle yayından kaldırılanlar: DB henüz temizlenmemiş
+        // olsa bile sitemap'e girmesin.
+        if (isBrandRiskBlogSlug(post.slug)) return;
         if (plainTextLengthFromHtml(post.content) < MIN_CONTENT_THRESHOLD) return;
-        let lastModDate = currentDate;
+        let lastModDate = null;
         const u = post.updated_at ? new Date(post.updated_at).getTime() : 0;
         const p = post.published_at ? new Date(post.published_at).getTime() : 0;
         const c = post.created_at ? new Date(post.created_at).getTime() : 0;
@@ -193,11 +251,15 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
         }
 
         const trPath = `/blog/${post.slug}`;
-        const dePath = `/de/blog/${post.slug}`;
-        const lineTr = tryAppendUrl(trPath, lastModDate, 'weekly', BLOG_PRIORITY);
+        const lineTr = tryAppendUrl(trPath, lastModDate);
         if (lineTr) xml += `\n${lineTr}`;
-        const lineDe = tryAppendUrl(dePath, lastModDate, 'weekly', BLOG_PRIORITY);
-        if (lineDe) xml += `\n${lineDe}`;
+        const hasGermanTranslation =
+          typeof post.title_de === 'string' && post.title_de.trim().length > 0 &&
+          plainTextLengthFromHtml(post.content_de) >= MIN_CONTENT_THRESHOLD;
+        if (hasGermanTranslation) {
+          const lineDe = tryAppendUrl(`/de/blog/${post.slug}`, lastModDate, { forceIndex: true });
+          if (lineDe) xml += `\n${lineDe}`;
+        }
       });
     }
   } catch (err) {
@@ -208,11 +270,11 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
     '/packages', '/about', '/installation', '/faq', '/bayilik', '/kanallar',
     '/privacy', '/terms', '/what-to-watch', '/instructions',
     '/spor-gundemi',
-    '/karsilastir', '/detayli-kurulum', '/iletisim',
+    '/karsilastir', '/detayli-kurulum',
     '/gizlilik-politikasi', '/kullanim-sartlari',
     '/sitemap', '/bing-verification', '/admin', '/admin-login', '/yonetim', '/yonetim/giris',
     '/de/packages', '/de/paketler', '/de/kurulum', '/de/iptv',
-    '/de/karsilastir', '/de/detayli-kurulum', '/de/iletisim',
+    '/de/karsilastir', '/de/detayli-kurulum',
     '/blog/[slug]', '/de/blog/[slug]',
     '/blog-kategorileri', '/de/blog-kategorien',
     '/video-rehberleri', '/de/video-anleitungen',
@@ -246,9 +308,8 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
         seen.add(fullUrl);
         const lastmod = entry.last_modified
           ? new Date(entry.last_modified).toISOString().split('T')[0]
-          : currentDate;
-        const pr = entry.priority != null ? String(entry.priority) : STATIC_PRIORITY;
-        xml += `\n${formatUrlEntry(fullUrl, lastmod, entry.changefreq || 'monthly', pr, base)}`;
+          : null;
+        xml += `\n${formatUrlEntry(fullUrl, lastmod, base)}`;
       });
     }
   } catch (err) {

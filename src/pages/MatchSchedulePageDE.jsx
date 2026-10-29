@@ -103,12 +103,12 @@ const MatchSchedulePageDE = ({ siteData }) => {
       : `Spielplan - ${formattedDate} Fixture | QruzeTV`;
     if (title.length > 60) title = `${dateLabel} Spielplan | QruzeTV`;
     const description = matchCount > 0
-      ? `Am ${formattedDate} ${matchCount} Spiele: ${leagueNames}. Welcher Sender, wann? Live mit QruzeTV IPTV.`
-      : `Super Lig, Premier League, La Liga, Champions League Spielplan. ${formattedDate} Fixture. Sportkanäle mit QruzeTV – unterbrechungsfrei Fußball schauen.`;
+      ? `Am ${formattedDate} ${matchCount} Spiele: ${leagueNames}. Anstoßzeiten und Partienübersicht auf einen Blick.`
+      : `Tagesaktueller Spielplan: ${formattedDate} Fixture, Anstoßzeiten und Partienübersicht. Wählen Sie den Tag über die Datumsleiste.`;
     return {
       title: title.substring(0, 60) + (title.length > 60 ? '...' : ''),
       description: description.substring(0, 160),
-      keywords: ['Spielplan', 'heutige Spiele', formattedDate, 'Super Lig Fixture', 'Premier League Spiele', 'welcher Sender', 'IPTV Fußball schauen'],
+      keywords: ['Spielplan', 'heutige Spiele', formattedDate, 'Tagesfixture', 'Anstoßzeiten', 'Wochenprogramm'],
       ogType: 'website',
       canonicalUrl: `${SITE_URL}/de/spielplan`,
     };

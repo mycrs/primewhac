@@ -62,6 +62,10 @@ export function pathnameMatchesNoindexPolicy(pathname) {
 
   if (/^\/blog\/write(\/|$)/.test(path)) return true;
 
+  /* Çevrilmemiş /de/blog/:slug kopyaları: noindex,follow (prerender sözleşmesi).
+     Sitemap ve SPA Helmet aynı politikadan beslenir. TR /blog/:slug index kalır. */
+  if (/^\/de\/blog\/[^/]+$/.test(norm)) return true;
+
   if (/^\/mac-programi\/[^/]+$/.test(norm)) return true;
   if (/^\/mac-takvimi\/[^/]+$/.test(norm)) return true;
   if (norm === '/spor-gundemi' || /^\/spor-gundemi\//.test(norm)) return true;

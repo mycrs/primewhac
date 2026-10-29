@@ -8,19 +8,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Loader2, Lock, ArrowLeft, ShieldAlert, KeyRound } from 'lucide-react';
-import { Turnstile } from '@marsidev/react-turnstile';
 import { supabase } from '@/lib/customSupabaseClient';
 import { ADMIN_BASE_PATH } from '@/constants/adminRoutes';
-import { getTurnstileSiteKeyClient } from '@/constants/turnstileClient';
-
-function supabaseFunctionsBase() {
-  const u = import.meta.env.VITE_SUPABASE_URL;
-  if (u && typeof u === 'string') return u.replace(/\/$/, '');
-  return 'https://pkppewdtnuchwjtmulev.supabase.co';
-}
-
-/** Supabase Edge Function — Turnstile siteverify */
-const VERIFY_TURNSTILE_URL = `${supabaseFunctionsBase()}/functions/v1/verify-turnstile`;
+import MathCaptcha from '@/components/MathCaptcha';
+import { verifyMathCaptcha, mathCaptchaUserMessage } from '@/utils/mathCaptchaClient';
 
 const MAX_PASSWORD_FAILS = 5;
 const LOCK_MS = 10 * 60 * 1000;
@@ -94,17 +85,16 @@ const AdminLogin = () => {
   const [, setLockTick] = useState(0);
   const [mfaGate, setMfaGate] = useState('unknown');
   const [mfaFactorId, setMfaFactorId] = useState(null);
-  const [turnstileToken, setTurnstileToken] = useState('');
+  const [captcha, setCaptcha] = useState(null); // { id, answer } | null
+  const [captchaRefresh, setCaptchaRefresh] = useState(0);
 
   const navigate = useNavigate();
   const signOutRef = useRef(signOut);
   signOutRef.current = signOut;
-  const turnstileRef = useRef(null);
-  const turnstileSiteKey = getTurnstileSiteKeyClient();
 
-  const resetTurnstile = useCallback(() => {
-    setTurnstileToken('');
-    turnstileRef.current?.reset();
+  const resetCaptcha = useCallback(() => {
+    setCaptcha(null);
+    setCaptchaRefresh((n) => n + 1);
   }, []);
 
   const lockRemainingMs = typeof window !== 'undefined' && email.trim() ? getLockRemainingMs(email) : 0;
@@ -195,50 +185,27 @@ const AdminLogin = () => {
       return;
     }
 
-    if (!turnstileSiteKey) {
-      setErrorMsg('Turnstile yapılandırması eksik. .env içine VITE_TURNSTILE_SITE_KEY ekleyin.');
-      return;
-    }
-    if (!turnstileToken) {
-      setErrorMsg('Lütfen güvenlik doğrulamasını (Turnstile) tamamlayın.');
+    if (!captcha || !captcha.id || !captcha.answer) {
+      setErrorMsg('Lütfen güvenlik sorusunu (matematik doğrulaması) cevaplayın.');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      let verifyJson;
-      try {
-        const anon = import.meta.env.VITE_SUPABASE_ANON_KEY;
-        const vr = await fetch(VERIFY_TURNSTILE_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            ...(anon
-              ? { Authorization: `Bearer ${anon}`, apikey: anon }
-              : {}),
-          },
-          body: JSON.stringify({ token: turnstileToken }),
-        });
-        verifyJson = await vr.json().catch(() => ({}));
-      } catch {
+      const captchaResult = await verifyMathCaptcha(captcha.id, captcha.answer);
+      if (!captchaResult.ok) {
         setErrorMsg(
-          'Güvenlik doğrulamasına ulaşılamıyor. Supabase Edge Function (verify-turnstile) ve ağ bağlantısını kontrol edin.'
+          mathCaptchaUserMessage(captchaResult) || 'Güvenlik doğrulaması başarısız. Lütfen tekrar deneyin.'
         );
-        resetTurnstile();
-        return;
-      }
-
-      if (!verifyJson?.success) {
-        setErrorMsg(verifyJson?.error || 'Güvenlik doğrulaması başarısız. Lütfen tekrar deneyin.');
-        resetTurnstile();
+        resetCaptcha();
         return;
       }
 
       const { data, error } = await signIn(email, password);
 
       if (error) {
-        resetTurnstile();
+        resetCaptcha();
         if (isInvalidCredentialsError(error)) {
           incrementPasswordFails(email);
         }
@@ -271,7 +238,7 @@ const AdminLogin = () => {
 
         if (adminCheckError || !isUserAdmin) {
           setErrorMsg('Bu hesap admin yetkisine sahip değil.');
-          resetTurnstile();
+          resetCaptcha();
           await signOut();
           return;
         }
@@ -407,7 +374,7 @@ const AdminLogin = () => {
                   onClick={() =>
                     signOut().then(() => {
                       setTotpCode('');
-                      resetTurnstile();
+                      resetCaptcha();
                     })
                   }
                 >
@@ -450,33 +417,15 @@ const AdminLogin = () => {
                   />
                 </div>
 
-                <div className="flex flex-col items-center gap-2 min-h-[65px] justify-center">
-                  {turnstileSiteKey ? (
-                    <Turnstile
-                      ref={turnstileRef}
-                      siteKey={turnstileSiteKey}
-                      options={{ theme: 'dark', size: 'normal' }}
-                      onSuccess={(t) => setTurnstileToken(t)}
-                      onExpire={() => {
-                        setTurnstileToken('');
-                        turnstileRef.current?.reset();
-                      }}
-                      onError={() => {
-                        setTurnstileToken('');
-                      }}
-                    />
-                  ) : (
-                    <p className="text-amber-400/90 text-xs text-center">
-                      Turnstile site key eksik. VITE_TURNSTILE_SITE_KEY ayarlayın.
-                    </p>
-                  )}
-                </div>
+                <MathCaptcha
+                  onChange={setCaptcha}
+                  refreshSignal={captchaRefresh}
+                  disabled={isSubmitting || isLocked}
+                />
 
                 <Button
                   type="submit"
-                  disabled={
-                    isSubmitting || !email || !password || isLocked || !turnstileSiteKey || !turnstileToken
-                  }
+                  disabled={isSubmitting || !email || !password || isLocked || !captcha}
                   className="w-full h-12 bg-primary hover:bg-primary text-white font-bold rounded-xl mt-4 flex items-center justify-center gap-2 transition-all"
                 >
                   {isSubmitting ? (

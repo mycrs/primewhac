@@ -11,7 +11,7 @@ export function slugify(str) {
     .replace(/^-|-$/g, '');
 }
 
-/** Maç için benzersiz slug: galatasaray-vs-fenerbahce-2025-03-15 */
+/** Maç için benzersiz slug: takim-a-vs-takim-b-2025-03-15 */
 export function makeMatchSlug(home, away, date) {
   const h = slugify(home);
   const a = slugify(away);
@@ -19,7 +19,7 @@ export function makeMatchSlug(home, away, date) {
   return `${h}-vs-${a}-${d}`;
 }
 
-/** Slug'dan date ve takım ipuçlarını çıkar. Örn: galatasaray-vs-fenerbahce-2025-03-15 */
+/** Slug'dan date ve takım ipuçlarını çıkar. Örn: takim-a-vs-takim-b-2025-03-15 */
 export function parseMatchSlug(slug) {
   const raw = (slug || '').trim();
   const vsIdx = raw.indexOf('-vs-');

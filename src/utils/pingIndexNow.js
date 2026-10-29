@@ -7,7 +7,14 @@ import {
 
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
 
-const ALLOWED_HOSTS = new Set(['streamtr.eu', 'www.streamtr.eu', 'qruzetv.com', 'www.qruzetv.com']);
+const ALLOWED_HOSTS = new Set([
+  INDEXNOW_HOST,
+  `www.${INDEXNOW_HOST}`,
+  'cineverse.pro',
+  'www.cineverse.pro',
+  'qruzetv.com',
+  'www.qruzetv.com',
+]);
 
 function normalizeToAbsoluteUrls(pathsOrUrls) {
   const out = [];
@@ -33,7 +40,7 @@ function normalizeToAbsoluteUrls(pathsOrUrls) {
 
 /**
  * Notify IndexNow (Bing, etc.) about URL updates. Fire-and-forget safe; logs warnings on failure.
- * @param {string[]} urlList - Paths (e.g. /blog/foo) or full https://streamtr.eu/... URLs
+ * @param {string[]} urlList - Paths (e.g. /blog/foo) or full https://cineverse.pro/... URLs
  * @returns {Promise<{ ok?: boolean, skipped?: boolean, status?: number }>}
  */
 export async function pingIndexNow(urlList) {

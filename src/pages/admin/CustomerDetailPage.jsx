@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
-import { createPortal } from 'react-dom';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import CustomerForm from '@/components/customers/CustomerForm';
@@ -32,50 +31,12 @@ import { adminPath } from '@/constants/adminRoutes';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { fetchAdminCustomer } from '@/utils/adminCustomersApi';
 
-/** Müşteri detay ekranı PIN'i (oturum: sessionStorage, sekme kapanınca sıfırlanır) */
-const CUSTOMER_DETAIL_PIN = '351672';
-const SS_PIN_UNLOCKED = 'qruzetv_customer_detail_pin_ok';
-const SS_PIN_LOCK_UNTIL = 'qruzetv_customer_detail_pin_lock_until';
-const SS_PIN_FAILS = 'qruzetv_customer_detail_pin_fails';
-const PIN_LOCK_MS = 60_000;
-const PIN_MAX_FAILS = 3;
-
-function readSessionPinUnlocked() {
-  try {
-    return sessionStorage.getItem(SS_PIN_UNLOCKED) === '1';
-  } catch {
-    return false;
-  }
-}
-
-function readSessionLockUntil() {
-  try {
-    const v = sessionStorage.getItem(SS_PIN_LOCK_UNTIL);
-    if (!v) return 0;
-    const n = parseInt(v, 10);
-    return Number.isFinite(n) ? n : 0;
-  } catch {
-    return 0;
-  }
-}
-
 export default function CustomerDetailPage() {
   const { id } = useParams();
   const { session, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const isNew = id === 'new';
-  const needsDetailPin = !isNew;
-
-  const [pinUnlocked, setPinUnlocked] = useState(() => !needsDetailPin || readSessionPinUnlocked());
-  const [pinInput, setPinInput] = useState('');
-  const [pinError, setPinError] = useState('');
-  const [lockUntil, setLockUntil] = useState(() => {
-    const until = readSessionLockUntil();
-    return until > Date.now() ? until : 0;
-  });
-  const [lockTick, setLockTick] = useState(() => Date.now());
-
   const [customer, setCustomer] = useState(null);
   const [durations, setDurations] = useState([]);
   const [packageTypes, setPackageTypes] = useState([]);
@@ -145,85 +106,9 @@ export default function CustomerDetailPage() {
   }, [loadMeta]);
 
   useEffect(() => {
-    if (!lockUntil || Date.now() >= lockUntil) return undefined;
-    const t = setInterval(() => setLockTick(Date.now()), 1000);
-    return () => clearInterval(t);
-  }, [lockUntil]);
-
-  useEffect(() => {
-    if (!lockUntil) return;
-    if (lockTick < lockUntil) return;
-    try {
-      sessionStorage.removeItem(SS_PIN_LOCK_UNTIL);
-    } catch {
-      /* ignore */
-    }
-    setLockUntil(0);
-    setPinError('');
-  }, [lockTick, lockUntil]);
-
-  useEffect(() => {
-    if (isNew || authLoading || !pinUnlocked) return;
+    if (isNew || authLoading) return;
     loadCustomer();
-  }, [isNew, authLoading, pinUnlocked, loadCustomer]);
-
-  const submitDetailPin = useCallback(() => {
-    const until = readSessionLockUntil();
-    const activeLock = until > Date.now() ? until : lockUntil;
-    if (activeLock > Date.now()) {
-      setPinError('Çok fazla hatalı deneme. Bekleyin…');
-      return;
-    }
-    const raw = String(pinInput || '').replace(/\D/g, '');
-    if (raw.length < 4 || raw.length > 6) {
-      setPinError('PIN 4–6 hane olmalıdır.');
-      return;
-    }
-    if (raw === CUSTOMER_DETAIL_PIN) {
-      try {
-        sessionStorage.setItem(SS_PIN_UNLOCKED, '1');
-        sessionStorage.removeItem(SS_PIN_FAILS);
-        sessionStorage.removeItem(SS_PIN_LOCK_UNTIL);
-      } catch {
-        /* ignore */
-      }
-      setLockUntil(0);
-      setPinUnlocked(true);
-      setPinError('');
-      setPinInput('');
-      return;
-    }
-    let fails = 0;
-    try {
-      fails = parseInt(sessionStorage.getItem(SS_PIN_FAILS) || '0', 10) || 0;
-    } catch {
-      fails = 0;
-    }
-    fails += 1;
-    if (fails >= PIN_MAX_FAILS) {
-      const nextUntil = Date.now() + PIN_LOCK_MS;
-      try {
-        sessionStorage.setItem(SS_PIN_LOCK_UNTIL, String(nextUntil));
-        sessionStorage.removeItem(SS_PIN_FAILS);
-      } catch {
-        /* ignore */
-      }
-      setLockUntil(nextUntil);
-      setPinError('Çok fazla hatalı deneme. 60 saniye sonra tekrar deneyin.');
-    } else {
-      try {
-        sessionStorage.setItem(SS_PIN_FAILS, String(fails));
-      } catch {
-        /* ignore */
-      }
-      setPinError(`Hatalı PIN. (${fails}/${PIN_MAX_FAILS})`);
-    }
-    setPinInput('');
-  }, [pinInput, lockUntil]);
-
-  const lockSecondsLeft =
-    lockUntil > Date.now() ? Math.max(0, Math.ceil((lockUntil - lockTick) / 1000)) : 0;
-  const pinModalOpen = needsDetailPin && !pinUnlocked;
+  }, [isNew, authLoading, loadCustomer]);
 
   useEffect(() => {
     if (isNew || !customer || renewFromQueryDone.current) return;
@@ -337,77 +222,8 @@ export default function CustomerDetailPage() {
     return normalizeExternalPanelHref(panel || server);
   }, [customer, packageTypes]);
 
-  const pinOverlay =
-    pinModalOpen &&
-    typeof document !== 'undefined' &&
-    createPortal(
-      <div
-        className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/95 p-4"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="customer-detail-pin-title"
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' && lockSecondsLeft === 0) {
-            e.preventDefault();
-            submitDetailPin();
-          }
-        }}
-      >
-        <div
-          className="w-full max-w-sm rounded-xl border border-white/15 bg-[#131326] p-6 shadow-2xl"
-          onMouseDown={(e) => e.stopPropagation()}
-        >
-          <h2 id="customer-detail-pin-title" className="text-lg font-semibold text-white">
-            Müşteri detayı — PIN
-          </h2>
-          <p className="mt-2 text-sm text-slate-400">
-            Bu kaydı görüntülemek için 4–6 haneli PIN girin.
-          </p>
-          {lockSecondsLeft > 0 ? (
-            <p className="mt-4 text-center text-amber-300 tabular-nums text-lg font-medium">
-              Kilit: {lockSecondsLeft} sn
-            </p>
-          ) : (
-            <>
-              <input
-                type="password"
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                maxLength={6}
-                value={pinInput}
-                onChange={(e) => {
-                  setPinInput(e.target.value.replace(/\D/g, '').slice(0, 6));
-                  if (pinError) setPinError('');
-                }}
-                className="mt-4 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white tracking-widest"
-                placeholder="••••••"
-                disabled={lockSecondsLeft > 0}
-                aria-invalid={!!pinError}
-              />
-              {pinError ? (
-                <p className="mt-2 text-sm text-red-400" role="alert">
-                  {pinError}
-                </p>
-              ) : null}
-              <Button
-                type="button"
-                className="mt-4 w-full bg-primary hover:bg-primary"
-                onClick={submitDetailPin}
-                disabled={lockSecondsLeft > 0 || pinInput.replace(/\D/g, '').length < 4}
-              >
-                Devam
-              </Button>
-            </>
-          )}
-        </div>
-      </div>,
-      document.body,
-    );
-
   return (
     <div className="space-y-6 max-w-3xl">
-      {pinOverlay}
-
       <div className="flex flex-wrap items-center gap-3">
         <Button variant="ghost" size="sm" asChild className="text-slate-400">
           <Link to={adminPath('customers')}>
@@ -420,9 +236,7 @@ export default function CustomerDetailPage() {
         </h1>
       </div>
 
-      {needsDetailPin && !pinUnlocked ? (
-        <p className="text-slate-500 text-sm">PIN doğrulaması bekleniyor…</p>
-      ) : loading ? (
+      {loading ? (
         <p className="text-slate-400">Yükleniyor…</p>
       ) : (
         <>

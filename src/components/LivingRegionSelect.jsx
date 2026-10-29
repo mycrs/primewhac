@@ -55,7 +55,7 @@ const LivingRegionSelect = ({ value, onChange, lang = 'tr', isTest = true }) => 
           >
             {value === 'in_turkey' && <Check className="w-3 h-3 text-white" />}
           </div>
-          <img src="https://flagcdn.com/w40/tr.png" alt="" aria-hidden="true" className="w-5 h-4 rounded-[2px] object-cover shrink-0" />
+          <img src="https://flagcdn.com/w40/tr.png" alt="Türkiye bayrağı" aria-hidden="true" className="w-5 h-4 rounded-[2px] object-cover shrink-0" />
           <span className={cn('text-sm font-medium', value === 'in_turkey' ? 'text-white' : 'text-slate-300')}>
             {t.inTurkey}
           </span>
@@ -78,7 +78,7 @@ const LivingRegionSelect = ({ value, onChange, lang = 'tr', isTest = true }) => 
           >
             {value === 'not_in_turkey' && <Check className="w-3 h-3 text-white" />}
           </div>
-          <img src="https://flagcdn.com/w40/eu.png" alt="" aria-hidden="true" className="w-5 h-4 rounded-[2px] object-cover shrink-0" />
+          <img src="https://flagcdn.com/w40/eu.png" alt="Avrupa Birliği bayrağı" aria-hidden="true" className="w-5 h-4 rounded-[2px] object-cover shrink-0" />
           <Globe className="w-4 h-4 text-blue-400 shrink-0 -ml-1.5" />
           <span className={cn('text-sm font-medium', value === 'not_in_turkey' ? 'text-white' : 'text-slate-300')}>
             {t.notInTurkey}

@@ -4,10 +4,12 @@ import HeaderDE from '@/components/HeaderDE';
 import FooterDE from '@/components/FooterDE';
 import ChatBot from '@/components/ChatBot';
 import SEOHead from '@/components/SEOHead';
+import { resellerPageSchemas } from '@/utils/seoSchema';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { LayoutDashboard, Wallet, Shield, TrendingUp, Award, Clapperboard, CheckCircle, Rocket, MessageCircle, HelpCircle, Star, Users, Target } from 'lucide-react';
 import ResellerCalculatorSectionDE from '@/components/ResellerCalculatorSectionDE';
+import { openSupportWhatsApp } from '@/utils/supportChannel';
 
 const iconMap = {
   LayoutDashboard,
@@ -20,7 +22,14 @@ const iconMap = {
 
 const ResellerPageDE = ({ siteData }) => {
   const { contactData, siteTexts, chatBotData } = siteData;
-  const whatsappLink = `https://wa.me/${contactData?.whatsapp}?text=${encodeURIComponent("Ich möchte detaillierte Informationen zum Wiederverkäufer-Programm erhalten und Geschäftspartner werden.")}`;
+  // Link wird nicht ins DOM geschrieben; Nummer wird zur Laufzeit aufgelöst.
+  const openResellerContact = () =>
+    openSupportWhatsApp({
+      siteData,
+      contactData,
+      message:
+        'Ich möchte detaillierte Informationen zum Wiederverkäufer-Programm erhalten und Geschäftspartner werden.',
+    });
   
   const metadata = {
     title: "Wiederverkäufer-Programm: Passive Einnahmen & Partnerschaft",
@@ -81,6 +90,8 @@ const ResellerPageDE = ({ siteData }) => {
     }
   ];
 
+  const jsonLd = resellerPageSchemas(metadata, { route: '/de/reseller', lang: 'de' });
+
   return (
     <>
       <SEOHead 
@@ -88,6 +99,7 @@ const ResellerPageDE = ({ siteData }) => {
         description={metadata.description}
         keywords={metadata.keywords}
         ogType={metadata.ogType}
+        jsonLd={jsonLd}
       />
       <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans">
         <HeaderDE contactData={contactData} />
@@ -108,7 +120,7 @@ const ResellerPageDE = ({ siteData }) => {
                  </span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
                 Wiederverkäufer-Programm: Passive Einnahmen durch Geschäftspartnerschaften
               </h1>
               
@@ -119,7 +131,7 @@ const ResellerPageDE = ({ siteData }) => {
               <Button 
                 size="lg" 
                 className="bg-primary hover:bg-primary text-white font-bold h-14 px-10 rounded-xl text-lg shadow-lg shadow-primary/40 hover:scale-105 transition-all duration-300"
-                onClick={() => window.open(whatsappLink, '_blank')}
+                onClick={openResellerContact}
               >
                 <MessageCircle className="mr-2 h-5 w-5" />
                 Jetzt Geschäftspartner werden
@@ -293,12 +305,12 @@ const ResellerPageDE = ({ siteData }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="relative rounded-3xl overflow-hidden p-[2px] bg-gradient-to-r from-[#e50914] via-pink-600 to-[#b20710] shadow-2xl shadow-primary/50"
+                className="relative rounded-3xl overflow-hidden p-[2px] bg-gradient-to-r from-[#e50914] via-[#ff2430] to-[#b20710] shadow-2xl shadow-primary/50"
              >
                 <div className="bg-[#0a0a0a]/95 backdrop-blur-xl rounded-[22px] p-12 text-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 pointer-events-none"></div>
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#e50914]/20 rounded-full blur-3xl pointer-events-none"></div>
                     
                     <div className="relative z-10 max-w-3xl mx-auto">
                         <Star className="w-12 h-12 text-yellow-400 mx-auto mb-6" />
@@ -309,7 +321,7 @@ const ResellerPageDE = ({ siteData }) => {
                         <Button 
                             size="lg" 
                             className="bg-white text-primary font-bold hover:bg-primary h-16 px-12 rounded-full text-lg shadow-xl hover:scale-105 transition-all duration-300 border-4 border-primary/20"
-                            onClick={() => window.open(whatsappLink, '_blank')}
+                            onClick={openResellerContact}
                         >
                             <MessageCircle className="mr-2 h-6 w-6" />
                             Jetzt Kontakt aufnehmen & Starten

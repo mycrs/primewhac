@@ -8,13 +8,14 @@ import path from 'path';
 import { matchBelongsToProgramDay } from '../src/utils/fixtureProgramDay.js';
 
 const FIXTURE_BASE = 'https://fixturedownload.com/feed/json';
+const CURRENT_SEASON = '2026';
 const LEAGUES = [
-  { slug: 'super-lig-2025', name: 'Süper Lig', country: 'Türkiye', flag: '🇹🇷' },
-  { slug: 'epl-2025', name: 'Premier Lig', country: 'İngiltere', flag: '🏴' },
-  { slug: 'la-liga-2025', name: 'La Liga', country: 'İspanya', flag: '🇪🇸' },
-  { slug: 'champions-league-2025', name: 'Şampiyonlar Ligi', country: 'Avrupa', flag: '🇪🇺' },
-  { slug: 'bundesliga-2025', name: 'Bundesliga', country: 'Almanya', flag: '🇩🇪' },
-  { slug: 'serie-a-2025', name: 'Serie A', country: 'İtalya', flag: '🇮🇹' },
+  { slug: `super-lig-${CURRENT_SEASON}`, name: 'Türkiye Ligi', country: 'Türkiye', flag: '🇹🇷' },
+  { slug: `epl-${CURRENT_SEASON}`, name: 'İngiltere Ligi', country: 'İngiltere', flag: '🏴' },
+  { slug: `la-liga-${CURRENT_SEASON}`, name: 'İspanya Ligi', country: 'İspanya', flag: '🇪🇸' },
+  { slug: `champions-league-${CURRENT_SEASON}`, name: 'Avrupa Kupası', country: 'Avrupa', flag: '🇪🇺' },
+  { slug: `bundesliga-${CURRENT_SEASON}`, name: 'Almanya Ligi', country: 'Almanya', flag: '🇩🇪' },
+  { slug: `serie-a-${CURRENT_SEASON}`, name: 'İtalya Ligi', country: 'İtalya', flag: '🇮🇹' },
 ];
 
 function formatTime(dateUtc) {
@@ -30,36 +31,29 @@ function formatDate(d) {
   return `${y}-${m}-${day}`;
 }
 
-async function fetchMatchesForDate(dateStr) {
+function getMatchesForDateFromCache(dateStr, leagueDataMap) {
   const byLeague = {};
   for (const league of LEAGUES) {
-    try {
-      const res = await fetch(`${FIXTURE_BASE}/${league.slug}`);
-      if (!res.ok) continue;
-      const data = await res.json();
-      const list = Array.isArray(data) ? data : (data.matches || []);
-      const forDate = list.filter((m) => matchBelongsToProgramDay(m, dateStr, league.slug));
-      if (forDate.length === 0) continue;
-      const key = `${league.slug}-${league.name}`;
-      byLeague[key] = {
-        league: { ...league },
-        matches: forDate.map((m) => {
-          const dateUtc = m.DateUtc || m.date;
-          const home = m.HomeTeam || m.team1 || m.homeTeam?.name || '-';
-          const away = m.AwayTeam || m.team2 || m.awayTeam?.name || '-';
-          return {
-            id: `${league.slug}-${m.MatchNumber || m.id || Math.random()}`,
-            time: formatTime(dateUtc),
-            home: typeof home === 'string' ? home : (home?.name || '-'),
-            away: typeof away === 'string' ? away : (away?.name || '-'),
-            status: (m.HomeTeamScore != null && m.AwayTeamScore != null) ? 'FT' : 'NS',
-            league: { ...league },
-          };
-        }),
-      };
-    } catch (e) {
-      console.warn(`  [fixtures] ${league.name} atlandı:`, e.message);
-    }
+    const list = leagueDataMap[league.slug] || [];
+    const forDate = list.filter((m) => matchBelongsToProgramDay(m, dateStr, league.slug));
+    if (forDate.length === 0) continue;
+    const key = `${league.slug}-${league.name}`;
+    byLeague[key] = {
+      league: { ...league },
+      matches: forDate.map((m) => {
+        const dateUtc = m.DateUtc || m.date;
+        const home = m.HomeTeam || m.team1 || m.homeTeam?.name || '-';
+        const away = m.AwayTeam || m.team2 || m.awayTeam?.name || '-';
+        return {
+          id: `${league.slug}-${m.MatchNumber || m.id || Math.random()}`,
+          time: formatTime(dateUtc),
+          home: typeof home === 'string' ? home : (home?.name || '-'),
+          away: typeof away === 'string' ? away : (away?.name || '-'),
+          status: (m.HomeTeamScore != null && m.AwayTeamScore != null) ? 'FT' : 'NS',
+          league: { ...league },
+        };
+      }),
+    };
   }
   const groups = Object.values(byLeague).sort((a, b) => {
     if (a.league.country === 'Türkiye' && b.league.country !== 'Türkiye') return -1;
@@ -69,8 +63,39 @@ async function fetchMatchesForDate(dateStr) {
   return groups;
 }
 
+async function fetchJsonWithRetry(url, retries = 3) {
+  let lastError;
+  for (let i = 0; i < retries; i++) {
+    try {
+      const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } });
+      if (res.ok) {
+        return await res.json();
+      }
+    } catch (e) {
+      lastError = e;
+      await new Promise((r) => setTimeout(r, 500 * (i + 1)));
+    }
+  }
+  throw lastError || new Error(`Failed after ${retries} attempts: ${url}`);
+}
+
 async function main() {
   console.log('[generate-fixtures] Başlatılıyor...');
+
+  // Her lig verisini 84 kez yerine yalnızca birer kez paralel çek
+  const leagueDataMap = {};
+  await Promise.all(
+    LEAGUES.map(async (league) => {
+      try {
+        const data = await fetchJsonWithRetry(`${FIXTURE_BASE}/${league.slug}`);
+        leagueDataMap[league.slug] = Array.isArray(data) ? data : (data.matches || []);
+        console.log(`  [fixtures] ${league.name} (${league.slug}): ${leagueDataMap[league.slug].length} maç çekildi`);
+      } catch (e) {
+        console.warn(`  [fixtures] ${league.name} atlandı:`, e.message);
+      }
+    })
+  );
+
   const dates = [];
   for (let i = 0; i <= 13; i++) {
     const d = new Date();
@@ -79,7 +104,7 @@ async function main() {
   }
   const days = {};
   for (const dateStr of dates) {
-    days[dateStr] = await fetchMatchesForDate(dateStr);
+    days[dateStr] = getMatchesForDateFromCache(dateStr, leagueDataMap);
   }
   const output = {
     generatedAt: new Date().toISOString(),

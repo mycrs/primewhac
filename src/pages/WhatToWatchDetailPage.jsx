@@ -1,15 +1,15 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { Star, Calendar, Clock, Film, ArrowLeft, Play, Users, Loader2, Share2, AlertCircle } from 'lucide-react';
+import { Star, Calendar, Clock, Film, ArrowLeft, Play, Users, Loader2, AlertCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import useMovieDatabase from '@/hooks/useMovieDatabase';
 import SEOHead from '@/components/SEOHead';
+import SocialShareButtons from '@/components/SocialShareButtons';
 import { whatToWatchDetailSchema } from '@/utils/seoSchema';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useToast } from '@/components/ui/use-toast';
 import SimilarContentSlider from '@/components/what-to-watch/SimilarContentSlider';
 import { SITE_URL } from '@/constants/siteUrl';
 
@@ -18,7 +18,6 @@ const WhatToWatchDetailPage = ({ siteData }) => {
   const [searchParams] = useSearchParams();
   const type = searchParams.get('type') || 'movie';
   const navigate = useNavigate();
-  const { toast } = useToast();
   const { getMovieDetails, getTVDetails, loading, error } = useMovieDatabase();
   const [content, setContent] = useState(null);
 
@@ -83,7 +82,6 @@ const WhatToWatchDetailPage = ({ siteData }) => {
   const hreflangOverrides = {
     tr: canonicalUrl,
     de: `${SITE_URL}/de/was-soll-ich-schauen/${imdbID}`,
-    xDefault: canonicalUrl,
   };
 
   const metadata = {
@@ -138,9 +136,16 @@ const WhatToWatchDetailPage = ({ siteData }) => {
             <Button onClick={() => navigate('/paketler')} className="w-full mt-6 bg-primary hover:bg-primary h-12 rounded-xl text-lg font-bold">
               <Play className="w-5 h-5 mr-2 fill-current" /> Hemen İzle
             </Button>
-            <Button variant="outline" onClick={() => toast({ title: "Paylaşıldı", description: "Bağlantı kopyalandı" })} className="w-full mt-3 border-slate-700 hover:bg-[#0a0a0a] text-white h-12">
-              <Share2 className="w-4 h-4 mr-2" /> Paylaş
-            </Button>
+            <div className="mt-4">
+              <SocialShareButtons
+                url={canonicalUrl}
+                title={metadata.title}
+                description={metadata.description}
+                image={poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : ''}
+                locale="tr"
+                className="justify-center"
+              />
+            </div>
           </div>
 
           <div className="flex-1 pt-4">

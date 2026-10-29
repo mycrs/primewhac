@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  
+  <rect x="40" y="24" width="560" height="48" rx="10" fill="#1a0a0a"/>
+  <text x="56" y="54" fill="#e50914" font-family="Arial,sans-serif" font-size="14" font-weight="800">Qruze Player · Xtream / M3U</text>
+  <rect x="40" y="88" width="560" height="48" rx="10" fill="#111827" stroke="#334155"/>
+  <text x="56" y="118" fill="#E2E8F0" font-family="Arial,sans-serif" font-size="14">Sunucu · Kullanici · Sifre</text>
+  <rect x="40" y="148" width="560" height="48" rx="10" fill="#111827" stroke="#334155"/>
+  <text x="56" y="178" fill="#64748b" font-family="Arial,sans-serif" font-size="13">M3U URL (alternatif)</text>
+  
+</svg>

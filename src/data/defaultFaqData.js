@@ -40,7 +40,7 @@ export const defaultFaqData = {
                 },
                 {
                     question: 'Memnun Kalmazsam İade Hakkım Var mı?',
-                    answer: 'Kendi donmayan iptv altyapımıza ve kaliteli iptv içeriklerimize olan güvenimiz tamdır. Ancak herhangi bir teknik uyumsuzluk veya beklentilerinizin karşılanmaması durumunda, iptv satın al işleminizin ardından ilk 7 gün içinde koşulsuz iade garantisi sunuyoruz. İade talepleriniz için müşteri hizmetlerimizle iletişime geçmeniz yeterlidir. Amacımız sadece satış yapmak değil, sektördeki en iyi iptv servisi olarak uzun vadeli müşteri memnuniyeti sağlamaktır. Bu nedenle satın almadan önce altyapımızı test edebilmeniz için ücretsiz deneme (test) yayınları da sağlamaktayız.'
+                    answer: 'Kendi donmayan iptv altyapımıza ve kaliteli iptv içeriklerimize olan güvenimiz tamdır. Ancak herhangi bir teknik uyumsuzluk veya beklentilerinizin karşılanmaması durumunda, iptv satın al işleminizin ardından ilk 24 saat içinde koşulsuz iade garantisi sunuyoruz. İade talepleriniz için müşteri hizmetlerimizle iletişime geçmeniz yeterlidir. Amacımız sadece satış yapmak değil, sektördeki en iyi iptv servisi olarak uzun vadeli müşteri memnuniyeti sağlamaktır. Bu nedenle satın almadan önce altyapımızı test edebilmeniz için ücretsiz deneme (test) yayınları da sağlamaktayız.'
                 }
             ]
         },
@@ -70,7 +70,7 @@ export const defaultFaqData = {
             items: [
                 {
                     question: 'Yayınlarda Donma veya Takılma Yaşar mıyım?',
-                    answer: 'Sektördeki en iyi iptv servisi olma vizyonumuz doğrultusunda, Avrupa merkezli devasa sunucu ağları ve yük dengeleme (load balancer) teknolojileri kullanıyoruz. Bu sayede sunucu kaynaklı hiçbir takılma yaşatmadan %99.9 Uptime garantisi ile donmayan iptv hizmeti sunuyoruz. Ancak yayın akışı tamamen internet üzerinden gerçekleştiği için, kullanıcı tarafındaki internet dalgalanmaları, anlık hız düşüşleri veya Wi-Fi sinyal zayıflıkları donmalara sebep olabilir. Kaliteli iptv performansı almak için cihazınızı modeme olabildiğince yakın tutmanız veya ethernet kablosu ile bağlamanız tavsiye edilir.'
+                    answer: 'Yük dengeleme ve yedekli altyapıyla yüksek erişilebilirlik hedeflenir. Buna rağmen yayın kalitesi internet bağlantınıza, Wi-Fi sinyaline, kullandığınız cihaza ve kaynak yayına göre değişebilir. En iyi sonucu görmek için satın almadan önce ücretsiz test yapın; mümkünse ethernet bağlantısı kullanın.'
                 },
                 {
                     question: '4K ve Ultra HD Yayınlar Mevcut mu?',
@@ -78,7 +78,7 @@ export const defaultFaqData = {
                 },
                 {
                     question: 'Maç Günlerinde Sunucularda Yoğunluk Oluyor mu?',
-                    answer: 'Özellikle derbi maçları veya büyük spor organizasyonları sırasında sektör genelinde aşırı trafik oluşur. Ancak bizim altyapımız, anlık kullanıcı artışlarını kaldırabilecek devasa bant genişliklerine (Bandwidth) ve yedekli sunucu (Backup Server) sistemlerine sahiptir. Bu teknolojik yatırımımız sayesinde en yoğun maç günlerinde bile donmayan iptv kalitemizden asla taviz vermeyiz. Önemli müsabakaları stres yaşamadan, saniyesi saniyesine izleyebileceğiniz en iyi iptv servisi güvencesiyle sizlere sunuyoruz. Sorunsuz bir spor keyfi için iptv satın alırken altyapı gücüne dikkat etmek çok önemlidir.'
+                    answer: 'Akşam saatleri gibi yoğun kullanım dilimlerinde sektör genelinde trafik artışı yaşanır. Bizim altyapımız, anlık kullanıcı artışlarını kaldırabilecek devasa bant genişliklerine (Bandwidth) ve yedekli sunucu (Backup Server) sistemlerine sahiptir. Bu teknolojik yatırımımız sayesinde en yoğun saatlerde bile donmayan iptv kalitemizden taviz vermeyiz. Kesintisiz bir izleme deneyimi için iptv satın alırken altyapı gücüne dikkat etmek çok önemlidir.'
                 }
             ]
         },
@@ -91,7 +91,7 @@ export const defaultFaqData = {
                 },
                 {
                     question: 'Film ve Dizi Arşivi (VOD) Ne Sıklıkla Güncellenir?',
-                    answer: 'En iyi iptv servisi olmanın gerekliliklerinden biri de içeriği daima taze tutmaktır. VOD (Video on Demand) kütüphanemiz, vizyondan yeni çıkan sinema filmleri, popüler dijital platformların (Netflix, BluTV, Exxen, Disney+ vb.) en güncel dizileri ve belgesellerle her hafta düzenli olarak güncellenir. On binlerce içerikten oluşan bu dev arşivde, tüm içerikler Türkçe dublaj veya altyazı seçenekleriyle, yüksek görüntü kalitesinde sunulmaktadır. Donmayan iptv sunucularımız üzerinden dilediğiniz filmi istediğiniz an durdurup, ileri geri sararak izleme özgürlüğüne sahipsiniz.'
+                    answer: 'En iyi iptv servisi olmanın gerekliliklerinden biri de içeriği daima taze tutmaktır. VOD (Video on Demand) kütüphanemiz, sinema filmleri, dizi ve belgesel kategorileriyle her hafta düzenli olarak güncellenir. On binlerce içerikten oluşan bu dev arşivde, tüm içerikler Türkçe dublaj veya altyazı seçenekleriyle, yüksek görüntü kalitesinde sunulmaktadır. Donmayan iptv sunucularımız üzerinden dilediğiniz filmi istediğiniz an durdurup, ileri geri sararak izleme özgürlüğüne sahipsiniz.'
                 },
                 {
                     question: 'Yetişkin (Adult) Kanalları Şifreleyebilir miyim?',

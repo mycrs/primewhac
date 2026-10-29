@@ -17,12 +17,12 @@ export const defaultChatbot = {
     { 
       id: 3, 
       question: "test, deneme, denemek istiyorum", 
-      answer: "Ücretsiz deneme yayını için lütfen WhatsApp hattımızdan bizimle iletişime geçin. Ekip arkadaşlarımız size yardımcı olacaktır." 
+      answer: "Ücretsiz deneme yayını için /test sayfasındaki formu doldurmanız yeterli. Ekip arkadaşlarımız hemen sizinle iletişime geçer."
     },
     { 
       id: 4, 
       question: "iletişim, whatsapp, telefon, müşteri hizmetleri", 
-      answer: "Bize ekranın sağ alt köşesinde bulunan WhatsApp ikonuna tıklayarak 7/24 ulaşabilirsiniz." 
+      answer: "Bize /paketler sayfasındaki sipariş formu veya /test sayfasındaki deneme formu üzerinden 7/24 ulaşabilirsiniz."
     }
   ]
 };

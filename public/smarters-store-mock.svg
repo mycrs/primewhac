@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  <rect x="0" y="0" width="640" height="48" fill="#141414"/>
+  <text x="24" y="30" fill="#64748b" font-family="Arial,sans-serif" font-size="12" font-weight="600">SMART TV APPS</text>
+  <rect x="24" y="72" width="592" height="44" rx="10" fill="#1a1a1a" stroke="#7C3AED" stroke-opacity="0.45"/>
+  <circle cx="48" cy="94" r="10" stroke="#A78BFA" stroke-width="2" fill="none"/>
+  <line x1="54" y1="100" x2="60" y2="106" stroke="#A78BFA" stroke-width="2"/>
+  <text x="72" y="100" fill="#fff" font-family="Arial,sans-serif" font-size="15" font-weight="600">IPTV Smarters Pro</text>
+  <rect x="24" y="136" width="592" height="120" rx="12" fill="#1a1030" stroke="#7c3aed" stroke-opacity="0.5"/>
+  <image href="/iptv-smarters-pro-icon.svg" x="40" y="152" width="88" height="88" preserveAspectRatio="xMidYMid meet"/>
+  <text x="144" y="182" fill="#fff" font-family="Arial,sans-serif" font-size="20" font-weight="700">IPTV Smarters Pro</text>
+  <text x="144" y="208" fill="#94a3b8" font-family="Arial,sans-serif" font-size="12">Live TV � EPG � VOD � 4K</text>
+  <rect x="144" y="220" width="88" height="28" rx="8" fill="#7c3aed"/>
+  <text x="168" y="239" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">Yukle</text>
+  <rect x="24" y="276" width="592" height="52" rx="10" fill="#111827" stroke="#334155"/>
+  <text x="40" y="308" fill="#64748B" font-family="Arial,sans-serif" font-size="12">Samsung Tizen ve LG webOS icin resmi uygulama</text>
+</svg>

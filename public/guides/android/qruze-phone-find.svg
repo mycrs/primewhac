@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  
+  <rect x="40" y="48" width="120" height="120" rx="24" fill="#000" stroke="#e50914" stroke-width="2"/>
+  <text x="100" y="118" text-anchor="middle" fill="#e50914" font-family="Arial,sans-serif" font-size="36" font-weight="800">Q</text>
+  <text x="180" y="100" fill="#fff" font-family="Arial,sans-serif" font-size="24" font-weight="800">Qruze Player</text>
+  <text x="180" y="128" fill="#94a3b8" font-family="Arial,sans-serif" font-size="13">IPTV Media Player</text>
+  <rect x="180" y="140" width="96" height="32" rx="8" fill="#e50914"/>
+  <text x="228" y="161" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">Yukle</text>
+  
+</svg>

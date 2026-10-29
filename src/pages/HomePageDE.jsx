@@ -4,7 +4,7 @@ import FooterDE from '@/components/FooterDE';
 import PremiumHeroDE from '@/components/PremiumHeroDE'; 
 import TrendingContentSliderDE from '@/components/TrendingContentSliderDE';
 import ChannelSliderDE from '@/components/ChannelSliderDE';
-import PackagesDE from '@/components/PackagesDE';
+import Packages from '@/components/Packages';
 import MassiveChannelArchiveSectionDE from '@/components/MassiveChannelArchiveSectionDE';
 import ChatBot from '@/components/ChatBot';
 import SEOHead from '@/components/SEOHead';
@@ -38,8 +38,9 @@ const HomePageDE = ({ siteData }) => {
   };
   
   const metadata = {
-    title: "Türkisches IPTV in Deutschland — Legal & 4K | QruzeTV",
-    description: "Entdecken Sie Premium IPTV in Deutschland. Stabile 4K IPTV ohne Unterbrechung. Kaufen Sie jetzt IPTV von unserem zuverlässigen Anbieter. Kostenlos testen!",
+    // prerenderSeo.js '/de' girişiyle birebir aynı — hydrate sonrası title/description değişmemeli
+    title: "IPTV Deutschland 2026 — Türkische Sender & Test | QruzeTV",
+    description: "Türkische Sender per IPTV in Deutschland: auf Smart TV, Fire TV und Mobilgeräten in HD/4K streamen. QruzeTV jetzt kostenlos testen.",
     keywords: ["IPTV Deutschland", "IPTV kaufen", "Premium IPTV Anbieter", "4K IPTV", "Stabile IPTV", "IPTV ohne Unterbrechung", "IPTV test"],
     ogType: "website",
   };
@@ -58,8 +59,8 @@ const HomePageDE = ({ siteData }) => {
           <ErrorBoundary onRetry={handleRetry}>
             <PremiumHeroDE
               siteData={safeSiteData}
-              mainTitle="Premium IPTV Deutschland – Stabiles 4K IPTV ohne Unterbrechung"
-              subTitle="Warum uns wählen?"
+              mainTitle="IPTV Deutschland 2026 – türkische Sender kostenlos testen"
+              subTitle="Smart TV, Fire TV, Mobilgeräte und deutschsprachiger Support"
             />
           </ErrorBoundary>
 
@@ -81,17 +82,23 @@ const HomePageDE = ({ siteData }) => {
             </ErrorBoundary>
           </LazySection>
 
-          <LazySection
+          <section
             id="packages-section"
-            className="qruze-cinema-section premium-section-signature py-20 relative border-t border-white/5 shadow-[0_-10px_40px_rgba(0,0,0,0.2)] content-visibility-auto"
+            className="qruze-cinema-section premium-section-signature relative border-t border-white/5 shadow-[0_-10px_40px_rgba(0,0,0,0.2)]"
           >
             <ErrorBoundary onRetry={handleRetry}>
               <div className="container mx-auto px-4 mb-8 text-center sr-only">
                 <h2 className="text-2xl font-bold">IPTV kaufen - Unsere Pakete</h2>
               </div>
-              <PackagesDE packages={safeSiteData.packagesData} title="IPTV kaufen - Unsere Pakete" />
+              <Packages
+                packages={safeSiteData.packagesData}
+                title="IPTV kaufen - Unsere Pakete"
+                showTierFilter
+                hideRegions={['TR']}
+                packagesPageContent={safeSiteData.packagesPageContent}
+              />
             </ErrorBoundary>
-          </LazySection>
+          </section>
 
           <LazySection className="content-visibility-auto">
             <ErrorBoundary>
@@ -126,7 +133,7 @@ const HomePageDE = ({ siteData }) => {
                       Spielplan & Fixture
                     </h3>
                     <p className="mt-1 text-sm text-slate-300">
-                      Super Lig, Premier League, La Liga. <span className="font-medium text-[#e50914]/95">Welcher Sender, wann?</span> Aktuelles Programm.
+                      Tagesaktuelle Fixtures und Anstoßzeiten. <span className="font-medium text-[#e50914]/95">Wochenprogramm</span> auf einen Blick.
                     </p>
                   </div>
                   <span className="relative z-10 shrink-0 text-sm font-semibold text-[#e50914] transition-transform duration-300 group-hover:translate-x-1">
@@ -182,7 +189,7 @@ const HomePageDE = ({ siteData }) => {
                     </p>
                     <div className="mt-6 flex flex-wrap justify-center gap-4 md:justify-start">
                       <span className="flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-                        <ShieldCheck className="h-4 w-4" /> 100% sichere Infrastruktur
+                        <ShieldCheck className="h-4 w-4" /> Verschlüsselte Verbindung
                       </span>
                     </div>
                   </div>

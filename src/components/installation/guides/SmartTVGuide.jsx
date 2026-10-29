@@ -1,56 +1,46 @@
 import React from 'react';
 import InstallationGuideRenderer from '../InstallationGuideRenderer';
 
-const fallbackSteps = [
-  {
-    title: "TV'nizi Açın ve Mağazaya Girin",
-    description: "Samsung (Tizen) veya LG (WebOS) televizyonunuzun uygulama mağazasını (Content Store / Smart Hub) açın.",
-    image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    title: "Uygulama Arayın",
-    description: "Arama bölümüne 'IBO Player', 'Duplex Play' veya 'Smart IPTV' yazın. IBO Player önerilir.",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    title: "Yükleyin",
-    description: "Uygulamayı seçin ve 'Yükle' butonuna basarak televizyonunuza indirin.",
-    image: "https://images.unsplash.com/photo-1461151304267-38535e780c79?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    title: "MAC Adresini Alın",
-    description: "Uygulamayı açtığınızda ekranda 'Device ID' ve 'Device Key' (veya MAC Address) görünecektir. Bu bilgileri not alın.",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    title: "Bize İletin veya Yükleyin",
-    description: "Bu bilgileri bize WhatsApp üzerinden iletin, kurulumu biz yapalım. Veya uygulamanın web sitesinden kendiniz yükleyin.",
-    image: "https://images.unsplash.com/photo-1587560699334-cc4da63c24b9?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    title: "Uygulamayı Yenileyin",
-    description: "Kurulum yapıldıktan sonra TV kumandanızdan uygulamanın 'Reload' veya 'Refresh' tuşuna basın.",
-    image: "https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    title: "Playlisti Kontrol Edin",
-    description: "Kanal listenizin yüklendiğini göreceksiniz. 'Live TV' bölümüne girerek kontrol edin.",
-    image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    title: "İyi Seyirler",
-    description: "Smart TV kurulumunuz tamamlandı. Keyifli seyirler dileriz.",
-    image: "https://images.unsplash.com/photo-1522869635100-8f44d480631d?q=80&w=1200&auto=format&fit=crop"
-  }
-];
-
-const SmartTVGuide = ({ dbData }) => {
-  return (
-    <InstallationGuideRenderer 
-      data={dbData} 
-      fallbackData={{ steps: fallbackSteps }} 
-    />
-  );
+const ZERO_PLAYER_IMAGES = {
+  store: '/guides/0player-store-open.svg',
+  search: '/guides/0player-search.svg',
+  install: '/guides/0player-install.svg',
+  app: '/0player-ui-mock.svg',
+  playlist: '/guides/0player-playlist.svg',
+  channels: '/guides/0player-channels.svg',
+  favorites: '/guides/0player-favorites.svg',
+  watch: '/guides/0player-watch.svg',
 };
+
+const buildZeroPlayerSteps = (isDe) => {
+  const tr = [
+    { title: 'TV Mağazasını Açın', description: 'Samsung Smart Hub (Apps) veya LG Content Store\'u uzaktan kumandadan açın.', visual: 'store', image: ZERO_PLAYER_IMAGES.store },
+    { title: '0 Player Uygulamasını Arayın', description: 'Arama alanına "0 Player" veya "Zero Player" yazın. Resmi site: 0player.com', visual: 'search', image: ZERO_PLAYER_IMAGES.search },
+    { title: 'Uygulamayı Yükleyin', description: '0 Player\'ı seçip Yükle / Install butonuna basın. Kurulum birkaç saniye sürer.', visual: 'install', image: ZERO_PLAYER_IMAGES.install },
+    { title: '0 Player\'ı Açın', description: 'Uygulamayı başlatın. Ana menüde Canlı TV, EPG ve VOD bölümlerini göreceksiniz.', visual: 'app', image: ZERO_PLAYER_IMAGES.app },
+    { title: 'Playlist Ekleyin', description: 'M3U linki veya Xtream Codes (sunucu, kullanıcı adı, şifre) bilgilerinizi girin ve kaydedin.', visual: 'playlist', image: ZERO_PLAYER_IMAGES.playlist },
+    { title: 'Kanalları Yükleyin', description: 'Liste otomatik oluşur. EPG birkaç dakika içinde dolabilir; bu normaldir.', visual: 'channels', image: ZERO_PLAYER_IMAGES.channels },
+    { title: 'Favorileri Ayarlayın', description: 'Sık izlediğiniz kanalları favorilere ekleyerek hızlı erişim tanımlayın.', visual: 'favorites', image: ZERO_PLAYER_IMAGES.favorites },
+    { title: 'İzlemeye Başlayın', description: 'Smart TV kurulumunuz tamamlandı. Canlı TV\'den dilediğiniz kanalı seçin.', visual: 'watch', image: ZERO_PLAYER_IMAGES.watch },
+  ];
+  const de = [
+    { title: 'TV-Store öffnen', description: 'Öffnen Sie Samsung Smart Hub (Apps) oder LG Content Store mit der Fernbedienung.', visual: 'store', image: ZERO_PLAYER_IMAGES.store },
+    { title: '0 Player suchen', description: 'Suchen Sie nach "0 Player" oder "Zero Player". Offizielle Seite: 0player.com', visual: 'search', image: ZERO_PLAYER_IMAGES.search },
+    { title: 'App installieren', description: 'Wählen Sie 0 Player und tippen Sie auf Installieren. Die Installation dauert wenige Sekunden.', visual: 'install', image: ZERO_PLAYER_IMAGES.install },
+    { title: '0 Player starten', description: 'Starten Sie die App. Im Hauptmenü finden Sie Live TV, EPG und VOD.', visual: 'app', image: ZERO_PLAYER_IMAGES.app },
+    { title: 'Playlist hinzufügen', description: 'Geben Sie Ihre M3U-URL oder Xtream Codes (Server, Benutzer, Passwort) ein und speichern.', visual: 'playlist', image: ZERO_PLAYER_IMAGES.playlist },
+    { title: 'Kanäle laden', description: 'Die Liste wird automatisch erstellt. EPG kann einige Minuten zum Laden brauchen.', visual: 'channels', image: ZERO_PLAYER_IMAGES.channels },
+    { title: 'Favoriten setzen', description: 'Markieren Sie häufig genutzte Sender als Favoriten für schnellen Zugriff.', visual: 'favorites', image: ZERO_PLAYER_IMAGES.favorites },
+    { title: 'Streaming starten', description: 'Die Smart-TV-Einrichtung ist abgeschlossen. Wählen Sie einen Sender unter Live TV.', visual: 'watch', image: ZERO_PLAYER_IMAGES.watch },
+  ];
+  return (isDe ? de : tr).map((step) => ({ ...step, theme: 'amber' }));
+};
+
+export const smartTvFallbackStepsTr = buildZeroPlayerSteps(false);
+export const smartTvFallbackStepsDe = buildZeroPlayerSteps(true);
+
+const SmartTVGuide = ({ dbData }) => (
+  <InstallationGuideRenderer data={dbData} fallbackData={{ steps: smartTvFallbackStepsTr }} />
+);
 
 export default SmartTVGuide;

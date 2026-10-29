@@ -1,13 +1,14 @@
 import { slugify } from './matchSlug.js';
 
 const TAGE = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+/** Schlüssel müssen mit `name` aus liveMatchFixtures.FOOTBALL_LEAGUES übereinstimmen. */
 const LIGA_KONTEXT = {
-  'Süper Lig': ['In der spannendsten Liga der Türkei', 'Im Programm der Süper Lig diese Woche', 'In der türkischen Spitzenliga'],
-  'Premier Lig': ['In Englands prestigeträchtigster Liga', 'In der Premier League diese Woche', 'In der meistgesehenen Fußballliga der Welt'],
-  'La Liga': ['In Spaniens höchster Spielklasse', 'In La Liga diese Woche', 'Im Herzen des spanischen Fußballs'],
-  'Şampiyonlar Ligi': ['Im größten europäischen Pokalwettbewerb', 'In der UEFA Champions League', 'Im kontinentalen Wettbewerb'],
-  'Bundesliga': ['In Deutschlands höchster Liga', 'In der Bundesliga diese Woche', 'An der Spitze des deutschen Fußballs'],
-  'Serie A': ['In Italiens höchster Spielklasse', 'In der Serie A diese Woche', 'Im Herzen des italienischen Fußballs'],
+  'Türkiye Ligi': ['In der höchsten Spielklasse der Türkei', 'Im türkischen Wochenprogramm', 'In der türkischen Spitzenklasse'],
+  'İngiltere Ligi': ['In Englands höchster Spielklasse', 'Diese Woche in England', 'In einer der meistgesehenen Fußballnationen'],
+  'İspanya Ligi': ['In Spaniens höchster Spielklasse', 'Diese Woche in Spanien', 'Im Herzen des spanischen Fußballs'],
+  'Avrupa Kupası': ['Im größten europäischen Pokalwettbewerb', 'Im kontinentalen Pokalwettbewerb', 'Im kontinentalen Wettbewerb'],
+  'Almanya Ligi': ['In Deutschlands höchster Spielklasse', 'Diese Woche in Deutschland', 'An der Spitze des deutschen Fußballs'],
+  'İtalya Ligi': ['In Italiens höchster Spielklasse', 'Diese Woche in Italien', 'Im Herzen des italienischen Fußballs'],
 };
 
 const DERBY_MANNSCHAFTEN = [

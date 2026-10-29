@@ -17,18 +17,21 @@ export function normalizeTeamName(name) {
   return s;
 }
 
+const CURRENT_SEASON = '2026';
+
 export const FOOTBALL_LEAGUES = [
-  { slug: 'super-lig-2025', name: 'Süper Lig' },
-  { slug: 'epl-2025', name: 'Premier Lig' },
-  { slug: 'la-liga-2025', name: 'La Liga' },
-  { slug: 'champions-league-2025', name: 'Şampiyonlar Ligi' },
-  { slug: 'bundesliga-2025', name: 'Bundesliga' },
-  { slug: 'serie-a-2025', name: 'Serie A' },
+  { slug: `super-lig-${CURRENT_SEASON}`, name: 'Türkiye Ligi' },
+  { slug: `epl-${CURRENT_SEASON}`, name: 'İngiltere Ligi' },
+  { slug: `la-liga-${CURRENT_SEASON}`, name: 'İspanya Ligi' },
+  { slug: `champions-league-${CURRENT_SEASON}`, name: 'Avrupa Kupası' },
+  { slug: `bundesliga-${CURRENT_SEASON}`, name: 'Almanya Ligi' },
+  { slug: `serie-a-${CURRENT_SEASON}`, name: 'İtalya Ligi' },
 ];
 
 export const BASKETBALL_LEAGUES = [
   { slug: 'nba-2025', name: 'NBA' },
   { slug: 'wnba-2025', name: 'WNBA' },
+  { slug: 'nbl-2026', name: 'NBL' },
   { slug: 'nbl-2025', name: 'NBL' },
 ];
 

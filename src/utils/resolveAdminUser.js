@@ -40,7 +40,7 @@ export async function resolveAdminAccess(supabase, user) {
   const { isAdmin, error } = await fetchAdminUsersRow(supabase, user.email);
   if (error) {
     console.warn('[resolveAdminAccess] admin_users sorgusu başarısız:', error);
-    return false;
+    throw new Error(error);
   }
   return isAdmin;
 }

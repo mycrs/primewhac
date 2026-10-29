@@ -27,6 +27,7 @@ const TR_TO_DE = {
   '/yorumlar': '/de/bewertungen',
   '/karsilastirma': '/de/vergleich',
   '/detailed-guides': '/de/detaillierte-anleitungen',
+  '/almanyada-turk-kanallari': '/de/tuerkische-sender-in-deutschland',
 };
 
 const DE_TO_TR = {
@@ -57,6 +58,7 @@ const DE_TO_TR = {
   '/de/karsilastir': '/karsilastirma',
   '/de/detaillierte-anleitungen': '/detailed-guides',
   '/de/detayli-kurulum': '/detailed-guides',
+  '/de/tuerkische-sender-in-deutschland': '/almanyada-turk-kanallari',
 };
 
 const PREFERRED_CANONICALS = {
@@ -68,6 +70,7 @@ const PREFERRED_CANONICALS = {
   '/bayilik': '/reseller',
   '/privacy': '/gizlilik',
   '/terms': '/sartlar',
+  '/contact': '/iletisim',
   '/what-to-watch': '/ne-izlesem',
   '/spor-gundemi': '/mac-programi',
   '/de/packages': '/de/pakete',
@@ -76,12 +79,28 @@ const PREFERRED_CANONICALS = {
 };
 
 /**
- * Pathname'i normalize et (sondaki slash yok, query/hash yok).
+ * Pathname'i normalize et (query/hash yok; kök dışı tüm path'ler sonda slash TAŞIR).
+ * Sunucu slash'siz URL'leri slash'lıya 301'lediği için canonical form slash'lıdır.
  */
 function normalizePath(pathname) {
   if (!pathname || typeof pathname !== 'string') return '/';
-  const p = pathname.split('?')[0].split('#')[0].replace(/\/+$/, '') || '/';
-  return p;
+  const stripped = pathname.split('?')[0].split('#')[0].replace(/\/+$/, '') || '/';
+  return stripped === '/' ? '/' : `${stripped}/`;
+}
+
+/**
+ * Eşleme tabloları ve regex karşılaştırmaları slash'siz anahtarla çalışır.
+ */
+function keyOf(path) {
+  const p = typeof path === 'string' ? path : '/';
+  return p.replace(/\/+$/, '') || '/';
+}
+
+/**
+ * Slash'siz iç anahtarı canonical (slash'lı) path'e çevirir; kök '/' olarak kalır.
+ */
+function withTrailingSlash(pathKey) {
+  return pathKey === '/' ? '/' : `${pathKey}/`;
 }
 
 /**
@@ -95,7 +114,7 @@ const TR_WHAT_TO_WATCH_CATEGORY_NO_DE = new Set(['turk-dizileri', 'imdb-yuksek-f
  * Örn: /blog/my-post -> /de/blog/my-post, /de/blog/my-post -> /blog/my-post
  */
 function getAlternateForDynamicPath(path, isDe) {
-  const normalized = normalizePath(path);
+  const normalized = keyOf(normalizePath(path));
   if (isDe) {
     const match = normalized.match(/^\/de\/blog\/(.+)$/);
     if (match) return `/blog/${match[1]}`;
@@ -128,7 +147,7 @@ function getAlternateForDynamicPath(path, isDe) {
 }
 
 function getPreferredPath(path) {
-  const normalized = normalizePath(path);
+  const normalized = keyOf(normalizePath(path));
 
   if (PREFERRED_CANONICALS[normalized]) {
     return PREFERRED_CANONICALS[normalized];
@@ -141,41 +160,43 @@ function getPreferredPath(path) {
 }
 
 /**
- * Verilen pathname ve baseUrl için canonical URL ile TR/DE hreflang link'lerini döndürür.
+ * Verilen pathname ve baseUrl için canonical URL ile TR/DE/x-default hreflang link'lerini döndürür.
+ * Tüm üretilen URL'ler canonical forma uyar: kök dışı path'ler sonda slash taşır.
+ * x-default her zaman sayfanın TR (slash'lı) karşılığıdır.
  * @param {string} pathname - location.pathname
- * @param {string} baseUrl - site kök URL (örn. https://streamtr.eu)
- * @returns {{ canonicalUrl: string, hreflangTr: string, hreflangDe: string, xDefaultUrl: string, lang: 'tr'|'de' }}
+ * @param {string} baseUrl - site kök URL (örn. https://cineverse.pro)
+ * @returns {{ canonicalUrl: string, hreflangTr: string, hreflangDe: string|null, hreflangXDefault: string, lang: 'tr'|'de' }}
  */
 export function getCanonicalAndHreflang(pathname, baseUrl = DEFAULT_SITE_URL) {
   const base = baseUrl.replace(/\/+$/, '');
-  const path = normalizePath(pathname);
+  const path = keyOf(normalizePath(pathname));
   const canonicalPath = getPreferredPath(path);
-  const isDe = canonicalPath.startsWith('/de');
+  const isDe = canonicalPath === '/de' || canonicalPath.startsWith('/de/');
 
-  let trUrl = base + (canonicalPath === '/de' ? '/' : canonicalPath.replace(/^\/de/, '') || '/');
-  let deUrl = base + (canonicalPath === '/' ? '/de' : `/de${canonicalPath}`);
+  let trUrl;
+  let deUrl;
 
   if (isDe) {
     const trAlternate = DE_TO_TR[canonicalPath] ?? getAlternateForDynamicPath(canonicalPath, true);
-    trUrl = trAlternate != null ? base + trAlternate : base + '/';
-    deUrl = base + canonicalPath;
+    trUrl = trAlternate != null ? base + withTrailingSlash(trAlternate) : `${base}/`;
+    deUrl = base + withTrailingSlash(canonicalPath);
   } else {
     const deAlternate = TR_TO_DE[canonicalPath] ?? getAlternateForDynamicPath(canonicalPath, false);
     // Only set a DE hreflang if a real DE equivalent exists - don't falsely point to /de homepage
-    deUrl = deAlternate != null ? base + deAlternate : null;
-    trUrl = base + canonicalPath;
+    deUrl = deAlternate != null ? base + withTrailingSlash(deAlternate) : null;
+    trUrl = base + withTrailingSlash(canonicalPath);
   }
 
-  const canonicalUrl = base + canonicalPath;
+  const canonicalUrl = base + withTrailingSlash(canonicalPath);
   const hreflangTr = trUrl;
   const hreflangDe = deUrl;
-  const xDefaultUrl = trUrl;
+  const hreflangXDefault = hreflangTr;
 
   return {
     canonicalUrl,
     hreflangTr,
     hreflangDe,
-    xDefaultUrl,
+    hreflangXDefault,
     lang: isDe ? 'de' : 'tr',
   };
 }
@@ -187,10 +208,14 @@ export function getCanonicalAndHreflang(pathname, baseUrl = DEFAULT_SITE_URL) {
  */
 export function getSitemapHreflangAlternates(pathname, baseUrl = DEFAULT_SITE_URL) {
   const base = baseUrl.replace(/\/+$/, '');
-  const path = getPreferredPath(normalizePath(pathname));
+  const path = getPreferredPath(keyOf(normalizePath(pathname)));
+  // Blog detaylarında yalnızca gerçekten çevrilmiş yazılar alternate olabilir.
+  // Sitemap üreticisi çeviri alanlarını sayfa bazında doğrulamadığı için yanlış
+  // hreflang ilişkisi kurmak yerine detay URL'lerinde alternate yayımlamaz.
+  if (/^\/(?:de\/)?blog\/[^/]+$/.test(path)) return null;
   const { hreflangTr, hreflangDe } = getCanonicalAndHreflang(pathname, baseUrl);
   if (!hreflangTr || !hreflangDe) return null;
-  const isDe = path.startsWith('/de');
+  const isDe = path === '/de' || path.startsWith('/de/');
   if (isDe && path !== '/de') {
     const trAlternate = DE_TO_TR[path] ?? getAlternateForDynamicPath(path, true);
     if (trAlternate == null && hreflangTr === `${base}/`) return null;

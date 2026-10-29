@@ -1,14 +1,19 @@
 /**
- * Statik sitede Node /api olmadan müşteri kaydı: Turnstile siteverify + service role insert.
- * Secrets: TURNSTILE_SECRET_KEY, SUPABASE_SERVICE_ROLE_KEY (Supabase Dashboard → Edge Functions → Secrets)
+ * Statik sitede Node /api olmadan müşteri kaydı: dahili matematik doğrulaması + service role insert.
+ * Client { mathCaptchaId, mathCaptchaAnswer } gönderir; doğrulama captcha_challenges tablosundan
+ * service role ile yapılır (math-captcha edge function'ındaki verify mantığının aynısı).
+ * Secrets: SUPABASE_SERVICE_ROLE_KEY (Supabase Dashboard → Edge Functions → Secrets)
+ * Tablo kurulumu: supabase/math_captcha_setup.sql
  */
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.30.0';
-
-const SITEVERIFY = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+import { createClient, SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.30.0';
 
 const ALLOWED_ORIGINS = new Set([
+  'https://cineverse.pro',
+  'https://www.cineverse.pro',
   'https://qruzetv.com',
   'https://www.qruzetv.com',
+  'https://satinaliptv.sbs',
+  'https://www.satinaliptv.sbs',
   'https://streamtr.eu',
   'https://www.streamtr.eu',
   'http://localhost:3000',
@@ -17,9 +22,12 @@ const ALLOWED_ORIGINS = new Set([
   'http://127.0.0.1:5173',
 ]);
 
+const MAX_ATTEMPTS = 3;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 function corsHeaders(req: Request): HeadersInit {
   const origin = req.headers.get('Origin') ?? '';
-  const allow = ALLOWED_ORIGINS.has(origin) ? origin : 'https://qruzetv.com';
+  const allow = ALLOWED_ORIGINS.has(origin) ? origin : 'https://satinaliptv.sbs';
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -28,27 +36,66 @@ function corsHeaders(req: Request): HeadersInit {
   };
 }
 
-async function verifyTurnstileToken(token: string): Promise<{ ok: true } | { ok: false; error: string; status: number }> {
-  const secret = Deno.env.get('TURNSTILE_SECRET_KEY')?.trim() ?? '';
-  if (!secret) {
+async function sha256Hex(text: string): Promise<string> {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+type CaptchaVerifyResult = { ok: true } | { ok: false; error: string; status: number };
+
+/** math-captcha edge function'ındaki verify mantığının aynısı (direkt DB, service role). */
+async function verifyMathCaptcha(
+  supabase: SupabaseClient,
+  id: string,
+  answerRaw: string,
+): Promise<CaptchaVerifyResult> {
+  const { data: row, error } = await supabase
+    .from('captcha_challenges')
+    .select('id, answer_hash, expires_at, attempts, used')
+    .eq('id', id)
+    .maybeSingle();
+
+  if (error) {
+    console.error('[public-customer-register] captcha select:', error.message);
+    return { ok: false, error: 'Doğrulama sırasında sunucu hatası', status: 500 };
+  }
+  if (!row) {
     return {
       ok: false,
-      error: 'Sunucu yapılandırması: TURNSTILE_SECRET_KEY eksik (Supabase Function secrets)',
-      status: 503,
+      error: 'Doğrulama oturumu bulunamadı. Sayfayı yenileyip tekrar deneyin.',
+      status: 400,
     };
   }
-  const form = new URLSearchParams();
-  form.set('secret', secret);
-  form.set('response', token);
-  const cf = await fetch(SITEVERIFY, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: form.toString(),
-  });
-  const data = (await cf.json()) as { success?: boolean; 'error-codes'?: string[] };
-  if (data.success === true) return { ok: true };
-  const codes = Array.isArray(data['error-codes']) ? data['error-codes'].join(', ') : '';
-  return { ok: false, error: codes || 'Turnstile doğrulaması başarısız', status: 400 };
+  if (row.used) {
+    return { ok: false, error: 'Bu doğrulama kodu zaten kullanıldı. Yeni soru alın.', status: 400 };
+  }
+  if (new Date(row.expires_at as string).getTime() <= Date.now()) {
+    return { ok: false, error: 'Doğrulama kodunun süresi doldu. Yeni soru alın.', status: 400 };
+  }
+  const attempts = Number(row.attempts) || 0;
+  if (attempts >= MAX_ATTEMPTS) {
+    return { ok: false, error: 'Deneme hakkınız doldu. Yeni soru alın.', status: 400 };
+  }
+
+  const hash = await sha256Hex(answerRaw.trim().toLowerCase());
+  if (hash !== row.answer_hash) {
+    const newAttempts = attempts + 1;
+    await supabase.from('captcha_challenges').update({ attempts: newAttempts }).eq('id', id);
+    const left = MAX_ATTEMPTS - newAttempts;
+    if (left <= 0) {
+      return {
+        ok: false,
+        error: 'Doğrulama kodu hatalı, deneme hakkınız doldu. Yeni soru alın.',
+        status: 400,
+      };
+    }
+    return { ok: false, error: `Doğrulama kodu hatalı, kalan deneme: ${left}`, status: 400 };
+  }
+
+  await supabase.from('captcha_challenges').update({ used: true }).eq('id', id);
+  return { ok: true };
 }
 
 Deno.serve(async (req: Request) => {
@@ -69,14 +116,31 @@ Deno.serve(async (req: Request) => {
     return Response.json({ ok: false, error: 'Geçersiz JSON gövdesi' }, { status: 400, headers });
   }
 
-  const token = typeof body.turnstileToken === 'string' ? body.turnstileToken.trim() : '';
-  if (!token || token.length < 8) {
+  const mathCaptchaId = typeof body.mathCaptchaId === 'string' ? body.mathCaptchaId.trim() : '';
+  const mathCaptchaAnswer =
+    typeof body.mathCaptchaAnswer === 'string'
+      ? body.mathCaptchaAnswer
+      : typeof body.mathCaptchaAnswer === 'number' && Number.isFinite(body.mathCaptchaAnswer)
+        ? String(body.mathCaptchaAnswer)
+        : '';
+  if (!UUID_RE.test(mathCaptchaId) || !mathCaptchaAnswer.trim()) {
     return Response.json({ ok: false, error: 'Güvenlik doğrulaması gerekli' }, { status: 400, headers });
   }
 
-  const tv = await verifyTurnstileToken(token);
-  if (!tv.ok) {
-    return Response.json({ ok: false, error: tv.error }, { status: tv.status, headers });
+  const url = Deno.env.get('SUPABASE_URL')?.trim() ?? '';
+  const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')?.trim() ?? '';
+  if (!url || !serviceKey) {
+    return Response.json(
+      { ok: false, error: 'Sunucu yapılandırması: Supabase service role gerekli (Edge secrets)' },
+      { status: 503, headers },
+    );
+  }
+
+  const client = createClient(url, serviceKey);
+
+  const cv = await verifyMathCaptcha(client, mathCaptchaId, mathCaptchaAnswer);
+  if (!cv.ok) {
+    return Response.json({ ok: false, error: cv.error }, { status: cv.status, headers });
   }
 
   const full_name = typeof body.full_name === 'string' ? body.full_name.trim() : '';
@@ -123,16 +187,6 @@ Deno.serve(async (req: Request) => {
     notes: body.notes != null && String(body.notes).trim() ? String(body.notes).trim() : null,
   };
 
-  const url = Deno.env.get('SUPABASE_URL')?.trim() ?? '';
-  const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')?.trim() ?? '';
-  if (!url || !serviceKey) {
-    return Response.json(
-      { ok: false, error: 'Sunucu yapılandırması: Supabase service role gerekli (Edge secrets)' },
-      { status: 503, headers },
-    );
-  }
-
-  const client = createClient(url, serviceKey);
   const { error: insErr } = await client.from('customers').insert(row);
 
   if (insErr) {

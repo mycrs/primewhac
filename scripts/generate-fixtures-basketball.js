@@ -17,6 +17,7 @@ const MAX_ROUNDS = 50;
 const MAX_EMPTY_STREAK = 4;
 
 const FIXTUREDOWNLOAD_LEAGUES = [
+  { slug: 'nbl-2026', name: 'NBL', country: 'Avustralya', flag: '🇦🇺' },
   { slug: 'nba-2025', name: 'NBA', country: 'ABD', flag: '🇺🇸' },
   { slug: 'nba-2024', name: 'NBA', country: 'ABD', flag: '🇺🇸' },
   { slug: 'wnba-2025', name: 'WNBA', country: 'ABD', flag: '🇺🇸' },
@@ -26,10 +27,10 @@ const FIXTUREDOWNLOAD_LEAGUES = [
 ];
 
 const SPORTSDB_LEAGUES = [
-  { id: '4546', name: 'EuroLeague', country: 'Avrupa', flag: '🇪🇺', seasons: ['2025'] },
-  { id: '4547', name: 'EuroCup', country: 'Avrupa', flag: '🇪🇺', seasons: ['2025'] },
-  { id: '4475', name: 'BSL', country: 'Türkiye', flag: '🇹🇷', seasons: ['2025-2026', '2025'] },
-  { id: '4548', name: 'FIBA Champions League', country: 'Avrupa', flag: '🏆', seasons: ['2025-2026', '2025'] },
+  { id: '4546', name: 'EuroLeague', country: 'Avrupa', flag: '🇪🇺', seasons: ['2026', '2025'] },
+  { id: '4547', name: 'EuroCup', country: 'Avrupa', flag: '🇪🇺', seasons: ['2026', '2025'] },
+  { id: '4475', name: 'BSL', country: 'Türkiye', flag: '🇹🇷', seasons: ['2026-2027', '2025-2026', '2026', '2025'] },
+  { id: '4548', name: 'FIBA Champions League', country: 'Avrupa', flag: '🏆', seasons: ['2026-2027', '2025-2026', '2026', '2025'] },
 ];
 
 function formatTime(dateUtc) {

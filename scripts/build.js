@@ -22,6 +22,7 @@ const steps = [
   ['generate-fixtures-tennis', 'node', ['scripts/generate-fixtures-tennis.js']],
   ['generate-sitemap', 'node', ['scripts/generate-sitemap.js']],
   ['generate-llms', 'node', ['tools/generate-llms.js']],
+  ['sync-seo-routes', 'node', ['scripts/sync-seo-routes.mjs']],
 ];
 
 for (const [name, cmd, args] of steps) {

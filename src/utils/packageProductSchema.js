@@ -1,5 +1,5 @@
 /**
- * /paketler — Product ItemList JSON-LD (aktif paketler, streamtr.eu).
+ * /paketler — Product ItemList JSON-LD (aktif paketler, cineverse.pro).
  */
 import { SITE_URL } from '../constants/siteUrl.js';
 import { merchantOfferExtras, SCHEMA_PRICE_VALID_UNTIL } from './schemaMerchantOffer.js';
@@ -51,7 +51,7 @@ function buildProductDescription(pkg, locale) {
   return 'QruzeTV premium IPTV aboneliği: 4K/UHD, binlerce kanal, VOD ve 7/24 destek.';
 }
 
-function buildSingleProduct(pkg, pageUrl, locale) {
+function buildSingleProduct(pkg, pageUrl, locale, reviewMeta) {
   const price = parsePriceNumber(pkg);
   if (!price) return null;
 
@@ -59,7 +59,7 @@ function buildSingleProduct(pkg, pageUrl, locale) {
   const country = region === 'EU' ? 'EU' : 'TR';
   const sku = String(pkg?.id || `${region}-${pkg?.name || 'pkg'}`).replace(/\s+/g, '-');
 
-  return {
+  const product = {
     '@type': 'Product',
     '@id': `${pageUrl}#product-${sku}`,
     name: buildProductName(pkg, locale),
@@ -78,12 +78,45 @@ function buildSingleProduct(pkg, pageUrl, locale) {
       ...merchantOfferExtras(country),
     },
   };
+
+  if (reviewMeta?.aggregateRating) {
+    product.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: reviewMeta.aggregateRating.ratingValue,
+      reviewCount: reviewMeta.aggregateRating.reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    };
+  }
+
+  if (Array.isArray(reviewMeta?.reviews) && reviewMeta.reviews.length > 0) {
+    product.review = reviewMeta.reviews.slice(0, 5).map((r) => {
+      const node = {
+        '@type': 'Review',
+        author: { '@type': 'Person', name: String(r.author_display_name || '').trim() },
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: Math.min(5, Math.max(1, Number(r.rating))),
+          bestRating: 5,
+          worstRating: 1,
+        },
+        reviewBody: String(r.body || '').trim().substring(0, 500),
+      };
+      const rawDate = r.created_at || r.moderated_at;
+      if (rawDate && String(rawDate).includes('T')) {
+        node.datePublished = String(rawDate).split('T')[0];
+      }
+      return node;
+    });
+  }
+
+  return product;
 }
 
-export function buildPackagesProductJsonLd(packagesData, { pageUrl, locale = 'tr' } = {}) {
+export function buildPackagesProductJsonLd(packagesData, { pageUrl, locale = 'tr', reviewMeta } = {}) {
   const url = pageUrl || `${SITE_URL}/paketler`;
   const packages = flattenPackagesData(packagesData).filter((p) => p && p.enabled !== false);
-  const products = packages.map((p) => buildSingleProduct(p, url, locale)).filter(Boolean);
+  const products = packages.map((p) => buildSingleProduct(p, url, locale, reviewMeta)).filter(Boolean);
   if (products.length === 0) return [];
 
   return [{

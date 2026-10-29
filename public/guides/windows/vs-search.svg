@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  
+  <rect x="32" y="28" width="576" height="304" rx="12" fill="#111827" stroke="#22D3EE" stroke-opacity="0.35"/>
+  <rect x="32" y="28" width="576" height="36" rx="12" fill="#1f2937"/>
+  <circle cx="52" cy="46" r="5" fill="#EF4444"/>
+  <circle cx="68" cy="46" r="5" fill="#F59E0B"/>
+  <circle cx="84" cy="46" r="5" fill="#22C55E"/>
+  <text x="320" y="50" text-anchor="middle" fill="#94a3b8" font-family="Arial,sans-serif" font-size="11">Download</text>
+  
+    <rect x="64" y="92" width="64" height="64" rx="14" fill="#164E63"/>
+    <text x="96" y="132" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="800">VS</text>
+    <text x="150" y="118" fill="#fff" font-family="Arial,sans-serif" font-size="15" font-weight="700">VS Player</text>
+    <rect x="150" y="128" width="88" height="28" rx="14" fill="#0891B2"/>
+    <text x="194" y="147" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="11" font-weight="700">Download</text>
+  
+</svg>

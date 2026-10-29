@@ -10,7 +10,7 @@
  *   npm run deploy -- --build   → önce `npm run build` çalıştır, sonra yükle
  *
  * Gerekli .env değişkenleri:
- *   FTP_HOST         (örn: ftp.streamtr.eu veya 153.x.x.x)
+ *   FTP_HOST         (örn: ftp.cineverse.pro veya 153.x.x.x)
  *   FTP_USER
  *   FTP_PASS
  *   FTP_REMOTE_DIR   (varsayılan: /public_html)

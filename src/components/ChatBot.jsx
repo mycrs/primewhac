@@ -151,7 +151,7 @@ const ChatBot = ({ chatData, contactData, siteTexts }) => {
   return (
     <>
       <div 
-        className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-2"
+        className="fixed bottom-4 left-4 z-[60] flex flex-col items-start gap-2"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -164,6 +164,8 @@ const ChatBot = ({ chatData, contactData, siteTexts }) => {
             <img 
               src={CHATBOT_LOGO} 
               alt="Sohbet asistanı logosu"
+              width={48}
+              height={48}
               className="w-[85%] h-[85%] object-contain"
               onError={() => setLogoError(true)}
             />
@@ -173,7 +175,7 @@ const ChatBot = ({ chatData, contactData, siteTexts }) => {
         </button>
         
         {isHovered && !isOpen && (
-            <div className="absolute right-full mr-2 top-1/2 -translate-y-1/2 bg-[#0a0a0a]/95 text-white text-sm py-2 px-3 rounded-lg border border-yellow-400/40 shadow-lg whitespace-nowrap">
+            <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-[#0a0a0a]/95 text-white text-sm py-2 px-3 rounded-lg border border-yellow-400/40 shadow-lg whitespace-nowrap">
                 Yardım Lazım mı?
             </div>
         )}
@@ -186,12 +188,12 @@ const ChatBot = ({ chatData, contactData, siteTexts }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-20 right-4 z-[60] w-[90vw] md:w-96 max-w-[400px] h-[500px] max-h-[80vh] flex flex-col shadow-2xl rounded-2xl overflow-hidden bg-[#0a0a0a] border border-slate-700"
+            className="fixed bottom-20 left-4 z-[60] w-[90vw] md:w-96 max-w-[400px] h-[500px] max-h-[80vh] flex flex-col shadow-2xl rounded-2xl overflow-hidden bg-[#0a0a0a] border border-slate-700"
           >
               <div className="bg-[#0a0a0a] p-4 border-b border-slate-700 flex justify-between items-center shadow-md z-10">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center relative overflow-hidden bg-[#0a0a0a] border border-yellow-400/30 shrink-0">
-                    <img src={CHATBOT_LOGO} alt="Sohbet asistanı logosu" className="w-[90%] h-[90%] object-contain" onError={(e) => { e.target.style.display = 'none'; }} />
+                    <img src={CHATBOT_LOGO} alt="Sohbet asistanı logosu" width={48} height={48} className="w-[90%] h-[90%] object-contain" onError={(e) => { e.target.style.display = 'none'; }} />
                     <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-slate-900 rounded-full"></span>
                   </div>
                   <div>
@@ -209,7 +211,7 @@ const ChatBot = ({ chatData, contactData, siteTexts }) => {
                   <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                     {msg.type === 'bot' && (
                       <div className="w-9 h-9 rounded-lg overflow-hidden bg-[#0a0a0a] border border-slate-600 flex items-center justify-center mr-2 shrink-0">
-                         <img src={CHATBOT_LOGO} alt="Sohbet asistanı logosu" className="w-[85%] h-[85%] object-contain" />
+                         <img src={CHATBOT_LOGO} alt="Sohbet asistanı logosu" width={36} height={36} className="w-[85%] h-[85%] object-contain" />
                       </div>
                     )}
                     <div 
@@ -236,7 +238,7 @@ const ChatBot = ({ chatData, contactData, siteTexts }) => {
                 {isBotThinking && (
                   <div className="flex justify-start items-end">
                      <div className="w-9 h-9 rounded-lg overflow-hidden bg-[#0a0a0a] border border-slate-600 flex items-center justify-center mr-2 shrink-0">
-                         <img src={CHATBOT_LOGO} alt="Sohbet asistanı logosu" className="w-[85%] h-[85%] object-contain" />
+                         <img src={CHATBOT_LOGO} alt="Sohbet asistanı logosu" width={36} height={36} className="w-[85%] h-[85%] object-contain" />
                       </div>
                      <div className="bg-[#0a0a0a] border border-slate-600 rounded-2xl rounded-bl-sm p-3 flex gap-1 shadow-sm">
                        <span className="w-2 h-2 bg-[#141414] rounded-full animate-bounce"></span>

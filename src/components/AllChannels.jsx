@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { getChannelImageUrl } from '@/utils/channelImageUtils';
 import { useLocation } from 'react-router-dom';
 
-const ChannelCard = memo(({ channel, index }) => {
+const ChannelCard = memo(({ channel, index, isDe }) => {
   const [bgLoaded, setBgLoaded] = useState(false);
   const [bgError, setBgError] = useState(false);
   const [logoLoaded, setLogoLoaded] = useState(false);
@@ -18,6 +18,8 @@ const ChannelCard = memo(({ channel, index }) => {
   const rawBgUrl = channel.background_image_url || channel.image_url;
   const bgImageUrl = rawBgUrl ? rawBgUrl : getChannelImageUrl(null, 'desktop', channel.category);
   const logoUrl = channel.logo_url;
+  // DE sayfasında Almanca açıklama varsa onu göster, yoksa TR'ye düş
+  const cardDescription = isDe ? (channel.description_de || channel.description) : channel.description;
 
   return (
     <motion.div
@@ -35,7 +37,7 @@ const ChannelCard = memo(({ channel, index }) => {
       {/* Background Image */}
       <img 
         src={bgImageUrl}
-        alt=""
+        alt={`${channel.name} kanal görseli`}
         onLoad={() => setBgLoaded(true)}
         onError={() => {
           setBgLoaded(true);
@@ -82,9 +84,9 @@ const ChannelCard = memo(({ channel, index }) => {
               {channel.category}
             </span>
           )}
-          {channel.description && (
+          {cardDescription && (
             <p className="text-xs text-slate-300 truncate ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-1 text-right drop-shadow-md">
-              {channel.description}
+              {cardDescription}
             </p>
           )}
         </div>
@@ -179,7 +181,7 @@ const AllChannels = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
               <Input
                 type="text"
-                placeholder={isDe ? "Kanal durchsuchen... (z.B.: TRT, Beinsports, Discovery)" : "Kanal ara... (Örn: TRT, Beinsports, Discovery)"}
+                placeholder={isDe ? "Kanal durchsuchen... (z.B.: Nachrichten, Serien, Doku)" : "Kanal ara... (Örn: haber, dizi, belgesel)"}
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
                 className="w-full bg-[#0a0a0a]/50 border-slate-700 text-white pl-12 h-14 rounded-2xl focus:border-primary focus:ring-1 focus:ring-primary transition-all text-lg placeholder:text-gray-500"
@@ -207,7 +209,8 @@ const AllChannels = () => {
             <ChannelCard 
               key={channel.id} 
               channel={channel} 
-              index={index} 
+              index={index}
+              isDe={isDe}
             />
           ))}
         </div>

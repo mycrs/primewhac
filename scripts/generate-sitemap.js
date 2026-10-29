@@ -4,8 +4,9 @@
  * Blog: Supabase `blog_posts` (yayındakiler). Hariç tutulan path'ler EXCLUDED_PATTERNS.
  *
  * Hreflang: `generateSitemapXml` (src/utils/sitemapGenerator.js) her uygun <url> için
- * xmlns:xhtml ve <xhtml:link rel="alternate" hreflang="tr|de|x-default"> ekler;
+ * xmlns:xhtml ve <xhtml:link rel="alternate" hreflang="tr|de|x-default"> ekler (x-default = TR URL'si);
  * TR/DE eşlemesi seoCanonicalHreflang.js ile uyumludur (/ ↔ /de, /mac-programi ↔ /de/spielplan, …).
+ * Canonical form: <loc> ve href'ler slash'lı üretilir (kök dışı tüm path'lerde trailing slash).
  *
  * Kullanım: node scripts/generate-sitemap.js
  * package.json: npm run generate:sitemap
@@ -19,7 +20,7 @@ import { generateSitemapXml } from '../src/utils/sitemapGenerator.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITEMAP_PATH = path.resolve(__dirname, '../public/sitemap.xml');
-const BASE_URL = process.env.VITE_SITE_URL || 'https://streamtr.eu';
+const BASE_URL = process.env.VITE_SITE_URL || 'https://cineverse.pro';
 
 async function main() {
   console.log('[generate-sitemap] Sitemap üretiliyor...');

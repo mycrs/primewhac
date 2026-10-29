@@ -104,8 +104,8 @@ const MatchSchedulePage = ({ siteData }) => {
   const metadata = useMemo(() => {
     const hasMatches = matchCount > 0;
     const dateLabel = isToday(selectedDate) ? 'Bugünkü' : `${formattedDate} tarihli`;
-    const FALLBACK_TITLE = 'Maç Programı — Süper Lig ve Avrupa Kupaları | QruzeTV';
-    const FALLBACK_DESCRIPTION = 'Bu haftanın maç programı: Süper Lig, Şampiyonlar Ligi ve Avrupa Ligi fikstürü, saatleri ve yayın kanalları. Canlı izle, anında başla.';
+    const FALLBACK_TITLE = 'Maç Programı — Günlük Fikstür ve Saatler | QruzeTV';
+    const FALLBACK_DESCRIPTION = 'Bu haftanın maç programı: günlük fikstür, başlama saatleri ve karşılaşma listesi. Tarih çubuğuyla istediğiniz günü seçin.';
 
     let title = hasMatches
       ? `${dateLabel} Maç Programı - ${leagueNames} | QruzeTV`
@@ -113,13 +113,13 @@ const MatchSchedulePage = ({ siteData }) => {
     if (title.length > 60) title = FALLBACK_TITLE;
 
     const description = hasMatches
-      ? `${formattedDate} tarihinde ${matchCount} maç: ${leagueNames}. Hangi kanalda, saat kaçta? QruzeTV IPTV ile canlı izleyin.`
+      ? `${formattedDate} tarihinde ${matchCount} maç: ${leagueNames}. Başlama saatleri ve karşılaşma listesi tek ekranda.`
       : FALLBACK_DESCRIPTION;
 
     return {
       title: title.substring(0, 60),
       description: description.substring(0, 160),
-      keywords: ['maç programı', 'bugünkü maçlar', formattedDate, 'Süper Lig fikstür', 'Premier Lig maçları', 'hangi kanalda maç', 'IPTV maç izleme'],
+      keywords: ['maç programı', 'bugünkü maçlar', formattedDate, 'günlük fikstür', 'maç saatleri', 'haftalık program'],
       ogType: 'website',
       canonicalUrl: `${SITE_URL}/mac-programi`,
     };

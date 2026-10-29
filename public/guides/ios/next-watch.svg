@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  
+  <rect x="40" y="28" width="360" height="200" rx="12" fill="#000" stroke="#64748B" stroke-opacity="0.6"/>
+  <polygon points="200,108 200,148 240,128" fill="#64748B" fill-opacity="0.9"/>
+  <text x="420" y="60" fill="#fff" font-family="Arial,sans-serif" font-size="14" font-weight="700">Live TV</text>
+  <rect x="420" y="72" width="180" height="28" rx="6" fill="#111827" stroke="#334155"/>
+  <rect x="420" y="108" width="180" height="28" rx="6" fill="#111827" stroke="#334155"/>
+  <rect x="420" y="144" width="180" height="28" rx="6" fill="#1E293B" stroke="#64748B"/>
+  <text x="430" y="162" fill="#CBD5E1" font-family="Arial,sans-serif" font-size="11">Spor HD</text>
+  <text x="56" y="260" fill="#fff" font-family="Arial,sans-serif" font-size="14" font-weight="700">Movies · Series</text>
+  <text x="56" y="282" fill="#64748b" font-family="Arial,sans-serif" font-size="11">Favori kanallarinizi isaretleyin</text>
+  
+</svg>

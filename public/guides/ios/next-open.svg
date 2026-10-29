@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  
+  
+  <rect x="210" y="20" width="220" height="320" rx="32" fill="#0f0f0f" stroke="#64748B" stroke-width="2"/>
+  <rect x="280" y="32" width="80" height="7" rx="3.5" fill="#262626"/>
+  <rect x="228" y="52" width="184" height="272" rx="8" fill="#111827"/>
+  
+    <rect x="248" y="90" width="56" height="56" rx="14" fill="#1E293B"/>
+    <text x="276" y="126" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="800">N+</text>
+    <text x="320" y="168" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="13" font-weight="700">Ac</text>
+    <rect x="256" y="182" width="128" height="36" rx="10" fill="#475569"/>
+    <text x="320" y="205" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700">Uygulamayi Baslat</text>
+    <text x="320" y="248" text-anchor="middle" fill="#64748b" font-family="Arial,sans-serif" font-size="10">Ana ekrandan da acabilirsiniz</text>
+  
+</svg>

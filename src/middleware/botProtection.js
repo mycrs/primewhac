@@ -16,7 +16,7 @@ export const botProtectionConfig = {
   },
   captcha: {
     mode: 'invisible',
-    provider: 'cloudflare-turnstile',
+    provider: 'internal-math-captcha',
   },
 };
 

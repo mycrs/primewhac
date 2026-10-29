@@ -94,7 +94,7 @@ const TestTab = ({ siteData, setSiteData }) => {
                   id="whatsapp"
                   value={formData.whatsapp}
                   onChange={(e) => handleSettingsChange('whatsapp', e.target.value)}
-                  placeholder="4916345869030"
+                  placeholder="49XXXXXXXXXX"
                   className="bg-[#0a0a0a] border-slate-700 text-white"
                 />
               </div>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  <rect x="0" y="0" width="640" height="52" fill="#141414"/>
+  <rect x="20" y="10" width="40" height="40" rx="10" fill="#000" stroke="#f59e0b" stroke-width="2"/>
+  <text x="33" y="38" fill="#fbbf24" font-family="Arial,sans-serif" font-size="22" font-weight="800">0</text>
+  <text x="72" y="34" fill="#f59e0b" font-family="Arial,sans-serif" font-size="14" font-weight="700">0 Player � Playlist Ekle</text>
+  <rect x="40" y="72" width="560" height="52" rx="8" fill="#141414" stroke="#f59e0b" stroke-opacity="0.45"/>
+  <text x="56" y="104" fill="#64748b" font-family="Arial,sans-serif" font-size="13">M3U URL veya Xtream Server</text>
+  <rect x="40" y="136" width="560" height="52" rx="8" fill="#141414" stroke="#334155"/>
+  <text x="56" y="168" fill="#64748b" font-family="Arial,sans-serif" font-size="13">Kullanici adi</text>
+  <rect x="40" y="200" width="560" height="52" rx="8" fill="#141414" stroke="#334155"/>
+  <text x="56" y="232" fill="#64748b" font-family="Arial,sans-serif" font-size="13">Sifre</text>
+  <rect x="40" y="264" width="200" height="44" rx="8" fill="#e50914"/>
+  <text x="108" y="292" fill="#fff" font-family="Arial,sans-serif" font-size="14" font-weight="700">Kaydet</text>
+  <rect x="256" y="264" width="344" height="44" rx="8" fill="#1c1408" stroke="#d97706" stroke-opacity="0.35"/>
+  <text x="272" y="292" fill="#fbbf24" font-family="Arial,sans-serif" font-size="12">Xtream Codes veya M3U linki yapistirin</text>
+</svg>

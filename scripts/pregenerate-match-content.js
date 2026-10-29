@@ -8,19 +8,22 @@
  * --force: Önbelleği yoksay, yeniden yaz
  */
 import 'dotenv/config';
+import fs from 'fs';
+import path from 'path';
 import { getCachedContent, saveContentToCache } from '../server/api/matchContentCache.js';
 import { generateMatchContent } from '../src/utils/matchContentGenerator.js';
 import { generateMatchContentDE } from '../src/utils/matchContentGeneratorDE.js';
 
 const forceRefresh = process.argv.includes('--force');
 const FIXTURE_BASE = 'https://fixturedownload.com/feed/json';
+const CURRENT_SEASON = '2026';
 const LEAGUES = [
-  { slug: 'super-lig-2025', name: 'Süper Lig', country: 'Türkiye', flag: '🇹🇷' },
-  { slug: 'epl-2025', name: 'Premier Lig', country: 'İngiltere', flag: '🏴' },
-  { slug: 'la-liga-2025', name: 'La Liga', country: 'İspanya', flag: '🇪🇸' },
-  { slug: 'champions-league-2025', name: 'Şampiyonlar Ligi', country: 'Avrupa', flag: '🇪🇺' },
-  { slug: 'bundesliga-2025', name: 'Bundesliga', country: 'Almanya', flag: '🇩🇪' },
-  { slug: 'serie-a-2025', name: 'Serie A', country: 'İtalya', flag: '🇮🇹' },
+  { slug: `super-lig-${CURRENT_SEASON}`, name: 'Türkiye Ligi', country: 'Türkiye', flag: '🇹🇷' },
+  { slug: `epl-${CURRENT_SEASON}`, name: 'İngiltere Ligi', country: 'İngiltere', flag: '🏴' },
+  { slug: `la-liga-${CURRENT_SEASON}`, name: 'İspanya Ligi', country: 'İspanya', flag: '🇪🇸' },
+  { slug: `champions-league-${CURRENT_SEASON}`, name: 'Avrupa Kupası', country: 'Avrupa', flag: '🇪🇺' },
+  { slug: `bundesliga-${CURRENT_SEASON}`, name: 'Almanya Ligi', country: 'Almanya', flag: '🇩🇪' },
+  { slug: `serie-a-${CURRENT_SEASON}`, name: 'İtalya Ligi', country: 'İtalya', flag: '🇮🇹' },
 ];
 
 function formatTime(dateUtc) {
@@ -33,54 +36,101 @@ function formatDate(d) {
   return d.toLocaleDateString('sv-SE', { timeZone: 'Europe/Istanbul' });
 }
 
-async function fetchMatchesForDate(dateStr) {
-  const matches = [];
-  for (const league of LEAGUES) {
+async function fetchJsonWithRetry(url, retries = 3) {
+  let lastError;
+  for (let i = 0; i < retries; i++) {
     try {
-      const res = await fetch(`${FIXTURE_BASE}/${league.slug}`);
-      if (!res.ok) continue;
-      const data = await res.json();
-      const list = Array.isArray(data) ? data : (data.matches || []);
-      const forDate = list.filter((m) => {
-        const raw = (m.DateUtc || m.date || '').toString().replace(' ', 'T');
-        if (!raw) return false;
-        const matchDate = new Date(raw).toLocaleDateString('sv-SE', { timeZone: 'Europe/Istanbul' });
-        return matchDate === dateStr;
-      });
-      for (const m of forDate) {
-        const dateUtc = m.DateUtc || m.date;
-        const home = m.HomeTeam || m.team1 || m.homeTeam?.name || '-';
-        const away = m.AwayTeam || m.team2 || m.awayTeam?.name || '-';
-        matches.push({
-          home: typeof home === 'string' ? home : (home?.name || '-'),
-          away: typeof away === 'string' ? away : (away?.name || '-'),
-          time: formatTime(dateUtc),
-          league: { ...league },
-          date: dateStr,
-        });
+      const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } });
+      if (res.ok) {
+        return await res.json();
       }
     } catch (e) {
-      console.warn(`  ${league.name} yüklenemedi:`, e.message);
+      lastError = e;
+      await new Promise((r) => setTimeout(r, 400 * (i + 1)));
     }
   }
-  return matches;
+  throw lastError || new Error(`Failed after ${retries} attempts: ${url}`);
 }
 
 async function main() {
   console.log('[pregenerate:content] Şablon ile TR+DE üretimi (Gemini yok)');
   if (forceRefresh) console.log('[pregenerate:content] --force: tümü yeniden yazılacak');
 
-  const dates = [];
-  for (let i = 0; i <= 7; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() + i);
-    dates.push(formatDate(d));
+  const fixturesPath = path.resolve(process.cwd(), 'public', 'data', 'fixtures.json');
+  let allMatches = [];
+
+  if (fs.existsSync(fixturesPath)) {
+    try {
+      const fixturesData = JSON.parse(fs.readFileSync(fixturesPath, 'utf8'));
+      if (fixturesData?.days) {
+        for (const [dateStr, groups] of Object.entries(fixturesData.days)) {
+          if (Array.isArray(groups)) {
+            for (const group of groups) {
+              if (Array.isArray(group.matches)) {
+                for (const m of group.matches) {
+                  allMatches.push({
+                    home: m.home,
+                    away: m.away,
+                    time: m.time,
+                    league: m.league,
+                    date: dateStr,
+                  });
+                }
+              }
+            }
+          }
+        }
+      }
+      console.log(`[pregenerate:content] fixtures.json'dan ${allMatches.length} maç okundu.`);
+    } catch (e) {
+      console.warn('[pregenerate:content] fixtures.json okunamadı:', e.message);
+    }
   }
 
-  let allMatches = [];
-  for (const dateStr of dates) {
-    const matches = await fetchMatchesForDate(dateStr);
-    allMatches = allMatches.concat(matches);
+  if (allMatches.length === 0) {
+    // Her ligi birer kez paralel çek
+    const leagueDataMap = {};
+    await Promise.all(
+      LEAGUES.map(async (league) => {
+        try {
+          const data = await fetchJsonWithRetry(`${FIXTURE_BASE}/${league.slug}`);
+          leagueDataMap[league.slug] = Array.isArray(data) ? data : (data.matches || []);
+        } catch (e) {
+          console.warn(`  ${league.name} yüklenemedi:`, e.message);
+        }
+      })
+    );
+
+    const dates = [];
+    for (let i = 0; i <= 7; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() + i);
+      dates.push(formatDate(d));
+    }
+
+    for (const dateStr of dates) {
+      for (const league of LEAGUES) {
+        const list = leagueDataMap[league.slug] || [];
+        const forDate = list.filter((m) => {
+          const raw = (m.DateUtc || m.date || '').toString().replace(' ', 'T');
+          if (!raw) return false;
+          const matchDate = new Date(raw).toLocaleDateString('sv-SE', { timeZone: 'Europe/Istanbul' });
+          return matchDate === dateStr;
+        });
+        for (const m of forDate) {
+          const dateUtc = m.DateUtc || m.date;
+          const home = m.HomeTeam || m.team1 || m.homeTeam?.name || '-';
+          const away = m.AwayTeam || m.team2 || m.awayTeam?.name || '-';
+          allMatches.push({
+            home: typeof home === 'string' ? home : (home?.name || '-'),
+            away: typeof away === 'string' ? away : (away?.name || '-'),
+            time: formatTime(dateUtc),
+            league: { ...league },
+            date: dateStr,
+          });
+        }
+      }
+    }
   }
 
   let generated = 0;

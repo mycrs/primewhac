@@ -20,7 +20,7 @@ const WhatToWatchButton = () => {
   const watchLabel = isDe ? 'Was soll ich schauen?' : 'Ne İzlesem?';
   
   return (
-    <div className="fixed bottom-24 right-4 z-40 flex flex-col gap-2">
+    <div className="fixed bottom-24 right-4 z-40 hidden flex-col gap-2 md:flex">
       {/* Maç Programı */}
       <AnimatePresence>
         <motion.button

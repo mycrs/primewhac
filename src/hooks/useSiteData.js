@@ -10,6 +10,7 @@ import { withResolvedContactLogo } from '@/constants/brandAssets';
 import { showPublicMaintenanceToastOnce } from '@/utils/supabaseMaintenanceToast';
 import { normalizeGlobalAlert } from '@/utils/normalizeGlobalAlert';
 import { mergePackageQuizContent } from '@/utils/packageRecommendationQuiz';
+import { normalizeContactSettings, parseSiteContentValue } from '@/utils/contactSettings';
 
 export const SITE_DATA_CACHE_KEY = 'site_data_cache_v13';
 const CACHE_KEY = SITE_DATA_CACHE_KEY;
@@ -133,7 +134,7 @@ export const useSiteData = (isAdminAuthenticated, enableSiteContentRealtime = fa
           if (data && Array.isArray(data) && data.length > 0) {
             const dataMap = data.reduce((acc, item) => {
               try {
-                let val = typeof item.value === 'string' ? JSON.parse(item.value) : item.value;
+                let val = parseSiteContentValue(item.value);
                 if (typeof val === 'string') {
                   val = DomainMigrationManager.updateContent(val);
                 } else if (typeof val === 'object' && val !== null) {
@@ -183,14 +184,25 @@ export const useSiteData = (isAdminAuthenticated, enableSiteContentRealtime = fa
                 avrupa: (fromDb.avrupa && fromDb.avrupa.length > 0) ? fromDb.avrupa : (staticDefaultData.packagesData?.avrupa || [])
               };
             }
-            // İletişim Bilgileri: contact_info (admin panel) her yerde contactData olarak kullanılsın
-            mergedData.contactData = { ...(mergedData.contactData || {}), ...(mergedData.contact_info || {}) };
+            // İletişim Bilgileri: contact_info is canonical; contactData remains
+            // a backwards-compatible mirror for older pages/components.
+            mergedData.contactData = normalizeContactSettings({
+              contactInfo: mergedData.contact_info,
+              contactData: mergedData.contactData,
+            });
 
             if (dataMap.iptvFlowDevicesData !== undefined) {
               const norm = normalizeIptvFlowDevicesData(dataMap.iptvFlowDevicesData);
               mergedData.iptvFlowDevicesData = norm ?? staticDefaultData.iptvFlowDevicesData;
             }
           }
+
+          // Also normalize static/fallback data so the public runtime follows
+          // the same boolean and legacy-key rules as the admin screen.
+          mergedData.contactData = normalizeContactSettings({
+            contactInfo: mergedData.contact_info,
+            contactData: mergedData.contactData,
+          });
 
           mergedData.globalAlert = normalizeGlobalAlert({
             ...staticDefaultData.globalAlert,
@@ -237,11 +249,7 @@ export const useSiteData = (isAdminAuthenticated, enableSiteContentRealtime = fa
             const { new: newData, eventType } = payload;
             if ((eventType === 'INSERT' || eventType === 'UPDATE') && newData?.key) {
               let parsedValue = newData.value;
-              try {
-                parsedValue = typeof newData.value === 'string' ? JSON.parse(newData.value) : newData.value;
-              } catch (e) {
-                /* ignore */
-              }
+              parsedValue = parseSiteContentValue(newData.value);
               setSiteData((prev) => {
                 let updated = { ...prev, [newData.key]: parsedValue };
                 if (
@@ -249,7 +257,10 @@ export const useSiteData = (isAdminAuthenticated, enableSiteContentRealtime = fa
                   parsedValue &&
                   typeof parsedValue === 'object'
                 ) {
-                  updated.contactData = { ...(prev.contactData || {}), ...parsedValue };
+                  updated.contactData = normalizeContactSettings({
+                    contactInfo: updated.contact_info,
+                    contactData: updated.contactData,
+                  });
                 }
                 updated = withResolvedContactLogo(updated);
                 setCachedData(updated);

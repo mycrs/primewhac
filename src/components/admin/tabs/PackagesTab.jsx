@@ -6,8 +6,7 @@ import AdminTabWrapper from '@/components/admin/AdminTabWrapper';
 import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
 import { Package as PackageIcon, Smartphone, Check, Edit, Trash2, Plus, X, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/admin/AdminFormControls';
-import { Textarea } from '@/components/admin/AdminFormControls';
+import { Input, Textarea } from '@/components/admin/AdminFormControls';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 

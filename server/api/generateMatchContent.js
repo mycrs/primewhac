@@ -79,7 +79,7 @@ function slugify(str) {
     .replace(/\s+/g, '-');
 }
 
-/** Client ile uyumlu slug: galatasaray-vs-fenerbahce-2025-03-15 */
+/** Client ile uyumlu slug: takim-a-vs-takim-b-2025-03-15 */
 export function makeMatchSlug(home, away, date) {
   const h = slugify(home);
   const a = slugify(away);

@@ -9,7 +9,11 @@ export function formatCustomerRegisterError(raw, status = 0) {
   if (status === 0 || lower.includes('ulaşılamadı') || lower.includes('edge function')) {
     return 'Kayıt sunucusuna ulaşılamadı. İnternet bağlantınızı kontrol edin veya WhatsApp üzerinden bize yazın.';
   }
-  if (lower.includes('turnstile') || lower.includes('güvenlik doğrulaması')) {
+  if (lower.includes('doğrulama kodu hatalı') || lower.includes('kalan deneme')) {
+    // Sunucudan gelen Türkçe mesajı (kalan deneme bilgisiyle) olduğu gibi göster
+    return msg;
+  }
+  if (lower.includes('güvenlik doğrulaması') || lower.includes('doğrulama oturumu') || lower.includes('doğrulama kodu')) {
     return 'Güvenlik doğrulaması başarısız. Sayfayı yenileyip tekrar deneyin.';
   }
   if (lower.includes('service_role') || status === 503) {

@@ -3,6 +3,7 @@ import { AlertTriangle, RefreshCw, Home, WifiOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { checkOnlineStatus } from '@/utils/networkConnectivity';
+import { isDynamicImportError } from '@/utils/lazyWithRetry';
 
 function resolveLocale(propLocale) {
   if (propLocale === 'de' || propLocale === 'tr') return propLocale;
@@ -47,6 +48,21 @@ class ErrorBoundary extends React.Component {
   }
 
   handleReload = () => {
+    if (this.props.onRetry && !isDynamicImportError(this.state.error)) {
+      this.setState({ hasError: false, error: null, errorInfo: null, isOffline: !checkOnlineStatus() });
+      this.props.onRetry();
+      return;
+    }
+
+    // Eski HTML artık bulunmayan bir chunk'a bakıyorsa güncel asset listesini al.
+    // Supabase oturumu localStorage'da kaldığı için bu işlem çıkış yapmaz.
+    if (isDynamicImportError(this.state.error)) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('__app_reload', Date.now().toString());
+      window.location.replace(url.toString());
+      return;
+    }
+
     window.location.reload();
   };
 

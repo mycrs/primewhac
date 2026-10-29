@@ -269,8 +269,8 @@ const M3uConverterPage = ({ siteData }) => {
   
   const seo = {
     title: 'M3U Oluştur - IPTV M3U Listesi Oluşturma Aracı | QruzeTV',
-    description: 'M3U oluştur aracı ile IPTV M3U listesi hazırlayın veya M3U IPTV linki içinden Xtream bilgilerinizi çıkarın. Kaliteli IPTV ve donmayan IPTV deneyimi için rehber.',
-    keywords: ['m3u oluştur', 'iptv m3u listesi', 'm3u iptv linki', 'iptv kurulumu', 'kaliteli iptv', 'donmayan iptv'],
+    description: 'M3U oluştur aracı ile IPTV M3U listesi hazırlayın veya M3U IPTV linki içinden Xtream bilgilerinizi çıkarın. Donmayan yayın için pratik rehber.',
+    keywords: ['m3u oluştur', 'iptv m3u listesi', 'm3u iptv linki', 'iptv kurulumu', 'xtream codes', 'donmayan iptv'],
     canonicalUrl: `${SITE_URL}/m3u-converter`,
     ogImage: contactData?.logoUrl,
   };
@@ -352,7 +352,7 @@ const M3uConverterPage = ({ siteData }) => {
                         Peki, neden sürekli olarak <strong>m3u oluştur</strong> ihtiyacı duyuyoruz? Çünkü her akıllı cihazın veya medya oynatıcısının yayınları okuma şekli farklı olabilir. Etkili bir <strong>iptv kurulumu</strong> yapabilmek için yayın sağlayıcınızdan aldığınız sunucu (DNS), kullanıcı adı ve şifre bilgilerini tek satırlık bir <strong>m3u iptv linki</strong> haline getirmeniz gerekir. Yukarıdaki aracımız, karmaşık bilgileri saniyeler içinde formatlayarak size hazır bir <strong>iptv m3u listesi</strong> bağlantısı sunar. Bu sayede manuel kodlama hatalarının önüne geçilir. Unutmayın ki, mükemmel bir yayın deneyimi sadece doğru bağlantıyı oluşturmakla değil, aynı zamanda <strong>kaliteli iptv</strong> altyapısına sahip olmakla başlar.
                     </p>
                     <p>
-                        Sektördeki en büyük şikayetlerin başında yayın kesintileri gelir. İzleyiciler haklı olarak <strong>donmayan iptv</strong> hizmeti arayışındadır. Kendi başınıza <strong>m3u oluştur</strong> aracımızı kullanarak hazırladığınız linkler, eğer altyapınız sağlamsa size pürüzsüz bir deneyim sunacaktır. <strong>İptv kurulumu</strong> sürecinde doğru cihazı seçmek, internet hızınızı optimize etmek ve güçlü sunuculara sahip bir <strong>kaliteli iptv</strong> sağlayıcısıyla çalışmak, <strong>donmayan iptv</strong> hedefine ulaşmanın temel taşlarıdır. Cihazınıza uygun uygulamayı indirdikten sonra, oluşturduğunuz bu eşsiz <strong>iptv m3u listesi</strong> ile dünyanın dört bir yanındaki içeriklere saniyeler içinde erişebilirsiniz. <Link to="/paketler" className="font-bold underline flex items-center inline-flex gap-1 mt-2 text-[#e50914] hover:text-[#e50914]">Paketler sayfasında kaliteli IPTV seç <ArrowRight className="w-4 h-4" /></Link> ve hemen izlemeye başla!
+                        Sektördeki en büyük şikayetlerin başında yayın kesintileri gelir. İzleyiciler haklı olarak <strong>donmayan iptv</strong> hizmeti arayışındadır. Kendi başınıza <strong>m3u oluştur</strong> aracımızı kullanarak hazırladığınız linkler, eğer altyapınız sağlamsa size pürüzsüz bir deneyim sunacaktır. <strong>İptv kurulumu</strong> sürecinde doğru cihazı seçmek, internet hızınızı optimize etmek ve güçlü sunuculara sahip bir <strong>kaliteli iptv</strong> sağlayıcısıyla çalışmak, <strong>donmayan iptv</strong> hedefine ulaşmanın temel taşlarıdır. Cihazınıza uygun uygulamayı indirdikten sonra, oluşturduğunuz bu eşsiz <strong>iptv m3u listesi</strong> ile dünyanın dört bir yanındaki içeriklere saniyeler içinde erişebilirsiniz. <Link to="/paketler/" className="font-bold underline flex items-center inline-flex gap-1 mt-2 text-[#e50914] hover:text-[#e50914]">Paketler sayfasında kaliteli IPTV seç <ArrowRight className="w-4 h-4" /></Link> ve hemen izlemeye başla!
                     </p>
 
                     <h2 className="text-3xl font-bold mt-16 mb-6 border-b border-white/10 pb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-[#b20710]">M3U Dosyası Nedir? IPTV M3U Listesi Tanımı</h2>
@@ -386,7 +386,7 @@ const M3uConverterPage = ({ siteData }) => {
 
                     <h3 className="text-2xl font-semibold mt-8 mb-4 text-[#e50914]">M3U IPTV Listesi Oluşturma İpuçları</h3>
                     <p>
-                        Sorunsuz bir kurulum için bilgileri kopyalarken başında veya sonunda boşluk bırakmadığınızdan emin olun. HTTP veya HTTPS protokollerinin doğru girildiğine dikkat edin. Oluşturduğunuz listeyi güvenli bir yerde saklayın. En önemlisi, altyapısı zayıf olan ücretsiz veya test yayınları yerine, her zaman premium altyapıya sahip <strong>kaliteli iptv</strong> servislerini tercih edin. Çünkü linkiniz ne kadar doğru formatta olursa olsun, sunucu zayıfsa <strong>donmayan iptv</strong> hayaliniz gerçekleşmeyecektir. <Link to="/paketler" className="font-bold underline text-[#e50914]">Paketler sayfasında paketleri gör</Link> ve size en uygun, güçlü altyapıyı seçin.
+                        Sorunsuz bir kurulum için bilgileri kopyalarken başında veya sonunda boşluk bırakmadığınızdan emin olun. HTTP veya HTTPS protokollerinin doğru girildiğine dikkat edin. Oluşturduğunuz listeyi güvenli bir yerde saklayın. En önemlisi, altyapısı zayıf olan ücretsiz veya test yayınları yerine, her zaman premium altyapıya sahip <strong>kaliteli iptv</strong> servislerini tercih edin. Çünkü linkiniz ne kadar doğru formatta olursa olsun, sunucu zayıfsa <strong>donmayan iptv</strong> hayaliniz gerçekleşmeyecektir. <Link to="/paketler/" className="font-bold underline text-[#e50914]">Paketler sayfasında paketleri gör</Link> ve size en uygun, güçlü altyapıyı seçin.
                     </p>
 
                     <h2 className="text-3xl font-bold mt-16 mb-6 border-b border-white/10 pb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-[#b20710]">M3U Linki Hangi Cihazlarda Kullanılır?</h2>
@@ -430,7 +430,7 @@ const M3uConverterPage = ({ siteData }) => {
 
                     <h3 className="text-2xl font-semibold mt-8 mb-4 text-[#e50914]">M3U ile IPTV Kurulumu İpuçları</h3>
                     <p>
-                        Gerçek bir sinema ve spor keyfi yaşamak için donanımı güçlü cihazlar tercih edin. Televizyonunuzu modem'e Mümkünse Wi-Fi yerine kablo (Ethernet) ile bağlayın. Uygulamanızın önbellek boyutunu (Buffer size) ayarlardan "Large" veya "High" konumuna getirmek anlık dalgalanmalarda yayınların donmasını engeller. Ancak en kritik ipucu; güçlü sunuculara ve yüksek bant genişliğine sahip bir <strong>kaliteli iptv</strong> sağlayıcısı seçmektir. Zayıf bir sunucuya bağlanan <strong>donmayan iptv linki</strong> diye bir şey yoktur. <Link to="/paketler" className="font-bold underline text-[#e50914]">Paketler sayfasında hemen başla</Link> ve profesyonel altyapı ile tanış!
+                        Gerçek bir sinema ve spor keyfi yaşamak için donanımı güçlü cihazlar tercih edin. Televizyonunuzu modem'e Mümkünse Wi-Fi yerine kablo (Ethernet) ile bağlayın. Uygulamanızın önbellek boyutunu (Buffer size) ayarlardan "Large" veya "High" konumuna getirmek anlık dalgalanmalarda yayınların donmasını engeller. Ancak en kritik ipucu; güçlü sunuculara ve yüksek bant genişliğine sahip bir <strong>kaliteli iptv</strong> sağlayıcısı seçmektir. Zayıf bir sunucuya bağlanan <strong>donmayan iptv linki</strong> diye bir şey yoktur. <Link to="/paketler/" className="font-bold underline text-[#e50914]">Paketler sayfasında hemen başla</Link> ve profesyonel altyapı ile tanış!
                     </p>
 
                     <h2 className="text-3xl font-bold mt-16 mb-6 border-b border-white/10 pb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-[#b20710]">M3U Donma Sorunları ve Çözümleri</h2>
@@ -452,7 +452,7 @@ const M3uConverterPage = ({ siteData }) => {
 
                     <h3 className="text-2xl font-semibold mt-8 mb-4 text-[#e50914]">Donmayan IPTV - M3U Linki Önleme İpuçları</h3>
                     <p>
-                        Sorunları oluşmadan engellemenin tek ve en garantili yolu, ucuz ve paylaşımlı merdiven altı sunucular yerine kurumsal hizmet veren <strong>kaliteli iptv</strong> sağlayıcılarıyla çalışmaktır. Altyapısına yatırım yapan, Avrupa lokasyonlu yük dengeleme (load balancer) sistemleri kullanan firmalar size %99.9 Uptime garantisi verebilir. Cihazınızı, internetinizi ve kurulumunuzu ne kadar mükemmelleştirirseniz mükemmelleştirin, sunucu kötüyse yayın donar. Yüksek kapasiteli sunucularımız sayesinde gerçek <strong>donmayan iptv</strong> kalitesini yaşamak için <Link to="/paketler" className="font-bold underline text-[#e50914] flex items-center inline-flex gap-1">Paketler sayfasında uygun paket seç <ArrowRight className="w-4 h-4" /></Link>.
+                        Donma sorununu azaltmak için bağlantı kalitesi, doğru oynatıcı, güncel cihaz yazılımı ve sağlayıcı altyapısı birlikte değerlendirilmelidir. Mümkünse Wi-Fi yerine ethernet kullanın, arka plandaki indirmeleri kapatın ve satın almadan önce yoğun saatlerde test yapın. Uygun seçeneği görmek için <Link to="/paketler/" className="font-bold underline text-[#e50914] flex items-center inline-flex gap-1">paketleri karşılaştırın <ArrowRight className="w-4 h-4" /></Link>.
                     </p>
 
                     <h2 className="text-3xl font-bold mt-16 mb-6 border-b border-white/10 pb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-[#b20710]">M3U Oluştur - Sık Sorulan Sorular</h2>
@@ -469,24 +469,24 @@ const M3uConverterPage = ({ siteData }) => {
 
                     <h3 className="text-2xl font-semibold mt-8 mb-4 text-[#e50914]">M3U Linki Kaç Cihazda Kullanılabilir?</h3>
                     <p>
-                        Oluşturduğunuz <strong>m3u iptv linki</strong> ile <strong>iptv kurulumu</strong> işlemini evinizdeki televizyona, cebinizdeki telefona ve bilgisayarınıza sınırsız sayıda yapabilirsiniz. Linki cihazlara eklemek için herhangi bir sayı kısıtlaması yoktur. Ancak, standart abonelik paketlerinde yayınların "aynı anda (eşzamanlı)" sadece 1 cihazdan izlenebileceğini unutmayın. Aynı anda birden fazla cihazda izlemek isterseniz, ek ekran (multi-connection) destekli <strong>kaliteli iptv</strong> paketlerimize göz atmalısınız.
+                        Oluşturduğunuz <strong>m3u iptv linki</strong> ile <strong>iptv kurulumu</strong> işlemini evinizdeki televizyona, cebinizdeki telefona ve bilgisayarınıza sınırsız sayıda yapabilirsiniz. Linki cihazlara eklemek için herhangi bir sayı kısıtlaması yoktur. Ancak, standart abonelik paketlerinde yayınların "aynı anda (eşzamanlı)" sadece 1 cihazdan izlenebileceğini unutmayın. Aynı anda birden fazla cihazda izlemek isterseniz, ek ekran (multi-connection) destekli paketlerimize göz atmalısınız.
                     </p>
 
                     <h3 className="text-2xl font-semibold mt-8 mb-4 text-[#e50914]">Donmayan IPTV M3U Linki Nasıl Sağlanır?</h3>
                     <p>
-                        Mucizevi bir kod veya özel bir yazılım yoktur; <strong>donmayan iptv</strong> tamamen fiziksel ve teknolojik altyapının gücüne bağlıdır. Yüksek bant genişliği sağlayan veri merkezleri (Data Center), anlık yoğunlukları yönetebilen yedekli sunucular ve güçlü optimizasyon yazılımları bu işin sırrıdır. Sağlam bir altyapıya ek olarak evinizde stabil (kopmayan) bir internet bağlantısı sağladığınızda, dev derbi maçlarında dahi kusursuz bir izleme deneyimi elde edersiniz. Gecikmesiz, yüksek çözünürlüklü ve Premium yayınlar için <Link to="/paketler" className="font-bold underline text-[#e50914]">Paketler sayfasında IPTV satın al</Link>.
+                        Mucizevi bir kod veya özel bir yazılım yoktur; <strong>donmayan iptv</strong> tamamen fiziksel ve teknolojik altyapının gücüne bağlıdır. Yüksek bant genişliği sağlayan veri merkezleri (Data Center), anlık yoğunlukları yönetebilen yedekli sunucular ve güçlü optimizasyon yazılımları bu işin sırrıdır. Sağlam bir altyapıya ek olarak evinizde stabil (kopmayan) bir internet bağlantısı sağladığınızda, dev derbi maçlarında dahi kusursuz bir izleme deneyimi elde edersiniz. Gecikmesiz, yüksek çözünürlüklü ve Premium yayınlar için <Link to="/paketler/" className="font-bold underline text-[#e50914]">Paketler sayfasında IPTV satın al</Link>.
                     </p>
 
                     <h2 className="text-3xl font-bold mt-16 mb-6 border-b border-white/10 pb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-[#b20710]">M3U Oluştur - Hemen Başla</h2>
 
-                    <h3 className="text-2xl font-semibold mt-8 mb-4 text-[#e50914]">Kaliteli IPTV Paketleri</h3>
+                    <h3 className="text-2xl font-semibold mt-8 mb-4 text-[#e50914]">IPTV Paket Seçenekleri</h3>
                     <p>
-                        10.000+ canlı kanal, güncel vizyon filmleri, popüler dijital platform dizileri ve zengin spor içerikleriyle dolu bir dünyayı keşfetmek için doğru yerdesiniz. İster temel paket, ister yüksek çözünürlüklü VIP paketlerimiz olsun, tamamında yüksek performanslı sunucular kullanılarak kesintisiz yayın odaklanılmıştır. <strong>Kaliteli iptv</strong> ayrıcalıklarını evinize taşımak, ailenizle eğlenceli vakit geçirmek için aradığınız her şeyi tek çatı altında topladık. İhtiyacınıza ve bütçenize en uygun opsiyonu belirlemek için detaylı içerik listelerimizi inceleyin.
+                        10.000+ canlı kanal, güncel vizyon filmleri, popüler dijital platform dizileri ve zengin spor içerikleriyle dolu bir dünyayı keşfetmek için doğru yerdesiniz. İster temel paket, ister yüksek çözünürlüklü VIP paketlerimiz olsun, tamamında yüksek performanslı sunucular kullanılarak kesintisiz yayın odaklanılmıştır. Üst düzey ayrıcalıkları evinize taşımak, ailenizle eğlenceli vakit geçirmek için aradığınız her şeyi tek çatı altında topladık. İhtiyacınıza ve bütçenize en uygun opsiyonu belirlemek için detaylı içerik listelerimizi inceleyin.
                     </p>
 
                     <h3 className="text-2xl font-semibold mt-8 mb-4 text-[#e50914]">3 Adımda M3U Oluştur</h3>
                     <p>
-                        Eğlenceye giden yol çok kısa: Birinci adımda size uygun abonelik süresini seçerek kaydınızı tamamlayın. İkinci adımda, size ilettiğimiz bilgileri yukarıdaki <strong>m3u oluştur</strong> aracına girerek tek tıkla <strong>m3u iptv linki</strong> bağlantınızı hazırlayın. Üçüncü ve son adımda ise, oluşturduğunuz bu benzersiz bağlantıyı cihazınıza yükleyerek saniyeler içinde <strong>iptv kurulumu</strong> işlemini bitirin. Vakit kaybetmeyin, hemen şimdi <Link to="/paketler" className="font-bold underline text-[#e50914] flex items-center inline-flex gap-1">Paketler sayfasında kaliteli IPTV seç <ArrowRight className="w-4 h-4" /></Link> ve donmayan, yüksek çözünürlüklü televizyon deneyiminin tadını doyasıya çıkarın!
+                        Eğlenceye giden yol çok kısa: Birinci adımda size uygun abonelik süresini seçerek kaydınızı tamamlayın. İkinci adımda, size ilettiğimiz bilgileri yukarıdaki <strong>m3u oluştur</strong> aracına girerek tek tıkla <strong>m3u iptv linki</strong> bağlantınızı hazırlayın. Üçüncü ve son adımda ise, oluşturduğunuz bu benzersiz bağlantıyı cihazınıza yükleyerek saniyeler içinde <strong>iptv kurulumu</strong> işlemini bitirin. Vakit kaybetmeyin, hemen şimdi <Link to="/paketler/" className="font-bold underline text-[#e50914] flex items-center inline-flex gap-1">Paketler sayfasında size uygun paketi seçin <ArrowRight className="w-4 h-4" /></Link> ve donmayan, yüksek çözünürlüklü televizyon deneyiminin tadını doyasıya çıkarın!
                     </p>
                 </div>
             </div>
@@ -552,7 +552,7 @@ const M3uConverterPage = ({ siteData }) => {
                       Paketleri inceleyin veya ücretsiz test ile hemen deneyin.
                     </p>
                     <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap md:justify-start">
-                      <Link to="/paketler" className="inline-flex sm:w-auto">
+                      <Link to="/paketler/" className="inline-flex sm:w-auto">
                         <Button className="h-14 w-full min-w-[200px] rounded-2xl bg-gradient-to-r from-[#e50914] to-[#b20710] px-8 text-base font-bold text-white shadow-lg transition hover:from-[#e50914] hover:to-[#b20710] sm:w-auto">
                           IPTV paketlerine git
                         </Button>
@@ -564,7 +564,7 @@ const M3uConverterPage = ({ siteData }) => {
                       >
                         Ücretsiz test et
                       </Button>
-                      <Link to="/sss" className="inline-flex sm:w-auto">
+                      <Link to="/sss/" className="inline-flex sm:w-auto">
                         <Button
                           variant="ghost"
                           className="h-14 w-full text-[#e50914] hover:bg-white/5 hover:text-[#e50914] sm:w-auto"
@@ -572,7 +572,7 @@ const M3uConverterPage = ({ siteData }) => {
                           SSS →
                         </Button>
                       </Link>
-                      <Link to="/kurulum" className="inline-flex sm:w-auto">
+                      <Link to="/kurulum/" className="inline-flex sm:w-auto">
                         <Button
                           variant="ghost"
                           className="h-14 w-full text-[#e50914] hover:bg-white/5 hover:text-[#e50914] sm:w-auto"

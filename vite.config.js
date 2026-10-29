@@ -38,16 +38,16 @@ Disallow: /
 	};
 }
 import prerender from '@prerenderer/rollup-plugin';
-import { prerenderRoutes, prerenderSeoByRoute } from './src/prerenderSeo.js';
+import { buildSeoExtras, prerenderRoutes, prerenderSeoByRoute } from './src/prerenderSeo.js';
 import { getPrerenderJsonLdSchemas, renderJsonLdScriptsHtml } from './src/prerenderSchema.js';
 import inlineEditPlugin from './plugins/visual-editor/vite-plugin-react-inline-editor.js';
 import editModeDevPlugin from './plugins/visual-editor/vite-plugin-edit-mode.js';
 import iframeRouteRestorationPlugin from './plugins/vite-plugin-iframe-route-restoration.js';
 import selectionModePlugin from './plugins/selection-mode/vite-plugin-selection-mode.js';
-import { geoHeadMetaHtml } from './src/constants/siteGeo.js';
+import { getSiteGeoForLang } from './src/constants/siteGeo.js';
 
 const isDev = process.env.NODE_ENV !== 'production';
-const SITE_URL = process.env.VITE_SITE_URL || 'https://streamtr.eu';
+const SITE_URL = process.env.VITE_SITE_URL || 'https://cineverse.pro';
 
 function absoluteUrl(pathname) {
 	return `${SITE_URL}${pathname === '/' ? '/' : pathname}`;
@@ -61,13 +61,34 @@ function escapeHtml(value) {
 		.replace(/>/g, '&gt;');
 }
 
+function normalizeRobotsContent(value) {
+	const robots = String(value || 'index, follow').trim();
+	if (/\bnoindex\b/i.test(robots)) return robots;
+	const directives = robots.split(',').map((item) => item.trim()).filter(Boolean);
+	[
+		'index',
+		'follow',
+		'max-image-preview:large',
+		'max-snippet:-1',
+		'max-video-preview:-1',
+	].forEach((directive) => {
+		if (!directives.some((item) => item.toLowerCase() === directive)) directives.push(directive);
+	});
+	return directives.join(', ');
+}
+
+function extractRenderedMetaContent(html, attribute, value) {
+	const tag = html.match(new RegExp(`<meta\\b(?=[^>]*\\b${attribute}=["']${value}["'])[^>]*>`, 'i'))?.[0];
+	return tag?.match(/\bcontent=["']([^"']+)["']/i)?.[1] || '';
+}
+
 function stripManagedSeoHead(html) {
 	return html
 		.replace(/<title\b[^>]*>[\s\S]*?<\/title>/i, '')
-		.replace(/<meta\b[^>]*(?:name|property)=["'](?:description|robots|author|geo\.region|geo\.placename|content-language|og:type|og:title|og:description|og:url|og:site_name|og:image|og:image:width|og:image:height|og:locale|og:locale:alternate|twitter:card|twitter:title|twitter:description|twitter:image)["'][^>]*>\s*/gi, '')
+		.replace(/<meta\b[^>]*(?:name|property)=["'](?:description|robots|author|geo\.region|geo\.placename|content-language|og:type|og:title|og:description|og:url|og:site_name|og:image|og:image:secure_url|og:image:alt|og:image:width|og:image:height|og:locale|og:locale:alternate|twitter:card|twitter:title|twitter:description|twitter:image|twitter:image:alt|twitter:site)["'][^>]*>\s*/gi, '')
 		.replace(/<meta\b[^>]*http-equiv=["']content-language["'][^>]*>\s*/gi, '')
 		.replace(/<link\b[^>]*rel=["']canonical["'][^>]*>\s*/gi, '')
-		.replace(/<link\b[^>]*rel=["']alternate["'][^>]*hreflang=["'](?:tr|de|x-default)["'][^>]*>\s*/gi, '');
+		.replace(/<link\b[^>]*rel=["']alternate["'][^>]*hreflang=["'](?:tr|de(?:-[A-Za-z]{2})?|x-default)["'][^>]*>\s*/gi, '');
 }
 
 function stripJsonLdScripts(html) {
@@ -87,36 +108,90 @@ function injectPrerenderSeoHead(html, route) {
 	const canonicalUrl = absoluteUrl(seo.canonicalPath);
 	const description = escapeHtml(seo.description);
 	const title = escapeHtml(seo.title);
-	const geoTags = geoHeadMetaHtml(seo.lang);
+	const renderedOgImage = extractRenderedMetaContent(html, 'property', 'og:image');
+	const renderedOgType = extractRenderedMetaContent(html, 'property', 'og:type');
+	const ogImage = renderedOgImage || `${SITE_URL}/default-og-image.jpg`;
+	const ogType = renderedOgType || 'website';
+	// Çevrilmemiş /de/blog yazıları noHreflang: tr/de/x-default alternate basılmaz.
+	const hreflangLinks = seo.noHreflang
+		? ''
+		: `
+    <link data-prerender-head="true" rel="alternate" hreflang="tr" href="${absoluteUrl(seo.hreflangTr)}">
+    ${seo.hreflangDe ? `<link data-prerender-head="true" rel="alternate" hreflang="de" href="${absoluteUrl(seo.hreflangDe)}">` : ''}
+    ${seo.hreflangXDefault ? `<link data-prerender-head="true" rel="alternate" hreflang="x-default" href="${absoluteUrl(seo.hreflangXDefault)}">` : ''}`;
 	const tags = `
-    <title>${title}</title>
-    <meta name="description" content="${description}">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="QruzeTV">
-    ${geoTags}
-    <link rel="canonical" href="${canonicalUrl}">
-    <link rel="alternate" hreflang="tr" href="${absoluteUrl(seo.hreflangTr)}">
-    ${seo.hreflangDe ? `<link rel="alternate" hreflang="de" href="${absoluteUrl(seo.hreflangDe)}">` : ''}
-    <link rel="alternate" hreflang="x-default" href="${absoluteUrl(seo.xDefault)}">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="${title}">
-    <meta property="og:description" content="${description}">
-    <meta property="og:url" content="${canonicalUrl}">
-    <meta property="og:site_name" content="QruzeTV">
-    <meta property="og:image" content="${SITE_URL}/default-og-image.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="${seo.locale}">
-    <meta property="og:locale:alternate" content="${seo.alternateLocale}">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="${title}">
-    <meta name="twitter:description" content="${description}">
-    <meta name="twitter:image" content="${SITE_URL}/default-og-image.jpg">`;
+    <title data-prerender-head="true">${title}</title>
+    <meta data-prerender-head="true" name="description" content="${description}">
+    <meta data-prerender-head="true" name="robots" content="${escapeHtml(normalizeRobotsContent(seo.robots))}">
+    <meta data-prerender-head="true" name="author" content="QruzeTV">
+    <link data-prerender-head="true" rel="canonical" href="${canonicalUrl}">${hreflangLinks}
+    <meta data-prerender-head="true" property="og:type" content="${escapeHtml(ogType)}">
+    <meta data-prerender-head="true" property="og:title" content="${title}">
+    <meta data-prerender-head="true" property="og:description" content="${description}">
+    <meta data-prerender-head="true" property="og:url" content="${canonicalUrl}">
+    <meta data-prerender-head="true" property="og:site_name" content="QruzeTV">
+    <meta data-prerender-head="true" property="og:image" content="${escapeHtml(ogImage)}">
+    <meta data-prerender-head="true" property="og:image:secure_url" content="${escapeHtml(ogImage)}">
+    <meta data-prerender-head="true" property="og:image:alt" content="${title}">
+    <meta data-prerender-head="true" property="og:image:width" content="1200">
+    <meta data-prerender-head="true" property="og:image:height" content="630">
+    <meta data-prerender-head="true" property="og:locale" content="${seo.locale}">
+    <meta data-prerender-head="true" property="og:locale:alternate" content="${seo.alternateLocale}">
+    <meta data-prerender-head="true" name="twitter:card" content="summary_large_image">
+    <meta data-prerender-head="true" name="twitter:title" content="${title}">
+    <meta data-prerender-head="true" name="twitter:description" content="${description}">
+    <meta data-prerender-head="true" name="twitter:image" content="${escapeHtml(ogImage)}">
+    <meta data-prerender-head="true" name="twitter:image:alt" content="${title}">`;
 
 	const stripped = stripManagedSeoHead(html);
+	const pageHtmlLang = getSiteGeoForLang(seo.lang).htmlLang;
 	return stripped
-		.replace(/<html\b[^>]*>/i, `<html lang="${seo.lang}">`)
+		.replace(/<html\b[^>]*>/i, `<html lang="${pageHtmlLang}">`)
 		.replace(/(<meta\s+name=["']theme-color["'][^>]*>\s*)/i, `$1${tags}\n`);
+}
+
+function sanitizePrerenderArticleHtml(value) {
+	let html = String(value || '');
+	const body = html.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i);
+	if (body?.[1]) html = body[1];
+	return html
+		.replace(/<!doctype[^>]*>/gi, '')
+		.replace(/<head\b[\s\S]*?<\/head>/gi, '')
+		.replace(/<\/?(?:html|body)\b[^>]*>/gi, '')
+		.replace(/<script\b[\s\S]*?<\/script>/gi, '')
+		.replace(/\son\w+\s*=\s*(["'])[\s\S]*?\1/gi, '')
+		.replace(/\s(?:href|src)\s*=\s*(["'])\s*javascript:[\s\S]*?\1/gi, '')
+		.replace(/<h1(\s[^>]*)?>/gi, '<h2$1>')
+		.replace(/<\/h1>/gi, '</h2>')
+		.replace(/QruzeHD|KaliteliIPTV|PrimeWatch TV/gi, 'QruzeTV');
+}
+
+function getPrerenderBlogFallback(route) {
+	const match = route.match(/^\/(de\/)?blog\/([^/]+)$/);
+	if (!match) return '';
+	const post = (buildSeoExtras.blogPosts || []).find((item) => item?.slug === match[2]);
+	if (!post) return '';
+	const raw = match[1] ? post.content_de : post.content;
+	return sanitizePrerenderArticleHtml(raw);
+}
+
+function ensurePrerenderBodyContent(html, route) {
+	const seo = prerenderSeoByRoute[route];
+	if (!seo || /\bnoindex\b/i.test(String(seo.robots || ''))) return html;
+	const bodyHtml = html.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] || '';
+	if (/<h1\b/i.test(bodyHtml)) return html;
+
+	const article = getPrerenderBlogFallback(route);
+	const isDe = seo.lang === 'de';
+	const resources = isDe
+		? `<p><a href="/de/test/">Kostenlos testen</a> · <a href="/de/einrichtung/">Einrichtung</a> · <a href="/de/sss/">FAQ</a></p>`
+		: `<p><a href="/test/">Ücretsiz test</a> · <a href="/kurulum/">Kurulum rehberleri</a> · <a href="/sss/">Sık sorulan sorular</a></p>`;
+	const fallback = `<main data-prerender-fallback="true" lang="${seo.lang}" style="max-width:960px;margin:96px auto 48px;padding:24px;color:#f8fafc;background:#0a0a0a">
+      <h1 style="font-size:clamp(2rem,5vw,4rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(seo.title)}</h1>
+      <p style="font-size:1.125rem;line-height:1.7;color:#cbd5e1">${escapeHtml(seo.description)}</p>
+      ${article ? `<article>${article}</article>` : resources}
+    </main>`;
+	return html.replace(/(<div\b[^>]*\bid=["']root["'][^>]*>)/i, `$1${fallback}`);
 }
 
 const configHorizonsViteErrorHandler = `
@@ -278,38 +353,44 @@ if (window.navigation && window.self !== window.top) {
 const addTransformIndexHtml = {
 	name: 'add-transform-index-html',
 	transformIndexHtml(html) {
-		const tags = [
-			{
-				tag: 'script',
-				attrs: { type: 'module' },
-				children: configHorizonsRuntimeErrorHandler,
-				injectTo: 'head',
-			},
-			{
-				tag: 'script',
-				attrs: { type: 'module' },
-				children: configHorizonsViteErrorHandler,
-				injectTo: 'head',
-			},
-			{
-				tag: 'script',
-				attrs: {type: 'module'},
-				children: configHorizonsConsoleErrroHandler,
-				injectTo: 'head',
-			},
-			{
-				tag: 'script',
-				attrs: { type: 'module' },
-				children: configWindowFetchMonkeyPatch,
-				injectTo: 'head',
-			},
-			{
-				tag: 'script',
-				attrs: { type: 'module' },
-				children: configNavigationHandler,
-				injectTo: 'head',
-			},
-		];
+		const tags = [];
+
+		// Horizons dev/editor handler'lari yalnizca dev modunda enjekte edilir;
+		// prod HTML'ine basilamaz (gereksiz inline script + window.onerror/fetch patch'i).
+		if (isDev) {
+			tags.push(
+				{
+					tag: 'script',
+					attrs: { type: 'module' },
+					children: configHorizonsRuntimeErrorHandler,
+					injectTo: 'head',
+				},
+				{
+					tag: 'script',
+					attrs: { type: 'module' },
+					children: configHorizonsViteErrorHandler,
+					injectTo: 'head',
+				},
+				{
+					tag: 'script',
+					attrs: {type: 'module'},
+					children: configHorizonsConsoleErrroHandler,
+					injectTo: 'head',
+				},
+				{
+					tag: 'script',
+					attrs: { type: 'module' },
+					children: configWindowFetchMonkeyPatch,
+					injectTo: 'head',
+				},
+				{
+					tag: 'script',
+					attrs: { type: 'module' },
+					children: configNavigationHandler,
+					injectTo: 'head',
+				},
+			);
+		}
 
 		if (!isDev && process.env.TEMPLATE_BANNER_SCRIPT_URL && process.env.TEMPLATE_REDIRECT_URL) {
 			tags.push(
@@ -358,13 +439,15 @@ export default defineConfig({
 						routes: prerenderRoutes,
 						renderer: '@prerenderer/renderer-puppeteer',
 						rendererOptions: {
-							renderAfterTime: 4000,
+							// Supabase destekli sayfaların yükleme kabuğu yerine gerçek içeriğini yakala.
+							renderAfterTime: 12000,
 							timeout: 120000,
 						},
 						postProcess(renderedRoute) {
 							let html = stripJsonLdScripts(renderedRoute.html);
 							html = injectPrerenderSeoHead(html, renderedRoute.route);
 							html = injectPrerenderJsonLd(html, renderedRoute.route);
+							html = ensurePrerenderBodyContent(html, renderedRoute.route);
 							renderedRoute.html = html;
 							return renderedRoute;
 						},
@@ -404,7 +487,15 @@ export default defineConfig({
 				'@babel/traverse',
 				'@babel/generator',
 				'@babel/types'
-			]
+			],
+			output: {
+				manualChunks: {
+					'vendor-react': ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+					'vendor-motion': ['framer-motion'],
+					'vendor-supabase': ['@supabase/supabase-js'],
+					'vendor-carousel': ['embla-carousel-react', 'embla-carousel-autoplay'],
+				}
+			}
 		}
 	}
 });

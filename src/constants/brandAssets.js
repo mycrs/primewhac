@@ -2,8 +2,8 @@ const trim = (v) => (typeof v === 'string' ? v.trim() : '');
 
 const envLogo = trim(import.meta.env?.VITE_BRAND_LOGO_URL);
 
-/** Same-origin default (public/logo.png). Override: VITE_BRAND_LOGO_URL */
-export const BRAND_LOGO_URL = envLogo || '/logo.png';
+/** Same-origin default (public/logo-96.webp). Override: VITE_BRAND_LOGO_URL */
+export const BRAND_LOGO_URL = envLogo || '/logo-96.webp';
 
 const LEGACY_BROKEN_LOGO_RE =
   /horizons-cdn\.hostinger\.com|hostinger-horizons-assets-prod/i;

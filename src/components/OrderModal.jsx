@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Check, AppWindow, MessageCircle } from 'lucide-react';
+import { Check, AppWindow, ShoppingCart, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useOrderModal } from '@/contexts/OrderModalContext';
+import { openSupportWhatsApp, openSupportTelegram } from '@/utils/supportChannel';
 import { useSiteData } from '@/hooks/useSiteData';
 import { useToast } from '@/components/ui/use-toast';
 import TurkeyPackageWhatsAppWarningDialog from '@/components/packages/TurkeyPackageWhatsAppWarningDialog';
@@ -55,6 +56,7 @@ const OrderModal = ({ contactData, packagesData }) => {
     [siteData?.iptvFlowDevicesData]
   );
   const needsTvBrand = tvBrandDeviceIds.includes(selectedDevice);
+  const isTelegramOrder = (contactData?.order_channel || siteData?.contact_info?.order_channel) === 'telegram';
 
   // Combine all packages for the dropdown if needed
   const allPackages = useMemo(() => {
@@ -156,8 +158,14 @@ const OrderModal = ({ contactData, packagesData }) => {
 
     const tvBrandLine = needsTvBrand && tvBrand ? `📺 *TV Marka/Model:* ${tvBrand}` : '';
 
+    const isTelegramOrder = (contactData?.order_channel || siteData?.contact_info?.order_channel) === 'telegram';
+
     // 2. Format Message - TR or DE based on current language
     const currency = isDe ? '€' : 'TL';
+    const channelCallout = isTelegramOrder
+      ? (isDe ? 'Bitte antworten Sie über Telegram.' : 'Lütfen Telegram üzerinden dönüş yapın.')
+      : (isDe ? 'Bitte rufen Sie mich an oder antworten Sie über WhatsApp.' : 'Lütfen beni arayın veya WhatsApp\'tan cevap verin.');
+
     const message = isDe
       ? `Hallo! 👋
 
@@ -168,7 +176,7 @@ ${livingLine ? `${livingLine}\n\n` : ''}📦 *Paket:* ${packageDisplay}
 📱 *Gerät:* ${deviceName}
 ${tvBrandLine ? `${tvBrandLine}\n` : ''}👤 *Benutzername:* ${currentUsername}
 ${notes ? `📝 *Notiz:* ${notes}\n` : ''}
-Bitte rufen Sie mich an oder antworten Sie über WhatsApp.
+${channelCallout}
 
 Danke! 🙏`
       : `Selam! 👋
@@ -180,25 +188,26 @@ ${livingLine ? `${livingLine}\n\n` : ''}📦 *Paket:* ${packageDisplay}
 📱 *Cihaz:* ${deviceName}
 ${tvBrandLine ? `${tvBrandLine}\n` : ''}👤 *Kullanıcı Adı:* ${currentUsername}
 ${notes ? `📝 *Özel Not:* ${notes}\n` : ''}
-Lütfen beni arayın veya WhatsApp'tan cevap verin.
+${channelCallout}
 
 Teşekkürler! 🙏`;
 
-    // 3. Encode and Redirect - Öncelik: Admin panel > .env VITE_WHATSAPP_PHONE
-    const encodedMessage = encodeURIComponent(message);
-    const fromAdmin = String(
-      contactData?.whatsapp ?? siteData?.contact_info?.whatsapp ?? siteData?.contactData?.whatsapp ?? ''
-    ).replace(/\D/g, '');
-    const waNum = fromAdmin || String(import.meta.env.VITE_WHATSAPP_PHONE || '').replace(/\D/g, '');
-    if (!waNum) {
-      toast({ variant: 'destructive', title: 'WhatsApp Numarası Eksik', description: 'Lütfen admin panelinden İletişim Bilgileri veya Sistem Ayarları bölümüne WhatsApp numarası ekleyin.' });
+    // 3. Gönder — Admin ayarına göre Telegram veya WhatsApp
+    const opened = isTelegramOrder
+      ? openSupportTelegram({ siteData, contactData, message })
+      : openSupportWhatsApp({ siteData, contactData, message });
+
+    if (!opened) {
+      toast({
+        variant: 'destructive',
+        title: 'Şu an bağlanılamadı',
+        description: isTelegramOrder
+          ? 'Telegram bağlantısı kurulamadı. Lütfen admin panelinden Telegram kullanıcı adını kontrol edin.'
+          : 'WhatsApp bağlantısı kurulamadı. Lütfen birazdan tekrar deneyin veya info@qruzetv.com adresine yazın.',
+      });
       return;
     }
-    const url = `https://api.whatsapp.com/send/?phone=${waNum}&text=${encodedMessage}`;
-    
-    // Open in new tab immediately
-    window.open(url, '_blank');
-    
+
     // Close modal immediately
     closeModal();
   };
@@ -455,12 +464,27 @@ Teşekkürler! 🙏`;
                 onClick={requestWhatsApp}
                 disabled={!isFormValid}
                 className={cn(
-                  "relative h-12 w-full overflow-hidden bg-green-600 text-sm font-bold text-white shadow-lg transition-all hover:bg-green-700 sm:h-12",
+                  "relative h-12 w-full overflow-hidden text-sm font-bold text-white shadow-lg transition-all sm:h-12",
+                  isTelegramOrder
+                    ? "bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 shadow-sky-950/40"
+                    : "bg-green-600 hover:bg-green-700 shadow-green-950/30",
                   !isFormValid && "cursor-not-allowed opacity-50",
                 )}
             >
-                <MessageCircle className="mr-2 h-5 w-5 shrink-0 sm:h-4 sm:w-4" />
-                <span>WhatsApp ile İste</span>
+                {isTelegramOrder ? (
+                  <Send className="mr-2 h-4 w-4 shrink-0 -translate-x-0.5" />
+                ) : (
+                  <ShoppingCart className="mr-2 h-5 w-5 shrink-0 sm:h-4 sm:w-4" />
+                )}
+                <span>
+                  {isTest
+                    ? (isTelegramOrder
+                        ? (isDe ? 'Telegram ile Test Talebi Gönder' : 'Telegram ile Test Talebi Gönder')
+                        : (isDe ? 'Testanfrage über WhatsApp' : 'Test Talebini Gönder'))
+                    : (isTelegramOrder
+                        ? (isDe ? 'Telegram ile Sipariş Ver' : 'Telegram ile Sipariş Ver')
+                        : (isDe ? 'Über WhatsApp bestellen' : 'WhatsApp ile Sipariş Ver'))}
+                </span>
             </Button>
         </div>
       </DialogContent>

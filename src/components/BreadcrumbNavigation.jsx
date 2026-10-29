@@ -12,9 +12,10 @@ const BreadcrumbNavigation = ({ customCrumbs, className, listClassName, tone = '
   const cinemaTone = isCinema || isCinemaBlue;
   const location = useLocation();
   const siteUrl = SITE_URL;
+  const isDe = location.pathname === '/de' || location.pathname.startsWith('/de/');
   
   // Generate crumbs from path if no custom crumbs provided
-  const pathnames = location.pathname.split('/').filter(x => x);
+  const pathnames = location.pathname.split('/').filter(x => x).filter((x, index) => !(isDe && index === 0 && x === 'de'));
   
   let crumbs = [];
   
@@ -22,9 +23,9 @@ const BreadcrumbNavigation = ({ customCrumbs, className, listClassName, tone = '
     crumbs = customCrumbs;
   } else {
     // Default Home crumb
-    crumbs.push({ name: 'Ana Sayfa', path: '/' });
+    crumbs.push({ name: isDe ? 'Startseite' : 'Ana Sayfa', path: isDe ? '/de/' : '/' });
     
-    let currentPath = '';
+    let currentPath = isDe ? '/de' : '';
     pathnames.forEach((name, index) => {
       currentPath += `/${name}`;
       const isLast = index === pathnames.length - 1;
@@ -39,6 +40,13 @@ const BreadcrumbNavigation = ({ customCrumbs, className, listClassName, tone = '
       if (name === 'about') formattedName = 'Hakkımızda';
       if (name === 'blog') formattedName = 'Blog';
       if (name === 'packages') formattedName = 'Paketler';
+      if (isDe && name === 'pakete') formattedName = 'Pakete';
+      if (isDe && name === 'kanale') formattedName = 'Kanäle';
+      if (isDe && name === 'einrichtung') formattedName = 'Einrichtung';
+      if (isDe && name === 'uber-uns') formattedName = 'Über uns';
+      if (isDe && name === 'bewertungen') formattedName = 'Bewertungen';
+      if (isDe && name === 'sss') formattedName = 'Häufige Fragen';
+      if (isDe && name === 'test') formattedName = 'Kostenloser Test';
       
       crumbs.push({
         name: formattedName,

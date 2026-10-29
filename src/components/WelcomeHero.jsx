@@ -21,7 +21,7 @@ const WelcomeHero = ({ siteData }) => {
   const description = heroConfig.description || siteTexts.welcomeSubtitle || "10.000+ canlı kanal ve zengin film/dizi keyfi tek platformda.";
 
   return (
-    <div className="w-full min-h-[60vh] bg-[#0a0a0a] relative flex items-center justify-center border-b border-[#2a2a40] overflow-hidden">
+    <div className="w-full min-h-[60vh] bg-[#0a0a0a] relative flex items-center justify-center border-b border-[#262626] overflow-hidden">
        {/* Simple gradient background to align with new theme */}
        <div className="absolute inset-0 bg-gradient-to-br from-[#e50914]/40 via-[#e50914]/20 to-[#141414] z-0"></div>
        

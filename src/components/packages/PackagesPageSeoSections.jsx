@@ -5,11 +5,61 @@ import PackagesRegionInfo from '@/components/packages/PackagesRegionInfo';
 import PackageTierSeoSection from '@/components/packages/PackageTierSeoSection';
 import { resolvePackagesPageContent } from '@/utils/packagePageContent';
 
-const PackagesPageSeoSections = ({ siteData, contactData, lang = 'tr' }) => {
+const SEO_CONTENT_DE = {
+  whatIsIptv: {
+    title: 'Was ist ein IPTV-Paket?',
+    paragraphs: [
+      'Ein IPTV-Paket überträgt Fernsehprogramme und abrufbare Inhalte über die Internetverbindung. Statt Satellitenschüssel oder Kabelanschluss verwenden Sie eine kompatible App auf Smart TV, Fire TV, Smartphone, Tablet oder Computer.',
+      'Für die Auswahl sind nicht nur Senderzahl und Preis wichtig. Entscheidend sind Gerätekompatibilität, Nutzungsregion, Bildqualität, Laufzeit und eine stabile Verbindung. Prüfen Sie das Angebot deshalb vor der Buchung auf Ihrem eigenen Gerät.',
+      'In Deutschland sollte ein passendes Paket transparente Konditionen, verständliche Einrichtungshilfen und erreichbaren Support bieten. Für HD empfiehlt sich eine stabile Leitung ab etwa 16 Mbit/s; für 4K sollte am Abspielgerät deutlich mehr Bandbreite ankommen.'
+    ]
+  },
+  featuresDetail: {
+    title: 'Laufzeiten und Paketmerkmale im Überblick',
+    intro: 'Wählen Sie die Laufzeit nach Ihrem tatsächlichen Bedarf. Ein kostenloser Test hilft, App, Netzwerk und Bildqualität vor einer längeren Buchung zu prüfen.',
+    sections: [
+      { title: '3-Monats-Pakete', content: 'Geeignet zum Einstieg oder für zeitlich begrenzte Nutzung. Sie bleiben flexibel und können die Qualität über mehrere Wochen im Alltag beurteilen.' },
+      { title: '6-Monats-Pakete', content: 'Eine ausgewogene Option für Nutzer, die bereits wissen, dass Gerät und Internetverbindung zuverlässig funktionieren.' },
+      { title: '12-Monats-Pakete', content: 'Für regelmäßige Nutzung gedacht. Vergleichen Sie vorab Leistungsumfang, Support und effektiven Monatspreis.' }
+    ]
+  },
+  whyUs: {
+    title: 'Worauf es bei einem IPTV-Paket ankommt',
+    description: 'Ein gutes Nutzungserlebnis entsteht aus stabiler Technik, einfacher Einrichtung und nachvollziehbarem Support.',
+    items: [
+      { title: 'Stabile Wiedergabe', content: 'Optimierte Streams und die richtige App-Auswahl reduzieren Ladezeiten und Unterbrechungen.' },
+      { title: 'Sichere Abwicklung', content: 'Klare Paketangaben, geschützte Datenübertragung und transparente Bestellschritte schaffen Vertrauen.' },
+      { title: 'Hilfe bei der Einrichtung', content: 'Deutschsprachige Geräte-Anleitungen führen durch App-Installation, Anmeldung und Fehlerdiagnose.' }
+    ]
+  },
+  howToChoose: {
+    title: 'Welches IPTV-Paket passt zu mir?',
+    paragraphs: [
+      'Beginnen Sie mit dem Gerät: Samsung und LG nutzen andere App-Stores als Android TV oder Fire TV. Prüfen Sie anschließend, ob Sie hauptsächlich Live-TV, türkische Sender, Sport oder abrufbare Inhalte sehen möchten.',
+      'Berücksichtigen Sie die Zahl gleichzeitig genutzter Geräte und testen Sie möglichst per LAN oder stabilem 5-GHz-WLAN. Eine lange Laufzeit lohnt sich erst, wenn die Wiedergabe in Ihrem Heimnetz zuverlässig ist.'
+    ]
+  },
+  usageTips: {
+    title: 'Tipps für störungsfreies Streaming',
+    intro: 'Mit wenigen Kontrollen verbessern Sie Stabilität und Bildqualität:',
+    items: [
+      'Smart TV oder Streaming-Box nach Möglichkeit per LAN verbinden.',
+      'Router, Betriebssystem und Player-App regelmäßig aktualisieren.',
+      'Parallele Downloads und Cloud-Backups während des Streamings begrenzen.',
+      'Bei Störungen einen zweiten Player oder ein zweites Gerät zum Vergleich testen.'
+    ],
+    outro: 'Unsere Geräte-Anleitungen zeigen die passenden Schritte für Smart TV, Fire TV, Android, iOS, Windows und Mac.'
+  },
+  faq: {
+    title: 'Fragen zu Paketen und Einrichtung',
+    description: 'Antworten zu Testzugang, Geräten, Laufzeiten, Streaming-Qualität und Einrichtung finden Sie in unserem deutschsprachigen Hilfebereich.'
+  }
+};
+
+const PackagesPageSeoSections = ({ siteData, lang = 'tr' }) => {
   const isDe = lang === 'de';
   const content = resolvePackagesPageContent(siteData);
-  const seo = content.seo || {};
-  const whatsapp = contactData?.whatsapp?.replace(/[^0-9]/g, '') || '';
+  const seo = isDe ? SEO_CONTENT_DE : (content.seo || {});
   const comparePath = isDe ? '/de/vergleich' : '/karsilastirma';
   const compareLabel = isDe ? 'Pakete vergleichen' : 'Paketleri Karşılaştır';
   const testPath = isDe ? '/de/test' : '/test';
@@ -143,17 +193,15 @@ const PackagesPageSeoSections = ({ siteData, contactData, lang = 'tr' }) => {
                   <Info className="w-5 h-5" />
                   {isDe ? 'Alle Fragen ansehen' : 'Tüm Soruları İncele'}
                 </Link>
-                {whatsapp && (
-                  <a
-                    href={`https://wa.me/${whatsapp}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary transition-all flex items-center justify-center gap-2"
-                  >
-                    <Wrench className="w-5 h-5" />
-                    WhatsApp'tan Destek Al
-                  </a>
-                )}
+                {/* wa.me CTA'sı kaldırıldı — numara statik HTML'de açıkta kalıyordu.
+                    Aynı tasarımla kurulum rehberine yönlendiriyoruz. */}
+                <Link
+                  to={isDe ? '/de/einrichtung/' : '/kurulum/'}
+                  className="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary transition-all flex items-center justify-center gap-2"
+                >
+                  <Wrench className="w-5 h-5" />
+                  {isDe ? 'Einrichtungshilfe' : 'Kurulum Desteği'}
+                </Link>
               </div>
             </div>
           </div>

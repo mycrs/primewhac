@@ -152,7 +152,7 @@ const DetailedContentSection = () => {
           <motion.div variants={itemVariants} className="mt-12 p-8 bg-white/5 rounded-2xl border border-white/10 text-center">
             <h4 className="text-xl font-bold text-white mb-4">Sınırları Kaldırmaya Hazır Mısınız?</h4>
             <p className="text-slate-400 mb-6">
-              Siz de on binlerce mutlu kullanıcımız arasına katılın, kaliteli iptv ve donmayan iptv teknolojisi ile televizyonunuzu baştan yaratın. En iyi diziler iptv ve 4k film iptv içeriklerine anında ulaşın.
+              Siz de on binlerce mutlu kullanıcımız arasına katılın, donmayan yayın teknolojisiyle televizyonunuzu baştan yaratın. En iyi diziler iptv ve 4k film iptv içeriklerine anında ulaşın.
             </p>
             <Link 
               to={packagesLink}

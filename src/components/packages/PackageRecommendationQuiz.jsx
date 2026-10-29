@@ -87,7 +87,7 @@ const PackageRecommendationQuiz = ({ quizConfig, isDe = false, onApply, tierOpti
       </Button>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="max-w-md bg-[#14141f] border border-[#2a2a40] text-white sm:rounded-2xl">
+        <DialogContent className="max-w-md bg-[#141414] border border-[#262626] text-white sm:rounded-2xl">
           <DialogHeader>
             <DialogTitle className="text-lg font-bold text-white flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-[#e50914]" />
@@ -122,7 +122,7 @@ const PackageRecommendationQuiz = ({ quizConfig, isDe = false, onApply, tierOpti
                       className={`w-full text-left rounded-xl border px-4 py-3 text-sm transition-all ${
                         active
                           ? 'border-[#e50914] bg-[#e50914]/10 text-white'
-                          : 'border-[#2a2a40] bg-[#0a0a0a]/50 text-slate-300 hover:border-slate-500'
+                          : 'border-[#262626] bg-[#0a0a0a]/50 text-slate-300 hover:border-slate-500'
                       }`}
                     >
                       {opt.label}
@@ -174,7 +174,7 @@ const PackageRecommendationQuiz = ({ quizConfig, isDe = false, onApply, tierOpti
                   type="button"
                   variant="outline"
                   onClick={reset}
-                  className="border-[#2a2a40] text-slate-300 hover:text-white flex-1"
+                  className="border-[#262626] text-slate-300 hover:text-white flex-1"
                 >
                   {isDe ? 'Neu starten' : 'Baştan başla'}
                 </Button>

@@ -8,22 +8,30 @@ export const DEFAULT_PACKAGES_PAGE_CONTENT = {
     region: 'tr',
   },
   page: {
-    title: 'IPTV Paketleri',
-    titleDe: 'QruzeTV Premium IPTV Deutschland',
+    title: 'IPTV Paketleri ve Fiyatları',
+    titleDe: 'Premium IPTV Deutschland – Pakete und Preise',
     shortDescription:
-      'İhtiyacınıza ve kullanım bölgenize göre Standart veya Premium IPTV paketlerinden birini seçebilirsiniz.',
+      'İhtiyacınıza uygun IPTV paketlerini inceleyin, fiyatları karşılaştırın ve güvenle satın alın. Standart ve Premium seçeneklerde anında aktivasyon ve 7/24 destek.',
     shortDescriptionDe:
-      'Wählen Sie zwischen Standard- und Premium-Paketen für Deutschland und Europa — stabile 4K-Streams und schnelle Aktivierung.',
+      'Vergleichen Sie IPTV-Pakete und Preise für Deutschland und Europa. Kaufen Sie Standard- oder Premium-IPTV mit stabilem 4K-Stream und schneller Aktivierung.',
     emptyMessage:
       'Bu kategori için şu anda aktif paket bulunmuyor. Detaylı bilgi için WhatsApp üzerinden bize ulaşabilirsiniz.',
     emptyMessageDe:
       'Für diese Kategorie sind derzeit keine aktiven Pakete verfügbar. Kontaktieren Sie uns per WhatsApp für Details.',
   },
   activeTiers: [
+    { id: 'economic', enabled: true, labelTr: 'Ekonomik Paketler', labelDe: 'Wirtschaftspakete' },
     { id: 'standard', enabled: true, labelTr: 'Standart Paketler', labelDe: 'Standard Pakete' },
     { id: 'premium', enabled: true, labelTr: 'Premium Paketler', labelDe: 'Premium Pakete' },
   ],
   tiers: {
+    economic: {
+      title: 'Ekonomik IPTV Paketleri',
+      shortDescription: 'Bütçe dostu fiyatlarla temel kanal erişimi, popüler ulusal kanallar ve kesintisiz yayın deneyimi sunar.',
+      shortDescriptionDe: 'Budgetfreundliche IPTV-Pakete für den täglichen Bedarf mit den wichtigsten Kanälen.',
+      detailDescription:
+        'Ekonomik IPTV paketleri, bütçe dostu fiyatlarla temel kanal erişimi, popüler içerikler ve yaygın cihaz desteği isteyen kullanıcılar için hazırlanmıştır.',
+    },
     standard: {
       title: 'Standart IPTV Paketleri',
       shortDescription: 'Günlük kullanım için uygun fiyatlı IPTV paketleri.',

@@ -125,7 +125,7 @@ const HomePageVideoSection = ({ videos, lang = 'tr' }) => {
     <section className="mb-16">
       <div className="text-center mb-12">
         <span className="luxury-kicker mb-4">{lang === 'de' ? 'Premium Guide' : 'Premium Rehber'}</span>
-        <h2 className="text-3xl font-bold text-white mb-3 flex items-center justify-center gap-3">
+        <h2 className="section-title text-2xl md:text-3xl mb-3 flex items-center justify-center gap-3">
           <PlayCircle className="w-8 h-8 text-primary" />
           {t.title}
         </h2>

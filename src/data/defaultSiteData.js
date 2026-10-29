@@ -7,7 +7,7 @@ export const defaultData = {
     welcomeTitle: "Sınırsız Eğlence Dünyasına Hoş Geldiniz",
     welcomeSubtitle: "10.000+ canlı kanal ve zengin film/dizi arşivi en yüksek kalitede ekranlarınızda.",
     heroButtonText: "Hemen Başla",
-    heroButtonLink: "/paketler",
+    heroButtonLink: "/paketler/",
     contact: {
       title: "İletişim",
       subtitle: "7/24 Destek Hattı",
@@ -24,11 +24,11 @@ export const defaultData = {
   heroData: {
     titlePrefix: "QruzeTV",
     titleHighlight: "Premium IPTV",
-    description: "10.000+ canlı kanal ve zengin film/dizi keyfi tek platformda. 4K Ultra HD yayın kalitesi ve donmayan altyapı ile tanışın.",
+    description: "10.000+ canlı kanal ve geniş film/dizi arşivi tek platformda. 4K/UHD seçeneklerini ücretsiz test edin, cihazınıza uygun kurulum desteği alın.",
     primaryButtonText: "Hemen Test Et",
-    primaryButtonLink: "/test",
+    primaryButtonLink: "/test/",
     secondaryButtonText: "Paketleri İncele",
-    secondaryButtonLink: "/paketler",
+    secondaryButtonLink: "/paketler/",
     backgroundImage: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=2069&auto=format&fit=crop",
     animationEnabled: true,
     premiumHeroUseCustomBackdrops: true,
@@ -48,11 +48,27 @@ export const defaultData = {
     { id: 'channels', label: 'Kanal', baseNumber: 10000 }
   ],
   contactData: {
-    phone: "+4916345869030",
-    whatsapp: "4916345869030",
+    // phone / whatsapp bilerek BOŞ: bu dosya prerender edilmiş HTML'e ve JS
+    // bundle'ına giriyor; numara statik çıktıda görünürse spam botları hasat ediyor.
+    // Gerçek numara yalnızca runtime'da Supabase'den gelir
+    // (admin panel > İletişim Bilgileri). Bkz. src/utils/supportChannel.js
+    phone: "",
+    whatsapp: "",
+    whatsapp_enabled: true,
+    whatsapp_message: "Merhaba, paketler hakkında bilgi almak istiyorum.",
     email: "info@qruzetv.com",
     address: "İstanbul, Türkiye",
     telegram: "qruzetv_support",
+    telegram_enabled: true,
+    telegram_message: "Merhaba, bilgi almak istiyorum.",
+    order_channel: "whatsapp",
+    floating_actions: {
+      enabled: true,
+      show_whatsapp: true,
+      show_telegram: true,
+      show_buy: true,
+      show_test: true,
+    },
     logoUrl: "/logo.png",
     instagram: "https://instagram.com/qruzetv",
     twitter: "https://twitter.com/qruzetv",
@@ -60,9 +76,9 @@ export const defaultData = {
   },
   seoData: {
     home: {
-      title: "QruzeTV - Premium IPTV Hizmeti | 4K ve Donmayan Yayınlar",
-      description: "Türkiye'nin en kaliteli IPTV sağlayıcısı. 4K UHD kalitesinde 10.000+ kanal, film ve dizi. Donma sorunu olmadan kesintisiz TV keyfi.",
-      keywords: ["iptv", "premium iptv", "donmayan iptv", "4k iptv", "canlı maç izle", "film izle", "dizi izle", "iptv satın al"]
+      title: "IPTV Satın Al — 4K Türk Kanalları | QruzeTV",
+      description: "Yurt dışından Türk kanallarını izlemek için IPTV satın alın: 10.000+ canlı kanal, 4K/UHD yayın, ücretsiz test ve 7/24 Türkçe destek.",
+      keywords: ["iptv", "premium iptv", "4k iptv", "türk kanalları", "film izle", "dizi izle", "iptv satın al"]
     },
     faq: {
       title: "SSS | QruzeTV",
@@ -71,16 +87,16 @@ export const defaultData = {
   },
   packagesData: {
     turkiye: [
-      { id: 'static-tr-3', name: '3 AY', title: '3 AY', duration: '3 Ay', price: '750', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kesintisiz ve Donmayan Yayın Garantisi', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
-      { id: 'static-tr-6', name: '6 AY', title: '6 AY', duration: '6 Ay', price: '1100', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kesintisiz ve Donmayan Yayın Garantisi', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
-      { id: 'static-tr-12-vip', name: '12 AY VIP', title: '12 AY VIP', duration: '12 Ay', price: '1750', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kesintisiz ve Donmayan Yayın Garantisi', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: true },
-      { id: 'static-tr-12-premium', name: '12 AY Premium', title: '12 AY Premium', duration: '12 Ay', price: '1900', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kesintisiz ve Donmayan Yayın Garantisi', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: true },
+      { id: 'static-tr-3', name: '3 AY', title: '3 AY', duration: '3 Ay', price: '750', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
+      { id: 'static-tr-6', name: '6 AY', title: '6 AY', duration: '6 Ay', price: '1100', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
+      { id: 'static-tr-12-vip', name: '12 AY VIP', title: '12 AY VIP', duration: '12 Ay', price: '1750', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: true },
+      { id: 'static-tr-12-premium', name: '12 AY Premium', title: '12 AY Premium', duration: '12 Ay', price: '1900', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: true },
     ],
     avrupa: [
-      { id: 'static-eu-3', name: '3 Aylık Avrupa Paketi', title: '3 Aylık Avrupa Paketi', duration: '3 Ay', price: '45', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kesintisiz ve Donmayan Yayın Garantisi', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
-      { id: 'static-eu-6', name: '6 Aylık Avrupa Paketi', title: '6 Aylık Avrupa Paketi', duration: '6 Ay', price: '65', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kesintisiz ve Donmayan Yayın Garantisi', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
-      { id: 'static-eu-12-1', name: '12 Aylık Avrupa Paketi', title: '12 Aylık Avrupa Paketi', duration: '12 Ay', price: '100', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kesintisiz ve Donmayan Yayın Garantisi', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
-      { id: 'static-eu-12-2', name: '12 Aylık Çift Kullanıcı Paketi', title: '12 Aylık Çift Kullanıcı Paketi', duration: '12 Ay', price: '185', users: '2 Kullanıcı', features: ['2 Kullanıcı', 'Kesintisiz ve Donmayan Yayın Garantisi', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
+      { id: 'static-eu-3', name: '3 Aylık Avrupa Paketi', title: '3 Aylık Avrupa Paketi', duration: '3 Ay', price: '45', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
+      { id: 'static-eu-6', name: '6 Aylık Avrupa Paketi', title: '6 Aylık Avrupa Paketi', duration: '6 Ay', price: '65', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
+      { id: 'static-eu-12-1', name: '12 Aylık Avrupa Paketi', title: '12 Aylık Avrupa Paketi', duration: '12 Ay', price: '100', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
+      { id: 'static-eu-12-2', name: '12 Aylık Çift Kullanıcı Paketi', title: '12 Aylık Çift Kullanıcı Paketi', duration: '12 Ay', price: '185', users: '2 Kullanıcı', features: ['2 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
     ],
   },
   appsData: [

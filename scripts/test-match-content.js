@@ -5,7 +5,7 @@ import { generateMatchContent } from '../src/utils/matchContentGenerator.js';
 const match = {
   home: 'Galatasaray',
   away: 'Fenerbahçe',
-  league: { name: 'Süper Lig' },
+  league: { name: 'Türkiye Ligi' },
   date: '2025-03-15',
   time: '20:00',
 };

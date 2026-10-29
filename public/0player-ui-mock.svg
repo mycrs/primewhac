@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  <rect x="0" y="0" width="640" height="52" fill="#141414"/>
+  <rect x="20" y="10" width="40" height="40" rx="10" fill="#000" stroke="#f59e0b" stroke-width="2"/>
+  <text x="33" y="38" fill="#fbbf24" font-family="Arial,sans-serif" font-size="22" font-weight="800">0</text>
+  <text x="72" y="34" fill="#f59e0b" font-family="Arial,sans-serif" font-size="14" font-weight="700">0 PLAYER</text>
+  <rect x="24" y="72" width="180" height="36" rx="8" fill="#e50914" fill-opacity="0.12" stroke="#e50914" stroke-width="1.5"/>
+  <text x="72" y="95" fill="#e50914" font-family="Arial,sans-serif" font-size="13" font-weight="600">Canli TV</text>
+  <rect x="220" y="72" width="120" height="36" rx="8" fill="#141414" stroke="#334155"/>
+  <text x="252" y="95" fill="#64748b" font-family="Arial,sans-serif" font-size="13">EPG</text>
+  <rect x="356" y="72" width="120" height="36" rx="8" fill="#141414" stroke="#334155"/>
+  <text x="388" y="95" fill="#64748b" font-family="Arial,sans-serif" font-size="13">VOD</text>
+  <rect x="24" y="128" width="592" height="44" rx="8" fill="#141414" stroke="#334155"/>
+  <polygon points="44,150 52,142 52,158" fill="#f59e0b"/>
+  <rect x="64" y="144" width="420" height="12" rx="4" fill="#475569"/>
+  <rect x="64" y="160" width="280" height="8" rx="4" fill="#334155"/>
+  <rect x="24" y="184" width="592" height="44" rx="8" fill="#141414" stroke="#334155"/>
+  <polygon points="44,206 52,198 52,214" fill="#f59e0b"/>
+  <rect x="64" y="200" width="380" height="12" rx="4" fill="#475569"/>
+  <rect x="64" y="216" width="240" height="8" rx="4" fill="#334155"/>
+  <rect x="24" y="240" width="592" height="44" rx="8" fill="#141414" stroke="#f59e0b" stroke-opacity="0.35"/>
+  <polygon points="44,262 52,254 52,270" fill="#f59e0b"/>
+  <rect x="64" y="256" width="400" height="12" rx="4" fill="#475569"/>
+  <rect x="64" y="272" width="260" height="8" rx="4" fill="#334155"/>
+  <rect x="24" y="300" width="592" height="40" rx="8" fill="#1c1408" stroke="#d97706" stroke-opacity="0.4"/>
+  <text x="40" y="325" fill="#fbbf24" font-family="Arial,sans-serif" font-size="12">M3U veya Xtream bilgilerinizi ekleyin</text>
+</svg>

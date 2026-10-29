@@ -1,14 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { Star, Calendar, Film, ArrowLeft, Play, Users, Loader2, Share2, AlertCircle, Globe } from 'lucide-react';
+import { Star, Calendar, Film, ArrowLeft, Play, Users, Loader2, AlertCircle, Globe } from 'lucide-react';
 import HeaderDE from '@/components/HeaderDE';
 import FooterDE from '@/components/FooterDE';
 import useMovieDatabase from '@/hooks/useMovieDatabase';
 import SEOHead from '@/components/SEOHead';
+import SocialShareButtons from '@/components/SocialShareButtons';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useToast } from '@/components/ui/use-toast';
 import SimilarContentSliderDE from '@/components/what-to-watch-de/SimilarContentSliderDE';
 import { buildImageUrl, formatRating, formatDate, handleTMDBError } from '@/utils/tmdbApiDE';
 import { motion } from 'framer-motion';
@@ -20,7 +20,6 @@ const WhatToWatchDetailPageDE = ({ siteData }) => {
   const [searchParams] = useSearchParams();
   const type = searchParams.get('type') || 'movie';
   const navigate = useNavigate();
-  const { toast } = useToast();
   const { fetchMovieDetails, fetchTVDetails, fetchSimilarMovies, fetchSimilarTV, loading } = useMovieDatabase();
   const [content, setContent] = useState(null);
   const [similar, setSimilar] = useState([]);
@@ -100,7 +99,6 @@ const WhatToWatchDetailPageDE = ({ siteData }) => {
   const hreflangOverrides = {
     tr: `${SITE_URL}/ne-izlesem/${id}`,
     de: canonicalUrl,
-    xDefault: `${SITE_URL}/ne-izlesem/${id}`,
   };
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -160,9 +158,16 @@ const WhatToWatchDetailPageDE = ({ siteData }) => {
               <Button onClick={() => navigate('/de/paketler')} className="w-full bg-pink-600 hover:bg-pink-700 h-12 rounded-xl text-lg font-bold shadow-lg shadow-pink-600/20">
                 <Play className="w-5 h-5 mr-2 fill-current" /> Jetzt ansehen
               </Button>
-              <Button variant="outline" onClick={() => toast({ title: "Geteilt", description: "Link wurde in die Zwischenablage kopiert." })} className="w-full border-slate-700 hover:bg-[#0a0a0a] text-white h-12 rounded-xl">
-                <Share2 className="w-4 h-4 mr-2" /> Teilen
-              </Button>
+              <div className="pt-1">
+                <SocialShareButtons
+                  url={canonicalUrl}
+                  title={metadata.title}
+                  description={metadata.description}
+                  image={poster_path ? buildImageUrl(poster_path, 'w500') : ''}
+                  locale="de"
+                  className="justify-center"
+                />
+              </div>
             </div>
           </motion.div>
 

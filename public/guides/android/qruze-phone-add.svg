@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  
+  <rect x="40" y="40" width="560" height="56" rx="12" fill="#1a0a0a"/>
+  <text x="56" y="74" fill="#fff" font-family="Arial,sans-serif" font-size="16" font-weight="800">Add User / Login</text>
+  <rect x="40" y="112" width="200" height="48" rx="10" fill="#e50914"/>
+  <text x="140" y="142" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="14" font-weight="800">Kaydet</text>
+  <text x="320" y="200" text-anchor="middle" fill="#64748b" font-family="Arial,sans-serif" font-size="12">Kanal listesi indiriliyor</text>
+  
+</svg>

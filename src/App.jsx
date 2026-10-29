@@ -13,10 +13,12 @@ import { PerformanceProvider } from '@/components/PerformanceOptimizer';
 import { Toaster } from '@/components/ui/toaster';
 import ScrollToTop from '@/components/ScrollToTop';
 import WhatToWatchButton from '@/components/what-to-watch/WhatToWatchButton';
+import FloatingActionDock from '@/components/FloatingActionDock';
 import ExitIntentPopup from '@/components/ExitIntentPopup';
 import NotificationBannerDisplay from '@/components/NotificationBannerDisplay';
 import PageLoadingFallback from '@/components/PageLoadingFallback';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import { lazyWithRetry } from '@/utils/lazyWithRetry';
 
 import AdminLayout from '@/components/admin/AdminLayout';
 import ProtectedAdminRoute from '@/components/admin/ProtectedAdminRoute';
@@ -63,6 +65,8 @@ const ComparisonPageDE = lazy(() => import('@/pages/ComparisonPageDE'));
 const DetailedGuidesPageDE = lazy(() => import('@/pages/DetailedGuidesPageDE'));
 const GuidePage = lazy(() => import('@/pages/GuidePage'));
 const GuidePageDE = lazy(() => import('@/pages/GuidePageDE'));
+const DeTuerkischeSenderPage = lazy(() => import('@/pages/DeTuerkischeSenderPage'));
+const AlmanyaTurkKanallariPage = lazy(() => import('@/pages/AlmanyaTurkKanallariPage'));
 const WhatToWatchPage = lazy(() => import('@/pages/WhatToWatchPage'));
 const WhatToWatchPageDE = lazy(() => import('@/pages/WhatToWatchPageDE'));
 const WhatToWatchDetailPage = lazy(() => import('@/pages/WhatToWatchDetailPage'));
@@ -73,27 +77,28 @@ const MatchSchedulePage = lazy(() => import('@/pages/MatchSchedulePage'));
 const MatchSchedulePageDE = lazy(() => import('@/pages/MatchSchedulePageDE'));
 const MatchDetailPage = lazy(() => import('@/pages/MatchDetailPage'));
 const MatchDetailPageDE = lazy(() => import('@/pages/MatchDetailPageDE'));
+const ContactPage = lazy(() => import('@/pages/ContactPage'));
 
 // Admin pages
-const AdminLogin = lazy(() => import('@/pages/admin/AdminLogin'));
-const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'));
-const AdminChannelsTab = lazy(() => import('@/components/admin/AdminChannelsTab'));
-const PackagesManager = lazy(() => import('@/components/admin/PackagesManager'));
-const BlogManager = lazy(() => import('@/components/admin/BlogManager'));
-const FAQManager = lazy(() => import('@/components/admin/FAQManager'));
-const SetupManager = lazy(() => import('@/components/admin/tabs/SetupPageTab'));
-const AdminSettingsPage = lazy(() => import('@/pages/admin/AdminSettingsPage'));
-const NotificationsPage = lazy(() => import('@/pages/admin/NotificationsPage'));
-const ChatBotManagementTab = lazy(() => import('@/components/admin/tabs/ChatBotManagementTab'));
-const CustomerReviewsManager = lazy(() => import('@/components/admin/CustomerReviewsManager'));
-const TeamLogosPage = lazy(() => import('@/pages/admin/TeamLogosPage'));
-const MusteriKayitPage = lazy(() => import('@/pages/MusteriKayitPage'));
-const CustomersPage = lazy(() => import('@/pages/admin/CustomersPage'));
-const CustomerPackagesPage = lazy(() => import('@/pages/admin/CustomerPackagesPage'));
-const CustomerDetailPage = lazy(() => import('@/pages/admin/CustomerDetailPage'));
+const AdminLogin = lazyWithRetry(() => import('@/pages/admin/AdminLogin'));
+const AdminDashboard = lazyWithRetry(() => import('@/pages/admin/AdminDashboard'));
+const AdminChannelsTab = lazyWithRetry(() => import('@/components/admin/AdminChannelsTab'));
+const PackagesManager = lazyWithRetry(() => import('@/components/admin/PackagesManager'));
+const BlogManager = lazyWithRetry(() => import('@/components/admin/BlogManager'));
+const FAQManager = lazyWithRetry(() => import('@/components/admin/FAQManager'));
+const SetupManager = lazyWithRetry(() => import('@/components/admin/tabs/SetupPageTab'));
+const AdminSettingsPage = lazyWithRetry(() => import('@/pages/admin/AdminSettingsPage'));
+const NotificationsPage = lazyWithRetry(() => import('@/pages/admin/NotificationsPage'));
+const ChatBotManagementTab = lazyWithRetry(() => import('@/components/admin/tabs/ChatBotManagementTab'));
+const CustomerReviewsManager = lazyWithRetry(() => import('@/components/admin/CustomerReviewsManager'));
+const TeamLogosPage = lazyWithRetry(() => import('@/pages/admin/TeamLogosPage'));
+const MusteriKayitPage = lazyWithRetry(() => import('@/pages/MusteriKayitPage'));
+const CustomersPage = lazyWithRetry(() => import('@/pages/admin/CustomersPage'));
+const CustomerPackagesPage = lazyWithRetry(() => import('@/pages/admin/CustomerPackagesPage'));
+const CustomerDetailPage = lazyWithRetry(() => import('@/pages/admin/CustomerDetailPage'));
 const ReviewsPage = lazy(() => import('@/pages/ReviewsPage'));
-const HeroTab = lazy(() => import('@/components/admin/tabs/HeroTab').then((m) => ({ default: m.default || m.HeroTab })));
-const IptvFlowDevicesTab = lazy(() =>
+const HeroTab = lazyWithRetry(() => import('@/components/admin/tabs/HeroTab').then((m) => ({ default: m.default || m.HeroTab })));
+const IptvFlowDevicesTab = lazyWithRetry(() =>
   import('@/components/admin/tabs/IptvFlowDevicesTab').then((m) => ({ default: m.default || m.IptvFlowDevicesTab }))
 );
 
@@ -151,6 +156,7 @@ function AppContent() {
                 <TestFormModal contactData={siteData?.contactData || {}} appsData={siteData?.appsData || {}} />
                 <ExitIntentPopup />
                 <WhatToWatchButton />
+                <FloatingActionDock />
               </>
             )}
 
@@ -232,6 +238,7 @@ function AppContent() {
                 <Route path="/de/reseller" element={<ED><ResellerPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/test" element={<ED><TestPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/guide/iptv-kurulum-rehberi" element={<ED><GuidePageDE siteData={siteData} /></ED>} />
+                <Route path="/de/tuerkische-sender-in-deutschland" element={<ED><DeTuerkischeSenderPage siteData={siteData} /></ED>} />
                 <Route path="/de/privacy" element={<ED><PrivacyPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/terms" element={<ED><TermsPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/was-soll-ich-schauen" element={<ED><WhatToWatchPageDE siteData={siteData} /></ED>} />
@@ -300,8 +307,11 @@ function AppContent() {
                 <Route path="/test" element={<ET><TestFormPage siteData={siteData} /></ET>} />
                 <Route path="/bing-verification" element={<ET><BingVerificationPage siteData={siteData} /></ET>} />
                 <Route path="/guide/iptv-kurulum-rehberi" element={<ET><GuidePage siteData={siteData} /></ET>} />
+                <Route path="/almanyada-turk-kanallari" element={<ET><AlmanyaTurkKanallariPage siteData={siteData} /></ET>} />
                 <Route path="/yorumlar" element={<ET><ReviewsPage siteData={siteData} /></ET>} />
                 <Route path="/musteri-kayit" element={<ET><MusteriKayitPage siteData={siteData} /></ET>} />
+                <Route path="/iletisim" element={<ET><ContactPage siteData={siteData} /></ET>} />
+                <Route path="/contact" element={<Navigate to="/iletisim" replace />} />
 
                 <Route path="*" element={<ET><NotFoundPage /></ET>} />
               </Routes>

@@ -64,6 +64,12 @@ module.exports = {
     			md: 'calc(var(--radius) - 2px)',
     			sm: 'calc(var(--radius) - 4px)'
     		},
+    		boxShadow: {
+    			'glow-red': '0 0 32px rgba(229, 9, 20, 0.28)',
+    			'glow-red-lg': '0 8px 48px rgba(229, 9, 20, 0.38)',
+    			'glow-amber': '0 0 32px rgba(245, 158, 11, 0.22)',
+    			'card-soft': '0 20px 60px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.09)'
+    		},
     		keyframes: {
     			'accordion-down': {
     				from: { height: 0 },
@@ -72,11 +78,21 @@ module.exports = {
     			'accordion-up': {
     				from: { height: 'var(--radix-accordion-content-height)' },
     				to: { height: 0 }
+    			},
+    			'fade-up': {
+    				from: { opacity: 0, transform: 'translateY(18px)' },
+    				to: { opacity: 1, transform: 'translateY(0)' }
+    			},
+    			float: {
+    				'0%, 100%': { transform: 'translateY(0)' },
+    				'50%': { transform: 'translateY(-8px)' }
     			}
     		},
     		animation: {
     			'accordion-down': 'accordion-down 0.2s ease-out',
-    			'accordion-up': 'accordion-up 0.2s ease-out'
+    			'accordion-up': 'accordion-up 0.2s ease-out',
+    			'fade-up': 'fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both',
+    			float: 'float 5s ease-in-out infinite'
     		}
     	}
     },

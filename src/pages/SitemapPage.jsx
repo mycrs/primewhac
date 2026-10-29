@@ -130,7 +130,7 @@ const SitemapPage = ({ siteData }) => {
                 Site <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">Haritası</span>
               </h1>
               <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-                StreamTR / QruzeTV sitesindeki tüm önemli sayfaların Türkçe ve Almanca canonical bağlantı listesi.
+                QruzeTV sitesindeki tüm önemli sayfaların Türkçe ve Almanca canonical bağlantı listesi.
               </p>
             </motion.div>
 

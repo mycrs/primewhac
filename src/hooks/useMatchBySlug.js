@@ -1,16 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { parseMatchSlug, makeMatchSlug } from '@/utils/matchSlug';
-import { fetchLeagueFixturesJson } from '@/utils/liveMatchFixtures';
+import { fetchLeagueFixturesJson, FOOTBALL_LEAGUES } from '@/utils/liveMatchFixtures';
 import { matchBelongsToProgramDay } from '@/utils/fixtureProgramDay';
 
-const LEAGUES = [
-  { slug: 'super-lig-2025', name: 'Süper Lig', country: 'Türkiye', flag: '🇹🇷' },
-  { slug: 'epl-2025', name: 'Premier Lig', country: 'İngiltere', flag: '🏴' },
-  { slug: 'la-liga-2025', name: 'La Liga', country: 'İspanya', flag: '🇪🇸' },
-  { slug: 'champions-league-2025', name: 'Şampiyonlar Ligi', country: 'Avrupa', flag: '🇪🇺' },
-  { slug: 'bundesliga-2025', name: 'Bundesliga', country: 'Almanya', flag: '🇩🇪' },
-  { slug: 'serie-a-2025', name: 'Serie A', country: 'İtalya', flag: '🇮🇹' },
-];
+const LEAGUES = FOOTBALL_LEAGUES;
 
 function formatTime(dateUtc) {
   if (!dateUtc) return '--:--';

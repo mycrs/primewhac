@@ -2,7 +2,7 @@
  * Tek kaynak: kök site URL’si. Üretimde `.env` içinde `VITE_SITE_URL` tanımlayın.
  * Vite bundle’da import.meta.env; Node betiklerinde (sitemap vb.) process.env okunur.
  */
-const DEFAULT_SITE_URL = 'https://streamtr.eu';
+const DEFAULT_SITE_URL = 'https://cineverse.pro';
 
 function trimBase(s) {
   if (!s || typeof s !== 'string') return '';
@@ -30,6 +30,6 @@ export const SITE_HOST = (() => {
     const u = SITE_URL.startsWith('http') ? SITE_URL : `https://${SITE_URL}`;
     return new URL(u).hostname;
   } catch {
-    return 'streamtr.eu';
+    return 'cineverse.pro';
   }
 })();

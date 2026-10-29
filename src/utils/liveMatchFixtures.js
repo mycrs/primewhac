@@ -11,14 +11,20 @@ const CORS_PROXIES = [
 const FETCH_TIMEOUT_MS = 15000;
 const FETCH_RETRIES = 2;
 
+/**
+ * `slug` = fixturedownload uç noktası (değiştirilemez, veri kaynağı buna bağlı).
+ * `name` = kullanıcıya gösterilen etiket; telif/marka riski taşımaması için
+ * tescilli lig adları yerine coğrafi-tanımlayıcı jenerik karşılıklar kullanılır.
+ */
+export const CURRENT_FOOTBALL_SEASON = '2026';
+
 export const FOOTBALL_LEAGUES = [
-  { slug: 'super-lig-2025', name: 'Süper Lig', country: 'Türkiye', flag: '🇹🇷' },
-  /** 2024 slug ends May 2025; current season is epl-2025 (through 2026). */
-  { slug: 'epl-2025', name: 'Premier Lig', country: 'İngiltere', flag: '🏴' },
-  { slug: 'la-liga-2025', name: 'La Liga', country: 'İspanya', flag: '🇪🇸' },
-  { slug: 'champions-league-2025', name: 'Şampiyonlar Ligi', country: 'Avrupa', flag: '🇪🇺' },
-  { slug: 'bundesliga-2025', name: 'Bundesliga', country: 'Almanya', flag: '🇩🇪' },
-  { slug: 'serie-a-2025', name: 'Serie A', country: 'İtalya', flag: '🇮🇹' },
+  { slug: `super-lig-${CURRENT_FOOTBALL_SEASON}`, name: 'Türkiye Ligi', country: 'Türkiye', flag: '🇹🇷' },
+  { slug: `epl-${CURRENT_FOOTBALL_SEASON}`, name: 'İngiltere Ligi', country: 'İngiltere', flag: '🏴' },
+  { slug: `la-liga-${CURRENT_FOOTBALL_SEASON}`, name: 'İspanya Ligi', country: 'İspanya', flag: '🇪🇸' },
+  { slug: `champions-league-${CURRENT_FOOTBALL_SEASON}`, name: 'Avrupa Kupası', country: 'Avrupa', flag: '🇪🇺' },
+  { slug: `bundesliga-${CURRENT_FOOTBALL_SEASON}`, name: 'Almanya Ligi', country: 'Almanya', flag: '🇩🇪' },
+  { slug: `serie-a-${CURRENT_FOOTBALL_SEASON}`, name: 'İtalya Ligi', country: 'İtalya', flag: '🇮🇹' },
 ];
 
 export { matchBelongsToProgramDay } from '@/utils/fixtureProgramDay';
@@ -70,7 +76,7 @@ function formatTime(dateUtc) {
 
 /**
  * Belirli bir takvim günü (YYYY-MM-DD) için gruplu futbol fikstürü.
- * Gün eşlemesi: fixtureProgramDay.js (Süper Lig Nisan 2026+ kaynak düzeltmesi dahil).
+ * Gün eşlemesi: fixtureProgramDay.js (Türkiye Ligi Nisan 2026+ kaynak düzeltmesi dahil).
  */
 export async function fetchGroupedFootballMatches(dateStr) {
   const fetchOneLeague = async (league) => {

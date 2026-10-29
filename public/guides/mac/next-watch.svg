@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  
+  <rect x="40" y="40" width="400" height="220" rx="12" fill="#000" stroke="#94A3B8" stroke-opacity="0.5"/>
+  <polygon points="220,130 220,170 260,150" fill="#94A3B8"/>
+  <text x="480" y="90" fill="#fff" font-family="Arial,sans-serif" font-size="14" font-weight="700">Live TV · VOD</text>
+  <text x="480" y="130" fill="#64748b" font-family="Arial,sans-serif" font-size="12">Cmd+F tam ekran</text>
+  
+</svg>

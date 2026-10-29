@@ -45,7 +45,9 @@ const DynamicChannelCard = memo(({ channel, index = 0 }) => {
         {/* Arka plan görseli - yüksek çözünürlük ve keskin ölçekleme (admin’de 600×400+ önerilir) */}
         <img
           src={bgImageUrl}
-          alt=""
+          alt={`${channel?.name || 'IPTV'} kanal görseli`}
+          width={300}
+          height={200}
           onLoad={() => setBgLoaded(true)}
           onError={() => {
             setBgLoaded(true);
@@ -73,6 +75,8 @@ const DynamicChannelCard = memo(({ channel, index = 0 }) => {
               <img
                 src={logoUrl}
                 alt={channel?.name ? `${channel.name} kanal logosu` : 'IPTV kanal logosu'}
+                width={40}
+                height={40}
                 className="max-h-full max-w-full object-contain drop-shadow-lg select-none"
                 style={{ imageRendering: 'auto' }}
                 loading="lazy"

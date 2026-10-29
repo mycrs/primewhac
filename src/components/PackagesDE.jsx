@@ -19,7 +19,7 @@ const translateFeature = (feature) => {
   if (!feature) return '';
   let f = feature;
   f = f.replace(/2 Cihaz/g, '2 Geräte');
-  f = f.replace(/24\/7 Destek/g, '24/7 Unterstützung');
+  f = f.replace(/24\/7 Destek/g, '24/7 Premium Support');
   f = f.replace(/Kanal/g, 'Kanäle');
   f = f.replace(/Kalite/g, 'Qualität');
   return f;
@@ -31,7 +31,7 @@ const translateName = (name) => {
   n = n.replace('3 Aylık Avrupa Paketi', '3 Monate Europa-Paket');
   n = n.replace('6 Aylık Avrupa Paketi', '6 Monate Europa-Paket');
   n = n.replace('12 Aylık Avrupa Paketi', '12 Monate Europa-Paket');
-  n = n.replace('12 Aylık Çift Kullanıcı Paketi', '12 Monate Dual User Package');
+  n = n.replace('12 Aylık Çift Kullanıcı Paketi', '12 Monate Paket für 2 Geräte');
   n = n.replace('Avrupa Paketi', 'Europa-Paket');
   n = n.replace('Türkiye Paketi', 'Türkei-Paket');
   n = n.replace('Aylık', 'Monate');
@@ -82,7 +82,7 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
   const seoDescription = getSeoDescription(pkg.name);
 
   return (
-    <article className={`luxury-card relative p-6 rounded-3xl border-2 flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${isPopular ? 'border-primary/50 shadow-lg shadow-primary/20 ring-2 ring-primary/60 ring-offset-2 ring-offset-[#0a0a0a] shadow-[0_0_30px_rgba(229,9,20,0.25)] hover:shadow-[0_0_40px_rgba(229,9,20,0.4)] hover:ring-primary/80' : 'border-[#2a2a40] hover:border-slate-600'}`}>
+    <article className={`luxury-card relative p-6 rounded-3xl border-2 flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${isPopular ? 'border-primary/50 shadow-lg shadow-primary/20 ring-2 ring-primary/60 ring-offset-2 ring-offset-[#0a0a0a] shadow-[0_0_30px_rgba(229,9,20,0.25)] hover:shadow-[0_0_40px_rgba(229,9,20,0.4)] hover:ring-primary/80' : 'border-[#262626] hover:border-slate-600'}`}>
       {isPopular && (
         <>
           <div className="absolute inset-0 rounded-xl pointer-events-none -z-10 bg-gradient-to-r from-[#e50914]/10 via-transparent to-[#b20710]/10 animate-pulse" style={{ animationDuration: '3s' }} />
@@ -123,7 +123,7 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
       )}
 
       <div className="flex-grow">
-        <div className="h-px bg-gradient-to-r from-transparent via-[#2a2a40] to-transparent mb-6"></div>
+        <div className="h-px bg-gradient-to-r from-transparent via-[#262626] to-transparent mb-6"></div>
         <ul className="space-y-3 mb-8">
           {(pkg.features || []).slice(0, 6).map((feature, i) => (
             <li key={i} className="flex items-start text-sm text-gray-300 font-medium leading-snug">
@@ -146,7 +146,7 @@ const PackageCardDE = memo(({ pkg, isPopular, onOrder, currencySymbol }) => {
         className={`w-full h-12 rounded-2xl font-bold text-base mt-auto transition-all duration-300 ${
           isPopular 
             ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white hover:from-[#b20710] hover:to-[#b20710] hover:shadow-lg hover:shadow-primary/30' 
-            : 'bg-[#1e1e30] text-white hover:bg-[#2d2d45] border border-[#2a2a40] hover:border-slate-500'
+            : 'bg-[#1a1a1a] text-white hover:bg-[#2a2a2a] border border-[#262626] hover:border-slate-500'
         }`}
       >
         <Zap className="w-4 h-4 mr-2" />
@@ -305,7 +305,7 @@ const PackagesDE = ({ packages: initialPackages, title, hideRegions = [] }) => {
 
   if (euLoading && euPackages.length === 0 && !hideRegions.includes('EU')) {
     return (
-      <section id="packages" className="qruze-cinema-section py-24 border-t border-[#2a2a40] min-h-[600px] flex items-center justify-center">
+      <section id="packages" className="qruze-cinema-section py-24 border-t border-[#262626] min-h-[600px] flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-[#e50914] animate-spin mx-auto mb-4" />
           <p className="text-gray-400">Pakete werden geladen...</p>
@@ -315,7 +315,7 @@ const PackagesDE = ({ packages: initialPackages, title, hideRegions = [] }) => {
   }
 
   return (
-    <section id="packages" className="qruze-cinema-section py-20 border-t border-[#2a2a40] relative overflow-hidden">
+    <section id="packages" className="qruze-cinema-section py-20 border-t border-[#262626] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
         <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-primary/30 rounded-full blur-3xl"></div>
         <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-[#0a0a0a]/20 rounded-full blur-3xl"></div>
@@ -324,20 +324,20 @@ const PackagesDE = ({ packages: initialPackages, title, hideRegions = [] }) => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <span className="qruze-premium-seal mb-4">Premium Abo Lounge</span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+          <h2 className="section-title text-4xl md:text-5xl mb-6">
             {title ? title : (
               <>IPTV-Preise und <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">Paketoptionen</span></>
             )}
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Wählen Sie das Paket, das Ihren Anforderungen am besten entspricht, und beginnen Sie sofort mit dem Ansehen. <strong>Hohe Qualität, Pufferfrei-Garantie</strong> und erschwingliche Abonnements.
+            Wählen Sie das Paket, das Ihren Anforderungen am besten entspricht, und beginnen Sie sofort mit dem Ansehen. <strong>Hohe Qualität, Ruckelfrei-Garantie</strong> und erschwingliche Abonnements.
           </p>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-[90rem] mx-auto">
           {/* Hide tabs completely with conditional rendering and hidden class */}
           <div className="hidden justify-center mb-10">
-            <TabsList className="hidden bg-[#0a0a0a] border border-[#2a2a40] p-1 h-auto rounded-full">
+            <TabsList className="hidden bg-[#0a0a0a] border border-[#262626] p-1 h-auto rounded-full">
               <TabsTrigger value="EU" className="hidden">Europa-Pakete</TabsTrigger>
               <TabsTrigger value="TR" className="hidden">Türkei-Pakete</TabsTrigger>
             </TabsList>

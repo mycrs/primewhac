@@ -128,15 +128,14 @@ const DeviceAppSelectionForm = ({ siteData }) => {
     setStatus('loading');
 
     try {
-      const contactInfo = siteData?.contact_info || siteData?.contactData || defaultData?.contactData || {};
-      const whatsappNumber = (contactInfo?.whatsapp || contactInfo?.phone || '').replace(/\D/g, '') || (import.meta.env.VITE_WHATSAPP_PHONE || '').replace(/\D/g, '') || '4916345869030';
+      // Numara runtime'da çözülür (Supabase > base64 env); sabit fallback yok.
       const result = await submitToWordpress({
         deviceType: selectedDevice?.name,
         category: category,
         appName: selectedApp?.name,
         username,
         specialNote: note,
-        whatsappNumber
+        siteData,
       });
 
       if (result.success) {
@@ -156,6 +155,14 @@ const DeviceAppSelectionForm = ({ siteData }) => {
             setNote('');
             setStatus('idle');
         }, 2500);
+      } else {
+        // Numara çözülemedi — formu 'loading'de asılı bırakma.
+        setStatus('error');
+        toast({
+          variant: 'destructive',
+          title: 'Şu an bağlanılamadı',
+          description: result.error || 'Lütfen birazdan tekrar deneyin.',
+        });
       }
     } catch (err) {
       console.error(err);

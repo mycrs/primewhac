@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0a0a0a"/>
+  
+  <rect x="40" y="32" width="560" height="52" rx="12" fill="#1E293B"/>
+  <text x="56" y="64" fill="#fff" font-family="Arial,sans-serif" font-size="15" font-weight="800">Xtream Codes API</text>
+  <rect x="40" y="100" width="560" height="56" rx="10" fill="#111827" stroke="#94A3B8" stroke-opacity="0.5"/>
+  <text x="56" y="136" fill="#94A3B8" font-family="Arial,sans-serif" font-size="14" font-weight="700">Login with Xtream Codes API</text>
+  
+</svg>

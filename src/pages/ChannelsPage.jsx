@@ -12,6 +12,7 @@ import HomePageSeoContent from '@/components/HomePageSeoContent';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import SEOHead from '@/components/SEOHead';
 import { channelsPageSchemas } from '@/utils/seoSchema';
+import { SITE_URL } from '@/constants/siteUrl';
 import { Button } from '@/components/ui/button';
 import { useTestModal } from '@/contexts/TestModalContext';
 
@@ -30,8 +31,9 @@ const ChannelsPage = ({ siteData }) => {
   const pageSeo = seoData?.channels || {};
   const metadata = {
     title: pageSeo.title || "10.000+ IPTV Kanal Listesi — Spor, Dizi, Film | QruzeTV",
-    description: pageSeo.description || "QruzeTV kanal listesi: 10.000+ canlı kanal, beIN Sports, S Sport, TRT, Show TV, ATV, yerli ve yabancı. 4K destekli. Tüm kanalları hemen gör.",
+    description: pageSeo.description || "QruzeTV kanal listesi: 10.000+ canlı kanal; haber, dizi, film, belgesel, çocuk ve müzik kategorileri. 4K/UHD destekli. Tüm kanalları hemen gör.",
     keywords: ["IPTV kanalları", "canlı TV", "spor kanalları", "HD yayın", "4K IPTV", "kanal listesi", "IPTV kalite"],
+    ogImage: pageSeo.ogImage || `${SITE_URL}/og/kanallar.jpg`,
   };
   const jsonLd = channelsPageSchemas(metadata);
 
@@ -63,7 +65,7 @@ const ChannelsPage = ({ siteData }) => {
                 x: [0, 50, 0]
               }}
               transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] bg-[#141414]/25 rounded-full blur-[120px] mix-blend-screen pointer-events-none"
+              className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] bg-[#e50914]/15 rounded-full blur-[120px] mix-blend-screen pointer-events-none"
             />
             <motion.div 
               animate={{ 
@@ -72,7 +74,7 @@ const ChannelsPage = ({ siteData }) => {
                 x: [0, -50, 0]
               }}
               transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-              className="absolute bottom-1/4 right-1/4 w-[40rem] h-[40rem] bg-[#141414]/20 rounded-full blur-[150px] mix-blend-screen pointer-events-none"
+              className="absolute bottom-1/4 right-1/4 w-[40rem] h-[40rem] bg-amber-500/10 rounded-full blur-[150px] mix-blend-screen pointer-events-none"
             />
 
             <div className="container mx-auto px-4 relative z-10 text-center">
@@ -97,9 +99,9 @@ const ChannelsPage = ({ siteData }) => {
                 </motion.div>
 
                 {/* SINGLE H1 FOR SEO - Main Page Title */}
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 drop-shadow-sm leading-tight">
-                  Canlı IPTV Kanalları <br className="hidden md:block" />
-                  <span className="text-[#e50914]">Kesintisiz Deneyim</span>
+                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 drop-shadow-sm leading-tight">
+                  IPTV Kanal Listesi — <br className="hidden md:block" />
+                  <span className="bg-gradient-to-r from-[#ff2430] via-[#e50914] to-[#b20710] bg-clip-text text-transparent">10.000+ Canlı Kanal</span>
                 </h1>
                 
                 <p className="text-lg md:text-2xl text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto font-light">

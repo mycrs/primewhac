@@ -31,7 +31,7 @@ export const generateResponsiveSrcSet = (baseUrl, widths = [320, 640, 768, 1024,
 };
 
 // Generate blur placeholder (tiny data URI) - placeholder logic
-export const generateBlurPlaceholder = (color = '#1e1e30') => {
+export const generateBlurPlaceholder = (color = '#1a1a1a') => {
   // 1x1 pixel SVG with solid color
   return `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='${encodeURIComponent(color)}'/%3E%3C/svg%3E`;
 };

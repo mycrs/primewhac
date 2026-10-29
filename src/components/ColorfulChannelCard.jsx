@@ -20,7 +20,7 @@ const ColorfulChannelCard = memo(({ channel, index }) => {
         {/* Full coverage background image */}
         <img 
           src={bgImageUrl}
-          alt=""
+          alt={`${channel?.name || 'IPTV'} kanal görseli`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 z-0"
           loading="lazy"
         />

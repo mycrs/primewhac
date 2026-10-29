@@ -9,10 +9,44 @@ import { sanitizeJsonLdSchema } from '@/utils/jsonLdSanitize';
 import { SITE_URL, SITE_HOST } from '@/constants/siteUrl';
 import { getSiteGeoForLang } from '@/constants/siteGeo';
 
+function normalizePageUrl(rawUrl, fallbackUrl) {
+  try {
+    const candidate = DomainMigrationManager.updateUrl(rawUrl || fallbackUrl);
+    const incoming = new URL(candidate, SITE_URL);
+    const base = new URL(SITE_URL);
+    const pathname = incoming.pathname.replace(/\/+$/, '') || '/';
+    base.pathname = pathname === '/' ? '/' : `${pathname}/`;
+    base.search = '';
+    base.hash = '';
+    return base.toString();
+  } catch {
+    return fallbackUrl;
+  }
+}
+
+function normalizeRobotsContent(value) {
+  const robots = String(value || 'index, follow').trim();
+  if (/\bnoindex\b/i.test(robots)) return robots;
+  const directives = robots
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const required = [
+    'index',
+    'follow',
+    'max-image-preview:large',
+    'max-snippet:-1',
+    'max-video-preview:-1',
+  ];
+  required.forEach((directive) => {
+    if (!directives.some((item) => item.toLowerCase() === directive)) directives.push(directive);
+  });
+  return directives.join(', ');
+}
+
 const SEOHead = ({
   title,
   description,
-  keywords,
   ogType = 'website',
   ogImage,
   twitterCard = 'summary_large_image',
@@ -31,10 +65,15 @@ const SEOHead = ({
 
   const siteUrl = SITE_URL;
   const fromPath = getCanonicalAndHreflang(location.pathname, siteUrl);
-  const currentUrl = canonicalUrlProp || fromPath.canonicalUrl;
-  const hreflangTr = hreflangOverrides?.tr ?? fromPath.hreflangTr;
-  const hreflangDe = hreflangOverrides?.de ?? fromPath.hreflangDe;
-  const xDefaultUrl = hreflangOverrides?.xDefault ?? fromPath.xDefaultUrl;
+  const currentUrl = normalizePageUrl(canonicalUrlProp, fromPath.canonicalUrl);
+  const normalizeAlternate = (value) => (
+    value ? normalizePageUrl(value, fromPath.canonicalUrl) : value
+  );
+  const hreflangTr = normalizeAlternate(hreflangOverrides?.tr ?? fromPath.hreflangTr);
+  const hreflangDe = normalizeAlternate(hreflangOverrides?.de ?? fromPath.hreflangDe);
+  const hreflangXDefault = normalizeAlternate(
+    hreflangOverrides?.['x-default'] ?? fromPath.hreflangXDefault,
+  );
   const { lang } = fromPath;
   const geo = getSiteGeoForLang(lang);
 
@@ -47,18 +86,17 @@ const SEOHead = ({
 
   const metaDescription = (description && typeof description === 'string')
     ? description.substring(0, 160)
-    : `QruzeTV (${SITE_HOST}) — Türkiye'nin en kaliteli IPTV hizmeti. Kesintisiz IPTV abonelik, 4K Ultra HD kanallar, donmayan yayınlar ve en uygun fiyatlar.`;
-
-  const metaKeywords = Array.isArray(keywords)
-    ? keywords.join(', ')
-    : (typeof keywords === 'string' ? keywords : "iptv, kurulum, rehber, android, ios, smart tv, film önerileri, dizi önerileri, iptv abonelik, canlı tv");
+    : `QruzeTV (${SITE_HOST}) — Türkiye'nin premium IPTV hizmeti. Kesintisiz IPTV abonelik, 4K Ultra HD kanallar, donmayan yayınlar ve en uygun fiyatlar.`;
 
   const metaImage = DomainMigrationManager.updateUrl(ogImage) || defaultImage;
+  const hasKnownImageDimensions =
+    metaImage === defaultImage ||
+    metaImage.startsWith(`${siteUrl}/og/`);
   const ogLocale = geo.ogLocale;
 
   const robotsMeta = useMemo(() => {
     if (robotsContent != null && String(robotsContent).trim() !== '') {
-      return String(robotsContent).trim();
+      return normalizeRobotsContent(robotsContent);
     }
     const useNoindex =
       noindex === true ||
@@ -66,7 +104,7 @@ const SEOHead = ({
         pathname: location.pathname,
         ...(typeof pageData === 'object' && pageData !== null ? pageData : {}),
       });
-    return useNoindex ? 'noindex, follow' : 'index, follow';
+    return normalizeRobotsContent(useNoindex ? 'noindex, follow' : 'index, follow');
   }, [robotsContent, noindex, location.pathname, pageData]);
 
   const renderJsonLd = () => {
@@ -86,19 +124,13 @@ const SEOHead = ({
     <Helmet>
       <title>{safeTitle}</title>
       <meta name="description" content={metaDescription} />
-      {metaKeywords && <meta name="keywords" content={metaKeywords} />}
       <link rel="canonical" href={currentUrl} />
       {hreflangTr ? <link rel="alternate" hrefLang="tr" href={hreflangTr} /> : null}
       {hreflangDe ? <link rel="alternate" hrefLang="de" href={hreflangDe} /> : null}
-      {xDefaultUrl ? <link rel="alternate" hrefLang="x-default" href={xDefaultUrl} /> : null}
+      {hreflangXDefault ? <link rel="alternate" hrefLang="x-default" href={hreflangXDefault} /> : null}
       <meta name="robots" content={robotsMeta} />
       <meta name="author" content={siteName} />
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       <html lang={geo.htmlLang} />
-
-      <meta name="geo.region" content={geo.geoRegion} />
-      <meta name="geo.placename" content={geo.geoPlacename} />
-      <meta httpEquiv="content-language" content={geo.contentLanguage} />
 
       <meta name="msvalidate.01" content="CA8DF3D0A50E3D150C561F86C75418F8" />
 
@@ -112,7 +144,10 @@ const SEOHead = ({
       <meta property="og:url" content={currentUrl} />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:image" content={metaImage} />
+      <meta property="og:image:secure_url" content={metaImage} />
       <meta property="og:image:alt" content={safeTitle} />
+      {hasKnownImageDimensions && <meta property="og:image:width" content="1200" />}
+      {hasKnownImageDimensions && <meta property="og:image:height" content="630" />}
       <meta property="og:locale" content={ogLocale} />
       <meta property="og:locale:alternate" content={geo.ogLocaleAlternate} />
 
@@ -120,6 +155,7 @@ const SEOHead = ({
       <meta name="twitter:title" content={safeTitle} />
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={metaImage} />
+      <meta name="twitter:image:alt" content={safeTitle} />
       <meta name="twitter:site" content="@qruzetv" />
 
       {renderJsonLd()}

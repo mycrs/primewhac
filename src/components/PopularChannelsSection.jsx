@@ -140,7 +140,7 @@ const PopularChannelsSection = () => {
                 {/* Full coverage background image */}
                 <img 
                   src={bgImageUrl}
-                  alt=""
+                  alt={`${channel?.name || 'IPTV'} kanal görseli`}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                   referrerPolicy="no-referrer"

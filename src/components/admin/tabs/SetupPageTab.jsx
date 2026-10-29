@@ -3,6 +3,7 @@ import { Settings, Tv, Smartphone, Monitor, Laptop, Tablet, Save, Loader2, Image
 import AdminTabWrapper from '@/components/admin/AdminTabWrapper';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DeviceInstallationForm from '../DeviceInstallationForm';
+import HubAppsInstallationForm from '../HubAppsInstallationForm';
 import { useSetupPage } from '@/hooks/useSetupPage';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -241,18 +242,16 @@ const SetupPageTab = () => {
         </TabsContent>
 
         <TabsContent value="android_phone" className="mt-0">
-          <DeviceInstallationForm 
-            deviceKey="android_phone_config" 
-            deviceName="Android Telefon" 
-            existingData={setupData?.android_phone_config} 
+          <HubAppsInstallationForm
+            hubId="android_phone"
+            existingData={setupData?.android_phone_config}
           />
         </TabsContent>
 
         <TabsContent value="windows" className="mt-0">
-          <DeviceInstallationForm 
-            deviceKey="windows_pc_config" 
-            deviceName="Windows PC" 
-            existingData={setupData?.windows_pc_config} 
+          <HubAppsInstallationForm
+            hubId="windows"
+            existingData={setupData?.windows_pc_config}
           />
         </TabsContent>
 
@@ -273,10 +272,9 @@ const SetupPageTab = () => {
         </TabsContent>
 
         <TabsContent value="tablet" className="mt-0">
-          <DeviceInstallationForm 
-            deviceKey="tablet_config" 
-            deviceName="Tablet" 
-            existingData={setupData?.tablet_config} 
+          <HubAppsInstallationForm
+            hubId="tablet"
+            existingData={setupData?.tablet_config}
           />
         </TabsContent>
       </Tabs>

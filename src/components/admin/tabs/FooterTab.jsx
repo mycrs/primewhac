@@ -197,7 +197,7 @@ const FooterTab = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="Örn: +4916345869030"
+                placeholder="Örn: +49XXXXXXXXXX"
                 className="w-full px-4 py-2 bg-[#0a0a0a] border border-slate-800 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-primary"
               />
             </FormField>

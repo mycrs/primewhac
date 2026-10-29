@@ -26,6 +26,7 @@ import { FaqSeoSupplement } from '@/components/FaqSeoSupplement';
 import InternalLinkingOptimization from '@/components/InternalLinkingOptimization';
 import { faqPageSchemas } from '@/utils/seoSchema';
 import { readSessionCache, writeSessionCache } from '@/utils/supabaseSessionCache';
+import { SITE_URL } from '@/constants/siteUrl';
 
 const FAQ_CACHE_KEY = 'sb_pub_faq_tr_v1';
 
@@ -118,8 +119,9 @@ const FaqPage = ({ siteData }) => {
     title: faqData?.title || 'Sıkça Sorulan Sorular — IPTV Rehberi | QruzeTV',
     description:
       'IPTV yasal mı, güvenli mi, nasıl çalışır? QruzeTV hakkında tüm sorularınıza net yanıtlar. Kurulum, ödeme, iade ve destek rehberi.',
-    keywords: ['kaliteli iptv', 'donmayan iptv', 'iptv satın al', 'iptv kurulumu', 'en iyi iptv servisi'],
+    keywords: ['iptv sss', 'donmayan iptv', 'iptv satın al', 'iptv kurulumu', 'iptv yasal mı'],
     ogType: 'website',
+    ogImage: `${SITE_URL}/og/sss.jpg`,
   };
 
   const jsonLd = faqPageSchemas(metadata, faqData?.sections);
@@ -161,7 +163,7 @@ const FaqPage = ({ siteData }) => {
                     Destek merkezi
                   </span>
                 </div>
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight leading-[1.08]">
+                <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight leading-[1.08]">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-[#e50914] to-[#b20710]">
                     Sıkça Sorulan Sorular
                   </span>
@@ -243,7 +245,7 @@ const FaqPage = ({ siteData }) => {
                           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#e50914] to-[#b20710] text-white font-black text-lg shadow-lg shadow-primary/40 ring-2 ring-primary/20">
                             {idx + 1}
                           </span>
-                          <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                          <h2 className="section-title text-2xl md:text-3xl">
                             {section.title}
                           </h2>
                         </div>
@@ -316,15 +318,14 @@ const FaqPage = ({ siteData }) => {
                     >
                       Ücretsiz test
                     </Link>
-                    <a
-                      href={`https://wa.me/${(safeSiteData?.contactData?.whatsapp || '').replace(/\D/g, '')}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    {/* wa.me CTA'sı kaldırıldı — numara statik HTML'de açıkta kalıyordu. */}
+                    <Link
+                      to="/paketler"
                       className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
                     >
                       <MessageCircle className="w-5 h-5 text-[#e50914]" />
-                      WhatsApp destek
-                    </a>
+                      Paketler ve destek
+                    </Link>
                   </div>
                 </div>
               </motion.div>

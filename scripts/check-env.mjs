@@ -42,7 +42,6 @@ const groups = [
       { key: 'VITE_SUPABASE_URL' },
       { key: 'VITE_SUPABASE_ANON_KEY', jwt: true },
       { key: 'VITE_SITE_URL' },
-      { key: 'VITE_WHATSAPP_PHONE', minLen: 8 },
     ],
   },
   {
@@ -55,13 +54,11 @@ const groups = [
     ],
   },
   {
-    title: 'İsteğe bağlı — TMDB, Gemini, Turnstile, FTP',
+    title: 'İsteğe bağlı — TMDB, Gemini, FTP',
     required: false,
     keys: [
       { key: 'VITE_TMDB_API_KEY' },
       { key: 'GEMINI_API_KEY' },
-      { key: 'VITE_TURNSTILE_SITE_KEY' },
-      { key: 'TURNSTILE_SECRET_KEY' },
       { key: 'FTP_HOST' },
     ],
   },
@@ -99,4 +96,4 @@ console.log('Tamam: zorunlu Vite değişkenleri tanımlı.');
 if (apiWarn) {
   console.log('Not: SUPABASE_SERVICE_ROLE_KEY yok — admin müşteri API ve duyuru CRUD yerelde sınırlı çalışır.');
 }
-
+

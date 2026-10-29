@@ -15,7 +15,7 @@ const BlogHeroSection = ({ lang, setLang }) => {
   };
 
   return (
-    <section className="relative min-h-[40vh] flex flex-col items-center justify-center overflow-hidden rounded-[2rem] bg-[#0a0a0a] border border-[#2a2a40] shadow-xl shadow-[#e50914]/5 mb-10 px-4 py-16">
+    <section className="relative min-h-[40vh] flex flex-col items-center justify-center overflow-hidden rounded-[2rem] bg-[#0a0a0a] border border-[#262626] shadow-xl shadow-[#e50914]/5 mb-10 px-4 py-16">
       
       {/* Subtle Background Glow Effects */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#e50914]/10 blur-[100px] rounded-full pointer-events-none" />
@@ -23,7 +23,7 @@ const BlogHeroSection = ({ lang, setLang }) => {
 
       {/* Language Toggle */}
       <div className="absolute top-6 right-6 sm:top-8 sm:right-8 z-30">
-        <div className="flex bg-[#0a0a0a] p-1 rounded-full border border-[#2a2a40] shadow-inner">
+        <div className="flex bg-[#0a0a0a] p-1 rounded-full border border-[#262626] shadow-inner">
           <button
             onClick={() => setLang('tr')}
             className={`relative px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide transition-colors duration-300 ${

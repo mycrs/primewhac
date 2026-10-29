@@ -76,7 +76,7 @@ const TestSummary = ({ formData, selectedDevice, selectedApp, livingRegion, lang
           />
        </div>
 
-       <div className="shrink-0 border-t border-slate-800/50 bg-[#0B0F19] pt-3 pb-[max(0.35rem,env(safe-area-inset-bottom))]">
+       <div className="shrink-0 border-t border-slate-800/50 bg-[#0a0a0a] pt-3 pb-[max(0.35rem,env(safe-area-inset-bottom))]">
             <Button 
                 onClick={requestWhatsApp}
                 disabled={!livingRegion}

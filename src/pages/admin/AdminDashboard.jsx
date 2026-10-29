@@ -163,10 +163,10 @@ const AdminDashboard = () => {
             <Home className="w-4 h-4" />
             Ana sayfa Hero / slayt
           </Link>
-          <a href={adminPath('blog')} className="px-4 py-2 bg-primary hover:bg-primary text-white rounded-lg transition-colors flex items-center gap-2">
+          <Link to={adminPath('blog')} className="px-4 py-2 bg-primary hover:bg-primary text-white rounded-lg transition-colors flex items-center gap-2">
             <FileText className="w-4 h-4" />
             Blog Yönetimi
-          </a>
+          </Link>
           <Link to={adminPath('packages')} className="px-4 py-2 bg-[#141414] hover:bg-[#0a0a0a] text-white rounded-lg transition-colors flex items-center gap-2">
             <Package className="w-4 h-4" />
             Paket Yönetimi
@@ -175,14 +175,14 @@ const AdminDashboard = () => {
             <Users className="w-4 h-4" />
             Müşteri takip
           </Link>
-          <a href={adminPath('chatbot')} className="px-4 py-2 bg-[#e50914] hover:bg-[#e50914] text-white rounded-lg transition-colors flex items-center gap-2">
+          <Link to={adminPath('chatbot')} className="px-4 py-2 bg-[#e50914] hover:bg-[#e50914] text-white rounded-lg transition-colors flex items-center gap-2">
             <MessageCircle className="w-4 h-4" />
             ChatBot Yönetimi
-          </a>
-          <a href={adminPath('settings')} className="px-4 py-2 bg-[#0a0a0a] hover:bg-[#141414] text-white rounded-lg transition-colors flex items-center gap-2">
+          </Link>
+          <Link to={adminPath('settings')} className="px-4 py-2 bg-[#0a0a0a] hover:bg-[#141414] text-white rounded-lg transition-colors flex items-center gap-2">
             <Database className="w-4 h-4" />
             Sistem Ayarları
-          </a>
+          </Link>
         </CardContent>
       </Card>
     </div>

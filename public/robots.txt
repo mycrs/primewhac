@@ -1,29 +1,36 @@
+# Global kurallar ve hassas yönetim/veri dizinlerinin korunması
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /yonetim
-Disallow: /search
-Disallow: /*?*
+Disallow: /admin/
+Disallow: /admin-login/
+Disallow: /yonetim/
+Disallow: /blog/write/
+Disallow: /musteri-kayit/
+Disallow: /search/
+Disallow: /api/
+Disallow: /cdn-cgi/
 
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
+# Yapay Zeka Arama ve İndeksleme Botları (Public içerik açık, admin/özel kapalı)
 User-agent: GPTBot
-Allow: /
-
+User-agent: ChatGPT-User
 User-agent: ClaudeBot
-Allow: /
-
 User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
 Allow: /
+Disallow: /admin/
+Disallow: /admin-login/
+Disallow: /yonetim/
+Disallow: /api/
+Disallow: /musteri-kayit/
 
-Sitemap: https://streamtr.eu/sitemap.xml
+# Agresif ve İstenmeyen Veri Kazıyıcılar / SEO Casus Botları
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: PetalBot
+User-agent: MegaIndex
+Disallow: /
+
+Sitemap: https://cineverse.pro/sitemap.xml

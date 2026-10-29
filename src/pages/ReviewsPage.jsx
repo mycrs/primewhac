@@ -286,7 +286,7 @@ const ReviewsPage = ({ siteData }) => {
     }
     setLoadingList(true);
     const { data, error } = await supabase
-      .from('customer_reviews')
+      .from('public_customer_reviews')
       .select(
         'id, author_display_name, rating, body, subscription_months, customer_since_months, created_at, moderated_at'
       )

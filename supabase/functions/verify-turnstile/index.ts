@@ -7,6 +7,8 @@ const SITEVERIFY = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const ALLOWED_ORIGINS = new Set([
   'https://qruzetv.com',
   'https://www.qruzetv.com',
+  'https://satinaliptv.sbs',
+  'https://www.satinaliptv.sbs',
   'https://streamtr.eu',
   'https://www.streamtr.eu',
   'http://localhost:3000',
@@ -17,7 +19,7 @@ const ALLOWED_ORIGINS = new Set([
 
 function corsHeaders(req: Request): HeadersInit {
   const origin = req.headers.get('Origin') ?? '';
-  const allow = ALLOWED_ORIGINS.has(origin) ? origin : 'https://qruzetv.com';
+  const allow = ALLOWED_ORIGINS.has(origin) ? origin : 'https://satinaliptv.sbs';
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',

@@ -11,16 +11,29 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [adminStatus, setAdminStatus] = useState('idle');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const verifyAdminStatus = async (currentUser) => {
     if (!currentUser?.email) return false;
+    return resolveAdminAccess(supabase, currentUser);
+  };
+
+  const verifyAndStoreAdminStatus = async (currentUser) => {
+    setAdminStatus('checking');
     try {
-      return await resolveAdminAccess(supabase, currentUser);
+      const allowed = await verifyAdminStatus(currentUser);
+      setIsAdmin(allowed);
+      setAdminStatus(allowed ? 'allowed' : 'denied');
+      setError(null);
+      return allowed;
     } catch (err) {
       errorLogger.log(err, ERROR_SEVERITY.ERROR, { context: 'verifyAdminStatus_exception' });
-      return false;
+      setIsAdmin(false);
+      setAdminStatus('error');
+      setError(err);
+      return null;
     }
   };
 
@@ -38,12 +51,11 @@ export const AuthProvider = ({ children }) => {
           setSession(session);
           setUser(session?.user || null);
           if (session?.user) {
-            const adminStatus = await verifyAdminStatus(session.user);
-            if (mounted) setIsAdmin(adminStatus);
+            await verifyAndStoreAdminStatus(session.user);
           } else {
             if (mounted) setIsAdmin(false);
+            if (mounted) setAdminStatus('idle');
           }
-          setError(null);
         }
       } catch (err) {
         errorLogger.log(err, ERROR_SEVERITY.ERROR, { context: 'initializeAuth' });
@@ -52,6 +64,7 @@ export const AuthProvider = ({ children }) => {
            setUser(null);
            setSession(null);
            setIsAdmin(false);
+           setAdminStatus('idle');
         }
       } finally {
         if (mounted) setLoading(false);
@@ -67,10 +80,10 @@ export const AuthProvider = ({ children }) => {
           setUser(currentSession?.user || null);
           
           if (currentSession?.user) {
-            const adminStatus = await verifyAdminStatus(currentSession.user);
-            if (mounted) setIsAdmin(adminStatus);
+            await verifyAndStoreAdminStatus(currentSession.user);
           } else {
             if (mounted) setIsAdmin(false);
+            if (mounted) setAdminStatus('idle');
           }
         } catch (err) {
           errorLogger.log(err, ERROR_SEVERITY.ERROR, { context: 'onAuthStateChange' });
@@ -118,18 +131,26 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
       setSession(null);
       setIsAdmin(false);
+      setAdminStatus('idle');
     }
+  };
+
+  const retryAdminCheck = async () => {
+    if (!user) return false;
+    return verifyAndStoreAdminStatus(user);
   };
 
   const value = {
     user,
     session,
     isAdmin,
+    adminStatus,
     loading,
     error,
     signInWithEmail,
     signIn: signInWithEmail,
-    signOut
+    signOut,
+    retryAdminCheck
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

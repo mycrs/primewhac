@@ -6,9 +6,13 @@ export const BLOG_LIST_PAGE_SIZE = 24;
 export const BLOG_LIST_COLUMNS =
   'id, slug, title, excerpt, category, featured, cover_image_url, published_at, author';
 
+/** Almanca listede yalnızca yerelleştirilmiş alanlar kullanılır; Türkçe içerik DE sayfasına sızmaz. */
+export const BLOG_LIST_COLUMNS_DE =
+  'id, slug, title_de, excerpt_de, category, featured, cover_image_url, published_at, author, content_de';
+
 /** Kanal kartları (liste / slider) */
 export const CHANNEL_PUBLIC_COLUMNS =
-  'id, name, category, description, image_url, logo_url, background_image_url, is_active';
+  'id, name, category, description, description_de, image_url, logo_url, background_image_url, is_active';
 
 /** Paket kartları + sipariş modalı */
 export const PACKAGE_LIST_COLUMNS =

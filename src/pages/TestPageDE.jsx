@@ -26,7 +26,7 @@ const TestPageDE = ({ siteData }) => {
   const [isFormValid, setIsFormValid] = useState(false);
   
   const { submitTestRequest, loading } = useTestFormSubmit();
-  const { redirectToWhatsApp } = useWhatsAppIntegration();
+  const { redirectToWhatsApp, isTelegram } = useWhatsAppIntegration();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -49,9 +49,9 @@ const TestPageDE = ({ siteData }) => {
     const tvBrandInfo = formData.tv_brand ? ` (${formData.tv_brand})` : '';
     const requestData = {
       username: formData.username,
-      special_note: formData.special_note,
       device: selectedDevice?.name + tvBrandInfo,
-      app: selectedApp?.name
+      app: selectedApp?.name,
+      note: formData.special_note
     };
 
     const dbData = {
@@ -70,14 +70,16 @@ const TestPageDE = ({ siteData }) => {
           if (redirected) {
             toast({
               title: "Erfolgreich! 🎉",
-              description: "Weiterleitung zu WhatsApp...",
-              className: "bg-green-600 border-none text-white shadow-xl"
+              description: isTelegram ? "Weiterleitung zu Telegram..." : "Weiterleitung zu WhatsApp...",
+              className: isTelegram ? "bg-sky-600 border-none text-white shadow-xl" : "bg-green-600 border-none text-white shadow-xl"
             });
           } else {
             toast({
               variant: "destructive",
-              title: "WhatsApp-Nummer fehlt",
-              description: "Bitte fügen Sie die WhatsApp-Nummer in den Admin-Einstellungen hinzu."
+              title: isTelegram ? "Telegram-Kontakt fehlt" : "WhatsApp-Nummer fehlt",
+              description: isTelegram
+                ? "Bitte konfigurieren Sie Telegram in den Admin-Einstellungen."
+                : "Bitte fügen Sie die WhatsApp-Nummer in den Admin-Einstellungen hinzu."
             });
           }
       }, 1000);
@@ -104,7 +106,7 @@ const TestPageDE = ({ siteData }) => {
     <>
       <SEOHead {...seo} />
 
-      <div className="min-h-screen bg-[#0B0F19] flex flex-col font-sans selection:bg-green-500/30 selection:text-green-200">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans selection:bg-green-500/30 selection:text-green-200">
         <HeaderDE contactData={siteData?.contactData} />
 
         <main className="flex-grow pt-24 pb-20 px-4 relative overflow-hidden">

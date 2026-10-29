@@ -1,9 +1,11 @@
 
+import { SITE_HOST } from '@/constants/siteUrl';
+
 /**
  * Utility to migrate old domain to new domain in content and URLs
  */
-export const OLD_DOMAIN = 'kaliteliiptv.com';
-export const NEW_DOMAIN = 'streamtr.eu';
+export const OLD_DOMAIN = 'streamtr.eu';
+export const NEW_DOMAIN = SITE_HOST;
 
 export const migrateUrl = (url) => {
   if (!url || typeof url !== 'string') return url;

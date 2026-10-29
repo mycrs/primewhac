@@ -51,7 +51,7 @@ const ChannelSlider = () => {
       
       <div className="container mx-auto px-4 mb-8 text-center relative z-10">
         <span className="luxury-kicker mb-4">{isDe ? 'Premium Auswahl' : 'Premium Seçki'}</span>
-        <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-3 tracking-tight">{title}</h2>
+        <h2 className="section-title text-3xl md:text-4xl mb-3">{title}</h2>
         <p className="text-slate-400 text-lg">{description}</p>
       </div>
 

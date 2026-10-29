@@ -100,7 +100,7 @@ const TrendingContentSlider = ({ title = "Trend İçerikler", customItems, custo
       <section ref={sectionRef} className="py-12 w-full container mx-auto px-4">
         <div className="flex items-center gap-3 mb-8">
             <span className="bg-gradient-to-b from-[#e50914] to-[#b20710] w-2 h-8 rounded-full animate-pulse"></span>
-            <h2 className="text-3xl font-extrabold text-white">{title}</h2>
+            <h2 className="section-title text-2xl md:text-3xl">{title}</h2>
         </div>
         <div className="overflow-hidden">
           <div className="flex -ml-2 md:-ml-4">
@@ -145,7 +145,7 @@ const TrendingContentSlider = ({ title = "Trend İçerikler", customItems, custo
       <section ref={sectionRef} className="py-12 w-full container mx-auto px-4">
         <div className="flex items-center gap-3 mb-8">
           <span className="bg-gradient-to-b from-[#e50914] to-[#b20710] w-2 h-8 rounded-full" />
-          <h2 className="text-3xl font-extrabold text-white">{title}</h2>
+          <h2 className="section-title text-2xl md:text-3xl">{title}</h2>
         </div>
         <div className="text-center py-16 bg-[#0a0a0a]/50 rounded-2xl border border-slate-800">
           <AlertCircle className="w-12 h-12 text-slate-500 mx-auto mb-4" />
@@ -174,7 +174,7 @@ const TrendingContentSlider = ({ title = "Trend İçerikler", customItems, custo
               {copy.badge}
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold flex items-center gap-3">
+          <h2 className="section-title text-3xl md:text-4xl flex items-center gap-3">
             <span className="bg-gradient-to-b from-[#e50914] to-[#b20710] w-2 h-10 rounded-full" />
             <span className="text-white">{title}</span>
           </h2>

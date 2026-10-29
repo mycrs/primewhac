@@ -15,9 +15,9 @@ const SetupPageDE = ({ siteData }) => {
   }, []);
 
   const metadata = {
-    title: "IPTV einrichten in 5 Min — Samsung, LG, Fire TV | QruzeTV",
-    description: "Türkisches IPTV auf Samsung, LG, Fire TV Stick, Apple TV & Android einrichten — Schritt für Schritt auf Deutsch, in 5 Minuten live.",
-    keywords: ["IPTV Einrichtungsanleitung", "IPTV Setup Deutschland", "Smart TV IPTV", "stabile IPTV Verbindung", "4K IPTV Einrichtung"],
+    title: "IPTV einrichten — Alle TVs und Geräte | QruzeTV",
+    description: "Anleitungen für Samsung, LG, Philips, Vestel, Hisense, TCL, Android TV, Fire TV, iPhone und Computer – passend zum Betriebssystem.",
+    keywords: ["IPTV Einrichtungsanleitung", "IPTV Setup Deutschland", "Samsung TV IPTV", "LG TV IPTV", "Philips TV IPTV", "Vestel TV IPTV", "Hisense TV IPTV", "TCL TV IPTV"],
     ogType: "website"
   };
 
@@ -38,7 +38,7 @@ const SetupPageDE = ({ siteData }) => {
         "name": "Auf welchen Geräten funktioniert IPTV?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "IPTV funktioniert auf Android TV, Fire TV Stick, iPhone, iPad, Android-Smartphone, Windows PC, Mac, Samsung/LG Smart TV und Tablets."
+          "text": "IPTV kann auf unterstützten Samsung-, LG-, Philips-, Vestel-, Hisense- und TCL-Modellen sowie Android TV, Fire TV Stick, iPhone, iPad, Android-Smartphone, Windows PC, Mac und Tablets genutzt werden. Die App-Verfügbarkeit hängt von Modell, Betriebssystem und Region ab."
         }
       }
     ]
@@ -67,7 +67,7 @@ const SetupPageDE = ({ siteData }) => {
                     Anleitungen & Richtlinien
                   </span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] tracking-tight">
+                <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#ff2430] via-[#e50914] to-[#b20710] tracking-tight">
                   IPTV Einrichtungsanleitung Deutschland - Schritt für Schritt Setup
                 </h1>
                 <p className="text-lg md:text-xl text-slate-300 font-light max-w-3xl mx-auto leading-relaxed">

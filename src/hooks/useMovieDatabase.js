@@ -1,7 +1,10 @@
 
 import { useState, useCallback } from 'react';
 
-const API_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDQ5OTU4OTQ3NWEyZmUxMTBiYjY1MGY4YTRhYzM2ZSIsIm5iZiI6MTc3MTM2OTYwMC4xMDYsInN1YiI6IjY5OTRmNDgwY2ZmM2ZmNzllMjA2NjQ4NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.b6MBLJYzWIPlu1Ja-i8295FqQMAf7mvw9SOuwCU9moo";
+const API_TOKEN =
+  import.meta.env.VITE_TMDB_BEARER_TOKEN ||
+  import.meta.env.VITE_TMDB_API_KEY ||
+  '';
 const BASE_URL = "https://api.themoviedb.org/3";
 
 const cache = new Map();

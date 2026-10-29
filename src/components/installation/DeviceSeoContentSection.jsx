@@ -12,7 +12,7 @@ const fadeInUp = {
 };
 
 const DeviceSeoContentSection = ({ deviceSlug, isDe = false }) => {
-  const contentSlug = deviceSlug === 'samsung-tv' || deviceSlug === 'lg-tv' ? 'smart-tv' : deviceSlug;
+  const contentSlug = deviceSlug;
   const data = INSTALLATION_DEVICE_CONTENT[contentSlug];
   if (!data) return null;
 

@@ -138,7 +138,7 @@ function FeaturedReviewsSlider({ items, copy, isDe, showViewAllLink, viewAllPath
           </div>
           {showViewAllLink && (
             <Button asChild variant="outline" className="border-primary/40 text-primary hover:bg-primary/10 shrink-0 text-sm">
-              <Link to={viewAllPath}>{copy.viewAll}</Link>
+              <Link to={viewAllPath} title={copy.viewAll}>{copy.viewAll}</Link>
             </Button>
           )}
         </div>
@@ -221,8 +221,8 @@ const FeaturedReviewsCarousel = ({ locale = 'tr', showViewAllLink = false, class
         title: 'Öne çıkan yorumlar',
         subtitle: 'Onaylanmış müşterilerimizden seçili deneyimler.',
         viewAll: 'Tüm yorumlar',
-        emptyTitle: 'Müşteri deneyimleri hazırlanıyor',
-        emptySubtitle: 'Onaylı yorumları inceleyin veya test sonrasında kendi deneyiminizi paylaşın.',
+        emptyTitle: 'Deneyiminizi paylaşın',
+        emptySubtitle: 'Ücretsiz testi tamamladıktan sonra yayın deneyiminizi doğrulanmış müşteri yorumu olarak paylaşabilirsiniz.',
         emptyCta: 'Yorumları gör',
         pkgMeta: (s, u) => `Paket: ${s} ay · Kullanım: ${u} ay`,
         verifiedBadge: 'Doğrulanmış Müşteri',
@@ -248,7 +248,7 @@ const FeaturedReviewsCarousel = ({ locale = 'tr', showViewAllLink = false, class
     }
     setLoading(true);
     const { data, error } = await supabase
-      .from('customer_reviews')
+      .from('public_customer_reviews')
       .select(SELECT)
       .eq('status', 'approved')
       .eq('locale', locale)
@@ -291,6 +291,7 @@ const FeaturedReviewsCarousel = ({ locale = 'tr', showViewAllLink = false, class
             <Button asChild variant="outline" className="mt-5 border-primary/40 text-primary hover:bg-primary/10">
               <Link
                 to={viewAllPath}
+                title={copy.emptyCta}
                 onClick={() => trackCtaClick(isDe ? 'reviews_empty_state_de' : 'reviews_empty_state', 'featured_reviews')}
               >
                 {copy.emptyCta}

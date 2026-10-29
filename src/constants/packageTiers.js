@@ -11,6 +11,7 @@ export const DEFAULT_PACKAGE_REGION = 'tr';
 
 /** Şu an UI'da gösterilen tier seçenekleri */
 export const ACTIVE_TIER_OPTIONS = [
+  { id: 'economic', labelTr: 'Ekonomik Paketler', labelDe: 'Wirtschaftspakete' },
   { id: 'standard', labelTr: 'Standart Paketler', labelDe: 'Standard Pakete' },
   { id: 'premium', labelTr: 'Premium Paketler', labelDe: 'Premium Pakete' },
 ];
@@ -19,14 +20,14 @@ export const ACTIVE_TIER_OPTIONS = [
 export const TIER_SHORT_DESCRIPTIONS_TR = {
   standard: 'Günlük kullanım için uygun fiyatlı IPTV paketleri.',
   premium: 'Daha geniş içerik, yüksek kalite yayın ve öncelikli destek isteyen kullanıcılar için.',
-  economic: '',
+  economic: 'Uygun fiyatlı, temel ihtiyaçlar için ideal IPTV paketleri.',
   ultra: '',
 };
 
 export const TIER_SHORT_DESCRIPTIONS_DE = {
   standard: 'Preiswerte IPTV-Pakete für den täglichen Gebrauch.',
   premium: 'Für Nutzer mit größerem Inhaltsarchiv, hoher Qualität und priorisiertem Support.',
-  economic: '',
+  economic: 'Günstige IPTV-Pakete für grundlegende Bedürfnisse.',
   ultra: '',
 };
 
@@ -35,7 +36,8 @@ export const TIER_DESCRIPTIONS_TR = {
     'Standart IPTV paketleri, günlük kullanım için hazırlanmış uygun fiyatlı abonelik seçenekleridir. Temel kanal erişimi, film/dizi içerikleri ve yaygın cihaz desteği sunar.',
   premium:
     'Premium IPTV paketleri, daha geniş içerik arşivi, yüksek kalite yayın seçenekleri ve öncelikli destek isteyen kullanıcılar için hazırlanmıştır.',
-  economic: '',
+  economic:
+    'Ekonomik IPTV paketleri, bütçe dostu fiyatlarla temel kanal erişimi, popüler içerikler ve yaygın cihaz desteği sunar. Hizmeti keşfetmek isteyenler için ideal başlangıç noktasıdır.',
   ultra: '',
 };
 
@@ -44,7 +46,8 @@ export const TIER_DESCRIPTIONS_DE = {
     'Standard-IPTV-Pakete sind preiswerte Abonnements für den täglichen Gebrauch mit Grundkanälen, Film- und Serieninhalten sowie breiter Geräteunterstützung.',
   premium:
     'Premium-IPTV-Pakete bieten ein größeres Inhaltsarchiv, hochwertige Streaming-Optionen und priorisierten Support für anspruchsvolle Nutzer.',
-  economic: '',
+  economic:
+    'Economy-IPTV-Pakete bieten zu budgetfreundlichen Preisen Zugang zu den wichtigsten Kanälen, beliebten Inhalten und breiter Geräteunterstützung — ideal für Einsteiger.',
   ultra: '',
 };
 

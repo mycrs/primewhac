@@ -28,8 +28,8 @@ const ContentCard = ({ item, type, isDe = false, accentIndex = 0 }) => {
   const imageUrl = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
 
   const label = isDe
-    ? { type: mediaType === 'movie' ? 'Film' : 'Serie', noOverview: 'Keine Beschreibung.', details: 'Details' }
-    : { type: mediaType === 'movie' ? 'Film' : 'Dizi', noOverview: 'Özet bulunmuyor.', details: 'Detaylar' };
+    ? { type: mediaType === 'movie' ? 'Film' : 'Serie', noOverview: 'Keine Beschreibung.', details: `${displayTitle} Details` }
+    : { type: mediaType === 'movie' ? 'Film' : 'Dizi', noOverview: 'Özet bulunmuyor.', details: `${displayTitle} detayları` };
 
   return (
     <Link to={`/ne-izlesem/${id}?type=${mediaType}`} className="block h-full outline-none">

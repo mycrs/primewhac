@@ -13,6 +13,8 @@ import {
   Megaphone, Headphones, HelpCircle 
 } from 'lucide-react';
 import ResellerCalculatorSection from '@/components/ResellerCalculatorSection';
+import { openSupportWhatsApp } from '@/utils/supportChannel';
+import { SITE_URL } from '@/constants/siteUrl';
 
 const iconMap = {
   LayoutDashboard,
@@ -25,13 +27,20 @@ const iconMap = {
 
 const ResellerPage = ({ siteData }) => {
   const { resellerData, contactData, siteTexts, chatBotData, packagesData } = siteData;
-  const whatsappLink = `https://wa.me/${contactData?.whatsapp}?text=${encodeURIComponent("IPTV Bayilik programı hakkında bilgi almak istiyorum.")}`;
+  // Link DOM'a yazılmaz; numara runtime'da çözülür ve yalnızca tıklamada açılır.
+  const openResellerContact = () =>
+    openSupportWhatsApp({
+      siteData,
+      contactData,
+      message: 'IPTV Bayilik programı hakkında bilgi almak istiyorum.',
+    });
   
   const metadata = {
     title: "IPTV Bayilik (Reseller) Programı | Kendi İşinizi Kurun",
     description: "IPTV bayilik (reseller) programımızla kendi işinizi kurun. En gelişmiş kontrol paneli ve yüksek kazanç oranları ile hemen başlayın.",
     keywords: ["iptv bayilik", "iptv reseller", "iptv panel satışı", "iptv bayilik fiyatları", "iptv iş ortaklığı"],
     ogType: "website",
+    ogImage: `${SITE_URL}/og/bayilik.jpg`,
   };
   const jsonLd = resellerPageSchemas(metadata);
 
@@ -175,9 +184,9 @@ const ResellerPage = ({ siteData }) => {
       title: "Pazarlama Desteği",
       icon: Megaphone,
       bgClass: "from-[#e50914]/10 to-rose-500/10",
-      borderClass: "border-pink-500/30 hover:border-pink-400",
+      borderClass: "border-[#e50914]/30 hover:border-[#ff2430]",
       shadowClass: "hover:shadow-[0_0_30px_rgba(236,72,153,0.3)]",
-      iconBgClass: "bg-pink-500/20 text-pink-400 group-hover:bg-pink-500 group-hover:text-white",
+      iconBgClass: "bg-[#e50914]/20 text-[#ff3b45] group-hover:bg-[#e50914] group-hover:text-white",
       textGradient: "from-[#e50914] to-rose-400",
       content: (
         <>
@@ -268,7 +277,7 @@ const ResellerPage = ({ siteData }) => {
                     <Rocket className="w-4 h-4 text-primary" /> Bayilik Programı
                  </span>
               </div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight tracking-tight">
+              <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight tracking-tight">
                 IPTV Bayilik Fırsatı - Yüksek Kâr Marjı ile Kendi İşini Kur
               </h1>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light mb-10">
@@ -278,7 +287,7 @@ const ResellerPage = ({ siteData }) => {
               <Button 
                 size="lg" 
                 className="bg-primary hover:bg-primary text-white font-bold h-14 px-10 rounded-xl text-lg shadow-lg shadow-primary/40 hover:scale-105 transition-all duration-300"
-                onClick={() => window.open(whatsappLink, '_blank')}
+                onClick={openResellerContact}
               >
                 <MessageCircle className="mr-2 h-5 w-5" />
                 Şimdi Başvur
@@ -342,7 +351,7 @@ const ResellerPage = ({ siteData }) => {
                   </p>
 
                   <div className="mt-8">
-                     <button onClick={() => window.open(whatsappLink, '_blank')} className="font-bold underline text-primary hover:text-primary">Daha fazla bilgi için hemen bizimle iletişime geçin</button>
+                     <button onClick={openResellerContact} className="font-bold underline text-primary hover:text-primary">Daha fazla bilgi için hemen bizimle iletişime geçin</button>
                   </div>
                 </div>
               </motion.div>
@@ -406,12 +415,12 @@ const ResellerPage = ({ siteData }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="relative rounded-3xl overflow-hidden p-[2px] bg-gradient-to-r from-[#e50914] via-pink-600 to-[#b20710] shadow-2xl shadow-primary/50"
+                className="relative rounded-3xl overflow-hidden p-[2px] bg-gradient-to-r from-[#e50914] via-[#ff2430] to-[#b20710] shadow-2xl shadow-primary/50"
              >
                 <div className="bg-[#0a0a0a]/90 backdrop-blur-xl rounded-[22px] p-12 text-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 pointer-events-none"></div>
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#e50914]/20 rounded-full blur-3xl pointer-events-none"></div>
                     
                     <div className="relative z-10">
                         <h3 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">Başlamaya Hazır Mısınız?</h3>
@@ -419,7 +428,7 @@ const ResellerPage = ({ siteData }) => {
                         <Button 
                             size="lg" 
                             className="bg-white text-primary font-bold hover:bg-primary h-16 px-12 rounded-full text-lg shadow-xl hover:scale-105 transition-all duration-300 border-4 border-primary/20"
-                            onClick={() => window.open(whatsappLink, '_blank')}
+                            onClick={openResellerContact}
                         >
                             <MessageCircle className="mr-2 h-6 w-6" />
                             Hemen İletişime Geç

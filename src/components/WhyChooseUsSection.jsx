@@ -18,7 +18,7 @@ const reasons = [
   {
     icon: CheckCircle,
     title: "Güvenilir Hizmet",
-    desc: "Binlerce mutlu müşteri ile kanıtlanmış hizmet kalitesi.",
+    desc: "Ücretsiz test, açık paket bilgileri ve satış sonrası destekle kararınızı güvenle verin.",
     gradient: "from-green-500 to-[#b20710]"
   },
   {
@@ -40,7 +40,7 @@ const WhyChooseUsSection = () => {
           className="text-center mb-16"
         >
           <span className="text-primary font-semibold tracking-wider text-sm uppercase mb-2 block">Avantajlarımız</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white">Neden Bizi Seçmelisiniz?</h2>
+          <h2 className="section-title text-3xl md:text-4xl">Neden Bizi Seçmelisiniz?</h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

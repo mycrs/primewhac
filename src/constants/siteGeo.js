@@ -6,7 +6,7 @@
 export const SITE_GEO = {
   tr: {
     lang: 'tr',
-    htmlLang: 'tr',
+    htmlLang: 'tr-TR',
     contentLanguage: 'tr-TR',
     ogLocale: 'tr_TR',
     ogLocaleAlternate: 'de_DE',
@@ -18,7 +18,7 @@ export const SITE_GEO = {
   },
   de: {
     lang: 'de',
-    htmlLang: 'de',
+    htmlLang: 'de-DE',
     contentLanguage: 'de-DE',
     ogLocale: 'de_DE',
     ogLocaleAlternate: 'tr_TR',
@@ -47,6 +47,5 @@ export function geoHeadMetaHtml(lang) {
   return [
     `<meta name="geo.region" content="${geo.geoRegion}">`,
     `<meta name="geo.placename" content="${placename}">`,
-    `<meta http-equiv="content-language" content="${geo.contentLanguage}">`,
   ].join('\n    ');
 }

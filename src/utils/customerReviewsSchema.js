@@ -8,44 +8,50 @@ import { SITE_URL } from '../constants/siteUrl.js';
 const REVIEWED_APP_NAME = 'QruzeTV IPTV';
 const LOGO_URL = `${SITE_URL}/logo.png`;
 
-const PRODUCT_OFFER = {
-  '@type': 'Offer',
-  url: `${SITE_URL}/paketler`,
-  price: '0',
-  priceCurrency: 'TRY',
-  availability: 'https://schema.org/InStock',
-  priceValidUntil: '2027-12-31',
-};
-
-/** Merchant listings — GSC; dijital hizmet, mevcut Offer alanlarına ek */
-const PRODUCT_OFFER_MERCHANT_EXTRAS = {
-  hasMerchantReturnPolicy: {
-    '@type': 'MerchantReturnPolicy',
-    applicableCountry: 'TR',
-    returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-  },
-  shippingDetails: {
-    '@type': 'OfferShippingDetails',
-    shippingRate: {
-      '@type': 'MonetaryAmount',
-      value: '0',
-      currency: 'TRY',
+/**
+ * Yorumlar sayfasındaki Product, paket sayfasına yönlendiren bir özet ürün kartıdır.
+ * price:'0' geçersiz; priceSpecification ile aralık belirtilir.
+ * Dil parametresine göre TR veya DE offer döner.
+ */
+function buildProductOffer(lang) {
+  const isDe = lang === 'de';
+  return {
+    '@type': 'AggregateOffer',
+    url: isDe ? `${SITE_URL}/de/pakete/` : `${SITE_URL}/paketler/`,
+    lowPrice: isDe ? '45' : '750',
+    highPrice: isDe ? '185' : '1900',
+    priceCurrency: isDe ? 'EUR' : 'TRY',
+    offerCount: isDe ? '4' : '4',
+    availability: 'https://schema.org/InStock',
+    priceValidUntil: '2027-12-31',
+    seller: { '@type': 'Organization', name: 'QruzeTV', url: `${SITE_URL}` },
+    hasMerchantReturnPolicy: {
+      '@type': 'MerchantReturnPolicy',
+      name: isDe ? 'QruzeTV Digital Subscription Return Policy' : 'QruzeTV Dijital Abonelik İade Politikası',
+      applicableCountry: isDe ? ['DE', 'AT', 'CH', 'NL'] : 'TR',
+      returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+      merchantReturnDays: 1,
+      returnFees: 'https://schema.org/FreeReturn',
     },
-    shippingDestination: {
-      '@type': 'DefinedRegion',
-      addressCountry: 'TR',
-    },
-    deliveryTime: {
-      '@type': 'ShippingDeliveryTime',
-      handlingTime: {
-        '@type': 'QuantitativeValue',
-        minValue: 0,
-        maxValue: 1,
-        unitCode: 'DAY',
+    shippingDetails: {
+      '@type': 'OfferShippingDetails',
+      shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: isDe ? 'EUR' : 'TRY' },
+      shippingDestination: isDe
+        ? [
+            { '@type': 'DefinedRegion', addressCountry: 'DE' },
+            { '@type': 'DefinedRegion', addressCountry: 'AT' },
+            { '@type': 'DefinedRegion', addressCountry: 'CH' },
+            { '@type': 'DefinedRegion', addressCountry: 'NL' },
+          ]
+        : { '@type': 'DefinedRegion', addressCountry: 'TR' },
+      deliveryTime: {
+        '@type': 'ShippingDeliveryTime',
+        handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 0, unitCode: 'DAY' },
+        transitTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 0, unitCode: 'DAY' },
       },
     },
-  },
-};
+  };
+}
 
 function serviceDescription(lang) {
   return lang === 'de'
@@ -124,7 +130,7 @@ export function buildCustomerReviewsJsonLd({ reviews, pageUrl, lang = 'tr' }) {
       name: 'QruzeTV',
     },
     url: SITE_URL,
-    offers: { ...PRODUCT_OFFER, ...PRODUCT_OFFER_MERCHANT_EXTRAS },
+    offers: buildProductOffer(lang),
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: avg,

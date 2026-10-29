@@ -379,7 +379,7 @@ export default function CustomerPackagesPage() {
                   value={typeForm.name}
                   onChange={(e) => setTypeForm((f) => ({ ...f, name: e.target.value }))}
                   className="bg-white/5 border-white/10"
-                  placeholder="Örn. QruzeHD"
+                  placeholder="Örn. QruzeTV"
                 />
               </div>
               <div className="space-y-2">

@@ -28,7 +28,7 @@ const PackageRegionSelector = ({ selectedRegion, onRegionChange }) => {
   ];
 
   return (
-    <div className="w-full bg-[#1e1e30] p-1 rounded-lg border border-[#2a2a40] mb-6 flex relative">
+    <div className="w-full bg-[#1a1a1a] p-1 rounded-lg border border-[#262626] mb-6 flex relative">
       {regions.map((region) => (
         <button
           key={region.id}

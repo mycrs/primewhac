@@ -23,15 +23,15 @@ import { SITE_URL } from '@/constants/siteUrl';
 
 const quickLinksTR = [
   { label: 'Ana Sayfa', path: '/', icon: Home },
-  { label: 'Kurulum', path: '/kurulum', icon: BookOpen },
-  { label: 'SSS', path: '/sss', icon: HelpCircle },
-  { label: 'Blog', path: '/blog', icon: FileText },
+  { label: 'Kurulum', path: '/kurulum/', icon: BookOpen },
+  { label: 'SSS', path: '/sss/', icon: HelpCircle },
+  { label: 'Blog', path: '/blog/', icon: FileText },
 ];
 const quickLinksDE = [
-  { label: 'Startseite', path: '/de', icon: Home },
-  { label: 'Einrichtung', path: '/de/einrichtung', icon: BookOpen },
-  { label: 'FAQ', path: '/de/sss', icon: HelpCircle },
-  { label: 'Blog', path: '/de/blog', icon: FileText },
+  { label: 'Startseite', path: '/de/', icon: Home },
+  { label: 'Einrichtung', path: '/de/einrichtung/', icon: BookOpen },
+  { label: 'FAQ', path: '/de/sss/', icon: HelpCircle },
+  { label: 'Blog', path: '/de/blog/', icon: FileText },
 ];
 
 const container = {
@@ -161,7 +161,7 @@ const NotFoundPage = () => {
                   size="lg"
                   className="bg-gradient-to-r from-[#e50914] to-green-600 hover:from-[#e50914] hover:to-green-500 text-white font-bold shadow-lg shadow-emerald-500/25 border-0 rounded-xl h-12 px-6"
                 >
-                  <Link to={isDe ? '/de/test' : '/test'}>
+                  <Link to={isDe ? '/de/test/' : '/test/'}>
                     <FlaskConical className="mr-2 h-5 w-5" />
                     {testLabel}
                   </Link>
@@ -172,7 +172,7 @@ const NotFoundPage = () => {
                   variant="outline"
                   className="border-primary/50 text-primary hover:bg-primary/20 hover:text-white font-semibold rounded-xl h-12 px-6"
                 >
-                  <Link to={isDe ? '/de/paketler' : '/paketler'}>
+                  <Link to={isDe ? '/de/paketler/' : '/paketler/'}>
                     <Package className="mr-2 h-5 w-5" />
                     {packagesLabel}
                   </Link>
@@ -187,7 +187,7 @@ const NotFoundPage = () => {
                 transition={{ delay: 0.65 }}
               >
                 <Button asChild variant="ghost" size="sm" className="text-slate-400 hover:text-white gap-1.5">
-                  <Link to={isDe ? '/de' : '/'}>
+                  <Link to={isDe ? '/de/' : '/'}>
                     <Home className="w-4 h-4" />
                     {homeLabel}
                   </Link>

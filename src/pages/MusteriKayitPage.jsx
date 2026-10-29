@@ -39,7 +39,7 @@ export default function MusteriKayitPage({ siteData }) {
       let hadLoadError = false;
 
       try {
-        const r = await fetch('/api/public/customer-package-options');
+        const r = import.meta.env.DEV ? await fetch('/api/public/customer-package-options') : { ok: false };
         if (r.ok) {
           const j = await r.json().catch(() => null);
           if (j?.ok && Array.isArray(j.packageTypes) && Array.isArray(j.durations)) {
@@ -54,7 +54,7 @@ export default function MusteriKayitPage({ siteData }) {
       if (nextTypes.length === 0 || nextDurations.length === 0) {
         const [tRes, dRes] = await Promise.all([
           supabase
-            .from('package_types')
+            .from('public_package_types')
             .select('id,name,is_active,sort_order')
             .eq('is_active', true)
             .order('sort_order', { ascending: true }),
@@ -88,9 +88,13 @@ export default function MusteriKayitPage({ siteData }) {
   const handleSubmit = async (payload) => {
     setSubmitting(true);
     setError('');
-    const turnstileToken =
-      payload.turnstileToken != null && String(payload.turnstileToken).trim()
-        ? String(payload.turnstileToken).trim()
+    const mathCaptchaId =
+      payload.mathCaptchaId != null && String(payload.mathCaptchaId).trim()
+        ? String(payload.mathCaptchaId).trim()
+        : '';
+    const mathCaptchaAnswer =
+      payload.mathCaptchaAnswer != null && String(payload.mathCaptchaAnswer).trim()
+        ? String(payload.mathCaptchaAnswer).trim()
         : '';
     const row = {
       full_name: payload.full_name,
@@ -110,7 +114,7 @@ export default function MusteriKayitPage({ siteData }) {
       notes: payload.notes,
     };
 
-    const out = await registerCustomerPublic({ turnstileToken, ...row });
+    const out = await registerCustomerPublic({ mathCaptchaId, mathCaptchaAnswer, ...row });
     if (!out.ok) {
       setError(formatCustomerRegisterError(out.error, out.status));
       setSubmitting(false);

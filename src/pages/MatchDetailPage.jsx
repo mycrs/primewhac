@@ -4,6 +4,7 @@ import SEOHead from '@/components/SEOHead';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
+import SocialShareButtons from '@/components/SocialShareButtons';
 import { useMatchBySlug } from '@/hooks/useMatchBySlug';
 import { useMatchContent } from '@/hooks/useMatchContent';
 import { Loader2, Trophy, ArrowLeft, Calendar, Clock, Flame, Tv } from 'lucide-react';
@@ -70,11 +71,11 @@ const MatchDetailPage = ({ siteData }) => {
     if (!match) return { title: 'Maç Detayı | QruzeTV', description: 'Maç bilgisi yükleniyor.', canonicalUrl: `${SITE_URL}/mac-programi` };
     const formattedDate = formatDateForSeo(match.date);
     const title = `${match.home} - ${match.away} | ${match.league.name} ${formattedDate} | QruzeTV`;
-    const description = `${formattedDate} ${match.time} - ${match.home} vs ${match.away} maçı. ${match.league.name}. Spor kanallarında QruzeTV IPTV ile canlı izleyin.`;
+    const description = `${formattedDate} ${match.time} - ${match.home} vs ${match.away} maçı. ${match.league.name}. Tarih, başlama saati ve fikstür bilgileri.`;
     return {
       title: title.substring(0, 60) + (title.length > 60 ? '...' : ''),
       description: description.substring(0, 160),
-      keywords: [match.home, match.away, match.league.name, 'maç izle', 'hangi kanalda', 'QruzeTV'],
+      keywords: [match.home, match.away, match.league.name, 'maç saati', 'fikstür', 'QruzeTV'],
       canonicalUrl: `${SITE_URL}/mac-programi/${slug}`,
       noindex: true,
     };
@@ -259,19 +260,19 @@ const MatchDetailPage = ({ siteData }) => {
               </div>
             </div>
 
-            {/* Kanal bilgisi */}
+            {/* Karşılaşma bilgisi */}
             <div className="p-6 sm:p-8 lg:p-12 pr-20 sm:pr-8 lg:pr-12 bg-[#0a0a0a]/40 border-t border-slate-800">
               <h2 className="text-xl font-semibold text-white mb-5 flex items-center gap-2">
                 <Tv className="w-6 h-6 text-primary" />
-                Hangi kanalda izlenir?
+                Karşılaşma detayları
               </h2>
               <p className="text-slate-100 text-base sm:text-lg lg:text-xl mb-5 leading-[1.8]">
-                {match.league.country === 'Türkiye'
-                  ? <>Süper Lig maçları spor kanallarında canlı yayınlanır. Hangi kanalda, saat kaçta? Haftalık programda güncel bilgiler yer alır.</>
-                  : <>Avrupa ligleri spor kanalları ve dijital platformlarda izlenebilir. Yayın bilgisi haftalık programda güncellenir.</>}
+                Karşılaşmanın tarihi ve başlama saati haftalık programda güncel tutulur. Fikstür değişikliklerinde
+                sayfa otomatik olarak yenilenir.
               </p>
               <p className="text-slate-100 text-base sm:text-lg lg:text-xl mb-6 leading-[1.8]">
-                <span className="text-primary/90 font-semibold">QruzeTV</span> IPTV aboneliği ile tüm spor kanallarına kesintisiz erişim sağlayın.
+                <span className="text-primary/90 font-semibold">QruzeTV</span> ile çoklu cihaz desteği, 4K/UHD seçenekleri
+                ve kurulum desteğinden yararlanın.
               </p>
               <Link
                 to="/paketler"
@@ -279,6 +280,16 @@ const MatchDetailPage = ({ siteData }) => {
               >
                 Paketleri İncele
               </Link>
+            </div>
+
+            {/* Share Buttons */}
+            <div className="p-6 sm:p-8 lg:p-12 bg-[#0a0a0a]/40 border-t border-slate-800">
+              <SocialShareButtons
+                url={metadata.canonicalUrl}
+                title={metadata.title}
+                description={metadata.description}
+                locale="tr"
+              />
             </div>
 
             {/* SEO: İlgili sayfalara yönlendirme */}

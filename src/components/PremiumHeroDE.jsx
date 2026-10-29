@@ -1,6 +1,6 @@
 import React, { memo, useState, useMemo, useEffect, useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Zap, Monitor, ShieldCheck, Film, Clock, Tv2, Radio, Headphones, MessageSquare } from 'lucide-react';
+import { Play, Zap, Monitor, ShieldCheck, Film, Clock, Tv2, Radio, Headphones, MessageSquare, Sparkles, Wifi, Cable, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useTestModal } from '@/contexts/TestModalContext';
@@ -46,6 +46,11 @@ const trustItems = [
   { icon: Tv2, label: '10.000+ Kanäle' },
   { icon: Radio, label: '4K Ultra HD' },
   { icon: Headphones, label: '24/7 Support' },
+];
+
+const quickTools = [
+  { icon: Cable, title: 'M3U-Tool', detail: 'Ihre Liste in Sekunden vorbereiten', to: '/de/m3u-olustur' },
+  { icon: Monitor, title: 'Einrichtungs-Guide', detail: 'Passende Schritte für Ihr Gerät', to: '/de/einrichtung' },
 ];
 
 const PLACEHOLDER_GRADS = [
@@ -155,7 +160,7 @@ function PosterTile({ url, hue, skeleton, eager }) {
       {!loaded && <div className="absolute inset-0 z-10 animate-pulse bg-white/[0.12]" aria-hidden="true" />}
       <img
         src={url}
-        alt=""
+        alt="Beliebter Film- und Serienposter"
         width={342}
         height={513}
         loading={eager ? 'eager' : 'lazy'}
@@ -318,10 +323,10 @@ const PremiumHeroDE = ({ siteData, mainTitle, subTitle: _subTitle }) => {
   const descriptionAndActions = (
     <>
       <p className="mx-auto mb-6 max-w-[480px] text-center text-[1rem] leading-relaxed text-white/85 md:mx-0 md:mb-8 md:text-left">
-        Vergessen Sie das traditionelle Fernsehen. 10.000+{' '}
-        <span className="font-medium text-white">Premium-Kanäle</span>, eine riesige{' '}
+        Erleben Sie Premium IPTV in Deutschland in 4K-Qualität – 10.000+{' '}
+        <span className="font-medium text-white">Live-Kanäle</span>, eine riesige{' '}
         <span className="font-medium text-white">VOD-Bibliothek</span> und unsere{' '}
-        <span className="font-medium text-[#e50914]">4K-Infrastruktur</span> machen Ihr Zuhause zum privaten Kino.
+        <span className="font-medium text-[#e50914]">ruckelfreie 4K-Infrastruktur</span> ohne lange Vertragsbindung.
       </p>
 
       <motion.div
@@ -396,14 +401,18 @@ const PremiumHeroDE = ({ siteData, mainTitle, subTitle: _subTitle }) => {
   );
 
   return (
-    <div className="relative z-0 flex min-h-[100dvh] w-full flex-col justify-center overflow-hidden pt-20 pb-16 md:pt-24 md:pb-20">
+    <div className="premium-hero-cinematic relative z-0 flex min-h-[100dvh] w-full flex-col justify-center overflow-hidden pt-20 pb-16 md:pt-24 md:pb-20">
       <div
         className="pointer-events-none absolute inset-0 z-0 bg-[#0a0a0a]"
         aria-hidden
       />
 
+      <div className="premium-hero-aurora pointer-events-none absolute inset-0 z-[1]" aria-hidden />
+      <div className="premium-hero-orb premium-hero-orb-one pointer-events-none absolute z-[1]" aria-hidden />
+      <div className="premium-hero-orb premium-hero-orb-two pointer-events-none absolute z-[1]" aria-hidden />
+
       <div
-        className="pointer-events-none absolute bottom-0 left-0 z-[1] h-[min(58vh,560px)] w-[min(92vw,680px)] bg-[radial-gradient(ellipse_80%_70%_at_0%_100%,rgba(229, 9, 20,0.42)_0%,rgba(229,9,20,0.14)_38%,transparent_68%)]"
+        className="pointer-events-none absolute bottom-0 left-0 z-[1] h-[min(58vh,560px)] w-[min(92vw,680px)] bg-[radial-gradient(ellipse_80%_70%_at_0%_100%,rgba(229,9,20,0.42)_0%,rgba(229,9,20,0.14)_38%,transparent_68%)]"
         aria-hidden
       />
       <div
@@ -419,10 +428,25 @@ const PremiumHeroDE = ({ siteData, mainTitle, subTitle: _subTitle }) => {
       <div className="relative z-[3] mx-auto w-full max-w-7xl px-4 pt-4">
         <div className="flex flex-col items-stretch gap-8 md:flex-row md:items-center md:gap-10 lg:gap-14">
           <div className="relative order-2 flex w-full flex-col items-center text-center md:order-1 md:w-1/2 md:shrink-0 md:items-start md:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.055] px-3.5 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_10px_32px_rgba(0,0,0,0.22)] backdrop-blur-xl md:mb-5"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary shadow-[0_0_12px_rgba(229,9,20,0.95)]" />
+              </span>
+              Premium streaming experience
+              <Sparkles className="h-3.5 w-3.5 text-amber-300" aria-hidden />
+            </motion.div>
             <motion.div variants={itemVariants} initial={false} animate="visible" className="relative mb-3 md:mb-4">
               <img
                 src={BRAND_LOGO_URL}
                 alt="QruzeTV logo"
+                width={160}
+                height={160}
                 className="mx-auto h-auto w-full max-w-[120px] object-contain opacity-95 drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)] drop-shadow-[0_0_40px_rgba(229,9,20,0.45)] md:mx-0 md:max-w-[160px]"
                 fetchPriority="high"
                 decoding="async"
@@ -435,26 +459,58 @@ const PremiumHeroDE = ({ siteData, mainTitle, subTitle: _subTitle }) => {
             </p>
 
             <h1 className="font-display mb-4 w-full max-w-lg font-black tracking-tight text-white antialiased md:mb-5 md:max-w-none">
-              <span className="block text-xl leading-snug md:text-[4rem] md:leading-[1.05]">{line1}</span>
-              <span className="mt-1 block text-base font-black text-[#e50914] md:mt-2 md:text-[2rem]">{line2}</span>
+              <span className="block text-3xl leading-tight sm:text-4xl md:text-[3.4rem] md:leading-[1.05] lg:text-[4rem]">{line1}</span>
+              <span className="mt-1.5 block bg-gradient-to-r from-[#ff2430] via-[#e50914] to-[#b20710] bg-clip-text text-xl font-black text-transparent sm:text-2xl md:mt-2 md:text-[2rem]">{line2}</span>
             </h1>
 
             <div className="mx-auto flex w-full max-w-lg flex-col md:mx-0 md:max-w-none">{descriptionAndActions}</div>
           </div>
 
-          <div className="relative order-1 h-[280px] w-full shrink-0 overflow-hidden rounded-xl md:order-2 md:h-[min(85vh,720px)] md:min-h-[420px] md:w-1/2 md:overflow-visible md:rounded-none">
+          <div className="premium-hero-media relative order-1 h-[280px] w-full shrink-0 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.025] shadow-[0_24px_70px_rgba(0,0,0,0.42)] md:order-2 md:h-[min(85vh,720px)] md:min-h-[420px] md:w-1/2 md:overflow-visible md:rounded-none md:border-0 md:bg-transparent md:shadow-none">
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-[3] flex items-center justify-between p-3 md:hidden" aria-hidden>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-2.5 py-1 text-[9px] font-black tracking-[0.16em] text-white/85 backdrop-blur-md"><Wifi className="h-3 w-3 text-emerald-300" /> LIVE</span>
+              <span className="rounded-full border border-primary/40 bg-primary/20 px-2.5 py-1 text-[9px] font-black tracking-[0.16em] text-white">4K UHD</span>
+            </div>
             {isMobileViewport ? (
               <>
                 <HeroMosaicMobile columnsWithG={columnsMobile} />
                 <div
-                  className="pointer-events-none absolute inset-0 z-[1] bg-[#0a0a0a]/90"
+                  className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(10,10,10,0.9),rgba(10,10,10,0.38),rgba(10,10,10,0.72))]"
                   aria-hidden="true"
                 />
               </>
             ) : (
-              <div className="absolute inset-y-0 right-0 hidden h-full w-full max-w-[min(100%,420px)] md:block">
-                <HeroMosaicDesktop columnsWithG={columnsDesktop} />
-              </div>
+              <>
+                <div className="premium-hero-desktop-mosaic absolute inset-y-0 right-0 hidden h-full w-full max-w-[min(100%,420px)] md:block">
+                  <HeroMosaicDesktop columnsWithG={columnsDesktop} />
+                </div>
+                <motion.aside
+                  initial={{ opacity: 0, x: -18, y: 12 }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute bottom-8 left-0 z-10 hidden w-[min(100%,285px)] rounded-3xl border border-white/15 bg-[#101014]/80 p-3 shadow-[0_24px_70px_rgba(0,0,0,0.48),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-2xl md:block lg:left-2"
+                  aria-label="Schnellzugriff"
+                >
+                  <div className="mb-2 flex items-center gap-2 px-2 pt-1 text-[10px] font-black uppercase tracking-[0.17em] text-white/55">
+                    <Sparkles className="h-3.5 w-3.5 text-amber-300" aria-hidden="true" />
+                    Schnellzugriff
+                  </div>
+                  <div className="space-y-1.5">
+                    {quickTools.map((tool) => (
+                      <Link key={tool.to} to={tool.to} className="group flex items-center gap-3 rounded-2xl p-2.5 transition-colors hover:bg-white/[0.09]">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary ring-1 ring-primary/25 transition-transform group-hover:scale-105">
+                          <tool.icon className="h-4.5 w-4.5" aria-hidden="true" />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-sm font-bold text-white">{tool.title}</span>
+                          <span className="block truncate text-[11px] text-slate-400">{tool.detail}</span>
+                        </span>
+                        <ChevronRight className="h-4 w-4 shrink-0 text-white/35 transition-transform group-hover:translate-x-0.5 group-hover:text-white" aria-hidden="true" />
+                      </Link>
+                    ))}
+                  </div>
+                </motion.aside>
+              </>
             )}
           </div>
         </div>
@@ -477,7 +533,7 @@ const PremiumHeroDE = ({ siteData, mainTitle, subTitle: _subTitle }) => {
               <div
                 className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${feature.color} shadow-[0_18px_44px_rgba(0,0,0,0.38),0_0_28px_rgba(229,9,20,0.18),inset_0_1px_0_rgba(255,255,255,0.28)] ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105`}
               >
-                <feature.icon className="h-8 w-8 text-white drop-shadow-md" />
+                <feature.icon className="h-8 w-8 text-white drop-shadow-md" aria-hidden="true" />
               </div>
               <span className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-white/55">
                 0{index + 1}

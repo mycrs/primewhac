@@ -10,57 +10,71 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
   const links = {
     home: isGerman ? [
       {
-        to: '/de/pakete',
+        to: '/de/pakete/',
         text: 'IPTV-Pakete und Preise',
         icon: ShoppingCart,
         desc: 'Erkunden Sie die günstigsten Paketoptionen.',
         ariaLabel: 'Gehen Sie zur Seite IPTV-Pakete und Preise'
       },
       {
-        to: '/de/einrichtung',
+        to: '/de/einrichtung/',
         text: 'IPTV-Installationsanleitung',
         icon: Settings,
         desc: 'Detaillierte Installationsanweisungen für Ihr Gerät.',
         ariaLabel: 'Gehen Sie zur Seite IPTV-Installationsanleitung'
+      },
+      {
+        to: '/de/tuerkische-sender-in-deutschland/',
+        text: 'Türkische Sender in Deutschland',
+        icon: Trophy,
+        desc: 'Empfangswege, Geräte und Einrichtung im Überblick.',
+        ariaLabel: 'Ratgeber für türkische Sender in Deutschland öffnen'
+      },
+      {
+        to: '/de/test/',
+        text: 'Kostenlos testen',
+        icon: Info,
+        desc: 'Streaming-Qualität vor der Buchung auf dem eigenen Gerät prüfen.',
+        ariaLabel: 'Kostenlosen IPTV-Test öffnen'
       }
     ] : [
       {
-        to: '/paketler',
+        to: '/paketler/',
         text: 'IPTV paketleri ve fiyatları',
         icon: ShoppingCart,
         desc: 'En uygun fiyatlı paket seçeneklerini inceleyin.',
         ariaLabel: 'IPTV paketleri ve fiyatları sayfasına git'
       },
       {
-        to: '/kurulum',
+        to: '/kurulum/',
         text: 'IPTV kurulum rehberi',
         icon: Settings,
         desc: 'Cihazınıza özel detaylı kurulum talimatları.',
         ariaLabel: 'IPTV kurulum rehberi sayfasına git'
       },
       {
-        to: '/test',
+        to: '/test/',
         text: 'Ücretsiz test hesabı',
         icon: Info,
         desc: 'Satın almadan önce yayın kalitesini deneyin.',
         ariaLabel: 'Test hesabı sayfasına git'
       },
       {
-        to: '/sss',
+        to: '/sss/',
         text: 'Sıkça sorulan sorular',
         icon: Info,
         desc: 'Paket, kurulum ve destek hakkında yanıtlar.',
         ariaLabel: 'SSS sayfasına git'
       },
       {
-        to: '/m3u-converter',
+        to: '/m3u-converter/',
         text: 'M3U dönüştürücü',
         icon: ArrowRight,
         desc: 'M3U linkinden Xtream bilgilerini çıkarın.',
         ariaLabel: 'M3U dönüştürücü sayfasına git'
       },
       {
-        to: '/reseller',
+        to: '/reseller/',
         text: 'Bayilik / reseller',
         icon: ShoppingCart,
         desc: 'Bayilik başvurusu ve iş ortaklığı.',
@@ -69,21 +83,21 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
     ],
     packages: isGerman ? [
       {
-        to: '/de/einrichtung',
+        to: '/de/einrichtung/',
         text: 'Installationsanleitung',
         icon: Settings,
         desc: 'Installieren Sie Ihr Paket sofort auf Ihrem Gerät.',
         ariaLabel: 'Gehen Sie zur Seite IPTV-Installationsanleitung'
       },
       {
-        to: '/de/sss',
+        to: '/de/sss/',
         text: 'Häufig gestellte Fragen',
         icon: Info,
         desc: 'Antworten auf Ihre Fragen.',
         ariaLabel: 'Gehen Sie zur FAQ-Seite'
       },
       {
-        to: '/de/test',
+        to: '/de/test/',
         text: 'Kostenloser Testzugang',
         icon: Info,
         desc: 'Qualität vor dem Kauf testen.',
@@ -91,21 +105,21 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
       }
     ] : [
       {
-        to: '/kurulum',
+        to: '/kurulum/',
         text: 'Kurulum rehberi',
         icon: Settings,
         desc: 'Paketinizi cihazınıza kurmak için adım adım rehber.',
         ariaLabel: 'IPTV kurulum rehberi sayfasına git'
       },
       {
-        to: '/sss',
+        to: '/sss/',
         text: 'Sıkça sorulan sorular',
         icon: Info,
         desc: 'Paket ve ödeme hakkında sık sorulan sorular.',
         ariaLabel: 'SSS sayfasına git'
       },
       {
-        to: '/test',
+        to: '/test/',
         text: 'Ücretsiz test hesabı',
         icon: Info,
         desc: 'Satın almadan önce yayın kalitesini deneyin.',
@@ -114,21 +128,21 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
     ],
     installation: isGerman ? [
       {
-        to: '/de/pakete',
+        to: '/de/pakete/',
         text: 'Paket auswählen',
         icon: ShoppingCart,
         desc: 'Wenn Sie noch kein Paket haben, kaufen Sie jetzt eines.',
         ariaLabel: 'Gehen Sie zur Seite IPTV-Pakete und Preise'
       },
       {
-        to: '/de/test',
+        to: '/de/test/',
         text: 'Kostenloser Testzugang',
         icon: Info,
         desc: 'Qualität vor dem Kauf testen.',
         ariaLabel: 'Zur Testseite'
       },
       {
-        to: '/de/sss',
+        to: '/de/sss/',
         text: 'Häufig gestellte Fragen',
         icon: Info,
         desc: 'Antworten zu Einrichtung und Paketen.',
@@ -136,21 +150,21 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
       }
     ] : [
       {
-        to: '/paketler',
+        to: '/paketler/',
         text: 'Paket seçmek için',
         icon: ShoppingCart,
         desc: 'Henüz bir paketiniz yoksa hemen inceleyin.',
         ariaLabel: 'Paketler sayfasına git'
       },
       {
-        to: '/test',
+        to: '/test/',
         text: 'Ücretsiz test hesabı',
         icon: Info,
         desc: 'Kurulum öncesi yayın kalitesini deneyin.',
         ariaLabel: 'Test hesabı sayfasına git'
       },
       {
-        to: '/sss',
+        to: '/sss/',
         text: 'Sıkça sorulan sorular',
         icon: Info,
         desc: 'Kurulum ve paketler hakkında yanıtlar.',
@@ -160,14 +174,14 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
     m3u: isGerman
       ? [
           {
-            to: '/de/einrichtung',
+            to: '/de/einrichtung/',
             text: 'IPTV-Einrichtungsanleitung',
             icon: Settings,
             desc: 'Schritt-für-Schritt für Ihr Gerät.',
             ariaLabel: 'Zur Einrichtungsanleitung',
           },
           {
-            to: '/de/sss',
+            to: '/de/sss/',
             text: 'Häufig gestellte Fragen',
             icon: Info,
             desc: 'Antworten zu M3U, Einrichtung und Paketen.',
@@ -176,14 +190,14 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
         ]
       : [
           {
-            to: '/kurulum',
+            to: '/kurulum/',
             text: 'IPTV kurulum rehberi',
             icon: Settings,
             desc: 'Cihazınıza özel detaylı kurulum talimatları.',
             ariaLabel: 'IPTV kurulum rehberi sayfasına git',
           },
           {
-            to: '/sss',
+            to: '/sss/',
             text: 'Sıkça sorulan sorular',
             icon: Info,
             desc: 'M3U, kurulum ve paketler hakkında yanıtlar.',
@@ -193,21 +207,21 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
     faq: isGerman
       ? [
           {
-            to: '/de/pakete',
+            to: '/de/pakete/',
             text: 'IPTV-Pakete und Preise',
             icon: ShoppingCart,
             desc: 'Passende Pakete und aktuelle Preise.',
             ariaLabel: 'Zu IPTV-Paketen und Preisen',
           },
           {
-            to: '/de/einrichtung',
+            to: '/de/einrichtung/',
             text: 'Installationsanleitung',
             icon: Settings,
             desc: 'Schritt-für-Schritt für Ihr Gerät.',
             ariaLabel: 'Zur Einrichtungsanleitung',
           },
           {
-            to: '/de/test',
+            to: '/de/test/',
             text: 'Kostenloser Testzugang',
             icon: Info,
             desc: 'Qualität vor dem Kauf testen.',
@@ -216,21 +230,21 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
         ]
       : [
           {
-            to: '/paketler',
+            to: '/paketler/',
             text: 'IPTV paketleri ve fiyatları',
             icon: ShoppingCart,
             desc: 'En uygun fiyatlı paket seçeneklerini inceleyin.',
             ariaLabel: 'IPTV paketleri ve fiyatları sayfasına git',
           },
           {
-            to: '/kurulum',
+            to: '/kurulum/',
             text: 'IPTV kurulum rehberi',
             icon: Settings,
             desc: 'Cihazınıza özel detaylı kurulum talimatları.',
             ariaLabel: 'IPTV kurulum rehberi sayfasına git',
           },
           {
-            to: '/test',
+            to: '/test/',
             text: 'Ücretsiz test hesabı',
             icon: Info,
             desc: 'Satın almadan önce yayın kalitesini deneyin.',
@@ -240,28 +254,28 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
     blog: isGerman
       ? [
           {
-            to: '/de/pakete',
+            to: '/de/pakete/',
             text: 'IPTV-Pakete und Preise',
             icon: ShoppingCart,
             desc: 'Passende Pakete und aktuelle Preise.',
             ariaLabel: 'Zu IPTV-Paketen und Preisen',
           },
           {
-            to: '/de/einrichtung',
+            to: '/de/einrichtung/',
             text: 'Installationsanleitung',
             icon: Settings,
             desc: 'Schritt-für-Schritt für Ihr Gerät.',
             ariaLabel: 'Zur Einrichtungsanleitung',
           },
           {
-            to: '/de/sss',
+            to: '/de/sss/',
             text: 'Häufig gestellte Fragen',
             icon: Info,
             desc: 'Antworten zu Paketen und Einrichtung.',
             ariaLabel: 'Zur FAQ-Seite',
           },
           {
-            to: '/de/test',
+            to: '/de/test/',
             text: 'Kostenloser Testzugang',
             icon: Info,
             desc: 'Qualität vor dem Kauf testen.',
@@ -270,28 +284,28 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
         ]
       : [
           {
-            to: '/paketler',
+            to: '/paketler/',
             text: 'IPTV paketleri ve fiyatları',
             icon: ShoppingCart,
             desc: 'En uygun fiyatlı paket seçeneklerini inceleyin.',
             ariaLabel: 'IPTV paketleri ve fiyatları sayfasına git',
           },
           {
-            to: '/kurulum',
+            to: '/kurulum/',
             text: 'IPTV kurulum rehberi',
             icon: Settings,
             desc: 'Cihazınıza özel detaylı kurulum talimatları.',
             ariaLabel: 'IPTV kurulum rehberi sayfasına git',
           },
           {
-            to: '/sss',
+            to: '/sss/',
             text: 'Sıkça sorulan sorular',
             icon: Info,
             desc: 'Paket ve kurulum hakkında yanıtlar.',
             ariaLabel: 'SSS sayfasına git',
           },
           {
-            to: '/test',
+            to: '/test/',
             text: 'Ücretsiz test hesabı',
             icon: Info,
             desc: 'Satın almadan önce yayın kalitesini deneyin.',
@@ -321,6 +335,7 @@ const InternalLinkingOptimization = ({ currentPage = 'home' }) => {
           <Link 
             key={idx} 
             to={link.to}
+            title={link.text}
             className="group flex items-center gap-4 bg-[#0a0a0a]/40 hover:bg-[#0a0a0a]/80 border border-slate-800 hover:border-primary/50 p-4 rounded-xl transition-all duration-300 w-full md:w-auto md:min-w-[300px]"
             aria-label={link.ariaLabel}
           >

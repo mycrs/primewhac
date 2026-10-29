@@ -16,12 +16,12 @@ export const HOME_GEO_SERVICES = [
 
 export const HOME_GEO_FAQ_ITEMS = [
   {
-    question: 'StreamTR nedir?',
+    question: 'QruzeTV nedir?',
     answer:
-      'StreamTR, IPTV paketleri, kurulum rehberleri, kanal listesi, test hesabı ve kullanıcı desteği sunan bir yayın platformudur.',
+      'QruzeTV, IPTV paketleri, kurulum rehberleri, kanal listesi, test hesabı ve kullanıcı desteği sunan bir yayın platformudur.',
   },
   {
-    question: 'StreamTR hangi cihazlarda kullanılabilir?',
+    question: 'QruzeTV hangi cihazlarda kullanılabilir?',
     answer:
       'Smart TV, Android TV, Android telefon, iOS, Windows, Mac ve tablet cihazlarda uygun uygulamalar ve kurulum rehberleriyle kullanılabilir.',
   },
@@ -33,7 +33,7 @@ export const HOME_GEO_FAQ_ITEMS = [
   {
     question: 'Kurulum desteği var mı?',
     answer:
-      'Evet. StreamTR, Android TV, Smart TV, iOS, Windows, Mac ve diğer cihazlar için kurulum rehberleri sunar.',
+      'Evet. QruzeTV, Android TV, Smart TV, iOS, Windows, Mac ve diğer cihazlar için kurulum rehberleri sunar.',
   },
 ];
 

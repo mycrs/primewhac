@@ -19,9 +19,9 @@ const InstallationPage = ({ siteData }) => {
   }, []);
 
   const metadata = {
-    title: "IPTV Kurulum Rehberi — Samsung, LG, Fire TV | QruzeTV",
-    description: "QruzeTV IPTV kurulumu 5 dakikada tamam: Samsung, LG, Android TV, Apple TV, Fire Stick, iPhone için adım adım video rehber. Hemen kur.",
-    keywords: ["IPTV kurulumu", "Samsung IPTV kurulum", "LG IPTV kurulum", "Fire TV IPTV", "Apple TV IPTV", "Android TV IPTV", "iPhone IPTV", "IPTV kurulum rehberi"],
+    title: "IPTV Kurulum Rehberi — Tüm TV ve Cihazlar | QruzeTV",
+    description: "Samsung, LG, Philips, Vestel, Hisense, TCL, Android TV, Fire TV, iPhone ve bilgisayar için işletim sistemine uygun IPTV kurulum rehberleri.",
+    keywords: ["IPTV kurulumu", "Samsung IPTV kurulum", "LG IPTV kurulum", "Philips IPTV kurulum", "Vestel IPTV kurulum", "Hisense IPTV kurulum", "TCL IPTV kurulum", "Fire TV IPTV", "Android TV IPTV", "IPTV kurulum rehberi"],
     ogType: "website"
   };
 
@@ -42,7 +42,7 @@ const InstallationPage = ({ siteData }) => {
         "name": "Hangi cihazlarda IPTV izlenebilir?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Android TV, Fire TV Stick, iPhone, iPad, Android telefon, Windows PC, Mac, Samsung/LG Smart TV ve tabletlerde IPTV izlenebilir. Her cihaz için uygun uygulama mevcuttur."
+          "text": "IPTV; desteklenen Samsung, LG, Philips, Vestel, Hisense ve TCL Smart TV modellerinin yanı sıra Android TV, Fire TV Stick, iPhone, iPad, Android telefon, Windows PC, Mac ve tabletlerde kullanılabilir. Uygulama desteği model, işletim sistemi ve bölgeye göre değişir."
         }
       },
       {
@@ -87,7 +87,7 @@ const InstallationPage = ({ siteData }) => {
       "headline": "IPTV Kurulum Rehberi - Adım Adım Talimatlar ve Sorun Giderme",
       "author": { "@type": "Organization", "name": "QruzeTV" },
       "datePublished": "2026-01-01",
-      "dateModified": new Date().toISOString().split('T')[0],
+      "dateModified": "2026-07-31",
       "url": `${SITE_URL}/kurulum`,
       "image": `${SITE_URL}/default-og-image.jpg`,
       "mainEntityOfPage": { "@type": "WebPage", "@id": `${SITE_URL}/kurulum` },
@@ -119,10 +119,10 @@ const InstallationPage = ({ siteData }) => {
                     Rehber & Yönergeler
                   </span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710]">
+                <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-extrabold mb-6 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#ff2430] via-[#e50914] to-[#b20710]">
                   IPTV Kurulum Rehberi
                 </h1>
-                <p className="text-lg md:text-2xl font-light max-w-2xl mx-auto leading-relaxed text-[#e50914]/90">
+                <p className="text-lg md:text-2xl font-light max-w-2xl mx-auto leading-relaxed text-slate-300">
                   Adım adım kurulum talimatları ile cihazınızı dakikalar içinde hazırlayın.
                 </p>
               </motion.div>
@@ -136,7 +136,7 @@ const InstallationPage = ({ siteData }) => {
               >
                 {[
                   { icon: Loader2, text: '5 dk kurulum', color: 'text-[#e50914] bg-[#e50914]/10 border-[#e50914]/20' },
-                  { icon: ArrowRight, text: '7 cihaz desteği', color: 'text-blue-400 bg-[#141414]/10 border-blue-500/20' },
+                  { icon: ArrowRight, text: '7 cihaz desteği', color: 'text-amber-400 bg-amber-500/10 border-amber-500/20' },
                   { icon: ArrowRight, text: '7/24 destek', color: 'text-primary bg-primary/10 border-primary/20' },
                 ].map((item, i) => (
                   <span key={i} className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium ${item.color}`}>
@@ -197,7 +197,7 @@ const InstallationPage = ({ siteData }) => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white text-center">
+              <h2 className="section-title text-3xl md:text-4xl mb-4 text-center">
                 Kurulum Nasıl Yapılır?
               </h2>
               <p className="text-slate-400 text-center max-w-2xl mx-auto mb-12 font-light">
@@ -206,7 +206,7 @@ const InstallationPage = ({ siteData }) => {
 
               <div className="grid md:grid-cols-3 gap-6">
                 {[
-                  { step: '01', title: 'Uygulamayı İndirin', desc: 'Cihazınıza uygun IPTV player uygulamasını (Tivimate, IBO Player, Smarters Pro vb.) mağazadan indirin.', gradient: 'from-[#e50914]/20 to-[#b20710]/20', border: 'border-blue-500/20 hover:border-blue-500/40' },
+                  { step: '01', title: 'Uygulamayı İndirin', desc: 'Cihazınıza uygun IPTV player uygulamasını (Tivimate, IBO Player, Smarters Pro vb.) mağazadan indirin.', gradient: 'from-[#e50914]/20 to-[#b20710]/20', border: 'border-amber-500/20 hover:border-amber-500/40' },
                   { step: '02', title: 'Bilgileri Girin', desc: 'Size gönderilen M3U linki veya Xtream Codes (sunucu, kullanıcı adı, şifre) bilgilerini uygulamaya girin.', gradient: 'from-[#e50914]/20 to-[#b20710]/20', border: 'border-primary/20 hover:border-primary/40' },
                   { step: '03', title: 'İzlemeye Başlayın', desc: 'Kanallar otomatik yüklenir. EPG rehberi, VOD arşivi ve 10.000+ kanalla izleme keyfine başlayın.', gradient: 'from-[#e50914]/20 to-[#b20710]/20', border: 'border-[#e50914]/20 hover:border-[#e50914]/40' },
                 ].map((item, i) => (
@@ -240,7 +240,7 @@ const InstallationPage = ({ siteData }) => {
               
               <div className="prose prose-invert prose-lg max-w-none">
                 <p className="text-slate-300 mb-8 leading-relaxed font-light">
-                  IPTV, televizyon yayınlarını çanak anten veya kablo yerine internet protokolü üzerinden cihazınıza iletir. Size sağlanan M3U linki veya Xtream Codes API bilgileri sayesinde, cihazınızdaki oynatıcı uygulama yayın sunucularımızla iletişim kurar. Yüksek hızlı fiber sunucularımız, <strong>kaliteli IPTV</strong> deneyimini donma olmadan ekranınıza yansıtır.
+                  IPTV, televizyon yayınlarını çanak anten veya kablo yerine internet protokolü üzerinden cihazınıza iletir. Size sağlanan M3U linki veya Xtream Codes API bilgileri sayesinde, cihazınızdaki oynatıcı uygulama yayın sunucularımızla iletişim kurar. Yüksek hızlı fiber sunucularımız, akıcı bir izleme deneyimini donma olmadan ekranınıza yansıtır.
                 </p>
 
                 <div className="grid sm:grid-cols-2 gap-6 my-10 not-prose">
@@ -287,7 +287,65 @@ const InstallationPage = ({ siteData }) => {
             </motion.article>
 
             <InstallationPageSeoSection />
-            
+
+            {/* Cihaz bazlı sorun giderme */}
+            <motion.section
+              className="mt-24 bg-[#0a0a0a]/60 border border-slate-800 rounded-3xl p-8 md:p-14 shadow-2xl"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white leading-tight">
+                Cihazlara Göre Sorun Giderme
+              </h2>
+              <p className="text-slate-400 mb-10 font-light max-w-3xl leading-relaxed">
+                Kurulumu tamamladığınız hâlde takıldığınız bir nokta varsa sorun çoğu zaman cihaza özgüdür. Aşağıda destek kayıtlarımızda en sık karşılaştığımız durumları ve pratik çözümlerini cihaz bazında derledik.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="p-6 rounded-2xl bg-[#0a0a0a]/50 border border-slate-700/50">
+                  <h3 className="text-xl font-bold text-white mb-4">Samsung, LG ve Diğer Smart TV’ler</h3>
+                  <div className="space-y-3 text-slate-300 text-sm leading-relaxed font-light">
+                    <p><strong className="text-slate-200">Uygulama mağazada görünmüyorsa:</strong> TV’nin model kodunu, işletim sistemini, yazılım sürümünü ve hizmet bölgesini kontrol edin. Mağazada bulunmayan bir uygulamayı destekleniyor kabul etmeyin; <Link to="/kurulum/smart-tv" className="font-semibold text-primary hover:underline">marka rehberinden</Link> modelinize uygun yolu seçin.</p>
+                    <p><strong className="text-slate-200">Kanal geçişleri yavaşsa:</strong> Smart TV'lerin belleği sınırlıdır. Uygulama önbelleğini temizleyin, televizyonu fişten çekip bir dakika bekleyin. Wi-Fi yerine ethernet kullanmak kanal geçiş hızını belirgin şekilde artırır.</p>
+                    <p><strong className="text-slate-200">M3U linkini kumandayla yazmak zorsa:</strong> Xtream Codes girişi (kullanıcı adı + şifre + sunucu adresi) çok daha kısa sürer; bilgileri size gelen mesajdan hata yapmadan girebilirsiniz.</p>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-[#0a0a0a]/50 border border-slate-700/50">
+                  <h3 className="text-xl font-bold text-white mb-4">Android TV</h3>
+                  <div className="space-y-3 text-slate-300 text-sm leading-relaxed font-light">
+                    <p><strong className="text-slate-200">EPG boş görünüyor veya saatler yanlışsa:</strong> Uygulamanın EPG kaynağını güncelleyin ve cihazın tarih/saat ayarını "otomatik" konumuna alın. Tivimate kullanıyorsanız ayarlardan EPG'yi manuel olarak yenileyin.</p>
+                    <p><strong className="text-slate-200">Uygulama arka planda kapanıyorsa:</strong> Ayarlar'dan oynatıcı uygulaması için pil optimizasyonunu kapatın. Sorun sürerse uygulama önbelleğini temizleyip cihazı yeniden başlatın.</p>
+                    <p><strong className="text-slate-200">Yayın donuyorsa:</strong> 2.4 GHz yerine 5 GHz Wi-Fi bandına geçin veya ethernet kullanın. Aynı ağda büyük bir indirme devam ediyorsa izleme sırasında duraklatın.</p>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-[#0a0a0a]/50 border border-slate-700/50">
+                  <h3 className="text-xl font-bold text-white mb-4">Fire TV Stick</h3>
+                  <div className="space-y-3 text-slate-300 text-sm leading-relaxed font-light">
+                    <p><strong className="text-slate-200">"Depolama alanı yetersiz" uyarısı alıyorsanız:</strong> Ayarlar &gt; Uygulamalar &gt; Uygulamaları Yönet yolundan kullanmadığınız uygulamaları kaldırın ve kalanların önbelleğini temizleyin. Stick'in boş alanı azaldıkça yayın performansı da düşer.</p>
+                    <p><strong className="text-slate-200">APK yüklenmiyorsa:</strong> Geliştirici seçeneklerinden "bilinmeyen kaynaklardan uygulama yükleme" iznini açın. Uygulama Amazon mağazasında mevcutsa her zaman resmi sürümü tercih edin.</p>
+                    <p><strong className="text-slate-200">Kumandayla yazı yazmak zor geliyorsa:</strong> Telefonunuza Fire TV uygulamasını kurup kumanda yerine kullanın; klavye desteği sayesinde M3U ve şifre girişi birkaç saniyeye iner.</p>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-[#0a0a0a]/50 border border-slate-700/50">
+                  <h3 className="text-xl font-bold text-white mb-4">iOS (iPhone / iPad)</h3>
+                  <div className="space-y-3 text-slate-300 text-sm leading-relaxed font-light">
+                    <p><strong className="text-slate-200">Yayın bir süre sonra kendiliğinden duruyorsa:</strong> iOS arka plandaki uygulamaları kısar. Düşük güç modunu kapatın ve oynatıcıyı ön planda tutun; ekran otomatik kilitlenince yayın da kesilebilir.</p>
+                    <p><strong className="text-slate-200">Ekran kapanınca ses kesiliyorsa:</strong> Bazı oynatıcılarda "arka planda oynatma" seçeneği bulunur. Uygulamanızda bu ayar yoksa otomatik kilit süresini uzatmak en pratik çözümdür.</p>
+                    <p><strong className="text-slate-200">AirPlay'de gecikme veya donma oluyorsa:</strong> Telefondan yansıtmak yerine Apple TV'ye doğrudan uygulama kurmak ya da HDMI adaptörü kullanmak çok daha stabil sonuç verir.</p>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-slate-300 mt-10 font-light leading-relaxed">
+                Bu adımlar sorunu çözmezse <Link to="/sss" className="text-primary hover:text-primary underline underline-offset-2">Sık Sorulan Sorular</Link> sayfamıza göz atın veya 7/24 destek hattımızdan bize ulaşın; teknik ekibimiz cihazınıza özel yönlendirme yapar.
+              </p>
+            </motion.section>
+
           </div>
         </main>
         <Footer contactData={siteData?.contactData} siteTexts={siteData?.siteTexts} />

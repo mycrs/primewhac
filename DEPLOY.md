@@ -1,6 +1,6 @@
 # QruzeTV — Yayın ve Production Rehberi
 
-Canlı site: **https://streamtr.eu** (statik `dist/` + Supabase runtime).
+Canlı site: **https://cineverse.pro** (statik `dist/` + Supabase runtime).
 
 ## Mimari özeti
 
@@ -52,7 +52,7 @@ Build sonrası `public/sitemap.xml` güncellemek için:
 npm run generate:sitemap
 ```
 
-`VITE_SITE_URL=https://streamtr.eu` production build’de ayarlı olmalı.
+`VITE_SITE_URL=https://cineverse.pro` production build’de ayarlı olmalı.
 
 ## Production SQL (sıra önemli)
 
@@ -80,7 +80,9 @@ Admin e-postanız `admin_users` tablosunda kayıtlı olmalı (müşteri RLS SQL�
 
 - `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
 - `VITE_SITE_URL` — canonical, schema, sitemap
-- `VITE_WHATSAPP_PHONE`
+WhatsApp destek numarasını herhangi bir `VITE_*` değişkenine yazmayın. Numara,
+admin panelindeki **İletişim Bilgileri** alanından Supabase'e kaydedilir ve yalnızca
+test/sipariş formu gönderilirken runtime'da kullanılır.
 
 ### Vite — önerilen / production
 

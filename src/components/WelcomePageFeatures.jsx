@@ -26,7 +26,7 @@ const features = [
   {
     icon: <Globe className="w-8 h-8" />,
     title: "Dünya Sineması",
-    description: "Netflix, Exxen, BluTV gibi platformların en popüler içerikleri tek yerde."
+    description: "Film ve dizi kategorileri, belgesel ve çocuk içerikleri tek yerde."
   },
   {
     icon: <Headphones className="w-8 h-8" />,

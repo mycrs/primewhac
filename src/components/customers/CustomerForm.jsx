@@ -1,5 +1,4 @@
-import React, { useMemo, useState, useEffect, useRef, useCallback } from 'react';
-import { Turnstile } from '@marsidev/react-turnstile';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,7 +14,7 @@ import { cn } from '@/lib/utils';
 import PhoneWhatsAppInput from '@/components/customers/PhoneWhatsAppInput';
 import { getDialForIso, preferredIsoForDial } from '@/data/phoneCountries';
 import { toast } from '@/components/ui/use-toast';
-import { getTurnstileSiteKeyClient } from '@/constants/turnstileClient';
+import MathCaptcha from '@/components/MathCaptcha';
 import {
   formatTrDate,
   adminModAStartPackage,
@@ -123,7 +122,7 @@ function LivePreview({ startYmd, endYmd }) {
 /**
  * @param {'public' | 'admin'} variant
  * @param {boolean} [hideFullName] — public: İsim alanını gösterme; kayıtta full_name = kullanıcı adı (veya —).
- * @param {string} [serverError] — üst bileşenden gelen hata (Turnstile sıfırlamak için)
+ * @param {string} [serverError] — üst bileşenden gelen hata (matematik doğrulamayı yenilemek için)
  * @param {boolean} [visualAccent] — müşteri kayıt sayfası: input glow + gradient gönder
  * @param {Array<{id:string,name:string,is_active?:boolean}>} packageTypes
  * @param {Array<{id:string,name:string,days:number,price?:number,is_active?:boolean,group_id?:string|null}>} durations — customer_packages
@@ -146,19 +145,18 @@ export default function CustomerForm({
     : visualAccent
       ? 'rounded-xl border-white/20 bg-black/35 text-white shadow-sm transition-[box-shadow,border-color] duration-300 focus-visible:border-primary/55 focus-visible:shadow-[0_0_22px_rgba(229, 9, 20,0.28)] focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-0'
       : 'bg-white/5 border-white/10';
-  const turnstileSiteKey = useMemo(() => (isAdmin ? '' : getTurnstileSiteKeyClient()), [isAdmin]);
-  const [turnstileToken, setTurnstileToken] = useState('');
-  const turnstileRef = useRef(null);
+  const [mathCaptcha, setMathCaptcha] = useState(null);
+  const [captchaRefresh, setCaptchaRefresh] = useState(0);
 
-  const resetTurnstile = useCallback(() => {
-    setTurnstileToken('');
-    turnstileRef.current?.reset();
+  const resetMathCaptcha = useCallback(() => {
+    setMathCaptcha(null);
+    setCaptchaRefresh((s) => s + 1);
   }, []);
 
   useEffect(() => {
-    if (isAdmin || !turnstileSiteKey || !serverError) return;
-    resetTurnstile();
-  }, [serverError, isAdmin, turnstileSiteKey, resetTurnstile]);
+    if (isAdmin || !serverError) return;
+    resetMathCaptcha();
+  }, [serverError, isAdmin, resetMathCaptcha]);
 
   const [full_name, setFullName] = useState(initialCustomer?.full_name || '');
   const [phoneCountryIso, setPhoneCountryIso] = useState('TR');
@@ -388,19 +386,11 @@ export default function CustomerForm({
     if (!priceValid) return;
 
     if (!isAdmin) {
-      if (!turnstileSiteKey) {
+      if (!mathCaptcha?.id || !String(mathCaptcha?.answer ?? '').trim()) {
         toast({
           variant: 'destructive',
-          title: 'Güvenlik yapılandırması eksik',
-          description: 'VITE_TURNSTILE_SITE_KEY tanımlı değil. Site yöneticisine bildirin.',
-        });
-        return;
-      }
-      if (!String(turnstileToken || '').trim()) {
-        toast({
-          variant: 'destructive',
-          title: 'Robot doğrulaması gerekli',
-          description: 'Lütfen Gönder’den önce güvenlik kutusunu tamamlayın.',
+          title: 'Güvenlik doğrulaması gerekli',
+          description: 'Lütfen Gönder’den önce güvenlik sorusunu yanıtlayın.',
         });
         return;
       }
@@ -431,7 +421,8 @@ export default function CustomerForm({
       payload.status = status;
       payload.iptv_password = iptvPassword.trim() || null;
     } else {
-      payload.turnstileToken = String(turnstileToken).trim();
+      payload.mathCaptchaId = mathCaptcha.id;
+      payload.mathCaptchaAnswer = String(mathCaptcha.answer).trim();
     }
 
     await onSubmit(payload);
@@ -449,9 +440,9 @@ export default function CustomerForm({
       </p>
     ) : null;
 
-  /** Public: site key yoksa gönder kapalı; varsa token zorunlu */
-  const turnstileOk =
-    isAdmin || (turnstileSiteKey ? String(turnstileToken || '').trim().length > 0 : false);
+  /** Public: güvenlik sorusu (id + cevap) dolmadan gönderim kapalı */
+  const captchaOk =
+    isAdmin || !!(mathCaptcha?.id && String(mathCaptcha?.answer ?? '').trim().length > 0);
   const canSubmit =
     packageTypeId &&
     durationId &&
@@ -459,7 +450,7 @@ export default function CustomerForm({
     selectedDur &&
     nationalDigits.replace(/\D/g, '').length > 0 &&
     priceValid &&
-    turnstileOk;
+    captchaOk;
 
   return (
     <form onSubmit={handleSubmit} className={cn('space-y-6', className)}>
@@ -511,7 +502,7 @@ export default function CustomerForm({
         <p className="text-sm font-semibold text-white">1. Paket grubu *</p>
         <Select value={packageTypeId} onValueChange={setPackageTypeId} disabled={submitting}>
           <SelectTrigger className={fieldSurface}>
-            <SelectValue placeholder="Örn. QruzeHD" />
+            <SelectValue placeholder="Örn. QruzeTV" />
           </SelectTrigger>
           <SelectContent>
             {packageTypes.map((p) => (
@@ -707,41 +698,7 @@ export default function CustomerForm({
       {publicSummary}
 
       {!isAdmin && (
-        <div className="space-y-2">
-          {turnstileSiteKey ? (
-            <>
-              <Label className="text-slate-300">Güvenlik doğrulaması</Label>
-              <div
-                className={cn(
-                  'flex flex-col items-stretch gap-2 rounded-xl border p-4 sm:items-start',
-                  visualAccent
-                    ? 'border-primary/25 bg-black/30 shadow-[inset_0_0_24px_rgba(229, 9, 20,0.08)]'
-                    : 'border-white/10 bg-white/[0.02]',
-                )}
-              >
-                <Turnstile
-                  ref={turnstileRef}
-                  siteKey={turnstileSiteKey}
-                  options={{ theme: 'dark', size: 'normal' }}
-                  onSuccess={(t) => setTurnstileToken(t)}
-                  onExpire={() => {
-                    setTurnstileToken('');
-                    turnstileRef.current?.reset();
-                  }}
-                  onError={() => setTurnstileToken('')}
-                />
-                <p className="text-xs text-slate-500">
-                  Göndermeden önce doğrulamayı tamamlayın (Cloudflare Turnstile).
-                </p>
-              </div>
-            </>
-          ) : (
-            <p className="rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm text-amber-100">
-              Kayıt için <code className="text-[#e50914]/90">VITE_TURNSTILE_SITE_KEY</code> gerekli. Yönetici .env
-              dosyasına site anahtarını eklemelidir.
-            </p>
-          )}
-        </div>
+        <MathCaptcha onChange={setMathCaptcha} refreshSignal={captchaRefresh} disabled={submitting} />
       )}
 
       <Button

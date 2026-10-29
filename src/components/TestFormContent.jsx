@@ -37,6 +37,14 @@ export const DeviceSelectionStep = ({ selectedDevice, onSelect }) => {
               transition={{ delay: idx * 0.04 }}
               key={device.id}
               onClick={() => onSelect(device)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onSelect(device);
+                }
+              }}
               className={cn(
                 ITEM_BASE_CLASS,
                 isSelected ? ITEM_SELECTED_CLASS : ITEM_DEFAULT_CLASS
@@ -110,6 +118,14 @@ export const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect }) => {
                  transition={{ delay: idx * 0.05 }}
                  key={app.id}
                  onClick={() => onSelect(app)}
+                 role="button"
+                 tabIndex={0}
+                 onKeyDown={(e) => {
+                   if (e.key === 'Enter' || e.key === ' ') {
+                     e.preventDefault();
+                     onSelect(app);
+                   }
+                 }}
                  className={cn(
                    ITEM_BASE_CLASS,
                    isSelected ? ITEM_SELECTED_CLASS : ITEM_DEFAULT_CLASS
@@ -154,6 +170,14 @@ export const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect }) => {
            animate={{ opacity: 1 }}
            transition={{ delay: 0.2 }}
            onClick={() => onSelect({ id: 'generic', name: 'Diğer / Bilmiyorum' })}
+           role="button"
+           tabIndex={0}
+           onKeyDown={(e) => {
+             if (e.key === 'Enter' || e.key === ' ') {
+               e.preventDefault();
+               onSelect({ id: 'generic', name: 'Diğer / Bilmiyorum' });
+             }
+           }}
            className={cn(
              ITEM_BASE_CLASS,
              selectedApp?.id === 'generic' ? ITEM_SELECTED_CLASS : ITEM_DEFAULT_CLASS

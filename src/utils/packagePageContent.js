@@ -35,17 +35,29 @@ export function resolvePackagesPageContent(siteData) {
 
 /** Aktif tier butonları — CMS'den, yoksa packageTiers fallback */
 export function getActiveTierOptions(pageContent, isDe = false) {
-  const fromCms = (pageContent?.activeTiers || []).filter((t) => t.enabled !== false);
-  if (fromCms.length > 0) {
-    return fromCms.map((t) => ({
-      id: t.id,
-      label: isDe ? t.labelDe || t.labelTr : t.labelTr || t.labelDe,
-    }));
+  const cmsTiers = Array.isArray(pageContent?.activeTiers) ? pageContent.activeTiers : [];
+  const disabledMap = new Map();
+  const cmsMap = new Map();
+
+  for (const t of cmsTiers) {
+    if (t.enabled === false) {
+      disabledMap.set(t.id, true);
+    } else {
+      cmsMap.set(t.id, t);
+    }
   }
-  return ACTIVE_TIER_OPTIONS.map((t) => ({
-    id: t.id,
-    label: isDe ? t.labelDe : t.labelTr,
-  }));
+
+  return ACTIVE_TIER_OPTIONS
+    .filter((opt) => !disabledMap.has(opt.id))
+    .map((opt) => {
+      const cmsItem = cmsMap.get(opt.id);
+      return {
+        id: opt.id,
+        label: isDe
+          ? (cmsItem?.labelDe || opt.labelDe)
+          : (cmsItem?.labelTr || opt.labelTr),
+      };
+    });
 }
 
 export function getDefaultTier(pageContent) {
@@ -68,10 +80,17 @@ export function getTierShortDescription(pageContent, tierId, isDe = false) {
 export function getTierDetailDescriptions(pageContent, isDe = false) {
   const fallback = isDe ? TIER_DESCRIPTIONS_DE : TIER_DESCRIPTIONS_TR;
   const tiers = pageContent?.tiers || {};
-  return ['standard', 'premium'].map((id) => ({
+  const tierTitles = {
+    economic: isDe ? 'Wirtschaftspakete' : 'Ekonomik Paketler',
+    standard: isDe ? 'Standard Pakete' : 'Standart Paketler',
+    premium: isDe ? 'Premium Pakete' : 'Premium Paketler',
+  };
+  return ['economic', 'standard', 'premium'].map((id) => ({
     id,
-    title: tiers[id]?.title || (id === 'standard' ? (isDe ? 'Standard Pakete' : 'Standart Paketler') : (isDe ? 'Premium Pakete' : 'Premium Paketler')),
-    description: tiers[id]?.detailDescription || fallback[id] || '',
+    title: isDe ? (tiers[id]?.titleDe || tierTitles[id]) : (tiers[id]?.title || tierTitles[id]),
+    description: isDe
+      ? (tiers[id]?.detailDescriptionDe || fallback[id] || '')
+      : (tiers[id]?.detailDescription || fallback[id] || ''),
   }));
 }
 

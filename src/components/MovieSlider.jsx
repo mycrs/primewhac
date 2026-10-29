@@ -11,14 +11,14 @@ const MovieCard = memo(({ movie }) => {
 
   return (
     <div className="embla__slide flex-[0_0_45%] sm:flex-[0_0_30%] md:flex-[0_0_22%] lg:flex-[0_0_16%] min-w-0 pl-4 cursor-pointer" onClick={openModal}>
-      <div className="aspect-[2/3] rounded-lg overflow-hidden relative border border-[#2a2a40] bg-[#0a0a0a]">
+      <div className="aspect-[2/3] rounded-lg overflow-hidden relative border border-[#262626] bg-[#0a0a0a]">
         <img 
           src={imageUrl} 
           alt={`${movie.title} posteri`}
           loading="lazy"
           className="w-full h-full object-cover"
         />
-        <div className="absolute bottom-0 left-0 w-full p-3 bg-[#0a0a0a] border-t border-[#2a2a40]">
+        <div className="absolute bottom-0 left-0 w-full p-3 bg-[#0a0a0a] border-t border-[#262626]">
           <p className="text-white font-bold text-sm line-clamp-1">{movie.title}</p>
           <p className="text-gray-400 text-xs font-medium">{movie.genre || "Film"}</p>
         </div>
@@ -48,7 +48,7 @@ const MovieSlider = ({ movies, siteTexts }) => {
   if (!displayMovies.length) return null;
 
   return (
-    <section className="py-16 bg-[#0a0a0a] border-b border-[#2a2a40]">
+    <section className="py-16 bg-[#0a0a0a] border-b border-[#262626]">
       <div className="container mx-auto px-4 mb-8">
         <div>
            <h2 className="text-3xl font-bold text-white mb-2">Popüler İçerikler</h2>

@@ -28,7 +28,7 @@ const CATEGORIES_TR = {
     label: 'Aksiyon Filmleri',
     urlPath: '/ne-izlesem/aksiyon-filmleri',
     hreflangDe: '/de/was-soll-ich-schauen/beste-action-filme',
-    title: 'En İyi Aksiyon Filmleri 2026 — Nefes Kesen Öneriler | QruzeTV',
+    title: 'En İyi Aksiyon Filmleri 2026 — IPTV ile 4K İzle | QruzeTV',
     description:
       'En iyi aksiyon filmleri seçkimiz: adrenalin dolu sahneler, unutulmaz kovalamacalar ve modern klasikler. 4K kalitede IPTV ile evinde sinema keyfi.',
     h1: 'En İyi Aksiyon Filmleri — Nefes Kesen Seçkimiz',
@@ -374,7 +374,7 @@ const CATEGORIES_TR = {
     label: 'Korku Filmleri',
     urlPath: '/ne-izlesem/korku-filmleri',
     hreflangDe: '/de/was-soll-ich-schauen/horrorfilme',
-    title: 'En İyi Korku Filmleri 2026 — Tüyler Ürperten Seçkiler | QruzeTV',
+    title: 'En İyi Korku Filmleri 2026 — IPTV ile 4K İzle | QruzeTV',
     description:
       'Modern korku klasikleri ve gerilim başyapıtları: atmosferik gerilim, psikolojik korku ve sinema dolu bir liste. 4K IPTV ile karanlıkta izleme zamanı.',
     h1: 'En İyi Korku Filmleri — Tüyler Ürperten Seçkiler',
@@ -547,7 +547,7 @@ const CATEGORIES_TR = {
     label: 'Romantik Filmler',
     urlPath: '/ne-izlesem/romantik-filmler',
     hreflangDe: '/de/was-soll-ich-schauen/romantische-filme',
-    title: 'En İyi Romantik Filmler 2026 — Kalbine Dokunacak Seçkiler | QruzeTV',
+    title: 'En İyi Romantik Filmler 2026 — IPTV ile 4K İzle | QruzeTV',
     description:
       'En iyi romantik filmler ve aşk hikâyeleri: klasiklerden modern yorumlara unutulmaz bir liste. Kesintisiz IPTV ile 4K izleme keyfi QruzeTV’de.',
     h1: 'En İyi Romantik Filmler — Kalbine Dokunacak Seçkiler',
@@ -893,7 +893,7 @@ const CATEGORIES_TR = {
     label: 'IMDb Puanı Yüksek Filmler',
     urlPath: '/ne-izlesem/imdb-yuksek-filmler',
     hreflangDe: null,
-    title: 'IMDb Puanı Yüksek Filmler — En İyi 10 Başyapıt 2026 | QruzeTV',
+    title: 'IMDb Puanı Yüksek Filmler — IPTV ile 4K İzle | QruzeTV',
     description:
       'IMDb’de en yüksek puanlı filmler: sinema tarihine damga vurmuş başyapıtlar. 4K kalitede QruzeTV ile bugün izle.',
     h1: 'IMDb Puanı Yüksek Filmler — Sinema Tarihinin Zirvesi',

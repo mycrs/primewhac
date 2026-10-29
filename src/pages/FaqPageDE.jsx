@@ -239,7 +239,7 @@ const FaqPageDE = ({ siteData }) => {
                     Support-Center
                   </span>
                 </div>
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight leading-[1.08]">
+                <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight leading-[1.08]">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-[#e50914] to-[#b20710]">
                     Häufig gestellte Fragen
                   </span>
@@ -320,7 +320,7 @@ const FaqPageDE = ({ siteData }) => {
                           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#e50914] to-[#b20710] text-white font-black text-lg shadow-lg shadow-primary/40 ring-2 ring-primary/20">
                             {idx + 1}
                           </span>
-                          <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                          <h2 className="section-title text-2xl md:text-3xl">
                             {section.title}
                           </h2>
                         </div>
@@ -369,7 +369,7 @@ const FaqPageDE = ({ siteData }) => {
                 <div className="relative z-10 px-6 py-12 md:px-14 md:py-16 text-center max-w-2xl mx-auto">
                   <h2 className="text-2xl md:text-4xl font-black text-white mb-4">Keine Antwort gefunden?</h2>
                   <p className="text-slate-400 mb-10 text-base md:text-lg leading-relaxed">
-                    Unser Team hilft Ihnen gerne per WhatsApp bei Installation, Paketen und technischen Fragen.
+                    Unser Team hilft Ihnen gerne bei Installation, Paketen und technischen Fragen.
                   </p>
                   <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4">
                     <Link
@@ -378,15 +378,14 @@ const FaqPageDE = ({ siteData }) => {
                     >
                       Pakete ansehen <ArrowRight className="w-5 h-5" />
                     </Link>
-                    <a
-                      href={`https://wa.me/${(safeSiteData?.contactData?.whatsapp || '').replace(/\D/g, '')}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    {/* wa.me-CTA entfernt — die Nummer stand im statischen HTML offen. */}
+                    <Link
+                      to="/de/einrichtung"
                       className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
                     >
                       <MessageCircle className="w-5 h-5 text-[#e50914]" />
-                      WhatsApp Support
-                    </a>
+                      Einrichtungshilfe
+                    </Link>
                   </div>
                 </div>
               </motion.div>

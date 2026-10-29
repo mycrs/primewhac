@@ -16,7 +16,7 @@ const WelcomePageHero = () => {
       <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1569587889770-9134d27b292e?q=80&w=2070&auto=format&fit=crop"
-          alt=""
+          alt="QruzeTV premium IPTV arka plan görseli"
           className="w-full h-full object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]" />

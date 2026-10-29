@@ -9,44 +9,44 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   {
     keyword: 'paket, paketler, fiyat, fiyatlar, ücret, ücretler, ne kadar, kaç para, fiyatı, paket fiyatı, abonelik ücreti, aylık ne kadar, yıllık fiyat, 1 aylık, 3 aylık, 12 aylık, pkt, pkts, paketler ne kadar, fiyat listesi, fiyat bilgisi',
     response: 'Paketlerimiz ve güncel fiyatlar için Paketler sayfamızı inceleyebilirsiniz. 1 aylık, 3 aylık ve 12 aylık seçeneklerimiz mevcuttur. Uzun süreli paketlerde indirim uygulanmaktadır.',
-    redirect_url: '/paketler',
+    redirect_url: '/paketler/',
   },
   {
     keyword: 'abonelik, abone olmak, abone ol, nasıl abone, satın al, satın alma, almak istiyorum, sipariş, sipariş vermek',
     response: 'Abone olmak için Paketler sayfamızdan size uygun paketi seçin. Ödeme sonrası hesap bilgileriniz e-posta veya WhatsApp ile iletilecektir.',
-    redirect_url: '/paketler',
+    redirect_url: '/paketler/',
   },
   {
     keyword: 'indirim, kampanya, promosyon, özel fiyat, ucuz, ekonomik, avantajlı',
     response: '12 aylık paketlerde en avantajlı fiyatlar geçerlidir. Güncel kampanyalar için Paketler sayfamızı kontrol edebilirsiniz.',
-    redirect_url: '/paketler',
+    redirect_url: '/paketler/',
   },
 
   // === KURULUM ===
   {
     keyword: 'kurulum, kurulum yardımı, nasıl kurulur, kurulum rehberi, kurulum nasıl, nasıl kurarım, kurulum yapmak, kurulum adımları, kurulum talimatı, setup, set up, kurulum ücretsiz mi',
     response: 'Kurulum tamamen ücretsizdir. Kurulum rehberimizde Smart TV, Android, iOS, MAG ve diğer cihazlar için adım adım talimatlar bulabilirsiniz. Teknik ekibimiz uzaktan destek de sağlamaktadır.',
-    redirect_url: '/kurulum',
+    redirect_url: '/kurulum/',
   },
   {
     keyword: 'smart tv, samsung, lg, televizyon, tv kurulum, televizyonda nasıl',
     response: 'Smart TV kurulumu için rehberimizi inceleyin. Samsung, LG ve diğer markalar için ayrı adımlar mevcuttur. Gerekirse WhatsApp üzerinden görüntülü destek veriyoruz.',
-    redirect_url: '/kurulum',
+    redirect_url: '/kurulum/',
   },
   {
     keyword: 'android, android tv, telefon, tablet kurulum',
     response: 'Android cihazlar için IPTV kurulumu oldukça basittir. Kurulum sayfamızdan uygulama indirme linki ve adımları bulabilirsiniz.',
-    redirect_url: '/kurulum',
+    redirect_url: '/kurulum/',
   },
   {
     keyword: 'mag, mag box, stb, set top box, kutu',
     response: 'MAG ve STB cihazlar için portal adresi ve kurulum bilgileri hesabınızla birlikte gönderilir. Detaylı kurulum rehberi sitemizde mevcuttur.',
-    redirect_url: '/kurulum',
+    redirect_url: '/kurulum/',
   },
   {
     keyword: 'm3u, m3u link, m3u url, m3u dosyası, m3u oluştur',
     response: 'M3U linkiniz hesap oluşturulduktan sonra size iletilecektir. M3U dönüştürücü aracımızı da kullanabilirsiniz.',
-    redirect_url: '/m3u-converter',
+    redirect_url: '/m3u-converter/',
   },
 
   // === ÖDEME ===
@@ -70,36 +70,36 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   {
     keyword: 'test, deneme, ücretsiz test, deneme paketi, denemek istiyorum, önce denemek, test süresi, trial, free trial',
     response: 'Ücretsiz test paketimizi deneyebilirsiniz. Test süresi ve koşulları için Paketler sayfamızı ziyaret edin. Memnun kalmazsanız ödeme yapmadan ayrılabilirsiniz.',
-    redirect_url: '/paketler',
+    redirect_url: '/paketler/',
   },
 
   // === MAÇ / SPOR ===
   {
-    keyword: 'maç, maç izle, maç programı, maç yayını, hangi kanalda, hangi kanalda maç, futbol, süper lig, premier lig, şampiyonlar ligi, maç saatleri',
-    response: 'Maç programı sayfamızda güncel maçları, saatleri ve hangi kanallarda yayınlanacağını görebilirsiniz. Süper Lig, Premier Lig, Şampiyonlar Ligi dahil tüm önemli maçlar listelenir.',
-    redirect_url: '/mac-programi',
+    keyword: 'maç, maç programı, fikstür, futbol, maç saatleri, karşılaşma',
+    response: 'Maç programı sayfamızda günlük fikstürü ve başlama saatlerini görebilirsiniz. Tarih çubuğundan istediğiniz günü seçerek o günün karşılaşmalarını listeleyebilirsiniz.',
+    redirect_url: '/mac-programi/',
   },
   {
-    keyword: 'spor kanalları, bein, d smart, s sport, maç kanalları',
-    response: 'BeIN Sports, D-Smart, S Sport ve diğer tüm spor kanalları paketlerimizde mevcuttur. Maç programı sayfamızdan hangi kanalda hangi maçın olduğunu görebilirsiniz.',
-    redirect_url: '/mac-programi',
+    keyword: 'kanal kategorileri, kategoriler, içerik kategorileri',
+    response: 'Paketlerimizde canlı TV, film ve dizi kategorileri, belgesel, çocuk ve müzik içerikleri yer alır. 4K/UHD seçenekleri ve çoklu cihaz desteği mevcuttur.',
+    redirect_url: '/channels/',
   },
 
   // === KANAL ===
   {
     keyword: 'kanal, kanallar, kanal listesi, kaç kanal, hangi kanallar, kanal sayısı, kanallar neler',
     response: '10.000+ kanal sunuyoruz: yerli ve yabancı TV, spor, film, dizi, belgesel, çocuk kanalları. Tam kanal listesi için Kanallar sayfamızı inceleyebilirsiniz.',
-    redirect_url: '/channels',
+    redirect_url: '/channels/',
   },
   {
     keyword: 'türk kanalları, yerli kanallar, trt, atv, show tv, star, fox',
     response: 'Tüm Türk kanalları (TRT, ATV, Show TV, Star, Fox vb.) paketlerimizde mevcuttur. Yerel kanallar da dahildir.',
-    redirect_url: '/channels',
+    redirect_url: '/channels/',
   },
   {
     keyword: 'yabancı kanallar, ingiliz, almanca, fransız kanallar',
     response: 'İngilizce, Almanca, Fransızca ve diğer dillerde yüzlerce yabancı kanal sunuyoruz. Avrupa ve Amerika kanalları dahildir.',
-    redirect_url: '/channels',
+    redirect_url: '/channels/',
   },
 
   // === KALİTE / 4K / HD ===
@@ -145,7 +145,7 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   {
     keyword: 'sss, sıkça sorulan, sık sorulan sorular, faq',
     response: 'Sıkça sorulan sorular ve detaylı cevaplar için SSS sayfamızı ziyaret edin.',
-    redirect_url: '/sss',
+    redirect_url: '/sss/',
   },
 
   // === HESAP / GİRİŞ ===
@@ -162,7 +162,7 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   {
     keyword: 'cihaz sınırı, kaç cihaz, birden fazla cihaz, aynı anda izleme',
     response: 'Paketlere göre eşzamanlı cihaz sayısı değişir. Detaylar için Paketler sayfamızı inceleyin. Genelde 1-2 cihaz aynı anda desteklenir.',
-    redirect_url: '/paketler',
+    redirect_url: '/paketler/',
   },
 
   // === İPTAL / İADE ===
@@ -181,7 +181,7 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   {
     keyword: 'film, dizi, vod, video on demand, film izle, dizi izle, ne izlesem',
     response: 'Binlerce film ve dizi VOD kütüphanemizde mevcuttur. Ne İzlesem sayfamızdan güncel önerileri görebilirsiniz.',
-    redirect_url: '/ne-izlesem',
+    redirect_url: '/ne-izlesem/',
   },
 
   // === VPN / ERİŞİM ===
@@ -195,7 +195,7 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   {
     keyword: 'pkt, pkts, fyt, ucret, ucretler, kurulm, kurulumu, odeme, odeme yontemi',
     response: 'Paketler ve fiyatlar için /paketler, kurulum için /kurulum sayfamızı ziyaret edin. Detaylı bilgi için WhatsApp üzerinden de yazabilirsiniz.',
-    redirect_url: '/paketler',
+    redirect_url: '/paketler/',
   },
   {
     keyword: 'merhaba, selam, meraba, mrb, slm, iyi günler, günaydın',
@@ -212,7 +212,7 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   {
     keyword: 'bayi, bayilik, toplu satış, toplu alım, iş ortağı',
     response: 'Bayilik ve toplu satış programımız hakkında bilgi için Reseller sayfamızı inceleyebilir veya destek ekibimize yazabilirsiniz.',
-    redirect_url: '/reseller',
+    redirect_url: '/reseller/',
   },
   {
     keyword: 'yenileme, abonelik yenileme, süre uzatma, uzatmak',
@@ -237,6 +237,6 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   {
     keyword: 'iptv, iptv satın al, iptv almak, iptv abone',
     response: 'IPTV aboneliği için Paketler sayfamızdan size uygun paketi seçin. Ücretsiz test imkanı da mevcuttur.',
-    redirect_url: '/paketler',
+    redirect_url: '/paketler/',
   },
 ];

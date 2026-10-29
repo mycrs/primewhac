@@ -4,6 +4,7 @@ import SEOHead from '@/components/SEOHead';
 import HeaderDE from '@/components/HeaderDE';
 import FooterDE from '@/components/FooterDE';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
+import SocialShareButtons from '@/components/SocialShareButtons';
 import { useMatchBySlug } from '@/hooks/useMatchBySlug';
 import { useMatchContent } from '@/hooks/useMatchContent';
 import { Loader2, Trophy, ArrowLeft, Calendar, Clock, Flame, Tv } from 'lucide-react';
@@ -309,6 +310,16 @@ const MatchDetailPageDE = ({ siteData }) => {
               >
                 Pakete ansehen
               </Link>
+            </div>
+
+            {/* Share Buttons */}
+            <div className="p-6 sm:p-8 lg:p-12 bg-[#0a0a0a]/40 border-t border-slate-800">
+              <SocialShareButtons
+                url={metadata.canonicalUrl}
+                title={metadata.title}
+                description={metadata.description}
+                locale="de"
+              />
             </div>
 
             {/* SEO: Verwandte Seiten verlinken */}

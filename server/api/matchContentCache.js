@@ -40,7 +40,9 @@ export async function getCachedContent(match, locale = 'tr') {
       wordCount: data.word_count,
     };
   } catch (readErr) {
-    console.error('[matchContentCache] dosya okuma hatası:', readErr?.message || readErr, readErr);
+    if (readErr.code !== 'ENOENT') {
+      console.error('[matchContentCache] dosya okuma hatası:', readErr?.message || readErr);
+    }
     return null;
   }
 }

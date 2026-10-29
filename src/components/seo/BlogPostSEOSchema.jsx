@@ -44,7 +44,7 @@ export const generateArticleSchema = (post, currentPostUrl) => {
       "name": "QruzeTV",
       "logo": {
         "@type": "ImageObject",
-        "url": `${SITE_URL}/default-og-image.jpg`
+        "url": `${SITE_URL}/logo.png`
       }
     },
     "mainEntityOfPage": {
@@ -87,7 +87,7 @@ export const generateBlogSchema = (post, currentPostUrl) => {
       "name": "QruzeTV",
       "logo": {
         "@type": "ImageObject",
-        "url": `${SITE_URL}/default-og-image.jpg`
+        "url": `${SITE_URL}/logo.png`
       }
     },
   };

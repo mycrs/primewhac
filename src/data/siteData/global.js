@@ -16,23 +16,27 @@ export const defaultGlobal = {
         type: 'info',
     },
     contactData: {
-        whatsapp: '4917642963957',
-        phone: '4917642963957',
+        // whatsapp / phone bilerek BOŞ — numara statik çıktıya (prerender HTML +
+        // JS bundle) gömülmesin diye. Runtime kaynağı: Supabase contact_info,
+        // yedeği base64 env. Bkz. src/utils/supportChannel.js
+        whatsapp: '',
+        phone: '',
         email: 'info@qruzetv.com',
         supportHours: 'Hafta içi: 09:00 - 23:00, Hafta sonu: 10:00 - 02:00',
         logoUrl: '/logo.png',
         whatsappMessage: 'Merhaba, kaliteli ve donmayan IPTV paketleriniz hakkında bilgi almak istiyorum.',
-        testMessage: 'Merhaba, ücretsiz kaliteli IPTV testi için yazıyorum.'
+        testMessage: 'Merhaba, ücretsiz kaliteli IPTV testi için yazıyorum.',
+        order_channel: 'whatsapp'
     },
     siteTexts: {
         header: {
             menuItems: [
                 { label: 'ANA SAYFA', path: '/' },
-                { label: 'PAKETLER', path: '/paketler' },
-                { label: 'KANAL LİSTESİ', path: '/channels' },
-                { label: 'KURULUM', path: '/kurulum' },
-                { label: 'S.S.S.', path: '/sss' },
-                { label: 'BAYİLİK', path: '/reseller' },
+                { label: 'PAKETLER', path: '/paketler/' },
+                { label: 'KANAL LİSTESİ', path: '/channels/' },
+                { label: 'KURULUM', path: '/kurulum/' },
+                { label: 'S.S.S.', path: '/sss/' },
+                { label: 'BAYİLİK', path: '/reseller/' },
             ],
             testButton: 'Ücretsiz Test Al'
         },

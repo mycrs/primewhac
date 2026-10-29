@@ -8,13 +8,13 @@ import { BookOpen, Tv, Smartphone, Monitor } from 'lucide-react';
 import { breadcrumbSchema } from '@/utils/seoSchema';
 
 const DEVICE_LINKS = [
-  { to: '/de/einrichtung/android-tv', label: 'Android TV' },
-  { to: '/de/einrichtung/smart-tv', label: 'Smart TV (Samsung/LG)' },
-  { to: '/de/einrichtung/ios', label: 'iOS / Apple TV' },
-  { to: '/de/einrichtung/android-phone', label: 'Android Smartphone' },
-  { to: '/de/einrichtung/windows', label: 'Windows PC' },
-  { to: '/de/einrichtung/mac', label: 'Mac' },
-  { to: '/de/einrichtung/tablet', label: 'Tablet' },
+  { to: '/de/einrichtung/android-tv/', label: 'Android TV' },
+  { to: '/de/einrichtung/smart-tv/', label: 'Smart TV (Samsung/LG)' },
+  { to: '/de/einrichtung/ios/', label: 'iOS / Apple TV' },
+  { to: '/de/einrichtung/android-phone/', label: 'Android Smartphone' },
+  { to: '/de/einrichtung/windows/', label: 'Windows PC' },
+  { to: '/de/einrichtung/mac/', label: 'Mac' },
+  { to: '/de/einrichtung/tablet/', label: 'Tablet' },
 ];
 
 const DetailedGuidesPageDE = ({ siteData }) => {
@@ -64,8 +64,8 @@ const DetailedGuidesPageDE = ({ siteData }) => {
           <div className="container mx-auto max-w-4xl">
             <BreadcrumbNavigation
               customCrumbs={[
-                { name: 'Startseite', path: '/de' },
-                { name: 'Einrichtung', path: '/de/einrichtung' },
+                { name: 'Startseite', path: '/de/' },
+                { name: 'Einrichtung', path: '/de/einrichtung/' },
                 { name: 'Detaillierte Anleitungen', path: null },
               ]}
             />
@@ -130,7 +130,7 @@ const DetailedGuidesPageDE = ({ siteData }) => {
                   Unser Support ist per WhatsApp und E-Mail erreichbar. Für häufige Fragen zu Zahlung, Geräten und Verlängerung siehe die FAQ. Ausführlicher Blog-Leitfaden:
                 </p>
                 <Link
-                  to="/de/guide/iptv-kurulum-rehberi"
+                  to="/de/guide/iptv-kurulum-rehberi/"
                   className="text-primary hover:underline font-semibold"
                 >
                   IPTV Kurulum Rehberi (Deutsch) →
@@ -141,19 +141,19 @@ const DetailedGuidesPageDE = ({ siteData }) => {
                 <h3 className="text-2xl font-bold text-white mb-6">Nützliche Links</h3>
                 <div className="grid sm:grid-cols-3 gap-4">
                   <Link
-                    to="/de/einrichtung"
+                    to="/de/einrichtung/"
                     className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 border border-slate-700 rounded-xl transition-all font-semibold"
                   >
                     Einrichtungsübersicht
                   </Link>
                   <Link
-                    to="/de/sss"
+                    to="/de/sss/"
                     className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 border border-slate-700 rounded-xl transition-all font-semibold"
                   >
                     FAQ
                   </Link>
                   <Link
-                    to="/de/privacy"
+                    to="/de/privacy/"
                     className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 border border-slate-700 rounded-xl transition-all font-semibold"
                   >
                     Datenschutz

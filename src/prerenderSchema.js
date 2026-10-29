@@ -3,6 +3,7 @@
  * React/Helmet runtime schema'sını bozmaz; build sonrası ilk HTML'e enjekte edilir.
  */
 import { prerenderSeoByRoute } from './prerenderSeo.js';
+import { categoriesTR, categoriesDE } from './data/whatToWatchCategories.js';
 import { defaultFaqData } from './data/defaultFaqData.js';
 import { defaultFaqDataDESections } from './data/prerenderFaqDefaultsDE.js';
 import {
@@ -12,11 +13,12 @@ import {
   DEVICE_LABELS,
   INSTALLATION_DEVICE_HOWTO_STEPS,
 } from './data/installationDeviceHowToSteps.js';
+import { getTvBrandGuide, localizeTvBrandGuide } from './data/tvBrandGuides.js';
 import { SITE_URL } from './constants/siteUrl.js';
 import {
   organizationSchema,
   webPageSchema,
-  breadcrumbSchema,
+  breadcrumbSchema as baseBreadcrumbSchema,
   homePageSchemas,
   homePageSchemasDE,
   packagesPageSchemas,
@@ -25,19 +27,14 @@ import {
   blogListPageSchemas,
   channelsPageSchemas,
   resellerPageSchemas,
+  matchSchedulePageSchemas,
+  whatToWatchPageSchemas,
+  whatToWatchPageSchemasDE,
+  whatToWatchCategorySchemas,
 } from './utils/seoSchema.js';
 import { buildCustomerReviewsJsonLd, buildReviewsFaqJsonLd } from './utils/customerReviewsSchema.js';
+import { buildFooterJsonLd } from './utils/footerSchema.js';
 import { sanitizeJsonLdSchema } from './utils/jsonLdSanitize.js';
-
-const webSiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  '@id': `${SITE_URL}/#website`,
-  url: SITE_URL,
-  name: 'QruzeTV',
-  inLanguage: ['tr-TR', 'de-DE'],
-  publisher: { '@id': `${SITE_URL}/#organization` },
-};
 
 const PACKAGES_FAQ_SCHEMA = {
   '@context': 'https://schema.org',
@@ -56,7 +53,7 @@ const PACKAGES_FAQ_SCHEMA = {
       name: 'İade hakkım var mı?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Evet. Satın alma işleminden sonraki ilk 24 saat içinde koşulsuz iade hakkınız bulunmaktadır.',
+        text: 'Aktivasyondan sonraki ilk 24 saat içinde iade talebi iletilebilir. Dijital hizmetlerde iade, QruzeTV kaynaklı ve destek tarafından çözülemeyen teknik sorunlar için hizmet şartlarına göre değerlendirilir.',
       },
     },
     {
@@ -164,6 +161,30 @@ function flattenSchemas(schemas) {
   return flat.map((s) => sanitizeJsonLdSchema(s)).filter(Boolean);
 }
 
+/**
+ * Ortak sözleşme: kök dışı tüm path'ler trailing slash'lı (kök '/' kalır).
+ * seoCanonicalHreflang.js'teki withTrailingSlash ile aynı kural.
+ */
+function withTrailingSlash(p) {
+  if (!p || p === '/') return p || '/';
+  return p.endsWith('/') ? p : `${p}/`;
+}
+
+/**
+ * Breadcrumb item URL'leri canonical formda (slash'lı) basılmalı; aksi halde statik
+ * JSON-LD URL'leri sayfa canonical'ıyla eşleşmez. seoSchema.js'teki breadcrumbSchema
+ * path'in sondaki slash'ını kırptığı için bu sarmalayıcı her item'a slash'lı mutlak
+ * `url` vererek canonical formu sabitler (kök '/' ve '/de/' doğru formda kalır).
+ */
+function prerenderBreadcrumbSchema(items) {
+  return baseBreadcrumbSchema(
+    (items || []).map((item) => ({
+      ...item,
+      url: item?.url || `${SITE_URL}${withTrailingSlash(item?.path || '/')}`,
+    })),
+  );
+}
+
 function faqPageSchemasDE(metadata, sections) {
   const mainEntity = (sections || []).flatMap((section) =>
     (section?.items || []).map((item) => ({
@@ -186,7 +207,7 @@ function faqPageSchemasDE(metadata, sections) {
       url: `${SITE_URL}/de/sss`,
       lang: 'de',
     }),
-    breadcrumbSchema([
+    prerenderBreadcrumbSchema([
       { name: 'Startseite', path: '/de' },
       { name: 'Häufige Fragen', path: '/de/sss' },
     ]),
@@ -196,7 +217,7 @@ function faqPageSchemasDE(metadata, sections) {
 
 function aboutPageSchemas(metadata, path, lang) {
   return [
-    breadcrumbSchema(
+    prerenderBreadcrumbSchema(
       lang === 'de'
         ? [
             { name: 'Startseite', path: '/de' },
@@ -221,9 +242,8 @@ function aboutPageSchemas(metadata, path, lang) {
 }
 
 function installationHubSchemasTr(metadata) {
-  const articleDate = new Date().toISOString().split('T')[0];
   return [
-    breadcrumbSchema([
+    prerenderBreadcrumbSchema([
       { name: 'Ana Sayfa', path: '/' },
       { name: 'Kurulum', path: '/kurulum' },
     ]),
@@ -238,22 +258,6 @@ function installationHubSchemasTr(metadata) {
         { '@type': 'HowToStep', name: 'İzlemeye Başlama', text: 'Kanalların yüklenmesini bekleyin ve izlemeye başlayın.' },
       ],
     },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      headline: 'IPTV Kurulum Rehberi - Adım Adım Talimatlar ve Sorun Giderme',
-      author: { '@type': 'Organization', name: 'QruzeTV' },
-      datePublished: '2026-01-01',
-      dateModified: articleDate,
-      url: `${SITE_URL}/kurulum`,
-      image: `${SITE_URL}/default-og-image.jpg`,
-      mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/kurulum` },
-      publisher: {
-        '@type': 'Organization',
-        name: 'QruzeTV',
-        logo: { '@type': 'ImageObject', url: `${SITE_URL}/default-og-image.jpg` },
-      },
-    },
     webPageSchema({
       name: metadata.title,
       description: metadata.description,
@@ -265,7 +269,7 @@ function installationHubSchemasTr(metadata) {
 
 function setupHubSchemasDe(metadata) {
   return [
-    breadcrumbSchema([
+    prerenderBreadcrumbSchema([
       { name: 'Startseite', path: '/de' },
       { name: 'Einrichtung', path: '/de/einrichtung' },
     ]),
@@ -281,14 +285,20 @@ function setupHubSchemasDe(metadata) {
 
 function devicePageSchemas(route, slug, isDe) {
   const lang = isDe ? 'de' : 'tr';
-  const labels = DEVICE_LABELS[slug] || { tr: slug, de: slug };
+  const tvBrandGuide = localizeTvBrandGuide(getTvBrandGuide(slug), lang);
+  const labels = tvBrandGuide
+    ? { tr: `${tvBrandGuide.brand} TV`, de: `${tvBrandGuide.brand} TV` }
+    : (DEVICE_LABELS[slug] || { tr: slug, de: slug });
   const contentSlug = CONTENT_ALIASES[slug] || slug;
-  const stepSource = INSTALLATION_DEVICE_HOWTO_STEPS[contentSlug]?.[lang] || [];
+  const stepSource =
+    tvBrandGuide?.howToSteps ||
+    INSTALLATION_DEVICE_HOWTO_STEPS[contentSlug]?.[lang] ||
+    [];
   const basePath = isDe ? '/de/einrichtung' : '/kurulum';
   const metadata = metaFromRoute(route);
 
   const faqMap = isDe ? DEVICE_FAQ_DE : DEVICE_FAQ_TR;
-  const faqItems = faqMap[slug] || faqMap[contentSlug] || [];
+  const faqItems = tvBrandGuide?.faqs || faqMap[slug] || faqMap[contentSlug] || [];
   const faqSchema =
     faqItems.length > 0
       ? {
@@ -302,7 +312,7 @@ function devicePageSchemas(route, slug, isDe) {
         }
       : null;
 
-  const howToName = isDe ? `${labels.de} IPTV Einrichtung` : `${labels.tr} IPTV Kurulumu`;
+  const howToName = tvBrandGuide?.title || (isDe ? `${labels.de} IPTV Einrichtung` : `${labels.tr} IPTV Kurulumu`);
 
   const steps = stepSource.map((step, i) => ({
     '@type': 'HowToStep',
@@ -312,12 +322,29 @@ function devicePageSchemas(route, slug, isDe) {
   }));
 
   const schemas = [
-    breadcrumbSchema([
+    prerenderBreadcrumbSchema([
       isDe ? { name: 'Startseite', path: '/de' } : { name: 'Ana Sayfa', path: '/' },
       isDe ? { name: 'Einrichtung', path: '/de/einrichtung' } : { name: 'Kurulum', path: '/kurulum' },
+      ...(tvBrandGuide ? [{ name: 'Smart TV', path: `${basePath}/smart-tv` }] : []),
       { name: isDe ? labels.de : labels.tr, path: `${basePath}/${slug}` },
     ]),
   ];
+
+  if (tvBrandGuide) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'TechArticle',
+      headline: tvBrandGuide.title,
+      description: tvBrandGuide.metaDescription,
+      inLanguage: isDe ? 'de-DE' : 'tr-TR',
+      datePublished: '2026-07-31',
+      dateModified: '2026-07-31',
+      mainEntityOfPage: `${SITE_URL}${route}/`,
+      author: { '@type': 'Organization', name: 'QruzeTV', url: `${SITE_URL}/` },
+      publisher: { '@type': 'Organization', name: 'QruzeTV', url: `${SITE_URL}/` },
+      about: [`${tvBrandGuide.brand} Smart TV`, 'IPTV', ...tvBrandGuide.systems.map((system) => system.label)],
+    });
+  }
 
   if (steps.length > 0) {
     schemas.push({
@@ -343,7 +370,7 @@ function blogDeListSchemas(metadata) {
       description: metadata.description,
       url: `${SITE_URL}/de/blog`,
     },
-    breadcrumbSchema([
+    prerenderBreadcrumbSchema([
       { name: 'Startseite', path: '/de' },
       { name: 'Blog', path: '/de/blog' },
     ]),
@@ -354,7 +381,7 @@ function testPageSchemas(metadata, { route = '/test', lang = 'tr' } = {}) {
   const isDe = lang === 'de';
   const pageUrl = `${SITE_URL}${route}`;
   return [
-    breadcrumbSchema(
+    prerenderBreadcrumbSchema(
       isDe
         ? [
             { name: 'Startseite', path: '/de' },
@@ -391,7 +418,7 @@ function testPageSchemas(metadata, { route = '/test', lang = 'tr' } = {}) {
 
 function m3uConverterSchemas(metadata, path) {
   return [
-    breadcrumbSchema([
+    prerenderBreadcrumbSchema([
       { name: 'Ana Sayfa', path: '/' },
       { name: 'M3U Oluştur', path: '/m3u-converter' },
     ]),
@@ -418,7 +445,7 @@ function reviewsPageSchemas(route, lang) {
   const customer = buildCustomerReviewsJsonLd({ reviews: [], pageUrl, lang });
   const blocks = Array.isArray(customer) ? customer : [customer];
   return [
-    breadcrumbSchema(
+    prerenderBreadcrumbSchema(
       lang === 'de'
         ? [
             { name: 'Startseite', path: '/de' },
@@ -436,7 +463,7 @@ function reviewsPageSchemas(route, lang) {
 
 function termsPageSchemas(metadata) {
   return [
-    breadcrumbSchema([
+    prerenderBreadcrumbSchema([
       { name: 'Startseite', path: '/de' },
       { name: 'Nutzungsbedingungen', path: '/de/terms' },
     ]),
@@ -449,17 +476,35 @@ function termsPageSchemas(metadata) {
   ];
 }
 
-const DEVICE_SLUGS = [
-  'android-tv',
-  'ios',
-  'android-phone',
-  'windows',
-  'mac',
-  'smart-tv',
-  'samsung-tv',
-  'lg-tv',
-  'tablet',
-];
+function simpleWebPageSchemas(route, metadata, breadcrumbs, lang) {
+  return [
+    prerenderBreadcrumbSchema(breadcrumbs),
+    webPageSchema({
+      name: metadata.title,
+      description: metadata.description,
+      url: `${SITE_URL}${route}`,
+      lang,
+    }),
+  ];
+}
+
+function blogPostPrerenderSchemas(route, metadata, isDe) {
+  const home = isDe ? { name: 'Startseite', path: '/de' } : { name: 'Ana Sayfa', path: '/' };
+  const blogPath = isDe ? '/de/blog' : '/blog';
+  return [
+    prerenderBreadcrumbSchema([
+      home,
+      { name: 'Blog', path: blogPath },
+      { name: metadata.title, path: route },
+    ]),
+    webPageSchema({
+      name: metadata.title,
+      description: metadata.description,
+      url: `${SITE_URL}${route}`,
+      lang: isDe ? 'de' : 'tr',
+    }),
+  ];
+}
 
 /**
  * @param {string} route
@@ -471,15 +516,15 @@ export function getPrerenderJsonLdSchemas(route) {
 
   switch (route) {
     case '/':
-      schemas = [webSiteSchema, ...homePageSchemas(metadata, null)];
+      schemas = homePageSchemas(metadata, null);
       break;
     case '/de':
-      schemas = [webSiteSchema, ...homePageSchemasDE(metadata, null)];
+      schemas = homePageSchemasDE(metadata, null);
       break;
     case '/paketler':
       schemas = [
         ...packagesPageSchemas(metadata),
-        breadcrumbSchema([
+        prerenderBreadcrumbSchema([
           { name: 'Ana Sayfa', path: '/' },
           { name: 'Paketler', path: '/paketler' },
         ]),
@@ -489,7 +534,7 @@ export function getPrerenderJsonLdSchemas(route) {
     case '/de/pakete':
       schemas = [
         ...packagesPageSchemasDE(metadata),
-        breadcrumbSchema([
+        prerenderBreadcrumbSchema([
           { name: 'Startseite', path: '/de' },
           { name: 'Pakete', path: '/de/pakete' },
         ]),
@@ -527,7 +572,7 @@ export function getPrerenderJsonLdSchemas(route) {
       break;
     case '/sitemap':
       schemas = [
-        breadcrumbSchema([
+        prerenderBreadcrumbSchema([
           { name: 'Ana Sayfa', path: '/' },
           { name: 'Site Haritası', path: '/sitemap' },
         ]),
@@ -554,18 +599,107 @@ export function getPrerenderJsonLdSchemas(route) {
       schemas = channelsPageSchemas(metadata);
       break;
     case '/reseller':
-      schemas = resellerPageSchemas(metadata);
+      schemas = resellerPageSchemas(metadata, { route: '/reseller', lang: 'tr' });
+      break;
+    case '/de/reseller':
+      schemas = resellerPageSchemas(metadata, { route: '/de/reseller', lang: 'de' });
+      break;
+    case '/mac-programi':
+      schemas = matchSchedulePageSchemas(metadata);
+      break;
+    case '/de/spielplan':
+      schemas = matchSchedulePageSchemas({ ...metadata, canonicalUrl: `${SITE_URL}/de/spielplan` });
+      break;
+    case '/ne-izlesem':
+      schemas = whatToWatchPageSchemas(metadata);
+      break;
+    case '/de/was-soll-ich-schauen':
+      schemas = whatToWatchPageSchemasDE(metadata);
+      break;
+    case '/gizlilik':
+      schemas = simpleWebPageSchemas(route, metadata, [
+        { name: 'Ana Sayfa', path: '/' },
+        { name: 'Gizlilik Politikası', path: '/gizlilik' },
+      ]);
+      break;
+    case '/sartlar':
+      schemas = simpleWebPageSchemas(route, metadata, [
+        { name: 'Ana Sayfa', path: '/' },
+        { name: 'Hizmet Şartları', path: '/sartlar' },
+      ]);
+      break;
+    case '/de/privacy':
+      schemas = simpleWebPageSchemas(route, metadata, [
+        { name: 'Startseite', path: '/de' },
+        { name: 'Datenschutz', path: '/de/privacy' },
+      ], 'de');
+      break;
+    case '/guide/iptv-kurulum-rehberi':
+      schemas = simpleWebPageSchemas(route, metadata, [
+        { name: 'Ana Sayfa', path: '/' },
+        { name: 'IPTV Rehberi', path: '/guide/iptv-kurulum-rehberi' },
+      ]);
+      break;
+    case '/de/guide/iptv-kurulum-rehberi':
+      schemas = simpleWebPageSchemas(route, metadata, [
+        { name: 'Startseite', path: '/de' },
+        { name: 'IPTV Leitfaden', path: '/de/guide/iptv-kurulum-rehberi' },
+      ], 'de');
+      break;
+    case '/de/kanale':
+      schemas = channelsPageSchemas(metadata);
+      break;
+    case '/karsilastirma':
+      schemas = simpleWebPageSchemas(route, metadata, [
+        { name: 'Ana Sayfa', path: '/' },
+        { name: 'Karşılaştırma', path: '/karsilastirma' },
+      ]);
+      break;
+    case '/de/vergleich':
+      schemas = simpleWebPageSchemas(route, metadata, [
+        { name: 'Startseite', path: '/de' },
+        { name: 'Vergleich', path: '/de/vergleich' },
+      ], 'de');
+      break;
+    case '/detailed-guides':
+      schemas = simpleWebPageSchemas(route, metadata, [
+        { name: 'Ana Sayfa', path: '/' },
+        { name: 'Detaylı Rehberler', path: '/detailed-guides' },
+      ]);
+      break;
+    case '/de/detaillierte-anleitungen':
+      schemas = simpleWebPageSchemas(route, metadata, [
+        { name: 'Startseite', path: '/de' },
+        { name: 'Anleitungen', path: '/de/detaillierte-anleitungen' },
+      ], 'de');
+      break;
+    case '/de/m3u-olustur':
+      schemas = m3uConverterSchemas(metadata, '/de/m3u-olustur');
       break;
     default:
-      if (route.startsWith('/kurulum/')) {
+      if (route.startsWith('/ne-izlesem/')) {
+        const slug = route.replace('/ne-izlesem/', '');
+        schemas = whatToWatchCategorySchemas(categoriesTR[slug] || { slug, title: metadata.title, description: metadata.description, urlPath: route, label: metadata.title, items: [] }, 'tr');
+      } else if (route.startsWith('/de/was-soll-ich-schauen/')) {
+        const slug = route.replace('/de/was-soll-ich-schauen/', '');
+        schemas = whatToWatchCategorySchemas(categoriesDE[slug] || { slug, title: metadata.title, description: metadata.description, urlPath: route, label: metadata.title, items: [] }, 'de');
+      } else if (route.startsWith('/blog/')) {
+        schemas = blogPostPrerenderSchemas(route, metadata, false);
+      } else if (route.startsWith('/de/blog/')) {
+        schemas = blogPostPrerenderSchemas(route, metadata, true);
+      } else if (route.startsWith('/kurulum/')) {
         const slug = route.replace('/kurulum/', '');
-        if (DEVICE_SLUGS.includes(slug)) schemas = devicePageSchemas(route, slug, false);
+        schemas = devicePageSchemas(route, slug, false);
       } else if (route.startsWith('/de/einrichtung/')) {
         const slug = route.replace('/de/einrichtung/', '');
-        if (DEVICE_SLUGS.includes(slug)) schemas = devicePageSchemas(route, slug, true);
+        schemas = devicePageSchemas(route, slug, true);
       }
       break;
   }
+
+  // Footer GEO Intelligence: SiteNavigationElement + Service (areaServed) — her sayfada, route diline göre
+  const footerLocale = route === '/de' || route.startsWith('/de/') ? 'de' : 'tr';
+  schemas = [...schemas, buildFooterJsonLd(footerLocale)];
 
   return flattenSchemas(schemas);
 }
@@ -580,7 +714,7 @@ export function renderJsonLdScriptsHtml(schemas) {
   return cleaned
     .map(
       (schema) =>
-        `    <script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n    </script>`,
+        `    <script data-prerender-jsonld="true" type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n    </script>`,
     )
     .join('\n');
 }

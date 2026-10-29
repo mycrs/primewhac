@@ -8,66 +8,140 @@ export const DEVICE_LABELS = {
   ios: { tr: 'iOS ve iPhone', de: 'iOS und iPhone' },
   'android-phone': { tr: 'Android Telefon', de: 'Android Smartphone' },
   windows: { tr: 'Windows PC', de: 'Windows PC' },
+  'windows-next-plus': { tr: 'Windows — NEXT+', de: 'Windows — NEXT+' },
+  'windows-castora': { tr: 'Windows — CASTORA', de: 'Windows — CASTORA' },
+  'windows-ibo-player': { tr: 'Windows — IBO Player Pro', de: 'Windows — IBO Player Pro' },
+  'windows-abc': { tr: 'Windows — ABC IPTV Player', de: 'Windows — ABC IPTV Player' },
+  'windows-vs-player': { tr: 'Windows — VS Player', de: 'Windows — VS Player' },
+  'tablet-ibo-player': { tr: 'Tablet — IBO Player Pro', de: 'Tablet — IBO Player Pro' },
+  'tablet-abc': { tr: 'Tablet — ABC IPTV Player', de: 'Tablet — ABC IPTV Player' },
+  'tablet-vs-player': { tr: 'Tablet — VS Player', de: 'Tablet — VS Player' },
   mac: { tr: 'Mac', de: 'Mac' },
+  'mac-next-plus': { tr: 'Mac — NEXT+', de: 'Mac — NEXT+' },
+  'mac-castora': { tr: 'Mac — CASTORA', de: 'Mac — CASTORA' },
   'smart-tv': { tr: 'Smart TV (Samsung/LG)', de: 'Smart TV (Samsung/LG)' },
-  'samsung-tv': { tr: 'Samsung TV', de: 'Samsung TV' },
-  'lg-tv': { tr: 'LG TV', de: 'LG TV' },
+  'smart-tv-0-player': { tr: 'Smart TV — 0 Player', de: 'Smart TV — 0 Player' },
+  'smart-tv-smarters-pro': { tr: 'Smart TV — IPTV Smarters Pro', de: 'Smart TV — IPTV Smarters Pro' },
+  'ios-next-plus': { tr: 'iOS — NEXT+', de: 'iOS — NEXT+' },
+  'ios-castora': { tr: 'iOS — CASTORA', de: 'iOS — CASTORA' },
+  'ios-9xtream': { tr: 'iOS — 9Xtream', de: 'iOS — 9Xtream' },
   tablet: { tr: 'Tablet', de: 'Tablet' },
 };
 
-export const CONTENT_ALIASES = {
-  'samsung-tv': 'smart-tv',
-  'lg-tv': 'smart-tv',
-};
+export const CONTENT_ALIASES = {};
 
 /** @type {Record<string, { tr: { name: string, text: string }[], de: { name: string, text: string }[] }>} */
 export const INSTALLATION_DEVICE_HOWTO_STEPS = {
   'android-tv': {
     tr: [
-      { name: 'Tivimate Uygulamasını İndirin', text: 'Android TV\'nizde Google Play Store\'u açın, Tivimate uygulamasını indirin ve açın.' },
-      { name: 'Abonelik Bilgilerini Girin', text: 'M3U linkinizi veya Xtream Codes sunucu, kullanıcı adı ve şifre bilgilerinizi uygulamaya girin.' },
-      { name: 'Kanalları Yükleyin ve İzlemeye Başlayın', text: 'Kaydedin; kanallar otomatik yüklenecek ve EPG birkaç dakika içinde hazır olacaktır.' },
+      { name: 'Downloader Kurulumu', text: 'TV mağazasından Downloader by AFTVnews uygulamasını indirin.' },
+      { name: 'APK Linkini Girin', text: 'Downloader\'a WhatsApp/e-posta ile gelen Qruze Player APK linkini yapıştırın ve yükleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen giriş bilgileri ile Qruze Player\'da oturum açın.' },
     ],
     de: [
-      { name: 'Tivimate installieren', text: 'Öffnen Sie den Google Play Store auf Ihrem Android TV, suchen Sie nach Tivimate und installieren Sie die App.' },
-      { name: 'Zugangsdaten eingeben', text: 'Fügen Sie Ihren M3U-Link ein oder geben Sie Xtream-Codes-Server, Benutzername und Passwort ein.' },
-      { name: 'Kanäle laden und streamen', text: 'Speichern Sie die Playlist; Kanäle werden automatisch geladen, EPG kann 2–5 Minuten dauern.' },
+      { name: 'Downloader installieren', text: 'Downloader by AFTVnews aus dem TV-Store installieren.' },
+      { name: 'APK-Link eingeben', text: 'Gesendeten Qruze Player APK-Link in Downloader einfügen und installieren.' },
+      { name: 'Anmelden und streamen', text: 'Mit den gesendeten Zugangsdaten in Qruze Player anmelden.' },
     ],
   },
   ios: {
     tr: [
-      { name: '000 Player Uygulamasını İndirin', text: 'App Store\'dan 000 Player uygulamasını indirin ve açın.' },
-      { name: 'Playlist Ekleyin', text: 'M3U URL\'nizi veya Xtream Codes bilgilerinizi uygulamaya girin.' },
-      { name: 'Kanalları Yükleyin', text: 'Kaydedin; kanallar ve EPG otomatik yüklenecektir.' },
+      { name: 'Uygulama Seçin', text: 'NEXT+, CASTORA veya 9Xtream — hub sayfasından uygulamanızı seçin.' },
     ],
     de: [
-      { name: '000 Player installieren', text: 'Laden Sie 000 Player aus dem App Store herunter und öffnen Sie die App.' },
-      { name: 'Playlist hinzufügen', text: 'Geben Sie Ihre M3U-URL oder Xtream-Codes-Daten ein.' },
-      { name: 'Kanäle laden', text: 'Speichern Sie die Einstellungen; Kanäle und EPG werden automatisch geladen.' },
+      { name: 'App wählen', text: 'NEXT+, CASTORA oder 9Xtream — App auf der Hub-Seite wählen.' },
+    ],
+  },
+  'ios-next-plus': {
+    tr: [
+      { name: 'NEXT+ Uygulamasını İndirin', text: 'App Store\'dan NEXT+ uygulamasını indirin ve açın.' },
+      { name: 'Abonelik Bilgilerini Girin', text: 'M3U URL veya Xtream Codes bilgilerinizi uygulamaya ekleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen giriş bilgileri ile giriş yapın; kanallar otomatik yüklenecektir.' },
+    ],
+    de: [
+      { name: 'NEXT+ installieren', text: 'Installieren Sie NEXT+ aus dem App Store und öffnen Sie die App.' },
+      { name: 'Zugangsdaten eingeben', text: 'M3U-URL oder Xtream-Codes-Daten in der App hinzufügen.' },
+      { name: 'Anmelden und streamen', text: 'Mit den von uns gesendeten Zugangsdaten anmelden.' },
+    ],
+  },
+  'ios-castora': {
+    tr: [
+      { name: 'CASTORA Uygulamasını İndirin', text: 'App Store\'dan CASTORA uygulamasını indirin.' },
+      { name: 'Giriş Bilgilerini Girin', text: 'M3U veya Xtream Codes bilgilerinizi ekleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen giriş bilgileri ile giriş yapın.' },
+    ],
+    de: [
+      { name: 'CASTORA installieren', text: 'CASTORA aus dem App Store installieren.' },
+      { name: 'Zugangsdaten eingeben', text: 'M3U oder Xtream Codes eingeben.' },
+      { name: 'Anmelden und streamen', text: 'Mit den gesendeten Zugangsdaten anmelden.' },
+    ],
+  },
+  'ios-9xtream': {
+    tr: [
+      { name: '9Xtream Uygulamasını İndirin', text: 'App Store\'dan 9Xtream uygulamasını indirin (iPhone/iPad).' },
+      { name: 'Giriş Bilgilerini Girin', text: 'Add Playlist ile Xtream Codes veya M3U ekleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen giriş bilgileri ile giriş yapın.' },
+    ],
+    de: [
+      { name: '9Xtream installieren', text: '9Xtream aus dem App Store installieren (iPhone/iPad).' },
+      { name: 'Zugangsdaten eingeben', text: 'Add Playlist mit Xtream Codes oder M3U.' },
+      { name: 'Anmelden und streamen', text: 'Mit den gesendeten Zugangsdaten anmelden.' },
     ],
   },
   'android-phone': {
     tr: [
-      { name: 'IPTV Smarters Uygulamasını İndirin', text: 'Google Play Store\'dan IPTV Smarters uygulamasını indirin.' },
-      { name: 'Giriş Bilgilerini Girin', text: 'M3U veya Xtream Codes bilgilerinizi uygulamaya ekleyin.' },
-      { name: 'İzlemeye Başlayın', text: 'Kanalların yüklenmesini bekleyin ve yayına başlayın.' },
+      { name: 'APK Linkini Açın', text: 'WhatsApp veya e-posta ile gönderilen Qruze Player APK indirme linkini tarayıcıda açın.' },
+      { name: 'APK Kurulumu', text: 'Dosyayı indirin, bilinmeyen kaynak iznini verin ve Qruze Player APK\'sını yükleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen M3U veya Xtream Codes bilgileri ile giriş yapın.' },
     ],
     de: [
-      { name: 'IPTV Smarters installieren', text: 'Installieren Sie IPTV Smarters aus dem Google Play Store.' },
-      { name: 'Zugangsdaten eingeben', text: 'Fügen Sie M3U- oder Xtream-Codes-Daten in der App hinzu.' },
-      { name: 'Streaming starten', text: 'Warten Sie, bis die Kanäle geladen sind, und starten Sie die Wiedergabe.' },
+      { name: 'APK-Link öffnen', text: 'Den per WhatsApp/E-Mail gesendeten Qruze Player APK-Link im Browser öffnen.' },
+      { name: 'APK installieren', text: 'APK herunterladen, unbekannte Quellen erlauben und installieren.' },
+      { name: 'Anmelden und streamen', text: 'Mit den gesendeten M3U- oder Xtream-Daten anmelden.' },
     ],
   },
   windows: {
     tr: [
-      { name: 'VLC Media Player İndirin', text: 'Resmi siteden veya Microsoft Store\'dan VLC\'yi indirin ve kurun.' },
-      { name: 'M3U Playlist Açın', text: 'VLC\'de Medya > Ağ Akışını Aç seçeneğiyle M3U linkinizi yapıştırın.' },
-      { name: 'Kanalları İzleyin', text: 'Playlist yüklendikten sonra kanallarınızı seçip izlemeye başlayın.' },
+      { name: 'Uygulama Seçin', text: 'IBO Player Pro, ABC IPTV Player veya VS Player — paketinize göre hub sayfasından seçin.' },
     ],
     de: [
-      { name: 'VLC Media Player installieren', text: 'Laden Sie VLC von der offiziellen Website oder dem Microsoft Store herunter.' },
-      { name: 'M3U-Playlist öffnen', text: 'Öffnen Sie in VLC Medien > Netzwerkstream öffnen und fügen Sie Ihren M3U-Link ein.' },
-      { name: 'Kanäle ansehen', text: 'Nach dem Laden der Playlist können Sie Sender auswählen und streamen.' },
+      { name: 'App wählen', text: 'IBO Player Pro, ABC IPTV Player oder VS Player — je nach Paket auf der Hub-Seite wählen.' },
+    ],
+  },
+  'windows-ibo-player': {
+    tr: [
+      { name: 'IBO Player Pro İndirin', text: 'Microsoft Store\'dan IBO Player Pro uygulamasını indirin ve açın.' },
+      { name: 'Abonelik Bilgilerini Girin', text: 'M3U URL veya Xtream Codes bilgilerinizi uygulamaya ekleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen giriş bilgileri ile giriş yapın; kanallar otomatik yüklenecektir.' },
+    ],
+    de: [
+      { name: 'IBO Player Pro installieren', text: 'Installieren Sie IBO Player Pro aus dem Microsoft Store und öffnen Sie die App.' },
+      { name: 'Zugangsdaten eingeben', text: 'M3U-URL oder Xtream-Codes-Daten in der App hinzufügen.' },
+      { name: 'Anmelden und streamen', text: 'Mit den von uns gesendeten Zugangsdaten anmelden.' },
+    ],
+  },
+  'windows-abc': {
+    tr: [
+      { name: 'ABC IPTV Player İndirin', text: 'abciptvplayer.com\'dan Windows sürümünü indirin ve kurun.' },
+      { name: 'M3U Linkini Girin', text: 'Müşteri panelinizdeki M3U URL\'sini uygulamaya ekleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen M3U linki ile kanallar yüklenecektir.' },
+    ],
+    de: [
+      { name: 'ABC IPTV Player installieren', text: 'Windows-Version von abciptvplayer.com herunterladen und installieren.' },
+      { name: 'M3U-Link eingeben', text: 'M3U-URL aus dem Kundenpanel in der App hinzufügen.' },
+      { name: 'Anmelden und streamen', text: 'Mit dem gesendeten M3U-Link streamen.' },
+    ],
+  },
+  'windows-vs-player': {
+    tr: [
+      { name: 'VS Player Kurun', text: 'Android emülatörü kurun, VS Player (Vstro) uygulamasını yükleyin.' },
+      { name: 'Portal Bilgilerini Girin', text: 'Xtream Codes veya Stalker portal bilgilerinizi ekleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen portal/Xtream bilgileri ile giriş yapın.' },
+    ],
+    de: [
+      { name: 'VS Player installieren', text: 'Android-Emulator installieren, VS Player (Vstro) laden.' },
+      { name: 'Portal-Daten eingeben', text: 'Xtream Codes oder Stalker-Portal-Daten eingeben.' },
+      { name: 'Anmelden und streamen', text: 'Mit den gesendeten Portal-/Xtream-Daten anmelden.' },
     ],
   },
   mac: {
@@ -82,28 +156,72 @@ export const INSTALLATION_DEVICE_HOWTO_STEPS = {
       { name: 'Wiedergabe starten', text: 'Starten Sie die Wiedergabe, sobald die Kanalliste geladen ist.' },
     ],
   },
-  'smart-tv': {
+  'smart-tv-0-player': {
     tr: [
-      { name: 'BOB Player Uygulamasını İndirin', text: 'Samsung veya LG TV mağazasından BOB Player uygulamasını indirin.' },
-      { name: 'Cihaz Kodunu Etkinleştirin', text: 'Uygulamada görünen cihaz kodunu BOB Player web sitesinden etkinleştirin.' },
-      { name: 'M3U veya Xtream Bilgilerini Girin', text: 'Playlist bilgilerinizi girin ve kanalların yüklenmesini bekleyin.' },
+      { name: '0 Player Uygulamasını İndirin', text: 'Samsung Apps veya LG Content Store\'dan 0 Player uygulamasını indirin.' },
+      { name: '0 Player\'ı Açın', text: 'Uygulamayı başlatın ve playlist ekleme menüsüne gidin.' },
+      { name: 'M3U veya Xtream Bilgilerini Girin', text: 'Abonelik bilgilerinizi girin ve kanalların yüklenmesini bekleyin.' },
     ],
     de: [
-      { name: 'BOB Player installieren', text: 'Installieren Sie BOB Player aus dem Samsung- oder LG-App-Store.' },
-      { name: 'Gerätecode aktivieren', text: 'Aktivieren Sie den in der App angezeigten Code auf der BOB-Player-Website.' },
-      { name: 'M3U oder Xtream eingeben', text: 'Geben Sie Ihre Playlist-Daten ein und warten Sie auf den Kanalimport.' },
+      { name: '0 Player installieren', text: 'Installieren Sie 0 Player aus dem Samsung- oder LG-App-Store.' },
+      { name: '0 Player starten', text: 'Starten Sie die App und öffnen Sie das Menü zum Hinzufügen der Playlist.' },
+      { name: 'M3U oder Xtream eingeben', text: 'Geben Sie Ihre Zugangsdaten ein und warten Sie auf den Kanalimport.' },
+    ],
+  },
+  'smart-tv-smarters-pro': {
+    tr: [
+      { name: 'IPTV Smarters Pro İndirin', text: 'Samsung Apps veya LG Content Store\'dan IPTV Smarters Pro\'yu indirin.' },
+      { name: 'Xtream Codes ile Giriş', text: 'Login with Xtream Codes API seçeneği ile bilgilerinizi girin.' },
+      { name: 'Kanalları Yükleyin', text: 'Add User sonrası Live TV bölümünden kanallarınızı kontrol edin.' },
+    ],
+    de: [
+      { name: 'IPTV Smarters Pro installieren', text: 'Installieren Sie die App aus dem Samsung- oder LG-Store.' },
+      { name: 'Mit Xtream Codes anmelden', text: 'Wählen Sie Login with Xtream Codes API und geben Sie Ihre Daten ein.' },
+      { name: 'Kanäle laden', text: 'Nach Add User unter Live TV die Kanäle prüfen.' },
     ],
   },
   tablet: {
     tr: [
-      { name: 'Uygun Uygulamayı İndirin', text: 'iPad için 000 Player, Android tablet için IPTV Smarters uygulamasını indirin.' },
-      { name: 'Abonelik Bilgilerini Girin', text: 'M3U veya Xtream Codes bilgilerinizi uygulamaya ekleyin.' },
-      { name: 'İzlemeye Başlayın', text: 'Kanallar yüklendikten sonra tabletinizden izlemeye başlayın.' },
+      { name: 'Uygulama Seçin', text: 'IBO Player Pro, ABC IPTV Player veya VS Player — paketinize göre hub sayfasından seçin.' },
     ],
     de: [
-      { name: 'Passende App installieren', text: '000 Player für iPad oder IPTV Smarters für Android-Tablet installieren.' },
-      { name: 'Zugangsdaten eingeben', text: 'M3U- oder Xtream-Codes-Daten in der App hinzufügen.' },
-      { name: 'Streaming starten', text: 'Nach dem Laden der Kanäle können Sie auf dem Tablet streamen.' },
+      { name: 'App wählen', text: 'IBO Player Pro, ABC IPTV Player oder VS Player — je nach Paket auf der Hub-Seite wählen.' },
+    ],
+  },
+  'tablet-ibo-player': {
+    tr: [
+      { name: 'IBO Player Pro İndirin', text: 'App Store veya Play Store\'dan IBO Player Pro uygulamasını indirin ve açın.' },
+      { name: 'Abonelik Bilgilerini Girin', text: 'M3U URL veya Xtream Codes bilgilerinizi uygulamaya ekleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen giriş bilgileri ile giriş yapın; kanallar otomatik yüklenecektir.' },
+    ],
+    de: [
+      { name: 'IBO Player Pro installieren', text: 'Installieren Sie IBO Player Pro aus App Store oder Play Store und öffnen Sie die App.' },
+      { name: 'Zugangsdaten eingeben', text: 'M3U-URL oder Xtream-Codes-Daten in der App hinzufügen.' },
+      { name: 'Anmelden und streamen', text: 'Mit den von uns gesendeten Zugangsdaten anmelden.' },
+    ],
+  },
+  'tablet-abc': {
+    tr: [
+      { name: 'ABC IPTV Player İndirin', text: 'App Store veya Play Store\'dan ABC IPTV Player uygulamasını indirin.' },
+      { name: 'M3U Linkini Girin', text: 'Müşteri panelinizdeki M3U URL\'sini uygulamaya ekleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen M3U linki ile kanallar yüklenecektir.' },
+    ],
+    de: [
+      { name: 'ABC IPTV Player installieren', text: 'ABC IPTV Player aus App Store oder Play Store installieren.' },
+      { name: 'M3U-Link eingeben', text: 'M3U-URL aus dem Kundenpanel in der App hinzufügen.' },
+      { name: 'Anmelden und streamen', text: 'Mit dem gesendeten M3U-Link streamen.' },
+    ],
+  },
+  'tablet-vs-player': {
+    tr: [
+      { name: 'VS Player İndirin', text: 'Google Play\'den VS Player (Vstro) uygulamasını indirin.' },
+      { name: 'Portal Bilgilerini Girin', text: 'Xtream Codes veya Stalker portal bilgilerinizi ekleyin.' },
+      { name: 'Giriş Yapın ve İzlemeye Başlayın', text: 'Size verilen portal/Xtream bilgileri ile giriş yapın.' },
+    ],
+    de: [
+      { name: 'VS Player installieren', text: 'VS Player (Vstro) aus Google Play laden.' },
+      { name: 'Portal-Daten eingeben', text: 'Xtream Codes oder Stalker-Portal-Daten eingeben.' },
+      { name: 'Anmelden und streamen', text: 'Mit den gesendeten Portal-/Xtream-Daten anmelden.' },
     ],
   },
 };
@@ -111,17 +229,18 @@ export const INSTALLATION_DEVICE_HOWTO_STEPS = {
 /** Cihaz sayfası FAQ — InstallationDevicePage deviceFaqItems ile aynı (TR). */
 export const DEVICE_FAQ_TR = {
   'android-tv': [
-    { q: 'Tivimate ücretsiz mi?', a: 'Evet, ücretsiz sürüm tüm temel özellikleri sunar. Premium isteğe bağlıdır.' },
-    { q: "Fire TV Stick'te Tivimate var mı?", a: 'Play Store yok; Downloader ile APK sideload edin.' },
-    { q: 'Kaç cihazda aynı anda kullanılır?', a: 'Aboneliğinizin eşzamanlı izleme limitine bağlıdır.' },
+    { q: 'Qruze Player Play Store\'da var mı?', a: 'Hayır. Qruze Player APK olarak kurulur; Downloader ile size gönderilen linkten yükleyin.' },
+    { q: "Fire TV Stick'te nasıl kurulur?", a: 'Amazon Appstore\'dan Downloader indirin, APK linkini Downloader\'a yapıştırın ve yükleyin.' },
+    { q: 'APK linkini nereden alırım?', a: 'Abonelik sonrası WhatsApp veya e-posta ile Qruze Player APK indirme linki gönderilir.' },
   ],
   ios: [
     { q: '000 Player ücretsiz mi?', a: 'Evet, temel özellikler ücretsiz.' },
     { q: "Apple TV'de çalışır mı?", a: "Evet, tvOS App Store'dan indirilebilir." },
   ],
   'android-phone': [
-    { q: 'IPTV Smarters ücretsiz mi?', a: 'Evet, reklamlı ücretsiz sürüm var.' },
-    { q: 'Chromecast destekler mi?', a: "Evet, TV'ye yansıtma yapabilirsiniz." },
+    { q: 'Qruze Player Play Store\'da var mı?', a: 'Hayır. Qruze Player Play Store\'da yoktur; size gönderilen APK linki ile kurulum yapılır.' },
+    { q: 'APK linkini nereden alırım?', a: 'Abonelik sonrası WhatsApp veya e-posta ile size Qruze Player APK indirme linki iletilir.' },
+    { q: 'Chromecast destekler mi?', a: 'Evet, Qruze Player Chromecast destekli cihazlara yansıtma yapabilir.' },
   ],
   windows: [
     { q: 'VLC ücretsiz mi?', a: 'Evet, tamamen ücretsiz ve açık kaynak.' },
@@ -131,37 +250,37 @@ export const DEVICE_FAQ_TR = {
     { q: 'IINA ücretsiz mi?', a: 'Evet, açık kaynak ve ücretsiz.' },
     { q: 'Apple Silicon destekler mi?', a: 'Evet, native destek.' },
   ],
-  'smart-tv': [
-    { q: 'BOB Player ücretsiz mi?', a: '7 gün deneme; sonrası ücretli.' },
-    { q: "Philips/Sony'de var mı?", a: "Hayır; Android TV'de Tivimate kullanın." },
+  'smart-tv-0-player': [
+    { q: '0 Player nedir?', a: '0 Player (Zero Player), Samsung Tizen ve LG webOS için premium IPTV oynatıcıdır. Resmi site: 0player.com' },
+    { q: 'M3U mü Xtream Codes mu?', a: 'Her ikisi de desteklenir. Müşteri panelinizde hangi bilgi varsa onu girin.' },
+    { q: "Philips/Sony'de var mı?", a: '0 Player Samsung ve LG için optimize edilmiştir. Android TV cihazlarda Tivimate kullanın.' },
   ],
-  'samsung-tv': [
-    { q: "Samsung Tizen TV'de IPTV çalışır mı?", a: "Evet. BOB Player, SS IPTV ve benzeri uygulamalar Samsung Smart TV'lerde çalışır." },
-    { q: "M3U linkini Samsung TV'ye nasıl gönderirim?", a: 'En kolay yöntem SmartThings uygulaması veya uzaktan kumanda ile giriş yapmaktır.' },
-  ],
-  'lg-tv': [
-    { q: "LG webOS TV'de IPTV çalışır mı?", a: 'Evet. LG Content Store üzerinden BOB Player gibi uyumlu IPTV uygulamaları kullanılabilir.' },
-    { q: 'Hangi LG modelleri desteklenir?', a: 'Genellikle webOS 3.0 ve üzeri çalışan LG modeller desteklenir.' },
+  'smart-tv-smarters-pro': [
+    { q: 'IPTV Smarters Pro ücretsiz mi?', a: 'Evet, temel sürüm ücretsizdir. Premium sürüm isteğe bağlı ek özellikler sunar.' },
+    { q: 'Xtream Codes destekler mi?', a: 'Evet. Login with Xtream Codes API ile sunucu, kullanıcı adı ve şifre girin.' },
+    { q: "Samsung ve LG'de nasıl bulurum?", a: 'Samsung Apps veya LG Content Store\'da "IPTV Smarters Pro" arayıp yükleyin.' },
   ],
   tablet: [
-    { q: 'iPad mi Android mi?', a: "İkisi de çalışır; iPad'de 000 Player, Android'de IPTV Smarters." },
+    { q: 'Paketime hangi uygulama?', a: 'Türkiye paketi → IBO Player Pro. Avrupa Standart (M3U) → ABC. Avrupa HD (portal) → VS Player.' },
+    { q: 'iPad ve Android destekler mi?', a: 'IBO Player Pro ve ABC hem iPad (App Store) hem Android tablet (Play Store). VS Player ağırlıklı Android tablet.' },
   ],
 };
 
 /** Cihaz sayfası FAQ — InstallationDevicePage deviceFaqItems ile aynı (DE). */
 export const DEVICE_FAQ_DE = {
   'android-tv': [
-    { q: 'Ist Tivimate kostenlos?', a: 'Ja, die kostenlose Version bietet alle Grundfunktionen. Premium ist optional.' },
-    { q: 'Tivimate auf Fire TV Stick?', a: 'Play Store fehlt; APK per Downloader sideloaden.' },
-    { q: 'Wie viele Geräte gleichzeitig?', a: 'Abhängig von Ihrem Abonnement-Limit.' },
+    { q: 'Qruze Player im Play Store?', a: 'Nein. Installation als APK — Link per WhatsApp/E-Mail, Download mit Downloader.' },
+    { q: 'Qruze Player auf Fire TV Stick?', a: 'Downloader aus dem Amazon Store, APK-Link einfügen und installieren.' },
+    { q: 'Wo bekomme ich den APK-Link?', a: 'Nach dem Abo per WhatsApp oder E-Mail.' },
   ],
   ios: [
     { q: 'Ist 000 Player kostenlos?', a: 'Ja, Grundfunktionen sind kostenlos.' },
     { q: 'Läuft auf Apple TV?', a: 'Ja, im tvOS App Store erhältlich.' },
   ],
   'android-phone': [
-    { q: 'IPTV Smarters kostenlos?', a: 'Ja, mit Werbung. Premium ohne Werbung.' },
-    { q: 'Chromecast unterstützt?', a: 'Ja, Streaming zum TV möglich.' },
+    { q: 'Qruze Player im Play Store?', a: 'Nein. Qruze Player ist nicht im Play Store — Installation per gesendetem APK-Link.' },
+    { q: 'Wo bekomme ich den APK-Link?', a: 'Nach dem Abo erhalten Sie den Qruze Player APK-Link per WhatsApp oder E-Mail.' },
+    { q: 'Chromecast unterstützt?', a: 'Ja, Cast auf Chromecast-fähige Geräte möglich.' },
   ],
   windows: [
     { q: 'Ist VLC kostenlos?', a: 'Ja, komplett kostenlos und Open Source.' },
@@ -171,19 +290,18 @@ export const DEVICE_FAQ_DE = {
     { q: 'IINA kostenlos?', a: 'Ja, Open Source und kostenlos.' },
     { q: 'Apple Silicon unterstützt?', a: 'Ja, native Unterstützung.' },
   ],
-  'smart-tv': [
-    { q: 'BOB Player kostenlos?', a: '7 Tage Testversion; danach einmalige Gebühr.' },
-    { q: 'Philips/Sony unterstützt?', a: 'Nein; bei Android TV Tivimate nutzen.' },
+  'smart-tv-0-player': [
+    { q: 'Was ist 0 Player?', a: '0 Player (Zero Player) ist ein Premium-Media-Player für Samsung Tizen und LG webOS. Offizielle Seite: 0player.com' },
+    { q: 'M3U oder Xtream Codes?', a: 'Beides wird unterstützt. Nutzen Sie die Daten aus Ihrem Kundenpanel.' },
+    { q: 'Philips/Sony unterstützt?', a: '0 Player ist für Samsung/LG optimiert. Auf Android-TV-Geräten Tivimate nutzen.' },
   ],
-  'samsung-tv': [
-    { q: 'Funktioniert IPTV auf Samsung Tizen?', a: 'Ja. BOB Player, SS IPTV und ähnliche Apps unterstützen Samsung Smart TVs.' },
-    { q: 'Wie sende ich den M3U-Link an Samsung TV?', a: 'Am einfachsten per SmartThings-App oder per Eingabe mit der Fernbedienung.' },
-  ],
-  'lg-tv': [
-    { q: 'Funktioniert IPTV auf LG webOS?', a: 'Ja. LG Content Store bietet kompatible IPTV-Apps wie BOB Player.' },
-    { q: 'Welche LG Modelle werden unterstützt?', a: 'In der Regel webOS 3.0 und neuere LG Modelle.' },
+  'smart-tv-smarters-pro': [
+    { q: 'Ist IPTV Smarters Pro kostenlos?', a: 'Ja, die Basisversion ist kostenlos. Premium ist optional.' },
+    { q: 'Unterstützt es Xtream Codes?', a: 'Ja. Wählen Sie Login with Xtream Codes API und geben Sie Server, Benutzer und Passwort ein.' },
+    { q: 'Wo finde ich die App?', a: 'Im Samsung Apps oder LG Content Store nach „IPTV Smarters Pro“ suchen.' },
   ],
   tablet: [
-    { q: 'iPad oder Android?', a: 'Beide funktionieren; 000 Player auf iPad, IPTV Smarters auf Android.' },
+    { q: 'Welche App für mein Paket?', a: 'Türkei → IBO Player Pro. Europa Standard (M3U) → ABC. Europa HD (Portal) → VS Player.' },
+    { q: 'iPad und Android?', a: 'IBO Player Pro und ABC auf iPad (App Store) und Android (Play Store). VS Player primär Android-Tablet.' },
   ],
 };

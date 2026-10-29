@@ -13,6 +13,14 @@ import AuthDebugger from '@/utils/authDebugger';
 import { initPerformanceMonitoring } from '@/utils/performanceMetrics';
 
 const rootElement = document.getElementById('root');
+
+// Statik HTML'de botlar için bulunan prerender head/schema bloklarını, Helmet'in
+// çalışma zamanı sürümü gelmeden kaldır; aksi halde tarayıcı DOM'unda çift canonical,
+// description, hreflang ve JSON-LD oluşur. Kaynak HTML'deki bot sinyalleri korunur.
+document
+  .querySelectorAll('[data-prerender-head="true"], [data-prerender-jsonld="true"]')
+  .forEach((element) => element.remove());
+
 const root = ReactDOM.createRoot(rootElement);
 
 // Service Worker devre dışı - SW aktivasyonu sayfa yenileme döngüsüne yol açıyordu

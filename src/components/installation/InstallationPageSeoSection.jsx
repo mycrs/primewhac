@@ -45,13 +45,13 @@ const CONTENT_TR = {
   ctaPaketler: 'Paketleri Görüntüle',
   checklist: ['Stabil internet (min. 16 Mbps)', 'Doğru kullanıcı adı ve şifre', 'Güncel IPTV uygulaması', 'M3U veya Xtream bilgileri'],
   links: [
-    { to: '/paketler', label: 'IPTV Paketleri', desc: 'Fiyatlar ve süreler', icon: Package },
-    { to: '/test', label: 'Ücretsiz Test', desc: 'Denemeden karar vermeyin', icon: FlaskConical },
-    { to: '/sss', label: 'Sık Sorulan Sorular', desc: 'Kurulum ve teknik SSS', icon: HelpCircle },
-    { to: '/blog', label: 'Blog', desc: 'İpuçları ve günceller', icon: FileText },
-    { to: '/guide/iptv-kurulum-rehberi', label: 'Detaylı Kurulum Rehberi', desc: 'Adım adım rehber', icon: BookOpen },
-    { to: '/channels', label: 'Kanal Listesi', desc: 'Mevcut kanallar', icon: Tv },
-    { to: '/hakkimizda', label: 'Hakkımızda', desc: 'Destek ve iletişim', icon: Users },
+    { to: '/paketler/', label: 'IPTV Paketleri', desc: 'Fiyatlar ve süreler', icon: Package },
+    { to: '/test/', label: 'Ücretsiz Test', desc: 'Denemeden karar vermeyin', icon: FlaskConical },
+    { to: '/sss/', label: 'Sık Sorulan Sorular', desc: 'Kurulum ve teknik SSS', icon: HelpCircle },
+    { to: '/blog/', label: 'Blog', desc: 'İpuçları ve günceller', icon: FileText },
+    { to: '/guide/iptv-kurulum-rehberi/', label: 'Detaylı Kurulum Rehberi', desc: 'Adım adım rehber', icon: BookOpen },
+    { to: '/channels/', label: 'Kanal Listesi', desc: 'Mevcut kanallar', icon: Tv },
+    { to: '/hakkimizda/', label: 'Hakkımızda', desc: 'Destek ve iletişim', icon: Users },
   ],
 };
 
@@ -70,20 +70,20 @@ const CONTENT_DE = {
   ctaPaketler: 'Pakete ansehen',
   checklist: ['Stabiles Internet (min. 16 Mbit/s)', 'Korrekte Zugangsdaten', 'Aktuelle IPTV-App', 'M3U- oder Xtream-Daten'],
   links: [
-    { to: '/de/paketler', label: 'IPTV Pakete', desc: 'Preise und Laufzeiten', icon: Package },
-    { to: '/de/test', label: 'Kostenlos testen', desc: 'Erst testen, dann entscheiden', icon: FlaskConical },
-    { to: '/de/sss', label: 'Häufig gestellte Fragen', desc: 'Einrichtung & Technik', icon: HelpCircle },
-    { to: '/de/blog', label: 'Blog', desc: 'Tipps und Updates', icon: FileText },
-    { to: '/de/guide/iptv-kurulum-rehberi', label: 'Detaillierte Anleitung', desc: 'Schritt-für-Schritt', icon: BookOpen },
-    { to: '/de/kanale', label: 'Senderliste', desc: 'Verfügbare Sender', icon: Tv },
-    { to: '/de/uber-uns', label: 'Über uns', desc: 'Support & Kontakt', icon: Users },
+    { to: '/de/paketler/', label: 'IPTV Pakete', desc: 'Preise und Laufzeiten', icon: Package },
+    { to: '/de/test/', label: 'Kostenlos testen', desc: 'Erst testen, dann entscheiden', icon: FlaskConical },
+    { to: '/de/sss/', label: 'Häufig gestellte Fragen', desc: 'Einrichtung & Technik', icon: HelpCircle },
+    { to: '/de/blog/', label: 'Blog', desc: 'Tipps und Updates', icon: FileText },
+    { to: '/de/guide/iptv-kurulum-rehberi/', label: 'Detaillierte Anleitung', desc: 'Schritt-für-Schritt', icon: BookOpen },
+    { to: '/de/kanale/', label: 'Senderliste', desc: 'Verfügbare Sender', icon: Tv },
+    { to: '/de/uber-uns/', label: 'Über uns', desc: 'Support & Kontakt', icon: Users },
   ],
 };
 
 const InstallationPageSeoSection = ({ isDe = false }) => {
   const t = isDe ? CONTENT_DE : CONTENT_TR;
-  const paketlerPath = isDe ? '/de/paketler' : '/paketler';
-  const testPath = isDe ? '/de/test' : '/test';
+  const paketlerPath = isDe ? '/de/paketler/' : '/paketler/';
+  const testPath = isDe ? '/de/test/' : '/test/';
 
   return (
     <section className="mt-24 space-y-20">
@@ -92,9 +92,9 @@ const InstallationPageSeoSection = ({ isDe = false }) => {
       </motion.h2>
       <motion.p className="text-slate-400 text-center max-w-2xl mx-auto text-lg font-light" {...fadeInUp}>
         {isDe ? (
-          <>Hier finden Sie Erklärungen zur <strong className="text-slate-300">IPTV Einrichtungsanleitung</strong>, gerätespezifische Tipps und Verweise auf unsere FAQ. Weitere Infos zu <Link to="/de/paketler" className="text-primary hover:text-primary underline underline-offset-2">IPTV Paketen</Link> oder zum <Link to="/de/test" className="text-primary hover:text-primary underline underline-offset-2">kostenlosen IPTV Test</Link> erhalten Sie auf den verlinkten Seiten.</>
+          <>Hier finden Sie Erklärungen zur <strong className="text-slate-300">IPTV Einrichtungsanleitung</strong>, gerätespezifische Tipps und Verweise auf unsere FAQ. Weitere Infos zu <Link to="/de/paketler/" className="text-primary hover:text-primary underline underline-offset-2">IPTV Paketen</Link> oder zum <Link to="/de/test/" className="text-primary hover:text-primary underline underline-offset-2">kostenlosen IPTV Test</Link> erhalten Sie auf den verlinkten Seiten.</>
         ) : (
-          <>Aşağıda <strong className="text-slate-300">IPTV kurulum rehberi</strong> ile uyumlu açıklamalar, cihaz bazlı ipuçları ve sık sorulan sorulara yönlendirmeler bulabilirsiniz. <Link to="/paketler" className="text-primary hover:text-primary underline underline-offset-2">IPTV paketleri</Link> veya <Link to="/test" className="text-primary hover:text-primary underline underline-offset-2">ücretsiz IPTV testi</Link> hakkında bilgi almak için ilgili sayfalarımıza göz atın.</>
+          <>Aşağıda <strong className="text-slate-300">IPTV kurulum rehberi</strong> ile uyumlu açıklamalar, cihaz bazlı ipuçları ve sık sorulan sorulara yönlendirmeler bulabilirsiniz. <Link to="/paketler/" className="text-primary hover:text-primary underline underline-offset-2">IPTV paketleri</Link> veya <Link to="/test/" className="text-primary hover:text-primary underline underline-offset-2">ücretsiz IPTV testi</Link> hakkında bilgi almak için ilgili sayfalarımıza göz atın.</>
         )}
       </motion.p>
 
@@ -109,13 +109,13 @@ const InstallationPageSeoSection = ({ isDe = false }) => {
           </h3>
           {isDe ? (
             <>
-              <p className="text-slate-300 font-light leading-relaxed">Für die <strong className="text-slate-200">Smart TV IPTV Einrichtung</strong> (Samsung, LG) laden Sie einfach eine passende App wie IPTV Smarters Pro oder Tivimate aus dem Store. Auch <strong className="text-slate-200">Android TV</strong>- und Fire TV Stick-Nutzer können mit denselben Apps in wenigen Minuten <strong className="text-slate-200">stabile IPTV</strong>-Streams nutzen. In unserer <Link to="/de/guide/iptv-kurulum-rehberi" className="text-primary hover:text-primary underline underline-offset-2">detaillierten Einrichtungsanleitung</Link> finden Sie Schritt-für-Schritt-Anleitungen für jedes Gerät.</p>
+              <p className="text-slate-300 font-light leading-relaxed">Für die <strong className="text-slate-200">Smart TV IPTV Einrichtung</strong> (Samsung, LG) laden Sie einfach eine passende App wie IPTV Smarters Pro oder Tivimate aus dem Store. Auch <strong className="text-slate-200">Android TV</strong>- und Fire TV Stick-Nutzer können mit denselben Apps in wenigen Minuten <strong className="text-slate-200">stabile IPTV</strong>-Streams nutzen. In unserer <Link to="/de/guide/iptv-kurulum-rehberi/" className="text-primary hover:text-primary underline underline-offset-2">detaillierten Einrichtungsanleitung</Link> finden Sie Schritt-für-Schritt-Anleitungen für jedes Gerät.</p>
               <p className="text-slate-300 font-light leading-relaxed">Für <strong className="text-slate-200">iOS und iPhone IPTV Einrichtung</strong> wählen Sie im App Store einen kompatiblen Player und tragen Ihre Abodaten (M3U oder Xtream Codes) ein. <strong className="text-slate-200">Windows PC</strong>- und <strong className="text-slate-200">Mac</strong>-Nutzer können mit Desktop-Apps oder VLC <strong className="text-slate-200">hochwertiges IPTV</strong> genießen. Alle Schritte sind in unserer <strong className="text-slate-200">IPTV Einrichtungsanleitung</strong> beschrieben.</p>
             </>
           ) : (
             <>
               <p className="text-slate-300 font-light leading-relaxed">
-            <strong className="text-slate-200">Smart TV IPTV kurulumu</strong> (Samsung, LG) için mağazadan IPTV Smarters Pro veya Tivimate benzeri uygulamaları indirmeniz yeterlidir. <strong className="text-slate-200">Android TV</strong> ve Fire TV Stick kullanıcıları da aynı uygulamalarla dakikalar içinde <strong className="text-slate-200">donmayan IPTV</strong> deneyimine başlayabilir. <Link to="/guide/iptv-kurulum-rehberi" className="text-primary hover:text-primary underline underline-offset-2">Detaylı kurulum rehberi</Link> sayfamızda her cihaz için adım adım anlatım bulunmaktadır.
+            <strong className="text-slate-200">Smart TV IPTV kurulumu</strong> (Samsung, LG) için mağazadan IPTV Smarters Pro veya Tivimate benzeri uygulamaları indirmeniz yeterlidir. <strong className="text-slate-200">Android TV</strong> ve Fire TV Stick kullanıcıları da aynı uygulamalarla dakikalar içinde <strong className="text-slate-200">donmayan IPTV</strong> deneyimine başlayabilir. <Link to="/guide/iptv-kurulum-rehberi/" className="text-primary hover:text-primary underline underline-offset-2">Detaylı kurulum rehberi</Link> sayfamızda her cihaz için adım adım anlatım bulunmaktadır.
           </p>
           <p className="text-slate-300 font-light leading-relaxed">
             <strong className="text-slate-200">iOS ve iPhone IPTV kurulumu</strong> için App Store’dan uyumlu bir oynatıcı seçip abonelik bilgilerinizi (M3U veya Xtream Codes) girmeniz yeterli. <strong className="text-slate-200">Windows PC</strong> ve <strong className="text-slate-200">Mac</strong> kullanıcıları masaüstü uygulamaları veya VLC ile <strong className="text-slate-200">kaliteli IPTV</strong> izleyebilir. Tüm bu süreçler <strong className="text-slate-200">IPTV kurulum rehberi</strong> bölümümüzde görsellerle desteklenmektedir.
@@ -184,9 +184,9 @@ const InstallationPageSeoSection = ({ isDe = false }) => {
         <h3 className="text-2xl font-bold text-white mb-6 border-b border-slate-800 pb-3">{t.m3uTitle}</h3>
         <p className="text-slate-300 font-light leading-relaxed mb-6">
           {isDe ? (
-            <>Mit dem nach dem Abo zugesendeten <strong className="text-slate-200">M3U-Link</strong> oder den <strong className="text-slate-200">Xtream Codes</strong> (Server, Benutzername, Passwort) können Sie die <strong className="text-slate-200">IPTV Einrichtung</strong> in allen kompatiblen Apps durchführen. M3U lädt alle Sender und VOD mit einem Link; die Xtream API bietet EPG und mehr. Beide Wege liefern über unsere <strong className="text-slate-200">hochwertigen IPTV</strong>-Server stabile Streams. Bei Problemen helfen unsere <Link to="/de/sss" className="text-primary hover:text-primary underline underline-offset-2">FAQ</Link> und der Support.</>
+            <>Mit dem nach dem Abo zugesendeten <strong className="text-slate-200">M3U-Link</strong> oder den <strong className="text-slate-200">Xtream Codes</strong> (Server, Benutzername, Passwort) können Sie die <strong className="text-slate-200">IPTV Einrichtung</strong> in allen kompatiblen Apps durchführen. M3U lädt alle Sender und VOD mit einem Link; die Xtream API bietet EPG und mehr. Beide Wege liefern über unsere <strong className="text-slate-200">hochwertigen IPTV</strong>-Server stabile Streams. Bei Problemen helfen unsere <Link to="/de/sss/" className="text-primary hover:text-primary underline underline-offset-2">FAQ</Link> und der Support.</>
           ) : (
-            <>Abonelik sonrası size iletilen <strong className="text-slate-200">M3U linki</strong> veya <strong className="text-slate-200">Xtream Codes</strong> (sunucu adresi, kullanıcı adı, şifre) bilgileriyle tüm uyumlu uygulamalarda <strong className="text-slate-200">IPTV kurulumu</strong> yapabilirsiniz. M3U tek link ile tüm kanal ve VOD listesini çeker; Xtream API ise EPG ve daha zengin özellik sunar. Her iki yöntem de <strong className="text-slate-200">kaliteli IPTV</strong> sunucularımız üzerinden kesintisiz yayın sağlar. Sorun yaşarsanız <Link to="/sss" className="text-primary hover:text-primary underline underline-offset-2">Sık Sorulan Sorular</Link> ve destek hattımız size yardımcı olacaktır.</>
+            <>Abonelik sonrası size iletilen <strong className="text-slate-200">M3U linki</strong> veya <strong className="text-slate-200">Xtream Codes</strong> (sunucu adresi, kullanıcı adı, şifre) bilgileriyle tüm uyumlu uygulamalarda <strong className="text-slate-200">IPTV kurulumu</strong> yapabilirsiniz. M3U tek link ile tüm kanal ve VOD listesini çeker; Xtream API ise EPG ve daha zengin özellik sunar. Her iki yöntem de <strong className="text-slate-200">kaliteli IPTV</strong> sunucularımız üzerinden kesintisiz yayın sağlar. Sorun yaşarsanız <Link to="/sss/" className="text-primary hover:text-primary underline underline-offset-2">Sık Sorulan Sorular</Link> ve destek hattımız size yardımcı olacaktır.</>
           )}
         </p>
         <div className="flex flex-wrap gap-4">
@@ -203,9 +203,9 @@ const InstallationPageSeoSection = ({ isDe = false }) => {
         <h3 className="text-2xl font-bold text-white mb-6 border-b border-slate-800 pb-3">{t.troubleshootTitle}</h3>
         <p className="text-slate-300 font-light leading-relaxed mb-8">
           {isDe ? (
-            <>Öffnen sich keine Sender, prüfen Sie zuerst Ihre Internetgeschwindigkeit; für <strong className="text-slate-200">stabile IPTV</strong>-Streams empfehlen wir mindestens 16 Mbit/s. Benutzername und Passwort sind case-sensitive. Halten Sie die App aktuell. Weitere Hilfe finden Sie in unseren <Link to="/de/sss" className="text-primary hover:text-primary underline underline-offset-2">FAQ</Link> zur <strong className="text-slate-200">IPTV Einrichtung</strong> oder unter <Link to="/de/uber-uns" className="text-primary hover:text-primary underline underline-offset-2">Über uns</Link> und in unserem 7/24 Support.</>
+            <>Öffnen sich keine Sender, prüfen Sie zuerst Ihre Internetgeschwindigkeit; für <strong className="text-slate-200">stabile IPTV</strong>-Streams empfehlen wir mindestens 16 Mbit/s. Benutzername und Passwort sind case-sensitive. Halten Sie die App aktuell. Weitere Hilfe finden Sie in unseren <Link to="/de/sss/" className="text-primary hover:text-primary underline underline-offset-2">FAQ</Link> zur <strong className="text-slate-200">IPTV Einrichtung</strong> oder unter <Link to="/de/uber-uns/" className="text-primary hover:text-primary underline underline-offset-2">Über uns</Link> und in unserem 7/24 Support.</>
           ) : (
-            <>Kanallar açılmıyorsa önce internet hızınızı kontrol edin; <strong className="text-slate-200">donmayan IPTV</strong> için 16 Mbps ve üzeri önerilir. Kullanıcı adı ve şifreyi büyük/küçük harf duyarlı girin. Uygulama güncel değilse mağazadan güncelleyin. Hâlâ sorun varsa <Link to="/sss" className="text-primary hover:text-primary underline underline-offset-2">SSS</Link> sayfamızdaki <strong className="text-slate-200">IPTV kurulumu</strong> ve teknik destek cevaplarına bakın; dilerseniz <Link to="/hakkimizda" className="text-primary hover:text-primary underline underline-offset-2">Hakkımızda</Link> ve iletişim kanallarımızdan 7/24 destek alabilirsiniz.</>
+            <>Kanallar açılmıyorsa önce internet hızınızı kontrol edin; <strong className="text-slate-200">donmayan IPTV</strong> için 16 Mbps ve üzeri önerilir. Kullanıcı adı ve şifreyi büyük/küçük harf duyarlı girin. Uygulama güncel değilse mağazadan güncelleyin. Hâlâ sorun varsa <Link to="/sss/" className="text-primary hover:text-primary underline underline-offset-2">SSS</Link> sayfamızdaki <strong className="text-slate-200">IPTV kurulumu</strong> ve teknik destek cevaplarına bakın; dilerseniz <Link to="/hakkimizda/" className="text-primary hover:text-primary underline underline-offset-2">Hakkımızda</Link> ve iletişim kanallarımızdan 7/24 destek alabilirsiniz.</>
           )}
         </p>
         <ul className="grid sm:grid-cols-2 gap-4">
@@ -258,9 +258,9 @@ const InstallationPageSeoSection = ({ isDe = false }) => {
         <h3 className="text-2xl font-bold text-white mb-4">{t.ctaTitle}</h3>
         <p className="text-slate-300 font-light max-w-2xl mx-auto mb-8">
           {isDe ? (
-            <>Wenn Sie noch kein <strong className="text-slate-200">IPTV Abo</strong> haben, können Sie zuerst unseren <Link to="/de/test" className="text-primary hover:text-primary underline underline-offset-2">kostenlosen IPTV Test</Link> nutzen oder auf der Seite <Link to="/de/paketler" className="text-primary hover:text-primary underline underline-offset-2">IPTV Pakete</Link> das passende Paket wählen. Für <strong className="text-slate-200">hochwertiges IPTV</strong> und stabile Streams sind sowohl die richtige Einrichtung als auch der richtige Anbieter wichtig.</>
+            <>Wenn Sie noch kein <strong className="text-slate-200">IPTV Abo</strong> haben, können Sie zuerst unseren <Link to="/de/test/" className="text-primary hover:text-primary underline underline-offset-2">kostenlosen IPTV Test</Link> nutzen oder auf der Seite <Link to="/de/paketler/" className="text-primary hover:text-primary underline underline-offset-2">IPTV Pakete</Link> das passende Paket wählen. Für <strong className="text-slate-200">hochwertiges IPTV</strong> und stabile Streams sind sowohl die richtige Einrichtung als auch der richtige Anbieter wichtig.</>
           ) : (
-            <>Henüz <strong className="text-slate-200">IPTV aboneliği</strong> yoksa önce <Link to="/test" className="text-primary hover:text-primary underline underline-offset-2">ücretsiz IPTV testi</Link> ile kaliteyi deneyebilir veya <Link to="/paketler" className="text-primary hover:text-primary underline underline-offset-2">IPTV paketleri</Link> sayfamızdan size uygun paketi seçebilirsiniz. <strong className="text-slate-200">Kaliteli IPTV</strong> ve kesintisiz yayın için doğru kurulum kadar doğru sağlayıcı da önemlidir.</>
+            <>Henüz <strong className="text-slate-200">IPTV aboneliği</strong> yoksa önce <Link to="/test/" className="text-primary hover:text-primary underline underline-offset-2">ücretsiz IPTV testi</Link> ile kaliteyi deneyebilir veya <Link to="/paketler/" className="text-primary hover:text-primary underline underline-offset-2">IPTV paketleri</Link> sayfamızdan size uygun paketi seçebilirsiniz. <strong className="text-slate-200">Kaliteli IPTV</strong> ve kesintisiz yayın için doğru kurulum kadar doğru sağlayıcı da önemlidir.</>
           )}
         </p>
         <div className="flex flex-wrap justify-center gap-4">

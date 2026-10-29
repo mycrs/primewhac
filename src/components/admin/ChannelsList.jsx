@@ -111,7 +111,7 @@ const ChannelsList = ({ channels, onEdit, onRefresh, isLoading }) => {
                     {(channel.background_image_url || channel.image_url) ? (
                       <img 
                         src={channel.background_image_url || channel.image_url} 
-                        alt="" 
+                        alt={`${channel.name || 'Kanal'} arka plan önizlemesi`}
                         className="absolute inset-0 w-full h-full object-cover" 
                         onError={(e) => { 
                           e.target.style.display = 'none'; 

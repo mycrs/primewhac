@@ -1,38 +1,35 @@
 import { useCallback } from 'react';
 import { useSiteData } from '@/hooks/useSiteData';
-import { defaultData } from '@/data/defaultSiteData';
+import {
+  isTelegramEnabled,
+  isWhatsAppEnabled,
+  openSupportTelegram,
+  openSupportWhatsApp,
+} from '@/utils/supportChannel';
 
-const getEnvWhatsApp = () => (import.meta.env.VITE_WHATSAPP_PHONE || '').replace(/\D/g, '');
-
+/**
+ * Test / sipariş formlarının WhatsApp / Telegram kanalına devri.
+ */
 export const useWhatsAppIntegration = () => {
   const { siteData } = useSiteData();
-  const fromDb = siteData?.contact_info || siteData?.contactData;
-  const contactInfo = fromDb || defaultData?.contactData || {};
-  // phone / whatsapp bazen DB'den number gelir; .replace yalnızca stringde güvenli
-  const fromContact = String(contactInfo?.whatsapp || contactInfo?.phone || '').replace(/\D/g, '');
-  const phoneNumber = fromContact || getEnvWhatsApp() || (fromDb ? '' : '4916345869030');
+  const isTelegramOrder = (siteData?.contactData?.order_channel || siteData?.contact_info?.order_channel) === 'telegram';
+  const isWhatsAppAvailable = isWhatsAppEnabled({ siteData });
+  const isTelegramAvailable = isTelegramEnabled({ siteData });
 
-  const createWhatsAppLink = useCallback((message) => {
-    const encodedMessage = encodeURIComponent(message);
-    return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-  }, [phoneNumber]);
-
-  const redirectToWhatsApp = useCallback((data) => {
-    // Generate different messages based on context
-    let message = "";
-    
-    if (data.type === 'order') {
-      message = `Merhaba, ${data.packageName} paketi için sipariş vermek istiyorum.\n\n` +
+  const buildMessage = useCallback((data) => {
+    if (data?.type === 'order') {
+      return `Merhaba, ${data.packageName} paketi için sipariş vermek istiyorum.\n\n` +
         `📦 *Paket:* ${data.packageName}\n` +
         `💰 *Fiyat:* ${data.price} TL\n` +
         `👤 *İsim:* ${data.username}\n` +
         (data.note ? `📝 *Not:* ${data.note}\n` : '') +
         `\nDetaylı bilgi alabilir miyim?`;
-    } 
-    else if (data.username && data.device) {
-      // Test Request
+    }
+
+    if (data?.username && data?.device) {
+      // Test talebi
       const livingLine = data.livingRegionMessage ? `${data.livingRegionMessage}\n\n` : '';
-      message = `Merhaba, Ücretsiz Test Yayını almak istiyorum.\n\n` +
+      return `Merhaba, Ücretsiz Test Yayını almak istiyorum.\n\n` +
         livingLine +
         `👤 *İsim:* ${data.username}\n` +
         `📱 *Cihaz:* ${data.device}\n` +
@@ -40,20 +37,24 @@ export const useWhatsAppIntegration = () => {
         (data.note ? `📝 *Not:* ${data.note}\n` : '') +
         `\nTest yayını için yardımcı olabilir misiniz?`;
     }
-    else {
-      // Generic Contact
-      message = `Merhaba, bilgi almak istiyorum.`;
-    }
 
-    if (!phoneNumber) return false;
-    const link = createWhatsAppLink(message);
-    window.open(link, '_blank');
-    return true;
-  }, [createWhatsAppLink, phoneNumber]);
+    return 'Merhaba, bilgi almak istiyorum.';
+  }, []);
+
+  const redirectToWhatsApp = useCallback(
+    (data) => {
+      const msg = buildMessage(data);
+      if (isTelegramOrder) {
+        return isTelegramAvailable && openSupportTelegram({ siteData, message: msg });
+      }
+      return isWhatsAppAvailable && openSupportWhatsApp({ siteData, message: msg });
+    },
+    [siteData, buildMessage, isTelegramOrder, isTelegramAvailable, isWhatsAppAvailable],
+  );
 
   return {
-    phoneNumber,
-    createWhatsAppLink,
-    redirectToWhatsApp
+    isAvailable: isTelegramOrder ? isTelegramAvailable : isWhatsAppAvailable,
+    isTelegram: isTelegramOrder,
+    redirectToWhatsApp,
   };
 };

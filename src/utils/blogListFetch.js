@@ -1,13 +1,13 @@
 import { supabase } from '@/lib/customSupabaseClient';
-import { BLOG_LIST_COLUMNS, BLOG_LIST_PAGE_SIZE } from '@/constants/publicSupabaseQueries';
+import { BLOG_LIST_COLUMNS, BLOG_LIST_COLUMNS_DE, BLOG_LIST_PAGE_SIZE } from '@/constants/publicSupabaseQueries';
 import { readSessionCache, writeSessionCache } from '@/utils/supabaseSessionCache';
 import { executeSupabaseQuery } from '@/utils/supabaseErrorHandler';
 
 /**
- * @param {{ pageIndex: number, cachePrefix: string }} opts
+ * @param {{ pageIndex: number, cachePrefix: string, locale?: 'tr'|'de' }} opts
  * @returns {Promise<{ rows: object[], totalCount: number, error?: string, fromCache?: boolean }>}
  */
-export async function loadBlogListPage({ pageIndex, cachePrefix }) {
+export async function loadBlogListPage({ pageIndex, cachePrefix, locale = 'tr' }) {
   const pageSize = BLOG_LIST_PAGE_SIZE;
   const from = pageIndex * pageSize;
   const to = from + pageSize - 1;
@@ -26,14 +26,21 @@ export async function loadBlogListPage({ pageIndex, cachePrefix }) {
   }
 
   const { data, error, count, isFallback, message } = await executeSupabaseQuery(
-    () =>
-      supabase
+    () => {
+      let query = supabase
         .from('blog_posts')
-        .select(BLOG_LIST_COLUMNS, { count: 'exact' })
+        .select(locale === 'de' ? BLOG_LIST_COLUMNS_DE : BLOG_LIST_COLUMNS, { count: 'exact' })
         .not('published_at', 'is', null)
-        .order('featured', { ascending: false, nullsFirst: false })
+        .order('featured', { ascending: false, nullsFirst: false });
+
+      if (locale === 'de') {
+        query = query.not('title_de', 'is', null).not('content_de', 'is', null);
+      }
+
+      return query
         .order('published_at', { ascending: false })
-        .range(from, to),
+        .range(from, to);
+    },
     { retries: 3, context: `blog_list_${cachePrefix}`, fallback: null, timeoutMs: 20000 }
   );
 

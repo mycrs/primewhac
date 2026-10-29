@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
-/** Takım adından 2 harflik kısaltma (ör. "Galatasaray" → "GA", "Man City" → "MC"). */
+/** Takım adından 2 harflik kısaltma (ör. "Takım Adı" → "TA", "Man City" → "MC"). */
 export function getTeamInitials(name) {
   const parts = String(name || '').split(' ').filter(Boolean);
   if (!parts.length) return '?';
@@ -58,7 +58,7 @@ export default function TeamLogoOrInitials({ teamName, logoUrl, variant = 'home'
       <div className={cn('h-full w-full bg-white/10 overflow-hidden border border-white/15 flex items-center justify-center', innerRound)}>
         <img
           src={logoUrl}
-          alt=""
+          alt={`${teamName || 'Takım'} takım logosu`}
           className="h-full w-full object-contain p-0.5"
           loading="lazy"
           decoding="async"

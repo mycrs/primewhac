@@ -20,7 +20,7 @@ const ResellerCalculatorSection = () => {
         {/* Background Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px]"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-[100px]"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#e50914]/10 rounded-full blur-[100px]"></div>
         </div>
 
       <div className="container mx-auto max-w-7xl relative z-10">
@@ -31,7 +31,7 @@ const ResellerCalculatorSection = () => {
           className="text-center mb-14 md:mb-16"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-white tracking-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] via-pink-500 to-[#b20710] animate-gradient-x">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] via-[#ff2430] to-[#b20710] animate-gradient-x">
               Gelir Hesaplayıcı
             </span>
           </h2>

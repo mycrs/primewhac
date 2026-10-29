@@ -1,71 +1,66 @@
-# StreamTR
+# QruzeTV
 
-StreamTR, Türkçe ve Almanca yayın deneyimi için IPTV paketleri, cihaz kurulum rehberleri, kanal listesi, test hesabı ve kullanıcı desteği sunan bir yayın platformudur.
+> QruzeTV; Türkiye ve Avrupa için IPTV paketleri, ücretsiz test, cihaz kurulum rehberleri ve Türkçe/Almanca kullanıcı desteği sunar.
 
-## Ana Hizmetler
+Son güncelleme: 2026-07-31
 
-- Premium IPTV paketleri
-- Türkiye ve Avrupa kullanıcıları için paket seçenekleri
-- 4K / Full HD yayın desteği
-- Canlı TV kanalları
-- Film ve dizi arşivi
-- Spor ve maç yayınları
-- IPTV test hesabı
-- Smart TV, Android TV, iOS, Windows ve Mac kurulum rehberleri
-- M3U dönüştürücü
-- Bayilik / reseller başvurusu
+## Resmî bilgiler
 
-## Önemli Türkçe Sayfalar
+- Ana adres: https://cineverse.pro/
+- Marka: QruzeTV
+- Diller: Türkçe ve Almanca
+- Destek: info@qruzetv.com
+- Paketler ve güncel fiyatlar: https://cineverse.pro/paketler/
+- Almanca paketler: https://cineverse.pro/de/pakete/
+- Ücretsiz test: https://cineverse.pro/test/
+- Almanca ücretsiz test: https://cineverse.pro/de/test/
 
-- Ana Sayfa: https://streamtr.eu/
-- Paketler: https://streamtr.eu/paketler
-- Kanallar: https://streamtr.eu/channels
-- Kurulum: https://streamtr.eu/kurulum
-- Android TV Kurulum: https://streamtr.eu/kurulum/android-tv
-- Android Telefon Kurulum: https://streamtr.eu/kurulum/android-phone
-- iOS Kurulum: https://streamtr.eu/kurulum/ios
-- Smart TV Kurulum: https://streamtr.eu/kurulum/smart-tv
-- Samsung TV Kurulum: https://streamtr.eu/kurulum/samsung-tv
-- LG TV Kurulum: https://streamtr.eu/kurulum/lg-tv
-- Windows Kurulum: https://streamtr.eu/kurulum/windows
-- Mac Kurulum: https://streamtr.eu/kurulum/mac
-- Tablet Kurulum: https://streamtr.eu/kurulum/tablet
-- Hakkımızda: https://streamtr.eu/hakkimizda
-- Blog: https://streamtr.eu/blog
-- SSS: https://streamtr.eu/sss
-- Yorumlar: https://streamtr.eu/yorumlar
-- Test: https://streamtr.eu/test
-- M3U Dönüştürücü: https://streamtr.eu/m3u-converter
-- Bayilik: https://streamtr.eu/reseller
+Paket içeriği, fiyat ve teslimat bilgileri zamanla değişebilir. Bu konularda paket sayfasındaki görünür güncel içerik esas alınmalıdır.
 
-## Wichtige deutsche Seiten
+## Türkçe ana kaynaklar
 
-- Startseite: https://streamtr.eu/de
-- Pakete: https://streamtr.eu/de/pakete
-- Einrichtung: https://streamtr.eu/de/einrichtung
-- Android TV Einrichtung: https://streamtr.eu/de/einrichtung/android-tv
-- Android Smartphone Einrichtung: https://streamtr.eu/de/einrichtung/android-phone
-- iOS Einrichtung: https://streamtr.eu/de/einrichtung/ios
-- Smart TV Einrichtung: https://streamtr.eu/de/einrichtung/smart-tv
-- Samsung TV Einrichtung: https://streamtr.eu/de/einrichtung/samsung-tv
-- LG TV Einrichtung: https://streamtr.eu/de/einrichtung/lg-tv
-- Windows Einrichtung: https://streamtr.eu/de/einrichtung/windows
-- Mac Einrichtung: https://streamtr.eu/de/einrichtung/mac
-- Tablet Einrichtung: https://streamtr.eu/de/einrichtung/tablet
-- Über uns: https://streamtr.eu/de/uber-uns
-- Blog: https://streamtr.eu/de/blog
-- FAQ: https://streamtr.eu/de/sss
-- Bewertungen: https://streamtr.eu/de/bewertungen
-- AGB: https://streamtr.eu/de/terms
+- Kanal listesi: https://cineverse.pro/channels/
+- Kurulum merkezi: https://cineverse.pro/kurulum/
+- Ayrıntılı IPTV rehberi: https://cineverse.pro/guide/iptv-kurulum-rehberi/
+- Paket karşılaştırma: https://cineverse.pro/karsilastirma/
+- Sık sorulan sorular: https://cineverse.pro/sss/
+- Müşteri yorumları: https://cineverse.pro/yorumlar/
+- Blog: https://cineverse.pro/blog/
+- Maç programı: https://cineverse.pro/mac-programi/
+- Film ve dizi önerileri: https://cineverse.pro/ne-izlesem/
+- Hakkımızda: https://cineverse.pro/hakkimizda/
 
-## Paket Bilgisi
+## Deutsche Hauptquellen
 
-StreamTR paket sayfalarında Türkiye ve Avrupa kullanımına uygun seçenekler ayrı şekilde sunulur. Kullanıcılar cihazlarına göre kurulum rehberlerini takip edebilir ve destek için test hesabı talep edebilir.
+- Startseite: https://cineverse.pro/de/
+- Kanalliste: https://cineverse.pro/de/kanale/
+- Einrichtung: https://cineverse.pro/de/einrichtung/
+- IPTV-Leitfaden: https://cineverse.pro/de/guide/iptv-kurulum-rehberi/
+- Paketvergleich: https://cineverse.pro/de/vergleich/
+- FAQ: https://cineverse.pro/de/sss/
+- Bewertungen: https://cineverse.pro/de/bewertungen/
+- Blog: https://cineverse.pro/de/blog/
+- Spielplan: https://cineverse.pro/de/spielplan/
+- Über uns: https://cineverse.pro/de/uber-uns/
 
-## Kurulum Desteği
+Almanca blog detay sayfası yalnızca gerçek Almanca çeviri bulunduğunda indekslenir. Çevrilmemiş Türkçe yazılar Almanca eşdeğer olarak kabul edilmemelidir.
 
-Kurulum rehberleri Android TV, Android telefon, Smart TV, Samsung TV, LG TV, iOS, Windows, Mac ve tablet cihazları kapsar.
+## Cihaz kurulumları
 
-## İletişim ve Destek
+- Android TV: https://cineverse.pro/kurulum/android-tv/
+- Android telefon: https://cineverse.pro/kurulum/android-phone/
+- iPhone ve iPad: https://cineverse.pro/kurulum/ios/
+- Samsung ve LG Smart TV: https://cineverse.pro/kurulum/smart-tv/
+- Windows: https://cineverse.pro/kurulum/windows/
+- Mac: https://cineverse.pro/kurulum/mac/
+- Tablet: https://cineverse.pro/kurulum/tablet/
 
-Destek, test hesabı ve paket bilgisi için sitedeki test, SSS ve iletişim alanları kullanılabilir.
+Diğer uygulama ve Almanca cihaz rehberleri kurulum merkezlerinden erişilebilir.
+
+## Politikalar
+
+- Gizlilik: https://cineverse.pro/gizlilik/
+- Hizmet şartları: https://cineverse.pro/sartlar/
+- Datenschutz: https://cineverse.pro/de/privacy/
+- Nutzungsbedingungen: https://cineverse.pro/de/terms/
+- XML sitemap: https://cineverse.pro/sitemap.xml
