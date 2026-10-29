@@ -1,158 +1,157 @@
-import React, { useId, memo } from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
-import { Shield } from 'lucide-react';
+import { ShieldCheck, Lock, Zap, Tv, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const COPY = {
-  tr: {
-    sealTop: '7/24',
-    sealBottom: 'DESTEK GARANTİSİ',
-    ssl: '256-bit SSL Şifreleme',
-    instant: 'Anında Aktivasyon',
-    uhd: '4K Ultra HD',
-    channels: '10.000+ Kanal',
-  },
-  de: {
-    sealTop: '7/24',
-    sealBottom: 'SUPPORT-GARANTIE',
-    ssl: '256-bit SSL-Verschlüsselung',
-    instant: 'Sofort-Aktivierung',
-    uhd: '4K Ultra HD',
-    channels: '10.000+ Kanäle',
-  },
+const BADGE_DATA = {
+  tr: [
+    {
+      id: 'support',
+      icon: ShieldCheck,
+      kicker: 'GARANTİLİ YAYIN',
+      title: '7/24 Kesintisiz Destek',
+      desc: 'Birebir WhatsApp ve uzman teknik yardım güvencesi.',
+      isLive: true,
+    },
+    {
+      id: 'ssl',
+      icon: Lock,
+      kicker: 'GÜVENLİ ÖDEME',
+      title: '256-Bit SSL Şifreleme',
+      desc: 'Banka düzeyinde uçtan uca korumalı altyapı.',
+    },
+    {
+      id: 'instant',
+      icon: Zap,
+      kicker: 'OTOMATİK TESLİMAT',
+      title: 'Anında Aktivasyon',
+      desc: 'Sipariş anında kullanıcı bilgileriniz hazır.',
+    },
+    {
+      id: 'uhd',
+      icon: Tv,
+      kicker: 'SİNEMATİK KALİTE',
+      title: '4K Ultra HD & 60 FPS',
+      desc: 'Cam gibi net ve akıcı yayın deneyimi.',
+    },
+    {
+      id: 'channels',
+      icon: Sparkles,
+      kicker: 'ZENGİN ARŞİV',
+      title: '10.000+ Kanal & VOD',
+      desc: 'Geniş film, dizi ve belgesel kütüphanesi.',
+    },
+  ],
+  de: [
+    {
+      id: 'support',
+      icon: ShieldCheck,
+      kicker: 'GARANTIERTER SERVICE',
+      title: '24/7 Premium Support',
+      desc: 'Persönliche WhatsApp- und Technikhilfe.',
+      isLive: true,
+    },
+    {
+      id: 'ssl',
+      icon: Lock,
+      kicker: 'SICHERE ZAHLUNG',
+      title: '256-Bit SSL-Schutz',
+      desc: 'Bankübliche End-to-End-Verschlüsselung.',
+    },
+    {
+      id: 'instant',
+      icon: Zap,
+      kicker: 'SOFORT-LIEFERUNG',
+      title: 'Sofort-Aktivierung',
+      desc: 'Zugangsdaten direkt nach der Bestellung bereit.',
+    },
+    {
+      id: 'uhd',
+      icon: Tv,
+      kicker: 'KINO-QUALITÄT',
+      title: '4K Ultra HD & 60 FPS',
+      desc: 'Kristallklares Bild und flüssige Bildrate.',
+    },
+    {
+      id: 'channels',
+      icon: Sparkles,
+      kicker: 'RIESIGES ARCHIV',
+      title: '10.000+ Kanäle & VOD',
+      desc: 'Filme, Serien und internationale Sender.',
+    },
+  ],
 };
 
-function DashedRing({ size = 112, strokeWidth = 2.8, dash = '8 12', gradId }) {
-  const c = size / 2;
-  const r = c - strokeWidth - 2;
-  return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="block" aria-hidden>
-      <defs>
-        <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#e50914" />
-          <stop offset="50%" stopColor="#22d3ee" />
-          <stop offset="100%" stopColor="#c084fc" />
-        </linearGradient>
-      </defs>
-      <circle
-        cx={c}
-        cy={c}
-        r={r}
-        fill="none"
-        stroke={`url(#${gradId})`}
-        strokeWidth={strokeWidth}
-        strokeDasharray={dash}
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-/** Ana mühür: dönen kesik halka + cam iç + kalkan */
-const GuaranteeSeal = memo(function GuaranteeSeal({ locale }) {
-  const isDe = locale === 'de';
-  const t = isDe ? COPY.de : COPY.tr;
-  const uid = useId().replace(/:/g, '');
-  const gradId = `trust-ring-${uid}`;
-
-  return (
-    <div
-      className="group relative flex flex-col items-center gap-2"
-      role="img"
-      aria-label={`${t.sealTop} ${t.sealBottom}`}
-    >
-      <div className="relative h-[7.25rem] w-[7.25rem] shrink-0 md:h-[8.25rem] md:w-[8.25rem] transition-transform duration-300 ease-out group-hover:scale-105">
-        <div
-          className="trust-seal-ring-spin absolute inset-0 flex items-center justify-center"
-          style={{ transformOrigin: 'center center' }}
-        >
-          <DashedRing size={116} gradId={gradId} strokeWidth={3} dash="7 11" />
-        </div>
-        <div className="absolute inset-[11%] flex flex-col items-center justify-center rounded-full border border-white/15 bg-gradient-to-br from-[#1e1035]/95 via-[#0a0a0a]/90 to-[#0c1222]/95 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md">
-          <div className="trust-seal-inner-pulse pointer-events-none absolute inset-0 rounded-full bg-gradient-to-t from-[#e50914]/15 via-[#e50914]/10 to-transparent" />
-          <span className="relative z-10 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[#e50914]/95 md:text-xs">
-            {t.sealTop}
-          </span>
-          <Shield
-            className="relative z-10 my-0.5 h-8 w-8 text-[#e50914] drop-shadow-[0_0_14px_rgba(229,9,20,0.65)] md:h-9 md:w-9"
-            strokeWidth={2}
-            fill="rgba(229, 9, 20, 0.22)"
-            aria-hidden
-          />
-          <span className="relative z-10 max-w-[5.5rem] text-center text-[0.5rem] font-extrabold uppercase leading-tight tracking-wide text-white/90 md:max-w-[6rem] md:text-[0.55rem]">
-            {t.sealBottom}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-});
-
-/** Küçük rozet — aynı dil: dönen halka + emoji + metin */
-const TrustMiniBadge = memo(function TrustMiniBadge({ emoji, label, gradId }) {
-  return (
-    <div className="group flex max-w-[7.5rem] flex-col items-center gap-1.5 text-center sm:max-w-[8rem]">
-      <div className="relative h-[4.5rem] w-[4.5rem] shrink-0 transition-transform duration-300 ease-out group-hover:scale-105 md:h-[4.75rem] md:w-[4.75rem]">
-        <div
-          className="trust-seal-ring-spin absolute inset-0 flex items-center justify-center opacity-90"
-          style={{ transformOrigin: 'center center' }}
-        >
-          <DashedRing size={76} gradId={gradId} strokeWidth={2.2} dash="5 8" />
-        </div>
-        <div className="absolute inset-[12%] flex items-center justify-center rounded-full border border-white/12 bg-gradient-to-br from-[#1a1030]/95 via-[#0a0a0a]/88 to-[#0b1020]/95 shadow-inner backdrop-blur-sm">
-          <div className="trust-seal-inner-pulse pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b from-[#e50914]/12 to-transparent" />
-          <span className="relative z-10 text-xl md:text-2xl" aria-hidden>
-            {emoji}
-          </span>
-        </div>
-      </div>
-      <p className="text-[0.65rem] font-semibold leading-snug text-slate-300 md:text-xs">{label}</p>
-    </div>
-  );
-});
-
-/**
- * Güven rozeti şeridi — paketler sayfası, footer üstü.
- * @param {{ locale?: 'tr'|'de', variant?: 'page'|'footer', className?: string }} props
- */
 function TrustBadges({ locale = 'tr', variant = 'page', className = '' }) {
   const isDe = locale === 'de';
-  const t = isDe ? COPY.de : COPY.tr;
-  const baseId = useId().replace(/:/g, '');
-
-  const minis = [
-    { emoji: '🔒', label: t.ssl, key: 'ssl' },
-    { emoji: '⚡', label: t.instant, key: 'instant' },
-    { emoji: '📺', label: t.uhd, key: 'uhd' },
-    { emoji: '✅', label: t.channels, key: 'channels' },
-  ];
+  const badges = isDe ? BADGE_DATA.de : BADGE_DATA.tr;
 
   const bandClasses = cn(
-    'relative overflow-hidden border-y border-white/[0.08]',
-    variant === 'footer' && 'border-t border-b-0 border-white/10 bg-[#0d0d18]/95 py-8 md:py-10',
-    variant === 'page' && 'bg-gradient-to-r from-[#0f0f1a]/90 via-[#12101f]/95 to-[#0f0f1a]/90 py-10 md:py-12',
+    'relative overflow-hidden border-t border-white/10 bg-gradient-to-b from-[#0e0e14] via-[#09090d] to-[#060608] py-10 md:py-14',
+    variant === 'footer' && 'border-b-0 py-8 md:py-12',
     className
   );
 
   return (
     <motion.section
       className={bandClasses}
-      initial={{ opacity: 0, y: 16, scale: 0.97 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-60px', amount: 0.2 }}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px', amount: 0.2 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       aria-label={isDe ? 'Vertrauens- und Qualitätsmerkmale' : 'Güven ve kalite rozetleri'}
     >
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(229, 9, 20,0.12),transparent_55%)]"
-        aria-hidden
-      />
-      <div className="relative z-[1] mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 md:flex-row md:flex-wrap md:justify-center md:gap-10 lg:gap-14">
-        <GuaranteeSeal locale={locale} />
-        <div className="flex flex-wrap items-start justify-center gap-6 sm:gap-8 md:gap-10">
-          {minis.map((m, i) => (
-            <TrustMiniBadge key={m.key} emoji={m.emoji} label={m.label} gradId={`trust-mini-${baseId}-${i}`} />
-          ))}
+      {/* Top subtle ruby border highlight */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#e50914]/40 to-transparent" aria-hidden />
+
+      {/* Ambient center cinema glow */}
+      <div className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-36 w-3/4 max-w-4xl rounded-full bg-gradient-to-b from-[#e50914]/10 via-[#b20710]/5 to-transparent blur-3xl" aria-hidden />
+
+      <div className="container relative z-10 mx-auto max-w-7xl px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 md:gap-4 lg:gap-5">
+          {badges.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.id}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] via-white/[0.015] to-transparent p-5 backdrop-blur-md transition-all duration-300 hover:border-[#e50914]/45 hover:-translate-y-1 hover:shadow-[0_12px_36px_rgba(0,0,0,0.6),0_0_24px_rgba(229,9,20,0.14)]"
+              >
+                {/* Top highlight line on card */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 group-hover:via-[#e50914]/60 to-transparent transition-all duration-300" />
+
+                <div>
+                  {/* Top Bar: Icon Container + Optional Live Indicator */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#e50914]/20 to-[#b20710]/10 border border-[#e50914]/30 text-[#ff4b55] shadow-md shadow-[#e50914]/10 transition-transform duration-300 group-hover:scale-105 group-hover:border-[#e50914]/60 group-hover:text-white">
+                      <Icon className="h-5 w-5" strokeWidth={2.2} aria-hidden />
+                    </div>
+
+                    {item.isLive && (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 text-[9px] font-bold text-emerald-400 tracking-wider uppercase">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        Aktif
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Kicker Tag */}
+                  <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#ff4b55] mb-1.5 block">
+                    {item.kicker}
+                  </span>
+
+                  {/* Main Title */}
+                  <h3 className="text-sm md:text-base font-extrabold text-white tracking-tight leading-snug mb-1 group-hover:text-white transition-colors">
+                    {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-[11px] leading-relaxed text-slate-400 font-light">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </motion.section>
@@ -160,4 +159,3 @@ function TrustBadges({ locale = 'tr', variant = 'page', className = '' }) {
 }
 
 export default memo(TrustBadges);
-export { GuaranteeSeal, TrustMiniBadge };

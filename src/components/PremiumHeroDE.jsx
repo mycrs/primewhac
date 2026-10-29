@@ -15,30 +15,30 @@ const features = [
   {
     icon: Monitor,
     title: '4K Ultra HD Streaming',
-    desc: 'Echtes Kinoerlebnis mit kristallklarer und flüssiger Bildqualität.',
+    desc: 'Echtes Kinoerlebnis mit kristallklarer und flüssiger 60 FPS Bildqualität.',
     proof: 'Kino-Schärfe',
-    color: 'from-[#e50914] to-[#b20710]',
+    badge: '4K / 60 FPS',
   },
   {
     icon: ShieldCheck,
     title: 'Anti-Freeze Technologie',
     desc: 'Kein Einfrieren mehr! Unterbrechungsfreies Streaming auch zur Stoßzeit.',
-    proof: 'Stark zur Stoßzeit',
-    color: 'from-[#e50914] to-[#b20710]',
+    proof: 'Redundante Träger',
+    badge: 'Pufferfrei',
   },
   {
     icon: Film,
     title: 'Riesiges VOD-Archiv',
-    desc: 'Die aktuellsten Serien, Kinofilme und Dokumentationen auf Knopfdruck.',
-    proof: 'Ständig aktuell',
-    color: 'from-amber-400 to-orange-400',
+    desc: 'Wöchentlich aktualisierte Serien, Kinofilme und Dokumentationen in UHD.',
+    proof: '15.000+ VOD',
+    badge: 'Dolby Atmos',
   },
   {
     icon: Clock,
     title: '24/7 Premium Support',
-    desc: 'Unser technisches Expertenteam bietet sofortige Lösungen für jedes Problem.',
-    proof: 'Sofortige Hilfe',
-    color: 'from-[#e50914] to-green-400',
+    desc: 'Unser technisches Expertenteam bietet sofortige Hilfe für jedes Gerät.',
+    proof: 'Echte Experten',
+    badge: '< 2 Min Antwort',
   },
 ];
 
@@ -520,32 +520,63 @@ const PremiumHeroDE = ({ siteData, mainTitle, subTitle: _subTitle }) => {
         variants={itemVariants}
         initial={false}
         animate="visible"
-        className="relative z-[4] mx-auto mt-14 grid w-full max-w-6xl grid-cols-1 gap-5 px-4 sm:grid-cols-2 lg:grid-cols-4"
+        className="relative z-[4] mx-auto mt-14 grid w-full max-w-6xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 lg:grid-cols-4"
       >
-        {features.map((feature, index) => (
-          <motion.article
-            key={index}
-            whileHover={{ y: -6, scale: 1.015 }}
-            className="luxury-card group rounded-3xl p-6 transition-all duration-300 hover:border-primary/40 hover:shadow-[0_30px_90px_rgba(0,0,0,0.52),0_0_42px_rgba(229,9,20,0.18)]"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(255,255,255,0.12),transparent_36%),linear-gradient(135deg,rgba(229,9,20,0.08),transparent_42%)] opacity-70 transition-opacity group-hover:opacity-100" />
-            <div className="relative mb-6 flex items-start justify-between gap-4">
-              <div
-                className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${feature.color} shadow-[0_18px_44px_rgba(0,0,0,0.38),0_0_28px_rgba(229,9,20,0.18),inset_0_1px_0_rgba(255,255,255,0.28)] ring-1 ring-white/25 transition-transform duration-300 group-hover:scale-105`}
-              >
-                <feature.icon className="h-8 w-8 text-white drop-shadow-md" aria-hidden="true" />
+        {features.map((feature, index) => {
+          const Icon = feature.icon;
+          return (
+            <motion.article
+              key={index}
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.3 }}
+              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#141419]/90 via-[#0c0c10]/85 to-[#070709]/95 p-6 backdrop-blur-xl transition-all duration-500 hover:border-[#e50914]/50 hover:shadow-[0_20px_50px_rgba(0,0,0,0.7),0_0_30px_rgba(229,9,20,0.18)]"
+            >
+              {/* Top ambient highlight line */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 group-hover:via-[#e50914]/70 to-transparent transition-all duration-500" />
+              <div className="pointer-events-none absolute -top-12 -right-12 h-32 w-32 rounded-full bg-[#e50914]/10 blur-2xl group-hover:bg-[#e50914]/20 transition-all duration-500" />
+
+              <div>
+                {/* Top Bar: Sleek Icon + Watermark Number */}
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#e50914]/25 to-[#b20710]/10 border border-[#e50914]/35 text-[#ff4b55] shadow-lg shadow-[#e50914]/15 transition-transform duration-300 group-hover:scale-105 group-hover:border-[#e50914]/60 group-hover:text-white">
+                    <Icon className="h-5 w-5 drop-shadow-sm" strokeWidth={2.2} aria-hidden="true" />
+                  </div>
+                  <span className="font-mono text-[11px] font-semibold tracking-wider text-slate-400/80 px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/10">
+                    0{index + 1}
+                  </span>
+                </div>
+
+                {/* Kicker Proof */}
+                <div className="mb-2.5 flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#e50914]" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#ff4b55]">
+                    {feature.proof}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="mb-2 text-lg font-extrabold tracking-tight text-white group-hover:text-white transition-colors">
+                  {feature.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-xs leading-relaxed text-slate-300 font-light">
+                  {feature.desc}
+                </p>
               </div>
-              <span className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-white/55">
-                0{index + 1}
-              </span>
-            </div>
-            <span className="relative mb-3 inline-flex rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-primary/90">
-              {feature.proof}
-            </span>
-            <h3 className="relative mb-3 text-xl font-black tracking-tight text-white">{feature.title}</h3>
-            <p className="relative text-sm leading-[1.75] text-slate-300">{feature.desc}</p>
-          </motion.article>
-        ))}
+
+              {/* Bottom spec pill */}
+              <div className="mt-5 pt-3.5 border-t border-white/5 flex items-center justify-between">
+                <span className="text-[10px] font-semibold text-slate-400 group-hover:text-slate-300 transition-colors">
+                  Standard
+                </span>
+                <span className="text-[10px] font-bold text-white px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/10">
+                  {feature.badge}
+                </span>
+              </div>
+            </motion.article>
+          );
+        })}
       </motion.div>
 
       <div className="pointer-events-none absolute bottom-0 left-0 z-[5] h-32 w-full bg-gradient-to-t from-[#0a0a0a] to-transparent" />
