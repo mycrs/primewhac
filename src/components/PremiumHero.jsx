@@ -49,11 +49,6 @@ const trustItems = [
   { icon: Headphones, label: '7/24 Destek' },
 ];
 
-const quickTools = [
-  { icon: Cable, title: 'M3U Aracı', detail: 'Listenizi saniyeler içinde hazırlayın', to: '/m3u-converter' },
-  { icon: Monitor, title: 'Kurulum Rehberi', detail: 'Cihazınıza uygun adımları görün', to: '/kurulum' },
-];
-
 const PLACEHOLDER_GRADS = [
   'from-[#e50914]/90 via-[#0a0a0a] to-[#b20710]/80',
   'from-[#e50914]/90 via-[#0a0a0a] to-[#b20710]/70',
@@ -505,32 +500,6 @@ const PremiumHero = ({ siteData, mainTitle, subTitle }) => {
                 <div className="premium-hero-desktop-mosaic absolute inset-y-0 right-0 hidden h-full w-full max-w-[min(100%,420px)] md:block">
                   <HeroMosaicDesktop columnsWithG={columnsDesktop} />
                 </div>
-                <motion.aside
-                  initial={{ opacity: 0, x: -18, y: 12 }}
-                  animate={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute bottom-8 left-0 z-10 hidden w-[min(100%,285px)] rounded-3xl border border-white/15 bg-[#101014]/80 p-3 shadow-[0_24px_70px_rgba(0,0,0,0.48),inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-2xl md:block lg:left-2"
-                  aria-label="Hızlı araçlar"
-                >
-                  <div className="mb-2 flex items-center gap-2 px-2 pt-1 text-[10px] font-black uppercase tracking-[0.17em] text-white/55">
-                    <Sparkles className="h-3.5 w-3.5 text-amber-300" aria-hidden="true" />
-                    Hızlı araçlar
-                  </div>
-                  <div className="space-y-1.5">
-                    {quickTools.map((tool) => (
-                      <Link key={tool.to} to={tool.to} className="group flex items-center gap-3 rounded-2xl p-2.5 transition-colors hover:bg-white/[0.09]">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary ring-1 ring-primary/25 transition-transform group-hover:scale-105">
-                          <tool.icon className="h-4.5 w-4.5" aria-hidden="true" />
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="block text-sm font-bold text-white">{tool.title}</span>
-                          <span className="block truncate text-[11px] text-slate-400">{tool.detail}</span>
-                        </span>
-                        <ChevronRight className="h-4 w-4 shrink-0 text-white/35 transition-transform group-hover:translate-x-0.5 group-hover:text-white" aria-hidden="true" />
-                      </Link>
-                    ))}
-                  </div>
-                </motion.aside>
               </>
             )}
           </div>
