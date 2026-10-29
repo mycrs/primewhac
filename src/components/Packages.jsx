@@ -1,8 +1,7 @@
-
 import React, { memo, useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
-import { Check, Star, Zap, Loader2, Globe, MapPin, RefreshCw, AlertCircle, ChevronLeft, ChevronRight, ArrowRight, Sparkles, MousePointer2 } from 'lucide-react';
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { Check, Star, Zap, Loader2, Globe, MapPin, RefreshCw, AlertCircle, ChevronLeft, ChevronRight, ArrowRight, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useOrderModal } from '@/contexts/OrderModalContext';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -41,66 +40,19 @@ const getPackageTheme = (name, isPopular) => {
   
   if (isPopular || lowerName.includes('12 ay vip') || lowerName.includes('15 ay')) {
     return { 
-      bgGlow: 'bg-primary', 
-      border: 'border-primary/30', hoverBorder: 'group-hover:border-primary/80',
-      shadow: 'shadow-lg shadow-primary/10', hoverShadow: 'group-hover:shadow-xl group-hover:shadow-primary/30',
-      textGlow: 'group-hover:drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]',
-      btnBg: 'bg-gradient-to-r from-[#e50914] to-[#b20710]', btnHover: 'hover:from-[#b20710] hover:to-[#b20710] hover:shadow-lg hover:shadow-primary/40'
-    };
-  }
-  if (lowerName.includes('3 ay premium')) {
-    return { 
       bgGlow: 'bg-[#e50914]', 
-      border: 'border-[#e50914]/20', hoverBorder: 'group-hover:border-[#e50914]/60',
-      shadow: 'shadow-md shadow-black/20', hoverShadow: 'group-hover:shadow-xl group-hover:shadow-[#e50914]/20',
+      border: 'border-[#e50914]/60', hoverBorder: 'group-hover:border-[#e50914]',
+      shadow: 'shadow-lg shadow-[#e50914]/20', hoverShadow: 'group-hover:shadow-2xl group-hover:shadow-[#e50914]/30',
       textGlow: 'group-hover:drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]',
-      btnBg: 'bg-[#1a1a1a] border border-[#262626]', btnHover: 'hover:bg-[#2a2a2a] hover:border-[#e50914]/50 hover:shadow-lg hover:shadow-[#b20710]/30'
+      btnBg: 'bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710]', btnHover: 'hover:shadow-[0_0_30px_rgba(229,9,20,0.6)]'
     };
   }
-  if (lowerName.includes('3 ay vip')) {
-    return { 
-      bgGlow: 'bg-[#141414]', 
-      border: 'border-[#e50914]/20', hoverBorder: 'group-hover:border-[#e50914]/60',
-      shadow: 'shadow-md shadow-black/20', hoverShadow: 'group-hover:shadow-xl group-hover:shadow-[#e50914]/20',
-      textGlow: 'group-hover:drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]',
-      btnBg: 'bg-[#1a1a1a] border border-[#262626]', btnHover: 'hover:bg-[#2a2a2a] hover:border-[#e50914]/50 hover:shadow-lg hover:shadow-[#b20710]/30'
-    };
-  }
-  if (lowerName.includes('6 ay premium')) {
-    return { 
-      bgGlow: 'bg-[#e50914]', 
-      border: 'border-[#e50914]/20', hoverBorder: 'group-hover:border-[#e50914]/60',
-      shadow: 'shadow-md shadow-black/20', hoverShadow: 'group-hover:shadow-xl group-hover:shadow-[#e50914]/20',
-      textGlow: 'group-hover:drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]',
-      btnBg: 'bg-[#1a1a1a] border border-[#262626]', btnHover: 'hover:bg-[#2a2a2a] hover:border-[#e50914]/50 hover:shadow-lg hover:shadow-[#b20710]/30'
-    };
-  }
-  if (lowerName.includes('6 ay vip')) {
-    return { 
-      bgGlow: 'bg-[#b20710]', 
-      border: 'border-[#b20710]/20', hoverBorder: 'group-hover:border-[#b20710]/60',
-      shadow: 'shadow-md shadow-black/20', hoverShadow: 'group-hover:shadow-xl group-hover:shadow-[#b20710]/20',
-      textGlow: 'group-hover:drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]',
-      btnBg: 'bg-[#1a1a1a] border border-[#262626]', btnHover: 'hover:bg-[#2a2a2a] hover:border-[#b20710]/50 hover:shadow-lg hover:shadow-[#b20710]/30'
-    };
-  }
-  if (lowerName.includes('12 ay premium')) {
-    return { 
-      bgGlow: 'bg-[#141414]', 
-      border: 'border-[#e50914]/20', hoverBorder: 'group-hover:border-[#e50914]/60',
-      shadow: 'shadow-md shadow-black/20', hoverShadow: 'group-hover:shadow-xl group-hover:shadow-[#e50914]/20',
-      textGlow: 'group-hover:drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]',
-      btnBg: 'bg-[#1a1a1a] border border-[#262626]', btnHover: 'hover:bg-[#2a2a2a] hover:border-[#e50914]/50 hover:shadow-lg hover:shadow-[#b20710]/30'
-    };
-  }
-  
-  // Default fallback theme
   return { 
-    bgGlow: 'bg-primary', 
-    border: 'border-[#262626]', hoverBorder: 'group-hover:border-primary/50',
-    shadow: 'shadow-md shadow-black/20', hoverShadow: 'group-hover:shadow-xl group-hover:shadow-primary/20',
-    textGlow: 'group-hover:drop-shadow-[0_0_8px_rgba(229,9,20,0.5)]',
-    btnBg: 'bg-[#1a1a1a] border border-[#262626]', btnHover: 'hover:bg-[#2a2a2a] hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20'
+    bgGlow: 'bg-white', 
+    border: 'border-white/10', hoverBorder: 'group-hover:border-white/30',
+    shadow: 'shadow-md shadow-black/40', hoverShadow: 'group-hover:shadow-xl group-hover:shadow-black/60',
+    textGlow: 'group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]',
+    btnBg: 'bg-white/[0.08] hover:bg-[#e50914]', btnHover: 'hover:border-[#e50914]'
   };
 };
 
@@ -181,23 +133,8 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
     }
   };
 
-  const getSeoDescription = (name) => {
-    if (!name) return isDe ? "Zuverlässige IPTV-Preise und Pakete" : "Güvenilir IPTV fiyatları ve paketleri";
-    const lowerName = name.toLowerCase();
-    if (lowerName.includes('ay')) return isDe ? "Bester IPTV-Abonnementservice" : "En iyi IPTV abonelik hizmeti Türkiye";
-    if (lowerName.includes('yıl')) return isDe ? "Unterbrechungsfreier Live-TV-Dienst" : "Kesintisiz canlı TV izleme hizmeti";
-    if (lowerName.includes('sınırsız')) return isDe ? "HD und 4K IPTV Streaming" : "HD ve 4K IPTV izleme hizmeti";
-    return isDe ? "Zuverlässige IPTV-Preise und Pakete" : "Güvenilir IPTV fiyatları ve paketleri";
-  };
-  
-  const seoDescription = isDe
-    ? getSeoDescription(pkgName)
-    : (pkg.card_description || getSeoDescription(pkgName));
   const buttonLabel = localizePackageText(pkg.button_text, isDe) || (isDe ? 'Jetzt bestellen' : 'Hemen Sipariş Ver');
   const showCustomBadge = pkg.badge_enabled && pkg.badge_text;
-  const trustBadges = isDe
-    ? ['Sofortige Aktivierung', 'Support 7/24', 'Alle Geräte']
-    : ['Anında aktivasyon', '7/24 Destek', 'Tüm cihazlar'];
 
   const getMonthlyBreakdown = (price, duration) => {
     const numPrice = Number(price);
@@ -216,25 +153,23 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
   const monthlyBreakdown = getMonthlyBreakdown(pkg.price, pkg.duration || pkgName);
 
   return (
-    <article className={`luxury-card relative p-6 md:p-7 rounded-3xl border flex flex-col h-full backdrop-blur-xl group z-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(0,0,0,0.8)] ${
+    <article className={`relative p-5 md:p-7 rounded-2xl md:rounded-3xl border flex flex-col h-full backdrop-blur-2xl transition-all duration-300 group z-10 ${
       isPopular
-        ? 'bg-gradient-to-b from-[#1e1416] via-[#120d0f] to-[#0a0a0d] border-[#e50914]/60 shadow-[0_0_40px_rgba(229,9,20,0.22)] ring-1 ring-[#e50914]/40 hover:border-[#e50914] hover:shadow-[0_0_60px_rgba(229,9,20,0.4)]'
-        : 'bg-gradient-to-b from-[#16161c] via-[#0e0e12] to-[#070709] border-white/10 hover:border-white/25'
+        ? 'bg-gradient-to-b from-[#1c1214]/95 via-[#120c0e]/95 to-[#090708]/98 border-[#e50914]/70 shadow-[0_0_40px_rgba(229,9,20,0.22)] ring-1 ring-[#e50914]/40 hover:border-[#e50914] hover:shadow-[0_0_55px_rgba(229,9,20,0.38)]'
+        : 'bg-gradient-to-b from-[#15151e]/95 via-[#0e0e13]/95 to-[#08080a]/98 border-white/[0.08] hover:border-white/20 hover:shadow-2xl hover:shadow-black/60'
     }`}>
       {/* Background Subtle Ambient Glow */}
-      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] ${theme.bgGlow} opacity-[0.04] group-hover:opacity-[0.16] blur-3xl rounded-full pointer-events-none transition-opacity duration-500 -z-10`}></div>
+      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] ${theme.bgGlow} opacity-[0.03] group-hover:opacity-[0.14] blur-3xl rounded-full pointer-events-none transition-opacity duration-500 -z-10`} />
 
-      {/* Öne çıkan / popüler paket rozeti */}
+      {/* Popüler Paket Rozeti */}
       {isPopular && !showCustomBadge && (
-        <>
-          <div className="absolute inset-0 rounded-3xl pointer-events-none -z-10 bg-gradient-to-r from-[#e50914]/15 via-transparent to-[#b20710]/15" />
-          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white text-[11px] font-black px-4 py-1.5 rounded-full uppercase flex items-center gap-1.5 shadow-xl shadow-[#e50914]/40 z-20 whitespace-nowrap border border-white/30 tracking-wider">
-            <Star className="w-3.5 h-3.5 fill-current animate-pulse text-amber-300" /> {isDe ? 'AM BELIEBTESTEN' : 'EN ÇOK TERCİH EDİLEN'}
-          </div>
-        </>
+        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white text-[10px] md:text-[11px] font-black px-3.5 py-1 rounded-full uppercase flex items-center gap-1.5 shadow-xl shadow-[#e50914]/40 z-20 whitespace-nowrap border border-white/25 tracking-wider">
+          <Star className="w-3 h-3 fill-amber-300 text-amber-300 animate-pulse" />
+          <span>{isDe ? 'AM BELIEBTESTEN' : 'EN ÇOK TERCİH EDİLEN'}</span>
+        </div>
       )}
       {showCustomBadge && (
-        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-[11px] font-black px-4 py-1.5 rounded-full uppercase shadow-xl z-20 whitespace-nowrap border border-white/30 tracking-wider">
+        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-[10px] md:text-[11px] font-black px-3.5 py-1 rounded-full uppercase shadow-xl z-20 whitespace-nowrap border border-white/30 tracking-wider">
           {localizePackageText(pkg.badge_text, isDe)}
         </div>
       )}
@@ -242,29 +177,36 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
       <PackageCountdownBadge pkg={pkg} isDe={isDe} />
 
       {/* Header Info */}
-      <div className="text-center mb-5 pt-3 relative">
-        <span className="qruze-premium-seal mb-2 text-[10px] tracking-widest uppercase">
-          {isPopular ? (isDe ? 'VIP Premium-Auswahl' : 'VIP Premium Seçim') : (isDe ? 'Qruze-Paket' : 'Qruze Paket')}
+      <div className="text-center mb-2 pt-1 md:pt-2 relative">
+        <span className="text-[10px] font-mono tracking-widest uppercase font-bold text-slate-400 block mb-1">
+          {isPopular ? (isDe ? 'VIP PREMIUM SELEKTION' : 'VIP PREMIUM PLAN') : (isDe ? 'STANDARD PLAN' : 'STANDART PLAN')}
         </span>
-        <div className="text-[#ff4b55] font-black uppercase tracking-widest text-sm mb-1.5">{displayDuration}</div>
+
+        <h3 className="text-xl md:text-2xl font-black text-white tracking-tight">
+          {displayDuration || displayName}
+        </h3>
+
+        {/* Clean Campaign / Notice Tag (Refined from muddy box) */}
         {pkg.campaign_label && (
-          <div className="inline-block mb-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[11px] font-bold border border-amber-500/40 shadow-sm">
-            {pkg.campaign_label}
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 md:px-3 md:py-1 rounded-full bg-white/[0.04] border border-white/10 text-slate-300 text-[10px] md:text-[11px] font-medium my-1.5">
+            <MapPin className="w-3 h-3 text-[#ff4b55] shrink-0" />
+            <span className="line-clamp-1">{pkg.campaign_label}</span>
           </div>
         )}
         
         {/* Price Display */}
-        <div className="flex items-center justify-center gap-1 relative z-10 flex-wrap my-2">
+        <div className="flex items-baseline justify-center gap-1 my-1.5 md:my-2">
           {pkg.original_price != null && Number(pkg.original_price) > Number(pkg.price) && (
-            <span className="text-base text-gray-500 line-through mr-1 align-baseline">{currencySymbol}{pkg.original_price}</span>
+            <span className="text-sm md:text-base text-slate-500 line-through mr-1 font-semibold">{currencySymbol}{pkg.original_price}</span>
           )}
-          <span className="text-2xl text-gray-400 font-extrabold align-top mt-1">{currencySymbol}</span>
-          <span className="font-display text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-md">{pkg.price}</span>
+          <span className="text-lg md:text-2xl text-slate-400 font-extrabold">{currencySymbol}</span>
+          <span className="font-display text-3xl md:text-5xl font-black text-white tracking-tight drop-shadow-sm">{pkg.price}</span>
         </div>
 
+        {/* Monthly Breakdown Tag */}
         {monthlyBreakdown && (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold mt-1 shadow-sm">
-            <Zap className="w-3.5 h-3.5 fill-emerald-400 text-emerald-400 shrink-0" />
+          <div className="inline-flex items-center gap-1 px-2.5 py-0.5 md:px-3 md:py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] md:text-xs font-bold shadow-sm">
+            <Zap className="w-3 h-3 fill-emerald-400 text-emerald-400 shrink-0" />
             <span>
               {isDe
                 ? `Nur ~${currencySymbol}${monthlyBreakdown} / Monat`
@@ -272,16 +214,6 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
             </span>
           </div>
         )}
-
-        <p className={`text-white text-base md:text-lg mt-3 font-bold transition-all duration-300 ${theme.textGlow}`}>{displayName}</p>
-        <p className="text-slate-400 text-[12px] mt-1 line-clamp-1">{seoDescription}</p>
-        <div className="mt-3.5 flex flex-wrap justify-center gap-1.5">
-          {trustBadges.map((badge) => (
-            <span key={badge} className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-300">
-              {badge}
-            </span>
-          ))}
-        </div>
       </div>
       
       {(pkg.isRegionSelectable ?? pkg.is_region_selectable) && (
@@ -291,14 +223,16 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
         />
       )}
 
+      {/* Divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-3 md:my-4" />
+
       {/* Features List */}
-      <div className="flex-grow my-4">
-        <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent mb-4"></div>
-        <ul className="space-y-2.5">
+      <div className="flex-grow my-1">
+        <ul className="space-y-2 md:space-y-2.5">
           {displayFeatures.slice(0, 5).map((feature, i) => (
-            <li key={i} className="flex items-start text-xs md:text-sm text-slate-200 font-medium leading-relaxed">
-              <div className="mr-2.5 mt-0.5 shrink-0 bg-[#e50914]/20 border border-[#e50914]/40 rounded-full p-0.5 group-hover:bg-[#e50914] group-hover:text-white transition-colors duration-300">
-                <Check className="w-3.5 h-3.5 text-[#ff4b55] group-hover:text-white" />
+            <li key={i} className="flex items-start text-xs md:text-sm text-slate-300 font-medium leading-relaxed">
+              <div className="mr-2.5 mt-0.5 shrink-0 w-4 h-4 rounded-full bg-[#e50914]/15 border border-[#e50914]/30 flex items-center justify-center group-hover:bg-[#e50914] group-hover:border-[#e50914] transition-colors">
+                <Check className="w-2.5 h-2.5 text-[#ff4b55] group-hover:text-white transition-colors" />
               </div>
               <span className="line-clamp-2">{feature}</span>
             </li>
@@ -311,277 +245,160 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
         </ul>
       </div>
 
-      {/* Guaranteed Visible Buy / Order Button */}
-      <div className="mt-auto pt-4 shrink-0 w-full z-20">
+      {/* Action / Buy Button */}
+      <div className="mt-auto pt-3 md:pt-4 shrink-0 w-full z-20">
         <Button 
           onClick={handleOrder}
-          className={`w-full h-12 md:h-14 rounded-2xl font-black text-base shadow-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-98 ${
+          className={`w-full h-11 md:h-13 rounded-xl md:rounded-2xl font-black text-sm md:text-base tracking-wide shadow-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-95 ${
             isPopular
-              ? 'bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white shadow-[#e50914]/40 hover:shadow-[0_0_35px_rgba(229,9,20,0.6)] hover:scale-[1.02]'
-              : 'bg-white/[0.08] hover:bg-[#e50914] text-white border border-white/20 hover:border-[#e50914] hover:shadow-[0_0_30px_rgba(229,9,20,0.35)] hover:scale-[1.01]'
+              ? 'bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white shadow-[#e50914]/35 hover:shadow-[0_0_35px_rgba(229,9,20,0.6)] hover:scale-[1.02]'
+              : 'bg-white/[0.08] hover:bg-[#e50914] text-white border border-white/15 hover:border-[#e50914] hover:shadow-[0_0_30px_rgba(229,9,20,0.35)] hover:scale-[1.01]'
           }`}
         >
           <Zap className="w-4 h-4 fill-yellow-300 text-yellow-300 mr-1" />
           <span>{buttonLabel}</span>
         </Button>
-        <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 mt-2.5 font-medium">
-          <span>🔒 {isDe ? 'Sichere Bestellung & Sofortige Freischaltung' : '256-Bit SSL Güvenli & Anında Aktivasyon'}</span>
+        <div className="flex items-center justify-center gap-2 text-[10px] text-slate-500 mt-2 font-medium">
+          <span>🔒 {isDe ? '256-Bit SSL Verschlüsselung' : '256-Bit SSL Güvenli'}</span>
           <span>•</span>
-          <span>⚡ {isDe ? 'Sofort-Aktivierung' : 'Anında Kurulum'}</span>
+          <span>⚡ {isDe ? 'Sofort-Aktivierung' : 'Anında Aktivasyon'}</span>
         </div>
       </div>
     </article>
   );
 });
 
-const PackagesScrollShowcase = memo(({ packages, currencySymbol, onOrder, isDe, regionKey }) => {
-  const containerRef = useRef(null);
-  const [windowWidth, setWindowWidth] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1200));
-  const isMobile = windowWidth < 860;
-  const visibleCount = isMobile ? 1 : 2;
-  const maxSteps = Math.max(0, packages.length - visibleCount);
-
-  const [activeIdx, setActiveIdx] = useState(0);
-  const isThrottled = useRef(false);
+const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, regionKey }) => {
+  const popularIndex = Math.max(0, packages.findIndex((p) => p.popular || p.featured));
+  const [activeIdx, setActiveIdx] = useState(popularIndex !== -1 ? popularIndex : 0);
+  const mobileScrollRef = useRef(null);
 
   // Reset active index when packages or region change
   useEffect(() => {
-    setActiveIdx(0);
+    const popIdx = Math.max(0, packages.findIndex((p) => p.popular || p.featured));
+    setActiveIdx(popIdx !== -1 ? popIdx : 0);
   }, [packages, regionKey]);
 
-  useEffect(() => {
-    const onResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-
-  const cardWidth = isMobile ? Math.min(340, windowWidth - 32) : 375;
-  const gap = isMobile ? 12 : 24;
-  const stepWidth = cardWidth + gap;
-  const stageWidth = visibleCount * cardWidth + (visibleCount - 1) * gap;
-
-  // Touch gesture support for mobile
-  const touchStartX = useRef(0);
-  const touchStartY = useRef(0);
-
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY;
-  };
-
-  const handleTouchMove = (e) => {
-    const curX = e.touches[0].clientX;
-    const curY = e.touches[0].clientY;
-    const diffX = Math.abs(curX - touchStartX.current);
-    const diffY = Math.abs(curY - touchStartY.current);
-
-    if (diffX > 14 && diffX > diffY * 1.2) {
-      if (e.cancelable) e.preventDefault();
-    }
-  };
-
-  const handleTouchEnd = (e) => {
-    const deltaX = touchStartX.current - e.changedTouches[0].clientX;
-    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
-
-    if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY) * 0.7) {
-      if (deltaX > 0 && activeIdx < maxSteps) {
-        setActiveIdx((prev) => Math.min(maxSteps, prev + 1));
-      } else if (deltaX < 0 && activeIdx > 0) {
-        setActiveIdx((prev) => Math.max(0, prev - 1));
+  const handleSelectPackage = (idx) => {
+    setActiveIdx(idx);
+    if (mobileScrollRef.current) {
+      const targetCard = mobileScrollRef.current.children[idx];
+      if (targetCard) {
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
     }
   };
 
+  const handleMobileScroll = useCallback(() => {
+    if (!mobileScrollRef.current) return;
+    const container = mobileScrollRef.current;
+    const scrollLeft = container.scrollLeft;
+    const cardWidth = container.children[0]?.offsetWidth || 300;
+    const newIdx = Math.round(scrollLeft / cardWidth);
+    if (newIdx >= 0 && newIdx < packages.length && newIdx !== activeIdx) {
+      setActiveIdx(newIdx);
+    }
+  }, [packages.length, activeIdx]);
+
   if (!packages || packages.length === 0) return null;
 
-  const isAtEnd = activeIdx >= maxSteps;
-
   return (
-    <div
-      ref={containerRef}
-      key={`${regionKey}-${packages.length}`}
-      className="relative w-full py-2 md:py-6 select-none"
-    >
-      {/* Subtle Ambient Glow behind active cards */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+    <div key={`${regionKey}-${packages.length}`} className="relative w-full py-2">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-[#e50914]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
 
-      {/* 1. Header with Duration Pills & Scroll Guide */}
-      <div className="w-full max-w-4xl mx-auto px-4 mb-4 md:mb-6 shrink-0 z-20">
-        <div className="flex flex-col items-center text-center gap-2.5">
-          
-          {/* Scroll status / button click indicator */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-xs font-semibold shadow-sm transition-all duration-300">
-            <span className={`w-2.5 h-2.5 rounded-full ${isAtEnd ? 'bg-emerald-500' : 'bg-[#e50914] animate-pulse'}`} />
-            {isAtEnd ? (
-              <span className="text-emerald-400 font-bold">
-                {isDe ? '✓ Alle Pakete angezeigt — Nach unten weiter scrollen' : '✓ Tüm paketler görüntülendi — Aşağı kaydırmaya devam edebilirsiniz'}
-              </span>
-            ) : (
-              <span className="text-gray-200">
-                {isMobile
-                  ? (isDe ? '👉 Mit dem Finger wischen oder auf die roten Pfeile tippen' : '👉 Kartları kaydırın veya kırmızı oklara dokunun')
-                  : (isDe
-                      ? '👉 Mit der Maus scrollen oder auf die roten Pfeile / Pakete klicken'
-                      : '👉 Fare ile kaydırın veya kırmızı oklara / sürelere tıklayın')}
-              </span>
-            )}
-          </div>
-
-          {/* Duration Pills: clicking directly switches to that package */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-1 no-scrollbar max-w-full px-2">
-            {packages.map((pkg, idx) => {
-              const isPopular = pkg.popular || pkg.featured;
-              const isSelected = activeIdx === idx || (!isMobile && activeIdx + 1 === idx && idx > 0);
-              const pkgName = pkg.name || pkg.title || '';
-              const durationLabel = localizePackageText(pkg.duration || pkgName, isDe);
-
-              return (
-                <button
-                  key={pkg.id || idx}
-                  type="button"
-                  onClick={() => setActiveIdx(Math.min(idx, maxSteps))}
-                  className={`shrink-0 px-4 py-2 rounded-full text-xs md:text-sm font-extrabold transition-all duration-300 flex items-center gap-2 border active:scale-95 shadow-md ${
-                    isSelected
-                      ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white border-white/40 shadow-lg shadow-primary/50 scale-105 ring-2 ring-primary/60'
-                      : 'bg-[#181818] text-gray-300 border-white/15 hover:border-primary/60 hover:text-white hover:bg-[#222]'
-                  }`}
-                >
-                  {isPopular && <Star className="w-3.5 h-3.5 fill-current text-amber-300 shrink-0" />}
-                  <span>{durationLabel}</span>
-                  {isPopular && (
-                    <span className="text-[10px] font-black bg-black/60 px-2 py-0.5 rounded-full text-amber-300 tracking-wide">
-                      {isDe ? 'TOP' : 'POPÜLER'}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* 2. The Centered Window / Stage Viewport with Floating Prominent Arrows */}
-      <div className="relative mx-auto w-full flex items-center justify-center px-2 md:px-14">
-        {/* Floating Left Navigation Arrow (Desktop) */}
-        <button
-          type="button"
-          onClick={() => setActiveIdx((prev) => Math.max(0, prev - 1))}
-          disabled={activeIdx <= 0}
-          aria-label={isDe ? 'Vorheriges Paket' : 'Önceki Paket'}
-          className="hidden md:flex absolute left-2 lg:left-6 top-1/2 -translate-y-1/2 z-40 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-r from-[#e50914] to-[#b20710] text-white shadow-[0_0_24px_rgba(229,9,20,0.7)] items-center justify-center hover:scale-110 active:scale-95 transition-all border-2 border-white/30 disabled:opacity-0 disabled:pointer-events-none cursor-pointer"
-        >
-          <ChevronLeft className="w-7 h-7" />
-        </button>
-
-        {/* The Frame / Card Stage Viewport */}
-        <div
-          className="relative shrink-0 z-20 touch-pan-y"
-          style={{ width: `${stageWidth}px` }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          {/* Edge Gradients for seamless arrival from right */}
-          <div className="pointer-events-none absolute -left-6 top-0 bottom-0 w-8 bg-gradient-to-r from-[#0a0a0a] to-transparent z-30" />
-          {activeIdx < maxSteps && (
-            <div className="pointer-events-none absolute -right-6 top-0 bottom-0 w-10 bg-gradient-to-l from-[#0a0a0a] to-transparent z-30" />
-          )}
-
-          {/* Overflow-hidden container framing the cards */}
-          <div className="overflow-hidden rounded-3xl py-2 px-1">
-            <motion.div
-              className="flex items-stretch"
-              animate={{ x: -activeIdx * stepWidth }}
-              transition={{ duration: 0.44, ease: [0.22, 1, 0.36, 1] }}
-              style={{ gap: `${gap}px` }}
+      {/* Mobile Quick-Duration Switcher */}
+      <div className="flex md:hidden items-center justify-center gap-2 overflow-x-auto pb-3 pt-1 no-scrollbar px-2 mb-2">
+        {packages.map((pkg, idx) => {
+          const isSelected = activeIdx === idx;
+          const isPopular = pkg.popular || pkg.featured;
+          const durationLabel = localizePackageText(pkg.duration || pkg.name || '', isDe);
+          return (
+            <button
+              key={pkg.id || idx}
+              type="button"
+              onClick={() => handleSelectPackage(idx)}
+              className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 border active:scale-95 ${
+                isSelected
+                  ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white border-white/30 shadow-lg shadow-[#e50914]/40 scale-105'
+                  : 'bg-[#141419] text-slate-400 border-white/10 hover:text-white hover:bg-[#1a1a22]'
+              }`}
             >
-              {packages.map((pkg, idx) => {
-                const isPopular = pkg.popular || pkg.featured;
-                const isFocus = activeIdx === idx || (!isMobile && activeIdx + 1 === idx);
-
-                return (
-                  <div
-                    key={pkg.id || idx}
-                    style={{ width: `${cardWidth}px` }}
-                    className={`shrink-0 flex flex-col min-h-[580px] md:min-h-[600px] h-auto transition-all duration-300 ${
-                      isFocus ? 'opacity-100 scale-100' : 'opacity-70 md:opacity-85 scale-[0.98]'
-                    }`}
-                  >
-                    <PackageCard
-                      pkg={pkg}
-                      isPopular={isPopular}
-                      currencySymbol={currencySymbol}
-                      onOrder={onOrder}
-                      isDe={isDe}
-                    />
-                  </div>
-                );
-              })}
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Floating Right Navigation Arrow (Desktop) */}
-        <button
-          type="button"
-          onClick={() => setActiveIdx((prev) => Math.min(maxSteps, prev + 1))}
-          disabled={activeIdx >= maxSteps}
-          aria-label={isDe ? 'Nächstes Paket' : 'Sonraki Paket'}
-          className="hidden md:flex absolute right-2 lg:right-6 top-1/2 -translate-y-1/2 z-40 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-r from-[#e50914] to-[#b20710] text-white shadow-[0_0_24px_rgba(229,9,20,0.7)] items-center justify-center hover:scale-110 active:scale-95 transition-all border-2 border-white/30 disabled:opacity-0 disabled:pointer-events-none cursor-pointer animate-pulse-slow"
-        >
-          <ChevronRight className="w-7 h-7" />
-        </button>
+              {isPopular && <Star className="w-3 h-3 fill-amber-300 text-amber-300 shrink-0" />}
+              <span>{durationLabel}</span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* 3. Bottom Controls & Progress Navigation */}
-      <div className="w-full max-w-xl mx-auto px-4 mt-5 shrink-0 z-20">
-        <div className="flex items-center justify-between gap-3">
-          
-          {/* Prominent Previous Button with Label */}
-          <button
-            type="button"
-            onClick={() => setActiveIdx((prev) => Math.max(0, prev - 1))}
-            disabled={activeIdx <= 0}
-            className="px-4 md:px-5 py-2.5 rounded-2xl bg-[#141414] border border-white/20 text-white text-xs md:text-sm font-bold flex items-center gap-2 hover:bg-[#e50914] hover:border-primary transition-all duration-200 disabled:opacity-20 disabled:hover:bg-[#141414] active:scale-95 shadow-md shadow-black/40 cursor-pointer"
-          >
-            <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
-            <span className="hidden sm:inline">{isDe ? 'Vorheriges' : 'Önceki Paket'}</span>
-          </button>
-
-          {/* Center: Interactive Dots & Counter */}
-          <div className="flex flex-col items-center gap-2">
-            <div className="flex items-center gap-2">
-              {Array.from({ length: maxSteps + 1 }).map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setActiveIdx(idx)}
-                  aria-label={`Sayfa ${idx + 1}`}
-                  className={`h-3 rounded-full transition-all duration-300 cursor-pointer ${
-                    activeIdx === idx
-                      ? 'w-9 bg-gradient-to-r from-[#e50914] to-[#b20710] shadow-[0_0_12px_rgba(229,9,20,0.7)] ring-2 ring-primary/30'
-                      : 'w-3 bg-white/25 hover:bg-white/50'
-                  }`}
-                />
-              ))}
+      {/* Desktop Responsive Grid (All packages visible side-by-side at a glance) */}
+      <div 
+        className="hidden md:grid gap-6 items-stretch w-full"
+        style={{
+          gridTemplateColumns: packages.length <= 2
+            ? `repeat(${packages.length}, minmax(320px, 400px))`
+            : packages.length === 3
+              ? 'repeat(3, minmax(0, 1fr))'
+              : 'repeat(auto-fit, minmax(260px, 1fr))',
+          justifyContent: 'center'
+        }}
+      >
+        {packages.map((pkg, idx) => {
+          const isPopular = pkg.popular || pkg.featured;
+          return (
+            <div key={pkg.id || idx} className="flex flex-col h-full">
+              <PackageCard
+                pkg={pkg}
+                isPopular={isPopular}
+                currencySymbol={currencySymbol}
+                onOrder={onOrder}
+                isDe={isDe}
+              />
             </div>
-            <span className="text-xs font-extrabold text-gray-300 tracking-wider">
-              {isDe ? `Paket ${activeIdx + 1} / ${maxSteps + 1}` : `Paket ${activeIdx + 1} / ${maxSteps + 1}`}
-            </span>
-          </div>
+          );
+        })}
+      </div>
 
-          {/* Prominent Next Button with Label */}
+      {/* Mobile Native Smooth Swiper with CSS Snap */}
+      <div
+        ref={mobileScrollRef}
+        onScroll={handleMobileScroll}
+        className="flex md:hidden overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-4 px-4 pb-4 pt-1"
+      >
+        {packages.map((pkg, idx) => {
+          const isPopular = pkg.popular || pkg.featured;
+          return (
+            <div
+              key={pkg.id || idx}
+              className="snap-center shrink-0 w-[85vw] max-w-[340px] flex flex-col"
+            >
+              <PackageCard
+                pkg={pkg}
+                isPopular={isPopular}
+                currencySymbol={currencySymbol}
+                onOrder={onOrder}
+                isDe={isDe}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Mobile Pagination Indicator Dots */}
+      <div className="flex md:hidden items-center justify-center gap-1.5 mt-2">
+        {packages.map((_, idx) => (
           <button
+            key={idx}
             type="button"
-            onClick={() => setActiveIdx((prev) => Math.min(maxSteps, prev + 1))}
-            disabled={activeIdx >= maxSteps}
-            className="px-4 md:px-5 py-2.5 rounded-2xl bg-[#141414] border border-white/20 text-white text-xs md:text-sm font-bold flex items-center gap-2 hover:bg-[#e50914] hover:border-primary transition-all duration-200 disabled:opacity-20 disabled:hover:bg-[#141414] active:scale-95 shadow-md shadow-black/40 cursor-pointer"
-          >
-            <span className="hidden sm:inline">{isDe ? 'Nächstes' : 'Sonraki Paket'}</span>
-            <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
-          </button>
-        </div>
+            onClick={() => handleSelectPackage(idx)}
+            aria-label={`Paket ${idx + 1}`}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              activeIdx === idx
+                ? 'w-6 bg-[#e50914]'
+                : 'w-2 bg-white/20'
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
@@ -675,9 +492,6 @@ const Packages = ({
         const rows = sortPackagesForDisplay(
           (data && data.length > 0 ? data : fallbackData).map(normalizePackage)
         );
-        if (import.meta.env.DEV) {
-          console.log('paket data (TR):', rows);
-        }
         setTrPackages(rows);
         if (!isFallback && rows.length >= 0) writeSessionCache(cacheKey, rows);
       }
@@ -729,9 +543,6 @@ const Packages = ({
         const rows = sortPackagesForDisplay(
           (data && data.length > 0 ? data : fallbackData).map(normalizePackage)
         );
-        if (import.meta.env.DEV) {
-          console.log('paket data (EU):', rows);
-        }
         setEuPackages(rows);
         if (!isFallback && rows.length >= 0) writeSessionCache(cacheKey, rows);
       }
@@ -750,10 +561,10 @@ const Packages = ({
 
   if (trLoading && trPackages.length === 0 && !hideRegions.includes('TR')) {
     return (
-      <section id="packages" className="qruze-cinema-section py-24 border-t border-[#262626] min-h-[600px] flex items-center justify-center">
+      <section id="packages" className="qruze-cinema-section py-24 border-t border-white/5 min-h-[500px] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-[#e50914] animate-spin mx-auto mb-4" />
-          <p className="text-gray-400">{isDe ? 'Pakete werden geladen...' : 'Paketler yükleniyor...'}</p>
+          <Loader2 className="w-10 h-10 text-[#e50914] animate-spin mx-auto mb-3" />
+          <p className="text-slate-400 text-sm">{isDe ? 'Pakete werden geladen...' : 'Paketler yükleniyor...'}</p>
         </div>
       </section>
     );
@@ -784,63 +595,70 @@ const Packages = ({
 
   const emptyTierMessage = () => getEmptyPackagesMessage(pageContent, isDe);
 
-  const sectionPadding = showTierFilter ? 'py-8 md:py-10' : 'py-20';
-  const sectionBorder = hideSectionHeader ? '' : 'border-t border-[#262626]';
+  const sectionPadding = showTierFilter ? 'py-6 md:py-14' : 'py-10 md:py-18';
+  const sectionBorder = hideSectionHeader ? '' : 'border-t border-white/5';
 
   return (
     <section id="packages" className={`qruze-cinema-section ${sectionPadding} ${sectionBorder} relative`}>
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-primary/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-[#0a0a0a]/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-[#0a0a0a]/30 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
         {!hideSectionHeader && (
-          <div className="text-center mb-6 md:mb-8">
+          <div className="text-center mb-4 md:mb-8">
             {!showTierFilter && (
-              <span className="qruze-premium-seal mb-3">
+              <span className="qruze-premium-seal mb-2">
                 {isDe ? 'Premium Abo Lounge' : 'Premium Paket Salonu'}
               </span>
             )}
-            <h2 className="section-title text-3xl md:text-5xl mb-3">
+            <h2 className="section-title text-2xl md:text-5xl mb-2 md:mb-3">
               {sectionTitle}
             </h2>
-            <p className="section-lead mx-auto text-center text-sm md:text-base max-w-2xl">
+            <p className="section-lead mx-auto text-center text-xs md:text-base max-w-2xl text-slate-300">
               {sectionDescription}
             </p>
           </div>
         )}
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-[90rem] mx-auto">
-          {showTabsList && (
-            <div className="flex flex-col items-center mb-4">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                {isDe ? 'Nutzungsregion' : 'Kullanım Bölgesi'}
-              </p>
-              <TabsList className="bg-[#0a0a0a] border border-[#262626] p-1 h-auto rounded-full shadow-inner">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          {/* Unified Clean Filter Bar: Region + Quiz + Tiers */}
+          <div className="flex flex-col items-center gap-2.5 mb-4 md:mb-8">
+            {showTabsList && (
+              <TabsList className="bg-[#121218]/90 border border-white/10 p-1.5 h-auto rounded-full shadow-inner">
                 {!hideRegions.includes('TR') && (
                   <TabsTrigger 
                     value="TR" 
-                    className="rounded-full px-6 py-2.5 text-sm md:text-base data-[state=active]:bg-[#e50914] data-[state=active]:text-white transition-all gap-2"
+                    className="rounded-full px-5 py-2 text-xs md:text-sm font-bold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#e50914] data-[state=active]:to-[#b20710] data-[state=active]:text-white text-slate-400 hover:text-white transition-all gap-2"
                   >
-                    <MapPin className="w-4 h-4" /> {isDe ? 'Türkei Pakete' : 'Türkiye Paketleri'}
+                    <span className="text-base leading-none">🇹🇷</span> {isDe ? 'Türkei Pakete' : 'Türkiye Paketleri'}
                   </TabsTrigger>
                 )}
                 {!hideRegions.includes('EU') && (
                   <TabsTrigger 
                     value="EU" 
-                    className="rounded-full px-6 py-2.5 text-sm md:text-base data-[state=active]:bg-[#e50914] data-[state=active]:text-white transition-all gap-2"
+                    className="rounded-full px-5 py-2 text-xs md:text-sm font-bold data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#e50914] data-[state=active]:to-[#b20710] data-[state=active]:text-white text-slate-400 hover:text-white transition-all gap-2"
                   >
-                    <Globe className="w-4 h-4" /> {isDe ? 'Europa Pakete' : 'Avrupa Paketleri'}
+                    <span className="text-base leading-none">🇪🇺</span> {isDe ? 'Europa Pakete' : 'Avrupa Paketleri'}
                   </TabsTrigger>
                 )}
               </TabsList>
-            </div>
-          )}
+            )}
 
-          {showTierFilter && (
-            <>
-              <div className="flex flex-col items-center">
+            {showTierFilter && (
+              <>
+                <PackageTierSelector
+                  selectedTier={selectedTier}
+                  onTierChange={setSelectedTier}
+                  isDe={isDe}
+                  tierOptions={tierOptions}
+                />
+                <PackageTierShortDescription
+                  selectedTier={selectedTier}
+                  isDe={isDe}
+                  text={getTierShortDescription(pageContent, selectedTier, isDe)}
+                />
                 <PackageRecommendationQuiz
                   quizConfig={quizConfig}
                   isDe={isDe}
@@ -850,7 +668,7 @@ const Packages = ({
                     if (!hideRegions.includes(regionTab)) {
                       setActiveTab(regionTab);
                     }
-                    const el = document.getElementById('packages-list');
+                    const el = document.getElementById('packages');
                     if (el) {
                       window.requestAnimationFrame(() => {
                         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -858,47 +676,36 @@ const Packages = ({
                     }
                   }}
                 />
-              </div>
-              <PackageTierSelector
-                selectedTier={selectedTier}
-                onTierChange={setSelectedTier}
-                isDe={isDe}
-                tierOptions={tierOptions}
-              />
-              <PackageTierShortDescription
-                selectedTier={selectedTier}
-                isDe={isDe}
-                text={getTierShortDescription(pageContent, selectedTier, isDe)}
-              />
-            </>
-          )}
+              </>
+            )}
+          </div>
 
-          <TabsContent value="TR" className="mt-0 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <TabsContent value="TR" className="mt-0 animate-in fade-in duration-300">
             {trLoading ? (
               <div className="text-center py-12">
-                <Loader2 className="w-12 h-12 text-[#e50914] animate-spin mx-auto mb-4" />
-                <p className="text-gray-400">{isDe ? 'Türkei-Pakete werden geladen...' : 'Türkiye paketleri yükleniyor...'}</p>
+                <Loader2 className="w-10 h-10 text-[#e50914] animate-spin mx-auto mb-3" />
+                <p className="text-slate-400 text-sm">{isDe ? 'Türkei-Pakete werden geladen...' : 'Türkiye paketleri yükleniyor...'}</p>
               </div>
             ) : trError && trPackages.length === 0 ? (
               <div className="text-center py-12">
-                <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-                <p className="text-gray-400 mb-4">{trError}</p>
-                <Button onClick={handleRetryTurkey} className="bg-[#e50914] text-white hover:bg-[#b20710]">
+                <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-3" />
+                <p className="text-slate-400 mb-4 text-sm">{trError}</p>
+                <Button onClick={handleRetryTurkey} className="bg-[#e50914] text-white hover:bg-[#b20710] rounded-xl text-sm">
                   <RefreshCw className="w-4 h-4 mr-2" /> {isDe ? 'Erneut versuchen' : 'Tekrar Dene'}
                 </Button>
               </div>
             ) : displayTrPackages.length === 0 ? (
               <div className="text-center py-12">
-                <MapPin className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                <p className="text-gray-500 text-lg">
+                <MapPin className="w-12 h-12 text-slate-600 mx-auto mb-3" />
+                <p className="text-slate-400 text-base">
                   {trPackages.length === 0
                     ? (isDe ? 'Türkei-Pakete sind noch nicht verfügbar' : 'Türkiye paketleri henüz mevcut değil')
                     : emptyTierMessage()}
                 </p>
-                <p className="text-gray-600 text-sm mt-2">{isDe ? 'Neue Pakete werden bald hinzugefügt.' : 'Yakında yeni paketler eklenecektir.'}</p>
+                <p className="text-slate-500 text-xs mt-1.5">{isDe ? 'Neue Pakete werden bald hinzugefügt.' : 'Yakında yeni paketler eklenecektir.'}</p>
               </div>
             ) : (
-              <PackagesScrollShowcase
+              <PackagesShowcase
                 packages={displayTrPackages}
                 currencySymbol={getPackageCurrencySymbol(displayTrPackages[0] || {}, 'TR')}
                 onOrder={(p) => openModal(p, false)}
@@ -908,32 +715,32 @@ const Packages = ({
             )}
           </TabsContent>
 
-          <TabsContent value="EU" className="mt-0 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <TabsContent value="EU" className="mt-0 animate-in fade-in duration-300">
             {euLoading ? (
               <div className="text-center py-12">
-                <Loader2 className="w-12 h-12 text-[#e50914] animate-spin mx-auto mb-4" />
-                <p className="text-gray-400">{isDe ? 'Pakete werden geladen...' : 'Avrupa paketleri yükleniyor...'}</p>
+                <Loader2 className="w-10 h-10 text-[#e50914] animate-spin mx-auto mb-3" />
+                <p className="text-slate-400 text-sm">{isDe ? 'Pakete werden geladen...' : 'Avrupa paketleri yükleniyor...'}</p>
               </div>
             ) : euError && euPackages.length === 0 ? (
               <div className="text-center py-12">
-                <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-                <p className="text-gray-400 mb-4">{euError}</p>
-                <Button onClick={handleRetryEurope} className="bg-[#e50914] text-white hover:bg-[#b20710]">
+                <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-3" />
+                <p className="text-slate-400 mb-4 text-sm">{euError}</p>
+                <Button onClick={handleRetryEurope} className="bg-[#e50914] text-white hover:bg-[#b20710] rounded-xl text-sm">
                   <RefreshCw className="w-4 h-4 mr-2" /> {isDe ? 'Erneut versuchen' : 'Tekrar Dene'}
                 </Button>
               </div>
             ) : displayEuPackages.length === 0 ? (
               <div className="text-center py-12">
-                <Globe className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                <p className="text-gray-500 text-lg">
+                <Globe className="w-12 h-12 text-slate-600 mx-auto mb-3" />
+                <p className="text-slate-400 text-base">
                   {euPackages.length === 0
                     ? (isDe ? 'Europa-Pakete noch nicht verfügbar' : 'Avrupa paketleri henüz mevcut değil')
                     : emptyTierMessage()}
                 </p>
-                <p className="text-gray-600 text-sm mt-2">{isDe ? 'Neue Pakete werden bald hinzugefügt.' : 'Yakında yeni paketler eklenecektir.'}</p>
+                <p className="text-slate-500 text-xs mt-1.5">{isDe ? 'Neue Pakete werden bald hinzugefügt.' : 'Yakında yeni paketler eklenecektir.'}</p>
               </div>
             ) : (
-              <PackagesScrollShowcase
+              <PackagesShowcase
                 packages={displayEuPackages}
                 currencySymbol={getPackageCurrencySymbol(displayEuPackages[0] || {}, 'EU')}
                 onOrder={(p) => openModal(p, false)}

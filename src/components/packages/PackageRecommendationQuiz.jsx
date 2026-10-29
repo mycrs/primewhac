@@ -80,10 +80,11 @@ const PackageRecommendationQuiz = ({ quizConfig, isDe = false, onApply, tierOpti
       <Button
         type="button"
         onClick={() => setOpen(true)}
-        className="mb-5 h-11 rounded-full px-6 text-sm font-semibold gap-2 bg-[#e50914] hover:bg-[#c40812] text-white shadow-lg shadow-[#e50914]/30 border border-[#ff4d5a]/40 transition-all hover:scale-[1.02]"
+        className="mb-4 h-10 rounded-full px-5 text-xs md:text-sm font-semibold gap-2 bg-gradient-to-r from-white/[0.08] to-white/[0.04] hover:from-white/[0.14] hover:to-white/[0.08] text-slate-200 hover:text-white shadow-lg shadow-black/20 border border-white/15 transition-all hover:scale-[1.02] active:scale-95 group"
       >
-        <HelpCircle className="w-4 h-4 shrink-0" />
-        {quizConfig.buttonLabel}
+        <Sparkles className="w-3.5 h-3.5 text-[#ff4b55] group-hover:rotate-12 transition-transform" />
+        <span>{quizConfig.buttonLabel}</span>
+        <span className="text-slate-400 group-hover:translate-x-0.5 transition-transform text-xs">→</span>
       </Button>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>

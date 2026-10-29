@@ -9,7 +9,7 @@ const PackageTierShortDescription = ({ selectedTier, isDe = false, text: textPro
   if (!text) return null;
 
   return (
-    <p className="text-center text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-4 leading-snug">
+    <p className="hidden md:block text-center text-slate-400 text-xs md:text-sm max-w-xl mx-auto mb-4 leading-relaxed font-normal">
       {text}
     </p>
   );
