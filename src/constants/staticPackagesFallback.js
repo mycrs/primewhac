@@ -7,6 +7,7 @@ export const STABIL_FEATURES_TR = [
   '48 Saat Geri Sar & Tekrar İzle (Catch-Up Desteği)',
   'Smart TV, Android, iOS, TV Box & PC Uyumlu',
   '7/24 Kesintisiz VIP Canlı Destek & Anında Aktivasyon',
+  '🇹🇷 Sadece Türkiye IP / Yurt İçi Kullanıma Özeldir',
 ];
 
 export const CINEMA_4K_FEATURES_TR = [
@@ -16,6 +17,7 @@ export const CINEMA_4K_FEATURES_TR = [
   'Her Hafta Eklenen Yeni Vizyon Filmleri & Dublaj/Altyazı',
   'Tüm Canlı TV Kanalları + VIP Hızlı Sinema Sunucusu',
   'OLED, QLED & 4K Smart TVler İçin Özel Optimize',
+  '🇹🇷 Sadece Türkiye IP / Yurt İçi Kullanıma Özeldir',
 ];
 
 export const GLOBAL_FEATURES_TR = [
@@ -24,27 +26,28 @@ export const GLOBAL_FEATURES_TR = [
   'Uluslararası Spor Kanalları & Özel Turnuva Yayınları',
   'Orijinal Dil, Çift Dil & Çok Dilli Altyazı Desteği',
   'Coğrafi Kısıtlamasız (VPN Gerektirmez) Kesintisiz Erişim',
-  'Yurt Dışı & Yurt İçi Çoklu Cihaz Desteği',
+  'Yurt İçi Çoklu Cihaz Desteği',
+  '🇹🇷 Sadece Türkiye IP / Yurt İçi Lokasyonunda Geçerlidir',
 ];
 
 export const EU_FEATURES_STANDART = [
-  '1 Kullanıcı',
-  'Tüm Türk & Avrupa Kanalları',
-  'Full HD ve 4K Canlı Yayınlar',
-  'Geniş Film ve Dizi VOD Arşivi',
-  'Donmayan Avrupa CDN Altyapısı',
+  '1 Cihaz / Tek Kullanıcı',
+  'Tüm Türk & Avrupa Kanalları (Almanya, UK, Fransa vb.)',
+  'Full HD ve 4K Canlı Yayın Akışı',
+  'Geniş Film ve Dizi VOD Kütüphanesi',
+  'Donmayan Avrupa CDN Altyapısı (VPN Gerekmez)',
   'Smart TV, Android, iOS, TV Box & PC Uyumlu',
-  '7/24 Kesintisiz Teknik Destek'
+  '7/24 Kesintisiz VIP Teknik Destek',
 ];
 
 export const EU_FEATURES_VIP = [
-  '2 Cihaz / Çift Kullanıcı Desteği',
+  '2 Cihaz / Çift Kullanıcı Desteği (Aynı Anda)',
   'Gerçek 4K UHD & HDR Sinema Arşivi',
   'Tüm Avrupa, Almanya, İngiltere & Dünya Kanalları',
   'Uluslararası Canlı Spor ve Turnuva Yayınları',
   'VIP Hızlı Master Sunucu (Sıfır Gecikme)',
-  'Dolby Audio Ses Kalitesi',
-  '7/24 Öncelikli VIP Teknik Destek'
+  'Dolby Audio Çok Kanallı Ses Kalitesi',
+  '7/24 Öncelikli VIP Teknik Destek',
 ];
 
 export const STATIC_PACKAGES_TR = [
@@ -68,10 +71,74 @@ export const STATIC_PACKAGES_TR = [
 ];
 
 export const STATIC_PACKAGES_EU = [
-  // 1. 12 Aylık Avrupa Paketi - 85 Euro (1 Cihaz)
+  // 1. 3 Ay: 30 € & 40 €
   {
-    id: 'eu-standard-85',
-    name: '12 Aylık Avrupa Paketi',
+    id: 'eu-standard-3',
+    name: 'Standart Avrupa Paketi',
+    duration: '3 Ay',
+    price: 30,
+    original_price: 45,
+    tier: 'standard',
+    features: EU_FEATURES_STANDART,
+    popular: false,
+    region: 'eu',
+    enabled: true,
+    currency: '€',
+    sort_order: 13,
+    campaign_label: '1 Cihaz • 30 €',
+  },
+  {
+    id: 'eu-vip-3',
+    name: 'VIP 4K & Çift Kullanıcı',
+    duration: '3 Ay',
+    price: 40,
+    original_price: 55,
+    tier: 'cinema',
+    features: EU_FEATURES_VIP,
+    popular: true,
+    region: 'eu',
+    enabled: true,
+    currency: '€',
+    sort_order: 14,
+    campaign_label: '2 Cihaz • 40 €',
+  },
+
+  // 2. 6 Ay: 50 € & 60 €
+  {
+    id: 'eu-standard-6',
+    name: 'Standart Avrupa Paketi',
+    duration: '6 Ay',
+    price: 50,
+    original_price: 70,
+    tier: 'standard',
+    features: EU_FEATURES_STANDART,
+    popular: false,
+    region: 'eu',
+    enabled: true,
+    currency: '€',
+    sort_order: 15,
+    campaign_label: '1 Cihaz • 50 €',
+  },
+  {
+    id: 'eu-vip-6',
+    name: 'VIP 4K & Çift Kullanıcı',
+    duration: '6 Ay',
+    price: 60,
+    original_price: 85,
+    tier: 'cinema',
+    features: EU_FEATURES_VIP,
+    popular: true,
+    region: 'eu',
+    enabled: true,
+    currency: '€',
+    sort_order: 16,
+    campaign_label: '2 Cihaz • 60 €',
+  },
+
+  // 3. 12 Ay: 85 € & 100 €
+  {
+    id: 'eu-standard-12',
+    name: 'Standart Avrupa Paketi',
     duration: '12 Ay',
     price: 85,
     original_price: 110,
@@ -81,13 +148,12 @@ export const STATIC_PACKAGES_EU = [
     region: 'eu',
     enabled: true,
     currency: '€',
-    sort_order: 13,
-    campaign_label: '1 Cihaz • 85€',
+    sort_order: 17,
+    campaign_label: '1 Cihaz • 85 €',
   },
-  // 2. 12 Aylık VIP 4K & Çift Kullanıcı - 100 Euro (2 Cihaz - Popüler)
   {
-    id: 'eu-vip-100',
-    name: '12 Aylık VIP 4K & Çift Kullanıcı',
+    id: 'eu-vip-12',
+    name: 'VIP 4K & Çift Kullanıcı',
     duration: '12 Ay',
     price: 100,
     original_price: 135,
@@ -97,7 +163,7 @@ export const STATIC_PACKAGES_EU = [
     region: 'eu',
     enabled: true,
     currency: '€',
-    sort_order: 14,
-    campaign_label: '2 Cihaz • 100€',
+    sort_order: 18,
+    campaign_label: '2 Cihaz • 100 €',
   },
 ];

@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
-import { Check, Star, Zap, Loader2, Globe, MapPin, RefreshCw, AlertCircle, ChevronLeft, ChevronRight, ArrowRight, Sparkles, ShieldCheck, Film } from 'lucide-react';
+import { Check, Star, Zap, Loader2, Globe, MapPin, RefreshCw, AlertCircle, ChevronLeft, ChevronRight, ArrowRight, Sparkles, ShieldCheck, Film, Tv } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useOrderModal } from '@/contexts/OrderModalContext';
@@ -44,12 +44,15 @@ import { trackOrderIntent, trackPackagesPageView } from '@/utils/analyticsTracki
 const getPackageTheme = (pkg, isPopular, isDe) => {
   const name = (pkg?.name || pkg?.title || '').toLowerCase();
   const tier = (pkg?.tier || '').toLowerCase();
+  const isEu = (pkg?.region || '').toLowerCase() === 'eu' || pkg?.currency === '€';
 
-  // 1. 4K Ultra İçerik & Sinema (Flagship)
-  if (isPopular || tier === 'cinema' || name.includes('4k') || name.includes('sinema') || name.includes('kino') || name.includes('içerik')) {
+  // 1. 4K Ultra İçerik & Sinema / VIP 4K (Flagship)
+  if (isPopular || tier === 'cinema' || name.includes('4k') || name.includes('vip') || name.includes('sinema') || name.includes('kino') || name.includes('içerik')) {
     return {
       type: 'cinema',
-      seal: isDe ? '4K KINO & VOD-ARCHIV' : '4K SİNEMA & DEV VOD ARŞİVİ',
+      seal: isDe
+        ? (isEu ? 'VIP 4K • 2 GERÄTE (DUAL)' : '4K KINO & VOD-ARCHIV')
+        : (isEu ? 'VIP 4K • 2 CİHAZ (ÇİFT KULLANICI)' : '4K SİNEMA & DEV VOD ARŞİVİ'),
       badge: isDe ? 'AM BELIEBTESTEN' : 'EN ÇOK TERCİH EDİLEN',
       icon: Film,
       bgGlow: 'bg-[#e50914]',
@@ -60,7 +63,9 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
       checkColor: 'text-[#ff4b55]',
       checkBg: 'bg-[#e50914]/20 border-[#e50914]/40',
       btnBg: 'bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white shadow-xl shadow-[#e50914]/40 hover:shadow-[0_0_35px_rgba(229,9,20,0.6)] hover:scale-[1.02]',
-      tagline: isDe ? '15.000+ Filme, Serien & 4K Master' : '15.000+ Film, Dizi & 4K Master Yayın',
+      tagline: isDe
+        ? (isEu ? '2 Geräte gleichzeitig & 4K UHD Master' : '15.000+ Filme, Serien & 4K Master')
+        : (isEu ? '2 Cihaz / Çift Kullanıcı & 4K UHD Master Yayın' : '15.000+ Film, Dizi & 4K Master Yayın'),
     };
   }
 
@@ -83,12 +88,14 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
     };
   }
 
-  // 3. Premium Stabil Paket (Default)
+  // 3. Standart Avrupa / Premium Stabil Paket (Default)
   return {
     type: 'stabil',
-    seal: isDe ? 'STABILITÄTS-FOKUS • LIVE-TV' : 'STABİLİTE ODAKLI • CANLI TV',
-    badge: isDe ? 'DEDIZIERTE SERVER' : 'DONMAYAN ALTYAPI',
-    icon: ShieldCheck,
+    seal: isDe
+      ? (isEu ? 'EUROPA STANDARD • 1 GERÄT' : 'STABILITÄTS-FOKUS • LIVE-TV')
+      : (isEu ? 'AVRUPA STANDART • 1 CİHAZ' : 'STABİLİTE ODAKLI • CANLI TV'),
+    badge: isDe ? (isEu ? 'STANDARD' : 'DEDIZIERTE SERVER') : (isEu ? 'TEK CİHAZ' : 'DONMAYAN ALTYAPI'),
+    icon: isEu ? Tv : ShieldCheck,
     bgGlow: 'bg-emerald-600',
     border: 'border-emerald-500/30 shadow-[0_0_35px_rgba(16,185,129,0.12)] ring-1 ring-emerald-500/20',
     hoverBorder: 'hover:border-emerald-400',
@@ -97,7 +104,9 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
     checkColor: 'text-emerald-400',
     checkBg: 'bg-emerald-500/20 border-emerald-500/40',
     btnBg: 'bg-white/[0.08] hover:bg-emerald-600 text-white border border-white/15 hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-600/30 hover:scale-[1.01]',
-    tagline: isDe ? 'Anti-Freeze v4 & Dedizierte Server' : 'Anti-Freeze v4 & Kesintisiz Canlı TV',
+    tagline: isDe
+      ? (isEu ? '1 Gerät & Stabile Europa-Server' : 'Anti-Freeze v4 & Dedizierte Server')
+      : (isEu ? '1 Cihaz & Donmayan Avrupa CDN Altyapısı' : 'Anti-Freeze v4 & Kesintisiz Canlı TV'),
   };
 };
 
@@ -128,7 +137,32 @@ const PACKAGE_TEXT_DE = new Map([
   ['Anında Aktivasyon', 'Sofortige Aktivierung'],
   ['Sınırsız İzleme', 'Unbegrenztes Streaming'],
   ['Premium Seçim', 'Premium-Auswahl'],
-  ['Qruze Paket', 'Qruze-Paket']
+  ['Qruze Paket', 'Qruze-Paket'],
+  ['Standart Avrupa Paketi', 'Europa Standard-Paket'],
+  ['Avrupa Standart Paket', 'Europa Standard-Paket'],
+  ['VIP 4K & Çift Kullanıcı', 'VIP 4K & Dual-Geräte'],
+  ['Avrupa VIP 4K & Çift Kullanıcı', 'VIP 4K & Dual-Geräte'],
+  ['12 Aylık Avrupa Paketi', '12 Monate Europa-Paket'],
+  ['12 Aylık VIP 4K & Çift Kullanıcı', '12 Monate VIP 4K & Dual-Geräte'],
+  ['1 Cihaz / Tek Kullanıcı', '1 Gerät / Einzelnutzer'],
+  ['2 Cihaz / Çift Kullanıcı Desteği (Aynı Anda)', '2 Geräte gleichzeitig (Dual-Nutzung)'],
+  ['2 Cihaz / Çift Kullanıcı Desteği', '2 Geräte gleichzeitig (Dual-Nutzung)'],
+  ['Tüm Türk & Avrupa Kanalları (Almanya, UK, Fransa vb.)', 'Alle türkischen & europäischen Sender (DE, UK, FR usw.)'],
+  ['Tüm Türk & Avrupa Kanalları', 'Alle türkischen & europäischen Sender'],
+  ['Full HD ve 4K Canlı Yayın Akışı', 'Full HD & 4K Live-Stream'],
+  ['Full HD ve 4K Canlı Yayınlar', 'Full HD & 4K Live-Streams'],
+  ['Geniş Film ve Dizi VOD Kütüphanesi', 'Große VOD-Bibliothek für Filme & Serien'],
+  ['Geniş Film ve Dizi VOD Arşivi', 'Große VOD-Bibliothek für Filme & Serien'],
+  ['Donmayan Avrupa CDN Altyapısı (VPN Gerekmez)', 'Stabile Europa-CDN (Kein VPN erforderlich)'],
+  ['Donmayan Avrupa CDN Altyapısı', 'Stabile Europa-CDN (Kein VPN erforderlich)'],
+  ['7/24 Kesintisiz VIP Teknik Destek', '24/7 VIP-Support'],
+  ['Gerçek 4K UHD & HDR Sinema Arşivi', 'Echtes 4K UHD & HDR Kino-Archiv'],
+  ['Tüm Avrupa, Almanya, İngiltere & Dünya Kanalları', 'Alle Europa-, Deutschland- & Weltsender'],
+  ['Uluslararası Canlı Spor ve Turnuva Yayınları', 'Internationale Sport- & Turniersender'],
+  ['VIP Hızlı Master Sunucu (Sıfır Gecikme)', 'VIP Highspeed Master-Server (Ohne Latenz)'],
+  ['Dolby Audio Çok Kanallı Ses Kalitesi', 'Dolby Audio Mehrkanalton'],
+  ['Dolby Audio Ses Kalitesi', 'Dolby Audio Mehrkanalton'],
+  ['7/24 Öncelikli VIP Teknik Destek', '24/7 Priorisierter VIP-Support'],
 ]);
 
 const localizePackageText = (value, isDe) => {
@@ -155,6 +189,7 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
   const displayFeatures = (pkg.features || []).map((feature) => localizePackageText(feature, isDe));
   const theme = getPackageTheme(pkg, isPopular, isDe);
   const IconComponent = theme.icon;
+  const isTrPackage = (pkg.currency === '₺' || (pkg.region || '').toLowerCase() === 'tr') && !isDe;
 
   const handleOrder = () => {
     trackOrderIntent(pkgName, isDe ? 'packages_de' : 'packages_tr');
@@ -237,9 +272,22 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
           {theme.tagline}
         </p>
 
-        {/* Duration Sub-pill */}
-        <div className="inline-block px-3 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-white font-bold text-xs mb-2">
-          {displayDuration}
+        {/* Duration Sub-pill & Region Scope Badge */}
+        <div className="flex flex-wrap items-center justify-center gap-1.5 mb-2">
+          <span className="px-3 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-white font-bold text-xs">
+            {displayDuration}
+          </span>
+          {isTrPackage ? (
+            <span className="px-2.5 py-0.5 rounded-full bg-red-500/10 border border-red-500/25 text-red-400 font-extrabold text-[10px] tracking-wide flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+              <span>🇹🇷 Sadece Türkiye İçi</span>
+            </span>
+          ) : (
+            <span className="px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 font-extrabold text-[10px] tracking-wide flex items-center gap-1">
+              <Globe className="w-3 h-3 text-blue-400" />
+              <span>{isDe ? '🌍 Europaweit' : '🌍 Tüm Avrupa & Dünya'}</span>
+            </span>
+          )}
         </div>
         
         {/* Price Display */}
@@ -365,6 +413,25 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
     <div key={`${regionKey}-${packages.length}`} className="relative w-full py-2">
       {/* Ambient background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-[#e50914]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
+
+      {/* Region Scope Notice Banner */}
+      <div className="flex items-center justify-center mb-5 px-2">
+        {regionKey === 'TR' ? (
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/25 text-xs text-red-300 font-medium shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-red-500 shrink-0 animate-ping" />
+            <span><strong>Önemli Bilgi:</strong> Türkiye paketleri yalnızca <strong>Türkiye IP / Yurt İçi</strong> kullanımlarda geçerlidir. Yurt dışı için lütfen <strong>Avrupa Paketleri</strong> sekmesini seçiniz.</span>
+          </div>
+        ) : (
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/25 text-xs text-blue-300 font-medium shadow-sm">
+            <Globe className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+            <span>{isDe ? (
+              <><strong>Hinweis:</strong> Unsere Europa-Pakete sind <strong>europaweit & weltweit ohne VPN</strong> auf allen Geräten nutzbar.</>
+            ) : (
+              <><strong>Avrupa & Yurt Dışı:</strong> Bu paketler Almanya, Hollanda, Fransa ve tüm dünyada <strong>VPN gerektirmeden</strong> kesintisiz çalışır.</>
+            )}</span>
+          </div>
+        )}
+      </div>
 
       {/* Duration Switcher (Süre Seçimi: 3 Ay, 6 Ay, 12 Ay Yıllık, 15 Ay) */}
       {availableDurations.length > 1 && (
@@ -516,19 +583,20 @@ const Packages = ({
 
   useEffect(() => {
     fetchTurkeyPackages();
+    fetchEuropePackages();
   }, [initialPackages]);
 
   useEffect(() => {
     if (activeTab === 'EU' && euPackages.length === 0 && !euLoading && !euError) {
-      fetchEuropePackages();
+      fetchEuropePackages(true);
     }
   }, [activeTab]);
 
   const fetchTurkeyPackages = async (force = false) => {
-    setTrLoading(true);
+    if (trPackages.length === 0) setTrLoading(true);
     setTrError(null);
     const fallbackData = STATIC_PACKAGES_TR;
-    const cacheKey = 'sb_pub_packages_tr_v6';
+    const cacheKey = 'sb_pub_packages_tr_v7';
 
     if (!isSupabaseConfigured()) {
       setTrPackages(fallbackData.map(normalizePackage));
@@ -576,10 +644,10 @@ const Packages = ({
   };
 
   const fetchEuropePackages = async (force = false) => {
-    setEuLoading(true);
+    if (euPackages.length === 0) setEuLoading(true);
     setEuError(null);
     const fallbackData = STATIC_PACKAGES_EU;
-    const cacheKey = 'sb_pub_packages_eu_v6';
+    const cacheKey = 'sb_pub_packages_eu_v7';
 
     if (!isSupabaseConfigured()) {
       setEuPackages(fallbackData.map(normalizePackage));
