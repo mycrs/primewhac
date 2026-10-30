@@ -1,20 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
-import { defaultData } from '@/data/defaultSiteData';
+import { turkishChannels } from '@/data/turkishChannels';
 import { CHANNEL_PUBLIC_COLUMNS } from '@/constants/publicSupabaseQueries';
 import { readSessionCache, writeSessionCache } from '@/utils/supabaseSessionCache';
 import { showPublicMaintenanceToastOnce } from '@/utils/supabaseMaintenanceToast';
 
-const FALLBACK_CHANNELS = (defaultData.channelsData || []).map((c, i) => ({
-  id: c.id || `fallback-${i}`,
-  name: c.name,
-  image_url: c.image_url || c.logoUrl,
-  category: c.category,
-  is_active: true
-}));
+const FALLBACK_CHANNELS = turkishChannels;
 
-const PUBLIC_CHANNELS_CACHE_KEY = 'sb_pub_channels_v1';
+const PUBLIC_CHANNELS_CACHE_KEY = 'sb_pub_channels_v2';
 
 /**
  * @param {{ enableRealtime?: boolean, skipInitialFetch?: boolean }} [options]
@@ -22,23 +16,25 @@ const PUBLIC_CHANNELS_CACHE_KEY = 'sb_pub_channels_v1';
  */
 export const useChannelsRealtime = (options = {}) => {
   const { enableRealtime = false, skipInitialFetch = false } = options;
-  const [channels, setChannels] = useState([]);
-  const [loading, setLoading] = useState(!skipInitialFetch);
+  const [channels, setChannels] = useState(() => {
+    if (typeof window === 'undefined') return FALLBACK_CHANNELS;
+    const cached = readSessionCache(PUBLIC_CHANNELS_CACHE_KEY);
+    return Array.isArray(cached) && cached.length > 0 ? cached : FALLBACK_CHANNELS;
+  });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { toast } = useToast();
 
   const fetchChannels = useCallback(
     async (forceRefresh = false) => {
       if (skipInitialFetch && !forceRefresh) {
-        setLoading(false);
         return;
       }
 
       if (!enableRealtime && !forceRefresh) {
         const cached = readSessionCache(PUBLIC_CHANNELS_CACHE_KEY);
-        if (Array.isArray(cached)) {
+        if (Array.isArray(cached) && cached.length > 0) {
           setChannels(cached);
-          setLoading(false);
           setError(null);
           return;
         }
@@ -54,15 +50,15 @@ export const useChannelsRealtime = (options = {}) => {
         const { data, error: fetchError } = await q;
 
         if (fetchError) throw fetchError;
-        const rows = data || [];
+        const rows = (data && data.length > 0) ? data : FALLBACK_CHANNELS;
         setChannels(rows);
-        if (!enableRealtime && rows.length >= 0) {
+        if (!enableRealtime && rows.length > 0) {
           writeSessionCache(PUBLIC_CHANNELS_CACHE_KEY, rows);
         }
       } catch (err) {
         console.error('Error fetching channels:', err);
         setError(null);
-        setChannels(FALLBACK_CHANNELS.length > 0 ? FALLBACK_CHANNELS : []);
+        setChannels(FALLBACK_CHANNELS);
         showPublicMaintenanceToastOnce(toast);
       } finally {
         setLoading(false);

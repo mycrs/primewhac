@@ -25,7 +25,7 @@ export const getChannelImageUrl = (url, size = 'default', category = 'Genel') =>
     'Haber': 'https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&q=80&w=800',
     'Müzik': 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=800',
     'Eğlence': 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800',
-    'Genel': 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&q=80&w=800'
+    'Genel': 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&q=80&w=800'
   };
 
   const fallbackUrl = fallbacks[category] || fallbacks['Genel'];

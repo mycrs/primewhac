@@ -1,7 +1,7 @@
-
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, ArrowDown } from 'lucide-react';
+import { Play, ArrowDown, Layers, Zap, Tv, ShieldCheck, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ChatBot from '@/components/ChatBot';
@@ -48,75 +48,107 @@ const ChannelsPage = ({ siteData }) => {
     <>
       <SEOHead {...metadata} jsonLd={jsonLd} />
       
-      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans text-slate-200 selection:bg-white/20">
+      <div className="min-h-screen bg-[#07080b] flex flex-col font-sans text-slate-200 selection:bg-red-500/30 selection:text-white">
         <Header contactData={contactData} siteTexts={siteTexts} />
         
         <main className="flex-grow pt-20">
           
-          {/* HERO SECTION */}
-          <section className="relative min-h-[60vh] md:min-h-[70vh] lg:min-h-screen flex items-center justify-center overflow-hidden border-b border-white/10">
-            <div className="absolute inset-0 bg-[#0a0a0a]" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#141414] to-[#0a0a0a]" />
-            
-            <motion.div 
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.5, 0.3],
-                x: [0, 50, 0]
-              }}
-              transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] bg-[#e50914]/15 rounded-full blur-[120px] mix-blend-screen pointer-events-none"
-            />
-            <motion.div 
-              animate={{ 
-                scale: [1, 1.5, 1],
-                opacity: [0.2, 0.4, 0.2],
-                x: [0, -50, 0]
-              }}
-              transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-              className="absolute bottom-1/4 right-1/4 w-[40rem] h-[40rem] bg-amber-500/10 rounded-full blur-[150px] mix-blend-screen pointer-events-none"
-            />
+          {/* ARTISAN OBSIDIAN HERO SECTION */}
+          <section className="relative min-h-[75vh] lg:min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-white/5 py-16 md:py-24">
+            {/* Ambient deep obsidian lighting */}
+            <div className="absolute inset-0 bg-[#07080b]" />
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55rem] h-[25rem] bg-gradient-to-tr from-red-600/15 via-red-900/10 to-amber-500/5 rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute -bottom-10 right-10 w-[30rem] h-[20rem] bg-red-950/20 rounded-full blur-[120px] pointer-events-none" />
 
-            <div className="container mx-auto px-4 relative z-10 text-center">
+            <div className="container mx-auto px-4 relative z-10 text-center max-w-5xl">
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="max-w-4xl mx-auto bg-[#0a0a0a]/40 backdrop-blur-md p-8 md:p-16 rounded-[3rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="relative bg-[#0c0d12]/80 backdrop-blur-xl p-8 md:p-14 lg:p-16 rounded-[2.5rem] border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
               >
+                {/* Live Stream Pulse Badge */}
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-[#e50914]/30 text-sm font-medium text-white mb-8 cursor-pointer hover:bg-white/10 transition-colors"
+                  transition={{ delay: 0.15, duration: 0.4 }}
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-red-500/30 text-[11px] sm:text-xs md:text-sm font-mono font-medium text-slate-200 mb-6 sm:mb-8 cursor-pointer hover:bg-white/[0.08] hover:border-red-500/50 transition-all shadow-sm max-w-full"
                   onClick={scrollToInfo}
                 >
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e50914] opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-[#e50914]"></span>
+                  <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
                   </span>
-                  Yayın Kalitemizi İnceleyin <ArrowDown className="w-3 h-3 ml-1" />
+                  <span className="truncate">10.000+ KANAL & 4K ANYCAST YAYIN AĞI</span>
+                  <ArrowDown className="w-3.5 h-3.5 text-red-400 ml-0.5 flex-shrink-0" />
                 </motion.div>
 
                 {/* SINGLE H1 FOR SEO - Main Page Title */}
-                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 drop-shadow-sm leading-tight">
+                <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.1] drop-shadow-sm">
                   IPTV Kanal Listesi — <br className="hidden md:block" />
-                  <span className="bg-gradient-to-r from-[#ff2430] via-[#e50914] to-[#b20710] bg-clip-text text-transparent">10.000+ Canlı Kanal</span>
+                  <span className="bg-gradient-to-r from-white via-slate-100 to-red-400 bg-clip-text text-transparent">
+                    10.000+ Canlı Yayın
+                  </span>
                 </h1>
                 
-                <p className="text-lg md:text-2xl text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto font-light">
-                  Dünyanın dört bir yanından 10.000+ premium kanala, 4K ve HD kalitesiyle, donma veya takılma yaşamadan anında ulaşın.
+                <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 leading-relaxed max-w-3xl mx-auto font-light">
+                  Dünyanın dört bir yanından ulusal kanallar, 4K sinema & VOD arşivleri, kesintisiz haber bültenleri ve belgesel serileri. Sıfır donma, 60 FPS Anycast CDN altyapısıyla anında yayında.
                 </p>
 
+                {/* 3 Reassurance Luxury Badges */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto mb-10 text-left">
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/5">
+                    <div className="w-9 h-9 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0 text-red-400">
+                      <Zap className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-white">60 FPS & Sıfır Donma</p>
+                      <p className="text-[11px] text-slate-400">Yüksek bit hızı, 4K desteği</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/5">
+                    <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0 text-blue-400">
+                      <Tv className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-white">Akıllı EPG & Hızlı Geçiş</p>
+                      <p className="text-[11px] text-slate-400">Anlık yayın akışı & rehber</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/5">
+                    <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 text-emerald-400">
+                      <ShieldCheck className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-white">%99.9 Uptime Garantisi</p>
+                      <p className="text-[11px] text-slate-400">Küresel yedekli sunucular</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Call to Actions */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <Button 
                     size="lg"
                     onClick={openTestModal}
-                    className="w-full sm:w-auto bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#e50914] hover:to-[#b20710] text-white font-bold px-8 py-6 rounded-full text-lg shadow-[0_0_30px_rgba(229,9,20,0.35)] hover:shadow-[0_0_40px_rgba(229,9,20,0.45)] transition-all duration-300"
+                    className="w-full sm:w-auto bg-gradient-to-r from-red-600 via-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold px-8 py-6 rounded-full text-base md:text-lg shadow-[0_0_35px_rgba(229,9,20,0.4)] hover:shadow-[0_0_50px_rgba(229,9,20,0.6)] transition-all duration-300"
                   >
                     <Play className="mr-2 h-5 w-5 fill-current" />
-                    Hemen Test Et
+                    Hemen Ücretsiz Test Et
                   </Button>
+
+                  <Link to="/paketler" className="w-full sm:w-auto">
+                    <Button 
+                      variant="outline"
+                      size="lg"
+                      className="w-full sm:w-auto bg-white/[0.03] hover:bg-white/[0.08] border-white/15 hover:border-white/30 text-white font-bold px-8 py-6 rounded-full text-base md:text-lg transition-all duration-300"
+                    >
+                      <Layers className="mr-2 h-5 w-5 text-red-400" />
+                      Paketleri İncele
+                    </Button>
+                  </Link>
                 </div>
               </motion.div>
             </div>
@@ -125,16 +157,16 @@ const ChannelsPage = ({ siteData }) => {
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 1 }}
-              className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+              transition={{ delay: 0.8, duration: 1 }}
+              className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 pointer-events-none"
             >
-              <span className="text-sm font-medium text-slate-400 uppercase tracking-widest">Kanalları Keşfet</span>
+              <span className="text-[11px] font-mono font-medium text-slate-500 uppercase tracking-widest">Aşağı Kaydır</span>
               <motion.div 
-                animate={{ y: [0, 10, 0] }}
+                animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                className="w-6 h-10 border-2 border-slate-500 rounded-full flex justify-center p-1"
+                className="w-5 h-9 border border-white/20 rounded-full flex justify-center p-1"
               >
-                <div className="w-1.5 h-3 bg-white/50 rounded-full" />
+                <div className="w-1 h-2 bg-red-500 rounded-full" />
               </motion.div>
             </motion.div>
           </section>
@@ -144,7 +176,7 @@ const ChannelsPage = ({ siteData }) => {
             <ChannelSlider />
           </ErrorBoundary>
 
-          {/* CHANNELS GRID SECTION WITH REAL-TIME */}
+          {/* CHANNELS GRID SECTION WITH SEARCH & CATEGORY PILLS */}
           <ErrorBoundary>
             <AllChannels />
           </ErrorBoundary>
@@ -153,7 +185,7 @@ const ChannelsPage = ({ siteData }) => {
           <ChannelsPageContent />
 
           {/* BOTTOM SEO CONTENT SECTION */}
-          <div className="bg-[#0a0a0a] relative z-20 border-t border-white/5">
+          <div className="bg-[#07080b] relative z-20 border-t border-white/5">
              <HomePageSeoContent />
           </div>
 

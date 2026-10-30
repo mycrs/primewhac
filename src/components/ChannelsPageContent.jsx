@@ -9,24 +9,24 @@ const Highlight = ({ children, className = 'text-[#e50914] font-bold' }) => (
 const InfoCard = ({ title, content, icon: Icon, delay, gradientClass, borderClass, shadowClass }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: delay, ease: "easeOut" }}
-      className={`group relative bg-[#0a0a0a]/60 backdrop-blur-md p-8 rounded-2xl border ${borderClass} transition-all duration-500 shadow-lg ${shadowClass} hover:-translate-y-2 overflow-hidden`}
+      transition={{ duration: 0.5, delay: delay, ease: "easeOut" }}
+      className="group relative bg-[#0c0d12]/85 backdrop-blur-md p-7 md:p-8 rounded-2xl border border-white/10 hover:border-red-500/40 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_40px_rgba(229,9,20,0.2)] hover:-translate-y-1 overflow-hidden"
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
       
       <div className="relative z-10 flex flex-col h-full">
-        <div className="flex items-center gap-4 mb-6">
-          <div className={`p-3 rounded-xl bg-[#0a0a0a] border ${borderClass} group-hover:scale-110 transition-transform duration-300`}>
-            <Icon className="w-8 h-8 text-white" />
+        <div className="flex items-center gap-4 mb-5">
+          <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 group-hover:border-red-500/30 group-hover:scale-105 transition-all duration-300">
+            <Icon className="w-6 h-6 md:w-7 md:h-7 text-red-500" />
           </div>
-          <p className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-[#141414] group-hover:to-white transition-colors">
+          <h3 className="text-lg md:text-xl font-display font-bold text-white group-hover:text-red-400 transition-colors">
             {title}
-          </p>
+          </h3>
         </div>
-        <p className="text-slate-300 leading-relaxed text-base md:text-lg flex-grow">
+        <p className="text-slate-300 leading-relaxed text-sm md:text-base flex-grow font-light">
           {content}
         </p>
       </div>
@@ -39,20 +39,20 @@ const ChannelsPageContent = () => {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
-      transition: { staggerChildren: 0.2 }
+      transition: { staggerChildren: 0.15 }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
   };
 
   return (
-    <section id="iptv-quality-info" className="py-24 bg-[#0a0a0a] relative overflow-hidden">
+    <section id="iptv-quality-info" className="py-20 md:py-28 bg-[#07080b] relative overflow-hidden border-t border-white/5">
       {/* Decorative background elements */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#141414]/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#0a0a0a]/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-600/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-red-950/10 rounded-full blur-[140px] pointer-events-none" />
 
       <motion.div 
         className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10"
@@ -62,28 +62,29 @@ const ChannelsPageContent = () => {
         viewport={{ once: true, margin: "-100px" }}
       >
         <motion.div variants={itemVariants} className="text-center mb-16 max-w-3xl mx-auto">
-          <span className="inline-block py-1 px-3 rounded-full bg-[#141414]/40 border border-[#e50914]/30 text-white text-sm font-semibold tracking-wider uppercase mb-4">
-            Üstün Yayın Teknolojisi
-          </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6">
-            IPTV Quality Information
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono font-medium text-slate-300 mb-3 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>YAYIN TEKNOLOJİSİ & MİMARİ</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-display font-extrabold text-white tracking-tight mb-4">
+            Yayın Kalitesi ve Altyapı Ayrıcalıkları
           </h2>
-          <div className="w-24 h-1.5 bg-gradient-to-r from-[#e50914] to-[#b20710] mx-auto rounded-full mb-6" />
-          <p className="text-slate-400 text-lg">
-            Kesintisiz ve en yüksek çözünürlükte yayın keyfi için altyapımızın sunduğu ayrıcalıkları keşfedin.
+          <div className="w-20 h-1 bg-gradient-to-r from-red-600 to-red-800 mx-auto rounded-full mb-4" />
+          <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+            Kesintisiz ve en yüksek çözünürlükte yayın keyfi için altyapımızın sunduğu teknolojik standartları keşfedin.
           </p>
         </motion.div>
 
         {/* First original section - Intro */}
-        <div className="mb-20">
-          <motion.div variants={itemVariants} className="bg-gradient-to-r from-[#0a0a0a] to-[#141414] p-8 md:p-12 rounded-3xl border border-slate-700/50 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+        <div className="mb-12">
+          <motion.div variants={itemVariants} className="bg-[#0c0d12]/90 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none text-red-500">
               <Zap className="w-64 h-64" />
             </div>
-            <p className="text-2xl md:text-3xl font-bold text-white mb-6 relative z-10">
+            <h3 className="text-xl md:text-3xl font-display font-bold text-white mb-4 relative z-10">
               Canlı IPTV Kanalları Nedir? – Gerçek Zamanlı Yayın Hizmetleri
-            </p>
-            <p className="text-slate-300 leading-relaxed text-lg relative z-10">
+            </h3>
+            <p className="text-slate-300 leading-relaxed text-sm md:text-base relative z-10 font-light">
               Canlı IPTV kanalları, internet protokolü (IP) üzerinden televizyon yayınlarının dijital veri paketleri halinde cihazınıza aktarıldığı, modern ve esnek bir teknolojidir. Uydu çanakları veya kablolu TV altyapılarının aksine, sadece internet bağlantınızla 10.000+ kanal ve içeriğe eş zamanlı ulaşmanızı sağlar. Bu eşsiz gerçek zamanlı yayın hizmeti, izleyicilere mekân ve cihaz sınırlaması olmadan televizyon izleme özgürlüğü sunar. Akıllı telefonunuzdan, tabletinizden veya Smart TV'nizden aynı <Highlight>kaliteli iptv</Highlight> performansını elde edersiniz. Ayrıca, anlık veri akışı sayesinde gecikmeler minimize edilerek, ulusal ve global tüm <Highlight>hd iptv</Highlight> yayın içerikleri eş zamanlı olarak ekranınıza yansıtılır.
             </p>
           </motion.div>
