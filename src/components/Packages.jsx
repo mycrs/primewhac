@@ -46,26 +46,26 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
   const tier = (pkg?.tier || '').toLowerCase();
   const isEu = (pkg?.region || '').toLowerCase() === 'eu' || pkg?.currency === '€';
 
-  // 1. 4K Ultra İçerik & Sinema / VIP 4K (Flagship)
-  if (isPopular || tier === 'cinema' || name.includes('4k') || name.includes('vip') || name.includes('sinema') || name.includes('kino') || name.includes('içerik')) {
+  // 1. Premium Stabil / Europa Standard
+  if (tier === 'stabil' || tier === 'standard' || name.includes('stabil') || name.includes('standart') || (isEu && !name.includes('vip') && !name.includes('ultra') && !name.includes('4k'))) {
     return {
-      type: 'cinema',
+      type: 'stabil',
       seal: isDe
-        ? (isEu ? 'VIP 4K • 2 GERÄTE (DUAL)' : '4K KINO & VOD-ARCHIV')
-        : (isEu ? 'VIP 4K • 2 CİHAZ (ÇİFT KULLANICI)' : '4K SİNEMA & DEV VOD ARŞİVİ'),
-      badge: isDe ? 'AM BELIEBTESTEN' : 'EN ÇOK TERCİH EDİLEN',
-      icon: Film,
-      bgGlow: 'bg-[#e50914]',
-      border: 'border-[#e50914]/80 shadow-[0_0_50px_rgba(229,9,20,0.3)] ring-1 ring-[#e50914]/50',
-      hoverBorder: 'hover:border-[#e50914]',
-      cardBg: 'bg-gradient-to-b from-[#1d1214]/95 via-[#130c0e]/95 to-[#090708]/98',
-      accentColor: '#ff4b55',
-      checkColor: 'text-[#ff4b55]',
-      checkBg: 'bg-[#e50914]/20 border-[#e50914]/40',
-      btnBg: 'bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white shadow-xl shadow-[#e50914]/40 hover:shadow-[0_0_35px_rgba(229,9,20,0.6)] hover:scale-[1.02]',
+        ? (isEu ? 'EUROPA STANDARD • 1 GERÄT' : 'STABILITÄTS-FOKUS • LIVE-TV')
+        : (isEu ? 'AVRUPA STANDART • 1 CİHAZ' : 'STABİLİTE ODAKLI • CANLI TV'),
+      badge: isDe ? (isEu ? 'STANDARD' : 'DEDIZIERTE SERVER') : (isEu ? 'TEK CİHAZ' : 'DONMAYAN ALTYAPI'),
+      icon: isEu ? Tv : ShieldCheck,
+      bgGlow: 'bg-emerald-600',
+      border: 'border-emerald-500/30 shadow-[0_0_35px_rgba(16,185,129,0.12)] ring-1 ring-emerald-500/20',
+      hoverBorder: 'hover:border-emerald-400',
+      cardBg: 'bg-gradient-to-b from-[#101b17]/95 via-[#0b1210]/95 to-[#060b09]/98',
+      accentColor: '#34d399',
+      checkColor: 'text-emerald-400',
+      checkBg: 'bg-emerald-500/20 border-emerald-500/40',
+      btnBg: 'bg-white/[0.08] hover:bg-emerald-600 text-white border border-white/15 hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-600/30 hover:scale-[1.01]',
       tagline: isDe
-        ? (isEu ? '2 Geräte gleichzeitig & 4K UHD Master' : '15.000+ Filme, Serien & 4K Master')
-        : (isEu ? '2 Cihaz / Çift Kullanıcı & 4K UHD Master Yayın' : '15.000+ Film, Dizi & 4K Master Yayın'),
+        ? (isEu ? '1 Gerät & Stabile Europa-Server' : 'Anti-Freeze v4 & Dedizierte Server')
+        : (isEu ? '1 Cihaz & Donmayan Avrupa CDN Altyapısı' : 'Anti-Freeze v4 & Kesintisiz Canlı TV'),
     };
   }
 
@@ -88,25 +88,25 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
     };
   }
 
-  // 3. Standart Avrupa / Premium Stabil Paket (Default)
+  // 3. 4K Ultra İçerik & Sinema / Avrupa 4K Ultra Premium (Flagship)
   return {
-    type: 'stabil',
+    type: 'cinema',
     seal: isDe
-      ? (isEu ? 'EUROPA STANDARD • 1 GERÄT' : 'STABILITÄTS-FOKUS • LIVE-TV')
-      : (isEu ? 'AVRUPA STANDART • 1 CİHAZ' : 'STABİLİTE ODAKLI • CANLI TV'),
-    badge: isDe ? (isEu ? 'STANDARD' : 'DEDIZIERTE SERVER') : (isEu ? 'TEK CİHAZ' : 'DONMAYAN ALTYAPI'),
-    icon: isEu ? Tv : ShieldCheck,
-    bgGlow: 'bg-emerald-600',
-    border: 'border-emerald-500/30 shadow-[0_0_35px_rgba(16,185,129,0.12)] ring-1 ring-emerald-500/20',
-    hoverBorder: 'hover:border-emerald-400',
-    cardBg: 'bg-gradient-to-b from-[#101b17]/95 via-[#0b1210]/95 to-[#060b09]/98',
-    accentColor: '#34d399',
-    checkColor: 'text-emerald-400',
-    checkBg: 'bg-emerald-500/20 border-emerald-500/40',
-    btnBg: 'bg-white/[0.08] hover:bg-emerald-600 text-white border border-white/15 hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-600/30 hover:scale-[1.01]',
+      ? (isEu ? '4K ULTRA PREMIUM • CATCH-UP' : '4K KINO & VOD-ARCHIV')
+      : (isEu ? '4K ULTRA PREMIUM • GERİ SARMA' : '4K SİNEMA & DEV VOD ARŞİVİ'),
+    badge: isDe ? (isEu ? '4K PREMIUM' : 'AM BELIEBTESTEN') : (isEu ? '4K PREMIUM' : 'EN ÇOK TERCİH EDİLEN'),
+    icon: Film,
+    bgGlow: 'bg-[#e50914]',
+    border: 'border-[#e50914]/80 shadow-[0_0_50px_rgba(229,9,20,0.3)] ring-1 ring-[#e50914]/50',
+    hoverBorder: 'hover:border-[#e50914]',
+    cardBg: 'bg-gradient-to-b from-[#1d1214]/95 via-[#130c0e]/95 to-[#090708]/98',
+    accentColor: '#ff4b55',
+    checkColor: 'text-[#ff4b55]',
+    checkBg: 'bg-[#e50914]/20 border-[#e50914]/40',
+    btnBg: 'bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white shadow-xl shadow-[#e50914]/40 hover:shadow-[0_0_35px_rgba(229,9,20,0.6)] hover:scale-[1.02]',
     tagline: isDe
-      ? (isEu ? '1 Gerät & Stabile Europa-Server' : 'Anti-Freeze v4 & Dedizierte Server')
-      : (isEu ? '1 Cihaz & Donmayan Avrupa CDN Altyapısı' : 'Anti-Freeze v4 & Kesintisiz Canlı TV'),
+      ? (isEu ? '48h Catch-Up & 4K UHD Master Streams' : '15.000+ Filme, Serien & 4K Master')
+      : (isEu ? '48 Saat Geri Sarma & 4K UHD Master Yayın' : '15.000+ Film, Dizi & 4K Master Yayın'),
   };
 };
 
@@ -140,11 +140,16 @@ const PACKAGE_TEXT_DE = new Map([
   ['Qruze Paket', 'Qruze-Paket'],
   ['Standart Avrupa Paketi', 'Europa Standard-Paket'],
   ['Avrupa Standart Paket', 'Europa Standard-Paket'],
-  ['VIP 4K & Çift Kullanıcı', 'VIP 4K & Dual-Geräte'],
-  ['Avrupa VIP 4K & Çift Kullanıcı', 'VIP 4K & Dual-Geräte'],
+  ['Avrupa 4K Ultra Premium', 'Europa 4K Ultra Premium'],
+  ['4K Ultra Premium', '4K Ultra Premium'],
+  ['VIP 4K & Çift Kullanıcı', 'Europa 4K Ultra Premium'],
+  ['Avrupa VIP 4K & Çift Kullanıcı', 'Europa 4K Ultra Premium'],
   ['12 Aylık Avrupa Paketi', '12 Monate Europa-Paket'],
-  ['12 Aylık VIP 4K & Çift Kullanıcı', '12 Monate VIP 4K & Dual-Geräte'],
+  ['12 Aylık VIP 4K & Çift Kullanıcı', '12 Monate Europa 4K Ultra Premium'],
   ['1 Cihaz / Tek Kullanıcı', '1 Gerät / Einzelnutzer'],
+  ['1 Cihaz (Tek Giriş)', '1 Gerät (Einzelnutzung)'],
+  ['2 Cihaz (Çift Giriş)', '2 Geräte (Dual-Nutzung)'],
+  ['48 Saat Geri Sar & Tekrar İzle (Catch-Up Desteği)', '48h Catch-Up & Replay Funktion (Sendung verpasst)'],
   ['2 Cihaz / Çift Kullanıcı Desteği (Aynı Anda)', '2 Geräte gleichzeitig (Dual-Nutzung)'],
   ['2 Cihaz / Çift Kullanıcı Desteği', '2 Geräte gleichzeitig (Dual-Nutzung)'],
   ['Tüm Türk & Avrupa Kanalları (Almanya, UK, Fransa vb.)', 'Alle türkischen & europäischen Sender (DE, UK, FR usw.)'],
@@ -183,6 +188,7 @@ const localizePackageText = (value, isDe) => {
 
 const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => {
   const [selectedRegion, setSelectedRegion] = useState('tr');
+  const [deviceOption, setDeviceOption] = useState(1);
   const pkgName = pkg.name || pkg.title || '';
   const displayName = localizePackageText(pkgName, isDe);
   const displayDuration = localizePackageText(pkg.duration, isDe);
@@ -191,8 +197,61 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
   const IconComponent = theme.icon;
   const isTrPackage = (pkg.currency === '₺' || (pkg.region || '').toLowerCase() === 'tr') && !isDe;
 
+  const getDualPriceInfo = () => {
+    if (pkg.dual_price) {
+      return {
+        dualPrice: pkg.dual_price,
+        originalDualPrice: pkg.original_dual_price || Math.round(pkg.dual_price * 1.25),
+      };
+    }
+
+    const duration = (pkg.duration || pkgName).toLowerCase();
+    const is12m = duration.includes('12') || duration.includes('1 yıl') || duration.includes('yıllık') || duration.includes('jahr');
+    const isEu = (pkg.region || '').toLowerCase() === 'eu' || pkg.currency === '€';
+
+    if (isEu) {
+      if (is12m) {
+        if (theme.type === 'cinema') return { dualPrice: 185, originalDualPrice: 240 };
+        return { dualPrice: 110, originalDualPrice: 150 };
+      }
+      if (duration.includes('6')) {
+        return { dualPrice: theme.type === 'cinema' ? 100 : 85, originalDualPrice: 130 };
+      }
+      if (duration.includes('3')) {
+        return { dualPrice: theme.type === 'cinema' ? 65 : 50, originalDualPrice: 85 };
+      }
+    } else {
+      // TR
+      if (is12m) {
+        if (theme.type === 'cinema') return { dualPrice: 4000, originalDualPrice: 4800 };
+        if (theme.type === 'global') return { dualPrice: 4200, originalDualPrice: 5000 };
+        return { dualPrice: 3800, originalDualPrice: 4600 };
+      }
+      if (duration.includes('15')) {
+        if (theme.type === 'cinema') return { dualPrice: 4600, originalDualPrice: 5500 };
+        if (theme.type === 'global') return { dualPrice: 4800, originalDualPrice: 5800 };
+        return { dualPrice: 4500, originalDualPrice: 5400 };
+      }
+      if (duration.includes('6')) {
+        return { dualPrice: Math.round(Number(pkg.price) * 1.8), originalDualPrice: Math.round(Number(pkg.price) * 2.1) };
+      }
+      if (duration.includes('3')) {
+        return { dualPrice: Math.round(Number(pkg.price) * 1.8), originalDualPrice: Math.round(Number(pkg.price) * 2.1) };
+      }
+    }
+    return null;
+  };
+
+  const dualInfo = getDualPriceInfo();
+  const currentPrice = deviceOption === 2 && dualInfo ? dualInfo.dualPrice : pkg.price;
+  const currentOriginalPrice = deviceOption === 2 && dualInfo ? dualInfo.originalDualPrice : pkg.original_price;
+
   const handleOrder = () => {
     trackOrderIntent(pkgName, isDe ? 'packages_de' : 'packages_tr');
+    const deviceLabel = deviceOption === 2
+      ? (isDe ? '2 Geräte (Dual)' : '2 Cihaz / Çift Giriş')
+      : (isDe ? '1 Gerät' : '1 Cihaz / Tek Giriş');
+
     if (pkg.isRegionSelectable ?? pkg.is_region_selectable) {
       const regionNames = {
         'tr': isDe ? 'Türkei' : 'Türkiye',
@@ -202,21 +261,29 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
       
       const modifiedPkg = {
         ...pkg,
-        title: `${displayName} (${regionNames[selectedRegion]} - ${displayDuration})`,
-        selectedRegion: selectedRegion
+        price: currentPrice,
+        title: `${displayName} (${regionNames[selectedRegion]} - ${deviceLabel} - ${displayDuration})`,
+        selectedRegion: selectedRegion,
+        deviceOption: deviceOption
       };
       onOrder(modifiedPkg);
     } else {
       const orderPkg = {
         ...pkg,
-        title: `${displayName} (${displayDuration})`
+        price: currentPrice,
+        title: `${displayName} (${deviceLabel} - ${displayDuration})`,
+        deviceOption: deviceOption
       };
       onOrder(orderPkg);
     }
   };
 
-  const fullButtonLabel = localizePackageText(pkg.button_text, isDe) || (isDe ? 'Jetzt bestellen' : 'Hemen Sipariş Ver');
-  const mobileButtonLabel = isDe ? 'Bestellen' : 'Satın Al';
+  const fullButtonLabel = deviceOption === 2
+    ? (isDe ? 'Dual Jetzt Bestellen' : 'Hemen Sipariş Ver (2 Cihaz)')
+    : (localizePackageText(pkg.button_text, isDe) || (isDe ? 'Jetzt bestellen' : 'Hemen Sipariş Ver'));
+  const mobileButtonLabel = deviceOption === 2
+    ? (isDe ? 'Dual Bestellen' : 'Satın Al (2 Cihaz)')
+    : (isDe ? 'Bestellen' : 'Satın Al');
   const showCustomBadge = pkg.badge_enabled && pkg.badge_text;
 
   const getMonthlyBreakdown = (price, duration) => {
@@ -233,7 +300,14 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
     return Math.round(numPrice / months);
   };
 
-  const monthlyBreakdown = getMonthlyBreakdown(pkg.price, pkg.duration || pkgName);
+  const monthlyBreakdown = getMonthlyBreakdown(currentPrice, pkg.duration || pkgName);
+
+  const dynamicFeatures = [
+    deviceOption === 2 
+      ? (isDe ? '✨ 2 Geräte gleichzeitig (Dual-Nutzung)' : '✨ 2 Cihaz / Çift Kullanıcı Desteği (Aynı Anda)')
+      : (isDe ? '1 Gerät / Einzelnutzer' : '1 Cihaz / Tek Kullanıcı Desteği'),
+    ...displayFeatures.filter(f => !f.toLowerCase().includes('cihaz') && !f.toLowerCase().includes('gerät'))
+  ];
 
   return (
     <article className={`relative p-3.5 sm:p-5 lg:p-7 rounded-2xl lg:rounded-3xl border flex flex-col h-full backdrop-blur-2xl transition-all duration-300 group z-10 ${theme.cardBg} ${theme.border} ${theme.hoverBorder} ${theme.type === 'cinema' ? 'lg:-translate-y-2' : ''}`}>
@@ -291,14 +365,52 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
             </span>
           )}
         </div>
+
+        {/* Interactive Luxury Device Selector (Tek Giriş vs Çift Giriş) */}
+        {dualInfo && (
+          <div className="w-full max-w-[270px] mx-auto bg-black/60 p-0.5 sm:p-1 rounded-xl border border-white/10 backdrop-blur-md my-2 flex relative z-20 shadow-inner">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setDeviceOption(1);
+              }}
+              className={`flex-1 py-1 sm:py-1.5 px-2 rounded-lg text-[9.5px] sm:text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
+                deviceOption === 1
+                  ? 'bg-white/15 text-white shadow-sm border border-white/20'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Tv className="w-3 h-3 shrink-0" />
+              <span>{isDe ? '1 Gerät' : '1 Cihaz (Tek)'}</span>
+            </button>
+            
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setDeviceOption(2);
+              }}
+              className={`flex-1 py-1 sm:py-1.5 px-2 rounded-lg text-[9.5px] sm:text-xs font-black transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
+                deviceOption === 2
+                  ? 'bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white shadow-lg shadow-[#e50914]/40 scale-102 border border-white/30 ring-1 ring-[#e50914]/50'
+                  : 'text-amber-300 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Sparkles className="w-3 h-3 text-amber-300 animate-pulse shrink-0" />
+              <span>{isDe ? '2 Geräte' : '2 Cihaz (Çift)'}</span>
+              <span className="text-[7.5px] bg-black/60 text-amber-300 px-1 rounded-full font-black uppercase tracking-wider hidden sm:inline">VIP</span>
+            </button>
+          </div>
+        )}
         
         {/* Price Display */}
         <div className="flex items-baseline justify-center gap-0.5 my-1 lg:my-2">
-          {pkg.original_price != null && Number(pkg.original_price) > Number(pkg.price) && (
-            <span className="text-[10px] sm:text-xs lg:text-base text-slate-500 line-through mr-1 font-semibold">{currencySymbol}{pkg.original_price}</span>
+          {currentOriginalPrice != null && Number(currentOriginalPrice) > Number(currentPrice) && (
+            <span className="text-[10px] sm:text-xs lg:text-base text-slate-500 line-through mr-1 font-semibold">{currencySymbol}{currentOriginalPrice}</span>
           )}
           <span className="text-sm sm:text-base lg:text-2xl text-slate-400 font-extrabold">{currencySymbol}</span>
-          <span className="font-display text-xl sm:text-2xl lg:text-5xl font-black text-white tracking-tight drop-shadow-sm leading-none">{pkg.price}</span>
+          <span className="font-display text-xl sm:text-2xl lg:text-5xl font-black text-white tracking-tight drop-shadow-sm leading-none transition-all duration-300">{currentPrice}</span>
         </div>
 
         {/* Monthly Breakdown Tag */}
@@ -328,7 +440,7 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
       <div className="flex-grow my-1">
         {/* Mobile Compact Features (Top 3 key highlights) */}
         <ul className="space-y-1.5 lg:hidden">
-          {displayFeatures.slice(0, 3).map((feature, i) => (
+          {dynamicFeatures.slice(0, 3).map((feature, i) => (
             <li key={i} className="flex items-start text-[10.5px] sm:text-xs text-slate-300 font-medium leading-tight">
               <div className={`mr-1.5 mt-0.5 shrink-0 w-3.5 h-3.5 rounded-full ${theme.checkBg} flex items-center justify-center`}>
                 <Check className={`w-2 h-2 ${theme.checkColor}`} />
@@ -336,16 +448,16 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
               <span className="line-clamp-2">{feature}</span>
             </li>
           ))}
-          {displayFeatures.length > 3 && (
+          {dynamicFeatures.length > 3 && (
             <li className="text-[9.5px] sm:text-[11px] text-slate-400 pl-5 pt-0.5 font-medium italic">
-              +{ (displayFeatures.length - 3) } {isDe ? 'weitere' : 'özellik daha'}
+              +{ (dynamicFeatures.length - 3) } {isDe ? 'weitere' : 'özellik daha'}
             </li>
           )}
         </ul>
 
         {/* Desktop Features (Full 6 highlights) */}
         <ul className="hidden lg:block space-y-2.5">
-          {displayFeatures.slice(0, 6).map((feature, i) => (
+          {dynamicFeatures.slice(0, 6).map((feature, i) => (
             <li key={i} className="flex items-start text-xs lg:text-sm text-slate-300 font-medium leading-relaxed">
               <div className={`mr-2.5 mt-0.5 shrink-0 w-4 h-4 rounded-full ${theme.checkBg} flex items-center justify-center`}>
                 <Check className={`w-2.5 h-2.5 ${theme.checkColor}`} />
@@ -353,9 +465,9 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
               <span className="line-clamp-2">{feature}</span>
             </li>
           ))}
-          {displayFeatures.length > 6 && (
+          {dynamicFeatures.length > 6 && (
             <li className="text-[11px] text-slate-400 pl-6 pt-0.5 italic">
-              +{ (displayFeatures.length - 6) } {isDe ? 'weitere Funktionen' : 'özellik daha'}
+              +{ (dynamicFeatures.length - 6) } {isDe ? 'weitere Funktionen' : 'özellik daha'}
             </li>
           )}
         </ul>
@@ -546,7 +658,7 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
         </div>
 
         <div
-          id="mobile-packages-swiper"
+          id={`mobile-packages-swiper-${regionKey.toLowerCase()}`}
           ref={mobileScrollRef}
           onScroll={handleMobileScroll}
           className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-2 sm:gap-4 px-3 sm:px-6 pb-4 pt-2"
@@ -663,7 +775,7 @@ const Packages = ({
     if (trPackages.length === 0) setTrLoading(true);
     setTrError(null);
     const fallbackData = STATIC_PACKAGES_TR;
-    const cacheKey = 'sb_pub_packages_tr_v7';
+    const cacheKey = 'sb_pub_packages_tr_v9';
 
     if (!isSupabaseConfigured()) {
       setTrPackages(fallbackData.map(normalizePackage));
@@ -714,7 +826,7 @@ const Packages = ({
     if (euPackages.length === 0) setEuLoading(true);
     setEuError(null);
     const fallbackData = STATIC_PACKAGES_EU;
-    const cacheKey = 'sb_pub_packages_eu_v7';
+    const cacheKey = 'sb_pub_packages_eu_v9';
 
     if (!isSupabaseConfigured()) {
       setEuPackages(fallbackData.map(normalizePackage));
