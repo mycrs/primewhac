@@ -236,20 +236,20 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
   const monthlyBreakdown = getMonthlyBreakdown(pkg.price, pkg.duration || pkgName);
 
   return (
-    <article className={`relative p-3.5 sm:p-5 md:p-7 rounded-2xl md:rounded-3xl border flex flex-col h-full backdrop-blur-2xl transition-all duration-300 group z-10 ${theme.cardBg} ${theme.border} ${theme.hoverBorder} ${theme.type === 'cinema' ? 'md:-translate-y-2' : ''}`}>
+    <article className={`relative p-3.5 sm:p-5 lg:p-7 rounded-2xl lg:rounded-3xl border flex flex-col h-full backdrop-blur-2xl transition-all duration-300 group z-10 ${theme.cardBg} ${theme.border} ${theme.hoverBorder} ${theme.type === 'cinema' ? 'lg:-translate-y-2' : ''}`}>
       {/* Background Subtle Ambient Glow */}
       <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] ${theme.bgGlow} opacity-[0.04] group-hover:opacity-[0.16] blur-3xl rounded-full pointer-events-none transition-opacity duration-500 -z-10`} />
 
       {/* Popüler Paket / Özel Rozet */}
       {theme.type === 'cinema' && !showCustomBadge && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white text-[8px] sm:text-[9.5px] md:text-[11px] font-black px-2 sm:px-3 md:px-4 py-0.5 md:py-1 rounded-full uppercase flex items-center gap-1 shadow-xl shadow-[#e50914]/40 z-20 whitespace-nowrap border border-white/25 tracking-wide">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white text-[8px] sm:text-[9.5px] lg:text-[11px] font-black px-2 sm:px-3 lg:px-4 py-0.5 lg:py-1 rounded-full uppercase flex items-center gap-1 shadow-xl shadow-[#e50914]/40 z-20 whitespace-nowrap border border-white/25 tracking-wide">
           <Star className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-amber-300 text-amber-300 animate-pulse shrink-0" />
-          <span className="md:hidden">{isDe ? 'AM BELIEBTESTEN' : 'EN POPÜLER'}</span>
-          <span className="hidden md:inline">{theme.badge}</span>
+          <span className="lg:hidden">{isDe ? 'AM BELIEBTESTEN' : 'EN POPÜLER'}</span>
+          <span className="hidden lg:inline">{theme.badge}</span>
         </div>
       )}
       {showCustomBadge && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-[8px] sm:text-[9.5px] md:text-[11px] font-black px-2 sm:px-3 md:px-4 py-0.5 md:py-1 rounded-full uppercase shadow-xl z-20 whitespace-nowrap border border-white/30 tracking-wider">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-[8px] sm:text-[9.5px] lg:text-[11px] font-black px-2 sm:px-3 lg:px-4 py-0.5 lg:py-1 rounded-full uppercase shadow-xl z-20 whitespace-nowrap border border-white/30 tracking-wider">
           {localizePackageText(pkg.badge_text, isDe)}
         </div>
       )}
@@ -257,15 +257,15 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
       <PackageCountdownBadge pkg={pkg} isDe={isDe} />
 
       {/* Header Info */}
-      <div className="text-center mb-1.5 md:mb-2 pt-1 md:pt-2 relative">
-        <div className="flex items-center justify-center gap-1 md:gap-1.5 mb-1 md:mb-1.5">
-          <IconComponent className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" style={{ color: theme.accentColor }} />
-          <span className="text-[8.5px] sm:text-[9.5px] md:text-[10px] font-mono tracking-wider md:tracking-widest uppercase font-extrabold truncate" style={{ color: theme.accentColor }}>
+      <div className="text-center mb-1.5 lg:mb-2 pt-1 lg:pt-2 relative">
+        <div className="flex items-center justify-center gap-1 lg:gap-1.5 mb-1 lg:mb-1.5">
+          <IconComponent className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0" style={{ color: theme.accentColor }} />
+          <span className="text-[8.5px] sm:text-[9.5px] lg:text-[10px] font-mono tracking-wider lg:tracking-widest uppercase font-extrabold truncate" style={{ color: theme.accentColor }}>
             {theme.seal}
           </span>
         </div>
 
-        <h3 className="text-sm sm:text-base md:text-2xl font-black text-white tracking-tight leading-tight line-clamp-2 min-h-[2.2rem] sm:min-h-0 flex items-center justify-center">
+        <h3 className="text-sm sm:text-base lg:text-2xl font-black text-white tracking-tight leading-tight line-clamp-2 min-h-[2.2rem] sm:min-h-0 flex items-center justify-center">
           {displayName}
         </h3>
 
@@ -275,7 +275,7 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
         </p>
 
         {/* Duration Sub-pill & Region Scope Badge */}
-        <div className="flex flex-wrap items-center justify-center gap-1 mb-1.5 md:mb-2">
+        <div className="flex flex-wrap items-center justify-center gap-1 mb-1.5 lg:mb-2">
           <span className="px-2 sm:px-3 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-white font-bold text-[10px] sm:text-xs">
             {displayDuration}
           </span>
@@ -293,18 +293,18 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
         </div>
         
         {/* Price Display */}
-        <div className="flex items-baseline justify-center gap-0.5 my-1 md:my-2">
+        <div className="flex items-baseline justify-center gap-0.5 my-1 lg:my-2">
           {pkg.original_price != null && Number(pkg.original_price) > Number(pkg.price) && (
-            <span className="text-[10px] sm:text-xs md:text-base text-slate-500 line-through mr-1 font-semibold">{currencySymbol}{pkg.original_price}</span>
+            <span className="text-[10px] sm:text-xs lg:text-base text-slate-500 line-through mr-1 font-semibold">{currencySymbol}{pkg.original_price}</span>
           )}
-          <span className="text-sm sm:text-base md:text-2xl text-slate-400 font-extrabold">{currencySymbol}</span>
-          <span className="font-display text-xl sm:text-2xl md:text-5xl font-black text-white tracking-tight drop-shadow-sm leading-none">{pkg.price}</span>
+          <span className="text-sm sm:text-base lg:text-2xl text-slate-400 font-extrabold">{currencySymbol}</span>
+          <span className="font-display text-xl sm:text-2xl lg:text-5xl font-black text-white tracking-tight drop-shadow-sm leading-none">{pkg.price}</span>
         </div>
 
         {/* Monthly Breakdown Tag */}
         {monthlyBreakdown && (
-          <div className="inline-flex items-center gap-1 px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[9.5px] sm:text-[11px] md:text-xs font-bold shadow-sm max-w-full">
-            <Zap className="w-2.5 h-2.5 md:w-3 md:h-3 fill-emerald-400 text-emerald-400 shrink-0" />
+          <div className="inline-flex items-center gap-1 px-2 py-0.5 lg:px-3 lg:py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[9.5px] sm:text-[11px] lg:text-xs font-bold shadow-sm max-w-full">
+            <Zap className="w-2.5 h-2.5 lg:w-3 lg:h-3 fill-emerald-400 text-emerald-400 shrink-0" />
             <span className="truncate">
               {isDe
                 ? `~${currencySymbol}${monthlyBreakdown} / Mo.`
@@ -322,14 +322,14 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
       )}
 
       {/* Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-2 md:my-4" />
+      <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-2 lg:my-4" />
 
       {/* Features List */}
       <div className="flex-grow my-1">
         {/* Mobile Compact Features (Top 3 key highlights) */}
-        <ul className="space-y-1.5 md:hidden">
+        <ul className="space-y-1.5 lg:hidden">
           {displayFeatures.slice(0, 3).map((feature, i) => (
-            <li key={i} className="flex items-start text-[10.5px] text-slate-300 font-medium leading-tight">
+            <li key={i} className="flex items-start text-[10.5px] sm:text-xs text-slate-300 font-medium leading-tight">
               <div className={`mr-1.5 mt-0.5 shrink-0 w-3.5 h-3.5 rounded-full ${theme.checkBg} flex items-center justify-center`}>
                 <Check className={`w-2 h-2 ${theme.checkColor}`} />
               </div>
@@ -337,16 +337,16 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
             </li>
           ))}
           {displayFeatures.length > 3 && (
-            <li className="text-[9.5px] text-slate-400 pl-5 pt-0.5 font-medium italic">
+            <li className="text-[9.5px] sm:text-[11px] text-slate-400 pl-5 pt-0.5 font-medium italic">
               +{ (displayFeatures.length - 3) } {isDe ? 'weitere' : 'özellik daha'}
             </li>
           )}
         </ul>
 
         {/* Desktop Features (Full 6 highlights) */}
-        <ul className="hidden md:block space-y-2.5">
+        <ul className="hidden lg:block space-y-2.5">
           {displayFeatures.slice(0, 6).map((feature, i) => (
-            <li key={i} className="flex items-start text-xs md:text-sm text-slate-300 font-medium leading-relaxed">
+            <li key={i} className="flex items-start text-xs lg:text-sm text-slate-300 font-medium leading-relaxed">
               <div className={`mr-2.5 mt-0.5 shrink-0 w-4 h-4 rounded-full ${theme.checkBg} flex items-center justify-center`}>
                 <Check className={`w-2.5 h-2.5 ${theme.checkColor}`} />
               </div>
@@ -362,14 +362,14 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
       </div>
 
       {/* Action / Buy Button */}
-      <div className="mt-auto pt-3 md:pt-4 shrink-0 w-full z-20">
+      <div className="mt-auto pt-3 lg:pt-4 shrink-0 w-full z-20">
         <Button 
           onClick={handleOrder}
-          className={`w-full h-9 sm:h-10 md:h-13 rounded-xl md:rounded-2xl font-black text-xs sm:text-sm md:text-base tracking-wide shadow-xl transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${theme.btnBg}`}
+          className={`w-full h-9 sm:h-10 lg:h-13 rounded-xl lg:rounded-2xl font-black text-xs sm:text-sm lg:text-base tracking-wide shadow-xl transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${theme.btnBg}`}
         >
-          <Zap className="w-3.5 h-3.5 md:w-4 md:h-4 fill-current mr-0.5 shrink-0" />
-          <span className="md:hidden whitespace-nowrap">{mobileButtonLabel}</span>
-          <span className="hidden md:inline truncate">{fullButtonLabel}</span>
+          <Zap className="w-3.5 h-3.5 lg:w-4 lg:h-4 fill-current mr-0.5 shrink-0" />
+          <span className="lg:hidden whitespace-nowrap">{mobileButtonLabel}</span>
+          <span className="hidden lg:inline truncate">{fullButtonLabel}</span>
         </Button>
         <div className="flex items-center justify-center gap-1.5 text-[8.5px] sm:text-[10px] text-slate-500 mt-2 font-medium truncate">
           <span>🔒 {isDe ? '256-Bit SSL' : '256-Bit SSL'}</span>
@@ -492,7 +492,7 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
 
       {/* Desktop Responsive Grid (The 3 Packages side-by-side: Stabil, 4K Sinema, Global) */}
       <div 
-        className="hidden md:grid gap-6 lg:gap-8 items-stretch w-full"
+        className="hidden lg:grid gap-6 lg:gap-8 items-stretch w-full"
         style={{
           gridTemplateColumns: displayPackages.length <= 2
             ? `repeat(${displayPackages.length}, minmax(320px, 420px))`
@@ -519,14 +519,14 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
       </div>
 
       {/* Mobile Top Status / Swipe Cue Bar */}
-      <div className="flex md:hidden items-center justify-between px-3.5 mb-2.5 text-xs">
+      <div className="flex lg:hidden items-center justify-between px-3.5 sm:px-6 mb-2.5 text-xs">
         <div className="flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full bg-[#e50914] animate-ping" />
-          <span className="text-[11px] font-bold text-slate-200">
+          <span className="text-[11px] sm:text-xs font-bold text-slate-200">
             {isDe ? 'Paketauswahl' : 'Paket Seçenekleri'}
           </span>
         </div>
-        <div className="inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.05] border border-white/10 px-2.5 py-0.5 rounded-full">
+        <div className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] text-slate-400 bg-white/[0.05] border border-white/10 px-2.5 py-0.5 rounded-full">
           <span>← {isDe ? 'Wischen' : 'Yana Kaydırın'}</span>
           <ChevronRight className="w-3 h-3 text-[#e50914] animate-pulse -ml-0.5" />
           <span className="font-bold text-white">({displayPackages.length})</span>
@@ -534,14 +534,14 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
       </div>
 
       {/* Mobile Native Smooth Swiper with CSS Snap & Continuation Peek */}
-      <div className="relative md:hidden w-full">
+      <div className="relative lg:hidden w-full">
         {/* Right Edge Glow & Peek Cue Indicator */}
         <div 
-          className="pointer-events-none absolute right-0 top-0 bottom-6 w-10 bg-gradient-to-l from-[#07080b] via-[#07080b]/80 to-transparent z-20 flex items-center justify-end pr-1 transition-opacity duration-300"
+          className="pointer-events-none absolute right-0 top-0 bottom-6 w-10 sm:w-16 bg-gradient-to-l from-[#07080b] via-[#07080b]/80 to-transparent z-20 flex items-center justify-end pr-1 sm:pr-3 transition-opacity duration-300"
           style={{ opacity: mobileActiveIdx >= displayPackages.length - 2 ? 0.2 : 0.95 }}
         >
-          <div className="w-5 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg shadow-black/80">
-            <ChevronRight className="w-3.5 h-3.5 text-white/80 animate-pulse" />
+          <div className="w-5 h-8 sm:w-7 sm:h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg shadow-black/80">
+            <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/80 animate-pulse" />
           </div>
         </div>
 
@@ -549,14 +549,14 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
           id="mobile-packages-swiper"
           ref={mobileScrollRef}
           onScroll={handleMobileScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-2 px-3 pb-4 pt-2"
+          className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-2 sm:gap-4 px-3 sm:px-6 pb-4 pt-2"
         >
           {displayPackages.map((pkg, idx) => {
             const isPopular = pkg.popular || (pkg.tier === 'cinema');
             return (
               <div
                 key={pkg.id || idx}
-                className="snap-start shrink-0 w-[42vw] min-w-[148px] max-w-[180px] flex flex-col"
+                className="snap-start shrink-0 w-[calc(43vw-6px)] sm:w-[calc(44vw-16px)] min-w-[148px] max-w-[390px] flex flex-col"
               >
                 <PackageCard
                   pkg={pkg}
@@ -572,7 +572,7 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
       </div>
 
       {/* Mobile Interactive Package Pill Bar */}
-      <div className="flex md:hidden items-center justify-center gap-1.5 mt-2 px-3">
+      <div className="flex lg:hidden items-center justify-center gap-1.5 sm:gap-2 mt-2 px-3 sm:px-6">
         {displayPackages.map((pkg, idx) => {
           const isActive = mobileActiveIdx === idx;
           const getShortLabel = () => {
@@ -592,7 +592,7 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
               type="button"
               onClick={() => handleScrollToCard(idx)}
               aria-label={`Paket ${idx + 1}`}
-              className={`h-7 px-3 rounded-full text-[11px] font-black transition-all duration-300 flex items-center gap-1.5 border cursor-pointer active:scale-95 ${
+              className={`h-7 sm:h-8 px-3 sm:px-4 rounded-full text-[11px] sm:text-xs font-black transition-all duration-300 flex items-center gap-1.5 border cursor-pointer active:scale-95 ${
                 isActive
                   ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white border-white/30 shadow-md shadow-[#e50914]/40 scale-105 ring-1 ring-[#e50914]/40'
                   : 'bg-[#121218]/90 text-slate-400 border-white/10 hover:text-white hover:bg-white/[0.06]'
