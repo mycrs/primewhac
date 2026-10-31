@@ -4,74 +4,165 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="theme-color" content="#070709" />
   <title>404 — Sayfa Bulunamadı | QruzeTV</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       min-height: 100vh;
-      background: #0a0a0a;
+      background: #070709;
       color: #f5f5f5;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px;
+      text-align: center;
+      position: relative;
+      overflow-x: hidden;
     }
-    .wrap { max-width: 560px; width: 100%; text-align: center; }
-    .logo {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      text-decoration: none;
-      color: #f5f5f5;
+    .ambient-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(229, 9, 20, 0.18) 0%, rgba(245, 158, 11, 0.08) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+      filter: blur(80px);
     }
-    .logo span { color: #e50914; }
-    .code {
-      font-size: 96px;
-      font-weight: 800;
-      line-height: 1;
-      margin: 32px 0 8px;
-      color: #e50914;
+    .wrap {
+      max-width: 640px;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-col;
+      align-items: center;
+      justify-content: center;
     }
-    h1 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
-    p { color: #a3a3a3; font-size: 15px; line-height: 1.6; margin-bottom: 8px; }
-    .de { margin-top: 20px; padding-top: 20px; border-top: 1px solid #262626; }
-    .de h2 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: #f5f5f5; }
-    .links { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-    .btn {
-      display: inline-block;
-      padding: 12px 22px;
-      border-radius: 8px;
-      font-size: 14px;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 12px;
       font-weight: 600;
-      text-decoration: none;
-      transition: background 0.15s ease;
+      color: #cbd5e1;
+      margin-bottom: 16px;
     }
-    .btn-primary { background: #e50914; color: #fff; }
-    .btn-primary:hover { background: #b00610; }
-    .btn-ghost { background: #1a1a1a; color: #f5f5f5; border: 1px solid #333; }
-    .btn-ghost:hover { background: #262626; }
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #e50914;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #e50914;
+    }
+    .mascot-img {
+      max-width: 340px;
+      width: 90%;
+      height: auto;
+      margin: 8px auto 16px;
+      display: block;
+      filter: drop-shadow(0 20px 35px rgba(229, 9, 20, 0.35));
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto 24px;
+    }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #e50914, #b20710);
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(229, 9, 20, 0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(229, 9, 20, 0.5);
+    }
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.05);
+      color: #f1f5f9;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    .de-text {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      color: #64748b;
+    }
   </style>
 </head>
 <body>
+  <div class="ambient-glow"></div>
   <main class="wrap">
-    <a class="logo" href="/">Qruze<span>TV</span></a>
-    <div class="code">404</div>
-    <h1>Sayfa bulunamadı</h1>
-    <p>Aradığınız sayfa taşınmış, kaldırılmış ya da adres yanlış yazılmış olabilir. Ana sayfadan ya da paketler sayfasından devam edebilirsiniz.</p>
-
-    <div class="de" lang="de">
-      <h2>Seite nicht gefunden</h2>
-      <p>Die gesuchte Seite wurde verschoben, entfernt oder die Adresse ist falsch. Weiter geht's auf der Startseite oder bei den Paketen.</p>
+    <div class="badge">
+      <span class="dot"></span>
+      <span>Frekans Sinyali Kayboldu · Hata 404</span>
     </div>
 
+    <picture>
+      <source srcset="/404-qruze.webp" type="image/webp" />
+      <img src="/404-qruze.png" alt="404 QruzeTV Popcorn Mascot" class="mascot-img" width="340" height="226" />
+    </picture>
+
+    <h1>Aradığınız Kanal Frekansta Yok! 🍿</h1>
+    <p>Qruze Popcorn haritada bu adresi bulamadı. Canlı spor maçları, 10.000+ TV kanalı ve dev film arşivi ana merkezimizde kesintisiz yayında.</p>
+
     <nav class="links">
-      <a class="btn btn-primary" href="/">Ana Sayfa</a>
-      <a class="btn btn-ghost" href="/paketler/">Paketler</a>
-      <a class="btn btn-ghost" href="/de/" lang="de">Startseite</a>
-      <a class="btn btn-ghost" href="/de/pakete/" lang="de">Pakete</a>
+      <a class="btn btn-primary" href="/">⚡ Ana Sayfaya Dön</a>
+      <a class="btn btn-ghost" href="/paketler/">📦 Paketleri İncele</a>
+      <a class="btn btn-ghost" href="/test/">🧪 Ücretsiz Test</a>
     </nav>
+
+    <div class="de-text" lang="de">
+      Dieser Kanal ist offline. <a href="/de/" style="color: #94a3b8; text-decoration: underline;">Zur deutschen Startseite</a> oder <a href="/de/pakete/" style="color: #94a3b8; text-decoration: underline;">Pakete ansehen</a>.
+    </div>
   </main>
 </body>
 </html>

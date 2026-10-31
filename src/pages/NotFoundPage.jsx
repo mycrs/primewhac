@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
 import { motion } from 'framer-motion';
@@ -8,11 +7,14 @@ import {
   Package,
   FlaskConical,
   BookOpen,
-  HelpCircle,
-  FileText,
   ArrowLeft,
   Tv,
+  Film,
+  MessageCircle,
+  Search,
   Sparkles,
+  Compass,
+  Radio,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -21,31 +23,6 @@ import { useSiteData } from '@/hooks/useSiteData';
 import { defaultData } from '@/data/defaultSiteData';
 import { SITE_URL } from '@/constants/siteUrl';
 
-const quickLinksTR = [
-  { label: 'Ana Sayfa', path: '/', icon: Home },
-  { label: 'Kurulum', path: '/kurulum/', icon: BookOpen },
-  { label: 'SSS', path: '/sss/', icon: HelpCircle },
-  { label: 'Blog', path: '/blog/', icon: FileText },
-];
-const quickLinksDE = [
-  { label: 'Startseite', path: '/de/', icon: Home },
-  { label: 'Einrichtung', path: '/de/einrichtung/', icon: BookOpen },
-  { label: 'FAQ', path: '/de/sss/', icon: HelpCircle },
-  { label: 'Blog', path: '/de/blog/', icon: FileText },
-];
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
-  },
-};
-const item = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0 },
-};
-
 const NotFoundPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -53,196 +30,283 @@ const NotFoundPage = () => {
   const isDe = location.pathname.startsWith('/de');
   const safeContact = siteData?.contactData || defaultData?.contactData;
 
-  const title = isDe ? 'Seite nicht gefunden (404)' : 'Sayfa Bulunamadı (404)';
-  const heading = isDe ? 'Seite nicht gefunden' : 'Bu sayfa yayında değil';
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    const targetUrl = isDe
+      ? `/de/kanale?search=${encodeURIComponent(searchQuery.trim())}`
+      : `/channels?search=${encodeURIComponent(searchQuery.trim())}`;
+    navigate(targetUrl);
+  };
+
+  const title = isDe ? 'Seite nicht gefunden (404) | QruzeTV' : 'Sayfa Bulunamadı (404) | QruzeTV';
+  const heading = isDe ? 'Dieser Kanal ist offline! 🍿' : 'Aradığınız Kanal Frekansta Yok! 🍿';
   const message = isDe
-    ? 'Die angeforderte Seite existiert nicht. Mit dem kostenlosen Test oder den Paketen können Sie fortfahren.'
-    : 'Aradığınız adres mevcut değil. Ücretsiz test veya paketlerle devam edebilirsiniz.';
-  const backLabel = isDe ? 'Zurück' : 'Geri dön';
-  const homeLabel = isDe ? 'Startseite' : 'Ana sayfa';
-  const testLabel = isDe ? 'Kostenlos testen' : 'Ücretsiz test';
-  const packagesLabel = isDe ? 'Pakete ansehen' : 'Paketlere git';
+    ? 'Unser Popcorn-Scout konnte diese Adresse auf der Karte nicht finden. Keine Sorge – tausende 4K-Live-Sender, Sport-Feeds und das Filmarchiv laufen auf der Hauptseite wie gewohnt weiter!'
+    : 'Qruze Popcorn haritada bu adresi bulamadı ama endişelenmeyin! 10.000+ canlı TV kanalı, kesintisiz derbi maçları ve dev film/dizi arşivi ana merkezimizde yayında.';
 
   const canonicalUrl = isDe ? `${SITE_URL}/de` : `${SITE_URL}/`;
+
+  const quickCategories = [
+    {
+      title: isDe ? 'Live Senderliste' : 'Canlı TV & Kanallar',
+      desc: isDe ? 'Sport, Filme & Weltkanäle' : 'Tüm ulusal, spor ve dünya kanalları',
+      icon: Tv,
+      path: isDe ? '/de/kanale' : '/channels',
+      color: 'from-blue-500/20 to-cyan-500/20 text-cyan-400 border-cyan-500/30',
+    },
+    {
+      title: isDe ? 'IPTV Pakete' : 'Avantajlı Paketler',
+      desc: isDe ? '3, 6, 12 Monate & 4K UHD' : '12 Ay en popüler ve VIP seçenekler',
+      icon: Package,
+      path: isDe ? '/de/pakete' : '/paketler',
+      color: 'from-[#e50914]/20 to-rose-500/20 text-[#ff4b55] border-[#e50914]/30',
+    },
+    {
+      title: isDe ? 'Was anschauen?' : 'Ne İzlesem? (VOD)',
+      desc: isDe ? 'Trends, Filme & Serien' : 'Sürekli güncellenen dev film & dizi arşivi',
+      icon: Film,
+      path: isDe ? '/de/was-anschauen' : '/ne-izlesem',
+      color: 'from-amber-500/20 to-orange-500/20 text-amber-400 border-amber-500/30',
+    },
+    {
+      title: isDe ? 'Einrichtung' : 'Kolay Kurulum',
+      desc: isDe ? 'Smart TV, Firestick & Co.' : 'Cihazınıza özel adım adım görsel rehber',
+      icon: BookOpen,
+      path: isDe ? '/de/einrichtung' : '/kurulum',
+      color: 'from-emerald-500/20 to-teal-500/20 text-emerald-400 border-emerald-500/30',
+    },
+  ];
 
   return (
     <>
       <SEOHead
-        title={`${title} | QruzeTV`}
-        description={isDe ? 'Die angeforderte Seite wurde nicht gefunden.' : 'Aradığınız sayfa bulunamadı. Ana sayfa, paketler veya ücretsiz test sayfalarına gidebilirsiniz.'}
+        title={title}
+        description={isDe ? 'Die angeforderte Seite wurde nicht gefunden. Finden Sie hier unsere Live-Sender, Pakete und Support.' : 'Aradığınız sayfa bulunamadı. QruzeTV canlı TV kanalları, paketler ve ücretsiz test sayfalarından devam edebilirsiniz.'}
         canonicalUrl={canonicalUrl}
         robotsContent="noindex, follow"
       />
 
-      <div className="min-h-screen bg-[#0a0a0a] flex flex-col text-white selection:bg-white/20">
+      <div className="min-h-screen bg-[#070709] flex flex-col text-white selection:bg-[#e50914]/40 font-sans">
         <Header contactData={safeContact} />
 
-        <main className="flex-1 flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] pt-20 pb-16 px-4 relative overflow-hidden">
-          {/* Arka plan: grid + gradient orbs */}
+        <main className="flex-1 flex flex-col items-center justify-center min-h-[calc(100vh-6rem)] pt-24 pb-16 px-4 relative overflow-hidden">
+          {/* Ambient Lighting & Glow Orbs */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/15 rounded-full blur-[140px]" />
-            <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-1/3 left-0 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px]" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a]/80" />
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#e50914]/15 rounded-full blur-[140px]" />
+            <div className="absolute top-1/2 right-10 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[120px]" />
+            <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[120px]" />
+            <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
           </div>
 
-          <motion.section
-            className="relative z-10 w-full max-w-xl mx-auto"
-            initial={{ opacity: 0, y: 24 }}
+          <motion.div
+            className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center text-center"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
           >
-            {/* Ana kart: cam efekti + animasyonlu kenarlık */}
+            {/* Live Signal Status Pill */}
             <motion.div
-              className="relative rounded-3xl p-8 sm:p-10 border border-white/10 bg-[#0a0a0a]/40 backdrop-blur-xl shadow-2xl"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.5 }}
-              style={{
-                boxShadow: '0 0 0 1px rgba(255,255,255,.05), 0 25px 50px -12px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05)',
-              }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-md shadow-lg mb-4 text-xs font-semibold"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1 }}
             >
-              {/* Üst köşe vurgu */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-[#e50914]/60 to-transparent" />
-              <div className="absolute top-4 right-4 flex items-center gap-1.5 text-slate-500 text-xs">
-                <span className="w-2 h-2 rounded-full bg-amber-500/80 animate-pulse" />
-                {isDe ? 'Offline' : 'Yayın yok'}
-              </div>
-
-              {/* 404 + ikon */}
-              <div className="flex flex-col items-center text-center mb-8">
-                <motion.div
-                  className="flex items-center justify-center gap-1 sm:gap-2 mb-6"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.25, type: 'spring', stiffness: 200, damping: 20 }}
-                >
-                  <span className="text-6xl sm:text-7xl md:text-8xl font-black tabular-nums tracking-tighter text-white/90 drop-shadow-lg">4</span>
-                  <motion.span
-                    className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-br from-[#e50914]/80 to-[#b20710]/80 border border-white/20 shadow-lg"
-                    animate={{
-                      rotate: [0, -3, 3, 0],
-                      scale: [1, 1.02, 1],
-                    }}
-                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    <Tv className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
-                  </motion.span>
-                  <span className="text-6xl sm:text-7xl md:text-8xl font-black tabular-nums tracking-tighter text-white/90 drop-shadow-lg">4</span>
-                </motion.div>
-                <motion.h1
-                  className="text-xl sm:text-2xl font-bold text-white mb-3"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  {heading}
-                </motion.h1>
-                <motion.p
-                  className="text-slate-400 text-sm sm:text-base max-w-sm mx-auto leading-relaxed"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  {message}
-                </motion.p>
-              </div>
-
-              {/* Öne çıkan CTA'lar: Test + Paketler */}
-              <motion.div
-                className="flex flex-col sm:flex-row gap-3 justify-center mb-8"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.55 }}
-              >
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-gradient-to-r from-[#e50914] to-green-600 hover:from-[#e50914] hover:to-green-500 text-white font-bold shadow-lg shadow-emerald-500/25 border-0 rounded-xl h-12 px-6"
-                >
-                  <Link to={isDe ? '/de/test/' : '/test/'}>
-                    <FlaskConical className="mr-2 h-5 w-5" />
-                    {testLabel}
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-primary/50 text-primary hover:bg-primary/20 hover:text-white font-semibold rounded-xl h-12 px-6"
-                >
-                  <Link to={isDe ? '/de/paketler/' : '/paketler/'}>
-                    <Package className="mr-2 h-5 w-5" />
-                    {packagesLabel}
-                  </Link>
-                </Button>
-              </motion.div>
-
-              {/* Yardımcı: Ana sayfa + Geri */}
-              <motion.div
-                className="flex flex-wrap items-center justify-center gap-3 text-sm"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.65 }}
-              >
-                <Button asChild variant="ghost" size="sm" className="text-slate-400 hover:text-white gap-1.5">
-                  <Link to={isDe ? '/de/' : '/'}>
-                    <Home className="w-4 h-4" />
-                    {homeLabel}
-                  </Link>
-                </Button>
-                <span className="text-slate-600">·</span>
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white gap-1.5" onClick={() => navigate(-1)}>
-                  <ArrowLeft className="w-4 h-4" />
-                  {backLabel}
-                </Button>
-              </motion.div>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e50914] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e50914]" />
+              </span>
+              <span className="text-slate-300">
+                {isDe ? 'Signal verloren · Fehler 404' : 'Frekans Sinyali Kayboldu · Hata 404'}
+              </span>
             </motion.div>
 
-            {/* Popüler sayfalar */}
+            {/* Bespoke 3D Popcorn Mascot Graphic with Floating Animation */}
             <motion.div
-              className="mt-10"
-              variants={container}
-              initial="hidden"
-              animate="show"
+              className="relative my-2 sm:my-4 cursor-pointer"
+              animate={{
+                y: [0, -10, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              onClick={() => navigate(isDe ? '/de/' : '/')}
+              title={isDe ? 'Zurück zur Startseite' : 'Ana Sayfaya Dön'}
             >
-              <p className="text-slate-500 text-xs font-medium uppercase tracking-wider mb-4 text-center">
-                {isDe ? 'Weitere Seiten' : 'Diğer sayfalar'}
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {(isDe ? quickLinksDE : quickLinksTR).map((link, i) => {
-                  const Icon = link.icon;
+              {/* Backlight halo matching gold & ruby 3D typography */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#e50914]/30 via-amber-500/20 to-transparent blur-3xl rounded-full -z-10 scale-95" />
+
+              <picture>
+                <source srcSet="/404-qruze.webp" type="image/webp" />
+                <img
+                  src="/404-qruze.png"
+                  alt="404 QruzeTV Popcorn Mascot"
+                  className="w-72 sm:w-84 md:w-96 max-w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(229,9,20,0.4)] transition-transform duration-300 hover:scale-105 active:scale-95"
+                  loading="eager"
+                  fetchPriority="high"
+                  width="420"
+                  height="280"
+                />
+              </picture>
+            </motion.div>
+
+            {/* Heading & Subtext */}
+            <motion.h1
+              className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight mt-2 mb-3 drop-shadow-md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.25 }}
+            >
+              {heading}
+            </motion.h1>
+
+            <motion.p
+              className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-6 font-normal px-2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.35 }}
+            >
+              {message}
+            </motion.p>
+
+            {/* In-page Fast Channel/VOD Search Form */}
+            <motion.form
+              onSubmit={handleSearchSubmit}
+              className="w-full max-w-md mx-auto mb-8 relative"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45 }}
+            >
+              <div className="relative flex items-center">
+                <Search className="absolute left-4 w-4 h-4 text-slate-400 pointer-events-none" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={isDe ? 'Kanal oder Film suchen...' : 'Kanal, spor yayını veya film ara...'}
+                  className="w-full h-12 pl-11 pr-24 rounded-full bg-[#121218]/90 border border-white/15 focus:border-[#e50914] focus:outline-none focus:ring-2 focus:ring-[#e50914]/40 text-sm text-white placeholder-slate-400 shadow-inner backdrop-blur-md transition-all"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-1.5 px-4 h-9 rounded-full bg-gradient-to-r from-[#e50914] to-[#b20710] text-white text-xs font-bold hover:opacity-95 transition-opacity active:scale-95 shadow-md flex items-center gap-1 cursor-pointer"
+                >
+                  <span>{isDe ? 'Finden' : 'Bul'}</span>
+                </button>
+              </div>
+            </motion.form>
+
+            {/* Action CTA Buttons */}
+            <motion.div
+              className="flex flex-wrap items-center justify-center gap-3 mb-10 w-full"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+            >
+              <Button
+                asChild
+                size="lg"
+                className="bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] hover:scale-102 active:scale-95 text-white font-black shadow-xl shadow-[#e50914]/30 rounded-2xl h-12 px-7 transition-all cursor-pointer text-sm"
+              >
+                <Link to={isDe ? '/de/' : '/'}>
+                  <Home className="mr-2 h-4 w-4" />
+                  {isDe ? 'Zur Startseite' : 'Ana Sayfaya Dön'}
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-white/[0.05] hover:bg-white/[0.1] text-white border-white/15 hover:border-white/30 rounded-2xl h-12 px-6 font-bold transition-all cursor-pointer text-sm"
+              >
+                <Link to={isDe ? '/de/pakete' : '/paketler'}>
+                  <Package className="mr-2 h-4 w-4 text-[#ff4b55]" />
+                  {isDe ? 'Pakete ansehen' : 'Paketleri İncele'}
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border-emerald-500/30 hover:border-emerald-500/50 rounded-2xl h-12 px-6 font-bold transition-all cursor-pointer text-sm"
+              >
+                <Link to={isDe ? '/de/test' : '/test'}>
+                  <FlaskConical className="mr-2 h-4 w-4 text-emerald-400" />
+                  {isDe ? 'Kostenlos Testen' : 'Ücretsiz Test Al'}
+                </Link>
+              </Button>
+            </motion.div>
+
+            {/* Quick Exploration Category Cards */}
+            <motion.div
+              className="w-full max-w-3xl mb-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.65 }}
+            >
+              <div className="flex items-center justify-center gap-2 mb-4 text-xs font-mono uppercase tracking-widest text-slate-400 font-bold">
+                <Compass className="w-3.5 h-3.5 text-[#ff4b55]" />
+                <span>{isDe ? 'Direkte Navigation' : 'Hızlı Erişim Kanalları'}</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {quickCategories.map((item, idx) => {
+                  const Icon = item.icon;
                   return (
-                    <motion.div key={link.path} variants={item}>
-                      <Button
-                        asChild
-                        variant="ghost"
-                        size="sm"
-                        className="w-full justify-center gap-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg h-10 border border-transparent hover:border-white/10"
-                      >
-                        <Link to={link.path}>
-                          <Icon className="w-4 h-4 shrink-0" />
-                          <span className="truncate">{link.label}</span>
-                        </Link>
-                      </Button>
-                    </motion.div>
+                    <Link
+                      key={idx}
+                      to={item.path}
+                      className="group p-4 rounded-2xl bg-[#121218]/70 border border-white/10 hover:border-white/20 transition-all duration-300 flex flex-col items-center text-center shadow-lg hover:shadow-xl hover:-translate-y-1"
+                    >
+                      <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-2.5 transition-transform group-hover:scale-110 border shadow-sm`}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-white font-bold text-sm mb-1 group-hover:text-[#ff4b55] transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-slate-400 text-[11px] leading-tight line-clamp-2">
+                        {item.desc}
+                      </p>
+                    </Link>
                   );
                 })}
               </div>
             </motion.div>
 
-            {/* Alt dekoratif satır */}
-            <motion.p
-              className="mt-8 text-center text-slate-600 text-xs flex items-center justify-center gap-1.5"
+            {/* Secondary Controls: Back & WhatsApp */}
+            <motion.div
+              className="flex items-center justify-center gap-4 text-xs text-slate-400"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
+              transition={{ delay: 0.75 }}
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              {isDe ? 'QruzeTV · Premium IPTV' : 'QruzeTV · Kesintisiz yayın'}
-            </motion.p>
-          </motion.section>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="inline-flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>{isDe ? 'Vorherige Seite' : 'Bir Önceki Sayfaya Dön'}</span>
+              </button>
+
+              <span className="text-slate-700">•</span>
+
+              <a
+                href={safeContact?.whatsapp ? `https://wa.me/${safeContact.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(isDe ? 'Hallo QruzeTV, ich habe eine Frage...' : 'Merhaba QruzeTV, bir sayfaya ulaşamadım...')}` : 'https://wa.me/?text=Merhaba'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>{isDe ? '7/24 WhatsApp Support' : '7/24 WhatsApp Destek'}</span>
+              </a>
+            </motion.div>
+          </motion.div>
         </main>
 
         <Footer contactData={safeContact} siteData={siteData} />
