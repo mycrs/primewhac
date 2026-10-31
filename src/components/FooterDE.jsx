@@ -105,8 +105,8 @@ const FooterDE = ({ contactData: propContactData, siteData }) => {
         <div className="flex flex-col items-center justify-between gap-4 border-t border-white/[0.07] pt-8 text-sm text-gray-500 md:flex-row">
           <div className="text-center md:text-left">
             <p>&copy; {currentYear} QruzeTV. Alle Rechte vorbehalten.</p>
-            <p className="text-[11px] text-gray-600 mt-1 max-w-xl font-light">
-              QruzeTV ist eine unabhängige Streaming-Technologie- und Player-Plattform. Auf eigenen Servern werden keine urheberrechtlich geschützten Inhalte gehostet.
+            <p className="text-[11px] text-gray-500 mt-1.5 max-w-xl font-light leading-relaxed">
+              QruzeTV ist eine unabhängige Streaming-Technologie-, KI-gestützte Medien- und Protokollplattform. Auf unseren Servern werden keine urheberrechtlich geschützten TV-Inhalte Dritter gehostet; wir bieten ausschließlich KI-generierte Originalinhalte, offene Standards und Player-Schnittstellen.
             </p>
           </div>
 

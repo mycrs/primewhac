@@ -5,6 +5,20 @@ import SEOHead from '@/components/SEOHead';
 import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
 import { Link } from 'react-router-dom';
 import { breadcrumbSchema } from '@/utils/seoSchema';
+import {
+  ShieldCheck,
+  EyeOff,
+  Lock,
+  Cpu,
+  Server,
+  UserCheck,
+  Cookie,
+  Trash2,
+  FileCheck,
+  HelpCircle,
+  Mail,
+  CheckCircle2,
+} from 'lucide-react';
 
 const PrivacyPolicyPage = ({ siteData }) => {
   useEffect(() => {
@@ -13,9 +27,9 @@ const PrivacyPolicyPage = ({ siteData }) => {
 
   const safeSiteData = siteData || {};
   const metadata = {
-    title: "Gizlilik Politikası | IPTV Veri Koruması ve Güvenliği",
-    description: "IPTV gizlilik politikası ve veri koruması. Verileriniz nasıl korunuyor? Şeffaf veri politikamız.",
-    keywords: ["IPTV gizlilik", "veri koruması", "IPTV güvenliği", "gizlilik politikası"],
+    title: "Gizlilik Politikası ve KVKK Uyumluluğu | QruzeTV Veri Güvenliği",
+    description: "QruzeTV gizlilik politikası, sıfır kayıt (zero-log) prensibi, KVKK/GDPR veri koruma hakları, yapay zeka telemetrisi ve 256-bit SSL güvenlik standartları.",
+    keywords: ["gizlilik politikası", "kvkk veri koruması", "gdpr uyumluluğu", "zero log iptv", "veri güvenliği", "unutulma hakkı"],
     ogType: "article"
   };
 
@@ -28,73 +42,126 @@ const PrivacyPolicyPage = ({ siteData }) => {
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "Gizlilik Politikası ve Veri Koruması",
+      "headline": "Gizlilik Politikası ve Kişisel Verilerin Korunması (KVKK/GDPR)",
       "author": { "@type": "Organization", "name": "QruzeTV" }
     },
   ];
 
   const sections = [
     {
-      title: "Gizlilik Politikası Nedir?",
+      icon: ShieldCheck,
+      title: "1. Gizlilik Taahhüdümüz ve Yasal Çerçeve (KVKK & GDPR)",
       subsections: [
-        { subtitle: "Amacımız", content: "QruzeTV olarak, platformumuzu kullanan tüm ziyaretçilerin ve abonelerin gizliliğine maksimum saygı duyuyoruz. Bu gizlilik politikası, hizmetlerimizi kullanırken toplanan verilerin nasıl işlendiğini, saklandığını ve korunduğunu şeffaf bir şekilde açıklamaktadır. Tüm IPTV gizlilik standartlarımız, uluslararası veri koruma yönetmeliklerine ve KVKK/GDPR kurallarına uygun olarak tasarlanmıştır." }
+        {
+          subtitle: "Mahremiyete Tam Saygı",
+          content: "QruzeTV; kullanıcılarının ve web sitesi ziyaretçilerinin dijital mahremiyetini en temel insan hakkı olarak kabul eder. Tüm veri işleme süreçlerimiz 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ve Avrupa Birliği Genel Veri Koruma Tüzüğü (GDPR) ilkeleriyle %100 uyumludur."
+        }
       ]
     },
     {
-      title: "Toplanan Veriler",
+      icon: EyeOff,
+      title: "2. İzleme ve Günlük Tutmama İlkesi (Zero-Logs / Sıfır Kayıt Prensibi)",
       subsections: [
-        { subtitle: "Kişisel Kimlik Bilgileri", content: "Sistemimize kayıt aşamasında yalnızca adınız, soyadınız, iletişim için e-posta adresiniz ve telefon numaranız gibi temel iletişim bilgilerinizi topluyoruz." },
-        { subtitle: "Teknik ve Cihaz Verileri", content: "IPTV güvenliği ve hesap paylaşımını (korsan kullanımı) engellemek amacıyla; bağlandığınız IP adresiniz, cihaz modeliniz, tarayıcı türünüz ve sisteme bağlantı süreleriniz gibi teknik metrikler sistem tarafından otomatik olarak kaydedilmektedir." }
+        {
+          subtitle: "İzleme Geçmişi Asla Kaydedilmez",
+          content: "QruzeTV altyapısında; kullanıcıların hangi içerikleri başlattığı, hangi akışları oynattığı, ne kadar süre izlediği veya kişisel yayın tercihleri KESİNLİKLE İZLENMEZ, GÜNLÜK (LOG) DOSYALARINDA TUTULMAZ VE PROFİLLENMEZ."
+        },
+        {
+          subtitle: "Uçtan Uca Doğrudan İletim",
+          content: "Medya akış protokolleri kullanıcının cihazı ile kaynak arasında doğrudan gerçekleşir; platformumuz hiçbir yayın trafiğini araya girerek gözetlemez veya depolamaz."
+        }
       ]
     },
     {
-      title: "Verilerin Kullanımı",
+      icon: Lock,
+      title: "3. Toplanan Asgari Veriler ve Toplanma Amaçları",
       subsections: [
-        { subtitle: "Hizmet Sağlama ve İyileştirme", content: "Toplanan veriler öncelikli olarak abonelik işlemlerinizin hızlıca gerçekleştirilmesi, size teknik destek sağlanması, yayın akışınızın bağlantı hızınıza göre optimize edilmesi için kullanılır." },
-        { subtitle: "İletişim ve Bildirimler", content: "E-posta veya telefon bilgileriniz; paketinizin süresinin dolması, önemli teknik bakım duyuruları veya kampanyalar hakkında bilgilendirme yapmak için kullanılmaktadır. Üçüncü şahıslara reklam amacıyla kesinlikle satılmaz." }
+        {
+          subtitle: "Hesap Aktivasyon Verileri",
+          content: "Sipariş teyidi, erişim parametrelerinin iletimi ve teknik destek sağlanabilmesi için yalnızca adınız, e-posta adresiniz ve WhatsApp/telefon iletişim bilgileriniz toplanır."
+        },
+        {
+          subtitle: "Bağlantı Güvenliği Metrikleri",
+          content: "Eş zamanlı cihaz ihlallerini engellemek ve sistem güvenliğini sağlamak amacıyla oturum süresi, şifrelenmiş IP adresi ve cihaz türü (Smart TV, Android, iOS vb.) teknik düzeyde işlenir."
+        }
       ]
     },
     {
-      title: "Veri Güvenliği",
+      icon: Cpu,
+      title: "4. Yapay Zeka (AI) Algoritmaları ve Anonim Telemetri",
       subsections: [
-        { subtitle: "Şifreleme Standartları", content: "Veri koruması kapsamında, sunucularımız ile cihazınız arasındaki tüm form ve veri aktarımları endüstri standardı 256-bit SSL şifreleme teknolojisi ile korunmaktadır." },
-        { subtitle: "Yetkisiz Erişim Koruması", content: "Fiziksel ve dijital sunucularımız, veri sızıntısı ve siber saldırılara karşı gelişmiş Web Application Firewall (WAF) ve anti-DDoS sistemleri ile 7/24 izlenmektedir." }
+        {
+          subtitle: "Kişisel Veriden Bağımsız Optimizasyon",
+          content: "Platformumuzda kullanılan yapay zeka modelleri kişisel verileri işlemez. Yalnızca video akış kararlılığı, donanım ivmesi uyumluluğu ve arayüz tepki süresini iyileştirmek için tamamen anonimleştirilmiş teknik performans telemetrisi kullanır."
+        }
       ]
     },
     {
-      title: "Çerezler (Cookies)",
+      icon: Server,
+      title: "5. Veri Güvenliği ve 256-Bit SSL Şifreleme",
       subsections: [
-        { subtitle: "Çerez Kullanımı ve Amacı", content: "Web sitemiz, oturumunuzu açık tutmak, site içi dil/tema tercihlerinizi hatırlamak ve sayfa performansımızı analiz etmek (Google Analytics vb.) için küçük metin dosyaları olan çerezleri (cookies) kullanır. Tarayıcı ayarlarınızdan çerezleri dilediğiniz zaman reddedebilir veya silebilirsiniz." }
+        {
+          subtitle: "Uçtan Uca Kriptografik Koruma",
+          content: "Web sitemiz ile cihazınız arasındaki tüm formlar, sipariş adımları ve veri alışverişi endüstri standardı 256-Bit SSL/TLS şifreleme protokolüyle güvence altındadır."
+        },
+        {
+          subtitle: "Güvenlik Duvarı ve Tehdit Engelleme",
+          content: "Veritabanlarımız; Web Application Firewall (WAF), veri sızıntısını önleyici şifreli yapılar ve periyodik sızma testleriyle yetkisiz erişimlere karşı 7/24 korunur."
+        }
       ]
     },
     {
-      title: "Üçüncü Taraf Hizmetleri",
+      icon: UserCheck,
+      title: "6. Üçüncü Şahıslarla Paylaşım ve Ticari Satış Yasağı",
       subsections: [
-        { subtitle: "İş Ortakları ile Veri Paylaşımı", content: "Ödeme altyapısı (Sanal Pos) ve mesajlaşma servis sağlayıcıları gibi güvenilir üçüncü taraf iş ortaklarımız, sadece hizmetin gerektirdiği ölçüde (örn. kredi kartı ödemesinin provizyonu) ve katı gizlilik anlaşmaları çerçevesinde gerekli verilere erişebilir." }
+        {
+          subtitle: "Veri Ticareti Yapılmaz",
+          content: "Kullanıcı verileriniz hiçbir koşul altında reklam ağlarına, pazarlama şirketlerine veya veri tüccarlarına SATILMAZ, KİRALANMAZ VEYA TİCARİ AMAÇLA DEVREDİLMEZ."
+        },
+        {
+          subtitle: "Yalnızca Zorunlu Entegratörler",
+          content: "Sadece 3D Secure güvenli ödeme sağlayıcıları ve SMS/mesajlaşma ağları, ödemenin tahsil edilmesi ve aktivasyon mesajının iletilmesi için gerekli asgari bilgiyi güvenli kanaldan işler."
+        }
       ]
     },
     {
-      title: "Kullanıcı Hakları",
+      icon: Cookie,
+      title: "7. Çerezler (Cookies) ve Oturum Tercihleri",
       subsections: [
-        { subtitle: "Veri Erişimi ve Silme Hakkı", content: "Kullanıcılarımız, kendilerine ait hangi verilerin veri tabanımızda saklandığını döküm olarak talep etme ve hesaplarının iptali ile birlikte tüm kişisel verilerinin sistemden kalıcı olarak silinmesini (Unutulma Hakkı) isteme hakkına yasal olarak sahiptir." }
+        {
+          subtitle: "Çerez Kullanım Amacı",
+          content: "Sitemizde kullanılan çerezler yalnızca oturum sürekliliği, dil seçimi (TR/DE) ve sayfa hızı optimizasyonu sağlamak amacını taşır. Tarayıcınızın ayarlarından dilediğiniz an çerezleri silebilir veya engelleyebilirsiniz."
+        }
       ]
     },
     {
-      title: "Veri Saklama Süresi",
+      icon: Trash2,
+      title: "8. Kullanıcı Hakları ve Unutulma Hakkı (Right to be Forgotten)",
       subsections: [
-        { subtitle: "Yasal Arşivleme Süreçleri", content: "Aktif aboneliği bulunan kullanıcıların verileri, hizmet süresince aktif sunucularda saklanır. Abonelik tamamen iptal edildiğinde dahi, yasal mali yükümlülükler (fatura ibrazı vb.) gereği temel işlem bilgileri kanunların emrettiği asgari süre boyunca güvenle arşivlenir." }
+        {
+          subtitle: "Verilerinizi Yönetme ve Kalıcı Olarak Silme",
+          content: "KVKK ve GDPR uyarınca; hakkınızda tutulan verilerin dökümünü talep etme, güncelleme veya hesabınızın kapanmasıyla birlikte tüm verilerinizin sistemlerimizden kalıcı olarak silinmesini ('Unutulma Hakkı') isteme hakkına sahipsiniz."
+        }
       ]
     },
     {
-      title: "Politika Değişiklikleri",
+      icon: FileCheck,
+      title: "9. Veri Saklama ve İmha Politikası",
       subsections: [
-        { subtitle: "Güncelleme Bildirimleri", content: "Gizlilik politikası üzerinde yapılacak yasal veya teknik kaynaklı önemli değişiklikler, web sitemiz üzerinden pop-up veya duyuru olarak yayınlanır ve gerekli hallerde kullanıcılara e-posta yoluyla bildirilir." }
+        {
+          subtitle: "Güvenli İmha Süreci",
+          content: "Aktif abonelik süresi boyunca saklanan temel iletişim kayıtları, abonelik sonlandığında ve yasal mali yükümlülük süreleri dolduğunda güvenli biçimde geri döndürülemez şekilde imha edilir."
+        }
       ]
     },
     {
-      title: "İletişim ve Şikayetler",
+      icon: HelpCircle,
+      title: "10. Veri Sorumlusu İletişim Bilgileri",
       subsections: [
-        { subtitle: "Gizlilik Destek Hattı", content: "Kişisel verilerinizin işlenmesi, veri koruması ile ilgili her türlü soru, itiraz, bilgi talebi veya şikayetiniz için destek ekibimize iletişim sayfamızdan veya e-posta adresimiz üzerinden her zaman ulaşabilirsiniz." }
+        {
+          subtitle: "Gizlilik Destek Hattı",
+          content: "Kişisel verilerinizin korunması, hak talepleri veya gizlilik sözleşmesi ile ilgili tüm sorularınız için privacy@qruzetv.com üzerinden Veri Sorumlusu ekibimize 7/24 ulaşabilirsiniz."
+        }
       ]
     }
   ];
@@ -102,50 +169,117 @@ const PrivacyPolicyPage = ({ siteData }) => {
   return (
     <>
       <SEOHead {...metadata} jsonLd={jsonLd} />
-      <div className="min-h-screen bg-[#0a0a0a] flex flex-col font-sans text-white">
+      <div className="min-h-screen bg-[#070709] flex flex-col font-sans text-white selection:bg-[#e50914]/40">
         <Header contactData={safeSiteData.contactData} siteTexts={safeSiteData.siteTexts} />
         
-        <main className="flex-grow pt-32 pb-16 px-4">
-          <div className="container mx-auto max-w-4xl">
+        <main className="flex-grow pt-28 pb-20 px-4">
+          <div className="container mx-auto max-w-5xl">
             <BreadcrumbNavigation />
             
-            <article className="mt-8 bg-[#0a0a0a]/50 border border-slate-800 rounded-2xl p-6 md:p-12">
-              <h1 className="text-4xl md:text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-[#e50914] to-[#b20710] leading-tight">
-                Gizlilik Politikası ve Veri Koruması
+            {/* Hero Header */}
+            <div className="mt-8 mb-10 text-center md:text-left">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 mb-4">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                KVKK & GDPR UYUMLU GİZLİLİK POLİTİKASI
+              </div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+                Gizlilik Politikası ve <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-emerald-400">Veri Güvenliği</span>
               </h1>
-              
-              <div className="prose prose-invert prose-lg max-w-none">
-                <p className="text-slate-300 mb-10 leading-relaxed">
-                  QruzeTV, tüm abonelerinin ve ziyaretçilerinin <strong>veri koruması</strong> ve <strong>IPTV güvenliği</strong> konularında sektördeki en yüksek standartları benimser. Bu şeffaf <strong>gizlilik politikası</strong> metni, platformumuzla paylaştığınız verilerinizin nasıl toplandığını, hangi şartlarda işlendiğini ve kötü niyetli erişimlere karşı nasıl korunduğunu detaylandırmaktadır.
-                </p>
+              <p className="text-slate-400 text-sm sm:text-base max-w-3xl leading-relaxed">
+                QruzeTV; kullanıcı mahremiyetini merkeze alan <strong>sıfır kayıt (zero-log)</strong> politikasını benimser. Hangi içerikleri izlediğiniz asla kaydedilmez; toplanan asgari veriler yalnızca 256-Bit SSL güvencesiyle korunur.
+              </p>
+            </div>
 
-                {sections.map((section, idx) => (
-                  <div key={idx} className="mb-10">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 border-b border-slate-700/50 pb-2">
-                      {section.title}
-                    </h2>
-                    {section.subsections.map((sub, sIdx) => (
-                      <div key={sIdx} className="mb-6 bg-[#0a0a0a]/20 p-4 rounded-xl border border-slate-700/30">
-                        <h3 className="text-xl font-semibold text-white mb-2">
-                          {sub.subtitle}
-                        </h3>
-                        <p className="text-slate-300 leading-relaxed m-0">
-                          {sub.content}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-
-                <div className="mt-12 p-8 bg-[#0a0a0a]/50 rounded-2xl border border-slate-700 flex flex-wrap gap-4">
-                  <Link to="/sartlar" className="px-6 py-3 bg-[#0a0a0a] hover:bg-[#141414] text-white font-bold rounded-lg transition-colors border border-slate-600">Kullanım Şartları</Link>
-                  <Link to="/sss" className="px-6 py-3 bg-[#0a0a0a] hover:bg-[#141414] text-white font-bold rounded-lg transition-colors border border-slate-600">Sık Sorulan Sorular</Link>
-                  <Link to="/kurulum" className="px-6 py-3 bg-[#0a0a0a] hover:bg-[#141414] text-white font-bold rounded-lg transition-colors border border-slate-600">Kurulum Rehberi</Link>
+            {/* Zero-Log Key Highlight Banner */}
+            <div className="mb-10 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-[#0d1813]/90 via-[#101915]/90 to-[#0c120f]/90 border border-emerald-500/30 shadow-xl shadow-emerald-500/5">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0 mt-0.5">
+                  <EyeOff className="w-5 h-5 text-emerald-400" />
+                </div>
+                <div>
+                  <h3 className="text-white font-extrabold text-base mb-1.5 flex items-center gap-2">
+                    <span>Sıfır Günlük (Zero-Logs) Güvencesi</span>
+                  </h3>
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Platformumuz; kullanıcıların hangi yayınları açtığını, izleme sürelerini veya akış geçmişini <strong>asla kaydetmez, izlemez veya profil oluşturmaz</strong>. Yapay zeka altyapımız yalnızca teknik oynatıcı kararlılığını sağlamak için anonim telemetri kullanır.
+                  </p>
                 </div>
               </div>
-            </article>
+            </div>
+
+            {/* Sections */}
+            <div className="space-y-6">
+              {sections.map((section, idx) => {
+                const IconComponent = section.icon;
+                return (
+                  <article 
+                    key={idx}
+                    className="p-6 sm:p-8 rounded-2xl bg-[#121218]/80 border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg backdrop-blur-md"
+                  >
+                    <div className="flex items-center gap-3.5 mb-5 pb-4 border-b border-white/10">
+                      <div className="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                        <IconComponent className="w-5 h-5 text-emerald-400" />
+                      </div>
+                      <h2 className="text-lg sm:text-xl font-black text-white tracking-tight">
+                        {section.title}
+                      </h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-4">
+                      {section.subsections.map((sub, sIdx) => (
+                        <div key={sIdx} className="bg-black/40 p-4 sm:p-5 rounded-xl border border-white/5">
+                          <h3 className="text-sm sm:text-base font-bold text-slate-200 mb-2 flex items-center gap-2">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                            <span>{sub.subtitle}</span>
+                          </h3>
+                          <p className="text-slate-400 text-xs sm:text-sm leading-relaxed m-0 font-normal">
+                            {sub.content}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            {/* Privacy Contact Direct Box */}
+            <div className="mt-10 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#0f1814]/90 to-[#0a100d]/90 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+              <div>
+                <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold block mb-1">
+                  KVKK / GDPR VERİ SORUMLUSU
+                </span>
+                <h3 className="text-white font-extrabold text-lg sm:text-xl mb-1.5">
+                  Veri Talepleri ve Unutulma Hakkı Başvurusu
+                </h3>
+                <p className="text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed">
+                  Kişisel verilerinizin dökümünü almak veya sistemlerimizden tamamen silinmesini talep etmek için Veri Sorumlumuza dilediğiniz an başvurabilirsiniz.
+                </p>
+              </div>
+              <a
+                href="mailto:privacy@qruzetv.com"
+                className="shrink-0 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm tracking-wide transition-all shadow-lg shadow-emerald-600/30 flex items-center gap-2"
+              >
+                <Mail className="w-4 h-4" />
+                <span>privacy@qruzetv.com</span>
+              </a>
+            </div>
+
+            {/* Quick Navigation Footer Links */}
+            <div className="mt-10 p-6 rounded-2xl bg-[#121218]/60 border border-white/5 flex flex-wrap items-center justify-center sm:justify-start gap-3">
+              <Link to="/sartlar" className="px-5 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs sm:text-sm font-semibold transition-all border border-white/10">
+                📄 Kullanım Şartları
+              </Link>
+              <Link to="/sss" className="px-5 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs sm:text-sm font-semibold transition-all border border-white/10">
+                ❓ Sıkça Sorulan Sorular
+              </Link>
+              <Link to="/paketler" className="px-5 py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-bold transition-all border border-emerald-500/30">
+                ⚡ IPTV Paketleri
+              </Link>
+            </div>
           </div>
         </main>
+        
         <Footer contactData={safeSiteData.contactData} siteTexts={safeSiteData.siteTexts} />
       </div>
     </>

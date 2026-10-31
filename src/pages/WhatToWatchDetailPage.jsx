@@ -137,7 +137,7 @@ const WhatToWatchDetailPage = ({ siteData }) => {
               <Tv className="w-5 h-5 mr-2" /> Yayın Paketlerini İncele
             </Button>
             <p className="text-[11px] text-slate-500 mt-2.5 text-center leading-relaxed font-light">
-              * Bu sayfa TMDB veritabanı üzerinden sinema bilgilendirme amaçlıdır. QruzeTV telifli sinema yapımlarını doğrudan barındırmaz.
+              * Bu sayfa açık sinema veritabanı (TMDB) ve yapay zeka (AI) destekli bilgilendirme amaçlıdır. QruzeTV sunucularında telifli medya dosyaları barındırılmaz.
             </p>
             <div className="mt-4">
               <SocialShareButtons
