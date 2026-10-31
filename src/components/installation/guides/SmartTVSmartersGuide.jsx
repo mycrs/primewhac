@@ -39,8 +39,8 @@ const buildSmartersSteps = (isDe) => {
 export const smartersFallbackStepsTr = buildSmartersSteps(false);
 export const smartersFallbackStepsDe = buildSmartersSteps(true);
 
-const SmartTVSmartersGuide = ({ dbData }) => (
-  <InstallationGuideRenderer data={dbData} fallbackData={{ steps: smartersFallbackStepsTr }} />
+const SmartTVSmartersGuide = ({ dbData, isDe }) => (
+  <InstallationGuideRenderer data={dbData} fallbackData={{ steps: isDe ? smartersFallbackStepsDe : smartersFallbackStepsTr }} />
 );
 
 export default SmartTVSmartersGuide;

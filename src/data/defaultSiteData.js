@@ -87,16 +87,151 @@ export const defaultData = {
   },
   packagesData: {
     turkiye: [
-      { id: 'static-tr-3', name: '3 AY', title: '3 AY', duration: '3 Ay', price: '750', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
-      { id: 'static-tr-6', name: '6 AY', title: '6 AY', duration: '6 Ay', price: '1100', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
-      { id: 'static-tr-12-vip', name: '12 AY VIP', title: '12 AY VIP', duration: '12 Ay', price: '1750', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: true },
-      { id: 'static-tr-12-premium', name: '12 AY Premium', title: '12 AY Premium', duration: '12 Ay', price: '1900', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: true },
+      {
+        id: 'static-tr-3',
+        name: '3 AY',
+        title: '3 AY',
+        duration: '3 Ay',
+        price: '750',
+        users: '1 Kullanıcı',
+        features: [
+          '1 Kullanıcı / Tek Giriş',
+          'Full HD & Canlı TV Akışı',
+          'Tüm Ulusal, Spor & Haber Kanalları',
+          'Temel VOD Film ve Dizi Arşivi',
+          'Tüm Akıllı Cihazlarla Tam Uyum',
+          '7/24 Hızlı WhatsApp Destek',
+          'Anında Otomatik Aktivasyon'
+        ],
+        popular: false
+      },
+      {
+        id: 'static-tr-6',
+        name: '6 AY',
+        title: '6 AY',
+        duration: '6 Ay',
+        price: '1100',
+        users: '1 Kullanıcı',
+        features: [
+          '1 Kullanıcı / Tek Giriş',
+          'Full HD & 4K UHD Seçenekli Yayın',
+          'Tüm Spor Karşılaşmaları (60 FPS)',
+          'Genişletilmiş VOD Film & Dizi Arşivi',
+          '24 Saat Geri Sarma (Catch-Up)',
+          'Smart TV, Android, iOS & PC Desteği',
+          '7/24 Kesintisiz Teknik Destek'
+        ],
+        popular: false
+      },
+      {
+        id: 'static-tr-12-cinema',
+        name: '4K Ultra İçerik & Sinema',
+        title: '4K Ultra İçerik & Sinema',
+        duration: '12 Ay',
+        price: '2200',
+        users: '1 Kullanıcı',
+        features: [
+          '1 Kullanıcı (Opsiyonel Çift Giriş)',
+          '15.000+ Film & Dizi (Netflix, HBO, Disney+)',
+          'Gerçek 4K UHD & HDR10+ Yayın',
+          'Dolby Atmos & 5.1 Çok Kanallı Ses',
+          'Her Hafta Eklenen Yeni Vizyon Filmleri',
+          '48 Saat Canlı Geri Sarma & Tekrar İzle',
+          '7/24 Kesintisiz VIP Canlı Destek'
+        ],
+        popular: true
+      },
+      {
+        id: 'static-tr-12-global',
+        name: 'Global & Dünya Kanalları',
+        title: 'Global & Dünya Kanalları',
+        duration: '12 Ay',
+        price: '2400',
+        users: '1 Kullanıcı',
+        features: [
+          '1 Kullanıcı (Opsiyonel Çift Giriş)',
+          'Tüm Dünya & 50+ Ülke Yayını (Almanya, ABD, UK)',
+          'Küresel Anycast CDN Ağı',
+          'Uluslararası Spor Kanalları & Özel Turnuvalar',
+          'Orijinal Dil, Çift Dil & Altyazı Seçenekleri',
+          'Coğrafi Kısıtlamasız Altyapı',
+          '7/24 Öncelikli VIP Teknik Destek'
+        ],
+        popular: true
+      },
     ],
     avrupa: [
-      { id: 'static-eu-3', name: '3 Aylık Avrupa Paketi', title: '3 Aylık Avrupa Paketi', duration: '3 Ay', price: '45', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
-      { id: 'static-eu-6', name: '6 Aylık Avrupa Paketi', title: '6 Aylık Avrupa Paketi', duration: '6 Ay', price: '65', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
-      { id: 'static-eu-12-1', name: '12 Aylık Avrupa Paketi', title: '12 Aylık Avrupa Paketi', duration: '12 Ay', price: '100', users: '1 Kullanıcı', features: ['1 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
-      { id: 'static-eu-12-2', name: '12 Aylık Çift Kullanıcı Paketi', title: '12 Aylık Çift Kullanıcı Paketi', duration: '12 Ay', price: '185', users: '2 Kullanıcı', features: ['2 Kullanıcı', 'Kararlı Yayın İçin Optimize Edilmiş Altyapı', 'Full HD, 4K UHD Yayın Kalitesi', 'Binlerce Canlı TV Kanalı', 'Sürekli Güncellenen Film ve Dizi Arşivi', 'Tüm Spor, Belgesel ve Çocuk Kanalları', '7/24 Anında Teknik Destek', 'Tüm Cihazlarla Uyumlu', 'Anında Aktivasyon'], popular: false },
+      {
+        id: 'static-eu-3',
+        name: '3 Aylık Avrupa Paketi',
+        title: '3 Aylık Avrupa Paketi',
+        duration: '3 Ay',
+        price: '30',
+        users: '1 Kullanıcı',
+        features: [
+          '1 Kullanıcı / Tek Giriş',
+          'Avrupa & Türkiye Canlı Kanalları',
+          'Full HD Yüksek Kalite Akış',
+          'VPN Gerektirmeyen Özel Hatlar',
+          'Tüm Cihazlarla Anında Uyum',
+          '7/24 WhatsApp Destek'
+        ],
+        popular: false
+      },
+      {
+        id: 'static-eu-6',
+        name: '6 Aylık Avrupa Paketi',
+        title: '6 Aylık Avrupa Paketi',
+        duration: '6 Ay',
+        price: '45',
+        users: '1 Kullanıcı',
+        features: [
+          '1 Kullanıcı / Tek Giriş',
+          'Avrupa & Küresel 50+ Ülke Yayını',
+          'Full HD & 4K UHD Akış Standartları',
+          'Frankfurt (DE-CIX) Doğrudan Peering',
+          'VPN Gerektirmeyen Kesintisiz Altyapı',
+          '24 Saat Geri Sarma (Catch-Up)',
+          '7/24 VIP Destek'
+        ],
+        popular: false
+      },
+      {
+        id: 'static-eu-12-standard',
+        name: '12 Aylık Avrupa Standart',
+        title: '12 Aylık Avrupa Standart',
+        duration: '12 Ay',
+        price: '65',
+        users: '1 Kullanıcı',
+        features: [
+          '1 Kullanıcı (Opsiyonel Çift Giriş: 110€)',
+          'Avrupa & Dünya Geneli 50+ Ülke Yayını',
+          'Küresel Anycast CDN Altyapısı',
+          'VPN Olmadan Kesintisiz & Donmasız Yayın',
+          'Tüm Canlı Spor & Tematik Kanallar',
+          '48 Saat Geri Sarma (Catch-Up)',
+          '7/24 Öncelikli Teknik Destek'
+        ],
+        popular: false
+      },
+      {
+        id: 'static-eu-12-premium',
+        name: '12 Aylık Avrupa 4K Premium',
+        title: '12 Aylık Avrupa 4K Premium',
+        duration: '12 Ay',
+        price: '110',
+        users: '1 Kullanıcı',
+        features: [
+          '1 Kullanıcı (Opsiyonel Çift Giriş: 185€)',
+          'Gerçek 4K UHD & 60 FPS Spor Yayınları',
+          '15.000+ Film & Dizi Kapsamlı VOD Arşivi',
+          'Dolby Atmos & Çok Dilli Ses/Altyazı',
+          'Frankfurt & Amsterdam DE-CIX Dedike Hatlar',
+          '72 Saat Geri Sarma (Catch-Up)',
+          '7/24 Birebir VIP Teknik Destek'
+        ],
+        popular: true
+      },
     ],
   },
   appsData: [

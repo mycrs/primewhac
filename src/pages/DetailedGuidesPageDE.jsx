@@ -133,7 +133,7 @@ const DetailedGuidesPageDE = ({ siteData }) => {
                   to="/de/guide/iptv-kurulum-rehberi/"
                   className="text-primary hover:underline font-semibold"
                 >
-                  IPTV Kurulum Rehberi (Deutsch) →
+                  IPTV Einrichtungsanleitung (Deutsch) →
                 </Link>
               </section>
 

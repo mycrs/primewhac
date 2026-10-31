@@ -111,11 +111,11 @@ const AboutPage = ({ siteData }) => {
                   </h2>
                   <p className="text-base md:text-lg leading-relaxed">
                     QruzeTV, dijital yayıncılığın hızla geliştiği bir dönemde, gerçekten güvenilir bir{' '}
-                    <span className="font-semibold text-primary">IPTV hizmet</span> i arayan kullanıcıların
+                    <span className="font-semibold text-primary">IPTV hizmeti</span> arayan kullanıcıların
                     beklentilerine cevap verebilmek için kuruldu. Kurucu ekibimiz; geleneksel yayıncılık, ağ
                     mühendisliği ve kullanıcı deneyimi tasarımı alanlarında yıllara dayanan tecrübeye sahip
                     profesyonellerden oluşuyor. Bu birikimi, hem Türkiye&#39;deki bireysel kullanıcılar hem de
-                    yurt dışında yaşayan Türkler için kesintisiz, ölçeklenebilir ve uzun vadeli bir{' '}
+                    yurt dışında yaşayan Türkler için kesintisiz, ölçeklenebilir ve uzun vadeli{' '}
                     <span className="font-semibold text-primary">profesyonel bir IPTV</span> platformuna dönüştürdük.
                   </p>
                   <p className="text-base md:text-lg leading-relaxed">
@@ -144,7 +144,7 @@ const AboutPage = ({ siteData }) => {
                         <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary" />
                         <span>
                           Yıllardır kesintisiz şekilde hizmet veren, sürekli büyüyen bir{' '}
-                          <span className="font-semibold">IPTV hizmet</span> platformu
+                          <span className="font-semibold">IPTV yayın</span> platformu
                         </span>
                       </li>
                       <li className="flex gap-2">
@@ -208,7 +208,7 @@ const AboutPage = ({ siteData }) => {
                     </h3>
                     <p className="text-sm md:text-base leading-relaxed">
                       Abonelik süreçlerimizde şeffaflığı esas alır, kullanıcılarımıza sunduğumuz{' '}
-                      <span className="font-semibold">IPTV paket</span> içeriklerini, sürelerini ve koşullarını
+                      <span className="font-semibold">IPTV paketlerinin</span> içeriklerini, sürelerini ve koşullarını
                       açıkça paylaşırız. Sözleşme koşullarında sürpriz yoktur; neye abone olduğunuzu en baştan net
                       olarak bilirsiniz. Bu yaklaşım, QruzeTV&#39;yi tercih eden kullanıcıların bize olan
                       güvenini her yıl daha da artırmaktadır.
@@ -288,7 +288,7 @@ const AboutPage = ({ siteData }) => {
                       Özellikle canlı yayın, maç ve büyük etkinlik dönemlerinde yaşanan yoğun yüklenmeler, çoğu
                       platform için ciddi bir problem oluştururken, QruzeTV’nin tasarladığı altyapı bu
                       dönemlerde de istikrarı korumaya odaklanır. Böylece hem Türkiye içindeki hem de yurt dışındaki
-                      kullanıcılarımız, aynı stabil <span className="font-semibold">IPTV hizmet</span> kalitesine
+                      kullanıcılarımız, aynı stabil <span className="font-semibold">IPTV kalitesine</span>{' '}
                       sahip olur.
                     </p>
                   </div>
@@ -361,7 +361,7 @@ const AboutPage = ({ siteData }) => {
                     <p className="text-sm md:text-base leading-relaxed">
                       Destek taleplerinizde önceliğimiz, sorunu en kısa sürede tespit edip, kalıcı bir şekilde
                       çözmektir. Hazır kalıplarla geçiştirmek yerine, gerçekten ihtiyacınıza uygun çözümü bulmayı
-                      amaçlıyoruz. Böylece <span className="font-semibold">IPTV hizmet</span> deneyiminiz kesintiye
+                      amaçlıyoruz. Böylece <span className="font-semibold">yayın deneyiminiz</span> kesintiye
                       uğramadan devam eder.
                     </p>
                   </div>
@@ -397,7 +397,7 @@ const AboutPage = ({ siteData }) => {
                       deneyiminin yalnızca belirli bir kesimin erişebileceği lüks bir hizmet olmaması gerektiğine
                       inanıyoruz. Bu nedenle fiyatlandırma politikamızı; erişilebilirlik, şeffaflık ve esneklik
                       prensipleri üzerine kurduk. Hazırladığımız her bir{' '}
-                      <span className="font-semibold">IPTV paket</span>, farklı bütçe ve kullanım alışkanlıklarına
+                      <span className="font-semibold">IPTV paketi</span>, farklı bütçe ve kullanım alışkanlıklarına
                       hitap edecek şekilde tasarlandı.
                     </p>
                   </div>
@@ -459,7 +459,7 @@ const AboutPage = ({ siteData }) => {
                   QruzeTV ile Güvenilir ve Üst Düzey IPTV Deneyimine Şimdi Adım Atın
                 </h2>
                 <p className="text-base md:text-lg leading-relaxed mb-4 text-slate-100">
-                  QruzeTV, yalnızca teknik olarak güçlü bir <span className="font-semibold">IPTV hizmet</span>{' '}
+                  QruzeTV, yalnızca teknik olarak güçlü bir <span className="font-semibold">IPTV hizmeti</span>{' '}
                   sunmakla kalmıyor; aynı zamanda her gününüzde yanınızda olacak, alışkanlıklarınızı dönüştürecek
                   yeni bir televizyon deneyimi vadediyor. Gelişmiş altyapımız, 4K IPTV ve HD kanal kalitemiz,
                   şeffaf ve avantajlı IPTV paket yapımız ile hem Türkiye&#39;deki kullanıcılarımızın hem de yurt

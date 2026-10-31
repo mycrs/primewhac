@@ -39,8 +39,8 @@ const buildZeroPlayerSteps = (isDe) => {
 export const smartTvFallbackStepsTr = buildZeroPlayerSteps(false);
 export const smartTvFallbackStepsDe = buildZeroPlayerSteps(true);
 
-const SmartTVGuide = ({ dbData }) => (
-  <InstallationGuideRenderer data={dbData} fallbackData={{ steps: smartTvFallbackStepsTr }} />
+const SmartTVGuide = ({ dbData, isDe }) => (
+  <InstallationGuideRenderer data={dbData} fallbackData={{ steps: isDe ? smartTvFallbackStepsDe : smartTvFallbackStepsTr }} />
 );
 
 export default SmartTVGuide;

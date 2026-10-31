@@ -51,9 +51,9 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
     return {
       type: 'stabil',
       seal: isDe
-        ? (isEu ? 'EUROPA STANDARD • 1 GERÄT' : 'STABILITÄTS-FOKUS • LIVE-TV')
-        : (isEu ? 'AVRUPA STANDART • 1 CİHAZ' : 'STABİLİTE ODAKLI • CANLI TV'),
-      badge: isDe ? (isEu ? 'STANDARD' : 'DEDIZIERTE SERVER') : (isEu ? 'TEK CİHAZ' : 'DONMAYAN ALTYAPI'),
+        ? (isEu ? 'EUROPA STANDARD • ANYCAST' : 'DEDIZIERTE SERVER • KEIN PUFFER')
+        : (isEu ? 'AVRUPA STANDART • ANYCAST CDN' : 'DEDİKE ALTYAPI • SIFIR DONMA'),
+      badge: isDe ? (isEu ? '1 GERÄT' : 'DEDIZIERT') : (isEu ? '1 CİHAZ' : 'DEDİKE LİNE'),
       icon: isEu ? Tv : ShieldCheck,
       bgGlow: 'bg-emerald-600',
       border: 'border-emerald-500/30 shadow-[0_0_35px_rgba(16,185,129,0.12)] ring-1 ring-emerald-500/20',
@@ -64,8 +64,8 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
       checkBg: 'bg-emerald-500/20 border-emerald-500/40',
       btnBg: 'bg-white/[0.08] hover:bg-emerald-600 text-white border border-white/15 hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-600/30 hover:scale-[1.01]',
       tagline: isDe
-        ? (isEu ? '1 Gerät & Stabile Europa-Server' : 'Anti-Freeze v4 & Dedizierte Server')
-        : (isEu ? '1 Cihaz & Donmayan Avrupa CDN Altyapısı' : 'Anti-Freeze v4 & Kesintisiz Canlı TV'),
+        ? (isEu ? 'Deutschland, Österreich & EU ohne VPN' : 'Anti-Freeze v4 & Dedizierte Server')
+        : (isEu ? 'Almanya, Hollanda & Tüm Avrupa\'da VPN\'siz' : 'Özel Fiber Hatlar & Kesintisiz Canlı TV'),
     };
   }
 
@@ -73,8 +73,8 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
   if (tier === 'global' || name.includes('global') || name.includes('dünya') || name.includes('welt')) {
     return {
       type: 'global',
-      seal: isDe ? 'GLOBALER ZUGRIFF • WELTKANÄLE' : 'KÜRESEL ERİŞİM • DÜNYA KANALLARI',
-      badge: isDe ? 'ALLE WELTKANÄLE' : 'TÜM DÜNYA KANALLARI',
+      seal: isDe ? 'GLOBALER ZUGRIFF • ANYCAST CDN' : 'KÜRESEL ERİŞİM • ANYCAST CDN',
+      badge: isDe ? 'ALLE WELTKANÄLE' : '50+ ÜLKE',
       icon: Globe,
       bgGlow: 'bg-blue-600',
       border: 'border-blue-500/40 shadow-[0_0_35px_rgba(37,99,235,0.15)] ring-1 ring-blue-500/25',
@@ -84,7 +84,7 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
       checkColor: 'text-blue-400',
       checkBg: 'bg-blue-500/20 border-blue-500/40',
       btnBg: 'bg-white/[0.08] hover:bg-blue-600 text-white border border-white/15 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-600/30 hover:scale-[1.01]',
-      tagline: isDe ? 'Anycast CDN & Weltweiter Zugriff' : 'Tüm Dünya Kanalları & Küresel CDN',
+      tagline: isDe ? 'Deutschland, UK, USA & 50+ Länder' : 'Almanya, İngiltere, ABD & 50+ Ülke Yayını',
     };
   }
 
@@ -92,9 +92,9 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
   return {
     type: 'cinema',
     seal: isDe
-      ? (isEu ? '4K ULTRA PREMIUM • CATCH-UP' : '4K KINO & VOD-ARCHIV')
-      : (isEu ? '4K ULTRA PREMIUM • GERİ SARMA' : '4K SİNEMA & DEV VOD ARŞİVİ'),
-    badge: isDe ? (isEu ? '4K PREMIUM' : 'AM BELIEBTESTEN') : (isEu ? '4K PREMIUM' : 'EN ÇOK TERCİH EDİLEN'),
+      ? (isEu ? '4K ULTRA PREMIUM • CATCH-UP' : '4K ULTRA • 5.1 DOLBY AUDIO')
+      : (isEu ? '4K ULTRA PREMIUM • GERİ SARMA' : 'ULTRA HD • 5.1 DOLBY ATMOS'),
+    badge: isDe ? (isEu ? '4K ULTRA' : 'AM BELIEBTESTEN') : (isEu ? '4K ULTRA' : 'EN ÇOK TERCİH EDİLEN'),
     icon: Film,
     bgGlow: 'bg-[#e50914]',
     border: 'border-[#e50914]/80 shadow-[0_0_50px_rgba(229,9,20,0.3)] ring-1 ring-[#e50914]/50',
@@ -105,8 +105,8 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
     checkBg: 'bg-[#e50914]/20 border-[#e50914]/40',
     btnBg: 'bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white shadow-xl shadow-[#e50914]/40 hover:shadow-[0_0_35px_rgba(229,9,20,0.6)] hover:scale-[1.02]',
     tagline: isDe
-      ? (isEu ? '48h Catch-Up & 4K UHD Master Streams' : '15.000+ Filme, Serien & 4K Master')
-      : (isEu ? '48 Saat Geri Sarma & 4K UHD Master Yayın' : '15.000+ Film, Dizi & 4K Master Yayın'),
+      ? (isEu ? '48h Replay & 15.000+ Filme & Serien' : '15.000+ VOD Filme, Serien & Dokus')
+      : (isEu ? '48 Saat Geri Sar & İzle • Dev VOD Arşivi' : '15.000+ Güncel VOD Film, Dizi & Belgesel'),
   };
 };
 

@@ -56,7 +56,7 @@ export const DEFAULT_PACKAGES_PAGE_CONTENT = {
       detailDescription:
         'Paket seçimi yapılırken kullanım bölgesi önemlidir. Türkiye kullanıcıları için sunulan paket seçenekleri içerik, yayın erişimi ve kullanım koşulları açısından Türkiye lokasyonuna göre yapılandırılmıştır.',
       warning:
-        'Bazı paketler yalnızca belirli bölgelerde kullanıma uygun olabilir. Emin değilseniz satın alma öncesinde test hesabı veya destek üzerinden bilgi alabilirsiniz.',
+        'Önemli: Türkiye paketleri yalnızca Türkiye IP adreslerinde geçerlidir. Yurt dışı ikamet eden izleyicilerimizin Avrupa paketlerini seçmesi önerilir.',
     },
     eu: {
       title: 'Avrupa Paketleri',
@@ -64,7 +64,7 @@ export const DEFAULT_PACKAGES_PAGE_CONTENT = {
       detailDescription:
         'Avrupa kullanıcıları için sunulan paket seçenekleri içerik, yayın erişimi ve kullanım koşulları açısından Avrupa lokasyonuna göre yapılandırılmıştır. EUR ile ödeme yapılabilir.',
       warning:
-        'Bazı paketler yalnızca belirli bölgelerde kullanıma uygun olabilir. Emin değilseniz satın alma öncesinde test hesabı veya destek üzerinden bilgi alabilirsiniz.',
+        'Avrupa paketlerimiz Almanya, Avusturya, Hollanda ve tüm dünyada VPN gerektirmeden, yerel kısıtlamalara takılmadan kesintisiz çalışır.',
     },
   },
   seo: {
@@ -80,7 +80,7 @@ export const DEFAULT_PACKAGES_PAGE_CONTENT = {
       title: 'Türkiye ve Avrupa Paketleri Arasındaki Fark',
       body: 'Paket seçimi yapılırken kullanım bölgesi önemlidir. Türkiye ve Avrupa kullanıcıları için sunulan paket seçenekleri içerik, yayın erişimi ve kullanım koşulları açısından farklılık gösterebilir.',
       warning:
-        'Bazı paketler yalnızca belirli bölgelerde kullanıma uygun olabilir. Emin değilseniz satın alma öncesinde test hesabı veya destek üzerinden bilgi alabilirsiniz.',
+        'Doğru bölge paketini seçmek yayın kararlılığı açısından kritiktir; kararsız kalırsanız canlı destek ekibimizden anında rehberlik alabilirsiniz.',
     },
     howToChoose: {
       title: 'IPTV Paketleri Nasıl Seçilir?',

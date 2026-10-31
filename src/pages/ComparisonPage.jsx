@@ -44,7 +44,7 @@ const ComparisonPage = ({ siteData }) => {
     { name: 'Yayın Çözünürlüğü', basic: 'SD & HD', standard: 'FHD', premium: '4K & UHD Seçenekli' },
     { name: 'Donma Önleyici Altyapı', basic: false, standard: true, premium: true },
     { name: 'Geriye Dönük İzleme (Catch-up)', basic: false, standard: '24 Saat', premium: '72 Saat' },
-    { name: 'Çoklu Cihaz Desteği', basic: 'Sadece 1', standard: '1', premium: '2 (Aynı Anda)' },
+    { name: 'Çoklu Cihaz Desteği', basic: '1 Cihaz', standard: '1 Cihaz', premium: '1 Cihaz (Opsiyonel 2 Giriş)' },
     { name: 'Yetişkin (Adult) Kanallar', basic: 'Yok', standard: 'Opsiyonel', premium: 'Şifreli (Ücretsiz)' },
     { name: 'Öncelikli WhatsApp Destek', basic: false, standard: false, premium: true },
   ];
@@ -148,14 +148,14 @@ const ComparisonPage = ({ siteData }) => {
 
               <h2 className="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-2">Premium VIP Paket Özellikleri</h2>
               <p className="text-slate-300 mb-8">
-                Kaliteden asla ödün vermek istemeyenlerin seçimidir. Aynı anda 2 farklı cihazdan (farklı IP&apos;lerden olsa bile) izleme imkanı sunar. Sınırsız güncel 4K film arşivi, 72 saate kadar geri sarma ve teknik destek taleplerinde öncelik içerir.
+                Kaliteden asla ödün vermek istemeyenlerin seçimidir. 12 aylık tercihlerde opsiyonel çift giriş (2 cihaz) seçeneğiyle ailenizle eşzamanlı izleme imkanı sunar. Sınırsız güncel 4K film arşivi, 72 saate kadar geri sarma ve teknik destek taleplerinde VIP öncelik içerir.
               </p>
 
               <h2 className="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-2">Hangi Paket Sizin İçin Uygun? (Paket Seçimi İçin İpuçları)</h2>
               <ul className="list-disc pl-6 text-slate-300 space-y-2 mb-8">
                 <li>Eğer sadece haber kanalları ve temel spor müsabakaları ile ilgileniyorsanız: <strong>Temel Paket</strong></li>
                 <li>Geniş bir akıllı TV&apos;niz var ve Full HD kalitede sorunsuz maç, güncel sinema keyfi istiyorsanız: <strong>Standart Paket</strong></li>
-                <li>Kalabalık bir aileniz var, hem siz evde TV&apos;den maç izlerken çocuğunuz tabletinden çizgi film izleyecekse: <strong>Premium VIP Paket</strong></li>
+                <li>Kalabalık bir aileniz var, hem salonda TV&apos;den maç izlenirken diğer odada film izlensin istiyorsanız: <strong>Premium VIP Paket (Çift Giriş Seçeneği ile)</strong></li>
               </ul>
 
               <h2 className="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-2">Paket Yükseltme ve Düşürme (Paket Değişikliği Nasıl Yapılır?)</h2>

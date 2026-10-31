@@ -80,7 +80,7 @@ const defaultFaqDataDE = {
         {
           question: 'Gibt es eine kostenlose Testphase?',
           answer:
-            'Ja, wir bieten einen kostenlosen 24-Stunden-Testzugang an, damit Sie sich vor dem Kauf von der Qualität und Stabilität unserer Server überzeugen können. Kontaktieren Sie einfach unseren Support über WhatsApp, um Ihren Testzugang anzufordern.',
+            'Ja, wir bieten einen kostenlosen Testzugang an, damit Sie sich vor dem Kauf von der Qualität und Stabilität unserer Server überzeugen können. Kontaktieren Sie einfach unseren Support über WhatsApp, um Ihren Testzugang anzufordern.',
         },
       ],
     },

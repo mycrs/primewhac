@@ -42,7 +42,7 @@ const ComparisonPageDE = ({ siteData }) => {
     { name: 'Stream-Auflösung', basic: 'SD & HD', standard: 'Full HD', premium: '4K & UHD' },
     { name: 'Anti-Freeze-Infrastruktur', basic: false, standard: true, premium: true },
     { name: 'Catch-up (Zeitversetzt)', basic: false, standard: '24 Stunden', premium: '72 Stunden' },
-    { name: 'Gleichzeitige Geräte', basic: '1', standard: '1', premium: '2' },
+    { name: 'Gleichzeitige Geräte', basic: '1 Gerät', standard: '1 Gerät', premium: '1 Gerät (Optional 2)' },
     { name: 'Erwachsenenkanäle', basic: 'Nein', standard: 'Optional', premium: 'Passwortgeschützt' },
     { name: 'Prioritäts-Support (WhatsApp)', basic: false, standard: false, premium: true },
   ];
@@ -152,7 +152,7 @@ const ComparisonPageDE = ({ siteData }) => {
 
               <h2 className="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-2">Premium VIP</h2>
               <p className="text-slate-300 mb-8">
-                Für maximale Qualität: zwei Geräte gleichzeitig, großes 4K-VOD-Archiv, 72 Stunden Catch-up und priorisierter Support.
+                Für maximale Qualität: Ultra HD & 4K-Stream, großes VOD-Archiv, 72 Stunden Catch-up, optionale 2-Geräte-Option für 12 Monate und priorisierter VIP-Support.
               </p>
 
               <h2 className="text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-2">Welches Paket passt zu Ihnen?</h2>

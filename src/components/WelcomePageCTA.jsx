@@ -28,7 +28,7 @@ const WelcomePageCTA = () => {
             Hala Kararsız mısınız?
           </h2>
           <p className="text-lg md:text-xl text-blue-100 mb-10 leading-relaxed">
-            Kalitemizi görmeden karar vermeyin. 24 saatlik ücretsiz deneme süresi ile tüm kanalları ve içerikleri test edin, memnun kalırsanız abone olun.
+            Kalitemizi görmeden karar vermeyin. Ücretsiz deneme süresi ile tüm kanalları ve içerikleri test edin, memnun kalırsanız abone olun.
           </p>
           
           <motion.div

@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, ListVideo, PlayCircle, ShieldCheck, MonitorPlay, Tv, Shield, Crown } from 'lucide-react';
+import { Zap, MonitorPlay, Tv, PlayCircle, ShieldCheck, Crown } from 'lucide-react';
 
-const Highlight = ({ children, className = 'text-[#e50914] font-bold' }) => (
+const Highlight = ({ children, className = 'text-[#e50914] font-semibold' }) => (
   <span className={className}>{children}</span>
 );
 
@@ -13,12 +13,12 @@ const InfoCard = ({ title, content, icon: Icon, delay, gradientClass, borderClas
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: delay, ease: "easeOut" }}
-      className="group relative bg-[#0c0d12]/85 backdrop-blur-md p-7 md:p-8 rounded-2xl border border-white/10 hover:border-red-500/40 transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_40px_rgba(229,9,20,0.2)] hover:-translate-y-1 overflow-hidden"
+      className={`group relative bg-[#0c0d12]/85 backdrop-blur-md p-7 md:p-8 rounded-2xl border ${borderClass} transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] ${shadowClass} hover:-translate-y-1 overflow-hidden`}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
       
       <div className="relative z-10 flex flex-col h-full">
-        <div className="flex items-center gap-4 mb-5">
+        <div className="flex items-center gap-4 mb-4">
           <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 group-hover:border-red-500/30 group-hover:scale-105 transition-all duration-300">
             <Icon className="w-6 h-6 md:w-7 md:h-7 text-red-500" />
           </div>
@@ -71,83 +71,83 @@ const ChannelsPageContent = () => {
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-red-600 to-red-800 mx-auto rounded-full mb-4" />
           <p className="text-slate-400 text-sm md:text-base leading-relaxed">
-            Kesintisiz ve en yüksek çözünürlükte yayın keyfi için altyapımızın sunduğu teknolojik standartları keşfedin.
+            Yüksek bit hızı, akıllı veri sıkıştırma ve küresel Anycast CDN omurgasıyla donatılmış yeni nesil akış altyapımızı keşfedin.
           </p>
         </motion.div>
 
-        {/* First original section - Intro */}
+        {/* First section - Intro */}
         <div className="mb-12">
           <motion.div variants={itemVariants} className="bg-[#0c0d12]/90 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none text-red-500">
               <Zap className="w-64 h-64" />
             </div>
             <h3 className="text-xl md:text-3xl font-display font-bold text-white mb-4 relative z-10">
-              Canlı IPTV Kanalları Nedir? – Gerçek Zamanlı Yayın Hizmetleri
+              Yeni Nesil Dijital Yayın Mimarisi Nasıl Çalışır?
             </h3>
             <p className="text-slate-300 leading-relaxed text-sm md:text-base relative z-10 font-light">
-              Canlı IPTV kanalları, internet protokolü (IP) üzerinden televizyon yayınlarının dijital veri paketleri halinde cihazınıza aktarıldığı, modern ve esnek bir teknolojidir. Uydu çanakları veya kablolu TV altyapılarının aksine, sadece internet bağlantınızla 10.000+ kanal ve içeriğe eş zamanlı ulaşmanızı sağlar. Bu eşsiz gerçek zamanlı yayın hizmeti, izleyicilere mekân ve cihaz sınırlaması olmadan televizyon izleme özgürlüğü sunar. Akıllı telefonunuzdan, tabletinizden veya Smart TV'nizden aynı <Highlight>kaliteli iptv</Highlight> performansını elde edersiniz. Ayrıca, anlık veri akışı sayesinde gecikmeler minimize edilerek, ulusal ve global tüm <Highlight>hd iptv</Highlight> yayın içerikleri eş zamanlı olarak ekranınıza yansıtılır.
+              Geleneksel uydu çanaklarının veya kablolu hatların yarattığı hava muhalefeti ve sinyal kayıplarının aksine, modern dijital akış teknolojisi yayın paketlerini yüksek hızlı fiber optik omurgalar üzerinden cihazınıza ulaştırır. <Highlight>QruzeTV altyapısı</Highlight>, 10.000&apos;den fazla canlı televizyon kanalını ve geniş VOD kütüphanesini tek bir arayüzde birleştirir. Smart TV, Android TV, Apple TV veya telefonunuzdan izlerken sunucu ile cihazınız arasında doğrudan kurulan 256-bit şifreli bağlantı, gecikmeleri asgari düzeye indirerek stadyum ve sinema salonu atmosferini evinize taşır.
             </p>
           </motion.div>
         </div>
 
-        {/* 5 Specific Subsections requested by user in a Grid layout */}
+        {/* 5 Distinct Cards with Polish and No Robotic Repetition */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Sub 1 */}
           <div className="lg:col-span-2">
             <InfoCard 
-              title="4K IPTV Kanalları Avantajları – Ultra Yüksek Çözünürlük Deneyimi"
-              content="4K IPTV kanalları, görüntü kalitesi açısından bir devrim niteliğindedir. 3840x2160 piksel çözünürlüğü ile sunulan bu yayınlar, her detayı kristal berraklığında gösterir. Canlı IPTV kanalları aracılığıyla spor maçlarını izlerken, oyuncuların yüz ifadelerini, topun hızını ve sahada olan her hareketi net bir şekilde görebilirsiniz. Film kanallarında ise, sinematik kalitede görüntü, filmlerin orijinal sanat yönetmeninin vizyonunu tam olarak yansıtır. Kaliteli IPTV hizmetleri, 4K IPTV kanalları sunabilmek için yüksek bant genişliği ve güçlü sunucu altyapısı gerektirir. En iyi IPTV servisi sağlayıcıları, bu teknolojiye yatırım yaparak, izleyicilere premium bir deneyim sunarlar. Donmayan IPTV teknolojisi ile birlikte, 4K çözünürlüğü hiç kesintiye uğramadan sunulur. Belgesel kanallarında doğanın güzelliğini, tarihi mekanları ve kültürel zenginlikleri 4K kalitesinde keşfetmek, izleyicileri büyüleyici bir yolculuğa çıkarır. Canlı IPTV kanalları sayesinde, dünyanın her yerinden yayınları, en yüksek kalitede izleyebilirsiniz."
+              title="4K Ultra HD Yayın Standartları – Gerçekçi Detay ve 60 FPS Akıcılık"
+              content="3840x2160 piksel çözünürlükle aktarılan 4K yayınlar, geleneksel televizyonculuğun ötesinde sinematik bir derinlik sunar. Canlı spor müsabakalarında çimdeki her hareket, oyuncuların yüz ifadeleri ve topun saliseler içindeki yön değişimi 60 kare/saniye akıcılığıyla netleşir. H.265 (HEVC) kodlama mimarimiz, yüksek renk derinliğini ve HDR10+ kontrastını korurken aşırı internet tüketimini dengeler; böylece 4K kalitesi donma yaşamadan ekranınıza yansır."
               icon={MonitorPlay}
               delay={0.1}
               gradientClass="from-[#e50914]/10 to-transparent"
-              borderClass="border-primary/30 group-hover:border-primary/60"
+              borderClass="border-primary/30 hover:border-primary/60"
               shadowClass="hover:shadow-primary/20"
             />
           </div>
 
           {/* Sub 2 */}
           <InfoCard 
-            title="HD IPTV Yayın Kalitesi – Keskin ve Net Görüntü"
-            content="HD IPTV yayın, 1920x1080 piksel çözünürlüğü ile sunulan, geleneksel yayın kalitesinden çok daha üstün bir deneyimdir. Kaliteli IPTV hizmetleri, HD çözünürlüğü ile bile, izleyicilere mükemmel bir görüntü sunabilir. Canlı IPTV kanalları aracılığıyla haber bültenlerini, spor maçlarını ve film gösterimlerini HD kalitesinde izlemek, yeterince net ve keskin bir deneyim sağlar. Donmayan IPTV teknolojisi, HD IPTV yayın kalitesini stabil bir şekilde sunabilme yeteneğidir. En iyi IPTV servisi sağlayıcıları, HD çözünürlüğü ile bile, hiç donmayan, hiç kesintiye uğramayan yayınlar sunarlar. Bu, özellikle internet bant genişliği sınırlı olan bölgelerde ideal bir seçenektir."
+            title="Full HD & Kararlı Akış – Düşük Bant Genişliğinde Üstün Performans"
+            content="1080p Full HD yayınlarımız, kristal netliğinde görüntü sağlarken ev internetinizin veya mobil bağlantınızın hız dalgalanmalarına anında uyum sağlar. Akıllı adaptif bitrate teknolojisi sayesinde 12-16 Mbps gibi ortalama internet hızlarında dahi yayın akışı kesilmeden stabil bir şekilde devam eder."
             icon={Tv}
             delay={0.2}
-            gradientClass="from-[#e50914]/10 to-transparent"
-            borderClass="border-blue-500/30 group-hover:border-blue-500/60"
+            gradientClass="from-blue-600/10 to-transparent"
+            borderClass="border-blue-500/30 hover:border-blue-500/60"
             shadowClass="hover:shadow-blue-500/20"
           />
 
           {/* Sub 3 */}
           <InfoCard 
-            title="Spor, Film ve Belgesel Kanallarında Ultra Net Görüntü"
-            content="Spor kanallarında 4K IPTV kanalları ve HD IPTV yayın kalitesi, izleyicilere tamamen farklı bir deneyim sunar. Futbol maçlarında, her pas, her şut net bir şekilde görülür. Tenis turnuvalarında, topun hızını 4K çözünürlüğü ile izlemek heyecanı artırır. Film kanallarında, sinematik kalitede görüntü sunar. Renk tonları, ışık-gölge oyunları ve detaylar, 4K çözünürlüğü ile tam olarak yansıtılır. Belgesel kanallarında ise, doğanın güzelliğini, hayvanların hareketlerini, tarihi mekanları 4K kalitesinde keşfetmek, izleyicileri eğitici ve etkileyici bir yolculuğa çıkarır. Donmayan IPTV teknolojisi, bu yüksek kaliteli yayınları kesintisiz sunar."
+            title="Spor, Sinema ve Belgesel Odaklı Tematik Akışlar"
+            content="Süper Lig derbilerinden UEFA Şampiyonlar Ligi'ne, Premier Lig'den Formula 1'e kadar tüm uluslararası spor organizasyonları özel yüksek hızlı yayın beslemeleriyle aktarılır. Sinema ve belgesel kanallarında ise orijinal dil seçenekleri, çok dilli altyazı desteği ve Dolby Digital ses formatı eşlik eder."
             icon={PlayCircle}
             delay={0.3}
-            gradientClass="from-[#e50914]/10 to-transparent"
-            borderClass="border-pink-500/30 group-hover:border-pink-500/60"
+            gradientClass="from-pink-600/10 to-transparent"
+            borderClass="border-pink-500/30 hover:border-pink-500/60"
             shadowClass="hover:shadow-pink-500/20"
           />
 
           {/* Sub 4 */}
           <InfoCard 
-            title="Donmayan IPTV ile Yüksek Çözünürlük Deneyimi"
-            content="Donmayan IPTV, yüksek çözünürlüklü yayınları kesintisiz bir şekilde sunabilme teknolojisidir. En iyi IPTV servisi sağlayıcıları, güçlü sunucu altyapısı, gelişmiş veri sıkıştırma teknolojileri ve akıllı ağ yönetimi kullanarak, 4K IPTV kanalları ve HD IPTV yayın kalitesini hiç donmadan iletir. Canlı IPTV kanalları aracılığıyla spor maçlarını izlerken, donmayan IPTV teknolojisi kritik önem taşır. Maçın heyecan anlarında, yayın donması izleyicilerin deneyimini bozar. En iyi IPTV servisi, bu sorunları minimize ederek, kesintisiz bir yayın sunar. 4K IPTV kanalları ve HD IPTV yayın kalitesi, donmayan IPTV teknolojisi olmadan tam potansiyelini gösteremez."
+            title="Anycast CDN ve Frankfurt/Amsterdam Doğrudan Peering"
+            content="Yayın donmalarının temel sebebi yetersiz sunucu bant genişliğidir. QruzeTV; Avrupa'nın ana internet değişim noktaları (DE-CIX Frankfurt ve AMS-IX Amsterdam) ile doğrudan fiber peering bağlantısına sahiptir. Yüz binlerce izleyicinin aynı anda derbi izlediği yoğun saatlerde bile yük dengeleme algoritmaları trafiği en yakın düğüme yönlendirir."
             icon={ShieldCheck}
             delay={0.4}
-            gradientClass="from-[#e50914]/10 to-transparent"
-            borderClass="border-[#e50914]/30 group-hover:border-[#e50914]/60"
+            gradientClass="from-emerald-600/10 to-transparent"
+            borderClass="border-emerald-500/30 hover:border-emerald-500/60"
             shadowClass="hover:shadow-emerald-500/20"
           />
 
           {/* Sub 5 */}
           <InfoCard 
-            title="Geniş Kanal Yelpazesi ve Üst Düzey İzleme Deneyimi"
-            content="Üst düzey IPTV hizmeti, sadece yüksek çözünürlük sunmakla kalmaz, aynı zamanda geniş bir kanal yelpazesi de sağlar. Spor, film, belgesel, haber, eğitim, müzik ve daha birçok kategoride yüzlerce kanal, 4K ve HD kalitesinde sunulur. Bu çeşitlilik, her yaş grubundan ve her ilgi alanından izleyicilerin, kendi tercihlerine uygun içeriği bulmasını sağlar. En iyi IPTV servisi, teknolojik üstünlüğün yanı sıra, kullanıcı deneyimini de ön planda tutar. Kolay navigasyon, hızlı kanal değiştirme, kayıt özelliği ve çoklu cihaz desteği, bu hizmetin temel bileşenleridir. Donmayan IPTV ile birlikte bu özellikler, izleyicilere tam bir kontrol ve esneklik sağlar."
+            title="Akıllı EPG Rehberi ve 0.5 Saniyenin Altında Kanal Geçişi (Zap Hızı)"
+            content="Gelişmiş kanal mimarimiz, kanal değiştirme gecikmesini (zap süresi) 0.5 saniyenin altına indirir. Güncel Elektronik Program Rehberi (EPG) ile hangi yayının ne zaman başlayacağını kolayca görebilir, favori listelerinizi dilediğiniz gibi düzenleyerek televizyon izleme konforunuzu kişiselleştirebilirsiniz."
             icon={Crown}
             delay={0.5}
-            gradientClass="from-orange-600/10 to-transparent"
-            borderClass="border-orange-500/30 group-hover:border-orange-500/60"
-            shadowClass="hover:shadow-orange-500/20"
+            gradientClass="from-amber-600/10 to-transparent"
+            borderClass="border-amber-500/30 hover:border-amber-500/60"
+            shadowClass="hover:shadow-amber-500/20"
           />
 
         </div>
