@@ -1,0 +1,47 @@
+name: Weekly Automated Blog Post
+
+on:
+  schedule:
+    # Her Pazartesi saat 09:00 UTC (Türkiye saati ile 12:00)
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # GitHub arayüzünden tek tıkla manuel çalıştırma butonu
+
+permissions:
+  contents: write
+
+jobs:
+  generate-blog-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install --include=dev
+
+      - name: Install Chrome for Puppeteer
+        run: npx puppeteer browsers install chrome
+
+      - name: Run Automated Blog Post Generator
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          VITE_SITE_URL: https://cineverse.pro
+        run: node scripts/generate-blog-posts.mjs
+
+      - name: Commit and Push Updated Translations
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add src/data/staticBlogTranslationsDE.js public/blog-covers/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(blog): auto-publish weekly blog post & DE translations [skip ci]" && git push)
