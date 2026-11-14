@@ -12,6 +12,7 @@ import { getTvBrandGuide, localizeTvBrandGuide } from './data/tvBrandGuides.js';
 import { categoriesTR, categoriesDE } from './data/whatToWatchCategories.js';
 import { seoMetadata } from './data/seoMetadata.js';
 import { MIN_CONTENT_THRESHOLD, plainTextLengthFromHtml } from './utils/seoNoindexPaths.js';
+import { APP_GUIDES, APP_GUIDES_BASE, getAppGuideTitle, getAppGuideDescription } from './data/appInstallationGuides.js';
 
 const KURULUM_DEVICES = BASE_KURULUM_DEVICES;
 const DEVICE_LABELS = {
@@ -153,6 +154,7 @@ const BLOG_TEXT_FIXES = [
   [/http:\/\/kaliteliiptv\.com/g, SITE_URL],
   [/https:\/\/primewatch\.tv/g, SITE_URL],
   [/http:\/\/primewatch\.tv/g, SITE_URL],
+  [/https?:\/\/(?:www\.)?qruzetv\.com/g, SITE_URL],
 ];
 
 const sanitizeBlogText = (text) => {
@@ -276,8 +278,8 @@ const STATIC_SEO = {
   ),
   '/de': buildSeo(
     '/de',
-    'IPTV Deutschland 2026 — Türkische Sender & Test | QruzeTV',
-    'Türkische Sender per IPTV in Deutschland: auf Smart TV, Fire TV und Mobilgeräten in HD/4K streamen. QruzeTV jetzt kostenlos testen.'
+    'IPTV Deutschland 2026 — Premium 4K Anbieter & Test | QruzeTV',
+    'Premium IPTV in Deutschland, Österreich & Schweiz: 10.000+ Live-Sender, Sport & VOD in 4K/FHD. Kompatibel mit Smart TV, Fire TV & iOS. Jetzt kostenlos testen!'
   ),
   '/de/pakete': buildSeo(
     '/de/pakete',
@@ -440,6 +442,12 @@ function deviceSeoDe(slug) {
 for (const slug of KURULUM_DEVICES) {
   STATIC_SEO[`/kurulum/${slug}`] = deviceSeoTr(slug);
   STATIC_SEO[`/de/einrichtung/${slug}`] = deviceSeoDe(slug);
+}
+
+STATIC_SEO[APP_GUIDES_BASE] = buildSeo(APP_GUIDES_BASE, 'IPTV Uygulama Kurulum Rehberleri | QruzeTV', 'SmartOne, 0 Player, HotPlayer, Smarters Pro, XCIPTV, TiviMate ve diğer IPTV oynatıcıları için adım adım kurulum rehberleri.');
+for (const guide of APP_GUIDES) {
+  const route = `${APP_GUIDES_BASE}/${guide.slug}`;
+  STATIC_SEO[route] = buildSeo(route, getAppGuideTitle(guide), getAppGuideDescription(guide));
 }
 
 /**

@@ -1,3 +1,4 @@
+import { BLOG_TRANSLATIONS_DE } from '@/data/staticBlogTranslationsDE';
 
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
@@ -35,6 +36,9 @@ const BRAND_TEXT_FIXES = [
   [/KaliteliIPTV/gi, 'QruzeTV'],
   [/PrimeWatch TV/gi, 'QruzeTV'],
   [/Satın AI/gi, 'Satın Al'],
+  [/https?:\/\/(?:www\.)?qruzetv\.com/gi, 'https://cineverse.pro'],
+  [/https?:\/\/(?:www\.)?kaliteliiptv\.com/gi, 'https://cineverse.pro'],
+  [/https?:\/\/(?:www\.)?primewatch\.tv/gi, 'https://cineverse.pro'],
 ];
 
 const sanitizeBrandText = (text) => {
@@ -129,6 +133,14 @@ const BlogPostPage = ({ siteData }) => {
 
         data.content = DomainMigrationManager.updateContent(data.content);
         data.cover_image_url = DomainMigrationManager.updateUrl(data.cover_image_url);
+        if (BLOG_TRANSLATIONS_DE[data.slug]) {
+          const trDe = BLOG_TRANSLATIONS_DE[data.slug];
+          data.title_de = trDe.title_de;
+          data.seo_title_de = trDe.seo_title_de;
+          data.seo_description_de = trDe.seo_description_de;
+          data.excerpt_de = trDe.excerpt_de;
+          data.content_de = trDe.content_de;
+        }
         setPost(data);
       } else {
         throw new Error("Post not found");

@@ -9,6 +9,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { fetchBuildSeoExtras } from '../src/utils/seoRouteRegistry.js';
 import { isBrandRiskBlogSlug } from '../src/constants/brandRiskBlogSlugs.js';
+import { BLOG_TRANSLATIONS_DE } from '../src/data/staticBlogTranslationsDE.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const outDir = path.resolve(__dirname, '../src/generated');
@@ -42,6 +43,9 @@ function sanitizePost(post) {
       .replace(/QruzeHD/gi, 'QruzeTV')
       .replace(/KaliteliIPTV/gi, 'QruzeTV')
       .replace(/PrimeWatch TV/gi, 'QruzeTV')
+      .replace(/https?:\/\/(?:www\.)?qruzetv\.com/gi, 'https://cineverse.pro')
+      .replace(/https?:\/\/(?:www\.)?kaliteliiptv\.com/gi, 'https://cineverse.pro')
+      .replace(/https?:\/\/(?:www\.)?primewatch\.tv/gi, 'https://cineverse.pro')
       .replace(/Qruze Tv /gi, 'QruzeTV ');
   };
   p.title = clean(p.title);
@@ -49,6 +53,17 @@ function sanitizePost(post) {
   p.seo_description = clean(p.seo_description);
   p.excerpt = clean(p.excerpt);
   p.content = clean(p.content);
+
+  // Authentische deutsche Übersetzung aus staticBlogTranslationsDE anheften
+  if (BLOG_TRANSLATIONS_DE[p.slug]) {
+    const trDe = BLOG_TRANSLATIONS_DE[p.slug];
+    p.title_de = trDe.title_de;
+    p.seo_title_de = trDe.seo_title_de;
+    p.seo_description_de = trDe.seo_description_de;
+    p.excerpt_de = trDe.excerpt_de;
+    p.content_de = trDe.content_de;
+  }
+
   return p;
 }
 
