@@ -149,6 +149,8 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
     { loc: '/almanyada-turk-kanallari', changefreq: 'monthly' },
     { loc: '/titan-iptv', changefreq: 'weekly' },
     { loc: '/timsah-iptv', changefreq: 'weekly' },
+    { loc: '/mpremium-iptv', changefreq: 'weekly' },
+    { loc: '/vera-iptv', changefreq: 'weekly' },
     { loc: '/de', changefreq: 'daily' },
     { loc: '/de/pakete', changefreq: 'weekly' },
     { loc: '/de/einrichtung', changefreq: 'weekly' },

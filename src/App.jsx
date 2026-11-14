@@ -70,6 +70,8 @@ const DeTuerkischeSenderPage = lazy(() => import('@/pages/DeTuerkischeSenderPage
 const AlmanyaTurkKanallariPage = lazy(() => import('@/pages/AlmanyaTurkKanallariPage'));
 const TitanIptvPage = lazy(() => import('@/pages/TitanIptvPage'));
 const TimsahIptvPage = lazy(() => import('@/pages/TimsahIptvPage'));
+const MpremiumIptvPage = lazy(() => import('@/pages/MpremiumIptvPage'));
+const VeraIptvPage = lazy(() => import('@/pages/VeraIptvPage'));
 const WhatToWatchPage = lazy(() => import('@/pages/WhatToWatchPage'));
 const WhatToWatchPageDE = lazy(() => import('@/pages/WhatToWatchPageDE'));
 const WhatToWatchDetailPage = lazy(() => import('@/pages/WhatToWatchDetailPage'));
@@ -330,6 +332,12 @@ function AppContent() {
                 <Route path="/timsah-iptv" element={<ET><TimsahIptvPage siteData={siteData} /></ET>} />
                 <Route path="/timsah-iptv-satin-al" element={<ET><Navigate to="/timsah-iptv/" replace /></ET>} />
                 <Route path="/timsah-panel-iptv" element={<ET><Navigate to="/timsah-iptv/" replace /></ET>} />
+                <Route path="/mpremium-iptv" element={<ET><MpremiumIptvPage siteData={siteData} /></ET>} />
+                <Route path="/mpremium-iptv-satin-al" element={<ET><Navigate to="/mpremium-iptv/" replace /></ET>} />
+                <Route path="/mpremium-panel-iptv" element={<ET><Navigate to="/mpremium-iptv/" replace /></ET>} />
+                <Route path="/vera-iptv" element={<ET><VeraIptvPage siteData={siteData} /></ET>} />
+                <Route path="/vera-iptv-satin-al" element={<ET><Navigate to="/vera-iptv/" replace /></ET>} />
+                <Route path="/vera-panel-iptv" element={<ET><Navigate to="/vera-iptv/" replace /></ET>} />
                 <Route path="/yorumlar" element={<ET><ReviewsPage siteData={siteData} /></ET>} />
                 <Route path="/musteri-kayit" element={<ET><MusteriKayitPage siteData={siteData} /></ET>} />
                 <Route path="/iletisim" element={<ET><ContactPage siteData={siteData} /></ET>} />

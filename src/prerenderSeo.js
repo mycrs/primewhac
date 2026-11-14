@@ -423,6 +423,21 @@ const STATIC_SEO = {
     'Timsah Panel IPTV satın al! Orijinal Timsah IPTV panel nedir, nasıl alınır, nereden bulunur? Kesintisiz 4K yayınlar, anında teslimat ve ücretsiz test avantajı.',
     { noHreflang: true }
   ),
+// TR-only MPremium IPTV landing sayfası (DE karşılığı yok): hreflang basılmaz; canonical self-referencing slash'lı kalır.
+  '/mpremium-iptv': buildSeo(
+    '/mpremium-iptv',
+    'MPremium IPTV Satın Al | Orijinal Sunucu & Kurulum Rehberi — QruzeTV',
+    'MPremium IPTV satın al! Orijinal MPremium panel nedir, nasıl alınır, nereden bulunur? Kesintisiz 4K spor yayınları, anında teslimat ve ücretsiz test fırsatı.',
+    { noHreflang: true }
+  ),
+  // TR-only Vera IPTV landing sayfası (DE karşılığı yok): hreflang basılmaz; canonical self-referencing slash'lı kalır.
+  '/vera-iptv': buildSeo(
+    '/vera-iptv',
+    'Vera IPTV Satın Al | Orijinal Sunucu & Kurulum Rehberi — QruzeTV',
+    'Vera IPTV satın al! Orijinal Vera IPTV panel nedir, nasıl alınır, nereden bulunur? Donmayan 4K canlı TV, anında teslimat ve 7/24 kesintisiz destek avantajı.',
+    { noHreflang: true }
+  ),
+
 
 };
 function deviceSeoTr(slug) {

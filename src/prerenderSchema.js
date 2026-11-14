@@ -644,6 +644,172 @@ function timsahIptvPageSchemas(metadata) {
   ];
 }
 
+function mpremiumIptvPageSchemas(metadata) {
+  const faqList = [
+    {
+      q: "MPremium IPTV nedir ve neden bu kadar çok tercih ediliyor?",
+      a: "MPremium IPTV; Avrupa genelinde konumlandırılmış yüksek kapasiteli fiber CDN sunucuları ve Anti-Freeze 10.0 önbellekleme teknolojisi ile çalışan premium bir yayın altyapısıdır. Özellikle canlı spor karşılaşmaları, yüksek çözünürlüklü 4K belgeseller ve binlerce güncel film/dizi içeriğini sıfır gecikme ve 60 FPS kare hızıyla sunarak sektörün en beğenilen yayın sağlayıcılarından biri olmuştur."
+    },
+    {
+      q: "MPremium IPTV nasıl satın alınır?",
+      a: "MPremium IPTV satın almak yalnızca 3 basit adımdan oluşur: 1) Paketler sayfamızdan bütçenize ve kullanım sürenize (1, 3, 6 veya 12 Ay) uygun paketi seçin. 2) Güvenli ödeme veya WhatsApp canlı destek hattımız üzerinden siparişinizi tamamlayın. 3) Ödemeniz onaylandığı anda M3U Plus bağlantı linkiniz ve Xtream Codes API bilgileriniz (Sunucu, Kullanıcı Adı, Şifre) 5 dakika içerisinde WhatsApp veya e-posta yoluyla iletilir."
+    },
+    {
+      q: "Orijinal MPremium IPTV nereden bulunur ve sahte satıcılardan nasıl ayırt edilir?",
+      a: "İnternette 'MPremium' ismini kullanarak sahte veya aşırı yüklenmiş klon paneller satan yetkisiz aracılar bulunmaktadır. Orijinal MPremium lisansı yalnızca QruzeTV gibi kurumsal, 7/24 teknik destek sağlayan, SSL korumalı ve müşteri memnuniyeti garantisi sunan güvenilir platformlardan temin edilmelidir. Orijinal lisanslarda kanal geçişleri 1 saniyenin altındadır ve derbi saatlerinde yayın kesintisi yaşanmaz."
+    },
+    {
+      q: "Satın alma işleminden sonra yayınım ne zaman açılır?",
+      a: "Siparişiniz onaylandığı anda sistemimiz otomatik aktivasyon sürecini başlatır. Ortalama 5 ila 10 dakika içerisinde tüm kurulum parametreleriniz hazırlanarak tarafınıza teslim edilir. Dilerseniz uzman teknik ekibimiz cihazınıza uzaktan kurulum desteği de sağlar."
+    },
+    {
+      q: "Satın almadan önce ücretsiz deneme (test) yayını alabilir miyim?",
+      a: "Evet! QruzeTV güvencesiyle sunulan MPremium IPTV kalitesini satın almadan önce kendi televizyonunuzda veya telefonunuzda bizzat deneyimleyebilirsiniz. Sitemizdeki 'Ücretsiz Test' butonuna tıklayarak anında deneme yayını talep edebilirsiniz."
+    },
+    {
+      q: "MPremium IPTV hangi cihazlarda ve hangi uygulamalarla çalışır?",
+      a: "MPremium IPTV; Samsung ve LG Smart TV (IBO Player, Smart IPTV), Android TV ve TV Box (TiviMate, IPTV Smarters Pro, XCIPTV), Amazon Fire TV Stick, Apple TV, iPhone/iPad (NEXT+, CASTORA, IPTVX), Windows PC ve Mac bilgisayarlar dahil tüm modern akıllı cihazlarla %100 uyumludur."
+    },
+    {
+      q: "MPremium IPTV maç saatlerinde donma veya takılma yapar mı?",
+      a: "Hayır. MPremium IPTV sunucuları dinamik yük dengeleme (load balancer) teknolojisine sahiptir. Milyonlarca izleyicinin aynı anda bağlandığı derbi ve büyük kupa maçlarında trafik otomatik olarak yedek sunuculara dağıtılır. En az 16 Mbit/s stabil internet bağlantısı ile donmasız ve takılmasız Full HD / 4K izleme garanti edilir."
+    }
+  ];
+
+  return [
+    prerenderBreadcrumbSchema([
+      { name: 'Ana Sayfa', path: '/' },
+      { name: 'MPremium IPTV Satın Al', path: '/mpremium-iptv' },
+    ]),
+    webPageSchema({
+      name: metadata.title,
+      description: metadata.description,
+      url: `${SITE_URL}/mpremium-iptv`,
+      lang: 'tr',
+    }),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqList.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.a,
+        },
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: 'MPremium IPTV Lisans ve Yayın Paketi',
+      image: `${SITE_URL}/og/mpremium-iptv.jpg`,
+      description: metadata.description,
+      brand: {
+        '@type': 'Brand',
+        name: 'QruzeTV',
+      },
+      offers: {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'EUR',
+        lowPrice: '15',
+        highPrice: '60',
+        offerCount: '4',
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        bestRating: '5',
+        worstRating: '1',
+        ratingCount: '426',
+      },
+    },
+  ];
+}
+
+function veraIptvPageSchemas(metadata) {
+  const faqList = [
+    {
+      q: "Vera IPTV nedir ve sisteminin avantajları nelerdir?",
+      a: "Vera IPTV; Avrupa ve Türkiye genelindeki yüksek hızlı sunucu ağları ile Anti-Freeze 10.0 önbellekleme protokolünü birleştiren yeni nesil bir IPTV yayın altyapısıdır. Özellikle kesintisiz canlı spor karşılaşmaları, yüksek çözünürlüklü 4K belgeseller ve zengin film/dizi arşivi ile kullanıcılara donmasız ve takılmasız bir TV izleme deneyimi sunar."
+    },
+    {
+      q: "Vera IPTV nasıl satın alınır?",
+      a: "Vera IPTV satın almak yalnızca 3 basit adımdan oluşur: 1) Sitemizdeki Paketler sayfasından dilediğiniz kullanım süresini (1, 3, 6 veya 12 Ay) seçin. 2) Güvenli ödeme veya WhatsApp canlı destek hattımız üzerinden siparişinizi tamamlayın. 3) Ödemeniz onaylandığı anda M3U bağlantı linkiniz ve Xtream Codes API bilgileriniz 5 dakika içerisinde tarafınıza iletilir."
+    },
+    {
+      q: "Orijinal Vera IPTV nereden bulunur ve sahte satıcılardan nasıl korunulur?",
+      a: "İnternette 'Vera IPTV' veya 'Vera Panel' adını kullanan yetkisiz ve kalitesiz klon paneller satılmaktadır. Orijinal Vera IPTV lisansı yalnızca QruzeTV gibi kurumsal, 7/24 teknik destek sağlayan, SSL korumalı ve müşteri memnuniyeti garantisi sunan güvenilir platformlardan temin edilmelidir. Orijinal lisanslarda kanal geçişleri anlıktır ve derbi maçlarında çökme yaşanmaz."
+    },
+    {
+      q: "Satın alma işleminden sonra yayınım ne zaman açılır?",
+      a: "Siparişiniz onaylandığı anda sistemimiz otomatik aktivasyon sürecini başlatır. Ortalama 5 ila 10 dakika içerisinde tüm kurulum parametreleriniz hazırlanarak tarafınıza teslim edilir. Dilerseniz uzman teknik ekibimiz cihazınıza uzaktan kurulum desteği de sağlar."
+    },
+    {
+      q: "Satın almadan önce ücretsiz deneme (test) yayını alabilir miyim?",
+      a: "Evet! QruzeTV güvencesiyle sunulan Vera IPTV kalitesini satın almadan önce kendi televizyonunuzda veya telefonunuzda bizzat deneyimleyebilirsiniz. Sitemizdeki 'Ücretsiz Test' butonuna tıklayarak anında deneme yayını talep edebilirsiniz."
+    },
+    {
+      q: "Vera IPTV hangi cihazlarda ve hangi uygulamalarla çalışır?",
+      a: "Vera IPTV; Samsung ve LG Smart TV (IBO Player, Smart IPTV), Android TV ve TV Box (TiviMate, IPTV Smarters Pro, XCIPTV), Amazon Fire TV Stick, Apple TV, iPhone/iPad (NEXT+, CASTORA, IPTVX), Windows PC ve Mac bilgisayarlar dahil tüm modern akıllı cihazlarla %100 uyumludur."
+    },
+    {
+      q: "Vera IPTV maç saatlerinde donma veya takılma yapar mı?",
+      a: "Hayır. Vera IPTV sunucuları dinamik yük dengeleme (load balancer) teknolojisine sahiptir. Milyonlarca izleyicinin aynı anda bağlandığı derbi ve büyük kupa maçlarında trafik otomatik olarak yedek sunuculara aktarılır. En az 16 Mbit/s stabil internet bağlantısı ile donmasız ve takılmasız Full HD / 4K izleme garanti edilir."
+    }
+  ];
+
+  return [
+    prerenderBreadcrumbSchema([
+      { name: 'Ana Sayfa', path: '/' },
+      { name: 'Vera IPTV Satın Al', path: '/vera-iptv' },
+    ]),
+    webPageSchema({
+      name: metadata.title,
+      description: metadata.description,
+      url: `${SITE_URL}/vera-iptv`,
+      lang: 'tr',
+    }),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqList.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.a,
+        },
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: 'Vera IPTV Lisans ve Yayın Paketi',
+      image: `${SITE_URL}/og/vera-iptv.jpg`,
+      description: metadata.description,
+      brand: {
+        '@type': 'Brand',
+        name: 'QruzeTV',
+      },
+      offers: {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'EUR',
+        lowPrice: '15',
+        highPrice: '60',
+        offerCount: '4',
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        bestRating: '5',
+        worstRating: '1',
+        ratingCount: '395',
+      },
+    },
+  ];
+}
+
 function simpleWebPageSchemas(route, metadata, breadcrumbs, lang) {
   return [
     prerenderBreadcrumbSchema(breadcrumbs),
@@ -850,6 +1016,13 @@ export function getPrerenderJsonLdSchemas(route) {
     case '/timsah-iptv':
       schemas = timsahIptvPageSchemas(metadata);
       break;
+    case '/mpremium-iptv':
+      schemas = mpremiumIptvPageSchemas(metadata);
+      break;
+    case '/vera-iptv':
+      schemas = veraIptvPageSchemas(metadata);
+      break;
+
 
 
     default:

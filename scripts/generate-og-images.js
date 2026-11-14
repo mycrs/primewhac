@@ -34,6 +34,8 @@ const CARDS = [
   { file: 'kurulum-genel.jpg', title: 'IPTV Kurulum Rehberi' },
   { file: 'titan-iptv.jpg', title: 'Titan IPTV Satın Al | Orijinal Paketler' },
   { file: 'timsah-iptv.jpg', title: 'Timsah Panel IPTV Satın Al | Orijinal Sunucu' },
+  { file: 'mpremium-iptv.jpg', title: 'MPremium IPTV Satın Al | Orijinal Paketler' },
+  { file: 'vera-iptv.jpg', title: 'Vera IPTV Satın Al | Orijinal Sunucu' },
 ];
 
 function buildHtml(title, logoDataUri) {

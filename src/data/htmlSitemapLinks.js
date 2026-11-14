@@ -53,6 +53,8 @@ export const HTML_SITEMAP_TR = [
   { label: 'Blog', path: '/blog/' },
   { label: 'Titan IPTV Satın Al', path: '/titan-iptv/' },
   { label: 'Timsah Panel IPTV Satın Al', path: '/timsah-iptv/' },
+  { label: 'MPremium IPTV Satın Al', path: '/mpremium-iptv/' },
+  { label: 'Vera IPTV Satın Al', path: '/vera-iptv/' },
   { label: 'Sıkça Sorulan Sorular', path: '/sss/' },
   { label: 'Müşteri Yorumları', path: '/yorumlar/' },
   { label: 'Ücretsiz Test', path: '/test/' },
