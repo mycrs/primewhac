@@ -287,7 +287,7 @@ function AppContent() {
                 <Route path="/faq" element={<ET><FaqPage siteData={siteData} /></ET>} />
                 <Route path="/sss" element={<ET><FaqPage siteData={siteData} /></ET>} />
                 <Route path="/reseller" element={<ET><ResellerPage siteData={siteData} /></ET>} />
-                <Route path="/bayilik" element={<ET><ResellerPage siteData={siteData} /></ET>} />
+                <Route path="/bayilik" element={<ET><Navigate to="/reseller/" replace /></ET>} />
                 <Route path="/channels" element={<ET><ChannelsPage siteData={siteData} /></ET>} />
                 <Route path="/kanallar" element={<ET><Navigate to="/channels/" replace /></ET>} />
 

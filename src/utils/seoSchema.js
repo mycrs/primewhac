@@ -646,13 +646,79 @@ export function whatToWatchCategorySchemas(category, lang = 'tr') {
   ];
 }
 
+export const RESELLER_FAQS_TR = [
+  {
+    q: 'IPTV bayilik için teknik bilgiye ihtiyacım var mı?',
+    a: 'Hayır, size sunduğumuz IPTV paneli son derece kullanıcı dostudur ve herhangi bir kodlama veya teknik altyapı bilgisi gerektirmez. Müşteri ekleme, hat yönetimi ve test açma işlemleri tek tıkla yapılır.',
+  },
+  {
+    q: 'IPTV bayiliği ile ne kadar kazanabilirim?',
+    a: 'IPTV kâr oranları tamamen sizin belirleyeceğiniz satış fiyatlarına bağlıdır. Bayilerimiz paket satışlarında ortalama %100 ile %300 arasında yüksek kâr marjı elde etmektedir.',
+  },
+  {
+    q: 'Satış fiyatlarımı ve paket sürelerini kendim belirleyebilir miyim?',
+    a: 'Evet, bayi paneliniz üzerinden müşterilerinize dilediğiniz fiyat ve sürelerde (1, 3, 6 veya 12 aylık) esnek paket satışları gerçekleştirebilirsiniz.',
+  },
+  {
+    q: 'Yurtdışına IPTV satışı yapabilir miyim?',
+    a: 'Evet, yüksek kapasiteli sunucu ve küresel CDN altyapımız tüm dünya genelinde kesintisiz çalışır. Almanya, Fransa, Hollanda ve tüm Avrupa başta olmak üzere dünyanın her yerine satış yapabilirsiniz.',
+  },
+  {
+    q: 'Kendi logomu ve markamı kullanabilir miyim (White Label)?',
+    a: 'Evet, White Label IPTV desteğimiz sayesinde müşterileriniz sadece sizin markanızı, logonuzu ve size özel DNS adresinizi görür.',
+  },
+  {
+    q: 'Potansiyel müşterilerime ücretsiz test yayını açabilir miyim?',
+    a: 'Evet, paneliniz üzerinden müşterilerinize anında ücretsiz test yayını tanımlayarak yayın kalitesini denemelerini sağlayabilir ve satın alma kararlarını kolaylaştırabilirsiniz.',
+  },
+];
+
+export const RESELLER_FAQS_DE = [
+  {
+    q: 'Benötige ich technische Vorkenntnisse für das IPTV Reseller-Programm?',
+    a: 'Nein, das intuitive Reseller-Panel ermöglicht die einfache Verwaltung von Kunden und Abonnements mit wenigen Klicks. Es sind keine Programmier- oder Serverkenntnisse erforderlich.',
+  },
+  {
+    q: 'Wie hoch sind die Gewinnmargen im Wiederverkäufer-Programm?',
+    a: 'Sie bestimmen Ihre Endkundenpreise selbst. Die durchschnittliche Gewinnmarge im Wiederverkäufer-Programm liegt zwischen 100 % und 300 %.',
+  },
+  {
+    q: 'Kann ich unter meiner eigenen Marke verkaufen (White Label)?',
+    a: 'Ja, dank White-Label-Unterstützung und anpassbaren DNS-Optionen können Sie das Angebot unter Ihrem eigenen Markennamen und Logo vertreiben.',
+  },
+  {
+    q: 'Haben die erworbenen Credits ein Verfallsdatum?',
+    a: 'Nein, Ihre Credits verfallen nicht. Sie können diese flexibel und ohne zeitlichen Druck nach Bedarf für Ihre Kunden einsetzen.',
+  },
+  {
+    q: 'Kann ich meinen Kunden kostenlose Testzugänge anbieten?',
+    a: 'Ja, über das Panel können Sie potenziellen Kunden unkompliziert Testzugänge freischalten, um die Qualität unserer Streams vor dem Kauf zu demonstrieren.',
+  },
+];
+
 /**
- * Bayilik sayfası için Organization + WebPage + Breadcrumb
+ * Bayilik sayfası için Organization + WebPage + Breadcrumb + FAQPage
  */
 export function resellerPageSchemas(metadata, { route = '/reseller/', lang = 'tr' } = {}) {
   const isDe = lang === 'de';
   const home = isDe ? { name: 'Startseite', path: '/de' } : { name: 'Ana Sayfa', path: '/' };
   const pageLabel = isDe ? 'Wiederverkäufer' : 'Bayilik';
+  const faqList = isDe ? RESELLER_FAQS_DE : RESELLER_FAQS_TR;
+  const canonicalPath = route.endsWith('/') ? route : `${route}/`;
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqList.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  };
+
   return [
     organizationSchema,
     webPageSchema({
@@ -660,13 +726,14 @@ export function resellerPageSchemas(metadata, { route = '/reseller/', lang = 'tr
       description: metadata?.description || (isDe
         ? 'Starten Sie Ihr eigenes Geschäft mit unserem Wiederverkäufer-Programm.'
         : 'IPTV bayilik programımızla kendi işinizi kurun. En gelişmiş kontrol paneli ve yüksek kazanç oranları.'),
-      url: `${SITE_URL}${route}`,
+      url: `${SITE_URL}${canonicalPath}`,
       lang: isDe ? 'de' : 'tr',
     }),
     breadcrumbSchema([
       home,
-      { name: pageLabel, path: route },
+      { name: pageLabel, path: canonicalPath },
     ]),
+    faqSchema,
   ];
 }
 

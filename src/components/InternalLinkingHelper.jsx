@@ -14,6 +14,7 @@ const InternalLinkingHelper = ({ currentPage, maxLinks = 5, lang }) => {
     { to: "/de/guide/iptv-kurulum-rehberi/", label: "Detaillierter Blog-Leitfaden", keywords: ["leitfaden", "blog"] },
     { to: "/de/kanale/", label: "Kanalliste durchsuchen", keywords: ["kanäle", "liste"] },
     { to: "/de/test/", label: "Kostenlos testen", keywords: ["test", "ausprobieren"] },
+    { to: "/de/reseller/", label: "Wiederverkäufer-Programm (Reseller)", keywords: ["reseller", "wiederverkäufer"] },
   ];
 
   const linksTr = [
@@ -21,6 +22,7 @@ const InternalLinkingHelper = ({ currentPage, maxLinks = 5, lang }) => {
     { to: "/timsah-iptv/", label: "Timsah Panel IPTV Satın Al", keywords: ["timsah panel", "timsah iptv"] },
     { to: "/mpremium-iptv/", label: "MPremium IPTV Satın Al", keywords: ["mpremium iptv", "mpremium"] },
     { to: "/vera-iptv/", label: "Vera IPTV Satın Al", keywords: ["vera iptv", "vera"] },
+    { to: "/reseller/", label: "IPTV Bayilik (Reseller) Paneli", keywords: ["bayilik", "reseller"] },
     { to: "/paketler/", label: "IPTV Paketleri ve Fiyatları", keywords: ["paketler", "fiyat"] },
     { to: "/kurulum/", label: "IPTV Kurulum Rehberi", keywords: ["kurulum", "rehber"] },
     { to: "/channels/", label: "Canlı Kanal Listesi (10.000+)", keywords: ["kanallar", "liste"] },

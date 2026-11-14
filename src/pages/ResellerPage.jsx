@@ -1,9 +1,11 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ChatBot from '@/components/ChatBot';
 import SEOHead from '@/components/SEOHead';
+import InternalLinkingHelper from '@/components/InternalLinkingHelper';
 import { resellerPageSchemas } from '@/utils/seoSchema';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -115,7 +117,7 @@ const ResellerPage = ({ siteData }) => {
       textGradient: "from-[#e50914] to-[#b20710]",
       content: (
         <>
-          <p className="mb-4 text-slate-300 leading-relaxed font-medium">Girişimcilerin <strong>IPTV bayilik</strong> sistemine yönelmesinin en temel nedeni, dijital içerik tüketimindeki muazzam artıştır. İnsanlar artık istedikleri içeriğe, istedikleri cihazdan ve istedikleri zaman ulaşmak istiyor. İyi bir <strong>IPTV hizmet sağlayıcı</strong> olmak, bu büyük talebe doğrudan ve kârlı bir şekilde yanıt vermek anlamına gelir. Müşterilerinize sunacağınız <strong>kesintisiz IPTV</strong> deneyimi, işletmenizin hızla büyümesini ve kulaktan kulağa yayılmasını sağlar.</p>
+          <p className="mb-4 text-slate-300 leading-relaxed font-medium">Girişimcilerin <strong>IPTV bayilik</strong> sistemine yönelmesinin en temel nedeni, dijital içerik tüketimindeki muazzam artıştır. İnsanlar artık istedikleri içeriğe, istedikleri cihazdan ve istedikleri zaman ulaşmak istiyor. İyi bir <strong>IPTV hizmet sağlayıcı</strong> olmak, bu büyük talebe doğrudan ve kârlı bir şekilde yanıt vermek anlamına gelir. Müşterilerinize sunacağınız <Link to="/paketler/" className="text-primary hover:underline font-bold">kesintisiz IPTV</Link> deneyimi, işletmenizin hızla büyümesini ve kulaktan kulağa yayılmasını sağlar.</p>
           <p className="text-slate-300 leading-relaxed font-medium">Sıfırdan bir yayın altyapısı kurmak milyonlarca dolarlık bir yatırım gerektirirken, bizim güçlü <strong>IPTV altyapısı</strong> ve yüksek kapasiteli <strong>IPTV sunucusu</strong> ağımız sayesinde siz sadece satışa odaklanırsınız. Fiziksel bir ürün stoklama, kargo süreçleri veya depo kiralama gibi dertleriniz olmaz. Her şey tamamen dijital ortamda saniyeler içinde gerçekleşir. Minimum işletme maliyetiyle maksimum verim elde etmenizi sağlayan bu sistem, kısa sürede yatırımlarınızın geri dönüşünü almanıza (ROI) olanak tanır.</p>
         </>
       )
@@ -131,7 +133,7 @@ const ResellerPage = ({ siteData }) => {
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Bir <strong>IPTV bayisi</strong> olmanın avantajları saymakla bitmez. En büyük ayrıcalık, kendi belirlediğiniz fiyat politikasıyla özgürce çalışabilmenizdir. Size sunulan esnek kredi sistemi sayesinde, dilediğiniz gibi paketler oluşturabilir ve kampanyalar düzenleyebilirsiniz. Gelişmiş <strong>IPTV müşteri yönetimi</strong> sistemimiz, abonelik sürelerinin takibini, otomatik hatırlatmaları ve yenileme süreçlerini sizin için son derece kolay bir hale getirir.</p>
-          <p className="text-slate-300 leading-relaxed font-medium">Geniş içerik yelpazemiz sayesinde müşterilerinize <strong>Dijital TV bayilik</strong>, <strong>İnternet TV bayilik</strong>, ve <strong>Streaming TV bayilik</strong> gibi farklı konseptlerde hizmetler sunabilirsiniz. Paketin içinde yer alan on binlerce içerik sayesinde, hem yerel hem de küresel izleyici kitlesine hitap edersiniz. Yüksek çözünürlüklü yayın kalitesi (4K/FHD), güçlü donanım desteği ve platform bağımsız (Smart TV, Android, iOS, PC) çalışma özelliği, satış yapmanızı inanılmaz derecede kolaylaştırır.</p>
+          <p className="text-slate-300 leading-relaxed font-medium">Geniş içerik yelpazemiz sayesinde müşterilerinize <Link to="/channels/" className="text-primary hover:underline font-bold">10.000+ canlı TV kanalı</Link>, spor yayınları ve zengin film/dizi arşivi sunabilirsiniz. Yüksek çözünürlüklü yayın kalitesi (4K/FHD), güçlü donanım desteği ve platform bağımsız (<Link to="/kurulum/" className="text-primary hover:underline font-bold">Smart TV, Android, iOS, PC</Link>) çalışma özelliği, satış yapmanızı inanılmaz derecede kolaylaştırır.</p>
         </>
       )
     },
@@ -176,7 +178,7 @@ const ResellerPage = ({ siteData }) => {
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Başarılı bir bayilik ağının arkasında her zaman güçlü ve erişilebilir bir teknik destek ekibi bulunur. Olası tüm altyapı sorunları, yayın kesintileri veya sunucu güncellemeleri uzman mühendislerimiz tarafından 7/24 proaktif olarak takip edilir. Böylece sizin teknik detaylarla boğuşmanıza gerek kalmaz. <strong>Kesintisiz IPTV</strong> deneyimini garanti altına almak için en son teknolojiyi kullanan yedekli sunucularla çalışıyoruz.</p>
-          <p className="text-slate-300 leading-relaxed font-medium">Bayilerimize özel destek kanallarımız üzerinden, müşteri kurulumlarında yaşayabileceğiniz zorluklarda anında yardım alabilirsiniz. Mac adresine göre cihaz kurulumları, m3u link yapılandırmaları ve Xtream API kullanımları hakkında hazırladığımız detaylı dökümantasyonlar sayesinde, siz de müşterilerinize profesyonel teknik destek sunabilirsiniz. Güçlü bir <strong>IPTV altyapısı</strong> arkanızda olduğu sürece, müşterilerinizle sadece yeni abonelikler ve satışlar üzerine konuşursunuz.</p>
+          <p className="text-slate-300 leading-relaxed font-medium">Bayilerimize özel destek kanallarımız üzerinden, <Link to="/kurulum/" className="text-primary hover:underline font-bold">cihaz kurulumlarında</Link> yaşayabileceğiniz zorluklarda anında yardım alabilirsiniz. MAC adresine göre cihaz kurulumları, M3U link yapılandırmaları ve Xtream API kullanımları hakkında hazırladığımız detaylı dökümantasyonlar sayesinde, siz de müşterilerinize profesyonel teknik destek sunabilirsiniz. Güçlü bir <strong>IPTV altyapısı</strong> arkanızda olduğu sürece, müşterilerinizle sadece yeni abonelikler ve satışlar üzerine konuşursunuz.</p>
         </>
       )
     },
@@ -191,7 +193,7 @@ const ResellerPage = ({ siteData }) => {
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Üstün bir ürüne sahip olmak yeterli değildir; onu doğru şekilde pazarlamak gerekir. <strong>IPTV pazarlama</strong> konusunda iş ortaklarımıza sunduğumuz rehberlik, onların sektörde öne çıkmasını sağlar. Doğru sosyal medya stratejileri, SEO taktikleri ve hedeflenmiş reklam kampanyaları ile nasıl daha fazla müşteriye ulaşabileceğinizi sizlerle paylaşıyoruz. Markanızı bir <strong>IPTV franchise</strong> kalitesinde konumlandırmanız için gerekli tüm görsel materyalleri sağlıyoruz.</p>
-          <p className="text-slate-300 leading-relaxed font-medium"><strong>Eğlence kanalları bayilik</strong> ve <strong>Uluslararası kanallar bayilik</strong> gibi spesifik niş alanlara odaklanarak pazarlama stratejinizi çeşitlendirebilirsiniz. Gurbetçi vatandaşlara yönelik özel kampanyalar veya sadece spor içeriklerine odaklanan paketler tasarlayarak hedef kitlenizi daraltıp dönüşüm oranlarınızı artırabilirsiniz. <strong>White Label IPTV</strong> özelliğimizle, tamamen size ait bir marka algısı yaratarak kendi sadık müşteri kitlenizi oluşturmanız çok daha kolay olacaktır.</p>
+          <p className="text-slate-300 leading-relaxed font-medium"><Link to="/channels/" className="text-primary hover:underline font-bold">Eğlence kanalları bayilik</Link> ve uluslararası kanallar gibi spesifik niş alanlara odaklanarak pazarlama stratejinizi çeşitlendirebilirsiniz. <Link to="/almanyada-turk-kanallari/" className="text-primary hover:underline font-bold">Gurbetçi vatandaşlara yönelik yayınlar</Link> veya sadece spor içeriklerine odaklanan paketler tasarlayarak hedef kitlenizi daraltıp dönüşüm oranlarınızı artırabilirsiniz. <strong>White Label IPTV</strong> özelliğimizle, tamamen size ait bir marka algısı yaratarak kendi sadık müşteri kitlenizi oluşturmanız çok daha kolay olacaktır.</p>
         </>
       )
     },
@@ -206,7 +208,7 @@ const ResellerPage = ({ siteData }) => {
       content: (
         <>
           <p className="mb-4 text-slate-300 leading-relaxed font-medium">Müşteri elde tutma oranı (retention rate), <strong>IPTV işletme</strong> kârlılığını belirleyen en önemli faktördür. İyi yapılandırılmış bir <strong>IPTV müşteri yönetimi</strong>, yenileme dönemlerini kaçırmamanızı ve müşterilerinizle sürekli iletişim halinde kalmanızı sağlar. Panelin sunduğu otomasyon özellikleri sayesinde, abonelik bitimine yaklaşan kullanıcılara otomatik hatırlatmalar gönderebilirsiniz. Müşterilerinizle WhatsApp veya Telegram üzerinden hızlı ve etkili bir iletişim kurmak satışlarınızı doğrudan artırır.</p>
-          <p className="text-slate-300 leading-relaxed font-medium">Sunduğumuz yüksek kaliteli yayınlar ve sıfır donma politikamız sayesinde şikayet oranlarınız minimum düzeyde kalacaktır. Bir <strong>IPTV abonelik</strong> sürecinde müşterinin en çok değer verdiği şey güvendir. Ücretsiz test yayınları açarak müşterinizin sistemi denemesine olanak tanımak, kapanan satış oranlarını inanılmaz ölçüde artırır. Müşteri memnuniyetini en üst düzeye çıkaran bayilerimiz, sadece yeni satışlardan değil, referans yoluyla gelen müşterilerden de büyük kazançlar elde etmektedir.</p>
+          <p className="text-slate-300 leading-relaxed font-medium">Sunduğumuz yüksek kaliteli yayınlar ve sıfır donma politikamız sayesinde şikayet oranlarınız minimum düzeyde kalacaktır. Bir <strong>IPTV abonelik</strong> sürecinde müşterinin en çok değer verdiği şey güvendir. <Link to="/test/" className="text-primary hover:underline font-bold">Ücretsiz test yayınları</Link> açarak müşterinizin sistemi denemesine olanak tanımak, kapanan satış oranlarını inanılmaz ölçüde artırır. Müşteri memnuniyetini en üst düzeye çıkaran bayilerimiz, sadece yeni satışlardan değil, referans yoluyla gelen müşterilerden de büyük kazançlar elde etmektedir.</p>
         </>
       )
     },
@@ -347,7 +349,7 @@ const ResellerPage = ({ siteData }) => {
 
                   <h3 className="text-3xl font-bold mt-12 mb-6 border-b border-white/10 pb-4">Neden Bizimle Çalışmalısınız?</h3>
                   <p>
-                    Stok maliyeti, kargo derdi ve büyük yatırım gereksinimi olmadan hemen işe başlayabilirsiniz. Paket satışlarından elde edilen gelir doğrudan sizin olur. İster aylık ister yıllık hesaplarla gelirinizi her geçen gün artırabilirsiniz. Sektörün en gelişmiş altyapısı ile teknik sorunlarla uğraşmazsınız.
+                    Stok maliyeti, kargo derdi ve büyük yatırım gereksinimi olmadan hemen işe başlayabilirsiniz. <Link to="/paketler/" className="text-primary hover:underline font-bold">IPTV Paketleri</Link> satışlarından elde edilen gelir doğrudan sizin olur. İster aylık ister yıllık hesaplarla gelirinizi her geçen gün artırabilirsiniz. Sektörün en gelişmiş altyapısı ile teknik sorunlarla uğraşmazsınız.
                   </p>
 
                   <div className="mt-8">
@@ -436,6 +438,10 @@ const ResellerPage = ({ siteData }) => {
                     </div>
                 </div>
              </motion.div>
+          </section>
+
+          <section className="container mx-auto px-4 pb-20">
+            <InternalLinkingHelper currentPage="/reseller/" />
           </section>
         </main>
         <Footer contactData={contactData} siteData={siteData} />
