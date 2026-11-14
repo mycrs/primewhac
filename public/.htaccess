@@ -104,6 +104,8 @@ AddCharset UTF-8 .html .htm .css .js .json .xml .svg .txt
   RewriteRule ^test-yayini/?$             /test/                        [R=301,L]
   RewriteRule ^guide/?$                   /guide/iptv-kurulum-rehberi/  [R=301,L]
   RewriteRule ^titan-iptv-satin-al/?$     /titan-iptv/                  [R=301,L]
+  RewriteRule ^timsah-iptv-satin-al/?$    /timsah-iptv/                 [R=301,L]
+  RewriteRule ^timsah-panel-iptv/?$       /timsah-iptv/                 [R=301,L]
   RewriteRule ^de/iptv/?$                 /de/pakete/                   [R=301,L]
   RewriteRule ^de/karsilastir/?$          /de/vergleich/                [R=301,L]
   RewriteRule ^de/detayli-kurulum/?$      /de/detaillierte-anleitungen/ [R=301,L]

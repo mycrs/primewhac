@@ -416,6 +416,14 @@ const STATIC_SEO = {
     'Titan IPTV satın al! Orijinal Titan IPTV nasıl alınır, nereden bulunur? Donmayan yüksek hızlı sunucular, anında teslimat ve 7/24 teknik destek rehberi.',
     { noHreflang: true }
   ),
+// TR-only Timsah IPTV landing sayfası (DE karşılığı yok): hreflang basılmaz; canonical self-referencing slash'lı kalır.
+  '/timsah-iptv': buildSeo(
+    '/timsah-iptv',
+    'Timsah Panel IPTV Satın Al | Orijinal Sunucu & Kurulum Rehberi — QruzeTV',
+    'Timsah Panel IPTV satın al! Orijinal Timsah IPTV panel nedir, nasıl alınır, nereden bulunur? Kesintisiz 4K yayınlar, anında teslimat ve ücretsiz test avantajı.',
+    { noHreflang: true }
+  ),
+
 };
 function deviceSeoTr(slug) {
   const tvBrandGuide = localizeTvBrandGuide(getTvBrandGuide(slug), 'tr');
