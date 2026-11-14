@@ -352,6 +352,9 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/almanyada-turk-kanallari/"/>
   </url>
   <url>
+    <loc>https://cineverse.pro/titan-iptv/</loc>
+  </url>
+  <url>
     <loc>https://cineverse.pro/de/</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/"/>

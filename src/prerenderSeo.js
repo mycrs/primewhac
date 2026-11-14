@@ -409,6 +409,12 @@ const STATIC_SEO = {
     "Almanya'da Türk Kanalları Nasıl İzlenir? 2026 Rehberi | QruzeTV",
     "Almanya'da Türk kanallarını izlemenin yolları: uydu mu IPTV mi? Kurulum adımları, cihazlar, paketler ve pratik ipuçları bu rehberde. Ücretsiz test edin.",
     { noHreflang: true }
+  ),  // TR-only Titan IPTV landing sayfası (DE karşılığı yok): hreflang basılmaz; canonical self-referencing slash'lı kalır.
+  '/titan-iptv': buildSeo(
+    '/titan-iptv',
+    'Titan IPTV Satın Al | Orijinal Paketler ve Kurulum Rehberi — QruzeTV',
+    'Titan IPTV satın al! Orijinal Titan IPTV nasıl alınır, nereden bulunur? Donmayan yüksek hızlı sunucular, anında teslimat ve 7/24 teknik destek rehberi.',
+    { noHreflang: true }
   ),
 };
 function deviceSeoTr(slug) {

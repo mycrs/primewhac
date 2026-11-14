@@ -68,6 +68,7 @@ const GuidePage = lazy(() => import('@/pages/GuidePage'));
 const GuidePageDE = lazy(() => import('@/pages/GuidePageDE'));
 const DeTuerkischeSenderPage = lazy(() => import('@/pages/DeTuerkischeSenderPage'));
 const AlmanyaTurkKanallariPage = lazy(() => import('@/pages/AlmanyaTurkKanallariPage'));
+const TitanIptvPage = lazy(() => import('@/pages/TitanIptvPage'));
 const WhatToWatchPage = lazy(() => import('@/pages/WhatToWatchPage'));
 const WhatToWatchPageDE = lazy(() => import('@/pages/WhatToWatchPageDE'));
 const WhatToWatchDetailPage = lazy(() => import('@/pages/WhatToWatchDetailPage'));
@@ -323,6 +324,8 @@ function AppContent() {
                 <Route path="/bing-verification" element={<ET><BingVerificationPage siteData={siteData} /></ET>} />
                 <Route path="/guide/iptv-kurulum-rehberi" element={<ET><GuidePage siteData={siteData} /></ET>} />
                 <Route path="/almanyada-turk-kanallari" element={<ET><AlmanyaTurkKanallariPage siteData={siteData} /></ET>} />
+                <Route path="/titan-iptv" element={<ET><TitanIptvPage siteData={siteData} /></ET>} />
+                <Route path="/titan-iptv-satin-al" element={<ET><Navigate to="/titan-iptv/" replace /></ET>} />
                 <Route path="/yorumlar" element={<ET><ReviewsPage siteData={siteData} /></ET>} />
                 <Route path="/musteri-kayit" element={<ET><MusteriKayitPage siteData={siteData} /></ET>} />
                 <Route path="/iletisim" element={<ET><ContactPage siteData={siteData} /></ET>} />

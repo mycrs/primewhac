@@ -478,6 +478,89 @@ function termsPageSchemas(metadata) {
   ];
 }
 
+function titanIptvPageSchemas(metadata) {
+  const faqList = [
+    {
+      q: "Titan IPTV nedir ve neden bu kadar popüler?",
+      a: "Titan IPTV; Avrupa'nın ana internet omurgası (DE-CIX Frankfurt) üzerinde konumlandırılmış yüksek hızlı CDN sunucuları ve Anti-Freeze 10.0 önbellekleme teknolojisi ile çalışan yeni nesil bir IPTV yayın altyapısıdır. Özellikle canlı spor karşılaşmaları, yüksek çözünürlüklü 4K belgeseller ve binlerce güncel film/dizi içeriğini sıfır takılma ve 60 FPS kare hızıyla sunması sayesinde en çok tercih edilen yayın platformudur."
+    },
+    {
+      q: "Titan IPTV nasıl satın alınır?",
+      a: "Titan IPTV satın almak yalnızca 3 adımdan oluşur: 1) Sitemizdeki Paketler sayfasından kullanım sürenize (1, 3, 6 veya 12 Ay) uygun paketi seçin. 2) Güvenli ödeme veya WhatsApp canlı destek hattımız üzerinden siparişinizi tamamlayın. 3) Ödemeniz onaylandığı anda M3U Plus bağlantı linkiniz ve Xtream Codes API bilgileriniz (Sunucu, Kullanıcı Adı, Şifre) 5 dakika içerisinde WhatsApp veya e-posta yoluyla iletilir."
+    },
+    {
+      q: "Titan IPTV nereden bulunur ve sahte satıcılardan nasıl ayırt edilir?",
+      a: "İnternette 'Titan IPTV' adını kullanarak sahte veya aşırı yüklenmiş klon paneller satan yetkisiz aracılar bulunmaktadır. Orijinal Titan IPTV lisansı yalnızca QruzeTV gibi kurumsal, 7/24 teknik destek sağlayan, SSL korumalı ve müşteri memnuniyeti garantisi sunan güvenilir platformlardan temin edilmelidir. Orijinal lisanslarda kanal geçişleri 1 saniyenin altındadır ve derbi saatlerinde yayın kesintisi yaşanmaz."
+    },
+    {
+      q: "Satın alma işleminden sonra yayınım ne zaman açılır?",
+      a: "Siparişiniz onaylandığı anda sistemimiz otomatik aktivasyon sürecini başlatır. Ortalama 5 ila 10 dakika içerisinde tüm kurulum parametreleriniz hazırlanarak tarafınıza teslim edilir. Dilerseniz uzman teknik ekibimiz cihazınıza uzaktan kurulum desteği de sağlar."
+    },
+    {
+      q: "Satın almadan önce ücretsiz deneme (test) yayını alabilir miyim?",
+      a: "Evet! QruzeTV güvencesiyle sunulan Titan IPTV kalitesini satın almadan önce kendi televizyonunuzda veya telefonunuzda bizzat deneyimleyebilirsiniz. Sitemizdeki 'Ücretsiz Test' butonuna tıklayarak anında deneme yayını talep edebilirsiniz."
+    },
+    {
+      q: "Titan IPTV hangi cihazlarda ve hangi uygulamalarla çalışır?",
+      a: "Titan IPTV; Samsung ve LG Smart TV (IBO Player, Smart IPTV), Android TV ve TV Box (TiviMate, IPTV Smarters Pro, XCIPTV), Amazon Fire TV Stick, Apple TV, iPhone/iPad (NEXT+, CASTORA, IPTVX), Windows PC ve Mac bilgisayarlar dahil tüm modern akıllı cihazlarla %100 uyumludur."
+    },
+    {
+      q: "Titan IPTV maç saatlerinde donma veya takılma yapar mı?",
+      a: "Hayır. Titan IPTV sunucuları dinamik yük dengeleme (load balancer) teknolojisine sahiptir. Milyonlarca izleyicinin aynı anda bağlandığı derbi ve büyük kupa maçlarında trafik otomatik olarak yedek sunuculara dağıtılır. En az 16 Mbit/s stabil internet bağlantısı ile donmasız ve takılmasız Full HD / 4K izleme garanti edilir."
+    }
+  ];
+
+  return [
+    prerenderBreadcrumbSchema([
+      { name: 'Ana Sayfa', path: '/' },
+      { name: 'Titan IPTV Satın Al', path: '/titan-iptv' },
+    ]),
+    webPageSchema({
+      name: metadata.title,
+      description: metadata.description,
+      url: `${SITE_URL}/titan-iptv`,
+      lang: 'tr',
+    }),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqList.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.a,
+        },
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: 'Titan IPTV Lisans ve Yayın Paketi',
+      image: `${SITE_URL}/og/titan-iptv.jpg`,
+      description: metadata.description,
+      brand: {
+        '@type': 'Brand',
+        name: 'QruzeTV',
+      },
+      offers: {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'EUR',
+        lowPrice: '15',
+        highPrice: '60',
+        offerCount: '4',
+      },
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        bestRating: '5',
+        worstRating: '1',
+        ratingCount: '412',
+      },
+    },
+  ];
+}
+
 function simpleWebPageSchemas(route, metadata, breadcrumbs, lang) {
   return [
     prerenderBreadcrumbSchema(breadcrumbs),
@@ -678,6 +761,10 @@ export function getPrerenderJsonLdSchemas(route) {
     case '/de/m3u-olustur':
       schemas = m3uConverterSchemas(metadata, '/de/m3u-olustur');
       break;
+    case '/titan-iptv':
+      schemas = titanIptvPageSchemas(metadata);
+      break;
+
     default:
       if (route.startsWith('/ne-izlesem/')) {
         const slug = route.replace('/ne-izlesem/', '');

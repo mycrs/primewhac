@@ -6,7 +6,7 @@ const InternalLinkingHelper = ({ currentPage, maxLinks = 5, lang }) => {
   // Dil tespiti: açık lang prop'u öncelikli; yoksa currentPage '/de' ile başlıyorsa Almanca, değilse Türkçe.
   const isDe = lang ? lang === 'de' : (currentPage || '').startsWith('/de');
   const heading = isDe ? 'Weitere interessante Seiten' : 'İlgili Sayfalar';
-  const links = [
+  const linksDe = [
     { to: "/de/pakete/", label: "IPTV-Preise ansehen", keywords: ["iptv preise", "pakete"] },
     { to: "/de/einrichtung/", label: "Zur Installationsanleitung", keywords: ["installation", "anleitung"] },
     { to: "/de/sss/", label: "Häufig gestellte Fragen (FAQ)", keywords: ["faq", "fragen"] },
@@ -15,6 +15,18 @@ const InternalLinkingHelper = ({ currentPage, maxLinks = 5, lang }) => {
     { to: "/de/kanale/", label: "Kanalliste durchsuchen", keywords: ["kanäle", "liste"] },
     { to: "/de/test/", label: "Kostenlos testen", keywords: ["test", "ausprobieren"] },
   ];
+
+  const linksTr = [
+    { to: "/titan-iptv/", label: "Titan IPTV Satın Al & Rehber", keywords: ["titan iptv", "satın al"] },
+    { to: "/paketler/", label: "IPTV Paketleri ve Fiyatları", keywords: ["paketler", "fiyat"] },
+    { to: "/kurulum/", label: "IPTV Kurulum Rehberi", keywords: ["kurulum", "rehber"] },
+    { to: "/channels/", label: "Canlı Kanal Listesi (10.000+)", keywords: ["kanallar", "liste"] },
+    { to: "/sss/", label: "Sıkça Sorulan Sorular (SSS)", keywords: ["sss", "sorular"] },
+    { to: "/karsilastirma/", label: "Paketleri Karşılaştır", keywords: ["karşılaştırma"] },
+    { to: "/almanyada-turk-kanallari/", label: "Almanya'da Türk Kanalları Rehberi", keywords: ["almanya", "türk kanalları"] },
+  ];
+
+  const links = isDe ? linksDe : linksTr;
 
   // Filter out current page to avoid self-linking (slash'siz/slash'lı karşılaştırma)
   const normPath = (p) => (p || '').replace(/\/+$/, '');

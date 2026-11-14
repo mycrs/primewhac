@@ -147,6 +147,7 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
     { loc: '/guide/iptv-kurulum-rehberi', changefreq: 'monthly' },
     { loc: '/test', changefreq: 'monthly' },
     { loc: '/almanyada-turk-kanallari', changefreq: 'monthly' },
+    { loc: '/titan-iptv', changefreq: 'weekly' },
     { loc: '/de', changefreq: 'daily' },
     { loc: '/de/pakete', changefreq: 'weekly' },
     { loc: '/de/einrichtung', changefreq: 'weekly' },
