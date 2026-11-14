@@ -305,7 +305,7 @@ const MatchDetailPageDE = ({ siteData }) => {
                 Mit einem <span className="text-primary font-semibold">QruzeTV</span> IPTV-Abo haben Sie unterbrechungsfreien Zugang zu allen Sportkanälen.
               </p>
               <Link
-                to="/de/pakete"
+                to="/de/pakete/"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary text-white font-semibold transition-colors"
               >
                 Pakete ansehen

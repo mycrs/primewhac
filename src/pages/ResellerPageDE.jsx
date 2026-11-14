@@ -32,7 +32,7 @@ const ResellerPageDE = ({ siteData }) => {
     });
   
   const metadata = {
-    title: "Wiederverkäufer-Programm: Passive Einnahmen & Partnerschaft",
+    title: "Wiederverkäufer-Programm: Passive Einnahmen & Partnerschaft | QruzeTV",
     description: "Starten Sie Ihr eigenes Geschäft mit unserem Wiederverkäufer-Programm. Profitieren Sie von einem lukrativen Provisionsmodell, passiven Einnahmen und professioneller Unterstützung.",
     keywords: ["Wiederverkäufer", "Reseller", "Provisionsmodell", "Passive Einnahmen", "Geschäftspartner", "Verdienst", "Kundenakquisition", "Skalierbar", "Unterstützung", "Provisionsquote", "Geschäftsmöglichkeit"],
     ogType: "website"

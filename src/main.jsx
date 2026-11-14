@@ -11,6 +11,11 @@ import ClientValidator from '@/utils/supabaseClientValidator';
 import AuthFlowReset from '@/utils/authFlowReset';
 import AuthDebugger from '@/utils/authDebugger';
 import { initPerformanceMonitoring } from '@/utils/performanceMetrics';
+import { installChunkErrorRecovery } from '@/utils/chunkErrorRecovery';
+
+// Chunk/modulepreload hatasında (eski HTML ↔ yeni deploy uyuşmazlığı)
+// kullanıcıyı beklemeden otomatik kurtarma; döngü korumalı.
+installChunkErrorRecovery();
 
 const rootElement = document.getElementById('root');
 
@@ -24,11 +29,15 @@ document
 const root = ReactDOM.createRoot(rootElement);
 
 // Service Worker devre dışı - SW aktivasyonu sayfa yenileme döngüsüne yol açıyordu
-// Eski SW varsa kaldır (kullanıcılar için)
+// Eski SW varsa kaldır (kullanıcılar için) + eski CacheStorage kayıtlarını temizle
+// (eski SW cache'inden gelen bayat chunk'lar "Bağlantı sorunu" ekranına yol açıyordu)
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   navigator.serviceWorker.getRegistrations().then((regs) => {
     regs.forEach((r) => r.unregister());
   });
+  if ('caches' in window) {
+    caches.keys().then((keys) => keys.forEach((k) => caches.delete(k)));
+  }
 }
 
 // Initialize Web Vitals

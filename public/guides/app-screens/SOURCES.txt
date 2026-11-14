@@ -1,0 +1,24 @@
+Official application screenshots and reference images used for educational and setup guidance:
+
+1. SmartOne IPTV:
+   - smartone-screen.webp from https://smartone-iptv.com/plugins/cmspro/images/smartone_iptv.webp
+2. 0 Player (Zero Player):
+   - 0player-screen.webp from https://0player.com/assets/simpleUi-D4Tc34pm.webp
+3. HotPlayer:
+   - hotplayer-screen.png from https://hotplayer.app/hpv.png
+4. IPTV Smarters Pro:
+   - smarters-screen.jpg from developer iOS / tvOS App Store listing (id1628995509)
+5. XCIPTV Player / OTR Player:
+   - xciptv-screen.jpg from OTTRUN official documentation (https://api01.ottrun.com/assets/img/orplayer_android_s2.jpg)
+6. TiviMate IPTV Player:
+   - tivimate-screen.jpg from Armobsoft Google Play Store listing (ar.tvplayer.tv)
+7. IBO Player Pro:
+   - ibo-screen.jpg from Google Play Store listing (com.ibovpro.player)
+8. Smart IPTV (SIPTV):
+   - smart-iptv-screen.jpg from Google Play Store listing (iptv.app)
+9. Televizo:
+   - televizo-screen.jpg from Google Play Store listing (com.ottplay.ottplay)
+10. IPTVX:
+    - iptvx-screen.jpg from Apple App Store 4K listing (id1451470024)
+
+All screenshots, application visuals, and trademarks belong to their respective copyright holders. Used strictly for reference, editorial, and setup instructional purposes.

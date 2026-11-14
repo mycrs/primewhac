@@ -122,7 +122,7 @@ const ExitIntentPopup = () => {
     handleClose();
   };
 
-  const packagesPath = isDe ? '/de/paketler' : '/paketler';
+  const packagesPath = isDe ? '/de/pakete' : '/paketler';
 
   return (
     <AnimatePresence>

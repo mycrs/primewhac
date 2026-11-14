@@ -65,7 +65,7 @@ const Installation = ({ siteData }) => {
           </h2>
            <div className="mt-8 mb-12 flex flex-col sm:flex-row items-center justify-center gap-6">
             <Button asChild size="lg" variant="outline" className="font-bold text-lg h-14 px-8 rounded-full border-2 border-[#e50914]/50 text-white hover:bg-[#e50914]/10 hover:text-white">
-              <Link to="/detailed-instructions">
+              <Link to="/detailed-guides/">
                 <BookOpenCheck className="mr-3 h-5 w-5" />
                 Detaylı Rehberler
                 <ArrowRight className="ml-3 h-5 w-5" />

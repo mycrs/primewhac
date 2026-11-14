@@ -28,6 +28,7 @@ export const organizationSchema = {
     height: 512,
   },
   description: 'QruzeTV; Türkçe ve Almanca IPTV paketleri, cihaz kurulum rehberleri, ücretsiz test ve kullanıcı desteği sunar.',
+  sameAs: ['https://t.me/iptvsatinalqruze'],
   // telephone alanı bilerek yok: numara statik çıktıda (HTML/JSON-LD) görünürse
   // spam botları kaynak koddan hasat ediyor. İletişim e-posta + site üzerinden.
   email: 'info@qruzetv.com',
@@ -566,7 +567,7 @@ export function whatToWatchPageSchemasDE(metadata) {
 }
 
 /**
- * "Ne İzlesem" kategori sayfaları (aksiyon, netflix, korku vb.) için schema seti.
+ * "Ne İzlesem" kategori sayfaları (aksiyon, yabancı diziler, korku vb.) için schema seti.
  * WebPage + BreadcrumbList + ItemList + (varsa) FAQPage kombinasyonu döner.
  *
  * @param {Object} category - whatToWatchCategories.js formatında kategori objesi

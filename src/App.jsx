@@ -40,6 +40,7 @@ const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const AboutPageDE = lazy(() => import('@/pages/AboutPageDE'));
 const InstallationPage = lazy(() => import('@/pages/InstallationPage'));
 const InstallationDevicePage = lazy(() => import('@/pages/InstallationDevicePage'));
+const AppInstallationGuidesPage = lazy(() => import('@/pages/AppInstallationGuidesPage'));
 const SetupPageDE = lazy(() => import('@/pages/SetupPageDE'));
 const FaqPage = lazy(() => import('@/pages/FaqPage'));
 const FaqPageDE = lazy(() => import('@/pages/FaqPageDE'));
@@ -222,19 +223,23 @@ function AppContent() {
                 } />
 
                 <Route path="/de" element={<ED><HomePageDE siteData={siteData} /></ED>} />
-                <Route path="/de/iptv" element={<Navigate to="/de/pakete" replace />} />
-                <Route path="/de/packages" element={<ED><Navigate to="/de/pakete" replace /></ED>} />
+                <Route path="/de/iptv" element={<Navigate to="/de/pakete/" replace />} />
+                <Route path="/de/packages" element={<ED><Navigate to="/de/pakete/" replace /></ED>} />
                 <Route path="/de/pakete" element={<ED><PackagesPageDE siteData={siteData} /></ED>} />
-                <Route path="/de/paketler" element={<ED><Navigate to="/de/pakete" replace /></ED>} />
+                <Route path="/de/paketler" element={<ED><Navigate to="/de/pakete/" replace /></ED>} />
                 <Route path="/de/kanale" element={<ED><ChannelsPageDE siteData={siteData} /></ED>} />
-                <Route path="/de/kanaele" element={<ED><Navigate to="/de/kanale" replace /></ED>} />
+                <Route path="/de/kanaele" element={<ED><Navigate to="/de/kanale/" replace /></ED>} />
                 <Route path="/de/sss" element={<ED><FaqPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/m3u-olustur" element={<ED><M3uConverterPageDE siteData={siteData} /></ED>} />
-                <Route path="/de/m3u-playlist-konverter" element={<ED><Navigate to="/de/m3u-olustur" replace /></ED>} />
+                <Route path="/de/m3u-playlist-konverter" element={<ED><Navigate to="/de/m3u-olustur/" replace /></ED>} />
                 <Route path="/de/uber-uns" element={<ED><AboutPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/einrichtung" element={<ED><SetupPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/einrichtung/:device" element={<ED><InstallationDevicePage siteData={siteData} /></ED>} />
-                <Route path="/de/kurulum" element={<ED><Navigate to="/de/einrichtung" replace /></ED>} />
+                <Route path="/de/setup" element={<ED><Navigate to="/de/einrichtung/" replace /></ED>} />
+                <Route path="/de/setup/:device" element={<ED><InstallationDevicePage siteData={siteData} /></ED>} />
+                <Route path="/de/kurulum" element={<ED><Navigate to="/de/einrichtung/" replace /></ED>} />
+                <Route path="/de/faq" element={<ED><Navigate to="/de/sss/" replace /></ED>} />
+                <Route path="/de/kontakt" element={<ED><Navigate to="/de/pakete/" replace /></ED>} />
                 <Route path="/de/blog" element={<ED><BlogPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/blog/:slug" element={<ED><BlogPostPage siteData={siteData} /></ED>} />
                 <Route path="/de/reseller" element={<ED><ResellerPageDE siteData={siteData} /></ED>} />
@@ -254,9 +259,9 @@ function AppContent() {
                 <Route path="/de/spielplan/:slug" element={<ED><MatchDetailDe siteData={siteData} /></ED>} />
                 <Route path="/de/bewertungen" element={<ED><ReviewsPage siteData={siteData} /></ED>} />
                 <Route path="/de/vergleich" element={<ED><ComparisonPageDE siteData={siteData} /></ED>} />
-                <Route path="/de/karsilastir" element={<ED><Navigate to="/de/vergleich" replace /></ED>} />
+                <Route path="/de/karsilastir" element={<ED><Navigate to="/de/vergleich/" replace /></ED>} />
                 <Route path="/de/detaillierte-anleitungen" element={<ED><DetailedGuidesPageDE siteData={siteData} /></ED>} />
-                <Route path="/de/detayli-kurulum" element={<ED><Navigate to="/de/detaillierte-anleitungen" replace /></ED>} />
+                <Route path="/de/detayli-kurulum" element={<ED><Navigate to="/de/detaillierte-anleitungen/" replace /></ED>} />
 
                 <Route path="/" element={<ET><HomePage siteData={siteData} /></ET>} />
                 <Route path="/packages" element={<ET><PackagesPage siteData={siteData} /></ET>} />
@@ -265,17 +270,22 @@ function AppContent() {
                 <Route path="/hakkimizda" element={<ET><AboutPage siteData={siteData} /></ET>} />
                 <Route path="/installation" element={<ET><InstallationPage siteData={siteData} /></ET>} />
                 <Route path="/kurulum" element={<ET><InstallationPage siteData={siteData} /></ET>} />
+                <Route path="/kurulum/uygulamalar" element={<ET><AppInstallationGuidesPage siteData={siteData} /></ET>} />
+                <Route path="/kurulum/uygulamalar/:appSlug" element={<ET><AppInstallationGuidesPage siteData={siteData} /></ET>} />
                 <Route path="/kurulum/:device" element={<ET><InstallationDevicePage siteData={siteData} /></ET>} />
                 <Route path="/installation/:device" element={<ET><InstallationDevicePage siteData={siteData} /></ET>} />
                 <Route path="/instructions" element={<ET><InstallationPage siteData={siteData} /></ET>} />
-                <Route path="/detayli-kurulum" element={<ET><Navigate to="/detailed-guides" replace /></ET>} />
+                <Route path="/detayli-kurulum" element={<ET><Navigate to="/detailed-guides/" replace /></ET>} />
+                <Route path="/detailed-instructions" element={<ET><Navigate to="/detailed-guides/" replace /></ET>} />
                 <Route path="/detailed-guides" element={<ET><DetailedGuidesPage siteData={siteData} /></ET>} />
+                <Route path="/test-yayini" element={<ET><Navigate to="/test/" replace /></ET>} />
+                <Route path="/guide" element={<ET><Navigate to="/guide/iptv-kurulum-rehberi/" replace /></ET>} />
                 <Route path="/faq" element={<ET><FaqPage siteData={siteData} /></ET>} />
                 <Route path="/sss" element={<ET><FaqPage siteData={siteData} /></ET>} />
                 <Route path="/reseller" element={<ET><ResellerPage siteData={siteData} /></ET>} />
                 <Route path="/bayilik" element={<ET><ResellerPage siteData={siteData} /></ET>} />
                 <Route path="/channels" element={<ET><ChannelsPage siteData={siteData} /></ET>} />
-                <Route path="/kanallar" element={<ET><Navigate to="/channels" replace /></ET>} />
+                <Route path="/kanallar" element={<ET><Navigate to="/channels/" replace /></ET>} />
 
                 <Route path="/blog/write/:id" element={<ET><ProtectedRoute><BlogWritePage siteData={siteData} /></ProtectedRoute></ET>} />
                 <Route path="/blog/write" element={<ET><ProtectedRoute><BlogWritePage siteData={siteData} /></ProtectedRoute></ET>} />
@@ -283,18 +293,18 @@ function AppContent() {
                 <Route path="/blog/:slug" element={<ET><BlogPostPage siteData={siteData} /></ET>} />
 
                 <Route path="/m3u-converter" element={<ET><M3uConverterPage siteData={siteData} /></ET>} />
-                <Route path="/m3u-donusturucu" element={<ET><Navigate to="/m3u-converter" replace /></ET>} />
-                <Route path="/m3u-olustur" element={<ET><Navigate to="/m3u-converter" replace /></ET>} />
+                <Route path="/m3u-donusturucu" element={<ET><Navigate to="/m3u-converter/" replace /></ET>} />
+                <Route path="/m3u-olustur" element={<ET><Navigate to="/m3u-converter/" replace /></ET>} />
                 <Route path="/privacy" element={<ET><PrivacyPolicyPage siteData={siteData} /></ET>} />
                 <Route path="/gizlilik" element={<ET><PrivacyPolicyPage siteData={siteData} /></ET>} />
                 <Route path="/terms" element={<ET><TermsOfServicePage siteData={siteData} /></ET>} />
                 <Route path="/sartlar" element={<ET><TermsOfServicePage siteData={siteData} /></ET>} />
 
-                <Route path="/karsilastir" element={<ET><Navigate to="/karsilastirma" replace /></ET>} />
+                <Route path="/karsilastir" element={<ET><Navigate to="/karsilastirma/" replace /></ET>} />
                 <Route path="/karsilastirma" element={<ET><ComparisonPage siteData={siteData} /></ET>} />
                 <Route path="/mac-programi" element={<ET><MatchSchedulePage siteData={siteData} /></ET>} />
                 <Route path="/mac-programi/:slug" element={<ET><MatchDetailTr siteData={siteData} /></ET>} />
-                <Route path="/spor-gundemi" element={<ET><Navigate to="/mac-programi" replace /></ET>} />
+                <Route path="/spor-gundemi" element={<ET><Navigate to="/mac-programi/" replace /></ET>} />
                 <Route path="/spor-gundemi/:slug" element={<ET><MatchDetailTr siteData={siteData} /></ET>} />
                 <Route path="/what-to-watch" element={<ET><WhatToWatchPage siteData={siteData} /></ET>} />
                 <Route path="/ne-izlesem" element={<ET><WhatToWatchPage siteData={siteData} /></ET>} />
@@ -316,7 +326,7 @@ function AppContent() {
                 <Route path="/yorumlar" element={<ET><ReviewsPage siteData={siteData} /></ET>} />
                 <Route path="/musteri-kayit" element={<ET><MusteriKayitPage siteData={siteData} /></ET>} />
                 <Route path="/iletisim" element={<ET><ContactPage siteData={siteData} /></ET>} />
-                <Route path="/contact" element={<Navigate to="/iletisim" replace />} />
+                <Route path="/contact" element={<Navigate to="/iletisim/" replace />} />
 
                 <Route path="*" element={<ET><NotFoundPage /></ET>} />
               </Routes>

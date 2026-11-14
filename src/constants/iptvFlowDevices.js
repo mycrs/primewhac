@@ -55,8 +55,18 @@ export const DEFAULT_IPTV_FLOW_DEVICES_DATA = [
     icon: 'smartphone',
     platforms: ['android', 'ios', 'tablet'],
     needsTvBrand: false,
-    tr: { name: 'Telefon ve TV Box', desc: 'Android ve iOS cihazlar' },
-    de: { name: 'Smartphone & TV-Box', desc: 'Android- und iOS-Geräte' },
+    tr: { name: 'Telefon', desc: 'Android telefon veya iPhone' },
+    de: { name: 'Smartphone', desc: 'Android oder iPhone' },
+  },
+  {
+    id: 'tablet', icon: 'smartphone', platforms: ['android', 'ios', 'tablet'], needsTvBrand: false,
+    tr: { name: 'Tablet / iPad', desc: 'Android tablet veya iPad' },
+    de: { name: 'Tablet / iPad', desc: 'Android-Tablet oder iPad' },
+  },
+  {
+    id: 'apple-tv', icon: 'box', platforms: ['ios'], needsTvBrand: false,
+    tr: { name: 'Apple TV', desc: 'Apple TV / tvOS' },
+    de: { name: 'Apple TV', desc: 'Apple TV / tvOS' },
   },
   {
     id: 'mag-box',
@@ -134,7 +144,9 @@ export function normalizeIptvFlowDevicesData(raw) {
 
 function resolvedList(rawCustom) {
   const norm = normalizeIptvFlowDevicesData(rawCustom);
-  return norm || DEFAULT_IPTV_FLOW_DEVICES_DATA;
+  if (!norm) return DEFAULT_IPTV_FLOW_DEVICES_DATA;
+  const extraIds = new Set(['tablet', 'apple-tv']);
+  return [...norm, ...DEFAULT_IPTV_FLOW_DEVICES_DATA.filter((device) => extraIds.has(device.id) && !norm.some((item) => item.id === device.id))];
 }
 
 /**

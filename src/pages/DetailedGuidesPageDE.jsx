@@ -24,9 +24,9 @@ const DetailedGuidesPageDE = ({ siteData }) => {
 
   const safeSiteData = siteData || {};
   const metadata = {
-    title: 'IPTV Anleitung | Einrichtung und Nutzung auf Deutsch',
+    title: 'Detaillierte IPTV Anleitungen & App-Einrichtung | QruzeTV',
     description:
-      'Wie funktioniert IPTV? Schritt-für-Schritt Einrichtung, Geräte-Tipps und Nutzungshilfen für stabiles Streaming in Deutschland und Europa.',
+      'Schritt-für-Schritt IPTV Einrichtung für Smart TV, Fire TV, Android, iOS und PC auf Deutsch. App-Empfehlungen und Konfigurationshilfen.',
     keywords: [
       'IPTV Anleitung',
       'IPTV einrichten',
@@ -39,9 +39,9 @@ const DetailedGuidesPageDE = ({ siteData }) => {
   };
 
   const breadcrumb = breadcrumbSchema([
-    { name: 'Startseite', path: '/de' },
-    { name: 'Einrichtung', path: '/de/einrichtung' },
-    { name: 'Detaillierte Anleitungen', path: '/de/detaillierte-anleitungen' },
+    { name: 'Startseite', path: '/de/' },
+    { name: 'Einrichtung', path: '/de/einrichtung/' },
+    { name: 'Detaillierte Anleitungen', path: '/de/detaillierte-anleitungen/' },
   ]);
   const jsonLd = [
     breadcrumb,

@@ -655,3 +655,7 @@
     animation: none;
   }
 }
+
+/* Keep touch carousels clean while preserving native swipe scrolling. */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

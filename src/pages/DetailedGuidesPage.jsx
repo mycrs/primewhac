@@ -14,23 +14,23 @@ const DetailedGuidesPage = ({ siteData }) => {
 
   const safeSiteData = siteData || {};
   const metadata = {
-    title: "IPTV İzleme Rehberi | Kurulum ve Kullanım Kılavuzu",
-    description: "IPTV nasıl izlenir? Adım adım kurulum rehberi, cihaz ayarları ve kullanım ipuçları. Tüm cihazlarda IPTV kullanımı öğren.",
+    title: "Ayrıntılı IPTV Cihaz ve Uygulama Kurulum Rehberleri | QruzeTV",
+    description: "Smart TV, Android TV, Fire TV, iOS ve PC için adım adım IPTV kurulum kılavuzları. En popüler oynatıcılar ve resimli ayarlar.",
     keywords: ["IPTV izleme rehberi", "IPTV nasıl izlenir", "IPTV kurulum rehberi", "IPTV cihaz kurulumu", "IPTV kullanım kılavuzu", "donmayan iptv"],
     ogType: "article"
   };
 
   const breadcrumb = breadcrumbSchema([
     { name: 'Ana Sayfa', path: '/' },
-    { name: 'Kurulum', path: '/kurulum' },
-    { name: 'Detaylı Rehberler', path: '/detailed-guides' },
+    { name: 'Kurulum', path: '/kurulum/' },
+    { name: 'Detaylı Rehberler', path: '/detailed-guides/' },
   ]);
   const jsonLd = [
     breadcrumb,
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "IPTV İzleme Rehberi | Kurulum ve Kullanım Kılavuzu",
+      "headline": "Ayrıntılı IPTV Cihaz ve Uygulama Kurulum Rehberleri | QruzeTV",
       "description": metadata.description,
       "author": { "@type": "Organization", "name": "QruzeTV" }
     },
@@ -94,7 +94,7 @@ const DetailedGuidesPage = ({ siteData }) => {
                     <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Başlangıç Aşaması ve Hazırlık</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
-                        Yepyeni bir teknolojik sisteme ve eğlence platformuna geçerken temel gereksinimleri bilmek ve hazırlıkları tam yapmak şarttır. Başarılı, kesintisiz bir başlangıç için öncelikle stabil ve dalgalanmayan bir internet bağlantısına (tercihen fiber optik veya yüksek hızlı VDSL altyapısına) ve bu teknolojiyi destekleyen modern, uyumlu bir akıllı cihaza ihtiyacınız vardır. Sistem gereksinimlerini net bir şekilde anladıktan sonra, mağazadan cihazınıza en uygun, lisanslı veya güvenilir oynatıcı uygulamasını seçmek ve servis sağlayıcınızdan size özel olarak oluşturulan şifreli veya link formatındaki bilgileri eksiksiz girmek kritik önem taşıyan adımlardır. <strong>IPTV nasıl izlenir</strong> diye merak ediyorsanız, bu hazırlık aşamasında cihazınızın ağa ethernet (LAN) kablosu ile mi yoksa Wi-Fi sinyalleriyle mi bağlanacağını belirlemek, ileride yaşayacağınız yayın performansını doğrudan ve derinden etkiler. Tüm bu temel adımları doğru ve sırasına uygun şekilde uyguladığınızda, <Link to="/kurulum" className="text-blue-400 hover:underline">kapsamlı kurulum rehberini</Link> okuyarak sisteminizi mükemmel, hatasız bir şekilde yapılandırabilir ve izlemeye hemen başlayabilirsiniz.
+                        Yepyeni bir teknolojik sisteme ve eğlence platformuna geçerken temel gereksinimleri bilmek ve hazırlıkları tam yapmak şarttır. Başarılı, kesintisiz bir başlangıç için öncelikle stabil ve dalgalanmayan bir internet bağlantısına (tercihen fiber optik veya yüksek hızlı VDSL altyapısına) ve bu teknolojiyi destekleyen modern, uyumlu bir akıllı cihaza ihtiyacınız vardır. Sistem gereksinimlerini net bir şekilde anladıktan sonra, mağazadan cihazınıza en uygun, lisanslı veya güvenilir oynatıcı uygulamasını seçmek ve servis sağlayıcınızdan size özel olarak oluşturulan şifreli veya link formatındaki bilgileri eksiksiz girmek kritik önem taşıyan adımlardır. <strong>IPTV nasıl izlenir</strong> diye merak ediyorsanız, bu hazırlık aşamasında cihazınızın ağa ethernet (LAN) kablosu ile mi yoksa Wi-Fi sinyalleriyle mi bağlanacağını belirlemek, ileride yaşayacağınız yayın performansını doğrudan ve derinden etkiler. Tüm bu temel adımları doğru ve sırasına uygun şekilde uyguladığınızda, <Link to="/kurulum/" className="text-blue-400 hover:underline">kapsamlı kurulum rehberini</Link> okuyarak sisteminizi mükemmel, hatasız bir şekilde yapılandırabilir ve izlemeye hemen başlayabilirsiniz.
                       </p>
                     </div>
                   </div>
@@ -123,7 +123,7 @@ const DetailedGuidesPage = ({ siteData }) => {
                     <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Android TV ve Kutu (Box) Cihazları</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
-                        Açık kaynak kodlu yapısıyla Android tabanlı dev ekran televizyonlar ve özellikle TV Box cihazları (Xiaomi Mi Box, Nvidia Shield, Amazon Fire Stick, Mecool vb.), inanılmaz uygulama çeşitliliği ve donanım güçleri sayesinde bu teknoloji için yeryüzündeki en özgür, en performanslı donanımlardır. Google Play Store'a güvenli giriş yaparak IPTV Smarters Pro, XCIPTV Player, Televizo veya premium deneyim sunan Tivimate uygulamalarından donanımınıza en uygun olanını cihazınıza kurun. Uygulamayı başlattığınızda karşınıza çıkan ekranda "Xtream Codes API ile Giriş Yap" (Login with Xtream Codes) seçeneğini tıklayın. Size SMS veya e-posta ile verilen kullanıcı adı (username), şifre (password) ve sunucu URL adresini (host/port) dikkatlice, boşluk bırakmadan ilgili alanlara yazarak giriş (login) yapın. Bu güçlü cihazlarda yayın performansı alabilmek, kanal geçiş hızını milisaniyelere düşürmek için uygulamanın ayarlar menüsünden "Donanım Hızlandırma (Hardware Decoding / OMX)" seçeneğini mutlaka aktif etmeniz şiddetle önerilir. Daha fazla pratik bilgi ve resimli anlatım için <Link to="/guide" className="text-blue-400 hover:underline">IPTV cihaz kurulumu makalesini</Link> inceleyerek sistemin inceliklerini keşfedebilirsiniz.
+                        Açık kaynak kodlu yapısıyla Android tabanlı dev ekran televizyonlar ve özellikle TV Box cihazları (Xiaomi Mi Box, Nvidia Shield, Amazon Fire Stick, Mecool vb.), inanılmaz uygulama çeşitliliği ve donanım güçleri sayesinde bu teknoloji için yeryüzündeki en özgür, en performanslı donanımlardır. Google Play Store'a güvenli giriş yaparak IPTV Smarters Pro, XCIPTV Player, Televizo veya premium deneyim sunan Tivimate uygulamalarından donanımınıza en uygun olanını cihazınıza kurun. Uygulamayı başlattığınızda karşınıza çıkan ekranda "Xtream Codes API ile Giriş Yap" (Login with Xtream Codes) seçeneğini tıklayın. Size SMS veya e-posta ile verilen kullanıcı adı (username), şifre (password) ve sunucu URL adresini (host/port) dikkatlice, boşluk bırakmadan ilgili alanlara yazarak giriş (login) yapın. Bu güçlü cihazlarda yayın performansı alabilmek, kanal geçiş hızını milisaniyelere düşürmek için uygulamanın ayarlar menüsünden "Donanım Hızlandırma (Hardware Decoding / OMX)" seçeneğini mutlaka aktif etmeniz şiddetle önerilir. Daha fazla pratik bilgi ve resimli anlatım için <Link to="/guide/iptv-kurulum-rehberi/" className="text-blue-400 hover:underline">IPTV cihaz kurulumu makalesini</Link> inceleyerek sistemin inceliklerini keşfedebilirsiniz.
                       </p>
                     </div>
                   </div>
@@ -145,7 +145,7 @@ const DetailedGuidesPage = ({ siteData }) => {
                     <div className="bg-[#0a0a0a]/30 rounded-xl p-5 border border-slate-700/30">
                       <h3 className="text-xl font-semibold text-blue-300 mb-3">Bağlantı Sorunlarına Kalıcı Çözümler</h3>
                       <p className="text-slate-300 leading-relaxed m-0">
-                        Bu kronik sorunların kalıcı olarak üstesinden gelmek ve kaliteli bir sinema deneyimi yaşamak için uygulanabilecek, evde herkesin yapabileceği çeşitli pratik teknikler ve profesyonel ağ ayarlamaları vardır. İlk ve en etkili olarak, televizyonunuzu veya medya kutunuzu Wi-Fi yerine modeme mutlaka kaliteli bir Ethernet (Cat5e veya Cat6) kablosu ile bağlayarak veri paket kaybını ve anlık ping sıçramalarını sıfıra indirin. İkinci ileri düzey adım olarak, internet servis sağlayıcınızın olası yoğun saat yavaşlatmalarını ve trafik filtrelerini aşmak, bağlantınızı şifrelemek için global ve güvenilir bir VPN servisi (Virtual Private Network) kullanmayı cihazınızda mutlaka düşünebilirsiniz. Uygulama yazılımı tarafında ise, player ayarlarından video önbellek (buffer size) değerini 'Small' veya 'Normal'den 'Large' (Büyük) seviyesine artırmak, anlık 3-5 saniyelik internet hızı düşüşlerinde önceden yüklenen veriyi kullanarak yayının kesilmesini, takılmasını fiziksel olarak engeller. Tüm bu hayati optimizasyonlar için <Link to="/faq" className="text-blue-400 hover:underline">Sık Sorulan Sorular rehberini</Link> ziyaret ederek kendi ev ağınızı adeta bir bilişim uzmanı profesyonelliğiyle, en üst düzeyde yapılandırabilirsiniz.
+                        Bu kronik sorunların kalıcı olarak üstesinden gelmek ve kaliteli bir sinema deneyimi yaşamak için uygulanabilecek, evde herkesin yapabileceği çeşitli pratik teknikler ve profesyonel ağ ayarlamaları vardır. İlk ve en etkili olarak, televizyonunuzu veya medya kutunuzu Wi-Fi yerine modeme mutlaka kaliteli bir Ethernet (Cat5e veya Cat6) kablosu ile bağlayarak veri paket kaybını ve anlık ping sıçramalarını sıfıra indirin. İkinci ileri düzey adım olarak, internet servis sağlayıcınızın olası yoğun saat yavaşlatmalarını ve trafik filtrelerini aşmak, bağlantınızı şifrelemek için global ve güvenilir bir VPN servisi (Virtual Private Network) kullanmayı cihazınızda mutlaka düşünebilirsiniz. Uygulama yazılımı tarafında ise, player ayarlarından video önbellek (buffer size) değerini 'Small' veya 'Normal'den 'Large' (Büyük) seviyesine artırmak, anlık 3-5 saniyelik internet hızı düşüşlerinde önceden yüklenen veriyi kullanarak yayının kesilmesini, takılmasını fiziksel olarak engeller. Tüm bu hayati optimizasyonlar için <Link to="/sss/" className="text-blue-400 hover:underline">Sık Sorulan Sorular rehberini</Link> ziyaret ederek kendi ev ağınızı adeta bir bilişim uzmanı profesyonelliğiyle, en üst düzeyde yapılandırabilirsiniz.
                       </p>
                     </div>
                   </div>
@@ -220,13 +220,13 @@ const DetailedGuidesPage = ({ siteData }) => {
                 <div className="mt-16 p-8 bg-gradient-to-br from-[#e50914]/20 to-[#b20710]/20 rounded-2xl border border-blue-500/20">
                   <h3 className="text-2xl font-bold text-white mb-6">Faydalı Bağlantılar</h3>
                   <div className="grid sm:grid-cols-3 gap-4">
-                    <Link to="/kurulum" className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
+                    <Link to="/kurulum/" className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
                       Cihaz Kurulum Sayfası
                     </Link>
-                    <Link to="/sss" className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
+                    <Link to="/sss/" className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
                       Sık Sorulan Sorular
                     </Link>
-                    <Link to="/gizlilik" className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
+                    <Link to="/gizlilik/" className="flex items-center justify-center p-4 bg-[#0a0a0a]/80 hover:bg-[#141414]/20 hover:border-blue-500/50 border border-slate-700 rounded-xl transition-all font-semibold shadow-lg hover:shadow-blue-500/20">
                       Güvenlik Politikası
                     </Link>
                   </div>

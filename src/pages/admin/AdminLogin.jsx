@@ -218,6 +218,14 @@ const AdminLogin = () => {
         } else if (em.includes('user not found')) {
           displayError = 'Bu e-posta adresine kayıtlı kullanıcı bulunamadı.';
         } else if (
+          error.status === 429 ||
+          em.includes('too many') ||
+          em.includes('rate limit') ||
+          em.includes('429')
+        ) {
+          displayError =
+            'Çok fazla istek/giriş denemesi yapıldı (HTTP 429). Güvenlik nedeniyle geçici olarak sınırlandırıldınız. Lütfen birkaç dakika bekleyip tekrar deneyin.';
+        } else if (
           em.includes('failed to fetch') ||
           em.includes('networkerror') ||
           (error.name === 'TypeError' && em.includes('fetch'))

@@ -121,7 +121,7 @@ const WhatToWatchDetailPage = ({ siteData }) => {
       <main className="container mx-auto px-4 -mt-40 relative z-10 pb-20">
         <div className="mb-6 flex flex-wrap items-center gap-4 text-sm text-slate-400">
           <Link to="/" className="hover:text-white hover:underline">Ana sayfa</Link>
-          <Link to="/ne-izlesem" className="hover:text-white hover:underline">Ne İzlesem</Link>
+          <Link to="/ne-izlesem/" className="hover:text-white hover:underline">Ne İzlesem</Link>
           <button type="button" onClick={() => navigate(`/ne-izlesem?tab=${type}`)} className="hover:text-white hover:underline">
             {type === 'tv' ? 'Diziler' : 'Filmler'}
           </button>
@@ -172,8 +172,8 @@ const WhatToWatchDetailPage = ({ siteData }) => {
               <h2 className="text-xl font-bold mb-3 flex items-center gap-2"><Film className="w-5 h-5 text-primary" /> Özet</h2>
               <p className="text-slate-300 leading-relaxed text-lg">{overview || 'Bu içerik için özet bulunmuyor.'}</p>
               <div className="mt-4 flex flex-wrap gap-3 text-sm">
-                <Link to="/paketler" className="text-primary hover:text-white hover:underline">IPTV paketleri</Link>
-                <Link to="/ne-izlesem" className="text-primary hover:text-white hover:underline">Tüm içeriklere dön</Link>
+                <Link to="/paketler/" className="text-primary hover:text-white hover:underline">IPTV paketleri</Link>
+                <Link to="/ne-izlesem/" className="text-primary hover:text-white hover:underline">Tüm içeriklere dön</Link>
               </div>
             </div>
 

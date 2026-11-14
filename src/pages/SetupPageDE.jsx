@@ -19,6 +19,7 @@ import {
   Flame,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { APP_GUIDES, APP_GUIDES_BASE } from '@/data/appInstallationGuides';
 
 const SetupPageDE = ({ siteData }) => {
   useEffect(() => {
@@ -191,6 +192,60 @@ const SetupPageDE = ({ siteData }) => {
               <DeviceSelectionSection selectedDevice="" onSelect={() => {}} asLinks />
             </motion.div>
 
+            {/* App showroom DE */}
+            <section aria-labelledby="app-guides-heading-de" className="mb-16 rounded-3xl border border-white/10 bg-[#111116]/80 p-5 sm:p-8">
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#ff4b55]">NACH PLAYER-APP</span>
+                  <h2 id="app-guides-heading-de" className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">
+                    Welche App nutzen Sie?
+                  </h2>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">
+                    Wählen Sie Ihre IPTV-App für detaillierte Schritte, Menüführung und Login-Methoden.
+                  </p>
+                </div>
+                <Link to={`${APP_GUIDES_BASE}/`} className="inline-flex items-center gap-2 text-sm font-bold text-[#ff4b55] hover:text-white transition-colors">
+                  Alle 10 Apps anzeigen <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {APP_GUIDES.map((guide) => (
+                  <Link
+                    key={guide.slug}
+                    to={`${APP_GUIDES_BASE}/${guide.slug}/`}
+                    className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-[#0d0d12] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-[#13131a]"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 p-2">
+                          <img
+                            src={guide.logo}
+                            alt={guide.name}
+                            className="h-full w-full object-contain"
+                            loading="lazy"
+                          />
+                        </div>
+                        <span className="rounded-full bg-white/5 px-2.5 py-1 text-[11px] font-medium text-slate-400">
+                          {guide.method.includes('Web') ? 'Web-Portal' : 'Direkt-Login'}
+                        </span>
+                      </div>
+                      <h3 className="mt-4 text-base font-bold text-white group-hover:text-primary transition-colors">
+                        {guide.name}
+                      </h3>
+                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-400">
+                        {guide.devices.slice(0, 3).join(' • ')}
+                      </p>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between border-t border-white/5 pt-3 text-xs font-medium text-slate-400 group-hover:text-white">
+                      <span>Anleitung öffnen</span>
+                      <ArrowRight className="h-3.5 w-3.5 text-slate-500 group-hover:translate-x-1 group-hover:text-primary transition-all" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
             {/* Articles and guide content */}
             <motion.article 
               className="mt-16 md:mt-24 bg-[#101015]/75 border border-white/10 rounded-3xl p-6 sm:p-10 md:p-14 shadow-2xl"
@@ -231,19 +286,19 @@ const SetupPageDE = ({ siteData }) => {
                   
                   <div className="flex flex-col sm:flex-row gap-3.5 w-full justify-center max-w-md">
                     <Link 
-                      to="/de/pakete" 
+                      to="/de/pakete/" 
                       className="px-6 py-3.5 bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white font-bold rounded-xl text-sm transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
                     >
                       Pakete ansehen <ArrowRight className="w-4 h-4" />
                     </Link>
                     <Link 
-                      to="/de/test" 
+                      to="/de/test/" 
                       className="px-6 py-3.5 bg-[#141419] hover:bg-[#1c1c24] text-white font-semibold rounded-xl text-sm transition-all duration-300 border border-white/15 flex items-center justify-center"
                     >
                       Kostenlos testen
                     </Link>
                     <Link 
-                      to="/de/sss" 
+                      to="/de/sss/" 
                       className="px-6 py-3.5 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white font-semibold rounded-xl text-sm transition-all duration-300 border border-white/10 flex items-center justify-center"
                     >
                       Häufige Fragen

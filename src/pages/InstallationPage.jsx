@@ -26,6 +26,7 @@ import { Link } from 'react-router-dom';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { breadcrumbSchema } from '@/utils/seoSchema';
 import { SITE_URL } from '@/constants/siteUrl';
+import { APP_GUIDES, APP_GUIDES_BASE } from '@/data/appInstallationGuides';
 
 const InstallationPage = ({ siteData }) => {
   useEffect(() => {
@@ -242,6 +243,17 @@ const InstallationPage = ({ siteData }) => {
               <DeviceSelectionSection selectedDevice="" onSelect={() => {}} asLinks />
             </motion.div>
 
+            <section aria-labelledby="app-guides-heading" className="mb-16 rounded-3xl border border-white/10 bg-[#111116]/80 p-5 sm:p-8">
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div><span className="text-xs font-bold uppercase tracking-widest text-red-400">UYGULAMAYA GÖRE</span><h2 id="app-guides-heading" className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">Hangi uygulamayı kullanıyorsunuz?</h2><p className="mt-2 text-sm leading-6 text-slate-400">Uygulamanızı seçin; yükleme ve liste ekleme adımlarını takip edin.</p></div>
+                <Link to={`${APP_GUIDES_BASE}/`} className="inline-flex items-center gap-2 text-sm font-bold text-red-400 hover:text-red-300">Tüm uygulamalar <ArrowRight className="h-4 w-4" /></Link>
+              </div>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{APP_GUIDES.slice(0, 6).map((guide) => <Link key={guide.slug} to={`${APP_GUIDES_BASE}/${guide.slug}/`} className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-[#09090d] p-4 transition hover:border-white/25 hover:bg-white/[0.04]">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-[#16161b] p-1.5">{guide.logo ? <img src={guide.logo} alt="" className="h-full w-full object-contain" /> : <span className="font-black" style={{ color: guide.accent }}>{guide.shortName.slice(0, 2).toUpperCase()}</span>}</div>
+                <span className="min-w-0 flex-1"><span className="block font-bold text-white">{guide.name}</span><span className="mt-1 block truncate text-xs text-slate-400">{guide.devices.slice(0, 2).join(' · ')}</span></span><ArrowRight className="h-4 w-4 shrink-0 text-slate-500 group-hover:text-white" />
+              </Link>)}</div>
+            </section>
+
             {/* How it works - 3-step Artisan Vitrin */}
             <motion.section
               className="mt-16 md:mt-24"
@@ -379,19 +391,19 @@ const InstallationPage = ({ siteData }) => {
                 
                 <div className="flex flex-col sm:flex-row gap-3.5 w-full justify-center max-w-lg">
                   <Link 
-                    to="/paketler" 
+                    to="/paketler/" 
                     className="px-6 py-3.5 bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white font-bold rounded-xl text-sm transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
                   >
                     Paketleri İncele <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link 
-                    to="/test" 
+                    to="/test/" 
                     className="px-6 py-3.5 bg-[#141419] hover:bg-[#1c1c24] text-white font-semibold rounded-xl text-sm transition-all duration-300 border border-white/15 flex items-center justify-center"
                   >
                     Ücretsiz Test Talep Et
                   </Link>
                   <Link 
-                    to="/sss" 
+                    to="/sss/" 
                     className="px-6 py-3.5 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white font-semibold rounded-xl text-sm transition-all duration-300 border border-white/10 flex items-center justify-center"
                   >
                     Sık Sorulan Sorular
@@ -429,7 +441,7 @@ const InstallationPage = ({ siteData }) => {
                     <h3 className="text-lg font-bold text-white">Samsung & LG Smart TV</h3>
                   </div>
                   <div className="space-y-3 text-slate-300 text-xs sm:text-sm leading-relaxed font-light">
-                    <p><strong className="text-white">Uygulama mağazada yoksa:</strong> TV bölgesini ve yazılım sürümünü kontrol edin; modelinize uygun resmi uygulamayı <Link to="/kurulum/smart-tv" className="text-[#ff4b55] hover:underline font-medium">Smart TV rehberimizden</Link> seçin.</p>
+                    <p><strong className="text-white">Uygulama mağazada yoksa:</strong> TV bölgesini ve yazılım sürümünü kontrol edin; modelinize uygun resmi uygulamayı <Link to="/kurulum/smart-tv/" className="text-[#ff4b55] hover:underline font-medium">Smart TV rehberimizden</Link> seçin.</p>
                     <p><strong className="text-white">Kanal geçişleri yavaşsa:</strong> Wi-Fi yerine kablolu ethernet bağlantısı kullanmak bellek yönetimini ve geçiş hızını belirgin derecede iyileştirir.</p>
                   </div>
                 </div>
@@ -463,7 +475,7 @@ const InstallationPage = ({ siteData }) => {
                   </div>
                   <div className="space-y-3 text-slate-300 text-xs sm:text-sm leading-relaxed font-light">
                     <p><strong className="text-white">Çözüm bulamadınız mı?</strong> WhatsApp destek hattımızdan uzman teknik ekibimize cihaz modelinizi ileterek anında canlı yönlendirme alabilirsiniz.</p>
-                    <p>Daha fazla detay için <Link to="/sss" className="text-[#ff4b55] hover:underline font-medium">Sıkça Sorulan Sorular</Link> bölümümüzü inceleyebilirsiniz.</p>
+                    <p>Daha fazla detay için <Link to="/sss/" className="text-[#ff4b55] hover:underline font-medium">Sıkça Sorulan Sorular</Link> bölümümüzü inceleyebilirsiniz.</p>
                   </div>
                 </div>
               </div>

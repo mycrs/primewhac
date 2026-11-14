@@ -3,6 +3,7 @@ import { Edit2, ShieldCheck, Send, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocation } from 'react-router-dom';
 import { useSiteData } from '@/hooks/useSiteData';
+import { isLivingRegionComplete } from '@/components/LivingRegionSelect';
 
 const TestFormSummary = ({
   formData,
@@ -14,6 +15,7 @@ const TestFormSummary = ({
   /** TR /test sayfası: özet adımında bölge zorunlu */
   livingRegionRequired = false,
   livingRegion = '',
+  livingCountry = '',
 }) => {
   const location = useLocation();
   const isDe = location.pathname.includes('/de');
@@ -126,7 +128,7 @@ const TestFormSummary = ({
         </Button>
         <Button
           onClick={onSubmit}
-          disabled={loading || (livingRegionRequired && !livingRegion)}
+          disabled={loading || (livingRegionRequired && !isLivingRegionComplete(livingRegion, livingCountry))}
           className={
             isTelegram
               ? "h-14 px-12 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-black text-lg rounded-xl shadow-[0_0_30px_rgba(14,165,233,0.3)] transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"

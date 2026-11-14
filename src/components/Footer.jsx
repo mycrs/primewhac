@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import {
-  MessageCircle, Mail, Globe2, ArrowUpRight,
+  MessageCircle, Mail, Send, Globe2, ArrowUpRight,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { defaultData } from '@/data/defaultSiteData';
@@ -68,6 +68,22 @@ const Footer = ({ contactData: propContactData, siteData }) => {
                 >
                   Paketler ve destek talebi
                 </Link>
+              </li>
+              <li className="flex items-start gap-3">
+                <Send className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <div className="flex flex-col gap-0.5">
+                  <a
+                    href="https://t.me/iptvsatinalqruze"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-400 transition-colors hover:text-white"
+                  >
+                    QruzeTV IPTV Telegram grubu
+                  </a>
+                  <span className="text-xs leading-relaxed text-gray-500">
+                    Topluluk paylaşımlarını ve duyuruları Telegram üzerinden takip edin.
+                  </span>
+                </div>
               </li>
               {email && (
                 <li className="flex items-center gap-3">

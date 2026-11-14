@@ -1,3 +1,4 @@
+import { BLOG_TRANSLATIONS_DE } from '@/data/staticBlogTranslationsDE';
 import { supabase } from '@/lib/customSupabaseClient';
 import { BLOG_LIST_COLUMNS, BLOG_LIST_COLUMNS_DE, BLOG_LIST_PAGE_SIZE } from '@/constants/publicSupabaseQueries';
 import { readSessionCache, writeSessionCache } from '@/utils/supabaseSessionCache';
@@ -29,13 +30,9 @@ export async function loadBlogListPage({ pageIndex, cachePrefix, locale = 'tr' }
     () => {
       let query = supabase
         .from('blog_posts')
-        .select(locale === 'de' ? BLOG_LIST_COLUMNS_DE : BLOG_LIST_COLUMNS, { count: 'exact' })
+        .select(BLOG_LIST_COLUMNS, { count: 'exact' })
         .not('published_at', 'is', null)
         .order('featured', { ascending: false, nullsFirst: false });
-
-      if (locale === 'de') {
-        query = query.not('title_de', 'is', null).not('content_de', 'is', null);
-      }
 
       return query
         .order('published_at', { ascending: false })
@@ -48,8 +45,24 @@ export async function loadBlogListPage({ pageIndex, cachePrefix, locale = 'tr' }
     return { rows: [], totalCount: 0, error: message || error?.message || 'fetch_failed' };
   }
 
-  const rows = data || [];
-  const totalCount = typeof count === 'number' ? count : rows.length;
+  let rows = data || [];
+  if (locale === 'de') {
+    rows = rows
+      .filter((r) => r.slug && (r.title_de || BLOG_TRANSLATIONS_DE[r.slug]))
+      .map((r) => {
+        const trDe = BLOG_TRANSLATIONS_DE[r.slug];
+        if (trDe) {
+          return {
+            ...r,
+            title_de: trDe.title_de,
+            excerpt_de: trDe.excerpt_de,
+            content_de: trDe.content_de,
+          };
+        }
+        return r;
+      });
+  }
+  const totalCount = locale === 'de' ? rows.length : (typeof count === 'number' ? count : rows.length);
 
   if (pageIndex === 0) {
     writeSessionCache(`${cachePrefix}_p0`, { rows, totalCount });

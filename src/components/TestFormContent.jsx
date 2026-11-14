@@ -8,6 +8,8 @@ import { useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { getIptvFlowDevices, getIptvDevicePlatformsMap } from '@/constants/iptvFlowDevices';
+import { getFlowApps } from '@/constants/iptvFlowApps';
+import { Button } from '@/components/ui/button';
 
 // Styling constants matching OrderModal
 const ITEM_BASE_CLASS = "relative flex items-center gap-3 p-3 rounded-xl border transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md";
@@ -89,6 +91,8 @@ export const DeviceSelectionStep = ({ selectedDevice, onSelect }) => {
 // --- Step 2: App Selection ---
 export const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect }) => {
   const { siteData } = useSiteData();
+  const isDe = useLocation().pathname.startsWith('/de');
+  const [customApp, setCustomApp] = useState(selectedApp?.id === 'custom' ? selectedApp.name : '');
 
   const platformsMap = useMemo(
     () => getIptvDevicePlatformsMap(siteData?.iptvFlowDevicesData),
@@ -96,13 +100,7 @@ export const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect }) => {
   );
 
   const filteredApps = useMemo(() => {
-    const raw = siteData?.appsData;
-    const allApps = Array.isArray(raw) ? raw : [];
-    if (!selectedDevice) return [];
-
-    const allowedPlatforms = platformsMap[selectedDevice.id];
-    if (!allowedPlatforms?.length) return [];
-    return allApps.filter((app) => app.platforms?.some((p) => allowedPlatforms.includes(p)));
+    return getFlowApps(siteData?.appsData, selectedDevice?.id, platformsMap);
   }, [selectedDevice, siteData, platformsMap]);
 
   return (
@@ -143,6 +141,7 @@ export const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect }) => {
                     <span className={cn("font-bold text-sm truncate", isSelected ? "text-white" : "text-slate-200")}>
                         {app.name}
                     </span>
+                    {app.platforms?.length > 0 && <span className="text-[10px] text-slate-400">{app.platforms.join(' · ')}</span>}
                     {app.recommended && (
                         <span className="text-[10px] text-amber-400 font-medium">⭐ Önerilen</span>
                     )}
@@ -197,6 +196,14 @@ export const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect }) => {
                </div>
             )}
          </motion.div>
+      </div>
+      <div className="space-y-2 rounded-xl border border-slate-700 p-3">
+        <Label htmlFor="modal-custom-app" className="text-sm text-slate-200">{isDe ? 'Andere Anwendung eingeben' : 'Listede yoksa uygulama adını yazın'}</Label>
+        <div className="flex gap-2">
+          <Input id="modal-custom-app" value={customApp} onChange={(event) => setCustomApp(event.target.value)} maxLength={100} placeholder={isDe ? 'Name der Anwendung' : 'Uygulama adı'} className="min-w-0 flex-1 border-slate-700 bg-[#0a0a0a] text-base text-white" />
+          <Button type="button" disabled={!customApp.trim()} onClick={() => onSelect({ id: 'custom', name: customApp.trim() })}>{isDe ? 'Weiter' : 'Devam'}</Button>
+        </div>
+        <p className="text-xs text-slate-400">{isDe ? 'Die Verfügbarkeit hängt von Gerät und Land ab.' : 'Uygulama mağazası seçenekleri cihaz modeline ve ülkeye göre değişebilir.'}</p>
       </div>
     </div>
   );

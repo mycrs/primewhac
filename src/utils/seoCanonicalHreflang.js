@@ -4,6 +4,7 @@
  */
 
 import { SITE_URL as DEFAULT_SITE_URL } from '../constants/siteUrl.js';
+import { BLOG_TRANSLATIONS_DE } from '../data/staticBlogTranslationsDE.js';
 const TR_TO_DE = {
   '/': '/de',
   '/paketler': '/de/pakete',
@@ -115,6 +116,8 @@ const TR_WHAT_TO_WATCH_CATEGORY_NO_DE = new Set(['turk-dizileri', 'imdb-yuksek-f
  */
 function getAlternateForDynamicPath(path, isDe) {
   const normalized = keyOf(normalizePath(path));
+  // Türkçe uygulama rehberlerinin henüz Almanca karşılığı yok.
+  if (!isDe && (normalized === '/kurulum/uygulamalar' || normalized.startsWith('/kurulum/uygulamalar/'))) return null;
   if (isDe) {
     const match = normalized.match(/^\/de\/blog\/(.+)$/);
     if (match) return `/blog/${match[1]}`;
@@ -210,9 +213,13 @@ export function getSitemapHreflangAlternates(pathname, baseUrl = DEFAULT_SITE_UR
   const base = baseUrl.replace(/\/+$/, '');
   const path = getPreferredPath(keyOf(normalizePath(pathname)));
   // Blog detaylarında yalnızca gerçekten çevrilmiş yazılar alternate olabilir.
-  // Sitemap üreticisi çeviri alanlarını sayfa bazında doğrulamadığı için yanlış
-  // hreflang ilişkisi kurmak yerine detay URL'lerinde alternate yayımlamaz.
-  if (/^\/(?:de\/)?blog\/[^/]+$/.test(path)) return null;
+  const blogMatch = path.match(/^\/(?:de\/)?blog\/([^/]+)$/);
+  if (blogMatch) {
+    const slug = blogMatch[1];
+    if (!BLOG_TRANSLATIONS_DE || !BLOG_TRANSLATIONS_DE[slug]) {
+      return null;
+    }
+  }
   const { hreflangTr, hreflangDe } = getCanonicalAndHreflang(pathname, baseUrl);
   if (!hreflangTr || !hreflangDe) return null;
   const isDe = path === '/de' || path.startsWith('/de/');

@@ -158,7 +158,7 @@ const ChannelsPageDE = ({ siteData }) => {
                     <Play className="mr-2 h-5 w-5 fill-current" />
                     Kostenlos testen
                   </Button>
-                  <Link to="/de/pakete" className="w-full sm:w-auto">
+                  <Link to="/de/pakete/" className="w-full sm:w-auto">
                     <Button 
                       variant="outline"
                       size="lg"
@@ -264,7 +264,7 @@ const ChannelsPageDE = ({ siteData }) => {
                    </p>
                    
                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                     <Link to="/de/pakete" className="w-full sm:w-auto">
+                     <Link to="/de/pakete/" className="w-full sm:w-auto">
                         <Button 
                           className="w-full sm:w-auto bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold px-8 py-6 rounded-full text-base md:text-lg shadow-[0_0_30px_rgba(229,9,20,0.35)] transition-all duration-300 flex items-center justify-center"
                         >

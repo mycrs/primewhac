@@ -14,7 +14,7 @@ export const validateSubClaim = (payload) => {
 };
 
 export const validateSessionIdClaim = (payload) => {
-  if (!payload || !payload.session_id) return { isValid: false, error: 'Missing "session_id" claim' };
+  if (!payload || !payload.session_id) return { isValid: true };
   if (typeof payload.session_id !== 'string') return { isValid: false, error: '"session_id" claim must be a string' };
   if (!UUID_REGEX.test(payload.session_id)) return { isValid: false, error: '"session_id" claim is not a valid UUID' };
   return { isValid: true };
@@ -36,7 +36,7 @@ export const validateClaimIssuedAt = (payload) => {
 
 export const validateTokenClaims = (payload) => {
   if (!payload) return { isValid: false, missing: ['payload'] };
-  const required = ['sub', 'session_id', 'aud', 'exp', 'iat'];
+  const required = ['sub', 'aud', 'exp', 'iat'];
   const missing = required.filter(claim => !payload[claim]);
   
   if (missing.length > 0) return { isValid: false, missing };

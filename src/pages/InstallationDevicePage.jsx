@@ -406,7 +406,7 @@ const InstallationDevicePage = ({ siteData }) => {
   const DeviceIcon = deviceInfo.icon;
   const basePath = isDe ? '/de/einrichtung' : '/kurulum';
   const testPath = isDe ? '/de/test' : '/test';
-  const paketlerPath = isDe ? '/de/paketler' : '/paketler';
+  const paketlerPath = isDe ? '/de/pakete' : '/paketler';
   const stepsCount = guideSteps.length;
 
   const breadcrumbSchema = {

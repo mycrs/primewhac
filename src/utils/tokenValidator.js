@@ -72,12 +72,66 @@ export const sanitizeToken = (rawInput) => {
   return null;
 };
 
+/**
+ * Safely parses and reports on JWT claims without throwing or corrupting.
+ * @param {string} token - The JWT token to inspect
+ * @returns {{ isValid: boolean, missingClaims: string[], isExpired?: boolean, errorMessage?: string, payloadSummary?: object }}
+ */
+export const getDetailedClaimsReport = (token) => {
+  if (!token || typeof token !== 'string') {
+    return { isValid: false, missingClaims: ['token'], errorMessage: 'Token is missing' };
+  }
+  if (!validateTokenStructure(token)) {
+    return { isValid: false, missingClaims: ['segments'], errorMessage: 'Token does not have 3 segments' };
+  }
+  if (!validateTokenSegments(token)) {
+    return { isValid: false, missingClaims: ['format'], errorMessage: 'Invalid base64url segments' };
+  }
+  try {
+    const payloadPart = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+    const jsonStr =
+      typeof atob === 'function'
+        ? atob(payloadPart)
+        : typeof Buffer !== 'undefined'
+          ? Buffer.from(payloadPart, 'base64').toString('utf8')
+          : null;
+    if (!jsonStr) {
+      return { isValid: true, missingClaims: [] };
+    }
+    const payload = JSON.parse(jsonStr);
+    if (!payload || typeof payload !== 'object') {
+      return { isValid: false, missingClaims: ['payload'], errorMessage: 'Invalid payload JSON' };
+    }
+
+    const isExpired = typeof payload.exp === 'number' && Date.now() >= payload.exp * 1000;
+    const missingClaims = [];
+    if (!payload.sub && !payload.role) {
+      missingClaims.push('sub');
+    }
+
+    return {
+      isValid: missingClaims.length === 0,
+      missingClaims,
+      isExpired,
+      payloadSummary: {
+        hasSub: !!payload.sub,
+        role: payload.role || null,
+        exp: payload.exp,
+        email: payload.email,
+      },
+    };
+  } catch (err) {
+    return { isValid: false, missingClaims: ['payload_parse'], errorMessage: err?.message || 'Failed to parse payload' };
+  }
+};
+
 export const TokenValidator = {
   validateTokenStructure,
   validateTokenSegments,
   validateTokenFormat,
   detectMalformedToken,
-  sanitizeToken
+  sanitizeToken,
+  getDetailedClaimsReport,
 };
 
 export default TokenValidator;

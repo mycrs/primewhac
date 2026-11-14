@@ -43,16 +43,16 @@ const appsConfig = {
     { id: 'spotify', name: 'Spotify', icon: Music },
   ],
   tv: [
-    { id: 'netflix', name: 'Netflix', icon: Clapperboard },
+    { id: 'smarters', name: 'IPTV Smarters', icon: Clapperboard },
     { id: 'youtube', name: 'YouTube', icon: Youtube },
-    { id: 'prime', name: 'Prime Video', icon: Film },
-    { id: 'disney', name: 'Disney+', icon: Sparkles },
+    { id: 'tivimate', name: 'TiviMate', icon: Film },
+    { id: 'iboplayer', name: 'IBO Player', icon: Sparkles },
   ],
   'android-tv': [
-    { id: 'netflix', name: 'Netflix', icon: Clapperboard },
+    { id: 'smarters', name: 'IPTV Smarters', icon: Clapperboard },
     { id: 'youtube', name: 'YouTube', icon: Youtube },
-    { id: 'prime', name: 'Prime Video', icon: Film },
-    { id: 'disney', name: 'Disney+', icon: Sparkles },
+    { id: 'tivimate', name: 'TiviMate', icon: Film },
+    { id: 'iboplayer', name: 'IBO Player', icon: Sparkles },
   ],
   pc: [
     { id: 'chrome', name: 'Chrome', icon: Chrome },

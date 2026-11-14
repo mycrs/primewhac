@@ -1,0 +1,13 @@
+Application logos used to identify the corresponding applications in setup guides:
+1. SmartOne: https://smartone-iptv.com/plugins/cmspro/images/smartone_iptv_alt.png
+2. 0 Player: Samsung TV app store / 0player.com asset (/0player-logo.png)
+3. HotPlayer: https://www.hotplayer.app/logoBlackPlayer.svg
+4. IPTV Smarters Pro: Official vector branding asset (/iptv-smarters-pro-icon.svg)
+5. XCIPTV / OTTRUN: https://api01.ottrun.com/assets/img/website_logo.png + screenshot
+6. TiviMate: Google Play Store app icon (ar.tvplayer.tv)
+7. IBO Player: Official website asset from https://iboplayer.com/images/logo.png
+8. Smart IPTV (SIPTV): Official webOS application icon asset from siptv.app / webOS store
+9. Televizo: Google Play Store app icon (com.ottplay.ottplay)
+10. IPTVX: Apple App Store official artwork from apps.apple.com/us/app/iptvx/id1451470024
+
+All application names, trademarks, and logos belong to their respective copyright and trademark owners. Used solely for editorial, educational, and identification purposes in setup tutorials.

@@ -130,7 +130,7 @@ const MatchScheduleSeoSectionDE = () => (
         Wenn Sie Ihre Spieltage <span className="text-primary/90">geplanter und angenehmer</span> verbringen möchten, ist der Spielplan ein guter Start – den Tag in wenigen Minuten organisieren.
       </p>
       <Link
-        to="/de/pakete"
+        to="/de/pakete/"
         className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#e50914] hover:to-[#e50914] text-white text-sm font-medium shadow-lg shadow-primary/40"
       >
         <Trophy className="w-4 h-4" />

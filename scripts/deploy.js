@@ -119,6 +119,85 @@ function walkStats(dir) {
   return { count, size };
 }
 
+/**
+ * Deploy sonrası canlı doğrulama:
+ * Yayındaki index.html'in işaret ettiği ana JS/CSS chunk'ları gerçekten 200 mü?
+ * (HTML'in chunk'lardan önce/eksik canlıya çıktığı "Bağlantı sorunu" hatasının
+ * deploy'dan kaynaklanıp kaynaklanmadığını anında yakalar.)
+ */
+async function postDeployCheck() {
+  const siteUrl = (process.env.VITE_SITE_URL || 'https://cineverse.pro').replace(/\/+$/, '');
+  if (typeof fetch !== 'function') {
+    info('→ Canlı doğrulama atlandı (Node fetch yok).');
+    return;
+  }
+  try {
+    info('→ Canlı doğrulama: yayındaki index.html ve chunk’lar kontrol ediliyor...');
+    const res = await fetch(`${siteUrl}/?_deploy_check=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`index.html HTTP ${res.status}`);
+    const html = await res.text();
+    const assets = [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+\.(?:js|css))"/g)].map((m) => m[1]);
+    const unique = [...new Set(assets)];
+    if (!unique.length) {
+      info('  ⚠ index.html içinde /assets referansı bulunamadı — kontrol atlandı.');
+      return;
+    }
+    const broken = [];
+    for (const asset of unique) {
+      const r = await fetch(`${siteUrl}${asset}`, { method: 'HEAD', cache: 'no-store' });
+      if (!r.ok) broken.push(`${asset} → HTTP ${r.status}`);
+    }
+    if (broken.length) {
+      info('');
+      info('❌ CANLI DOĞRULAMA BAŞARISIZ — şu dosyalar 200 dönmüyor:');
+      broken.forEach((b) => info(`   ${b}`));
+      info('   Site şu an chunk hatası verebilir. Faz 1’in tamamlandığından emin olup deploy’u tekrarlayın.');
+      process.exit(1);
+    }
+    info(`  ✓ ${unique.length} ana asset canlıda sağlam (200).`);
+  } catch (err) {
+    info(`  ⚠ Canlı doğrulama yapılamadı: ${err.message} (site yine de kontrol edilmeli)`);
+  }
+}
+
+/**
+ * Cloudflare edge cache temizliği (isteğe bağlı).
+ *
+ * Neden: HTML artık Cloudflare Page Rule ile edge'de cache'leniyor (bkz.
+ * DEPLOY.md "Cloudflare Page Rules"). Deploy sonrası eski HTML edge'de
+ * kalmasın diye purge atılır. Bilgi yoksa no-op.
+ *
+ * .env (opsiyonel):
+ *   CLOUDFLARE_ZONE_ID   — Cloudflare dashboard → zone overview (sağ kolon)
+ *   CLOUDFLARE_API_TOKEN — "Zone.Cache Purge" yetkili token
+ */
+async function purgeCloudflareCache() {
+  const zoneId = (process.env.CLOUDFLARE_ZONE_ID || '').trim();
+  const token = (process.env.CLOUDFLARE_API_TOKEN || '').trim();
+  if (!zoneId || !token) {
+    info('→ Cloudflare purge atlandı (CLOUDFLARE_ZONE_ID / CLOUDFLARE_API_TOKEN tanımlı değil).');
+    info('  HTML edge cache kullanılıyorsa dashboard’dan "Purge Everything" yapın (bkz. DEPLOY.md).');
+    return;
+  }
+  try {
+    info('→ Cloudflare edge cache temizleniyor...');
+    const res = await fetch(`https://api.cloudflare.com/client/v4/zones/${zoneId}/purge_cache`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ purge_everything: true }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (res.ok && body?.success) {
+      info('  ✓ Cloudflare cache temizlendi.');
+    } else {
+      info(`  ⚠ Cloudflare purge başarısız (HTTP ${res.status}): ${JSON.stringify(body?.errors || body)}`);
+      info('    Dashboard → Caching → Purge Everything ile manuel temizleyin.');
+    }
+  } catch (err) {
+    info(`  ⚠ Cloudflare purge yapılamadı: ${err.message}`);
+  }
+}
+
 async function main() {
   info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   info('  QruzeTV Deploy → FTP');
@@ -147,26 +226,55 @@ async function main() {
     .map((s) => s.trim())
     .filter(Boolean);
 
-  const deployConfig = {
+  const baseExclude = [
+    '.DS_Store',
+    'Thumbs.db',
+    '**/.DS_Store',
+    '**/Thumbs.db',
+    ...extraExclude,
+  ];
+
+  const baseConfig = {
     user: cfg.user,
     password: cfg.password,
     host: cfg.host,
     port: cfg.port,
     localRoot: DIST_DIR,
     remoteRoot: cfg.remoteDir,
-    include: ['*', '**/*'],
-    exclude: [
-      '.DS_Store',
-      'Thumbs.db',
-      '**/.DS_Store',
-      '**/Thumbs.db',
-      ...extraExclude,
-    ],
     deleteRemote: false,
     forcePasv: true,
     sftp: false,
     secure: cfg.secure,
   };
+
+  // ── ATOMİK DEPLOY (2 faz) ─────────────────────────────────────────────
+  // Tek seferde yüklemede index.html, hash'li chunk'lardan ÖNCE canlıya
+  // çıkabiliyordu → ziyaretçi "Failed to fetch dynamically imported module"
+  // (Bağlantı sorunu ekranı) görüyordu.
+  // Faz 1: HTML HARİÇ her şey (yeni chunk'lar önce sunucuda olsun).
+  // Faz 2: yalnızca HTML (index.html + prerender sayfalar) en sona.
+  // deleteRemote:false sayesinde eski chunk'lar silinmez; eski HTML açık
+  // kalan sekmeler de bozulmaz.
+  const HTML_GLOBS = ['*.html', '**/*.html'];
+
+  const phases = [
+    {
+      label: 'Faz 1/2: asset’ler (chunk, görsel, vb. — HTML hariç)',
+      config: {
+        ...baseConfig,
+        include: ['*', '**/*'],
+        exclude: [...baseExclude, ...HTML_GLOBS],
+      },
+    },
+    {
+      label: 'Faz 2/2: HTML dosyaları (index.html + prerender sayfalar)',
+      config: {
+        ...baseConfig,
+        include: HTML_GLOBS,
+        exclude: baseExclude,
+      },
+    },
+  ];
 
   const ftp = new FtpDeploy();
 
@@ -205,16 +313,27 @@ async function main() {
   });
 
   try {
-    info('→ Bağlanılıyor ve yükleniyor...\n');
-    const result = await ftp.deploy(deployConfig);
-    process.stdout.write('\n');
+    let totalUploaded = 0;
+    for (const phase of phases) {
+      info(`→ ${phase.label}\n`);
+      uploaded = 0;
+      total = 0;
+      lastLoggedPct = -1;
+      const result = await ftp.deploy(phase.config);
+      totalUploaded += uploaded || (Array.isArray(result) ? result.length : 0);
+      process.stdout.write('\n');
+      info(`  ✓ ${phase.label} tamam\n`);
+    }
     const elapsed = ((Date.now() - startedAt) / 1000).toFixed(1);
     info('');
     info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    info(`✓ Deploy tamamlandı`);
+    info(`✓ Deploy tamamlandı (atomik, 2 faz)`);
     info(`  Süre:       ${elapsed}s`);
-    info(`  Yüklenen:   ${uploaded || (Array.isArray(result) ? result.length : stats.count)} dosya`);
+    info(`  Yüklenen:   ${totalUploaded || stats.count} dosya`);
     info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+    await postDeployCheck();
+    await purgeCloudflareCache();
   } catch (err) {
     process.stdout.write('\n');
     const msg = (err && err.message) || String(err);

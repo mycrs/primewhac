@@ -158,7 +158,7 @@ const CATEGORIES_TR = {
         rating: 6.7,
         posterPath: '/u68AjlvlutfEIcpmbYpKcdi09ut.jpg',
         description:
-          'Chris Hemsworth’un tek kamera hissi veren 12 dakikalık kovalama sekansıyla hafızalara kazınan bir Netflix yapımı. Senaryo klasik ama koreografi ve tempo türün üstünde. Devam filmini aratmayacak bir giriş.',
+          'Chris Hemsworth’un tek kamera hissi veren 12 dakikalık kovalama sekansıyla hafızalara kazınan başarılı bir aksiyon yapımı. Senaryo klasik ama koreografi ve tempo türün üstünde. Devam filmini aratmayacak bir giriş.',
         trending: false,
         featured: false,
       },
@@ -203,14 +203,14 @@ const CATEGORIES_TR = {
     hreflangDe: '/de/was-soll-ich-schauen/beliebte-auslaendische-serien',
     title: 'En İyi Popüler Yabancı Diziler 2026 — Kaçırılmayacak Yapımlar | QruzeTV',
     description:
-      'Netflix’in en iyi dizileri tek listede: gerilim, bilim-kurgu, dram ve soygun öyküleri. QruzeTV ile 4K kalitede donmadan izle.',
+      'Dünya çapında en sevilen popüler yabancı diziler tek listede: gerilim, bilim-kurgu, dram ve soygun öyküleri. QruzeTV ile 4K kalitede donmadan izle.',
     h1: 'En İyi Popüler Yabancı Diziler — Kaçırılmayacak Yapımlar',
     intro:
-      'Netflix’in katalogu dev, ama içinde gezinmek bazen saatler sürebiliyor. Bu listeyi tam da bunun için hazırladık: kafa yormadan, doğrudan kaliteliye gitsin istedik. İçinde bir yerde nefes kesen Alman zaman-yolculuğu gerilimi var, bir yerde İspanyol soygun dizisi, bir yerde 80’ler nostaljisinin modern yorumu. Hepsi de binge-watch için birebir. QruzeTV ile bu dizileri 4K kalitede, takılmadan izleyebilir, bölüm bölüm arkana yaslanabilirsin. Listeyi inceleyip kendine birkaç tane seç — bu hafta sonun kurtuldu.',
+      'Dizi dünyasının kataloğu devasa ve içinde gezinmek bazen saatler sürebiliyor. Bu listeyi tam da bunun için hazırladık: kafa yormadan, doğrudan kaliteliye gitsin istedik. İçinde bir yerde nefes kesen Alman zaman-yolculuğu gerilimi var, bir yerde İspanyol soygun dizisi, bir yerde 80’ler nostaljisinin modern yorumu. Hepsi de tek solukta izlemek için birebir. QruzeTV ile bu dizileri 4K kalitede, takılmadan izleyebilir, bölüm bölüm arkana yaslanabilirsin. Listeyi inceleyip kendine birkaç tane seç — bu hafta sonun kurtuldu.',
     seoKeywords: [
-      'netflix dizileri',
-      'en iyi netflix dizileri',
-      'netflix dizi önerileri',
+      'popüler yabancı diziler',
+      'en iyi yabancı diziler',
+      'yabancı dizi önerileri',
       '4K dizi',
       'IPTV dizi izle',
     ],
@@ -316,7 +316,7 @@ const CATEGORIES_TR = {
         rating: 8.0,
         posterPath: '/1QdXdRYfktUSONkl1oD5gc6Be0s.jpg',
         description:
-          'Kore yapımı bu dizi, birkaç hafta içinde Netflix’in o güne kadarki en çok izlenen içeriği haline geldi. Çocukluk oyunlarının ölümcül versiyonu, toplumsal eleştiri ve karakter dinamikleriyle birlikte kurgulanmış. İkinci sezonu da aynı kalitede devam ediyor.',
+          'Kore yapımı bu dizi, birkaç hafta içinde küresel çapta en çok izlenen yapımlardan biri haline geldi. Çocukluk oyunlarının ölümcül versiyonu, toplumsal eleştiri ve karakter dinamikleriyle birlikte kurgulanmış. İkinci sezonu da aynı kalitede devam ediyor.',
         trending: true,
         featured: false,
       },
@@ -1183,7 +1183,7 @@ const CATEGORIES_DE = {
         rating: 6.7,
         posterPath: '/u68AjlvlutfEIcpmbYpKcdi09ut.jpg',
         description:
-          'Chris Hemsworth in einer der besten Long-Take-Actionszenen der letzten Jahre. Die Story ist Standard, aber das Handwerk ist eine Klasse für sich. Ein Grund, warum Netflix weiter in Action investiert.',
+          'Chris Hemsworth in einer der besten Long-Take-Actionszenen der letzten Jahre. Die Story ist Standard, aber das Handwerk ist eine Klasse für sich. Ein Grund, warum Action-Fans diesen Film lieben.',
         trending: false,
         featured: false,
       },
@@ -1243,13 +1243,13 @@ const CATEGORIES_DE = {
     hreflangTr: '/ne-izlesem/populer-yabanci-diziler',
     title: 'Die besten beliebten ausländischen Serien 2026 — Streaming-Highlights | QruzeTV',
     description:
-      'Die besten Netflix-Serien im Überblick: Mystery, Sci-Fi, Krimi und Drama. Mit QruzeTV in 4K und ohne Ruckler streamen.',
+      'Die besten internationalen Serien im Überblick: Mystery, Sci-Fi, Krimi und Drama. Mit QruzeTV in 4K und ohne Ruckler streamen.',
     h1: 'Die besten beliebten ausländischen Serien — Unsere Streaming-Highlights',
     intro:
-      'Das Netflix-Angebot ist riesig — und oft verliert man Stunden beim Scrollen statt beim Schauen. Dafür ist diese Liste da: direkter Zugang zu Qualität, ohne Umwege. Von einer deutschen Zeitreise-Mystery bis zum spanischen Heist-Phänomen, von Mystery-Horror-Nostalgie bis zu wissenschaftlich angehauchter Dystopie — für jede Stimmung das passende Binge. Mit QruzeTV streamst du diese Serien in 4K und komplett ruckelfrei. Lehn dich zurück, das Wochenende ist gerettet.',
+      'Das Serienangebot ist riesig — und oft verliert man Stunden beim Scrollen statt beim Schauen. Dafür ist diese Liste da: direkter Zugang zu Qualität, ohne Umwege. Von einer deutschen Zeitreise-Mystery bis zum spanischen Heist-Phänomen, von Mystery-Horror-Nostalgie bis zu wissenschaftlich angehauchter Dystopie — für jede Stimmung das passende Binge. Mit QruzeTV streamst du diese Serien in 4K und komplett ruckelfrei. Lehn dich zurück, das Wochenende ist gerettet.',
     seoKeywords: [
-      'beste netflix serien',
-      'netflix serien 2026',
+      'beste ausländische serien',
+      'populäre serien 2026',
       'serien empfehlungen',
       '4K serien',
       'IPTV serien',
@@ -1341,7 +1341,7 @@ const CATEGORIES_DE = {
         rating: 8.0,
         posterPath: '/1QdXdRYfktUSONkl1oD5gc6Be0s.jpg',
         description:
-          'Eine koreanische Serie, die innerhalb weniger Wochen zur meistgesehenen Netflix-Produktion aller Zeiten wurde. Todesvariationen von Kinderspielen plus Gesellschaftskritik. Staffel 2 hält das Niveau überraschend gut.',
+          'Eine koreanische Serie, die innerhalb weniger Wochen zu einem weltweiten Phänomen wurde. Todesvariationen von Kinderspielen plus Gesellschaftskritik. Staffel 2 hält das Niveau überraschend gut.',
         trending: true,
         featured: false,
       },

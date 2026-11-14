@@ -73,6 +73,39 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/kurulum/"/>
   </url>
   <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/</loc>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/smartone-iptv/</loc>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/0-player/</loc>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/hotplayer/</loc>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/iptv-smarters-pro/</loc>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/xciptv/</loc>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/tivimate/</loc>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/ibo-player/</loc>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/smart-iptv/</loc>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/televizo/</loc>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/kurulum/uygulamalar/iptvx/</loc>
+  </url>
+  <url>
     <loc>https://cineverse.pro/kurulum/android-tv/</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/kurulum/android-tv/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/einrichtung/android-tv/"/>
@@ -626,22 +659,86 @@
   </url>
   <url>
     <loc>https://cineverse.pro/blog/iptv-nereden-alinir/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/iptv-nereden-alinir/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/iptv-nereden-alinir/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/iptv-nereden-alinir/"/>
+    <lastmod>2026-08-23</lastmod>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/de/blog/iptv-nereden-alinir/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/iptv-nereden-alinir/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/iptv-nereden-alinir/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/iptv-nereden-alinir/"/>
     <lastmod>2026-08-23</lastmod>
   </url>
   <url>
     <loc>https://cineverse.pro/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi/"/>
     <lastmod>2026-08-23</lastmod>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/de/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/iptv-alrken-dikkat-edilmesi-gereken-7-kritik-nokta-kaliteli-yayn-rehberi/"/>
+    <lastmod>2026-08-23</lastmod>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/blog/iptv-nedir-nasil-calisir/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/iptv-nedir-nasil-calisir/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/iptv-nedir-nasil-calisir/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/iptv-nedir-nasil-calisir/"/>
+    <lastmod>2026-11-08</lastmod>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/de/blog/iptv-nedir-nasil-calisir/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/iptv-nedir-nasil-calisir/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/iptv-nedir-nasil-calisir/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/iptv-nedir-nasil-calisir/"/>
+    <lastmod>2026-11-08</lastmod>
   </url>
   <url>
     <loc>https://cineverse.pro/blog/smart-tvde-iptv-izlemek-mantikli-mi/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/smart-tvde-iptv-izlemek-mantikli-mi/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/smart-tvde-iptv-izlemek-mantikli-mi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/smart-tvde-iptv-izlemek-mantikli-mi/"/>
     <lastmod>2026-08-13</lastmod>
   </url>
   <url>
-    <loc>https://cineverse.pro/blog/derbi-gunu-iptv-donmamasi-icin-bilmeniz-gereken-her-sey/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <loc>https://cineverse.pro/de/blog/smart-tvde-iptv-izlemek-mantikli-mi/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/smart-tvde-iptv-izlemek-mantikli-mi/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/smart-tvde-iptv-izlemek-mantikli-mi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/smart-tvde-iptv-izlemek-mantikli-mi/"/>
+    <lastmod>2026-08-13</lastmod>
   </url>
   <url>
     <loc>https://cineverse.pro/blog/smart-tvde-iptv-neden-calismaz/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/smart-tvde-iptv-neden-calismaz/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/smart-tvde-iptv-neden-calismaz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/smart-tvde-iptv-neden-calismaz/"/>
     <lastmod>2026-08-23</lastmod>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/de/blog/smart-tvde-iptv-neden-calismaz/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/smart-tvde-iptv-neden-calismaz/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/smart-tvde-iptv-neden-calismaz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/smart-tvde-iptv-neden-calismaz/"/>
+    <lastmod>2026-08-23</lastmod>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/blog/derbi-gunu-iptv-donmamasi-icin-bilmeniz-gereken-her-sey/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/derbi-gunu-iptv-donmamasi-icin-bilmeniz-gereken-her-sey/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/derbi-gunu-iptv-donmamasi-icin-bilmeniz-gereken-her-sey/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/derbi-gunu-iptv-donmamasi-icin-bilmeniz-gereken-her-sey/"/>
+    <lastmod>2026-11-01</lastmod>
+  </url>
+  <url>
+    <loc>https://cineverse.pro/de/blog/derbi-gunu-iptv-donmamasi-icin-bilmeniz-gereken-her-sey/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/blog/derbi-gunu-iptv-donmamasi-icin-bilmeniz-gereken-her-sey/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/blog/derbi-gunu-iptv-donmamasi-icin-bilmeniz-gereken-her-sey/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/blog/derbi-gunu-iptv-donmamasi-icin-bilmeniz-gereken-her-sey/"/>
+    <lastmod>2026-11-01</lastmod>
   </url>
 </urlset>

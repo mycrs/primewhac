@@ -50,7 +50,7 @@ const HomeSpotlightCards = () => (
 
             <div className="flex flex-col sm:flex-row gap-3.5 justify-center md:justify-start">
               <Link
-                to="/mac-programi"
+                to="/mac-programi/"
                 title="Güncel maç programını ve başlama saatlerini inceleyin"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#f40612] hover:to-[#c30813] px-7 py-3.5 font-bold text-white transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 group"
               >
@@ -58,7 +58,7 @@ const HomeSpotlightCards = () => (
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" aria-hidden />
               </Link>
               <Link
-                to="/test"
+                to="/test/"
                 title="Ücretsiz yayın testini başlatın"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/5 border border-white/15 px-6 py-3.5 font-semibold text-white hover:bg-white/10 hover:border-white/30 transition-all backdrop-blur-sm"
               >
@@ -85,7 +85,7 @@ const HomeSpotlightCards = () => (
                 {HIGHLIGHT_LEAGUES.map((league, idx) => (
                   <Link
                     key={idx}
-                    to="/mac-programi"
+                    to="/mac-programi/"
                     className="flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/15 transition-all group"
                   >
                     <div className="flex items-center gap-3">

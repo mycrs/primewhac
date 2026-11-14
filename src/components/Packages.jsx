@@ -1,6 +1,6 @@
-import React, { memo, useState, useEffect, useCallback, useRef } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
-import { Check, Star, Zap, Loader2, Globe, MapPin, RefreshCw, AlertCircle, ChevronLeft, ChevronRight, ArrowRight, Sparkles, ShieldCheck, Film, Tv } from 'lucide-react';
+import { Check, Star, Zap, Loader2, Globe, MapPin, RefreshCw, AlertCircle, ArrowRight, Sparkles, ShieldCheck, Film, Tv, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useOrderModal } from '@/contexts/OrderModalContext';
@@ -45,9 +45,10 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
   const name = (pkg?.name || pkg?.title || '').toLowerCase();
   const tier = (pkg?.tier || '').toLowerCase();
   const isEu = (pkg?.region || '').toLowerCase() === 'eu' || pkg?.currency === '€';
+  const isEuStandard = tier === 'standard' || tier === 'stabil' || name.includes('standart') || name.includes('standard');
 
   // 1. Premium Stabil / Europa Standard
-  if (tier === 'stabil' || tier === 'standard' || name.includes('stabil') || name.includes('standart') || (isEu && !name.includes('vip') && !name.includes('ultra') && !name.includes('4k'))) {
+  if (tier === 'stabil' || tier === 'standard' || name.includes('stabil') || name.includes('standart') || name.includes('standard') || (isEu && isEuStandard)) {
     return {
       type: 'stabil',
       seal: isDe
@@ -66,6 +67,25 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
       tagline: isDe
         ? (isEu ? 'Deutschland, Österreich & EU ohne VPN' : 'Anti-Freeze v4 & Dedizierte Server')
         : (isEu ? 'Almanya, Hollanda & Tüm Avrupa\'da VPN\'siz' : 'Özel Fiber Hatlar & Kesintisiz Canlı TV'),
+    };
+  }
+
+  // Avrupa paketleri Premium olarak adlandırılır; 4K bir paket kategorisi değildir.
+  if (isEu) {
+    return {
+      type: 'premium',
+      seal: isDe ? 'EUROPA PREMIUM • CATCH-UP' : 'AVRUPA PREMIUM • GERİ SARMA',
+      badge: isDe ? 'PREMIUM' : 'PREMIUM',
+      icon: Film,
+      bgGlow: 'bg-violet-600',
+      border: 'border-violet-500/50 shadow-[0_0_40px_rgba(139,92,246,0.18)] ring-1 ring-violet-500/30',
+      hoverBorder: 'hover:border-violet-400',
+      cardBg: 'bg-gradient-to-b from-[#171326]/95 via-[#100e18]/95 to-[#08070d]/98',
+      accentColor: '#c4b5fd',
+      checkColor: 'text-violet-300',
+      checkBg: 'bg-violet-500/20 border-violet-500/40',
+      btnBg: 'bg-gradient-to-r from-violet-700 via-violet-600 to-indigo-700 text-white shadow-xl shadow-violet-900/30 hover:shadow-violet-700/40 hover:scale-[1.02]',
+      tagline: isDe ? '48h Replay & große VOD-Bibliothek' : '48 Saat Geri Sar & Geniş VOD Arşivi',
     };
   }
 
@@ -88,7 +108,7 @@ const getPackageTheme = (pkg, isPopular, isDe) => {
     };
   }
 
-  // 3. 4K Ultra İçerik & Sinema / Avrupa 4K Ultra Premium (Flagship)
+  // 3. Türkiye 4K Ultra İçerik & Sinema (Flagship)
   return {
     type: 'cinema',
     seal: isDe
@@ -140,10 +160,12 @@ const PACKAGE_TEXT_DE = new Map([
   ['Qruze Paket', 'Qruze-Paket'],
   ['Standart Avrupa Paketi', 'Europa Standard-Paket'],
   ['Avrupa Standart Paket', 'Europa Standard-Paket'],
-  ['Avrupa 4K Ultra Premium', 'Europa 4K Ultra Premium'],
+  ['Avrupa Premium Paketi', 'Europa Premium-Paket'],
+  ['Avrupa Premium', 'Europa Premium'],
+  ['Avrupa 4K Ultra Premium', 'Europa Premium-Paket'],
   ['4K Ultra Premium', '4K Ultra Premium'],
-  ['VIP 4K & Çift Kullanıcı', 'Europa 4K Ultra Premium'],
-  ['Avrupa VIP 4K & Çift Kullanıcı', 'Europa 4K Ultra Premium'],
+  ['VIP 4K & Çift Kullanıcı', 'Europa Premium-Paket'],
+  ['Avrupa VIP 4K & Çift Kullanıcı', 'Europa Premium-Paket'],
   ['12 Aylık Avrupa Paketi', '12 Monate Europa-Paket'],
   ['12 Aylık VIP 4K & Çift Kullanıcı', '12 Monate Europa 4K Ultra Premium'],
   ['1 Cihaz / Tek Kullanıcı', '1 Gerät / Einzelnutzer'],
@@ -190,7 +212,12 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
   const [selectedRegion, setSelectedRegion] = useState('tr');
   const [deviceOption, setDeviceOption] = useState(1);
   const pkgName = pkg.name || pkg.title || '';
-  const displayName = localizePackageText(pkgName, isDe);
+  const isEuPackage = (pkg.region || '').toLowerCase() === 'eu' || pkg.currency === '€';
+  const isEuStandard = isEuPackage && ((pkg.tier || '').toLowerCase() === 'standard' || /standart|standard/i.test(pkgName));
+  const displayName = localizePackageText(
+    isEuPackage ? (isEuStandard ? 'Standart Avrupa Paketi' : 'Avrupa Premium Paketi') : pkgName,
+    isDe
+  );
   const displayDuration = localizePackageText(pkg.duration, isDe);
   const displayFeatures = (pkg.features || []).map((feature) => localizePackageText(feature, isDe));
   const theme = getPackageTheme(pkg, isPopular, isDe);
@@ -198,6 +225,16 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
   const isTrPackage = (pkg.currency === '₺' || (pkg.region || '').toLowerCase() === 'tr') && !isDe;
 
   const getDualPriceInfo = () => {
+    const duration = (pkg.duration || pkgName).toLowerCase();
+    const is12m = duration.includes('12') || duration.includes('1 yıl') || duration.includes('yıllık') || duration.includes('jahr');
+    if (!is12m) return null;
+    const isEu = (pkg.region || '').toLowerCase() === 'eu' || pkg.currency === '€';
+
+    // TR Stabil için güncel çift kullanıcı fiyatı 4.000 TL'dir; DB'deki eski
+    // dual_price değerleri kartta ve sipariş tutarında bunu geçersiz kılamaz.
+    const isStabilPackage = (pkg.tier || '').toLowerCase() === 'stabil' || /stabil|standart|standard/i.test(pkgName);
+    if (!isEu && isStabilPackage) return { dualPrice: 4000, originalDualPrice: 4600 };
+
     if (pkg.dual_price) {
       return {
         dualPrice: pkg.dual_price,
@@ -205,40 +242,13 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
       };
     }
 
-    const duration = (pkg.duration || pkgName).toLowerCase();
-    const is12m = duration.includes('12') || duration.includes('1 yıl') || duration.includes('yıllık') || duration.includes('jahr');
-    const isEu = (pkg.region || '').toLowerCase() === 'eu' || pkg.currency === '€';
-
     if (isEu) {
-      if (is12m) {
-        if (theme.type === 'cinema') return { dualPrice: 185, originalDualPrice: 240 };
-        return { dualPrice: 110, originalDualPrice: 150 };
-      }
-      if (duration.includes('6')) {
-        return { dualPrice: theme.type === 'cinema' ? 100 : 85, originalDualPrice: 130 };
-      }
-      if (duration.includes('3')) {
-        return { dualPrice: theme.type === 'cinema' ? 65 : 50, originalDualPrice: 85 };
-      }
-    } else {
-      // TR
-      if (is12m) {
-        if (theme.type === 'cinema') return { dualPrice: 4000, originalDualPrice: 4800 };
-        if (theme.type === 'global') return { dualPrice: 4200, originalDualPrice: 5000 };
-        return { dualPrice: 3800, originalDualPrice: 4600 };
-      }
-      if (duration.includes('15')) {
-        if (theme.type === 'cinema') return { dualPrice: 4600, originalDualPrice: 5500 };
-        if (theme.type === 'global') return { dualPrice: 4800, originalDualPrice: 5800 };
-        return { dualPrice: 4500, originalDualPrice: 5400 };
-      }
-      if (duration.includes('6')) {
-        return { dualPrice: Math.round(Number(pkg.price) * 1.8), originalDualPrice: Math.round(Number(pkg.price) * 2.1) };
-      }
-      if (duration.includes('3')) {
-        return { dualPrice: Math.round(Number(pkg.price) * 1.8), originalDualPrice: Math.round(Number(pkg.price) * 2.1) };
-      }
+      return theme.type === 'premium'
+        ? { dualPrice: 185, originalDualPrice: 240 }
+        : { dualPrice: 110, originalDualPrice: 150 };
     }
+    if (theme.type === 'cinema') return { dualPrice: 4000, originalDualPrice: 4800 };
+    if (theme.type === 'global') return { dualPrice: 4200, originalDualPrice: 5000 };
     return null;
   };
 
@@ -249,8 +259,8 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
   const handleOrder = () => {
     trackOrderIntent(pkgName, isDe ? 'packages_de' : 'packages_tr');
     const deviceLabel = deviceOption === 2
-      ? (isDe ? '2 Geräte (Dual)' : '2 Cihaz / Çift Giriş')
-      : (isDe ? '1 Gerät' : '1 Cihaz / Tek Giriş');
+      ? (isDe ? '2 Geräte / 2 Nutzer' : '2 Cihaz / Çift Kullanıcı')
+      : (isDe ? '1 Gerät / 1 Nutzer' : '1 Cihaz / Tek Kullanıcı');
 
     if (pkg.isRegionSelectable ?? pkg.is_region_selectable) {
       const regionNames = {
@@ -310,9 +320,9 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
   ];
 
   return (
-    <article className={`relative p-3.5 sm:p-5 lg:p-7 rounded-2xl lg:rounded-3xl border flex flex-col h-full backdrop-blur-2xl transition-all duration-300 group z-10 ${theme.cardBg} ${theme.border} ${theme.hoverBorder} ${theme.type === 'cinema' ? 'lg:-translate-y-2' : ''}`}>
+    <article className={`relative p-5 sm:p-5 lg:p-7 rounded-2xl lg:rounded-3xl border flex flex-col h-full backdrop-blur-2xl transition-all duration-300 group z-10 ${theme.cardBg} ${theme.border} ${theme.hoverBorder} ${theme.type === 'cinema' ? 'lg:-translate-y-2' : ''}`}>
       {/* Background Subtle Ambient Glow */}
-      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] ${theme.bgGlow} opacity-[0.04] group-hover:opacity-[0.16] blur-3xl rounded-full pointer-events-none transition-opacity duration-500 -z-10`} />
+      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full ${theme.bgGlow} opacity-[0.04] group-hover:opacity-[0.16] blur-3xl rounded-full pointer-events-none transition-opacity duration-500 -z-10`} />
 
       {/* Popüler Paket / Özel Rozet */}
       {theme.type === 'cinema' && !showCustomBadge && (
@@ -334,17 +344,17 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
       <div className="text-center mb-1.5 lg:mb-2 pt-1 lg:pt-2 relative">
         <div className="flex items-center justify-center gap-1 lg:gap-1.5 mb-1 lg:mb-1.5">
           <IconComponent className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0" style={{ color: theme.accentColor }} />
-          <span className="text-[8.5px] sm:text-[9.5px] lg:text-[10px] font-mono tracking-wider lg:tracking-widest uppercase font-extrabold truncate" style={{ color: theme.accentColor }}>
+          <span className="text-[10px] sm:text-[9.5px] lg:text-[10px] font-mono tracking-wider lg:tracking-widest uppercase font-extrabold truncate" style={{ color: theme.accentColor }}>
             {theme.seal}
           </span>
         </div>
 
-        <h3 className="text-sm sm:text-base lg:text-2xl font-black text-white tracking-tight leading-tight line-clamp-2 min-h-[2.2rem] sm:min-h-0 flex items-center justify-center">
+        <h3 className="text-xl sm:text-base lg:text-2xl font-black text-white tracking-tight leading-tight line-clamp-2 min-h-[3rem] sm:min-h-0 flex items-center justify-center">
           {displayName}
         </h3>
 
         {/* Dynamic Tagline */}
-        <p className="text-slate-400 text-[10px] sm:text-xs mt-0.5 mb-1.5 line-clamp-1">
+        <p className="text-slate-400 text-xs mt-0.5 mb-1.5 line-clamp-2">
           {theme.tagline}
         </p>
 
@@ -371,34 +381,36 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
           <div className="w-full max-w-[270px] mx-auto bg-black/60 p-0.5 sm:p-1 rounded-xl border border-white/10 backdrop-blur-md my-2 flex relative z-20 shadow-inner">
             <button
               type="button"
+              aria-label={isDe ? '1 Gerät, Einzelnutzung' : '1 Cihaz, tek kullanıcı'}
               onClick={(e) => {
                 e.stopPropagation();
                 setDeviceOption(1);
               }}
-              className={`flex-1 py-1 sm:py-1.5 px-2 rounded-lg text-[9.5px] sm:text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
+              className={`min-w-0 flex-1 py-2 sm:py-1.5 px-1 rounded-lg text-[10px] sm:text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
                 deviceOption === 1
                   ? 'bg-white/15 text-white shadow-sm border border-white/20'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
               <Tv className="w-3 h-3 shrink-0" />
-              <span>{isDe ? '1 Gerät' : '1 Cihaz (Tek)'}</span>
+              <span className="flex flex-col leading-tight"><span>{isDe ? '1 Gerät' : '1 Cihaz'}</span><span className="text-[9px] opacity-75">{isDe ? 'Einzelnutzer' : 'Tek Kullanıcı'}</span></span>
             </button>
             
             <button
               type="button"
+              aria-label={isDe ? '2 Geräte, Dual-Nutzung' : '2 Cihaz, çift kullanıcı'}
               onClick={(e) => {
                 e.stopPropagation();
                 setDeviceOption(2);
               }}
-              className={`flex-1 py-1 sm:py-1.5 px-2 rounded-lg text-[9.5px] sm:text-xs font-black transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
+              className={`min-w-0 flex-1 py-2 sm:py-1.5 px-1 rounded-lg text-[10px] sm:text-xs font-black transition-all duration-300 flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
                 deviceOption === 2
                   ? 'bg-gradient-to-r from-[#e50914] via-[#ff3b45] to-[#b20710] text-white shadow-lg shadow-[#e50914]/40 scale-102 border border-white/30 ring-1 ring-[#e50914]/50'
                   : 'text-amber-300 hover:text-white hover:bg-white/5'
               }`}
             >
               <Sparkles className="w-3 h-3 text-amber-300 animate-pulse shrink-0" />
-              <span>{isDe ? '2 Geräte' : '2 Cihaz (Çift)'}</span>
+              <span className="flex flex-col leading-tight"><span>{isDe ? '2 Geräte' : '2 Cihaz'}</span><span className="text-[9px] opacity-75">{isDe ? '2 Nutzer' : 'Çift Kullanıcı'}</span></span>
               <span className="text-[7.5px] bg-black/60 text-amber-300 px-1 rounded-full font-black uppercase tracking-wider hidden sm:inline">VIP</span>
             </button>
           </div>
@@ -410,7 +422,7 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
             <span className="text-[10px] sm:text-xs lg:text-base text-slate-500 line-through mr-1 font-semibold">{currencySymbol}{currentOriginalPrice}</span>
           )}
           <span className="text-sm sm:text-base lg:text-2xl text-slate-400 font-extrabold">{currencySymbol}</span>
-          <span className="font-display text-xl sm:text-2xl lg:text-5xl font-black text-white tracking-tight drop-shadow-sm leading-none transition-all duration-300">{currentPrice}</span>
+          <span className="font-display text-4xl sm:text-2xl lg:text-5xl font-black text-white tracking-tight drop-shadow-sm leading-none transition-all duration-300">{currentPrice}</span>
         </div>
 
         {/* Monthly Breakdown Tag */}
@@ -439,20 +451,15 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
       {/* Features List */}
       <div className="flex-grow my-1">
         {/* Mobile Compact Features (Top 3 key highlights) */}
-        <ul className="space-y-1.5 lg:hidden">
-          {dynamicFeatures.slice(0, 3).map((feature, i) => (
-            <li key={i} className="flex items-start text-[10.5px] sm:text-xs text-slate-300 font-medium leading-tight">
+        <ul className="space-y-2 lg:hidden">
+          {dynamicFeatures.map((feature, i) => (
+            <li key={i} className="flex items-start text-xs sm:text-xs text-slate-300 font-medium leading-snug">
               <div className={`mr-1.5 mt-0.5 shrink-0 w-3.5 h-3.5 rounded-full ${theme.checkBg} flex items-center justify-center`}>
                 <Check className={`w-2 h-2 ${theme.checkColor}`} />
               </div>
-              <span className="line-clamp-2">{feature}</span>
+              <span>{feature}</span>
             </li>
           ))}
-          {dynamicFeatures.length > 3 && (
-            <li className="text-[9.5px] sm:text-[11px] text-slate-400 pl-5 pt-0.5 font-medium italic">
-              +{ (dynamicFeatures.length - 3) } {isDe ? 'weitere' : 'özellik daha'}
-            </li>
-          )}
         </ul>
 
         {/* Desktop Features (Full 6 highlights) */}
@@ -477,7 +484,7 @@ const PackageCard = memo(({ pkg, isPopular, onOrder, currencySymbol, isDe }) => 
       <div className="mt-auto pt-3 lg:pt-4 shrink-0 w-full z-20">
         <Button 
           onClick={handleOrder}
-          className={`w-full h-9 sm:h-10 lg:h-13 rounded-xl lg:rounded-2xl font-black text-xs sm:text-sm lg:text-base tracking-wide shadow-xl transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${theme.btnBg}`}
+          className={`w-full h-11 sm:h-10 lg:h-13 rounded-xl lg:rounded-2xl font-black text-sm sm:text-sm lg:text-base tracking-wide shadow-xl transition-all duration-300 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${theme.btnBg}`}
         >
           <Zap className="w-3.5 h-3.5 lg:w-4 lg:h-4 fill-current mr-0.5 shrink-0" />
           <span className="lg:hidden whitespace-nowrap">{mobileButtonLabel}</span>
@@ -506,7 +513,6 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
     : (availableDurations[0] || '12 Ay');
 
   const [selectedDuration, setSelectedDuration] = useState(initialDuration);
-  const mobileScrollRef = useRef(null);
 
   // Filter packages for the selected duration
   const currentDurationPackages = packages.filter(
@@ -516,29 +522,38 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
   // If none match duration, show all packages
   const displayPackages = currentDurationPackages.length > 0 ? currentDurationPackages : packages;
 
-  // Active card index for mobile dots
   const [mobileActiveIdx, setMobileActiveIdx] = useState(0);
+  const touchStartXRef = useRef(null);
 
-  const handleMobileScroll = useCallback(() => {
-    if (!mobileScrollRef.current) return;
-    const container = mobileScrollRef.current;
-    const scrollLeft = container.scrollLeft;
-    const cardWidth = container.children[0]?.offsetWidth || 165;
-    const gap = 10;
-    const newIdx = Math.round(scrollLeft / (cardWidth + gap));
-    if (newIdx >= 0 && newIdx < displayPackages.length && newIdx !== mobileActiveIdx) {
-      setMobileActiveIdx(newIdx);
-    }
-  }, [displayPackages.length, mobileActiveIdx]);
+  const handleMobileTouchStart = (event) => {
+    touchStartXRef.current = event.changedTouches[0]?.clientX ?? null;
+  };
 
-  const handleScrollToCard = (idx) => {
-    setMobileActiveIdx(idx);
-    if (mobileScrollRef.current) {
-      const targetCard = mobileScrollRef.current.children[idx];
-      if (targetCard) {
-        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      }
+  const handleMobileTouchEnd = (event) => {
+    const startX = touchStartXRef.current;
+    touchStartXRef.current = null;
+    if (startX === null) return;
+
+    const deltaX = event.changedTouches[0]?.clientX - startX;
+    if (Math.abs(deltaX) < 45) return;
+    setMobileActiveIdx((current) => Math.max(0, Math.min(displayPackages.length - 1, current + (deltaX < 0 ? 1 : -1))));
+  };
+
+  const getMobilePackageLabel = (pkg, idx) => {
+    const isEu = (pkg.region || '').toLowerCase() === 'eu' || pkg.currency === '€';
+    if (isEu) {
+      const name = (pkg.name || '').toLowerCase();
+      return (pkg.tier || '').toLowerCase() === 'standard' || name.includes('standart') || name.includes('standard')
+        ? (isDe ? 'Standard' : 'Standart')
+        : 'Premium';
     }
+    if (pkg.tier === 'cinema') return '4K';
+    if (pkg.tier === 'global') return 'Global';
+    const raw = (pkg.name || '').toLowerCase();
+    if (raw.includes('standart') || raw.includes('standard')) return isDe ? 'Standard' : 'Standart';
+    if (raw.includes('stabil')) return 'Stabil';
+    if (raw.includes('avrupa')) return isDe ? 'Europa' : 'Avrupa';
+    return (pkg.name || '').replace(/Paketi|Paket/gi, '').trim() || `Paket ${idx + 1}`;
   };
 
   if (!packages || packages.length === 0) return null;
@@ -569,7 +584,7 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
 
       {/* Duration Switcher (Süre Seçimi: 3 Ay, 6 Ay, 12 Ay Yıllık, 15 Ay) */}
       {availableDurations.length > 1 && (
-        <div className="flex items-center justify-center gap-2 overflow-x-auto pb-3 pt-1 no-scrollbar px-2 mb-6">
+        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-3 pt-1 no-scrollbar px-2 mb-6">
           {availableDurations.map((dur) => {
             const isSelected = selectedDuration === dur;
             const isVip = dur.includes('12') || dur.includes('15');
@@ -583,7 +598,7 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
                   setSelectedDuration(dur);
                   setMobileActiveIdx(0);
                 }}
-                className={`px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all duration-300 flex items-center gap-2 border active:scale-95 cursor-pointer ${
+                className={`shrink-0 whitespace-nowrap px-3 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all duration-300 flex items-center gap-1.5 sm:gap-2 border active:scale-95 cursor-pointer ${
                   isSelected
                     ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white border-white/30 shadow-lg shadow-[#e50914]/40 scale-105 ring-2 ring-[#e50914]/50'
                     : 'bg-[#121218]/90 text-slate-400 border-white/10 hover:text-white hover:bg-white/[0.06]'
@@ -592,7 +607,7 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
                 {isVip && <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300 shrink-0" />}
                 <span>{displayLabel}</span>
                 {dur.includes('12') && (
-                  <span className="text-[10px] font-black bg-black/60 px-2 py-0.5 rounded-full text-amber-300 tracking-wide uppercase">
+                  <span className="hidden sm:inline text-[10px] font-black bg-black/60 px-2 py-0.5 rounded-full text-amber-300 tracking-wide uppercase">
                     {isDe ? 'EMPFOHLEN' : 'EN AVANTAJLI'}
                   </span>
                 )}
@@ -630,91 +645,45 @@ const PackagesShowcase = memo(({ packages, currencySymbol, onOrder, isDe, region
         })}
       </div>
 
-      {/* Mobile Top Status / Swipe Cue Bar */}
-      <div className="flex lg:hidden items-center justify-between px-3.5 sm:px-6 mb-2.5 text-xs">
-        <div className="flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-[#e50914] animate-ping" />
-          <span className="text-[11px] sm:text-xs font-bold text-slate-200">
-            {isDe ? 'Paketauswahl' : 'Paket Seçenekleri'}
-          </span>
+      {/* Mobile: one readable package at a time, selected with clear tabs. */}
+      <div className="lg:hidden px-3 sm:px-6 pb-12">
+        <div className="mb-3 flex items-center justify-between gap-3 px-1">
+          <h3 className="text-sm font-bold text-white">{isDe ? 'Paketauswahl' : 'Paket Seçenekleri'}</h3>
+          <span className="text-xs text-slate-400">{displayPackages.length} {isDe ? 'Pakete' : 'paket'}</span>
         </div>
-        <div className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] text-slate-400 bg-white/[0.05] border border-white/10 px-2.5 py-0.5 rounded-full">
-          <span>← {isDe ? 'Wischen' : 'Yana Kaydırın'}</span>
-          <ChevronRight className="w-3 h-3 text-[#e50914] animate-pulse -ml-0.5" />
-          <span className="font-bold text-white">({displayPackages.length})</span>
-        </div>
-      </div>
-
-      {/* Mobile Native Smooth Swiper with CSS Snap & Continuation Peek */}
-      <div className="relative lg:hidden w-full">
-        {/* Right Edge Glow & Peek Cue Indicator */}
-        <div 
-          className="pointer-events-none absolute right-0 top-0 bottom-6 w-10 sm:w-16 bg-gradient-to-l from-[#07080b] via-[#07080b]/80 to-transparent z-20 flex items-center justify-end pr-1 sm:pr-3 transition-opacity duration-300"
-          style={{ opacity: mobileActiveIdx >= displayPackages.length - 2 ? 0.2 : 0.95 }}
-        >
-          <div className="w-5 h-8 sm:w-7 sm:h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg shadow-black/80">
-            <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/80 animate-pulse" />
-          </div>
-        </div>
-
-        <div
-          id={`mobile-packages-swiper-${regionKey.toLowerCase()}`}
-          ref={mobileScrollRef}
-          onScroll={handleMobileScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar gap-2 sm:gap-4 px-3 sm:px-6 pb-4 pt-2"
-        >
-          {displayPackages.map((pkg, idx) => {
-            const isPopular = pkg.popular || (pkg.tier === 'cinema');
-            return (
-              <div
-                key={pkg.id || idx}
-                className="snap-start shrink-0 w-[calc(43vw-6px)] sm:w-[calc(44vw-16px)] min-w-[148px] max-w-[390px] flex flex-col"
-              >
-                <PackageCard
-                  pkg={pkg}
-                  isPopular={isPopular}
-                  currencySymbol={currencySymbol}
-                  onOrder={onOrder}
-                  isDe={isDe}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Mobile Interactive Package Pill Bar */}
-      <div className="flex lg:hidden items-center justify-center gap-1.5 sm:gap-2 mt-2 px-3 sm:px-6">
-        {displayPackages.map((pkg, idx) => {
-          const isActive = mobileActiveIdx === idx;
-          const getShortLabel = () => {
-            if (pkg.tier === 'cinema') return isDe ? 'VIP 4K ⭐' : '4K Sinema ⭐';
-            if (pkg.tier === 'global') return 'Global VIP';
-            const raw = (pkg.name || '').toLowerCase();
-            if (raw.includes('standart') || raw.includes('standard')) return isDe ? 'Standard' : 'Standart';
-            if (raw.includes('stabil')) return 'Stabil';
-            if (raw.includes('avrupa')) return isDe ? 'Europa' : 'Avrupa';
-            return (pkg.name || '').replace(/Paketi|Paket/gi, '').trim() || `Paket ${idx + 1}`;
-          };
-          const shortName = getShortLabel();
-
-          return (
+        <div className="grid gap-1.5 rounded-2xl border border-white/10 bg-[#111116] p-1.5" style={{ gridTemplateColumns: `repeat(${displayPackages.length}, minmax(0, 1fr))` }}>
+          {displayPackages.map((pkg, idx) => (
             <button
-              key={idx}
+              key={pkg.id || idx}
               type="button"
-              onClick={() => handleScrollToCard(idx)}
-              aria-label={`Paket ${idx + 1}`}
-              className={`h-7 sm:h-8 px-3 sm:px-4 rounded-full text-[11px] sm:text-xs font-black transition-all duration-300 flex items-center gap-1.5 border cursor-pointer active:scale-95 ${
-                isActive
-                  ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white border-white/30 shadow-md shadow-[#e50914]/40 scale-105 ring-1 ring-[#e50914]/40'
-                  : 'bg-[#121218]/90 text-slate-400 border-white/10 hover:text-white hover:bg-white/[0.06]'
-              }`}
+              aria-label={pkg.name || getMobilePackageLabel(pkg, idx)}
+              aria-pressed={mobileActiveIdx === idx}
+              onClick={() => setMobileActiveIdx(idx)}
+              className={`min-w-0 whitespace-nowrap rounded-xl px-1.5 py-2.5 text-xs sm:text-sm font-bold leading-tight transition-colors ${mobileActiveIdx === idx ? 'bg-[#e50914] text-white shadow-lg shadow-[#e50914]/25' : 'text-slate-300 hover:bg-white/10 hover:text-white'}`}
             >
-              <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-white animate-pulse' : 'bg-slate-600'}`} />
-              <span>{shortName}</span>
+              {getMobilePackageLabel(pkg, idx)}
             </button>
-          );
-        })}
+          ))}
+        </div>
+        {displayPackages[mobileActiveIdx] && (
+          <div className="mx-auto mt-3 max-w-[480px]">
+            <div className="mb-2 flex items-center justify-center gap-1.5 text-[11px] font-medium text-slate-400" aria-hidden="true">
+              <ChevronLeft className="h-3.5 w-3.5" />
+              <span>{isDe ? 'Wischen für weitere Pakete' : 'Diğer paketler için sağa sola kaydırın'}</span>
+              <ChevronRight className="h-3.5 w-3.5" />
+            </div>
+            <div className="touch-pan-y" onTouchStart={handleMobileTouchStart} onTouchEnd={handleMobileTouchEnd}>
+            <PackageCard
+              key={`${selectedDuration}-${displayPackages[mobileActiveIdx].id || mobileActiveIdx}`}
+              pkg={displayPackages[mobileActiveIdx]}
+              isPopular={displayPackages[mobileActiveIdx].popular || displayPackages[mobileActiveIdx].tier === 'cinema'}
+              currencySymbol={currencySymbol}
+              onOrder={onOrder}
+              isDe={isDe}
+            />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -223,13 +223,13 @@ const TermsPageDE = ({ siteData }) => {
 
             {/* Footer Links */}
             <div className="mt-10 p-6 rounded-2xl bg-[#121218]/60 border border-white/5 flex flex-wrap items-center justify-center sm:justify-start gap-3">
-              <Link to="/de/privacy" className="px-5 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs sm:text-sm font-semibold transition-all border border-white/10">
+              <Link to="/de/privacy/" className="px-5 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs sm:text-sm font-semibold transition-all border border-white/10">
                 🔒 Datenschutz
               </Link>
-              <Link to="/de/faq" className="px-5 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs sm:text-sm font-semibold transition-all border border-white/10">
+              <Link to="/de/sss/" className="px-5 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs sm:text-sm font-semibold transition-all border border-white/10">
                 ❓ FAQ
               </Link>
-              <Link to="/de/pakete" className="px-5 py-2.5 rounded-xl bg-[#e50914]/20 hover:bg-[#e50914]/30 text-[#ff4b55] text-xs sm:text-sm font-bold transition-all border border-[#e50914]/30">
+              <Link to="/de/pakete/" className="px-5 py-2.5 rounded-xl bg-[#e50914]/20 hover:bg-[#e50914]/30 text-[#ff4b55] text-xs sm:text-sm font-bold transition-all border border-[#e50914]/30">
                 ⚡ Pakete
               </Link>
             </div>

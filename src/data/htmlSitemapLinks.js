@@ -2,6 +2,7 @@
  * Kullanıcıya açık HTML site haritası — yalnızca canonical URL'ler.
  */
 import { TV_BRAND_GUIDES } from './tvBrandGuides.js';
+import { APP_GUIDES, APP_GUIDES_BASE } from './appInstallationGuides.js';
 
 const TV_BRAND_HTML_LINKS_TR = Object.values(TV_BRAND_GUIDES).map((guide) => ({
   label: `${guide.brand} TV IPTV Kurulumu`,
@@ -23,6 +24,8 @@ export const HTML_SITEMAP_TR = [
   { label: 'Detaylı Rehberler', path: '/detailed-guides/' },
   { label: 'IPTV Kurulum Rehberi', path: '/guide/iptv-kurulum-rehberi/' },
   { label: 'Kurulum Rehberi', path: '/kurulum/' },
+  { label: 'Uygulama Kurulum Rehberleri', path: `${APP_GUIDES_BASE}/` },
+  ...APP_GUIDES.map((guide) => ({ label: `${guide.name} Kurulumu`, path: `${APP_GUIDES_BASE}/${guide.slug}/` })),
   { label: 'Android TV Kurulum', path: '/kurulum/android-tv/' },
   { label: 'Android Telefon Kurulum', path: '/kurulum/android-phone/' },
   { label: 'Qruze Player XC Android Kurulum', path: '/kurulum/android-phone-xc/' },
@@ -68,7 +71,9 @@ export const HTML_SITEMAP_DE = [
   { label: 'IPTV Einrichtungsleitfaden', path: '/de/guide/iptv-kurulum-rehberi/' },
   { label: 'Einrichtungsanleitung', path: '/de/einrichtung/' },
   { label: 'Android TV Einrichtung', path: '/de/einrichtung/android-tv/' },
-  { label: 'Android Telefon Einrichtung', path: '/de/einrichtung/android-phone/' },
+  { label: 'IPTV App Anleitungen', path: `${APP_GUIDES_BASE}/` },
+  ...APP_GUIDES.map((guide) => ({ label: `${guide.name} Einrichtung`, path: `${APP_GUIDES_BASE}/${guide.slug}/` })),
+  { label: 'Android Smartphone Einrichtung', path: '/de/einrichtung/android-phone/' },
   { label: 'Qruze Player XC Android Einrichtung', path: '/de/einrichtung/android-phone-xc/' },
   { label: 'Qruze Player IBO Android Einrichtung', path: '/de/einrichtung/android-phone-ibo/' },
   { label: 'iOS Einrichtung', path: '/de/einrichtung/ios/' },

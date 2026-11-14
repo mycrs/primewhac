@@ -46,6 +46,36 @@ npm run deploy:dry      # yüklemeden önizleme
 
 FTP değişkenleri `.env` içinde (`FTP_HOST`, `FTP_USER`, `FTP_PASS`, `FTP_REMOTE_DIR`). **Git’e commit etmeyin.**
 
+> **Atomik deploy:** `deploy.js` iki fazda yükler — önce asset’ler (chunk/görsel),
+> HTML (`index.html` + prerender sayfalar) **en son**. Böylece yeni HTML,
+> işaret ettiği chunk’lar sunucuya düşmeden asla canlıya çıkmaz. Deploy bitince
+> canlıdaki `index.html`’in asset’leri otomatik doğrulanır (kırık varsa hata verir).
+
+## ⚠ HTTP 429 (Hostinger anti-flood) — neden olur, nası önlenir
+
+Hostinger hCDN, **IP başına kısa sürede ~30+ isteğe** geçici `429 Too Many Requests`
+döner (Chrome’da "Bu sayfa çalışmıyor / HTTP ERROR 429" sayfası). Bir sayfa yükü
+~40-60 istek içerir; deploy sonrası üst üste birkaç F5 bu eşiği anında aşar.
+
+Kök çözüm: HTML’i Cloudflare edge’de cache’leyin — istekler Hostinger’a hiç
+ulaşmadan CF’ten yanıtlanır. Cloudflare Dashboard → **Rules → Page Rules**
+(ücretsiz planda 3 kural, ilk eşleşen kazanır — sıraya dikkat):
+
+1. `*cineverse.pro/yonetim*` → **Cache Level: Bypass** (admin panel asla cache’lenmesin)
+2. `*cineverse.pro/blog/write*` → **Cache Level: Bypass**
+3. `*cineverse.pro/*` → **Cache Level: Cache Everything** + **Edge Cache TTL: 1 hour**
+
+Notlar:
+- POST istekleri Supabase’e gider; CF POST’ları cache’lemez → formlar/giriş etkilenmez.
+- `/musteri-kayit`, blog yazıları gibi HTML’ler edge’de tutulur; duyuru/portal
+  verisi zaten client-side Supabase’ten canlı alınır.
+- **Deploy sonrası CF cache temizlenmeli**, yoksa eski HTML ~1 saat edge’de kalır.
+  İki yol: Dashboard → Caching → **Purge Everything**, veya `.env` içine
+  `CLOUDFLARE_ZONE_ID` + `CLOUDFLARE_API_TOKEN` (yetki: Zone.Cache Purge) ekleyin —
+  `deploy.js` otomatik purge atar.
+- 429 yedeklerse: dakika içinde kendiliğinden düzelir; arka arkaya yenilemeyin.
+- Siteyi tarayan araçlar (SEO audit scriptleri vb.) hız limitine takılır — throttled çalıştırın.
+
 Build sonrası `public/sitemap.xml` güncellemek için:
 
 ```bash

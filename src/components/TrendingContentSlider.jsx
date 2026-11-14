@@ -271,9 +271,9 @@ const TrendingContentSlider = ({ title = "Popüler Film & Dizi Arşivi", customI
         </div>
 
         {/* Filter Pills + Controls */}
-        <div className="flex flex-col items-start md:items-end gap-3.5">
+        <div className="flex flex-col items-start md:items-end gap-3.5 min-w-0 w-full md:w-auto">
           {/* Category Tabs */}
-          <div className="inline-flex items-center gap-1.5 p-1 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-lg">
+          <div className="flex max-w-full overflow-x-auto no-scrollbar items-center gap-1.5 p-1 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-lg">
             {[
               { id: 'all', label: copy.all },
               { id: 'movies', label: copy.movies },
@@ -284,7 +284,7 @@ const TrendingContentSlider = ({ title = "Popüler Film & Dizi Arşivi", customI
                 key={tab.id}
                 onClick={() => setActiveCategory(tab.id)}
                 type="button"
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer ${
+                className={`shrink-0 whitespace-nowrap px-3 py-2 rounded-xl text-xs font-bold transition-all duration-300 cursor-pointer ${
                   activeCategory === tab.id
                     ? 'bg-gradient-to-r from-[#e50914] to-[#b20710] text-white shadow-lg shadow-[#e50914]/30'
                     : 'text-slate-300 hover:text-white hover:bg-white/[0.06]'
@@ -362,15 +362,15 @@ const TrendingContentSlider = ({ title = "Popüler Film & Dizi Arşivi", customI
       {/* Embla Cinema Showcase Carousel */}
       {items.length > 0 && (
         <div className="relative rounded-3xl border border-white/10 bg-gradient-to-b from-[#111116] via-[#09090c] to-[#050507] p-3 md:p-5 shadow-[0_30px_90px_rgba(0,0,0,0.85)]">
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#09090c] to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#09090c] to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-4 md:w-12 bg-gradient-to-r from-[#09090c] to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-4 md:w-12 bg-gradient-to-l from-[#09090c] to-transparent z-10" />
 
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex -ml-3 md:-ml-4 py-2">
               {items.map((item, index) => (
                 <div
                   key={`${item.media_type || 'content'}-${item.id}-${index}`}
-                  className="flex-[0_0_50%] sm:flex-[0_0_36%] md:flex-[0_0_28%] lg:flex-[0_0_20%] xl:flex-[0_0_16.6%] pl-3 md:pl-4"
+                  className="flex-[0_0_65%] sm:flex-[0_0_36%] md:flex-[0_0_28%] lg:flex-[0_0_20%] xl:flex-[0_0_16.6%] pl-3 md:pl-4"
                 >
                   <ContentCard item={item} type={item.media_type} isDe={isDe} accentIndex={index} />
                 </div>

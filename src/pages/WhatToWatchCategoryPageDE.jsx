@@ -76,7 +76,7 @@ const WhatToWatchCategoryPageDE = ({ siteData, slug: slugProp }) => {
   const similar = useMemo(() => getSimilarCategoriesDE(slug, 3), [slug]);
 
   if (!category) {
-    return <Navigate to="/de/was-soll-ich-schauen" replace />;
+    return <Navigate to="/de/was-soll-ich-schauen/" replace />;
   }
 
   const metadata = {
@@ -137,15 +137,15 @@ const WhatToWatchCategoryPageDE = ({ siteData, slug: slugProp }) => {
                   </p>
                 </div>
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm">
-                  <Link to="/de" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
+                  <Link to="/de/" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
                     Startseite
                   </Link>
                   <span className="text-white/20" aria-hidden>·</span>
-                  <Link to="/de/was-soll-ich-schauen" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
+                  <Link to="/de/was-soll-ich-schauen/" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
                     Was soll ich schauen
                   </Link>
                   <span className="text-white/20" aria-hidden>·</span>
-                  <Link to="/de/pakete" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
+                  <Link to="/de/pakete/" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
                     IPTV Pakete
                   </Link>
                 </div>

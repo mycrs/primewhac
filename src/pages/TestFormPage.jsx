@@ -18,13 +18,14 @@ import AppSelectionStep from '@/components/test-page/AppSelectionStep';
 import TestFormDetailsStep from '@/components/test-page/TestFormDetailsStep';
 import TestFormSummary from '@/components/test-page/TestFormSummary';
 import TurkeyPackageWhatsAppWarningDialog from '@/components/packages/TurkeyPackageWhatsAppWarningDialog';
-import LivingRegionSelect, { getLivingRegionWhatsAppLine } from '@/components/LivingRegionSelect';
+import LivingRegionSelect, { getLivingRegionWhatsAppLine, isLivingRegionComplete } from '@/components/LivingRegionSelect';
 
 const TestFormPage = ({ siteData }) => {
   const navigate = useNavigate();
   const pendingWhatsAppRef = useRef(null);
   const [trWarningOpen, setTrWarningOpen] = useState(false);
   const [livingRegion, setLivingRegion] = useState('');
+  const [livingCountry, setLivingCountry] = useState('');
   const [step, setStep] = useState(0);
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [selectedApp, setSelectedApp] = useState(null);
@@ -84,26 +85,27 @@ const TestFormPage = ({ siteData }) => {
   };
 
   const handleSubmit = () => {
-    if (!livingRegion) {
+    if (!isLivingRegionComplete(livingRegion, livingCountry)) {
       toast({
         variant: 'destructive',
         title: 'Eksik bilgi',
-        description: 'Lütfen yaşadığınız bölgeyi seçin.',
+        description: 'Lütfen yaşadığınız bölgeyi ve gerekiyorsa ülkeyi belirtin.',
       });
       return;
     }
     const tvBrandInfo = formData.tv_brand ? ` (${formData.tv_brand})` : '';
-    const livingRegionMessage = getLivingRegionWhatsAppLine(livingRegion, 'tr');
+    const livingRegionMessage = getLivingRegionWhatsAppLine(livingRegion, 'tr', livingCountry);
     const requestData = {
       username: formData.username,
       special_note: formData.special_note,
+      note: formData.special_note,
       device: selectedDevice?.name + tvBrandInfo,
       app: selectedApp?.name,
       livingRegionMessage,
     };
     const dbData = {
       username: formData.username,
-      special_note: formData.special_note,
+      special_note: [livingRegionMessage, formData.special_note].filter(Boolean).join('\n'),
       device_type: selectedDevice?.name + tvBrandInfo,
       app_name: selectedApp?.name,
       status: 'pending'
@@ -176,6 +178,8 @@ const TestFormPage = ({ siteData }) => {
                   <LivingRegionSelect
                     value={livingRegion}
                     onChange={setLivingRegion}
+                    country={livingCountry}
+                    onCountryChange={setLivingCountry}
                     lang="tr"
                     isTest
                   />
@@ -244,6 +248,7 @@ const TestFormPage = ({ siteData }) => {
                                     loading={loading}
                                     livingRegionRequired
                                     livingRegion={livingRegion}
+                                    livingCountry={livingCountry}
                                 />
                             )}
                         </motion.div>
@@ -348,7 +353,7 @@ const TestFormPage = ({ siteData }) => {
 
                         <h3 className="text-2xl font-semibold mt-8 mb-4 text-green-400">Gelişmiş VOD Film ve Dizi Arşivi</h3>
                         <p>
-                            Sadece canlı televizyon yayınlarıyla sınırlı kalmayan <strong>iptv deneme hesabı</strong>, aynı zamanda güncel sinema filmlerini ve popüler dijital platformların (Netflix, Disney+, Amazon Prime vb.) hit dizilerini de içerir. Bu içerikler, Türkçe dublaj ve altyazı seçenekleriyle sisteme entegre edilmiştir. Kendi izleme zevkinize göre filmi durdurabilir, ileri veya geri sarabilir ve evinizin rahatlığında sinema kalitesi yaşayabilirsiniz. VOD arşivimizin devasa gücünü test etmek için <em>hemen ücretsiz test başvurusunu yap</em>.
+                            Sadece canlı televizyon yayınlarıyla sınırlı kalmayan <strong>iptv deneme hesabı</strong>, aynı zamanda güncel sinema filmlerini ve dünya çapında ilgi gören popüler hit dizileri de içerir. Bu içerikler, Türkçe dublaj ve altyazı seçenekleriyle sisteme entegre edilmiştir. Kendi izleme zevkinize göre filmi durdurabilir, ileri veya geri sarabilir ve evinizin rahatlığında sinema kalitesi yaşayabilirsiniz. VOD arşivimizin devasa gücünü test etmek için <em>hemen ücretsiz test başvurusunu yap</em>.
                         </p>
 
                         <h3 className="text-2xl font-semibold mt-8 mb-4 text-green-400">Yüksek Görüntü Kalitesi ve Çözünürlük</h3>

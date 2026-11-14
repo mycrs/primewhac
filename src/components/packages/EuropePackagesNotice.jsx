@@ -114,7 +114,7 @@ const EuropePackagesNotice = () => {
 
         <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>
           <Link
-            to="/de/pakete"
+            to="/de/pakete/"
             style={{
               flex: 1,
               display: 'flex',

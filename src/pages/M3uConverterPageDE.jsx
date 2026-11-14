@@ -624,7 +624,7 @@ const M3uConverterPageDE = ({ siteData }) => {
                     VOD. Pakete ansehen oder kostenlosen Testzugang anfordern.
                   </p>
                   <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap md:justify-start">
-                    <Link to="/de/pakete" className="inline-flex sm:w-auto">
+                    <Link to="/de/pakete/" className="inline-flex sm:w-auto">
                       <Button className="h-13 w-full min-w-[200px] rounded-2xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 px-8 text-base font-bold text-white shadow-[0_0_25px_rgba(229,9,20,0.35)] transition sm:w-auto">
                         <Layers className="w-4 h-4 mr-2" />
                         IPTV-Pakete ansehen
@@ -638,7 +638,7 @@ const M3uConverterPageDE = ({ siteData }) => {
                       <PlayCircle className="w-4 h-4 mr-2 text-red-500" />
                       Kostenlos testen
                     </Button>
-                    <Link to="/de/einrichtung" className="inline-flex sm:w-auto">
+                    <Link to="/de/einrichtung/" className="inline-flex sm:w-auto">
                       <Button
                         variant="ghost"
                         className="h-13 w-full text-slate-300 hover:text-white hover:bg-white/5 sm:w-auto text-sm"

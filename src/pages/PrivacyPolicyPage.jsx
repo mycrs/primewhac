@@ -267,13 +267,13 @@ const PrivacyPolicyPage = ({ siteData }) => {
 
             {/* Quick Navigation Footer Links */}
             <div className="mt-10 p-6 rounded-2xl bg-[#121218]/60 border border-white/5 flex flex-wrap items-center justify-center sm:justify-start gap-3">
-              <Link to="/sartlar" className="px-5 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs sm:text-sm font-semibold transition-all border border-white/10">
+              <Link to="/sartlar/" className="px-5 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs sm:text-sm font-semibold transition-all border border-white/10">
                 📄 Kullanım Şartları
               </Link>
-              <Link to="/sss" className="px-5 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs sm:text-sm font-semibold transition-all border border-white/10">
+              <Link to="/sss/" className="px-5 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-xs sm:text-sm font-semibold transition-all border border-white/10">
                 ❓ Sıkça Sorulan Sorular
               </Link>
-              <Link to="/paketler" className="px-5 py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-bold transition-all border border-emerald-500/30">
+              <Link to="/paketler/" className="px-5 py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-bold transition-all border border-emerald-500/30">
                 ⚡ IPTV Paketleri
               </Link>
             </div>

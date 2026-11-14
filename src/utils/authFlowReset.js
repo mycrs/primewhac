@@ -38,16 +38,19 @@ export const improvedCleanupCorruptedTokens = () => {
         const item = localStorage.getItem(key);
         try {
           const parsed = JSON.parse(item);
-          if (parsed?.access_token) {
-            const claimsReport = TokenValidator.getDetailedClaimsReport(parsed.access_token);
-            if (!claimsReport.isValid) {
+          if (parsed && typeof parsed === 'object') {
+            const token = parsed.access_token || (typeof parsed === 'string' ? parsed : null);
+            if (token && typeof token === 'string') {
+              const isStructurallyValid = TokenValidator.validateTokenFormat(token);
+              if (!isStructurallyValid) {
+                localStorage.removeItem(key);
+                removedCount++;
+                AuthDebugger.logAuthFlow(`Removed corrupted token key: ${key}. Reason: Invalid JWT structure`);
+              }
+            } else if (!parsed.access_token && !parsed.refresh_token && !parsed.currentSession) {
               localStorage.removeItem(key);
               removedCount++;
-              AuthDebugger.logAuthFlow(`Removed corrupted token key: ${key}. Reason: ${JSON.stringify(claimsReport.missingClaims)}`);
             }
-          } else {
-             localStorage.removeItem(key);
-             removedCount++;
           }
         } catch (e) {
           localStorage.removeItem(key);
@@ -89,8 +92,6 @@ export const improvedValidateAndRecoverSession = async () => {
         
         if (claimsReport.missingClaims.includes('sub')) {
           await recoverFromMissingSubClaim();
-        } else if (claimsReport.missingClaims.includes('session_id')) {
-          await recoverFromMissingSessionIdClaim();
         } else {
           await supabase.auth.signOut().catch(() => {});
         }

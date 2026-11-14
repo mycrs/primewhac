@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import { clearChunkReloadGuard } from '@/utils/chunkErrorRecovery';
 
 const DEFAULT_DELAYS_MS = [350, 1000];
 
@@ -22,7 +23,10 @@ export async function retryDynamicImport(importer, delaysMs = DEFAULT_DELAYS_MS)
 
   for (let attempt = 0; attempt <= delaysMs.length; attempt += 1) {
     try {
-      return await importer();
+      const mod = await importer();
+      // Chunk'lar sağlıklı yükleniyor → otomatik yeniden yükleme sayacını sıfırla.
+      clearChunkReloadGuard();
+      return mod;
     } catch (error) {
       lastError = error;
       if (!isDynamicImportError(error) || attempt === delaysMs.length) throw error;

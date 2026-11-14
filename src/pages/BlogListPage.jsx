@@ -186,7 +186,7 @@ const BlogListPage = ({ siteData }) => {
 
             <h2 className="text-3xl font-bold mb-6 text-white tracking-tight">Tüm Cihazlar İçin Kapsamlı Kurulum Rehberleri</h2>
             <p className="text-slate-300 mb-8">
-              Platformumuzda, pazarın önde gelen cihazları için resimli ve adım adım anlatımlı rehberler sunuyoruz. Örneğin, evinizde bir akıllı televizyon varsa <Link to="/kurulum/smart-tv" className="font-semibold underline decoration-blue-500/30 underline-offset-4 hover:decoration-blue-500 transition-all">Smart TV IPTV kurulumu</Link> rehberimizi inceleyebilirsiniz.
+              Platformumuzda, pazarın önde gelen cihazları için resimli ve adım adım anlatımlı rehberler sunuyoruz. Örneğin, evinizde bir akıllı televizyon varsa <Link to="/kurulum/smart-tv/" className="font-semibold underline decoration-blue-500/30 underline-offset-4 hover:decoration-blue-500 transition-all">Smart TV IPTV kurulumu</Link> rehberimizi inceleyebilirsiniz.
             </p>
 
             <div className="mt-12 bg-gradient-to-br from-[#0a0a0a]/40 to-[#141414]/40 p-8 md:p-10 rounded-[2rem] border border-white/5 shadow-inner">
@@ -204,7 +204,7 @@ const BlogListPage = ({ siteData }) => {
                 </li>
                 <li className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
                   <span className="text-[#e50914] text-xl font-bold mt-0.5">03</span>
-                  <span><strong>Çözüm Odaklı Yaklaşım:</strong> Sık karşılaşılan problemlere anında çözüm üreten <Link to="/sss" className="font-semibold">Sıkça Sorulan Sorular</Link> bölümümüzle destek sağlıyoruz.</span>
+                  <span><strong>Çözüm Odaklı Yaklaşım:</strong> Sık karşılaşılan problemlere anında çözüm üreten <Link to="/sss/" className="font-semibold">Sıkça Sorulan Sorular</Link> bölümümüzle destek sağlıyoruz.</span>
                 </li>
               </ul>
             </div>

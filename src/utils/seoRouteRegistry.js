@@ -8,6 +8,7 @@ import {
   HUB_CONFIG_KEYS,
 } from '../data/kurulumDeviceSlugs.js';
 import { plainTextLengthFromHtml, MIN_CONTENT_THRESHOLD } from './seoNoindexPaths.js';
+import { BLOG_TRANSLATIONS_DE } from '../data/staticBlogTranslationsDE.js';
 
 export { BASE_KURULUM_DEVICES, LEGACY_KURULUM_REDIRECTS };
 
@@ -109,9 +110,22 @@ export async function fetchBuildSeoExtras() {
 
     const { data, error } = queryResult;
     if (!error && data?.length) {
-      blogPosts = data.filter(
-        (post) => post.slug && plainTextLengthFromHtml(post.content) >= MIN_CONTENT_THRESHOLD,
-      );
+      blogPosts = data
+        .filter((post) => post.slug && plainTextLengthFromHtml(post.content) >= MIN_CONTENT_THRESHOLD)
+        .map((post) => {
+          if (BLOG_TRANSLATIONS_DE[post.slug]) {
+            const trDe = BLOG_TRANSLATIONS_DE[post.slug];
+            return {
+              ...post,
+              title_de: trDe.title_de,
+              seo_title_de: trDe.seo_title_de,
+              seo_description_de: trDe.seo_description_de,
+              excerpt_de: trDe.excerpt_de,
+              content_de: trDe.content_de,
+            };
+          }
+          return post;
+        });
     }
   } catch {
     blogPosts = [];

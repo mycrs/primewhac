@@ -155,7 +155,7 @@ export const LEGAL_LINKS = {
   ],
   de: [
     { to: '/de/privacy/', label: 'Datenschutz' },
-    { to: '/de/terms/', label: 'AGB' },
+    { to: '/de/terms/', label: 'Impressum & AGB' },
     { to: '/sitemap/', label: 'Sitemap' },
   ],
 };

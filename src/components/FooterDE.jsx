@@ -36,7 +36,7 @@ const FooterDE = ({ contactData: propContactData, siteData }) => {
         <div className="mb-14 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-6">
           {/* Markenblock */}
           <div className="space-y-5 lg:col-span-2">
-            <Link to="/de" className="inline-block">
+            <Link to="/de/" className="inline-block">
               <img
                 src={BRAND_LOGO_URL}
                 alt="QruzeTV logo"

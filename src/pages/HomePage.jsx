@@ -114,7 +114,7 @@ const HomePage = ({ siteData }) => {
                 <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
                   {/* Bento Tile 1: Film & Dizi Keşif Evreni */}
                   <Link
-                    to="/ne-izlesem"
+                    to="/ne-izlesem/"
                     title="Film ve dizi arşivi keşif rehberi"
                     className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#16161d] via-[#0d0d12] to-[#070709] p-8 md:p-10 transition-all duration-500 hover:border-[#e50914]/60 hover:shadow-[0_20px_60px_rgba(229,9,20,0.25)] hover:-translate-y-1 flex flex-col justify-between min-h-[320px]"
                   >
@@ -153,7 +153,7 @@ const HomePage = ({ siteData }) => {
 
                   {/* Bento Tile 2: Akıllı Cihaz Kurulum İstasyonu */}
                   <Link
-                    to="/kurulum"
+                    to="/kurulum/"
                     title="Cihaz kurulum rehberlerini inceleyin"
                     className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#16161d] via-[#0d0d12] to-[#070709] p-8 md:p-10 transition-all duration-500 hover:border-emerald-500/60 hover:shadow-[0_20px_60px_rgba(16,185,129,0.2)] hover:-translate-y-1 flex flex-col justify-between min-h-[320px]"
                   >

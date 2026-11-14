@@ -6,7 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import LivingRegionSelect, { getLivingRegionWhatsAppLine } from '@/components/LivingRegionSelect';
+import LivingRegionSelect, { getLivingRegionWhatsAppLine, isLivingRegionComplete } from '@/components/LivingRegionSelect';
+import { getFlowApps } from '@/constants/iptvFlowApps';
 import {
   Dialog,
   DialogContent,
@@ -44,11 +45,13 @@ const OrderModal = ({ contactData, packagesData }) => {
 
   // State for selections and form inputs
   const [livingRegion, setLivingRegion] = useState('');
+  const [livingCountry, setLivingCountry] = useState('');
   const [selectedDevice, setSelectedDevice] = useState('');
   const [internalSelectedPackageId, setInternalSelectedPackageId] = useState('');
   const [username, setUsername] = useState('');
   const [notes, setNotes] = useState('');
   const [selectedApps, setSelectedApps] = useState([]);
+  const [customApp, setCustomApp] = useState('');
   const [tvBrand, setTvBrand] = useState('');
 
   const tvBrandDeviceIds = useMemo(
@@ -71,10 +74,12 @@ const OrderModal = ({ contactData, packagesData }) => {
   useEffect(() => {
     if (isOpen) {
       setLivingRegion('');
+      setLivingCountry('');
       setSelectedDevice('');
       setUsername('');
       setNotes('');
       setSelectedApps([]);
+      setCustomApp('');
       setTvBrand('');
       if (selectedPackage) {
         setInternalSelectedPackageId(selectedPackage.id || selectedPackage.price);
@@ -91,6 +96,7 @@ const OrderModal = ({ contactData, packagesData }) => {
   // Reset selected apps when device changes
   useEffect(() => {
     setSelectedApps([]);
+    setCustomApp('');
   }, [selectedDevice]);
 
   const devices = useMemo(
@@ -105,14 +111,7 @@ const OrderModal = ({ contactData, packagesData }) => {
 
   // Filter apps based on selected device (çoklu platform; test sayfası ile aynı mantık)
   const filteredApps = useMemo(() => {
-    if (!selectedDevice || !siteData?.appsData) return [];
-    const raw = siteData.appsData;
-    const list = Array.isArray(raw) ? raw : [];
-    const allowed = platformsMap[selectedDevice];
-    if (!allowed?.length) return [];
-    return list
-      .filter((app) => app.platforms?.some((p) => allowed.includes(p)))
-      .sort((a, b) => (b.recommended === true) - (a.recommended === true));
+    return getFlowApps(siteData?.appsData, selectedDevice, platformsMap);
   }, [selectedDevice, siteData, platformsMap]);
 
   const toggleApp = (appName) => {
@@ -150,11 +149,12 @@ const OrderModal = ({ contactData, packagesData }) => {
     
     // Combine Package Name with Selected Apps for the "Paket" field if apps are selected
     let packageDisplay = pkgName;
-    if (selectedApps.length > 0) {
-      packageDisplay += ` (${selectedApps.join(', ')})`;
+    const apps = [...selectedApps, ...(customApp.trim() ? [customApp.trim()] : [])];
+    if (apps.length > 0) {
+      packageDisplay += ` (${apps.join(', ')})`;
     }
 
-    const livingLine = getLivingRegionWhatsAppLine(livingRegion, isDe ? 'de' : 'tr');
+    const livingLine = getLivingRegionWhatsAppLine(livingRegion, isDe ? 'de' : 'tr', livingCountry);
 
     const tvBrandLine = needsTvBrand && tvBrand ? `📺 *TV Marka/Model:* ${tvBrand}` : '';
 
@@ -240,7 +240,7 @@ Teşekkürler! 🙏`;
     navigate(isDe ? '/de/pakete' : '/paketler');
   };
 
-  const isFormValid = livingRegion && selectedDevice && (selectedPackage || internalSelectedPackageId) && username && (!needsTvBrand || tvBrand.trim());
+  const isFormValid = isLivingRegionComplete(livingRegion, livingCountry) && selectedDevice && (selectedPackage || internalSelectedPackageId) && username && (!needsTvBrand || tvBrand.trim());
 
   return (
     <>
@@ -281,6 +281,8 @@ Teşekkürler! 🙏`;
           <LivingRegionSelect
             value={livingRegion}
             onChange={setLivingRegion}
+            country={livingCountry}
+            onCountryChange={setLivingCountry}
             lang={isDe ? 'de' : 'tr'}
             isTest={isTest}
           />
@@ -402,7 +404,7 @@ Teşekkürler! 🙏`;
           </div>
 
           {/* 4. Used Programs Section */}
-          {selectedDevice && filteredApps.length > 0 && (
+          {selectedDevice && (
             <div className="space-y-2 animate-in fade-in slide-in-from-top-4 duration-300">
                 <Label className="text-xs uppercase text-slate-500 font-bold tracking-wider ml-1 block">
                     4. Kullanılan Programlar
@@ -412,8 +414,10 @@ Teşekkürler! 🙏`;
                         {filteredApps.map((app) => {
                             const isSelected = selectedApps.includes(app.name);
                             return (
-                                <div 
+                                <button
                                     key={app.id}
+                                    type="button"
+                                    aria-pressed={isSelected}
                                     onClick={() => toggleApp(app.name)}
                                     className={cn(
                                         "flex items-center gap-3 p-3 sm:p-2 rounded-lg cursor-pointer border transition-all duration-200",
@@ -446,15 +450,19 @@ Teşekkürler! 🙏`;
                                         )}>
                                             {app.name}
                                         </span>
+                                        {app.platforms?.length > 0 && <span className="text-[10px] text-slate-400">{app.platforms.join(' · ')}</span>}
                                         {app.recommended && (
                                             <span className="text-[10px] sm:text-[9px] text-amber-400 font-medium">Önerilen</span>
                                         )}
                                     </div>
-                                </div>
+                                </button>
                             );
                         })}
                     </div>
                 </div>
+                <p className="text-xs text-slate-400">{isDe ? 'Die Verfügbarkeit kann je nach Gerät und Land variieren.' : 'Uygulama mağazası seçenekleri cihaz modeline ve ülkeye göre değişebilir.'}</p>
+                <Label htmlFor="order-custom-app" className="text-xs text-slate-300">{isDe ? 'Andere Anwendung (optional)' : 'Listede yoksa uygulama adını yazın (isteğe bağlı)'}</Label>
+                <Input id="order-custom-app" value={customApp} onChange={(event) => setCustomApp(event.target.value)} maxLength={100} placeholder={isDe ? 'Name der Anwendung' : 'Uygulama adı'} className="h-11 border-slate-700 bg-[#0a0a0a] text-base text-white" />
             </div>
           )}
         </div>

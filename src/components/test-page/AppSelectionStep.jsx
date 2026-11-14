@@ -1,10 +1,13 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, AppWindow, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLocation } from 'react-router-dom';
 import { useSiteData } from '@/hooks/useSiteData';
 import { getIptvDevicePlatformsMap } from '@/constants/iptvFlowDevices';
+import { getFlowApps } from '@/constants/iptvFlowApps';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const PLATFORM_LABELS_TR = {
   smarttv: 'Smart TV',
@@ -12,6 +15,7 @@ const PLATFORM_LABELS_TR = {
   ios: 'iOS',
   pc: 'PC / Mac',
   tablet: 'Tablet',
+  windows: 'Windows',
 };
 
 const PLATFORM_LABELS_DE = {
@@ -20,6 +24,7 @@ const PLATFORM_LABELS_DE = {
   ios: 'iOS',
   pc: 'PC / Mac',
   tablet: 'Tablet',
+  windows: 'Windows',
 };
 
 function normalizeAppsData(appsData) {
@@ -33,6 +38,7 @@ const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect, appsData }) =
   const location = useLocation();
   const { siteData } = useSiteData();
   const isDe = location.pathname.includes('/de');
+  const [customApp, setCustomApp] = useState(selectedApp?.id === 'custom' ? selectedApp.name : '');
 
   const platformLabels = isDe ? PLATFORM_LABELS_DE : PLATFORM_LABELS_TR;
 
@@ -44,12 +50,7 @@ const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect, appsData }) =
   );
 
   const filteredApps = useMemo(() => {
-    if (!selectedDevice?.id) return [];
-    const allowed = platformsMap[selectedDevice.id];
-    if (!allowed?.length) return [];
-    return allApps
-      .filter((app) => Array.isArray(app.platforms) && app.platforms.some((p) => allowed.includes(p)))
-      .sort((a, b) => (b.recommended === true) - (a.recommended === true));
+    return getFlowApps(allApps, selectedDevice?.id, platformsMap);
   }, [selectedDevice, allApps, platformsMap]);
 
   const formatPlatforms = (platforms) => {
@@ -66,7 +67,7 @@ const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect, appsData }) =
         sub: 'Wählen Sie die App aus, mit der Sie den Test einrichten möchten. Die Liste entspricht Ihrer Gerätewahl.',
         deviceLabel: 'Ausgewähltes Gerät:',
         emptyNoData:
-          'Im Admin-Bereich sind noch keine Player-Apps hinterlegt. Sie können „Andere“ wählen oder den Support kontaktieren.',
+          'Für dieses Gerät ist keine passende App gelistet. Sie können den Namen unten eingeben oder „Andere“ wählen.',
         emptyFiltered:
           'Für dieses Gerät sind in der Liste keine passenden Apps markiert. Wählen Sie „Andere“ oder eine App mit passender Plattform im Admin-Bereich.',
         other: 'Andere / Weiß ich nicht',
@@ -77,7 +78,7 @@ const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect, appsData }) =
         sub: 'Test yayınını kuracağınız uygulamayı seçin. Liste, seçtiğiniz cihaza uygun uygulamaları gösterir.',
         deviceLabel: 'Seçilen cihaz:',
         emptyNoData:
-          'Yönetim panelinde henüz oynatıcı uygulaması tanımlı değil. “Diğer” seçebilir veya destek ile iletişime geçebilirsiniz.',
+          'Bu cihaz için listede uygulama bulunamadı. Aşağıya uygulama adını yazabilir veya “Diğer” seçebilirsiniz.',
         emptyFiltered:
           'Bu cihaz için listede uygun uygulama bulunamadı. “Diğer” seçin veya panelde uygulama platform etiketlerini kontrol edin.',
         other: 'Diğer / Bilmiyorum',
@@ -99,15 +100,9 @@ const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect, appsData }) =
         )}
       </div>
 
-      {allApps.length === 0 && (
+      {filteredApps.length === 0 && (
         <p className="mx-auto max-w-2xl rounded-xl border border-dashed border-amber-500/40 bg-amber-500/10 px-4 py-3 text-center text-sm text-amber-100/90">
           {copy.emptyNoData}
-        </p>
-      )}
-
-      {allApps.length > 0 && filteredApps.length === 0 && selectedDevice && (
-        <p className="mx-auto max-w-2xl rounded-xl border border-dashed border-slate-600 bg-[#0a0a0a]/40 px-4 py-3 text-center text-sm text-slate-400">
-          {copy.emptyFiltered}
         </p>
       )}
 
@@ -210,6 +205,14 @@ const AppSelectionStep = ({ selectedDevice, selectedApp, onSelect, appsData }) =
             <CheckCircle2 className="absolute right-3 top-3 h-6 w-6 shrink-0 text-green-500" aria-hidden />
           ) : null}
         </motion.button>
+      </div>
+      <div className="space-y-2 rounded-xl border border-slate-700 bg-[#0a0a0a]/40 p-4">
+        <label htmlFor="test-custom-app" className="text-sm font-semibold text-slate-200">{isDe ? 'Andere Anwendung eingeben' : 'Listede yoksa uygulama adını yazın'}</label>
+        <div className="flex flex-wrap gap-2">
+          <Input id="test-custom-app" value={customApp} onChange={(event) => setCustomApp(event.target.value)} maxLength={100} placeholder={isDe ? 'Name der Anwendung' : 'Uygulama adı'} className="min-w-0 flex-1 border-slate-700 bg-[#0a0a0a] text-base text-white" />
+          <Button type="button" disabled={!customApp.trim()} onClick={() => onSelect({ id: 'custom', name: customApp.trim() })}>{isDe ? 'Weiter' : 'Devam'}</Button>
+        </div>
+        <p className="text-xs text-slate-400">{isDe ? 'Die Verfügbarkeit hängt von Gerät und Land ab.' : 'Uygulama mağazası seçenekleri cihaz modeline ve ülkeye göre değişebilir.'}</p>
       </div>
     </div>
   );

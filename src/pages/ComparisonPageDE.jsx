@@ -14,7 +14,7 @@ const ComparisonPageDE = ({ siteData }) => {
 
   const safeSiteData = siteData || {};
   const metadata = {
-    title: 'IPTV Pakete im Vergleich | Welches Abo passt zu Ihnen?',
+    title: 'IPTV Pakete im Vergleich: Welches Abo passt zu Ihnen? | QruzeTV',
     description:
       'Vergleichen Sie IPTV-Pakete: Basis, Standard und Premium. Funktionen, Preise, Vorteile und alle Details auf einen Blick — für Deutschland und Europa.',
     keywords: ['IPTV Pakete', 'IPTV Preise', 'IPTV Vergleich', 'bestes IPTV', 'Premium IPTV Deutschland'],
@@ -22,9 +22,9 @@ const ComparisonPageDE = ({ siteData }) => {
   };
 
   const breadcrumb = breadcrumbSchema([
-    { name: 'Startseite', path: '/de' },
-    { name: 'Pakete', path: '/de/pakete' },
-    { name: 'Vergleich', path: '/de/vergleich' },
+    { name: 'Startseite', path: '/de/' },
+    { name: 'Pakete', path: '/de/pakete/' },
+    { name: 'Vergleich', path: '/de/vergleich/' },
   ]);
   const jsonLd = [
     breadcrumb,
@@ -168,17 +168,17 @@ const ComparisonPageDE = ({ siteData }) => {
               </p>
 
               <div className="mt-12 p-8 bg-[#0a0a0a]/50 rounded-2xl border border-slate-700 flex flex-wrap gap-4">
-                <Link to="/de/pakete" className="px-6 py-3 bg-primary hover:bg-primary text-white font-bold rounded-lg transition-colors">
+                <Link to="/de/pakete/" className="px-6 py-3 bg-primary hover:bg-primary text-white font-bold rounded-lg transition-colors">
                   Pakete kaufen
                 </Link>
                 <Link
-                  to="/de/einrichtung"
+                  to="/de/einrichtung/"
                   className="px-6 py-3 bg-[#0a0a0a] hover:bg-[#141414] text-white font-bold rounded-lg transition-colors border border-slate-600"
                 >
                   Einrichtung
                 </Link>
                 <Link
-                  to="/de/sss"
+                  to="/de/sss/"
                   className="px-6 py-3 bg-[#0a0a0a] hover:bg-[#141414] text-white font-bold rounded-lg transition-colors border border-slate-600"
                 >
                   FAQ

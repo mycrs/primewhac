@@ -275,7 +275,7 @@ const MatchDetailPage = ({ siteData }) => {
                 ve kurulum desteğinden yararlanın.
               </p>
               <Link
-                to="/paketler"
+                to="/paketler/"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary text-white font-semibold transition-colors"
               >
                 Paketleri İncele

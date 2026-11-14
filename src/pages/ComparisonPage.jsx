@@ -164,17 +164,17 @@ const ComparisonPage = ({ siteData }) => {
               </p>
 
               <div className="mt-12 p-8 bg-[#0a0a0a]/50 rounded-2xl border border-slate-700 flex flex-wrap gap-4">
-                <Link to="/paketler" className="px-6 py-3 bg-primary hover:bg-primary text-white font-bold rounded-lg transition-colors">
+                <Link to="/paketler/" className="px-6 py-3 bg-primary hover:bg-primary text-white font-bold rounded-lg transition-colors">
                   Paketleri Satın Al
                 </Link>
                 <Link
-                  to="/kurulum"
+                  to="/kurulum/"
                   className="px-6 py-3 bg-[#0a0a0a] hover:bg-[#141414] text-white font-bold rounded-lg transition-colors border border-slate-600"
                 >
                   Kurulum Adımları
                 </Link>
                 <Link
-                  to="/sss"
+                  to="/sss/"
                   className="px-6 py-3 bg-[#0a0a0a] hover:bg-[#141414] text-white font-bold rounded-lg transition-colors border border-slate-600"
                 >
                   SSS

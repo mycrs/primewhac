@@ -132,7 +132,7 @@ export const defaultData = {
         users: '1 Kullanıcı',
         features: [
           '1 Kullanıcı (Opsiyonel Çift Giriş)',
-          '15.000+ Film & Dizi (Netflix, HBO, Disney+)',
+          '15.000+ Film & Dizi (Geniş VOD Kütüphanesi)',
           'Gerçek 4K UHD & HDR10+ Yayın',
           'Dolby Atmos & 5.1 Çok Kanallı Ses',
           'Her Hafta Eklenen Yeni Vizyon Filmleri',

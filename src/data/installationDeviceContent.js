@@ -146,9 +146,9 @@ export const INSTALLATION_DEVICE_CONTENT = {
           <h2 class="content-title">iOS IPTV Kurulumu — Uygulama Seçin</h2>
           <p class="lead">iPhone, iPad ve Apple TV'de IPTV kurulumu kullandığınız App Store uygulamasına göre değişir. Her uygulama için ayrı adım adım rehber hazırladık.</p>
           <h3>Desteklenen Uygulamalar</h3>
-          <p><strong><a href="/kurulum/ios-next-plus">NEXT+</a></strong> — Önerilen uygulama. M3U, Xtream Codes, PiP ve Apple TV.</p>
-          <p><strong><a href="/kurulum/ios-castora">CASTORA</a></strong> — M3U, M3U8 ve Xtream Codes.</p>
-          <p><strong><a href="/kurulum/ios-9xtream">9Xtream</a></strong> — iPhone/iPad için. Smart TV için ayrı lisans.</p>
+          <p><strong><a href="/kurulum/ios-next-plus/">NEXT+</a></strong> — Önerilen uygulama. M3U, Xtream Codes, PiP ve Apple TV.</p>
+          <p><strong><a href="/kurulum/ios-castora/">CASTORA</a></strong> — M3U, M3U8 ve Xtream Codes.</p>
+          <p><strong><a href="/kurulum/ios-9xtream/">9Xtream</a></strong> — iPhone/iPad için. Smart TV için ayrı lisans.</p>
         </div>
       `
     },
@@ -158,7 +158,7 @@ export const INSTALLATION_DEVICE_CONTENT = {
         <div class="device-seo-content">
           <h2 class="content-title">iOS IPTV Einrichtung — App wählen</h2>
           <p class="lead">Auf iPhone, iPad und Apple TV hängt die Einrichtung von der App Store App ab.</p>
-          <p><strong><a href="/de/einrichtung/ios-next-plus">NEXT+</a></strong> · <strong><a href="/de/einrichtung/ios-castora">CASTORA</a></strong> · <strong><a href="/de/einrichtung/ios-9xtream">9Xtream</a></strong></p>
+          <p><strong><a href="/de/einrichtung/ios-next-plus/">NEXT+</a></strong> · <strong><a href="/de/einrichtung/ios-castora/">CASTORA</a></strong> · <strong><a href="/de/einrichtung/ios-9xtream/">9Xtream</a></strong></p>
         </div>
       `
     }
@@ -290,9 +290,9 @@ export const INSTALLATION_DEVICE_CONTENT = {
           <h2 class="content-title">Windows PC IPTV Kurulumu — Paketinize Göre Uygulama Seçin</h2>
           <p class="lead">Windows PC'de her paket kategorisi için ayrı uygulama rehberi hazırladık: <strong>IBO Player Pro</strong>, <strong>ABC IPTV Player</strong> ve <strong>VS Player</strong>.</p>
           <h3>Desteklenen Uygulamalar</h3>
-          <p><strong><a href="/kurulum/windows-ibo-player">IBO Player Pro</a></strong> — Türkiye paketleri. Microsoft Store'dan indirin, Xtream Codes veya M3U ile giriş yapın.</p>
-          <p><strong><a href="/kurulum/windows-abc">ABC IPTV Player</a></strong> — Avrupa Standart paketler. M3U playlist ile kurulum (abciptvplayer.com).</p>
-          <p><strong><a href="/kurulum/windows-vs-player">VS Player</a></strong> — Avrupa HD paketler. Xtream Codes ve Stalker portal desteği.</p>
+          <p><strong><a href="/kurulum/windows-ibo-player/">IBO Player Pro</a></strong> — Türkiye paketleri. Microsoft Store'dan indirin, Xtream Codes veya M3U ile giriş yapın.</p>
+          <p><strong><a href="/kurulum/windows-abc/">ABC IPTV Player</a></strong> — Avrupa Standart paketler. M3U playlist ile kurulum (abciptvplayer.com).</p>
+          <p><strong><a href="/kurulum/windows-vs-player/">VS Player</a></strong> — Avrupa HD paketler. Xtream Codes ve Stalker portal desteği.</p>
           <h3>Hangisini Seçmeliyim?</h3>
           <p>Türkiye paketi aldıysanız IBO Player Pro. Avrupa Standart ve M3U linki varsa ABC IPTV Player. Avrupa HD ve portal/Xtream bilgisi varsa VS Player.</p>
         </div>
@@ -305,9 +305,9 @@ export const INSTALLATION_DEVICE_CONTENT = {
           <h2 class="content-title">Windows PC IPTV Einrichtung — App nach Paket wählen</h2>
           <p class="lead">Für jedes Paket die passende App: <strong>IBO Player Pro</strong>, <strong>ABC IPTV Player</strong> oder <strong>VS Player</strong>.</p>
           <h3>Unterstützte Apps</h3>
-          <p><strong><a href="/de/einrichtung/windows-ibo-player">IBO Player Pro</a></strong> — Türkei-Pakete, Microsoft Store.</p>
-          <p><strong><a href="/de/einrichtung/windows-abc">ABC IPTV Player</a></strong> — Europa Standard, M3U-Playlist.</p>
-          <p><strong><a href="/de/einrichtung/windows-vs-player">VS Player</a></strong> — Europa HD, Xtream & Stalker Portal.</p>
+          <p><strong><a href="/de/einrichtung/windows-ibo-player/">IBO Player Pro</a></strong> — Türkei-Pakete, Microsoft Store.</p>
+          <p><strong><a href="/de/einrichtung/windows-abc/">ABC IPTV Player</a></strong> — Europa Standard, M3U-Playlist.</p>
+          <p><strong><a href="/de/einrichtung/windows-vs-player/">VS Player</a></strong> — Europa HD, Xtream & Stalker Portal.</p>
         </div>
       `
     }
@@ -357,8 +357,8 @@ export const INSTALLATION_DEVICE_CONTENT = {
           <h2 class="content-title">Mac IPTV Kurulumu — Uygulama Seçin</h2>
           <p class="lead">Mac ve MacBook'ta IPTV kurulumu için <strong>NEXT+</strong> veya <strong>CASTORA</strong> kullanın. İkisi de Mac App Store'dan indirilebilir. Her uygulama için ayrı adım adım rehber hazırladık.</p>
           <h3>Desteklenen Uygulamalar</h3>
-          <p><strong><a href="/kurulum/mac-next-plus">NEXT+</a></strong> — Premium IPTV oynatıcı. Mac App Store'dan indirin, M3U veya Xtream Codes ile giriş yapın.</p>
-          <p><strong><a href="/kurulum/mac-castora">CASTORA</a></strong> — Xtream Codes desteği. Sunucu alanına **8811** yazın.</p>
+          <p><strong><a href="/kurulum/mac-next-plus/">NEXT+</a></strong> — Premium IPTV oynatıcı. Mac App Store'dan indirin, M3U veya Xtream Codes ile giriş yapın.</p>
+          <p><strong><a href="/kurulum/mac-castora/">CASTORA</a></strong> — Xtream Codes desteği. Sunucu alanına **8811** yazın.</p>
           <h3>Hangisini Seçmeliyim?</h3>
           <p>NEXT+ genel playlist ve Xtream desteği sunar. CASTORA Xtream Codes ile **8811** sunucu alanı kullanır. İkisi de Mac App Store'dan ücretsiz indirilebilir.</p>
         </div>
@@ -371,8 +371,8 @@ export const INSTALLATION_DEVICE_CONTENT = {
           <h2 class="content-title">Mac IPTV Einrichtung — App wählen</h2>
           <p class="lead">Auf Mac und MacBook: <strong>NEXT+</strong> für Playlist/Xtream oder <strong>CASTORA</strong> mit Xtream und Server-Feld <strong>8811</strong>. Beide im Mac App Store.</p>
           <h3>Unterstützte Apps</h3>
-          <p><strong><a href="/de/einrichtung/mac-next-plus">NEXT+</a></strong> — Premium IPTV-Player im Mac App Store.</p>
-          <p><strong><a href="/de/einrichtung/mac-castora">CASTORA</a></strong> — Xtream Codes, Server-Feld **8811**.</p>
+          <p><strong><a href="/de/einrichtung/mac-next-plus/">NEXT+</a></strong> — Premium IPTV-Player im Mac App Store.</p>
+          <p><strong><a href="/de/einrichtung/mac-castora/">CASTORA</a></strong> — Xtream Codes, Server-Feld **8811**.</p>
         </div>
       `
     }
@@ -411,9 +411,9 @@ export const INSTALLATION_DEVICE_CONTENT = {
           <h2 class="content-title">Smart TV IPTV Kurulumu — Uygulama Seçin</h2>
           <p class="lead">Samsung Tizen ve LG webOS televizyonlarda IPTV kurulumu, kullandığınız oynatıcı uygulamasına göre değişir. Her uygulama için ayrı adım adım rehber hazırladık — önce uygulamanızı seçin, ardından ilgili kurulum sayfasını takip edin.</p>
           <h3>Desteklenen Uygulamalar</h3>
-          <p><strong><a href="/kurulum/smart-tv-0-player">0 Player (Zero Player)</a></strong> — Premium medya oynatıcı; hızlı kanal geçişi, tv-first arayüz ve stabil 4K oynatma. Samsung ve LG mağazalarında "0 Player" arayın.</p>
-          <p><strong><a href="/kurulum/smart-tv-smarters-pro">IPTV Smarters Pro</a></strong> — Yaygın kullanılan IPTV uygulaması; Xtream Codes ve M3U desteği, EPG ve VOD. Mağazada "IPTV Smarters Pro" arayın.</p>
-          <p><em>Not: 9Xtream Samsung/LG Smart TV için ayrı lisans gerektirir — iPhone/iPad kurulumu için <a href="/kurulum/ios-9xtream">iOS 9Xtream rehberi</a>ni kullanın.</em></p>
+          <p><strong><a href="/kurulum/smart-tv-0-player/">0 Player (Zero Player)</a></strong> — Premium medya oynatıcı; hızlı kanal geçişi, tv-first arayüz ve stabil 4K oynatma. Samsung ve LG mağazalarında "0 Player" arayın.</p>
+          <p><strong><a href="/kurulum/smart-tv-smarters-pro/">IPTV Smarters Pro</a></strong> — Yaygın kullanılan IPTV uygulaması; Xtream Codes ve M3U desteği, EPG ve VOD. Mağazada "IPTV Smarters Pro" arayın.</p>
+          <p><em>Not: 9Xtream Samsung/LG Smart TV için ayrı lisans gerektirir — iPhone/iPad kurulumu için <a href="/kurulum/ios-9xtream/">iOS 9Xtream rehberi</a>ni kullanın.</em></p>
           <h3>Hangisini Seçmeliyim?</h3>
           <p>0 Player, salon kullanımında premium arayüz ve hızlı zapping isteyenler için uygundur. IPTV Smarters Pro ise Xtream Codes ile hızlı kurulum ve tanıdık menü yapısı arayanlar için idealdir. İkisi de M3U ve Xtream destekler; QruzeTV abonelik bilgilerinizle uyumludur.</p>
         </div>
@@ -429,8 +429,8 @@ export const INSTALLATION_DEVICE_CONTENT = {
           <h2 class="content-title">Smart TV IPTV Einrichtung — App wählen</h2>
           <p class="lead">Auf Samsung Tizen und LG webOS hängt die IPTV-Einrichtung von der gewählten Player-App ab. Für jede App gibt es eine eigene Anleitung.</p>
           <h3>Unterstützte Apps</h3>
-          <p><strong><a href="/de/einrichtung/smart-tv-0-player">0 Player (Zero Player)</a></strong> — Premium-Media-Player für Samsung und LG.</p>
-          <p><strong><a href="/de/einrichtung/smart-tv-smarters-pro">IPTV Smarters Pro</a></strong> — Beliebte IPTV-App mit Xtream Codes und M3U.</p>
+          <p><strong><a href="/de/einrichtung/smart-tv-0-player/">0 Player (Zero Player)</a></strong> — Premium-Media-Player für Samsung und LG.</p>
+          <p><strong><a href="/de/einrichtung/smart-tv-smarters-pro/">IPTV Smarters Pro</a></strong> — Beliebte IPTV-App mit Xtream Codes und M3U.</p>
         </div>
       `
     }
@@ -628,9 +628,9 @@ export const INSTALLATION_DEVICE_CONTENT = {
           <h2 class="content-title">Tablet IPTV Kurulumu — Paketinize Göre Uygulama Seçin</h2>
           <p class="lead">Tablet için her paket kategorisinde ayrı uygulama rehberi: <strong>IBO Player Pro</strong>, <strong>ABC IPTV Player</strong> ve <strong>VS Player</strong>.</p>
           <h3>Desteklenen Uygulamalar</h3>
-          <p><strong><a href="/kurulum/tablet-ibo-player">IBO Player Pro</a></strong> — Türkiye paketleri. App Store veya Play Store'dan indirin, Xtream Codes veya M3U ile giriş yapın.</p>
-          <p><strong><a href="/kurulum/tablet-abc">ABC IPTV Player</a></strong> — Avrupa Standart paketler. M3U playlist ile kurulum.</p>
-          <p><strong><a href="/kurulum/tablet-vs-player">VS Player</a></strong> — Avrupa HD paketler. Xtream Codes ve Stalker portal desteği (Android tablet).</p>
+          <p><strong><a href="/kurulum/tablet-ibo-player/">IBO Player Pro</a></strong> — Türkiye paketleri. App Store veya Play Store'dan indirin, Xtream Codes veya M3U ile giriş yapın.</p>
+          <p><strong><a href="/kurulum/tablet-abc/">ABC IPTV Player</a></strong> — Avrupa Standart paketler. M3U playlist ile kurulum.</p>
+          <p><strong><a href="/kurulum/tablet-vs-player/">VS Player</a></strong> — Avrupa HD paketler. Xtream Codes ve Stalker portal desteği (Android tablet).</p>
           <h3>Hangisini Seçmeliyim?</h3>
           <p>Türkiye paketi → IBO Player Pro. Avrupa Standart (M3U) → ABC IPTV Player. Avrupa HD (portal/Xtream) → VS Player.</p>
         </div>
@@ -643,9 +643,9 @@ export const INSTALLATION_DEVICE_CONTENT = {
           <h2 class="content-title">Tablet IPTV Einrichtung — App nach Paket wählen</h2>
           <p class="lead">Für jedes Paket die passende App: <strong>IBO Player Pro</strong>, <strong>ABC IPTV Player</strong> oder <strong>VS Player</strong>.</p>
           <h3>Unterstützte Apps</h3>
-          <p><strong><a href="/de/einrichtung/tablet-ibo-player">IBO Player Pro</a></strong> — Türkei-Pakete, App Store / Play Store.</p>
-          <p><strong><a href="/de/einrichtung/tablet-abc">ABC IPTV Player</a></strong> — Europa Standard, M3U-Playlist.</p>
-          <p><strong><a href="/de/einrichtung/tablet-vs-player">VS Player</a></strong> — Europa HD, Xtream & Stalker Portal.</p>
+          <p><strong><a href="/de/einrichtung/tablet-ibo-player/">IBO Player Pro</a></strong> — Türkei-Pakete, App Store / Play Store.</p>
+          <p><strong><a href="/de/einrichtung/tablet-abc/">ABC IPTV Player</a></strong> — Europa Standard, M3U-Playlist.</p>
+          <p><strong><a href="/de/einrichtung/tablet-vs-player/">VS Player</a></strong> — Europa HD, Xtream & Stalker Portal.</p>
         </div>
       `
     }

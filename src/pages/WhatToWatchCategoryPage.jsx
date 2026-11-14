@@ -78,7 +78,7 @@ const WhatToWatchCategoryPage = ({ siteData, slug: slugProp }) => {
   const similar = useMemo(() => getSimilarCategoriesTR(slug, 3), [slug]);
 
   if (!category) {
-    return <Navigate to="/ne-izlesem" replace />;
+    return <Navigate to="/ne-izlesem/" replace />;
   }
 
   const metadata = {
@@ -143,11 +143,11 @@ const WhatToWatchCategoryPage = ({ siteData, slug: slugProp }) => {
                     Ana sayfa
                   </Link>
                   <span className="text-white/20" aria-hidden>·</span>
-                  <Link to="/ne-izlesem" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
+                  <Link to="/ne-izlesem/" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
                     Ne İzlesem
                   </Link>
                   <span className="text-white/20" aria-hidden>·</span>
-                  <Link to="/paketler" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
+                  <Link to="/paketler/" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
                     IPTV paketleri
                   </Link>
                 </div>

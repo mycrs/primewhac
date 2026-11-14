@@ -27,7 +27,7 @@ const WhatToWatchPageDE = ({ siteData }) => {
 
   const metadata = {
     title: "Was soll ich schauen? Serien und Filme entdecken | QruzeTV",
-    description: "Türkische Serien, Blockbuster-Filme und Live-TV entdecken. Kuruluş Osman, Netflix-Hits und mehr — alle Inhalte in 4K mit QruzeTV IPTV streamen.",
+    description: "Türkische Serien, Blockbuster-Filme und Live-TV entdecken. Beliebte Serien-Highlights und mehr — alle Inhalte in 4K mit QruzeTV IPTV streamen.",
     keywords: ["Was soll ich schauen", "Filme", "Serien", "Streaming", "Empfehlungen", "IPTV"],
     ogType: "website"
   };
@@ -176,8 +176,8 @@ const WhatToWatchPageDE = ({ siteData }) => {
               Entdecke die besten Serien und Filme. Finde deinen nächsten Lieblingsinhalt ganz einfach.
             </p>
             <div className="mb-6 flex flex-wrap items-center justify-center gap-3 text-sm">
-              <Link to="/de" className="text-slate-300 underline-offset-4 hover:text-white hover:underline">Startseite</Link>
-              <Link to="/de/pakete" className="text-slate-300 underline-offset-4 hover:text-white hover:underline">IPTV Pakete</Link>
+              <Link to="/de/" className="text-slate-300 underline-offset-4 hover:text-white hover:underline">Startseite</Link>
+              <Link to="/de/pakete/" className="text-slate-300 underline-offset-4 hover:text-white hover:underline">IPTV Pakete</Link>
               <button type="button" onClick={() => setActiveTab('movie')} className="text-slate-300 underline-offset-4 hover:text-white hover:underline">Beliebte Filme</button>
               <button type="button" onClick={() => setActiveTab('tv')} className="text-slate-300 underline-offset-4 hover:text-white hover:underline">Beliebte Serien</button>
             </div>
@@ -288,12 +288,12 @@ const WhatToWatchPageDE = ({ siteData }) => {
               Machen Sie Schluss mit der endlosen Suche und der Frage "Was soll ich schauen?". Mit unserer fortschrittlichen Server-Technologie, Anti-Freeze-Funktion und einem gigantischen VOD- und Live-TV-Archiv bieten wir Ihnen unvergleichliches digitales Entertainment. Sport, Dokus, Kino, Kinderkanäle und vieles mehr – alles vereint in einem einzigen Abonnement.
             </p>
             <p className="premium-p-de mb-8">
-              Finden Sie jetzt die passende Lösung für Ihr Budget und Ihre Bedürfnisse. Besuchen Sie unsere <Link to="/de/paketler" className="premium-link-de">IPTV Pakete</Link>-Seite und verwandeln Sie Ihren Fernseher, Ihr Tablet oder Ihr Smartphone in das ultimative Entertainment-Center.
+              Finden Sie jetzt die passende Lösung für Ihr Budget und Ihre Bedürfnisse. Besuchen Sie unsere <Link to="/de/pakete/" className="premium-link-de">IPTV Pakete</Link>-Seite und verwandeln Sie Ihren Fernseher, Ihr Tablet oder Ihr Smartphone in das ultimative Entertainment-Center.
             </p>
 
             <div className="text-center mt-10">
               <Link 
-                to="/de/paketler" 
+                to="/de/pakete/" 
                 className="premium-btn-de"
               >
                 <Play className="w-5 h-5 fill-current" /> Pakete ansehen

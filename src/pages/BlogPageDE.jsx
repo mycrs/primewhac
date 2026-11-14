@@ -265,7 +265,7 @@ const BlogPageDE = ({ siteData }) => {
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {filteredPosts.map((post) => (
                   <article key={post.id}>
-                    <Link to={`/de/blog/${post.slug}`} className="block group h-full">
+                    <Link to={`/de/blog/${post.slug}/`} className="block group h-full">
                       <div className="bg-[#0a0a0a] rounded-2xl border border-[#262626] overflow-hidden h-full flex flex-col hover:border-[#e50914] hover:shadow-lg hover:shadow-[#e50914]/20 transition-all duration-300">
                          <BlogCardImage src={post.cover_image_url} alt={`Titelbild: ${post.title_de}`} />
                         <div className="p-6 flex flex-col flex-grow">
@@ -396,7 +396,7 @@ const BlogPageDE = ({ siteData }) => {
                 <p className="text-gray-300 italic text-lg mb-6">
                   "Wenn Sie unseren Technologie-Blog regelmäßig verfolgen, können Sie immer das Maximum aus Ihrem Entertainment-System herausholen und als Erster über neue Anwendungen und Hardware informiert sein."
                 </p>
-                <Link to="/de/einrichtung" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#e50914] hover:to-[#b20710] text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg hover:shadow-primary/25">
+                <Link to="/de/einrichtung/" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#e50914] hover:to-[#b20710] text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg hover:shadow-primary/25">
                   Zur Installationsanleitung <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>

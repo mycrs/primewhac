@@ -58,7 +58,7 @@ const HomeGeoSection = () => (
           QruzeTV&apos;de Türkiye ve Avrupa kullanıcıları için farklı paket seçenekleri bulunabilir.
           Paket seçimi yapılırken kullanım bölgesi, cihaz türü ve izlemek istenen yayın kategorileri
           dikkate alınmalıdır. Satın alma öncesinde{' '}
-          <Link to="/paketler" title="IPTV paket açıklamalarını inceleyin" className="text-primary hover:underline">
+          <Link to="/paketler/" title="IPTV paket açıklamalarını inceleyin" className="text-primary hover:underline">
             paket açıklamaları
           </Link>{' '}
           kontrol edilmelidir.

@@ -15,6 +15,8 @@ import {
 } from './data/installationDeviceHowToSteps.js';
 import { getTvBrandGuide, localizeTvBrandGuide } from './data/tvBrandGuides.js';
 import { SITE_URL } from './constants/siteUrl.js';
+import { APP_GUIDES_BASE, getAppGuide } from './data/appInstallationGuides.js';
+import { appGuideSchemas } from './utils/appGuideSchema.js';
 import {
   organizationSchema,
   webPageSchema,
@@ -687,6 +689,10 @@ export function getPrerenderJsonLdSchemas(route) {
         schemas = blogPostPrerenderSchemas(route, metadata, false);
       } else if (route.startsWith('/de/blog/')) {
         schemas = blogPostPrerenderSchemas(route, metadata, true);
+      } else if (route === APP_GUIDES_BASE || route.startsWith(`${APP_GUIDES_BASE}/`)) {
+        const slug = route.slice(APP_GUIDES_BASE.length + 1);
+        const guide = slug ? getAppGuide(slug) : null;
+        schemas = appGuideSchemas(guide, SITE_URL);
       } else if (route.startsWith('/kurulum/')) {
         const slug = route.replace('/kurulum/', '');
         schemas = devicePageSchemas(route, slug, false);

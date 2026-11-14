@@ -1,5 +1,6 @@
 import React from 'react';
 import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { MapPin, Check, Globe } from 'lucide-react';
 
@@ -23,7 +24,7 @@ const DE = {
   notInTurkey: 'Ich lebe nicht in der Türkei',
 };
 
-const LivingRegionSelect = ({ value, onChange, lang = 'tr', isTest = true }) => {
+const LivingRegionSelect = ({ value, onChange, country = '', onCountryChange, lang = 'tr', isTest = true }) => {
   const t = lang === 'de' ? DE : TR;
   const accentClass = isTest
     ? 'border-green-500 shadow-[0_0_10px_-4px_rgba(34,197,94,0.5)]'
@@ -85,6 +86,14 @@ const LivingRegionSelect = ({ value, onChange, lang = 'tr', isTest = true }) => 
           </span>
         </button>
       </div>
+      {value === 'not_in_turkey' && onCountryChange && (
+        <div className="space-y-1.5 pt-1">
+          <Label htmlFor="living-country" className="text-xs font-semibold text-slate-300">
+            {lang === 'de' ? 'In welchem Land leben Sie?' : 'Hangi ülkede yaşıyorsunuz?'} <span className="text-red-500">*</span>
+          </Label>
+          <Input id="living-country" value={country} onChange={(event) => onCountryChange(event.target.value)} maxLength={80} autoComplete="country-name" placeholder={lang === 'de' ? 'z. B. Deutschland' : 'Örn. Almanya'} className="h-11 border-slate-700 bg-[#0a0a0a] text-base text-white" />
+        </div>
+      )}
     </div>
   );
 };
@@ -92,14 +101,16 @@ const LivingRegionSelect = ({ value, onChange, lang = 'tr', isTest = true }) => 
 export default LivingRegionSelect;
 
 /** WhatsApp mesajına eklenecek satırı döndürür (TR/DE). */
-export const getLivingRegionWhatsAppLine = (value, lang) => {
+export const isLivingRegionComplete = (value, country) => Boolean(value && (value !== 'not_in_turkey' || country?.trim()));
+
+export const getLivingRegionWhatsAppLine = (value, lang, country = '') => {
   if (!value || (value !== 'in_turkey' && value !== 'not_in_turkey')) return '';
   if (lang === 'de') {
     return value === 'in_turkey'
       ? 'Wohnortinfo: Ich lebe in der Türkei.'
-      : 'Wohnortinfo: Ich lebe nicht in der Türkei.';
+      : `Wohnortinfo: ${country.trim() || 'Außerhalb der Türkei'}.`;
   }
   return value === 'in_turkey'
     ? "Yaşam bilgim: Türkiye'de yaşıyorum."
-    : "Yaşam bilgim: Türkiye'de yaşamıyorum.";
+    : `Yaşadığım ülke: ${country.trim() || "Türkiye dışında"}.`;
 };

@@ -15,8 +15,8 @@ const GuidePage = ({ siteData }) => {
   const safeSiteData = siteData || defaultData;
   
   const metadata = {
-    title: "IPTV İzleme Rehberi | Kurulum ve Kullanım Kılavuzu",
-    description: "IPTV nasıl izlenir? Adım adım kurulum rehberi, cihaz ayarları ve kullanım ipuçları. Tüm cihazlarda IPTV kullanımı öğren.",
+    title: "IPTV İzleme Rehberi 2026: Başlangıç ve Kullanım Kılavuzu | QruzeTV",
+    description: "IPTV nedir, nasıl izlenir? Sıfırdan IPTV kurulumu, donmasız yayın için hız gereksinimleri ve pratik cihaz ayarları rehberi.",
     keywords: ["IPTV izleme rehberi", "IPTV nasıl izlenir", "IPTV kurulum rehberi", "IPTV cihaz kurulumu", "IPTV kullanım kılavuzu"],
   };
 

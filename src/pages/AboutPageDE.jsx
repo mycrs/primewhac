@@ -9,7 +9,7 @@ import WhyChooseUsSectionDE from '@/components/WhyChooseUsSectionDE';
 
 const AboutPageDE = ({ siteData }) => {
   const metadata = {
-    title: "Premium IPTV Anbieter Deutschland - Stabile & 4K IPTV Services",
+    title: "Über uns: Premium IPTV Anbieter Deutschland | QruzeTV",
     description: "Als führender Premium IPTV Anbieter Deutschland bieten wir stabile IPTV Verbindungen und 4K IPTV Service. Ihr Experte, wenn Sie IPTV kaufen Deutschland möchten.",
     keywords: ["Premium IPTV Anbieter Deutschland", "stabile IPTV", "4K IPTV Service", "IPTV kaufen Deutschland", "IPTV Europa", "QruzeTV"],
     ogType: "website"
@@ -137,7 +137,7 @@ const AboutPageDE = ({ siteData }) => {
                 <p className="text-lg text-gray-300 leading-relaxed mb-8 max-w-3xl mx-auto">
                     Bereit für das ultimative Fernseherlebnis? Vertrauen Sie unserem Premium IPTV Service in Deutschland für garantierte stabile IPTV Übertragungen und einen atemberaubenden 4K IPTV Service, der all Ihre Erwartungen übertreffen wird. Der Kauf eines IPTV-Abos in Deutschland war noch nie so einfach, sicher und absolut zuverlässig wie heute. Schließen Sie sich jetzt unseren Tausenden rundum zufriedener Kunden an und revolutionieren Sie Ihr tägliches Entertainment-Erlebnis noch heute mit der besten Qualität auf dem gesamten Markt!
                 </p>
-                <Link to="/de/pakete" className="inline-block px-8 py-4 bg-primary hover:bg-primary text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/50">
+                <Link to="/de/pakete/" className="inline-block px-8 py-4 bg-primary hover:bg-primary text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg shadow-primary/50">
                     Premium Pakete entdecken
                 </Link>
             </motion.div>

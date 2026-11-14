@@ -97,7 +97,7 @@ const HomePageSeoContentDE = ({ siteData }) => {
               <p className="text-sm text-slate-300 mb-4 font-light leading-relaxed">
                 Nutzbar mit gängigen Apps wie IBO Player, Smart IPTV oder Nanomid ohne zusätzliche Receiver-Hardware direkt über die TV-Fernbedienung.
               </p>
-              <Link to="/de/setup/smart-tv" className="text-xs font-semibold text-primary hover:underline">
+              <Link to="/de/einrichtung/smart-tv/" className="text-xs font-semibold text-primary hover:underline">
                 Smart TV Anleitung →
               </Link>
             </div>
@@ -107,7 +107,7 @@ const HomePageSeoContentDE = ({ siteData }) => {
               <p className="text-sm text-slate-300 mb-4 font-light leading-relaxed">
                 TiviMate, IPTV Smarters Pro oder XCIPTV bieten übersichtliche Senderfavoriten, EPG-Programmvorschau und schnelle Umschaltzeiten.
               </p>
-              <Link to="/de/setup" className="text-xs font-semibold text-primary hover:underline">
+              <Link to="/de/einrichtung/" className="text-xs font-semibold text-primary hover:underline">
                 Fire TV & Android Anleitung →
               </Link>
             </div>
@@ -117,7 +117,7 @@ const HomePageSeoContentDE = ({ siteData }) => {
               <p className="text-sm text-slate-300 mb-4 font-light leading-relaxed">
                 GSE Smart IPTV oder IPTVX bieten im Apple-Ökosystem flüssige 4K-Wiedergabe und vollständige AirPlay-Kompatibilität.
               </p>
-              <Link to="/de/setup/apple-tv" className="text-xs font-semibold text-primary hover:underline">
+              <Link to="/de/einrichtung/apple-tv/" className="text-xs font-semibold text-primary hover:underline">
                 Apple TV Anleitung →
               </Link>
             </div>
@@ -159,10 +159,10 @@ const HomePageSeoContentDE = ({ siteData }) => {
                 Haben Sie Fragen zur Kompatibilität Ihres Fernsehers? Schreiben Sie unserem Support-Team.
               </p>
               <Link
-                to="/de/kontakt"
+                to="/de/pakete/"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-sm font-semibold transition-all border border-white/15"
               >
-                <span>Kontakt aufnehmen</span>
+                <span>Pakete & Beratung</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

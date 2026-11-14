@@ -344,7 +344,7 @@ const PremiumHero = ({ siteData, mainTitle, subTitle }) => {
         className="mb-6 flex w-full max-w-xl flex-col gap-4 md:mb-8 md:max-w-none md:flex-row md:flex-wrap md:justify-start md:gap-4 lg:gap-5 mx-auto md:mx-0"
       >
         <Link
-          to="/paketler"
+          to="/paketler/"
           title="IPTV paketlerini ve fiyatlarını inceleyin"
           onClick={() => trackCtaClick('hero_packages', 'premium_hero')}
           className="group w-full min-w-0 md:w-auto"
@@ -371,7 +371,7 @@ const PremiumHero = ({ siteData, mainTitle, subTitle }) => {
           className="relative h-auto min-h-14 w-full items-start justify-start overflow-hidden whitespace-normal rounded-2xl border-2 border-[#e50914]/50 bg-gradient-to-br from-[#e50914]/40 via-[#b20710]/30 to-[#b20710]/25 px-5 py-3.5 text-sm font-semibold leading-snug text-white shadow-[0_0_44px_rgba(229,9,20,0.45),0_0_24px_rgba(229,9,20,0.2),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-md transition-all duration-300 hover:scale-[1.02] hover:border-[#e50914]/70 hover:from-[#e50914]/50 hover:via-[#e50914]/40 hover:to-[#b20710]/35 hover:shadow-[0_0_56px_rgba(229,9,20,0.55),0_0_36px_rgba(229,9,20,0.35)] md:px-6 md:text-[0.9375rem] group min-w-0 md:w-auto md:max-w-[min(100%,320px)] lg:max-w-[24rem] xl:max-w-none"
         >
           <Link
-            to="/yorumlar#musteriler-ne-dusunuyor"
+            to="/yorumlar/#musteriler-ne-dusunuyor"
             title="Doğrulanmış müşteri yorumlarını inceleyin"
             onClick={() => trackCtaClick('hero_reviews', 'premium_hero')}
             className="flex w-full min-w-0"

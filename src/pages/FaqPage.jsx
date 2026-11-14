@@ -301,26 +301,26 @@ const FaqPage = ({ siteData }) => {
                   </p>
                   <div className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-4">
                     <Link
-                      to="/paketler"
+                      to="/paketler/"
                       className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#b20710] hover:to-[#b20710] shadow-xl shadow-primary/30 hover:shadow-primary/40 transition-all hover:scale-[1.02]"
                     >
                       Paketleri incele <ArrowRight className="w-5 h-5" />
                     </Link>
                     <Link
-                      to="/kurulum"
+                      to="/kurulum/"
                       className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
                     >
                       Kurulum rehberi
                     </Link>
                     <Link
-                      to="/test"
+                      to="/test/"
                       className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
                     >
                       Ücretsiz test
                     </Link>
                     {/* wa.me CTA'sı kaldırıldı — numara statik HTML'de açıkta kalıyordu. */}
                     <Link
-                      to="/paketler"
+                      to="/paketler/"
                       className="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
                     >
                       <MessageCircle className="w-5 h-5 text-[#e50914]" />

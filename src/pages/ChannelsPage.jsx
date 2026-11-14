@@ -139,7 +139,7 @@ const ChannelsPage = ({ siteData }) => {
                     Hemen Ücretsiz Test Et
                   </Button>
 
-                  <Link to="/paketler" className="w-full sm:w-auto">
+                  <Link to="/paketler/" className="w-full sm:w-auto">
                     <Button 
                       variant="outline"
                       size="lg"

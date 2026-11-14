@@ -67,8 +67,8 @@ const SitemapPage = ({ siteData }) => {
   const { contactData, siteTexts } = siteData;
 
   const metadata = seoMetadata?.sitemap || {
-    title: 'Site Haritası',
-    description: 'Tüm sayfalar',
+    title: 'Site Haritası | QruzeTV',
+    description: 'QruzeTV web sitesi tüm sayfalar, rehberler ve kategori haritası.',
     keywords: [],
     ogType: 'website',
     ogImage: '',

@@ -16,10 +16,13 @@ import DeviceSelectionStep from '@/components/test-page/DeviceSelectionStep';
 import AppSelectionStep from '@/components/test-page/AppSelectionStep';
 import TestFormDetailsStep from '@/components/test-page/TestFormDetailsStep';
 import TestFormSummary from '@/components/test-page/TestFormSummary';
+import LivingRegionSelect, { getLivingRegionWhatsAppLine, isLivingRegionComplete } from '@/components/LivingRegionSelect';
 
 const TestPageDE = ({ siteData }) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
+  const [livingRegion, setLivingRegion] = useState('');
+  const [livingCountry, setLivingCountry] = useState('');
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [selectedApp, setSelectedApp] = useState(null);
   const [formData, setFormData] = useState({ username: '', special_note: '' });
@@ -46,17 +49,20 @@ const TestPageDE = ({ siteData }) => {
   };
 
   const handleSubmit = async () => {
+    if (!isLivingRegionComplete(livingRegion, livingCountry)) return;
     const tvBrandInfo = formData.tv_brand ? ` (${formData.tv_brand})` : '';
+    const livingRegionMessage = getLivingRegionWhatsAppLine(livingRegion, 'de', livingCountry);
     const requestData = {
       username: formData.username,
       device: selectedDevice?.name + tvBrandInfo,
       app: selectedApp?.name,
-      note: formData.special_note
+      note: formData.special_note,
+      livingRegionMessage,
     };
 
     const dbData = {
       username: formData.username,
-      special_note: formData.special_note,
+      special_note: [livingRegionMessage, formData.special_note].filter(Boolean).join('\n'),
       device_type: selectedDevice?.name + tvBrandInfo,
       app_name: selectedApp?.name,
       status: 'pending'
@@ -136,6 +142,10 @@ const TestPageDE = ({ siteData }) => {
                     </p>
                 </div>
 
+                <div className="mb-8 max-w-xl mx-auto rounded-2xl border border-slate-800/80 bg-[#0a0a0a]/30 p-4 sm:p-5">
+                    <LivingRegionSelect value={livingRegion} onChange={setLivingRegion} country={livingCountry} onCountryChange={setLivingCountry} lang="de" isTest />
+                </div>
+
                 <div className="mb-12 max-w-xl mx-auto">
                     <div className="text-center mb-8">
                         <h2 className="text-2xl font-bold text-white mb-2">Welches Gerät verwenden Sie? - IPTV Test Deutschland</h2>
@@ -200,6 +210,9 @@ const TestPageDE = ({ siteData }) => {
                                     onEditStep={(s) => setStep(s)}
                                     onSubmit={handleSubmit}
                                     loading={loading}
+                                    livingRegionRequired
+                                    livingRegion={livingRegion}
+                                    livingCountry={livingCountry}
                                 />
                             )}
                         </motion.div>

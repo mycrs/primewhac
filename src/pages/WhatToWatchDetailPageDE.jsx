@@ -138,8 +138,8 @@ const WhatToWatchDetailPageDE = ({ siteData }) => {
 
       <main className="container mx-auto px-4 -mt-32 md:-mt-48 relative z-10 pb-20">
         <div className="mb-6 flex flex-wrap items-center gap-4 text-sm text-slate-400">
-          <Link to="/de" className="hover:text-white hover:underline">Startseite</Link>
-          <Link to="/de/was-soll-ich-schauen" className="hover:text-white hover:underline">Was soll ich schauen</Link>
+          <Link to="/de/" className="hover:text-white hover:underline">Startseite</Link>
+          <Link to="/de/was-soll-ich-schauen/" className="hover:text-white hover:underline">Was soll ich schauen</Link>
           <button type="button" onClick={() => navigate(`/de/was-soll-ich-schauen?tab=${type}`)} className="hover:text-white hover:underline">
             {type === 'tv' ? 'Serien' : 'Filme'}
           </button>
@@ -152,10 +152,10 @@ const WhatToWatchDetailPageDE = ({ siteData }) => {
           {/* Poster & Actions */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-64 md:w-80 shrink-0 mx-auto lg:mx-0">
             <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-800 bg-[#0a0a0a]">
-              <img src={buildImageUrl(poster_path, 'w500')} alt={`${displayTitle} posteri`} className="w-full" loading="eager" fetchpriority="high" decoding="async" />
+              <img src={buildImageUrl(poster_path, 'w500')} alt={`${displayTitle} Poster`} className="w-full" loading="eager" fetchpriority="high" decoding="async" />
             </div>
             <div className="mt-6 space-y-3">
-              <Button onClick={() => navigate('/de/paketler')} className="w-full bg-primary hover:bg-primary h-12 rounded-xl text-base font-bold shadow-lg shadow-primary/20">
+              <Button onClick={() => navigate('/de/pakete/')} className="w-full bg-primary hover:bg-primary h-12 rounded-xl text-base font-bold shadow-lg shadow-primary/20">
                 <Tv className="w-5 h-5 mr-2" /> Streaming-Pakete ansehen
               </Button>
               <p className="text-[11px] text-slate-500 mt-2 text-center leading-relaxed font-light">
@@ -199,8 +199,8 @@ const WhatToWatchDetailPageDE = ({ siteData }) => {
                 <h2 className="text-2xl font-bold mb-4 flex items-center gap-2"><Film className="w-5 h-5 text-pink-500" /> Beschreibung</h2>
                 <p className="text-slate-300 leading-relaxed text-lg">{overview || 'Keine Beschreibung für diesen Inhalt verfügbar.'}</p>
                 <div className="mt-4 flex flex-wrap gap-3 text-sm">
-                  <Link to="/de/pakete" className="text-pink-300 hover:text-white hover:underline">IPTV Pakete</Link>
-                  <Link to="/de/was-soll-ich-schauen" className="text-pink-300 hover:text-white hover:underline">Alle Inhalte</Link>
+                  <Link to="/de/pakete/" className="text-pink-300 hover:text-white hover:underline">IPTV Pakete</Link>
+                  <Link to="/de/was-soll-ich-schauen/" className="text-pink-300 hover:text-white hover:underline">Alle Inhalte</Link>
                 </div>
               </div>
 

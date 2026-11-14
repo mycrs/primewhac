@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useWhatsAppIntegration } from '@/hooks/useWhatsAppIntegration';
-import { getLivingRegionWhatsAppLine } from '@/components/LivingRegionSelect';
+import { getLivingRegionWhatsAppLine, isLivingRegionComplete } from '@/components/LivingRegionSelect';
 import { isAbroadLivingRegion } from '@/utils/turkeyPackageWhatsAppGate';
 import { toast } from '@/components/ui/use-toast';
 import TestSummaryDisplay from './TestSummaryDisplay';
 import TurkeyPackageWhatsAppWarningDialog from '@/components/packages/TurkeyPackageWhatsAppWarningDialog';
 
-const TestSummary = ({ formData, selectedDevice, selectedApp, livingRegion, lang = 'tr', onEditStep, onSuccess }) => {
+const TestSummary = ({ formData, selectedDevice, selectedApp, livingRegion, livingCountry, lang = 'tr', onEditStep, onSuccess }) => {
   const { redirectToWhatsApp } = useWhatsAppIntegration();
-  const livingRegionMessage = getLivingRegionWhatsAppLine(livingRegion, lang);
+  const livingRegionMessage = getLivingRegionWhatsAppLine(livingRegion, lang, livingCountry);
   const [trWarningOpen, setTrWarningOpen] = useState(false);
   const isTrLang = lang === 'tr';
 
@@ -79,7 +79,7 @@ const TestSummary = ({ formData, selectedDevice, selectedApp, livingRegion, lang
        <div className="shrink-0 border-t border-slate-800/50 bg-[#0a0a0a] pt-3 pb-[max(0.35rem,env(safe-area-inset-bottom))]">
             <Button 
                 onClick={requestWhatsApp}
-                disabled={!livingRegion}
+                disabled={!isLivingRegionComplete(livingRegion, livingCountry)}
                 className="h-12 w-full rounded-xl bg-gradient-to-r from-green-600 to-[#b20710] text-base font-bold text-white shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all hover:from-green-500 hover:to-[#b20710] hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 sm:h-14 sm:text-lg"
             >
                 WhatsApp ile İste <ArrowRight className="ml-2 h-5 w-5" />

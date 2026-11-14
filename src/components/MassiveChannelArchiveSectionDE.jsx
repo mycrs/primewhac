@@ -132,7 +132,7 @@ const MassiveChannelArchiveSectionDE = ({ title }) => {
           className="text-center"
         >
           <Link 
-            to="/de/kanale"
+            to="/de/kanale/"
             title="Alle Kanäle nach Kategorie und Land ansehen"
             className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#e50914] to-[#b20710] hover:from-[#f40612] hover:to-[#c30813] text-white font-bold py-4 px-10 rounded-2xl shadow-[0_12px_40px_rgba(229,9,20,0.3)] hover:shadow-[0_16px_50px_rgba(229,9,20,0.45)] transition-all duration-300 text-base md:text-lg group"
           >

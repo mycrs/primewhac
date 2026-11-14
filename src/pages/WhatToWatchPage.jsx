@@ -168,7 +168,7 @@ const WhatToWatchPage = ({ siteData }) => {
                   <span className="text-white/20" aria-hidden>
                     ·
                   </span>
-                  <Link to="/paketler" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
+                  <Link to="/paketler/" className="text-white/55 underline-offset-4 transition-colors hover:text-white hover:underline">
                     IPTV paketleri
                   </Link>
                   <span className="text-white/20" aria-hidden>
@@ -344,7 +344,7 @@ const WhatToWatchPage = ({ siteData }) => {
                 </p>
                 <p className="mb-8 text-left text-base leading-relaxed text-slate-300/95">
                   Hemen şimdi bütçenize ve ihtiyaçlarınıza en uygun çözümü bulmak için detaylı olarak hazırladığımız{' '}
-                  <Link to="/paketler" className="font-semibold text-white underline underline-offset-2 transition-colors hover:text-white">
+                  <Link to="/paketler/" className="font-semibold text-white underline underline-offset-2 transition-colors hover:text-white">
                     IPTV paketleri
                   </Link>{' '}
                   sayfamızı ziyaret edin. Sizin için hazırladığımız özel paketlerimiz ile televizyonunuzu, tabletinizi veya akıllı telefonunuzu eksiksiz bir eğlence merkezine dönüştürebilirsiniz.
@@ -352,7 +352,7 @@ const WhatToWatchPage = ({ siteData }) => {
 
                 <div className="mt-10 text-center">
                   <Link
-                    to="/paketler"
+                    to="/paketler/"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#e50914,#b20710)] px-8 py-3.5 text-base font-bold text-white shadow-[0_4px_22px_rgba(229,9,20,0.42),0_0_28px_rgba(229,9,20,0.28)] ring-1 ring-[#e50914]/30 transition-transform hover:scale-[1.02] hover:shadow-[0_6px_30px_rgba(229,9,20,0.5)]"
                   >
                     <Play className="h-5 w-5 fill-current" /> Paketleri İncele

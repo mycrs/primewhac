@@ -14,6 +14,7 @@ const TestModalContent = ({ onClose }) => {
   const isDe = location.pathname.startsWith('/de');
   const [step, setStep] = useState(0);
   const [livingRegion, setLivingRegion] = useState('');
+  const [livingCountry, setLivingCountry] = useState('');
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [selectedApp, setSelectedApp] = useState(null);
   const [formData, setFormData] = useState({ username: '', special_note: '' });
@@ -96,6 +97,8 @@ const TestModalContent = ({ onClose }) => {
             <LivingRegionSelect
               value={livingRegion}
               onChange={setLivingRegion}
+              country={livingCountry}
+              onCountryChange={setLivingCountry}
               lang={isDe ? 'de' : 'tr'}
               isTest={true}
             />
@@ -136,6 +139,7 @@ const TestModalContent = ({ onClose }) => {
                     selectedDevice={selectedDevice}
                     selectedApp={selectedApp}
                     livingRegion={livingRegion}
+                    livingCountry={livingCountry}
                     lang={isDe ? 'de' : 'tr'}
                     onEditStep={(s) => setStep(s)}
                     onSuccess={onClose}

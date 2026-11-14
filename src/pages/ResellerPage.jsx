@@ -36,7 +36,7 @@ const ResellerPage = ({ siteData }) => {
     });
   
   const metadata = {
-    title: "IPTV Bayilik (Reseller) Programı | Kendi İşinizi Kurun",
+    title: "IPTV Bayilik (Reseller) Programı: Kendi İşinizi Kurun | QruzeTV",
     description: "IPTV bayilik (reseller) programımızla kendi işinizi kurun. En gelişmiş kontrol paneli ve yüksek kazanç oranları ile hemen başlayın.",
     keywords: ["iptv bayilik", "iptv reseller", "iptv panel satışı", "iptv bayilik fiyatları", "iptv iş ortaklığı"],
     ogType: "website",

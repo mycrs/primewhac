@@ -37,8 +37,8 @@ const HomePageDE = ({ siteData }) => {
   
   const metadata = {
     // prerenderSeo.js '/de' girişiyle birebir aynı — hydrate sonrası title/description değişmemeli
-    title: "IPTV Deutschland 2026 — Türkische Sender & Test | QruzeTV",
-    description: "Türkische Sender per IPTV in Deutschland: auf Smart TV, Fire TV und Mobilgeräten in HD/4K streamen. QruzeTV jetzt kostenlos testen.",
+    title: "IPTV Deutschland 2026 — Premium 4K Anbieter & Test | QruzeTV",
+    description: "Premium IPTV in Deutschland, Österreich & Schweiz: 10.000+ Live-Sender, Sport & VOD in 4K/FHD. Kompatibel mit Smart TV, Fire TV & iOS. Jetzt kostenlos testen!",
     keywords: ["IPTV Deutschland", "IPTV kaufen", "Premium IPTV Anbieter", "4K IPTV", "Stabile IPTV", "IPTV ohne Unterbrechung", "IPTV test"],
     ogType: "website",
   };
@@ -57,8 +57,8 @@ const HomePageDE = ({ siteData }) => {
           <ErrorBoundary onRetry={handleRetry}>
             <PremiumHeroDE
               siteData={safeSiteData}
-              mainTitle="IPTV Deutschland 2026 – türkische Sender kostenlos testen"
-              subTitle="Smart TV, Fire TV, Mobilgeräte und deutschsprachiger Support"
+              mainTitle="IPTV Deutschland 2026 – 4K Streaming & Live-TV kostenlos testen"
+              subTitle="Smart TV, Fire TV, Apple & Android – 10.000+ Sender, Sport & deutschsprachiger Support"
             />
           </ErrorBoundary>
 
@@ -109,7 +109,7 @@ const HomePageDE = ({ siteData }) => {
                 <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
                   {/* Bento Tile 1: Film & Serienarchiv */}
                   <Link
-                    to="/de/was-soll-ich-schauen"
+                    to="/de/was-soll-ich-schauen/"
                     className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#16161d] via-[#0d0d12] to-[#070709] p-8 md:p-10 transition-all duration-500 hover:border-[#e50914]/60 hover:shadow-[0_20px_60px_rgba(229,9,20,0.25)] hover:-translate-y-1 flex flex-col justify-between min-h-[320px]"
                   >
                     <div className="pointer-events-none absolute -right-12 -top-12 h-64 w-64 rounded-full bg-gradient-to-br from-[#e50914]/20 via-[#b20710]/5 to-transparent blur-3xl group-hover:from-[#e50914]/35 transition-all duration-500" />
@@ -147,7 +147,7 @@ const HomePageDE = ({ siteData }) => {
 
                   {/* Bento Tile 2: Einrichtungsstation */}
                   <Link
-                    to="/de/einrichtung"
+                    to="/de/einrichtung/"
                     className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#16161d] via-[#0d0d12] to-[#070709] p-8 md:p-10 transition-all duration-500 hover:border-emerald-500/60 hover:shadow-[0_20px_60px_rgba(16,185,129,0.2)] hover:-translate-y-1 flex flex-col justify-between min-h-[320px]"
                   >
                     <div className="pointer-events-none absolute -right-12 -top-12 h-64 w-64 rounded-full bg-gradient-to-br from-emerald-500/20 via-emerald-950/5 to-transparent blur-3xl group-hover:from-emerald-500/35 transition-all duration-500" />

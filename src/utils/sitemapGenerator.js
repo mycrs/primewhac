@@ -12,7 +12,9 @@ import {
   kurulumSitemapEntriesFromSlugs,
 } from './seoRouteRegistry.js';
 import { TV_BRAND_GUIDE_SLUGS } from '../data/tvBrandGuides.js';
+import { APP_GUIDES, APP_GUIDES_BASE } from '../data/appInstallationGuides.js';
 import { isBrandRiskBlogSlug } from '../constants/brandRiskBlogSlugs.js';
+import { BLOG_TRANSLATIONS_DE } from '../data/staticBlogTranslationsDE.js';
 
 const baseUrlNorm = (baseUrl) => (baseUrl || '').replace(/\/+$/, '');
 
@@ -106,6 +108,8 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
     { loc: '/ne-izlesem/imdb-yuksek-filmler', changefreq: 'weekly' },
     { loc: '/mac-programi', changefreq: 'daily' },
     { loc: '/kurulum', changefreq: 'weekly' },
+    { loc: APP_GUIDES_BASE, changefreq: 'monthly' },
+    ...APP_GUIDES.map((guide) => ({ loc: `${APP_GUIDES_BASE}/${guide.slug}`, changefreq: 'monthly' })),
     { loc: '/kurulum/android-tv', changefreq: 'weekly' },
     { loc: '/kurulum/ios', changefreq: 'weekly' },
     { loc: '/kurulum/ios-next-plus', changefreq: 'weekly' },
@@ -234,34 +238,60 @@ export const generateSitemapXml = async (baseUrl = DEFAULT_SITEMAP_BASE, options
 
     const { data: posts, error } = queryResult;
 
+    const postMap = new Map();
     if (!error && posts?.length) {
-      posts.forEach((post) => {
-        if (!post.slug) return;
-        // Telif/marka riski nedeniyle yayından kaldırılanlar: DB henüz temizlenmemiş
-        // olsa bile sitemap'e girmesin.
-        if (isBrandRiskBlogSlug(post.slug)) return;
-        if (plainTextLengthFromHtml(post.content) < MIN_CONTENT_THRESHOLD) return;
-        let lastModDate = null;
-        const u = post.updated_at ? new Date(post.updated_at).getTime() : 0;
-        const p = post.published_at ? new Date(post.published_at).getTime() : 0;
-        const c = post.created_at ? new Date(post.created_at).getTime() : 0;
-        const best = Math.max(u, p, c);
-        if (best > 0) {
-          lastModDate = new Date(best).toISOString().split('T')[0];
-        }
+      posts.forEach((p) => {
+        if (p?.slug) postMap.set(p.slug, { ...p });
+      });
+    }
 
-        const trPath = `/blog/${post.slug}`;
-        const lineTr = tryAppendUrl(trPath, lastModDate);
-        if (lineTr) xml += `\n${lineTr}`;
-        const hasGermanTranslation =
-          typeof post.title_de === 'string' && post.title_de.trim().length > 0 &&
-          plainTextLengthFromHtml(post.content_de) >= MIN_CONTENT_THRESHOLD;
-        if (hasGermanTranslation) {
-          const lineDe = tryAppendUrl(`/de/blog/${post.slug}`, lastModDate, { forceIndex: true });
-          if (lineDe) xml += `\n${lineDe}`;
+    if (BLOG_TRANSLATIONS_DE) {
+      Object.entries(BLOG_TRANSLATIONS_DE).forEach(([slug, trans]) => {
+        const existing = postMap.get(slug);
+        if (existing) {
+          existing.title_de = existing.title_de || trans.title_de;
+          existing.content_de = existing.content_de || trans.content_de;
+        } else {
+          postMap.set(slug, {
+            slug,
+            updated_at: new Date().toISOString(),
+            content: trans.content_de,
+            title_de: trans.title_de,
+            content_de: trans.content_de,
+          });
         }
       });
     }
+
+    postMap.forEach((post) => {
+      if (!post.slug) return;
+      // Telif/marka riski nedeniyle yayından kaldırılanlar: DB henüz temizlenmemiş
+      // olsa bile sitemap'e girmesin.
+      if (isBrandRiskBlogSlug(post.slug)) return;
+
+      let lastModDate = null;
+      const u = post.updated_at ? new Date(post.updated_at).getTime() : 0;
+      const p = post.published_at ? new Date(post.published_at).getTime() : 0;
+      const c = post.created_at ? new Date(post.created_at).getTime() : 0;
+      const best = Math.max(u, p, c);
+      if (best > 0) {
+        lastModDate = new Date(best).toISOString().split('T')[0];
+      }
+
+      if (plainTextLengthFromHtml(post.content) >= MIN_CONTENT_THRESHOLD) {
+        const trPath = `/blog/${post.slug}`;
+        const lineTr = tryAppendUrl(trPath, lastModDate);
+        if (lineTr) xml += `\n${lineTr}`;
+      }
+
+      const hasGermanTranslation =
+        typeof post.title_de === 'string' && post.title_de.trim().length > 0 &&
+        plainTextLengthFromHtml(post.content_de) >= MIN_CONTENT_THRESHOLD;
+      if (hasGermanTranslation) {
+        const lineDe = tryAppendUrl(`/de/blog/${post.slug}`, lastModDate, { forceIndex: true });
+        if (lineDe) xml += `\n${lineDe}`;
+      }
+    });
   } catch (err) {
     console.error('Sitemap generation exception (Blog Posts):', err);
   }

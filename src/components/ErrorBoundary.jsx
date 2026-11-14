@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { checkOnlineStatus } from '@/utils/networkConnectivity';
 import { isDynamicImportError } from '@/utils/lazyWithRetry';
+import { attemptChunkErrorRecovery, clearChunkReloadGuard } from '@/utils/chunkErrorRecovery';
 
 function resolveLocale(propLocale) {
   if (propLocale === 'de' || propLocale === 'tr') return propLocale;
@@ -44,7 +45,15 @@ class ErrorBoundary extends React.Component {
     console.error('[ErrorBoundary] Caught error:', error);
     if (error?.stack) console.error('[ErrorBoundary] error.stack:', error.stack);
     console.error('[ErrorBoundary] componentStack:', errorInfo?.componentStack);
-    this.setState({ errorInfo, isOffline: !checkOnlineStatus() });
+
+    // Chunk/dinamik import hatası → kullanıcıyı beklemeden kendini iyileştir.
+    // Döngü koruması chunkErrorRecovery içinde (60 sn'de max 2 deneme).
+    if (isDynamicImportError(error) && attemptChunkErrorRecovery()) {
+      this.setState({ errorInfo, isOffline: false, recovering: true });
+      return; // Sayfa yeniden yükleniyor; hata ekranı yerine "yenileniyor" göster.
+    }
+
+    this.setState({ errorInfo, isOffline: !checkOnlineStatus(), recovering: false });
   }
 
   handleReload = () => {
@@ -57,6 +66,8 @@ class ErrorBoundary extends React.Component {
     // Eski HTML artık bulunmayan bir chunk'a bakıyorsa güncel asset listesini al.
     // Supabase oturumu localStorage'da kaldığı için bu işlem çıkış yapmaz.
     if (isDynamicImportError(this.state.error)) {
+      // Kullanıcı bilerek "Tekrar Dene"ye bastı → otomatik-sayaç kilidini temizle.
+      clearChunkReloadGuard();
       const url = new URL(window.location.href);
       url.searchParams.set('__app_reload', Date.now().toString());
       window.location.replace(url.toString());
@@ -73,6 +84,20 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
+      // Otomatik kurtarma tetiklendi — sayfa yeniden yükleniyor.
+      if (this.state.recovering) {
+        return (
+          <div className="min-h-[50vh] flex items-center justify-center p-6 w-full">
+            <div className="flex flex-col items-center gap-3 text-slate-400 text-sm">
+              <RefreshCw className="w-6 h-6 animate-spin text-orange-500" />
+              {resolveLocale(this.props.locale) === 'de'
+                ? 'Seite wird aktualisiert…'
+                : 'Sayfa güncelleniyor…'}
+            </div>
+          </div>
+        );
+      }
+
       const locale = resolveLocale(this.props.locale);
       const t = COPY[locale];
       const isNetworkError = this.state.isOffline || this.state.error?.message?.toLowerCase().includes('fetch');
