@@ -335,16 +335,6 @@ const STATIC_SEO = {
     'IPTV Anleitung | Einrichtung und Nutzung auf Deutsch',
     'IPTV einrichten und nutzen: Geräte-Anleitungen, Stabilitäts-Tipps und Support-Ressourcen für Deutschland.'
   ),
-  '/mac-programi': buildSeo(
-    '/mac-programi',
-    'Maç Programı — Günlük Fikstür ve Saatler | QruzeTV',
-    'Erfahren Sie mehr über QruzeTV, den Kundenservice, Gerätehilfen und die Grundsätze für ein transparentes IPTV-Angebot.'
-  ),
-  '/de/spielplan': buildSeo(
-    '/de/spielplan',
-    'Spielplan — Tagesfixture & Anstoßzeiten | QruzeTV',
-    'Aktueller Spielplan: Tagesfixture, Anstoßzeiten und Partienübersicht auf einen Blick.'
-  ),
   '/ne-izlesem': buildSeo(
     '/ne-izlesem',
     'Ne İzlesem? — Film ve Dizi Önerileri 2026 | QruzeTV',

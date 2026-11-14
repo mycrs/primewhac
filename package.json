@@ -12,8 +12,6 @@
     "lint": "eslint . --quiet",
     "preview": "vite preview --host :: --port 3000",
     "start": "node server/index.js",
-    "pregenerate:content": "node scripts/pregenerate-match-content.js",
-    "pregenerate:force": "node scripts/pregenerate-match-content.js --force",
     "generate:sitemap": "node scripts/generate-sitemap.js",
     "blog:generate": "node scripts/generate-blog-posts.mjs",
     "blog:generate:sport": "node scripts/generate-blog-posts.mjs --category \"Spor Gündemi\"",

@@ -61,12 +61,6 @@
     <loc>https://cineverse.pro/ne-izlesem/imdb-yuksek-filmler/</loc>
   </url>
   <url>
-    <loc>https://cineverse.pro/mac-programi/</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/mac-programi/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/spielplan/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/mac-programi/"/>
-  </url>
-  <url>
     <loc>https://cineverse.pro/kurulum/</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/kurulum/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/einrichtung/"/>
@@ -614,12 +608,6 @@
     <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/ne-izlesem/romantik-filmler/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/was-soll-ich-schauen/romantische-filme/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/ne-izlesem/romantik-filmler/"/>
-  </url>
-  <url>
-    <loc>https://cineverse.pro/de/spielplan/</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://cineverse.pro/mac-programi/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://cineverse.pro/de/spielplan/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://cineverse.pro/mac-programi/"/>
   </url>
   <url>
     <loc>https://cineverse.pro/de/kanale/</loc>

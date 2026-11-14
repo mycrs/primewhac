@@ -78,10 +78,6 @@ const WhatToWatchDetailPage = lazy(() => import('@/pages/WhatToWatchDetailPage')
 const WhatToWatchDetailPageDE = lazy(() => import('@/pages/WhatToWatchDetailPageDE'));
 const WhatToWatchCategoryPage = lazy(() => import('@/pages/WhatToWatchCategoryPage'));
 const WhatToWatchCategoryPageDE = lazy(() => import('@/pages/WhatToWatchCategoryPageDE'));
-const MatchSchedulePage = lazy(() => import('@/pages/MatchSchedulePage'));
-const MatchSchedulePageDE = lazy(() => import('@/pages/MatchSchedulePageDE'));
-const MatchDetailPage = lazy(() => import('@/pages/MatchDetailPage'));
-const MatchDetailPageDE = lazy(() => import('@/pages/MatchDetailPageDE'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 
 // Admin pages
@@ -120,23 +116,6 @@ function LegacyAdminPathRedirect() {
   const suffix = pathname.slice('/admin'.length) || '';
   const to = suffix ? `${ADMIN_BASE_PATH}${suffix}` : ADMIN_BASE_PATH;
   return <Navigate to={to} replace />;
-}
-
-/** Maç detay: Supabase + fikstür — çift sınır (dış rota + iç sayfa) */
-function MatchDetailTr({ siteData }) {
-  return (
-    <ErrorBoundary locale="tr">
-      <MatchDetailPage siteData={siteData} />
-    </ErrorBoundary>
-  );
-}
-
-function MatchDetailDe({ siteData }) {
-  return (
-    <ErrorBoundary locale="de">
-      <MatchDetailPageDE siteData={siteData} />
-    </ErrorBoundary>
-  );
 }
 
 function AppContent() {
@@ -259,8 +238,8 @@ function AppContent() {
                 <Route path="/de/was-soll-ich-schauen/horrorfilme" element={<ED><WhatToWatchCategoryPageDE siteData={siteData} slug="horrorfilme" /></ED>} />
                 <Route path="/de/was-soll-ich-schauen/romantische-filme" element={<ED><WhatToWatchCategoryPageDE siteData={siteData} slug="romantische-filme" /></ED>} />
                 <Route path="/de/was-soll-ich-schauen/:id" element={<ED><WhatToWatchDetailPageDE siteData={siteData} /></ED>} />
-                <Route path="/de/spielplan" element={<ED><MatchSchedulePageDE siteData={siteData} /></ED>} />
-                <Route path="/de/spielplan/:slug" element={<ED><MatchDetailDe siteData={siteData} /></ED>} />
+                <Route path="/de/spielplan" element={<ED><Navigate to="/de/pakete/" replace /></ED>} />
+                <Route path="/de/spielplan/:slug" element={<ED><Navigate to="/de/pakete/" replace /></ED>} />
                 <Route path="/de/bewertungen" element={<ED><ReviewsPage siteData={siteData} /></ED>} />
                 <Route path="/de/vergleich" element={<ED><ComparisonPageDE siteData={siteData} /></ED>} />
                 <Route path="/de/karsilastir" element={<ED><Navigate to="/de/vergleich/" replace /></ED>} />
@@ -306,10 +285,10 @@ function AppContent() {
 
                 <Route path="/karsilastir" element={<ET><Navigate to="/karsilastirma/" replace /></ET>} />
                 <Route path="/karsilastirma" element={<ET><ComparisonPage siteData={siteData} /></ET>} />
-                <Route path="/mac-programi" element={<ET><MatchSchedulePage siteData={siteData} /></ET>} />
-                <Route path="/mac-programi/:slug" element={<ET><MatchDetailTr siteData={siteData} /></ET>} />
-                <Route path="/spor-gundemi" element={<ET><Navigate to="/mac-programi/" replace /></ET>} />
-                <Route path="/spor-gundemi/:slug" element={<ET><MatchDetailTr siteData={siteData} /></ET>} />
+                <Route path="/mac-programi" element={<ET><Navigate to="/paketler/" replace /></ET>} />
+                <Route path="/mac-programi/:slug" element={<ET><Navigate to="/paketler/" replace /></ET>} />
+                <Route path="/spor-gundemi" element={<ET><Navigate to="/paketler/" replace /></ET>} />
+                <Route path="/spor-gundemi/:slug" element={<ET><Navigate to="/paketler/" replace /></ET>} />
                 <Route path="/what-to-watch" element={<ET><WhatToWatchPage siteData={siteData} /></ET>} />
                 <Route path="/ne-izlesem" element={<ET><WhatToWatchPage siteData={siteData} /></ET>} />
                 {/* SEO kategori sayfaları — :imdbID rotasından ÖNCE olmalı (route priority) */}

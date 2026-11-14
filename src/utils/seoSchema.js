@@ -417,30 +417,6 @@ export function faqPageSchemas(metadata, sections) {
 }
 
 /**
- * Maç Programı (/mac-programi) sayfası için Organization + WebPage + BreadcrumbList.
- * Dinamik Event / SportsEvent schema'ları gerekirse page tarafında eklenir.
- */
-export function matchSchedulePageSchemas(metadata) {
-  return [
-    organizationSchema,
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      '@id': `${SITE_URL}/mac-programi/#webpage`,
-      url: `${SITE_URL}/mac-programi/`,
-      name: metadata?.title || 'Maç Programı — Günlük Fikstür ve Saatler | QruzeTV',
-      description: metadata?.description || '',
-      inLanguage: 'tr-TR',
-      publisher: { '@id': `${SITE_URL}/#organization` },
-    },
-    breadcrumbSchema([
-      { name: 'Ana Sayfa', path: '/' },
-      { name: 'Maç Programı', path: '/mac-programi' },
-    ]),
-  ];
-}
-
-/**
  * Blog listesi sayfası için Organization + WebPage + Blog + Breadcrumb
  */
 const blogFaqSchema = {

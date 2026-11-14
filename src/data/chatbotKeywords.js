@@ -77,7 +77,7 @@ export const CHATBOT_DEFAULT_KEYWORDS = [
   {
     keyword: 'maç, maç programı, fikstür, futbol, maç saatleri, karşılaşma',
     response: 'Maç programı sayfamızda günlük fikstürü ve başlama saatlerini görebilirsiniz. Tarih çubuğundan istediğiniz günü seçerek o günün karşılaşmalarını listeleyebilirsiniz.',
-    redirect_url: '/mac-programi/',
+    redirect_url: '/paketler/',
   },
   {
     keyword: 'kanal kategorileri, kategoriler, içerik kategorileri',

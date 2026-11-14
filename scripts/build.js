@@ -16,10 +16,6 @@ function run(name, cmd, args = []) {
 }
 
 const steps = [
-  ['pregenerate-match-content', 'node', ['scripts/pregenerate-match-content.js']],
-  ['generate-fixtures', 'node', ['scripts/generate-fixtures.js']],
-  ['generate-fixtures-basketball', 'node', ['scripts/generate-fixtures-basketball.js']],
-  ['generate-fixtures-tennis', 'node', ['scripts/generate-fixtures-tennis.js']],
   ['generate-sitemap', 'node', ['scripts/generate-sitemap.js']],
   ['generate-llms', 'node', ['tools/generate-llms.js']],
   ['sync-seo-routes', 'node', ['scripts/sync-seo-routes.mjs']],

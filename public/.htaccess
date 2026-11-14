@@ -91,9 +91,9 @@ AddCharset UTF-8 .html .htm .css .js .json .xml .svg .txt
   RewriteRule ^blog/sampiyonlar-ligi-son-16/?$                                      /blog/ [R=301,L]
   RewriteRule ^blog/sampiyonlar-ligi-ceyrek-final-.*$                               /blog/ [R=301,L]
   RewriteRule ^blog/2026-dunya-kupasi-maclari-nereden-izlenir/?$                     /blog/ [R=301,L]
-  RewriteRule ^mac-programi/[a-z0-9-]+$   /mac-programi/  [R=301,L]
-  RewriteRule ^de/spielplan/[a-z0-9-]+$   /de/spielplan/  [R=301,L]
-  RewriteRule ^spor-gundemi(/.*)?$        /mac-programi/  [R=301,L]
+  RewriteRule ^mac-programi(/.*)?$        /paketler/      [R=301,L]
+  RewriteRule ^de/spielplan(/.*)?$        /de/pakete/     [R=301,L]
+  RewriteRule ^spor-gundemi(/.*)?$        /paketler/      [R=301,L]
   RewriteRule ^kurulum/windows-next-plus/?$              /kurulum/windows-ibo-player/              [R=301,L]
   RewriteRule ^kurulum/windows-castora/?$                /kurulum/windows-vs-player/               [R=301,L]
   RewriteRule ^de/einrichtung/windows-next-plus/?$       /de/einrichtung/windows-ibo-player/       [R=301,L]
@@ -172,9 +172,6 @@ ErrorDocument 404 /404.html
   </FilesMatch>
   <FilesMatch "\.(xml|txt)$">
     Header set Cache-Control "public, max-age=3600"
-  </FilesMatch>
-  <FilesMatch "fixtures.*\.json$">
-    Header set Cache-Control "public, max-age=3600, must-revalidate"
   </FilesMatch>
 
   # Security headers

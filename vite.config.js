@@ -463,11 +463,6 @@ export default defineConfig({
 		},
 		allowedHosts: true,
 		proxy: {
-			'/api/fixtures': {
-				target: 'https://fixturedownload.com',
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/api\/fixtures/, '/feed/json'),
-			},
 			/** Yerel Express API — sabit 3001 (npm run dev:api / dev:all) */
 			'/api': {
 				target: 'http://localhost:3001',

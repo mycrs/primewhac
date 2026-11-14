@@ -8,7 +8,15 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2, Plus, Save, Trash2, Upload, ImageIcon, RefreshCw } from 'lucide-react';
 import { resolveTeamLogoUrl, normalizeTeamName } from '@/utils/teamLogos';
-import { getTeamInitials } from '@/components/match/TeamLogoOrInitials';
+
+function getTeamInitials(name) {
+  if (!name || typeof name !== 'string') return '?';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+  return name.slice(0, 2).toUpperCase();
+}
 
 const STORAGE_BUCKET = 'welcome-images';
 const UPLOAD_PREFIX = 'team-logo-';

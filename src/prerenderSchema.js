@@ -29,7 +29,6 @@ import {
   blogListPageSchemas,
   channelsPageSchemas,
   resellerPageSchemas,
-  matchSchedulePageSchemas,
   whatToWatchPageSchemas,
   whatToWatchPageSchemasDE,
   whatToWatchCategorySchemas,
@@ -937,12 +936,6 @@ export function getPrerenderJsonLdSchemas(route) {
       break;
     case '/de/reseller':
       schemas = resellerPageSchemas(metadata, { route: '/de/reseller', lang: 'de' });
-      break;
-    case '/mac-programi':
-      schemas = matchSchedulePageSchemas(metadata);
-      break;
-    case '/de/spielplan':
-      schemas = matchSchedulePageSchemas({ ...metadata, canonicalUrl: `${SITE_URL}/de/spielplan` });
       break;
     case '/ne-izlesem':
       schemas = whatToWatchPageSchemas(metadata);

@@ -14,7 +14,6 @@ const getRedirectText = (url) => {
   const map = {
     '/paketler': 'Paketleri Gör',
     '/packages': 'Paketleri Gör',
-    '/mac-programi': 'Maç Programı',
     '/kurulum': 'Kurulum Rehberi',
     '/blog': 'Blog',
     '/sss': 'SSS',
