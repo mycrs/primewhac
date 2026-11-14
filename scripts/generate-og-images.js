@@ -32,6 +32,7 @@ const CARDS = [
   { file: 'kurulum-tablet.jpg', title: 'Tablet Kurulum Rehberi' },
   { file: 'kurulum-android-phone.jpg', title: 'Android Telefon Kurulum Rehberi' },
   { file: 'kurulum-genel.jpg', title: 'IPTV Kurulum Rehberi' },
+  { file: 'titan-iptv.jpg', title: 'Titan IPTV Satın Al | Orijinal Paketler' },
 ];
 
 function buildHtml(title, logoDataUri) {

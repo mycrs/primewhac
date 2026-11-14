@@ -24,7 +24,8 @@ import {
   Flame,
   ChevronDown,
   MonitorPlay,
-  AlertCircle
+  AlertCircle,
+  Lock
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -55,8 +56,9 @@ const TitanIptvPage = ({ siteData }) => {
       "qruzetv titan iptv"
     ],
     h1: "Titan IPTV Satın Al",
-    ogType: "article",
-    ogImage: `${SITE_URL}/og/titan-iptv.jpg`
+    ogType: "website",
+    ogImage: `${SITE_URL}/og/titan-iptv.jpg`,
+    ogImageAlt: "Titan IPTV Satın Al | Orijinal Paketler ve Kurulum Rehberi — QruzeTV"
   };
 
   const faqItems = [
